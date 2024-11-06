@@ -9,54 +9,42 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }else{ ?>
   <!DOCTYPE html>
   <html lang="en">
-  <head>
-    <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php"); ?>
+    <head>
+      <!-- metadatos -->  
+      <?php include_once("../include/meta_include.php"); ?>
 
-    <!-- titulo -->
-    <title>PROVEEDORES</title>
-    
-    <!-- ======= estilos y librerias css ======= -->
-    <?php include_once("../include/css_include.php"); ?>
-  </head>
-  <body>
-    <!-- ======= Header ======= -->
-    <?php   include_once("../include/header.php"); ?><!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <?php   include_once("../include/sliderbar.php"); ?>
-    <!-- End Sidebar-->
-
-    <main id="main" class="main">
-
-      <div class="pagetitle"><h1> PROVEEDORES </h1></div>
-      <section class="section dashboard">
-        <div class="row">
-
-          <!-- Left side columns -->
-          <div class="col-lg-12">
-            <div class="row">
-
-              <!-- Top Selling -->
-              <div class="col-12">
-                <div class="card top-selling overflow-auto">
-                  
-                  <button type="button" class="btn btn-success">EXPORTAR LISTA DE PROVEEDORES</button>
-
-                  <div class="card-body pb-0">
-                    <h5 class="card-title">REGISTRO DE PROVEEDORES</h5>
-
-                    <table class="table table-borderless datatable" id="example">
+      <!-- titulo -->
+      <title>PROVEEDORES</title>
+      
+      <!-- ======= estilos y librerias css ======= -->
+      <?php include_once("../include/css_include.php"); ?>
+    </head>
+    <body>
+      <?php   include_once("../include/header.php"); include_once("../include/sliderbar.php"); ?>
+      <main id="main" class="main">
+        <div class="pagetitle"><h1> PROVEEDORES </h1></div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-12">
+              <div class="card top-selling overflow-auto">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <a type="button" class="btn btn-success" href="./registrar_proveedores.php">REGISTRAR NUEVO PROVEEDOR</a>
+                  <a type="button" class="btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">EXPORTAR LISTA DE PROVEEDORES</a>
+                </div>
+                <div class="card-body pb-0">
+                  <h5 class="card-title">LISTA DE PROVEEDORES</h5>
+                  <div class="table table-responsive">
+                    <table class="table table-borderless table-striped datatable" id="example">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">CÉULA/RIF</th>
-                          <th scope="col">NOMBRE</th>
-                          <th scope="col">CORREO</th>
-                          <th scope="col">DIRECCIÓN</th>
-                          <th scope="col">TELÉFONO</th>
-                          <th scope="col" class="text-center">MODIFICAR</th>
-                          <th scope="col" class="text-center">VER HISTORAL DE COMPRAS</th>
+                          <th class="col text-center" scope="col">#</th>
+                          <th class="col text-center" scope="col">CÉULA/RIF</th>
+                          <th class="col text-center" scope="col">NOMBRE</th>
+                          <th class="col text-center" scope="col">CORREO</th>
+                          <th class="col text-center" scope="col">DIRECCIÓN</th>
+                          <th class="col text-center" scope="col">TELÉFONO</th>
+                          <th class="col text-center" scope="col" class="text-center">MODIFICAR</th>
+                          <th class="col text-center" scope="col" class="text-center">VER HISTORAL DE COMPRAS</th>
                         </tr>
                       </thead>
 
@@ -64,79 +52,78 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <?php include("../include/listas_registros_include.php"); consultar_registros('proveedor'); ?>  
                       </tbody>
                     </table>
-
                   </div>
-
-                </div>
-              </div><!-- End Top Selling -->
-
-            </div>
-          </div><!-- End Left side columns -->
-
-          <!-- Right side columns -->
-        </div>
-      </section>
-
-    </main>
-    <div class="msjFormSend"></div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form id="update_proveedor" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Datos del Proveedor</h5>
-              <input type="hidden" name="modulo" value="Modificar">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="d-flex col-12">
-                <div class="label-floating form-group col-md-12">
-                  <label> Cédula <span style="color: red; font-size: 20px;"> * <span></label>
-                  <input type="text" maxlength="11" class="form-control" id="cedula" name="cedula" pattern="[A-Za-z0-9]{7,11}" placeholder="ingrese la cédula">
                 </div>
               </div>
-              <div class="d-flex col-12">
-                <div class="label-floating form-group col-md-12">
-                  <label> Nombre<span style="color: red; font-size: 20px;"> * <span></label>
-                  <input type="text" maxlength="30" class="form-control" id="nombre" name="nombre" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" placeholder="ingrese el nombre">
+            </div>
+          </div>
+        </section>
+      </main>
+      <div class="msjFormSend"></div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form id="update_proveedor" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Datos del Proveedor</h5>
+                <input type="hidden" name="modulo" value="Modificar">
+                <input type="hidden" id="id_proveedor_modificar" name="id_proveedor_modificar" value="">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row m-0">
+                  <div class="col-12 mb-3">
+                    <label> Cédula <span style="color: red; font-size: 20px;"> * </span></label>
+                    <input type="text" maxlength="11" disabled class="modificar_proveedor form-control" id="cedula" name="cedula" pattern="[A-Za-z0-9]{7,11}" placeholder="ingrese la cédula">
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label> Nombre<span style="color: red; font-size: 20px;"> * </span></label>
+                    <input type="text" maxlength="30" class="modificar_proveedor form-control" id="nombre" name="nombre" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" placeholder="ingrese el nombre">
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label> Correo <span style="color: red; font-size: 20px;"> * </span></label>
+                    <input type="email" maxlength="30" class="modificar_proveedor form-control correo" id="correo" name="correo" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ0-9\.\@ ]{3,70}" placeholder="ingrese el correo" >
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label> Dirrección <span style="color: red; font-size: 20px;"> * </span></label>
+                    <input type="text" maxlength="30" class="modificar_proveedor form-control" id="direccion" name="direccion" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-\. ]{5,70}" placeholder="ingrese la dirección">
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label> Teléfono <span style="color: red; font-size: 20px;"> * </span></label>
+                    <input type="text" maxlength="11" class="modificar_proveedor form-control telefono" id="telefono" name="telefono" pattern="[0-9]{11}" placeholder="ingrese el teléfono" >
+                  </div>
+                  <div class="col-12 mb-3">
+                    <div class="form-group col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                      <p> Los campos con <span style="color: red; font-size: 20px;"> * </span> son obligatorios </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="d-flex col-12">
-                <div class="label-floating form-group col-md-12">
-                  <label> Correo <span style="color: red; font-size: 20px;"> * <span></label>
-                  <input type="email" maxlength="30" class="form-control correo" id="correo" name="correo" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ0-9\.\@ ]{3,30}" placeholder="ingrese el correo" >
-							  </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
               </div>
-              <div class="d-flex col-12">
-                <div class="label-floating form-group col-md-12">
-                  <label> Dirrección <span style="color: red; font-size: 20px;"> * <span></label>
-                  <input type="text" maxlength="30" class="form-control" id="direccion" name="direccion" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\- ]{5,30}" placeholder="ingrese la dirección">
-                </div>
-              </div>
-              <div class="d-flex col-12">
-                <div class="label-floating form-group col-md-12">
-                  <label> Teléfono <span style="color: red; font-size: 20px;"> * <span></label>
-                  <input type="text" maxlength="11" class="form-control telefono" id="telefono" name="telefono" pattern="[0-9]{11}" placeholder="ingrese el teléfono" >
-							  </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-primary">Guardar cambios</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <?php   include_once("../include/footer.php");  include_once("../include/scripts_include.php"); ?>
+      <script>
+        function asignar_id_proveedor(id_proveedor){
+          let proveedor = document.getElementById(`id_proveedor__${id_proveedor}`).value;
+          document.getElementById('id_proveedor_modificar').value = proveedor;
 
-    <!-- ======= Footer ======= -->
-    <?php   include_once("../include/footer.php"); ?>
+          let datos = document.querySelectorAll(`.proveedor__${id_proveedor}`);
+          let modal = document.querySelectorAll(`.modificar_proveedor`);
 
-    <!-- End Footer -->
-    <!-- ======= javascript ======= -->
-    <?php include_once("../include/scripts_include.php"); ?>
-    <!-- End javascript -->
-  </body>
+          for (let i = 0; i < datos.length; i++) {
+
+            modal[i].value = datos[i].textContent;
+            
+          }
+        }
+      </script>
+    </body>
   </html>
 <?php } ?>

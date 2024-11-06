@@ -1,5 +1,16 @@
 <?php
 error_reporting(E_PARSE);
+date_default_timezone_set('America/Caracas');
+
+// // Definimos contantes podemos utilizar define("NOMBRE", "valor");
+// // tambien podemos utilizar const NOMBRE="valor";
+
+// const SERVER = "localhost"; // Servidor de mysql
+// const USER = "root";  // Nombre de usuario de mysql
+// const PASSWORD = ""; // Contraseña de myqsl
+// const DB = "bdchinita"; // Nombre de la base de datos
+// const SECRET_KEY = 'SPLCH2024';
+
 class modeloPrincipal {
     /*----------- Funcion para conectar con la base de datos -----------*/
     public static function Conexion(){
@@ -17,8 +28,8 @@ class modeloPrincipal {
         mysqli_query(Self::Conexion(),"SET AUTOCOMMIT=0;");
         mysqli_query(Self::Conexion(),"BEGIN;");
         if (!$consul = mysqli_query(Self::Conexion(),$query)) {
-            die(mysqli_error($query).' Error en la consulta SQL ejecutada ');
             mysqli_query(Self::Conexion(),"ROLLBACK;");
+            die(mysqli_error($query).' Error en la consulta SQL ejecutada ');
         }else{
             mysqli_query(Self::Conexion(),"COMMIT;");
         }

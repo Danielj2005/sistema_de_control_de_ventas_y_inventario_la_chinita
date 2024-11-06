@@ -77,5 +77,3 @@ if($modulo === 'Guardar'){
         exit();
     }
 }
-
-?>

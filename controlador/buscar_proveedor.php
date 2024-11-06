@@ -17,8 +17,8 @@
             $datos['existe'] = "1";
             $datos['nombre'] = $proveedor['nombre'];
             $datos['telefono'] = $proveedor['telefono'];
-            $datos['correo'] = $proveedor['direccion'];
-            $datos['direccion'] = $proveedor['correo'];
+            $datos['correo'] = $proveedor['correo'];
+            $datos['direccion'] = $proveedor['direccion'];
         }
         $datos = json_encode($datos); 
         echo $datos;

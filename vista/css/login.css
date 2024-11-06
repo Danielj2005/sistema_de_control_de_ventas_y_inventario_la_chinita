@@ -11,14 +11,12 @@ body{
 .login
 {
 	position: absolute;
-	height: 500px;
-	width: 50%;
 	justify-content: center;
 	display: flex;
 	padding: 10px, 0px;
 }
 
-form
+.form
 {
 	background: rgba(0, 0, 0, 0.6);
 	padding: 30px;

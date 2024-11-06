@@ -2,11 +2,14 @@
 session_start();
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php');
-  exit();
+	// Redirigir el acceso a la página sino inició de sesión
+	header('Location: ../index.php');
+	exit();
   
 }else{ ?>
+  <!DOCTYPE html>
+  <html lang="en"><?php 
+session_start(); ?>
   <!DOCTYPE html>
   <html lang="en">
   <head>

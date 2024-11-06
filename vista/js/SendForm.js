@@ -1,17 +1,27 @@
-$(document).ready(function(){
-    var MsjErrorSending='<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i></div><p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p></div></div>';
-    var MsjSending='<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><p class="text-center lead text-white">Procesando... Un momento por favor</p></div></div>';
-    $('.SendFormAjax').submit(function(e) {
+$(document).ready(function () {
+    var MsjErrorSending = '<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i></div><p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p></div></div>';
+    var MsjSending = '<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><p class="text-center lead text-white">Procesando... Un momento por favor</p></div></div>';
+    
+    var MjProcesando= `<div class="responseProcess text-white bg-dark"><div class="container-loader p-5 d-flex justify-content-center align-items-center">
+                            <div class="loader"></div></div><p class="text-center lead text-white">Procesando... Un momento por favor</p></div>`;
+
+    $('.SendFormAjax').submit(function (e) {
         e.preventDefault();
-        var informacion = $(this).serialize();
+        var formData = new FormData(this); // Crea un objeto FormData con los datos del formulario
+
         var metodo = $(this).attr('method');
         var peticion = $(this).attr('action');
         var type_form = $(this).attr('data-type-form');
+        var procesando = $(this).attr('procesando');
+
         if(type_form === "load"){
+            // No modification needed for "load" type
             $.ajax({
                 type: metodo,
                 url: peticion,
-                data:informacion,
+                data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
+                 processData: false, // Evita que jQuery procese los datos
+            contentType: false, // Evita que jQuery establezca el tipo de contenido
                 beforeSend: function(){
                     $('.msjFormSend').html(MsjSending);
                 },
@@ -23,80 +33,85 @@ $(document).ready(function(){
                 }
             });
             return false;
-        }else{
+        } else {
             var title_alert;
             var text_alert;
             var type_alert;
-            var confirmButtonColor_alert;
-            var confirmButtonText_alert;
-            var closeAlert;
-            if(type_form === "save"){
-                title_alert="¿Quieres almacenar los datos?";
-                text_alert="Los datos se almacenaran en el sistema";
-                type_alert="info";
-                confirmButtonColor_alert="#3598D9";
-                confirmButtonText_alert="Si, almacenar";
-                closeAlert=false;
+    
+            switch (type_form) {
+                case "save":
+                    title_alert = "¿Quieres almacenar los datos?";
+                    text_alert = "Los datos se almacenarán en el sistema";
+                    type_alert = "info";
+                    break;
+                case "delete":
+                    title_alert = "¿Quieres eliminar los datos?";
+                    text_alert = "Al eliminar estos datos no podrás recuperarlos después";
+                    type_alert = "warning";
+                    break;
+                case "suspender_empresa":
+                    title_alert = "¿Confirmación de Suspención?";
+                    text_alert = "Al suspender esta empresa ninguno de sus usaurios podran iniciar sesión, desea continuar?";
+                    type_alert = "warning";
+                    break;
+                case "activar_empresa":
+                    title_alert = "¿Confirmación de Activación?";
+                    text_alert = "Al activar esta empresa sus usaurios podran iniciar sesión, desea continuar?";
+                    type_alert = "warning";
+                    break;
+                case "update":
+                    title_alert = "¿Quieres actualizar los datos?";
+                    text_alert = "Los datos se actualizarán y no podrás recuperar los datos anteriores";
+                    type_alert = "info";
+                    break;
+                case "verificar":
+                    title_alert = "¿Quieres verificar pago?";
+                    text_alert = "Los datos se actualizarán y no podrás recuperar los datos anteriores";
+                    type_alert = "info";
+                    break;
+                case "updateAccounUser":
+                    title_alert = "¿Quieres realizar el cambio?";
+                    text_alert = "Puedes activar o desactivar la cuenta del usuario en cualquier momento";
+                    type_alert = "info";
+                    break;
+                case "updateEstado":
+                    title_alert = "¿Quieres realizar el cambio?";
+                    text_alert = "El Préstamo será actualizado a devuelto, no puedes deshacer estos cambios";
+                    type_alert = "warning";
+                    break;
+                default:
+                    console.error("No se reconoce el tipo de formulario:", type_form);
+                    return; // Exit if type_form is not recognized
             }
-            if(type_form==="delete"){
-                title_alert="¿Quieres eliminar los datos?";
-                text_alert="Al eliminar estos datos no podrás recuperarlos después";
-                type_alert="warning";
-                confirmButtonColor_alert="#C9302C";
-                confirmButtonText_alert="Si, eliminar";
-                closeAlert=false;
-            }
-            if(type_form==="update"){
-                title_alert="¿Quieres actualizar los datos?";
-                text_alert="Los datos se actualizaran y no podras recuperar los datos anteriores";
-                type_alert="info";
-                confirmButtonColor_alert="#198754";
-                confirmButtonText_alert="Si, actualizar";
-                closeAlert=false;
-            }
-            if(type_form==="updateAccounUser"){
-                title_alert="¿Quieres realizar el cambio?";
-                text_alert="Puedes activar o desactivar la cuenta del usuario en cualquier momento";
-                type_alert="info";
-                confirmButtonColor_alert="#16a085";
-                confirmButtonText_alert="Si, realizar";
-                closeAlert=false;
-            }
-            if(type_form==="updateEstado"){
-                title_alert="¿Quieres realizar el cambio?";
-                text_alert="El Préstamo será actualizado a devuelto, no puedes deshacer estos cambios";
-                type_alert="warning";
-                confirmButtonColor_alert="##3800ff";
-                confirmButtonText_alert="Si, realizar";
-                closeAlert=false;
-            }
+    
             swal({
-                title: title_alert,   
-                text: text_alert,   
-                type: type_alert,   
-                showCancelButton: true,   
-                confirmButtonColor: confirmButtonColor_alert,   
-                confirmButtonText: confirmButtonText_alert,
+                title: title_alert,
+                text: text_alert,
+                type: type_alert,
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6", // Default SweetAlert2 blue
+                confirmButtonText: "Si, continuar",
                 cancelButtonText: "No, cancelar",
-                closeOnConfirm: closeAlert=false,
                 animation: "slide-from-top"
-            }, function(){
-                $.ajax({
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    // el usuario confirme la acción
+                    $.ajax({
                     type: metodo,
                     url: peticion,
-                    data:informacion,
-                    beforeSend: function(){
-                        $('.msjFormSend').html(MsjSending);
-                    },
-                    error: function() {
+                    data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
+                    processData: false, // Evita que jQuery procese los datos
+                    contentType: false, // Evita que jQuery establezca el tipo de contenido
+                    error: function () {
                         $('.msjFormSend').html(MsjErrorSending);
                     },
                     success: function (data) {
                         $('.msjFormSend').html(data);
                     }
-                });
-                return false;
-            }); 
+                    });
+                }
+            });
         }
-    }); 
+    });
 });

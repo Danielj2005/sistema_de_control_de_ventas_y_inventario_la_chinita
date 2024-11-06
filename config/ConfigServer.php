@@ -5,8 +5,8 @@
 
 const SERVER = "localhost"; // Servidor de mysql
 const USER = "root";  // Nombre de usuario de mysql
-const PASSWORD = "root"; // Contraseña de myqsl
-const DB = "bdchinita"; // Nombre de la base de datos
+const PASSWORD = ""; // Contraseña de myqsl
+const DB = "chinita"; // Nombre de la base de datos
 const SECRET_KEY = 'SPLCH2024';
 
 // Create connection
@@ -15,3 +15,4 @@ const SECRET_KEY = 'SPLCH2024';
 // if (!$conn) {
 //     die("Connection failed: " . mysqli_connect_error());
 // }
+

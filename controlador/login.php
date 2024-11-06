@@ -11,28 +11,28 @@ $contraseña = modeloPrincipal::limpiar_encriptar($_POST["contraseña"]);
 /********** Se verifica que no se hayan recibido campos vacios **********/
 if(empty($usuario) || empty($contraseña)){
     echo'<script type="text/javascript">
-            swal({ 
-                title:"¡Porfavor llenar todos los campos!", 
-                text:"Hay campos sin llenar, recordar que todos los campos son obligatorios", 
-                type: "error", 
-                confirmButtonColor: "#036cbd",
-                confirmButtonText: "Aceptar"  
-            });
-            $(".form_SRCB")[0].reset();
-        </script>';
+        swal({ 
+            title:"¡Porfavor llenar todos los campos!", 
+            text:"Hay campos sin llenar, recordar que todos los campos son obligatorios", 
+            type: "error", 
+            confirmButtonColor: "#036cbd",
+            confirmButtonText: "Aceptar"  
+        });
+        $(".form_SRCB")[0].reset();
+    </script>';
     exit();
 }
 
 /********** Realizamos una consulta a la BD para ver si ese usuario existe **********/
 $selectUser = modeloPrincipal::consultar("SELECT U.id_usuario, U.nombre, U.apellido, U.estado,
-U.id_tipo, T.nombre AS tipo_usuario FROM usuario AS U
-INNER JOIN tipo_usuario AS T ON U.id_tipo = T.id_tipo 
-WHERE U.correo = '$usuario' AND U.contraseña = '$contraseña'");
+    U.id_rol, U.primer_inicio, R.nombre AS rol_usuario FROM usuario AS U
+    INNER JOIN rol AS R ON U.id_rol = R.id_rol 
+    WHERE U.correo = '$usuario' AND U.contraseña = '$contraseña'");
 
-if(mysqli_num_rows($selectUser) < 1){
-    /*------- si el usuario y contraseña no estan registrados -------*/
+/*------- si el usuario y contraseña no estan registrados -------*/
+if(mysqli_num_rows($selectUser) == 0){
 
-    /* variable de sesion para compobar si un usuario inicio sesion */
+    /* variable de sesion para compobar si un usuario inició sesión */
     $_SESSION['logged_in'] = false;
 
     /*------- se muestra el siguiente mensaje en una sweet-alert -------*/
@@ -44,50 +44,23 @@ if(mysqli_num_rows($selectUser) < 1){
             confirmButtonColor: "#036cbd",
             confirmButtonText: "Aceptar"  
         });
-        $(".form_SRCB")[0].reset();
+        $(".SendFormAjax")[0].reset();
     </script>';
     exit();
 }else{
 
     // obtenemos los resultado de las consulta y la guardamos en un array
-    $datos = mysqli_fetch_array($selectUser);
+    $datos_usuario = mysqli_fetch_array($selectUser);
+    if($datos_usuario["estado"] == 1){
 
-    
-    // /* mensaje que se muestra cuando un usuario inicia sesion */
-    // echo '<script type="text/javascript">
-    //     swal({ 
-    //         title:"¡ACCESO EXITOSO!",
-    //         text:"Bienvenido al sistema.",
-    //         type: "info",
-    //         confirmButtonColor: "#3faaebd4",
-    //         confirmButtonText: "Aceptar"
-    //         },
-    //         function(isConfirm){  
-    //             if (isConfirm) {     
-    //                 window.location="./vista/inicio.php";
-    //             } else {    
-    //                 window.location="./vista/inicio.php";
-    //             } 
-    //     });
-    // </script>';
-
-    // exit();
-
-    if($datos["estado"] == 1){
-
-        // obtenemos los resultado de la consulta y la guardamos en un array
         /*------- info personal de el usuario en variables de sesion -------*/
         //** guardamos los datos de las consulta en variables de sesión **// 
-        $_SESSION["nombre"] = $datos["nombre"];
-        $_SESSION["apellido"] = $datos["apellido"];
-        
-        $_SESSION["fecha"] = date('d-m-Y');
+        $_SESSION["nombre"] = $datos_usuario["nombre"];
+        $_SESSION["apellido"] = $datos_usuario["apellido"];
         
         /*------- datos de el usuario en variables de sesion -------*/
-        $_SESSION["user_id"] = $datos["id_usuario"];
-        $_SESSION["nombre_tipo_usuario"] = $datos["tipo_usuario"];
-        $_SESSION["tipo_usuario"] = $datos["id_tipo"];
-    
+        $_SESSION["id_usuario"] = $datos_usuario["id_usuario"];
+        $_SESSION["rol"] = $datos_usuario["id_rol"];
 
         /* variable de sesion para comprobar si un usuario inicio sesion */
         $_SESSION['logged_in'] = true;
@@ -103,9 +76,11 @@ if(mysqli_num_rows($selectUser) < 1){
                 },
                 function (isConfirm) {
                     if (isConfirm) {
-                        window.location="./vista/inicio.php";
+                        '.($datos_usuario["primer_inicio"] =='1' ? "window.location = './vista/mi_perfil.php';" : "window.location = './vista/inicio.php';").'
+                        
                     } else { 
-                        window.location="./vista/inicio.php";
+                        '.($datos_usuario["primer_inicio"] =='1' ? "window.location = './vista/mi_perfil.php';" : "window.location = './vista/inicio.php';").'
+                        
                     } 
                 });
             </script>';

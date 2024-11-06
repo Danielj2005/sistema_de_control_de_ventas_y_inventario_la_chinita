@@ -4,16 +4,6 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-
-// $sql = ("SELECT * FROM categoria");
-//  $resultado = mysqli_query($conn, $sql);
-
-//   while ($mostrar= mysqli_fetch_array($resultado)) {
-
-//  $mostrar['id_categoria'];
-//  $o =  $mostrar['id_categoria'] + 1;
-// }
-
 $nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre']);
 
 // verificar que no se hayan recibido datos en blanco o vacios 
@@ -33,7 +23,7 @@ if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,30}", 
     echo'<script type="text/javascript">
         swal({
             title: "¡Ocurrio un error!",
-            text: "El campo NOMBRE DE LA CATEGORÍA no cumple con el formato establecido",
+            text: "El nombre de la categoría no cumple con el formato establecido",
             type: "error",
             confirmBottonText: "Aceptar"
         });
@@ -69,6 +59,3 @@ if (modeloPrincipal::InsertSQL("categoria", "nombre" ,"'$nombre'")) {
         </script>';
     exit();
 }
-
-
-?>

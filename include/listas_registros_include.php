@@ -1,0 +1,186 @@
+<?php 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
+/*------- función para mostrar los registros de una tabla -------*/
+function consultar_registros($tabla){
+    $id_usuario = $_SESSION['user_id'];
+        
+    // se consultan los registros dependiendo de la tabla
+    if ($tabla === "categoria") {
+        // script para crear una lista de categorias
+        // se consultan las categorias de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT nombre FROM categoria");
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <tr>
+                <td class="col text-center"> </td>
+                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+            </tr>
+        <?php  } 
+    }
+    if ($tabla === "categoria_opcion") {
+        // script para crear una lista de categorias
+        // se consultan las categorias de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT id_categoria, nombre FROM categoria");
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <option value="<?= $mostrar["id_categoria"];?>"><?= $mostrar["nombre"]; ?></option>
+
+        <?php  } 
+    }
+    if ($tabla === "rol") {
+        // script para crear una lista de tipos usuarios
+        // se consultan las tipos usuarios de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT * FROM $tabla");
+       // se imprimen los datos de la consulta 
+        while($row = mysqli_fetch_assoc($consulta)) {
+            echo '<option class="" name="id_tipo" value="'.$row['id_rol'].'" >'.$row['nombre'].'</option>';
+        }
+    }
+    if($tabla === 'usuario'){
+        // script para crear una lista de usuario
+        // se consultan las usuario de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT id_usuario, cedula, nombre, apellido, telefono, estado FROM usuario 
+            WHERE id_usuario != '$id_usuario' AND id_rol != 1 ORDER BY nombre ASC");
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <tr>
+                <td></td>
+                <td><?= $mostrar["cedula"]; ?></td>
+                <td><?= $mostrar["nombre"]; ?></td>
+                <td><?= $mostrar["apellido"]; ?></td>
+                <td><?= $mostrar["telefono"]; ?></td>
+                <td scope="row" class="text-center">
+                    <form action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="updateAccounUser" >
+                        <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
+                        
+                        <?php if ($mostrar["estado"] === "1") { ?>
+
+                            <input type="hidden" name="modulo" value="activo">
+                            <button class="btn btn-success" title="estado del usuario">
+                                <i class="zmdi zmdi-check"></i> Activo 
+                            </button>
+                        
+                        <?php }else if ($mostrar["estado"] === "0") { ?>
+
+                            <input type="hidden" name="modulo" value="inactivo">
+                            <button class="btn btn-danger">
+                                <i class="zmdi zmdi-close"></i> Inactivo 
+                            </button>
+                        
+                        <?php } ?>
+                    </form>
+                </td>
+            </tr>
+        <?php }
+    }
+    if($tabla === 'producto'){
+        // script para crear una lista de productos disponibles
+        // consulta de los productos registrados
+        $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
+            P.estatus, C.nombre FROM producto AS P INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria ORDER BY P.nombre_producto");
+
+        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+
+            <tr>
+                <td class="text-center"></td>
+                <td class="text-center"><?php echo $mostrar["nombre_producto"]; ?></td>
+                <td class="text-center"><?php echo $mostrar["precio_compra_dolar"].' $'; ?></td>
+                <td class="text-center"><?php echo $mostrar["precio_compra_bs"].' bs'; ?></td>
+                <td class="text-center"><?php echo $mostrar["stock"]; ?></td>
+                <td class="text-center"><?php echo $mostrar["nombre"]; ?></td>
+                <td class="text-center"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
+            </tr>
+            
+        <?php }
+    }
+    if($tabla === 'menu'){
+        //  se consulta base de datos en busca de los servivios rgistrados
+        $consulta = modeloPrincipal::consultar("SELECT * FROM menu");
+
+        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+
+            <tr>
+                <td class="col text-center"> </td>
+                <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
+                <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
+                <td class="col text-center"><?= strtoupper($mostrar["descripcion"]); ?></td>
+                <td class="col text-center"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
+            </tr>
+        <?php }
+    }
+    if($tabla === "seleccionar_producto"){
+        // script para crear una lista con las preguntas de seguridad
+        // se consultan todas las preguntas de seguridad registradas
+        $datos = modeloPrincipal::consultar("SELECT P.nombre_producto, P.id_producto FROM producto"); 
+
+        // se imprimen los datos de la consulta 
+        while($row = mysqli_fetch_assoc($datos)) {
+            echo '<option class="" name="id_producto" value="'.$row['id_producto'].'" selected >'.$row['nombre_producto'].'</option>';
+        }
+        mysqli_free_result($datos); 
+    }
+    if ($tabla === 'proveedor') {
+        
+        // script para crear una lista de proveedor
+        // se consultan las proveedor de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
+
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <tr>
+                <td class="col text-center"></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["cedula_rif"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["correo"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["direccion"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["telefono"]; ?></td>
+
+                <td scope='col' class="col text-center">
+                    <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
+                    <button type="submit" class="btn btn-primary" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">MODIFICAR</button>
+                </td>
+
+                <td scope='col' class="col text-center">
+                    <form action="historial.php" method="post">
+                        <input type="hidden" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
+                        <button type="submit" class="btn btn-info">VER HISTORAL</button>
+                    </form>
+                </td> 
+            </tr>
+        <?php } 
+    }
+    if ($tabla === "cliente") {
+    
+        // script para crear una lista de cliente
+        // se consultan las cliente de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT * FROM cliente");
+
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <tr>
+                <td class="text-center col"> </td>
+                <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
+                <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
+                <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
+
+                <td scope='col' class="text-center col">
+                    <form action="clienteModificar.php" method="post" class="text-center">
+                        <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
+                        <button type="submit" class="btn btn-success open-modal">MODIFICAR</button>
+                    </form>
+                </td>
+
+                <!-- <td scope='col' class="text-center col">
+                    <form action="historial.php" method="post">
+                        <input type="hidden" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
+                        <button type="submit" class="btn btn-info">VER HISTORAL</button>
+                    </form>
+                </td>  -->
+            </tr>
+        <?php } 
+    }
+}; 
+/*------- fin de la función -------*/

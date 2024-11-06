@@ -1,1 +1,0 @@
-En esta carpeta estaran guardados los manuales del sistema 

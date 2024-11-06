@@ -1,11 +1,21 @@
-var eye = document.getElementById('Eye');
-var input = document.getElementById('pswd');
-eye.addEventListener("click", function(){
-    if (input.type === "password") {
-        input.type = "text";
-        eye.style.opacity = 0.8;
-    } else {
-        input.type = "password";
-        eye.style.opacity = 0.2;
-    }
-})
+
+const inputs = document.querySelectorAll(".input__field"); // se guardan los inputs de las contraseñas
+const icons = document.querySelectorAll(".input__icon"); // se guardan los iconos de las contraseñas
+
+icons.forEach((icon, index) => {
+    icon.addEventListener("click", (e) => {
+        e.preventDefault();
+        const input = inputs[index]; // se selecciona el input correspondiente al icono
+        if (icon.classList.contains('bi-eye')) {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+            input.type = 'text'; // se muestra la contraseña
+        } else {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+            input.type = 'password'; // se oculta la contraseña
+        }
+    });
+});
+
+

@@ -47,20 +47,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <h5 class="card-title">AÑADIR NUEVO PRODUCTO</h5>
 
                       <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                        
+                        <input type="hidden" name="modulo" value="Guardar">
                           <div class="row mb-3">
                             <label for="inputEmail3" class="col-form-label">NOMBRE DEL PRODUCTO</label>
                             <div class="col-sm-12">
-                              <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="nombre del producto" class="form-control" id="id" name="nombre">
+                              <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="nombre del producto" class="form-control" id="id" name="nombre_producto">
                             </div>
                           </div>
 
                           <div class="row mb-3">
                             <label for="inputEmail3" class="col-form-label">SELECCIONA EL TIPO DE CATEGORIA AL QUE PERTENECERA</label>
                             <div class="col-sm-12">
-                              <select name="id" id="producto" class="form-select">
+                              <select name="id_categoria" id="producto" class="form-select">
                                 <option value="">SELECCIONA LA CATEGORÍA</option>
-                                 <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
+                                <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
                               </select>
                             </div>
                           </div>

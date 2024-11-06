@@ -9,88 +9,51 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }else{ ?>
   <!DOCTYPE html>
   <html lang="en">
-  <head>
-    <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php"); ?>
-
-    <!-- titulo -->
-    <title>INVENTARIO</title>
-
-    <!-- ======= estilos y librerias css ======= -->
-    <?php include_once("../include/css_include.php"); ?>
-  </head>
-  <body>
-    <!-- ======= Header ======= -->
-    <?php   include_once("../include/header.php"); ?>
-    <!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <?php   include_once("../include/sliderbar.php"); ?>
-    <!-- End Sidebar-->
-
-    <main id="main" class="main">
-
-      <div class="pagetitle"><h1> INVENTARIO </h1></div>
-
-      <section class="section dashboard">
-        <div class="row">
-
-          <!-- Left side columns -->
-          <div class="col-lg-12">
-            <div class="row">
-
-              <!-- Top Selling -->
-              <div class="col-12">
-                <div class="card top-selling overflow-auto">
-                  
-                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <a type="button" class="btn btn-success" href="registrar_entrada.php">REGISTRAR NUEVA ENTRADA</a>
-                    <button type="button" class="btn btn-primary">EXPORTAR LISTA DE ENTRADAS</button>
-                  </div>
-
-                  <div class="card-body pb-0">
-                    <h5 class="card-title">LISTA DE ENTRADAS</h5>
-
-                    <table class="table table-borderless datatable" id="example">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">PRODUCTO</th>
-                          <th scope="col">PROVEEDOR</th>
-                          <th scope="col">PRECIO DE COMPRA</th>
-                          <th scope="col">CANTIDAD COMPRADA</th>
-                          <th scope="col">FECHA DE ENTRADA</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                          <?php include ('../include/lista_clientes_include.php'); ?>
-                      </tbody>
-
-                    </table>
-
-                  </div>
-
+    <head>
+      <!-- metadatos -->  
+      <?php include_once("../include/meta_include.php"); ?>
+      <!-- titulo -->
+      <title>INVENTARIO</title>
+      <?php include_once("../include/css_include.php"); ?>
+    </head>
+    <body>
+      <?php include_once("../include/header.php");
+        include_once("../include/sliderbar.php"); ?>
+      <main id="main" class="main">
+        <div class="pagetitle"><h1> INVENTARIO </h1></div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card top-selling overflow-auto">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <a type="button" class="btn btn-success" href="registrar_entrada.php">REGISTRAR NUEVA ENTRADA</a>
+                  <a class="btn btn-primary" target="_blank" href="./reportes/lista_entradas.php">EXPORTAR LISTA DE ENTRADAS</a>
                 </div>
-              </div><!-- End Top Selling -->
-
+                <div class="card-body pb-3">
+                  <h5 class="card-title">LISTA DE ENTRADAS</h5>
+                  <table class="table table-borderless table-striped" id="example">
+                    <thead>
+                      <tr>
+                        <th class="col text-center" scope="col">#</th>
+                        <th class="col text-center" scope="col">PRODUCTO</th>
+                        <th class="col text-center" scope="col">PROVEEDOR</th>
+                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
+                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
+                        <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
+                        <th class="col text-center" scope="col">FECHA / HORA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php include ('../include/lista_entradas_include.php'); ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div><!-- End Left side columns -->
-
-          <!-- Right side columns -->
-        </div>
-      </section>
-
-    </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-    
-    <?php   include_once("../include/footer.php"); ?>
-
-    <!-- End Footer -->
-    <!-- ======= javascript ======= -->
-    <?php include_once("../include/scripts_include.php"); ?>
-    <!-- End javascript -->
-  </body>
+          </div>
+        </section>
+      </main>
+      <?php include_once("../include/footer.php"); include_once("../include/scripts_include.php"); ?>
+    </body>
   </html>
 <?php } ?>

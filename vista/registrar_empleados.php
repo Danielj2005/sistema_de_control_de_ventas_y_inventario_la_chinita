@@ -6,34 +6,28 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 	header('Location: ../index.php');
 	exit();
   
-}else if ($_SESSION['tipo_usuario'] == "1"){ ?>
+}else if ($_SESSION['rol'] == "1"){  ?> 
   <!DOCTYPE html>
   <html lang="en">
   <head>
-    <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php"); ?>
-
-    <!-- titulo -->
     <title>EMPLEADOS</title>
-
+    <!-- metadatos -->  
     <!-- ======= estilos y librerias css ======= -->
+    <?php include_once("../include/meta_include.php"); ?>
     <?php include_once("../include/css_include.php"); ?>
   </head>
   <body>
-    <!-- ======= Header ======= -->
-    <?php include_once("../include/header.php"); ?>
-    <!-- End Header -->
-    <!-- ======= Sidebar ======= -->
-    <?php include_once("../include/sliderbar.php"); ?>
-    <!-- End Sidebar-->
+      <?php
+        // se incluye el header / encabezado a la vista
+        include_once("../include/header.php"); 
+        // se incluye el menu lateral a la vista 
+        include_once("../include/sliderbar.php"); ?>
     <main id="main" class="main">
       <div class="pagetitle"><h1>EMPLEADOS</h1></div>
       <section class="section dashboard">
         <div class="row">
-          <!-- Left side columns -->
           <div class="col-lg-12">
             <div class="row">
-              <!-- Top Selling -->
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-body">
@@ -42,7 +36,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <input type="hidden" name="modulo" value="Guardar">
                       <div class="row">
                         <div class="mb-3 col-sm-6">
-                          <label class="control-label ">CÉDULA <span style="color:#f00;">*</span></label>
+                          <label class="control-label">CÉDULA <span style="color:#f00;">*</span></label>
                           <div class="input-group">
                             <select name="nacionalidad" class="form-select-sm col-sm-3 input-group-text" aria-label="Default select example">
                               <option name="nacionalidad" value="V-">V</option>
@@ -54,27 +48,27 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       
                         <div class="mb-3 col-sm-6 ">
                           <label class="control-label">NOMBRE <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el Nombre" class="form-control" id="nombre" name="nombre">
+                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" maxlength="30" required="" placeholder="Ingresa el Nombre" class="form-control" id="nombre" name="nombre">
                         </div>
 
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">APELLIDO <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingrese el Apellido" class="form-control" id="apellido" name="apellido">
+                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" maxlength="30" required="" placeholder="Ingrese el Apellido" class="form-control" id="apellido" name="apellido">
                         </div>
 
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">CORREO <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}" required="" placeholder="Ingrese el Correo" class="form-control" id="correo" name="correo">
+                          <input form="registro_empleado" type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}" maxlength="30" required="" placeholder="Ingrese el Correo" class="form-control" id="correo" name="correo">
                         </div>
 
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">TELÉFONO <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[0-9]{11}" required="" placeholder="Ingrese el Teléfono" class="form-control" id="telefono" name="telefono">
+                          <input form="registro_empleado" type="text" pattern="[0-9]{11}" maxlength="11" required="" placeholder="Ingrese el Teléfono" class="form-control" id="telefono" name="telefono">
                         </div>
                         
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">DIRECCIÓN <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9\- ]{10,50}" required="" placeholder="Ingrese la Dirección  " class="form-control" id="direccion" name="direccion">
+                          <input form="registro_empleado" type="text" maxlength="50" required="" placeholder="Ingrese la Dirección  " class="form-control" id="direccion" name="direccion">
                         </div>
 
                         <div class="mb-3 col-sm-12 label-floathing">
@@ -82,34 +76,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             <label class="control-label">Tipo de Usuario <span style="color:#f00;">*</span></label>
                             <select  class="form-select" name="id_tipo" id="id_tipo">
                                 <option disabled="disabled" selected="true" class="form-control" >selecciona una opción</option>
-                                <?php include("../include/listas_registros_include.php"); consultar_registros('tipo_usuario'); ?>  
+                                <?php include("../include/listas_registros_include.php"); consultar_registros('rol');?>  
                             </select>
                           </div>
                         </div>
 
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">Contraseña <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" required="" placeholder="Ingrese la contraseña" class="form-control" id="password" name="password">
+                          <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="form-control" id="password" name="password">
                         </div>
 
                         <div class="mb-3 col-sm-6 label-floathing form-group">
                           <label class="control-label">Repetir Contraseña <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" required="" placeholder="Ingrese la contraseña" class="form-control" id="password2" name="password2">
-                        </div>
-
-                        <div class="mb-3 col-sm-6 label-floathing">
-                          <div class="form-group">
-                            <label class="control-label">ESCOGE UNA PREGUNTA DE SEGURIDAD <span style="color:#f00;">*</span></label>
-                            <select  class="form-select" name="id_seguridad" id="id_seguridad">
-                                <option disabled="disabled" selected="true" class="form-control" >selecciona una opción</option>
-                                <?php consultar_registros('seguridad'); ?>  
-                            </select>
-                          </div>
-                        </div>
-                        
-                        <div class="mb-3 col-sm-6 label-floathing form-group">
-                          <label class="control-label">RESPUESTA <span style="color:#f00;">*</span></label>
-                          <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingrese la Respuesta" class="form-control" id="respuesta" name="respuesta">
+                          <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="form-control" id="password2" name="password2">
                         </div>
                       </div>
                       <div class="col-12 mb-1">
@@ -128,15 +107,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </section>
-    </main><!-- End #main -->
+    </main>
     <div class="msjFormSend"></div>
-    <!-- ======= Footer ======= -->
     <?php include_once("../include/footer.php"); ?>
-    <!-- End Footer -->
-
-    <!-- ======= javascript ======= -->
     <?php include_once("../include/scripts_include.php"); ?>
-    <!-- End javascript -->
   </body>
   </html>
 <?php }else {

@@ -20,78 +20,48 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     <?php include_once("../include/css_include.php"); ?>
   </head>
   <body>
-
-    <!-- ======= Header ======= -->
     <?php   include_once("../include/header.php"); ?>
-    <!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
     <?php   include_once("../include/sliderbar.php"); ?>
-    <!-- End Sidebar-->
-
     <main id="main" class="main">
-
       <div class="pagetitle"> <h1>PRODUCTOS</h1> </div>
-      <!-- End Page Title -->
-
       <section class="section dashboard">
         <div class="row">
-
-          <!-- Left side columns -->
-          <div class="col-lg-12">
-            <div class="row">
-
-              <!-- Top Selling -->
-              <div class="col-12">
-                <div class="card top-selling overflow-auto">
-                  
-                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <a class="btn btn-primary" href="./agregar_producto.php">AÑADIR NUEVO PRODUCTO</a>
-                    <a class="btn btn-success" href="./categoria_producto.php">AÑADIR CATEGORÍA</a>
-                    <button type="button" class="btn btn-primary">EXPORTAR LISTA DE PRODUCTOS</button>
-                  </div>
-
-                  <div class="card-body pb-0">
-                    <h5 class="card-title">LISTA DE PRODUCTOS</h5>
-
-                    <table class="table table-borderless datatable" id="example">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">NOMBRE DEL PRODUCTO</th>
-                          <th scope="col">PRECIO DE COMPRA</th>
-                          <th scope="col">CANTIDAD ALMACENADA</th>
-                          <th scope="col">CATEGORIA</th>
-                          <th scope="col">ESTATUS</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('producto'); ?>  
-                      </tbody>
-
-                    </table>
-
-                  </div>
-
+          <div class="col-12">
+            <div class="card top-selling overflow-auto pb-3">
+              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <a class="btn btn-primary" href="./agregar_producto.php">AÑADIR NUEVO PRODUCTO</a>
+                <a class="btn btn-success" href="./categoria_producto.php">AÑADIR CATEGORÍA</a>
+                <a class="btn btn-primary" target="_blank" href="./reportes/lista_productos.php">EXPORTAR LISTA DE PRODUCTOS</a>
+              </div>
+              <div class="card-body pb-0">
+                <h5 class="card-title">LISTA DE PRODUCTOS</h5>
+                <div class="table table-responsive">
+                  <table class="table table-borderless table-striped datatable" id="example">
+                    <thead>
+                      <tr>
+                        <th class="text-center col" scope="col">#</th>
+                        <th class="text-center col" scope="col">NOMBRE DEL PRODUCTO</th>
+                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
+                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
+                        <th class="text-center col" scope="col">CANTIDAD ALMACENADA</th>
+                        <th class="text-center col" scope="col">CATEGORIA</th>
+                        <th class="text-center col" scope="col">ESTADO</th>
+                      </tr>
+                    </thead>
+  
+                    <tbody>
+                      <?php include("../include/listas_registros_include.php"); consultar_registros('producto'); ?>  
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <!-- End Top Selling -->
             </div>
           </div>
-          <!-- End Left side columns -->
         </div>
       </section>
     </main>
-    <!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-    <?php include_once("../include/footer.php"); ?>
-    <!-- End Footer -->
-
-    <!-- ======= javascript ======= -->
-    <?php include_once("../include/scripts_include.php"); ?>
-    <!-- End javascript -->
+    <?php include_once("../include/footer.php"); 
+      include_once("../include/scripts_include.php"); ?>
   </body>
   </html>
 <?php } ?>

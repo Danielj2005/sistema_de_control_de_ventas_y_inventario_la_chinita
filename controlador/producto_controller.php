@@ -4,83 +4,63 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
+$modulo = $_POST['modulo'];
 
-  $consulta = modeloPrincipal::consultar ("SELECT id_producto FROM producto");
-
-   while ($mostrar= mysqli_fetch_array($consulta)) {
-
- $mostrar['id_producto'];
- $o =  $mostrar['id_producto'] + 1;
- }
-
-$nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre']);
-
-$id = $_POST['id'];
-
-// verificar que no se hayan recibido datos en blanco o vacios 
-if($nombre == ''){
-    echo'<script type="text/javascript">
+if($modulo === 'Guardar'){
+    
+    $id_categoria = $_POST['id_categoria'];
+    $nombre_producto = strtoupper(modeloPrincipal::limpiar_cadena($_POST['nombre_producto']));
+    
+    // verificar datos
+    if($id_categoria == "" || $nombre_producto == ""){
+        echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "Existen campos obligatorios que están vacíos",
+                text: "Exiten Campos obligatorios Que Estan Vacíos",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
         </script>';
-    exit();
-}
-if($id == ''){
-    echo'<script type="text/javascript">
+        exit();
+    }
+    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre_producto)) {
+        echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "Existen campos obligatorios que están vacíos",
+                text: "El campo nombre no cumple con el formato requerido, por favor verifique e intente de nuevo ",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
         </script>';
-    exit();
-}
-// verificar que los datos cumplen con los parametros de formato
-if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,30}", $nombre)) {
-    echo'<script type="text/javascript">
-        swal({
-            title: "¡Ocurrio un error!",
-            text: "El campo NOMBRE DEL PRODUCTO no cumple con el formato establecido",
-            type: "error",
-            confirmBottonText: "Aceptar"
-        });
-    </script>';
-    exit();
-}
-if (modeloPrincipal::InsertSQL("producto", "id_producto, id_categoria, nombre_producto, precio_compra, stock, estatus", "'$o', '$id', '$nombre', '0', '0', 'INACTIVO'")) {
-    echo '<script type="text/javascript">
+        exit();
+    }
+    //datos verificados modificar
+    if (modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, precio_compra_dolar, precio_compra_bs, stock, estatus", "'$id_categoria', '$nombre_producto', '0', '0', '0',0")) {
+        echo '<script type="text/javascript">
             swal({
-                title:"¡Registro Exitoso!",
-                text:"El PRODUCTO Se a Añadido Exitosamente",
+                title:"¡Registro exitoso!",
+                text:"Los datos se registraron correctamente",
                 type: "success",
                 confirmButtonText: "Aceptar"
             },
             function(isConfirm){  
-                if (isConfirm) {     
+                if (isConfirm) {
                     window.location="../vista/productos.php";
-                } else {    
+                } else { 
                     window.location="../vista/productos.php";
                 } 
             });
-            $(".SendFormAjax")[0].reset();
         </script>';
-    exit();
-} else {
-    echo'<script type="text/javascript">
+        exit();
+    } else {
+        echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "los datos no se pudieron Guardar, verifique he intente de nuevo ",
+                text: "Los datos no se registraron, verifique he intente nuevamente",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
         </script>';
-    exit();
+        exit();
+    }
 }
-
-
-?>
