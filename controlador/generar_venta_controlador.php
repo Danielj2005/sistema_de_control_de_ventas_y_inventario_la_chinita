@@ -59,7 +59,7 @@ if($modulo == 'Guardar'){
             </script>';
         exit();
     }
-
+    // se verifica que el cliente este registrado de otro modo lo registra
     $existe_cliente = modeloPrincipal::Consultar("SELECT id_cliente FROM cliente WHERE cedula = '$cedula_cliente'");
 
     if(mysqli_num_rows($existe_cliente) < 1){
@@ -156,6 +156,9 @@ if($modulo == 'Guardar'){
 
                 $id_producto = intval($row_cantidad_producto_por_servicio['id_producto']);
                 $cantidad_necesaria = intval($row_cantidad_producto_por_servicio['cantidad']) * intval($cantidad_servicios[$i]);
+
+                $stock_producto_actual = modeloPrincipal::consultar("SELECT nombre_producto,stock FROM producto WHERE id_producto = $id_producto");
+                $stock_producto_actual = mysqli_fetch_array($stock_producto_actual);
 
                 // Verificar si el stock es suficiente
                 if ($stock_producto_actual['stock'] < $cantidad_necesaria) {

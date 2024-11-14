@@ -6,7 +6,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   header('Location: ../index.php');
   exit();
   
-}else{ ?>
+}else{ 
+  
+  require_once ('../config/ConfigServer.php');
+  require_once ('../modelo/modeloPrincipal.php');
+  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -22,18 +26,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/header.php"); 
         include_once("../include/sliderbar.php");
 
-        require_once ('../config/ConfigServer.php');
-        require_once ('../modelo/modeloPrincipal.php');
 
         $fecha_del_dia = date("Y-m-d");
       
-        $ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
+        $monto_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
           ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_en_dolares,
           ROUND(sum(V.monto_total_bolivares),2) as total_de_ventas_en_bolivares
           FROM venta as V WHERE DATE(V.fecha_venta) = '$fecha_del_dia' order by V.id_venta DESC"));
 
-        $monto_total_hoy_en_dolares = $ventas_del_dia['total_de_ventas_en_dolares'];
-        $monto_total_hoy_en_bolivares = $ventas_del_dia['total_de_ventas_en_bolivares'];
+        $monto_total_hoy_en_dolares = $monto_ventas_del_dia['total_de_ventas_en_dolares'];
+        $monto_total_hoy_en_bolivares = $monto_ventas_del_dia['total_de_ventas_en_bolivares'];
       ?>
       <main id="main" class="main">
         <div class="pagetitle"> <h1> INICIO </h1> </div> 
@@ -48,7 +50,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <div class="col-6">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">MONTO TOTAL (USD)</span>
-                          <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= $monto_total_hoy_en_dolares ?>">
+                          <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
                           <span class="input-group-text" id="basic-addon1">$</span>
                         </div>
                       </div>
@@ -56,7 +58,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <div class="col-6">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">MONTO TOTAL (BS)</span>
-                          <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= $monto_total_hoy_en_bolivares ?>">
+                          <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
                           <span class="input-group-text" id="basic-addon1">BS</span>
                         </div>
                       </div>
@@ -65,6 +67,41 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
               </div>
             </div>
+
+
+            <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">TOTAL GENERADO EN EL DÍA</h5>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN DIVISA (USD)</span>
+                          <input type="text" class="form-control" disabled id="Total" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
+                          <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN PAGO MÓVIL</span>
+                          <input type="text" class="form-control" disabled id="TotaD" readOnly value="<?php //($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
+                          <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN PUNTO DE VENTA</span>
+                          <input type="text" class="form-control" disabled id="TotBS" readOnly value="<?php //($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
+                          <span class="input-group-text" id="basic-addon1">BS</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
               <div class="row">
                 <div class="col-12">
@@ -89,14 +126,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <tbody>
                           <?php
 
-                            $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, P.nombre_producto, DV.cantidad,
-                              V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
+                            $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, P.nombre_producto, 
+                              DV.cantidad, V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
                               INNER JOIN cliente as C ON C.id_cliente = V.id_cliente
                               INNER JOIN detalles_venta as DV ON DV.id_venta = V.id_venta 
-                              INNER JOIN producto as P ON P.id_producto = DV.id_producto WHERE DATE(V.fecha_venta) = '$fecha_del_dia'
-                              ORDER BY V.fecha_venta DESC");
+                              INNER JOIN producto as P ON P.id_producto = DV.id_producto 
+                              WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC");     
                             
-                            $i = 1 ;
+                            $i = 1;
                             while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
                               <tr>
                                 <td class="text-center col"><?= $i++ ?></td> 
@@ -136,18 +173,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             </div>
             <div class="modal-body">
               <?php
-                $id_venta = $_POST['id_venta'];
-                $detalles_venta_servicios = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.cantidad_servicio, 
-                  DV.precio_servicio_dolares, DV.precio_servicio_bolivares FROM detalles_venta as DV
-                  INNER JOIN menu as M ON M.id_menu = DV.id_servicio WHERE DV.id_venta = $id_venta");
-                
-                $detalles_venta_productos = modeloPrincipal::consultar("SELECT P.nombre_producto, DV.cantidad, 
-                  DV.precio_unidad_dolares, DV.precio_unidad_bolivares FROM detalles_venta as DV
-                  INNER JOIN producto as P ON P.id_producto = DV.id_producto WHERE DV.id_venta = $id_venta");
+                if (isset($_POST['id_venta'])) {
+                  $id_venta = $_POST['id_venta'];
+                  $detalles_venta_servicios = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.cantidad_servicio, 
+                    DV.precio_servicio_dolares, DV.precio_servicio_bolivares FROM detalles_venta as DV
+                    INNER JOIN menu as M ON M.id_menu = DV.id_servicio WHERE DV.id_venta = $id_venta");
+                  
+                  $detalles_venta_productos = modeloPrincipal::consultar("SELECT P.nombre_producto, DV.cantidad, 
+                    DV.precio_unidad_dolares, DV.precio_unidad_bolivares FROM detalles_venta as DV
+                    INNER JOIN producto as P ON P.id_producto = DV.id_producto WHERE DV.id_venta = $id_venta");
 
-                $detalles_pago = modeloPrincipal::consultar("SELECT M.metodo_pago, M.referencia, M.cantidad_abonada_dolares, 
-                  M.cantidad_abonada_bolivares FROM detalles_pago as M  WHERE M.id_venta = $id_venta"); ?>
-                
+                  $detalles_pago = modeloPrincipal::consultar("SELECT M.metodo_pago, M.referencia, M.cantidad_abonada_dolares, 
+                    M.cantidad_abonada_bolivares FROM detalles_pago as M  WHERE M.id_venta = $id_venta"); ?>
+                  
               <fielset>
                 <legend>Servicios </legend>
                 <div class="table table-responsive">
@@ -202,6 +240,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   </table>
                 </div>
               </fielset>
+              
               <fielset>
                 <legend>Métodos de Pago</legend>
                 <div class="table table-responsive">
@@ -224,7 +263,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <td class="text-center col"><?= $row['cantidad_abonada_bolivares'].' bs' ?></td>
                         </tr>
                             
-                      <?php } ?>
+                      <?php } } ?>
                     </tbody>
                   </table>
                 </div>
@@ -240,8 +279,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <?php   
         include_once("../include/footer.php");
         include_once("../include/scripts_include.php"); ?>
-      <!-- End javascript -->
     </body>
-
   </html>
 <?php } ?>

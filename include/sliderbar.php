@@ -16,7 +16,7 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="../vista/entrada_de_productos.php">
-              <i class="bi bi-circle"></i><span>INVENTARIO</span>
+              <i class="bi bi-circle"></i><span>ENTRADA</span>
             </a>
           </li>
           <li>
