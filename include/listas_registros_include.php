@@ -140,7 +140,7 @@ function consultar_registros($tabla){
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
-                    <button type="submit" class="btn btn-primary" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">MODIFICAR</button>
+                    <button type="submit" class="btn btn-success" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">MODIFICAR</button>
                 </td>
 
                 <td scope='col' class="col text-center">

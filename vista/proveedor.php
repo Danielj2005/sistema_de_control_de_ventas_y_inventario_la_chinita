@@ -28,7 +28,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             <div class="col-12">
               <div class="card top-selling overflow-auto">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a type="button" class="btn btn-success" href="./registrar_proveedores.php">REGISTRAR NUEVO PROVEEDOR</a>
                   <a type="button" class="btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">EXPORTAR LISTA DE PROVEEDORES</a>
                 </div>
                 <div class="card-body pb-0">
