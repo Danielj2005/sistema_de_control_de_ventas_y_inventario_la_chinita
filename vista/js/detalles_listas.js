@@ -5,7 +5,7 @@ btn.forEach((boton) => {
     boton.addEventListener('click', (e) => {
         e.preventDefault();
         let parametros = {
-            'modulo': "detalles_venta",
+            'modulo': boton.getAttribute("modulo"),
             'id': boton.value,
         };
         if(parametros['id'] !==  ""){
@@ -14,7 +14,7 @@ btn.forEach((boton) => {
                 url: "../include/detalles_venta.php",
                 type: "post",
                 success:function(valores){ 
-                    $('#detalles_de_ventas').html(valores);
+                    $('.modal-body').html(valores);
                 }
             });
         }else{
