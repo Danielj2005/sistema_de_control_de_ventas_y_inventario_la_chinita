@@ -126,12 +126,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <tbody>
                           <?php
 
-                            $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, P.nombre_producto, 
-                              DV.cantidad, V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
+                            $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre,
+                              V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
                               INNER JOIN cliente as C ON C.id_cliente = V.id_cliente
-                              INNER JOIN detalles_venta as DV ON DV.id_venta = V.id_venta 
-                              INNER JOIN producto as P ON P.id_producto = DV.id_producto 
-                              WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC");     
+                              WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC");   
                             
                             $i = 1;
                             while($row = mysqli_fetch_array($ventas_del_dia)){ ?>

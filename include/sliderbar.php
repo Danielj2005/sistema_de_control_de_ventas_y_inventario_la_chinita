@@ -81,16 +81,6 @@
               <i class="bi bi-circle"></i><span>ESTADÍSTICAS DE VENTAS</span>
             </a>
           </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ESTADÍSTICAS DE VENTAS POR PRODUCTO</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ESTADÍSTICAS DE GASTOS</span>
-            </a>
-          </li>
         </ul>
       </li><!-- End Charts Nav -->
 

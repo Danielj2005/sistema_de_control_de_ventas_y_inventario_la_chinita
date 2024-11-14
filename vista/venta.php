@@ -83,8 +83,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                       
                       <div class="card-body p-3 table-responsive">
-                        <h5 class="card-title">VENTAS REALIZADAS</h5>
-
                         <table class="table table-striped " id="example">
                           <thead>
                             <tr>
@@ -101,11 +99,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <tbody>
                             <?php
 
-                              $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, P.nombre_producto, DV.cantidad,
+                              $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
                                 V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                                INNER JOIN cliente as C ON C.id_cliente = V.id_cliente
-                                INNER JOIN detalles_venta as DV ON DV.id_venta = V.id_venta 
-                                INNER JOIN producto as P ON P.id_producto = DV.id_producto ORDER BY V.fecha_venta DESC");
+                                INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC");
                               
                               $i = 1 ;
                               if(mysqli_num_rows($ventas_del_dia) > 0){

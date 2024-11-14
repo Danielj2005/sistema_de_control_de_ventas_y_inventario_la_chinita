@@ -46,7 +46,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                               <option value="V-">V</option>
                               <option value="E-">E</option>
                             </select>
-                            <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_datos_cliente()"; name="cedula_cliente" id="cedula" required>
+                            <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula_cliente" id="cedula" required>
                           </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
@@ -201,8 +201,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <option value="3">Transferencia / Pago movíl</option>
                         </select>
                       </td>
-                      <td class="text-center col"><input type="text" class="form-control" id="cantidad_${i}" name="monto_pagar[]" value ="0" placeholder="MONTO A PAGAR" required></td>
-                      <td class="text-center col"><input type="text" class="form-control bg-dark-subtle" readOnly id="num_referencia_${i}" value="" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia"></td>
+                      <td class="text-center col"><input type="text" class="form-control" id="cantidad_${i}" name="monto_pagar[]" placeholder="MONTO A PAGAR" required></td>
+                      <td class="text-center col"><input type="text" class="form-control bg-dark-subtle" readOnly id="num_referencia_${i}" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia"></td>
                       <td class="text-center col">
                         <button type="button" class="btn btn-sm btn-danger bi bi-trash" onclick="quitar_metodo(${i++})"></button>
                       </td>
