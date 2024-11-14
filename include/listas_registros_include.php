@@ -140,14 +140,11 @@ function consultar_registros($tabla){
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
-                    <button type="submit" class="btn btn-success" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">MODIFICAR</button>
+                    <button type="submit" class="btn btn-success bi bi-repeat" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
                 </td>
 
                 <td scope='col' class="col text-center">
-                    <form action="historial.php" method="post">
-                        <input type="hidden" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                        <button type="submit" class="btn btn-info">VER HISTORAL</button>
-                    </form>
+                    <button value="<?= $mostrar["id_proveedor"]; ?>" modal="modal_historial_proveedor" modulo="historial_proveedor" class="btn btn-info bi bi-eye detalles_generales" data-bs-toggle="modal" data-bs-target="#historial_proveedor"></button>
                 </td> 
             </tr>
         <?php } 

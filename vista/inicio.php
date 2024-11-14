@@ -142,7 +142,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                 <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                                 <td class="text-center col"><?= $row['fecha_venta'] ?></td> 
                                 <td class="text-center col">
-                                  <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $row['id_venta'] ?>" modulo="detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                                  <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $row['id_venta'] ?>" modal="detalles_venta_del_dia" modulo="detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
                                 </td> 
                               </tr>
                             <?php } ?>
@@ -165,7 +165,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <h5 class="modal-title" id="exampleModalLabel">Detalles de Venta</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="detalles_venta_del_dia">
               
             </div>
             <div class="modal-footer">

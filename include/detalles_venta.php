@@ -23,89 +23,89 @@ if($modulo == "detalles_venta"){
 
 
 
-<fielset>
-    <legend>Servicios </legend>
-    <div class="table table-responsive">
-        <table class="table table-striped " id="example">
-            <thead>
-                <tr>
-                <th class="col text-center" scope="col">NOMBRE</th>
-                <th class="col text-center" scope="col">CANTIDAD</th>
-                <th class="col text-center" scope="col">PRECIO EN $</th>
-                <th class="col text-center" scope="col">PRECIO EN BS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while($row = mysqli_fetch_array($detalles_venta_servicios)){ ?>
+    <fielset>
+        <legend>Servicios </legend>
+        <div class="table table-responsive">
+            <table class="table table-striped " id="example">
+                <thead>
+                    <tr>
+                    <th class="col text-center" scope="col">NOMBRE</th>
+                    <th class="col text-center" scope="col">CANTIDAD</th>
+                    <th class="col text-center" scope="col">PRECIO EN $</th>
+                    <th class="col text-center" scope="col">PRECIO EN BS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = mysqli_fetch_array($detalles_venta_servicios)){ ?>
 
-                <tr>
-                    <td class="text-center col"><?= $row['nombre_platillo'] ?></td> 
-                    <td class="text-center col"><?= $row['cantidad_servicio'] ?></td> 
-                    <td class="text-center col"><?= $row['precio_servicio_dolares'].' $' ?></td> 
-                    <td class="text-center col"><?= $row['precio_servicio_bolivares'].' bs' ?></td>
-                </tr>
-                    
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
-</fielset>
+                    <tr>
+                        <td class="text-center col"><?= $row['nombre_platillo'] ?></td> 
+                        <td class="text-center col"><?= $row['cantidad_servicio'] ?></td> 
+                        <td class="text-center col"><?= $row['precio_servicio_dolares'].' $' ?></td> 
+                        <td class="text-center col"><?= $row['precio_servicio_bolivares'].' bs' ?></td>
+                    </tr>
+                        
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </fielset>
 
-<fielset>
-    <legend>Productos</legend>
-    <div class="table table-responsive">
-        <table class="table table-striped " id="example">
-            <thead>
-                <tr>
-                <th class="col text-center" scope="col">NOMBRE</th>
-                <th class="col text-center" scope="col">CANTIDAD</th>
-                <th class="col text-center" scope="col">PRECIO EN $</th>
-                <th class="col text-center" scope="col">PRECIO EN BS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php  while($row = mysqli_fetch_array($detalles_venta_productos)){ ?>
+    <fielset>
+        <legend>Productos</legend>
+        <div class="table table-responsive">
+            <table class="table table-striped " id="example">
+                <thead>
+                    <tr>
+                    <th class="col text-center" scope="col">NOMBRE</th>
+                    <th class="col text-center" scope="col">CANTIDAD</th>
+                    <th class="col text-center" scope="col">PRECIO EN $</th>
+                    <th class="col text-center" scope="col">PRECIO EN BS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  while($row = mysqli_fetch_array($detalles_venta_productos)){ ?>
 
-                <tr>
-                    <td class="text-center col"><?= $row['nombre_producto'] ?></td> 
-                    <td class="text-center col"><?= $row['cantidad'] ?></td> 
-                    <td class="text-center col"><?= $row['precio_unidad_dolares'].' $' ?></td> 
-                    <td class="text-center col"><?= $row['precio_unidad_bolivares'].' bs' ?></td>
-                </tr>
-                    
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
-</fielset>
+                    <tr>
+                        <td class="text-center col"><?= $row['nombre_producto'] ?></td> 
+                        <td class="text-center col"><?= $row['cantidad'] ?></td> 
+                        <td class="text-center col"><?= $row['precio_unidad_dolares'].' $' ?></td> 
+                        <td class="text-center col"><?= $row['precio_unidad_bolivares'].' bs' ?></td>
+                    </tr>
+                        
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </fielset>
 
-<fielset>
-    <legend>Métodos de Pago</legend>
-    <div class="table table-responsive">
-        <table class="table table-striped " id="example">
-            <thead>
-                <tr>
-                <th class="col text-center" scope="col">NOMBRE</th>
-                <th class="col text-center" scope="col">REFERENCIA</th>
-                <th class="col text-center" scope="col">CANTIDAD EN $</th>
-                <th class="col text-center" scope="col">CANTIDAD EN BS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while($row = mysqli_fetch_array($detalles_pago)){ ?>
+    <fielset>
+        <legend>Métodos de Pago</legend>
+        <div class="table table-responsive">
+            <table class="table table-striped " id="example">
+                <thead>
+                    <tr>
+                    <th class="col text-center" scope="col">NOMBRE</th>
+                    <th class="col text-center" scope="col">REFERENCIA</th>
+                    <th class="col text-center" scope="col">CANTIDAD EN $</th>
+                    <th class="col text-center" scope="col">CANTIDAD EN BS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = mysqli_fetch_array($detalles_pago)){ ?>
 
-                <tr>
-                    <td class="text-center col"><?= $row['metodo_pago'] ?></td> 
-                    <td class="text-center col"><?= ($row['referencia'] == '') ? '' :'#'.$row['referencia'] ?></td> 
-                    <td class="text-center col"><?= $row['cantidad_abonada_dolares'].' $' ?></td> 
-                    <td class="text-center col"><?= $row['cantidad_abonada_bolivares'].' bs' ?></td>
-                </tr>
-                    
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
-</fielset>
+                    <tr>
+                        <td class="text-center col"><?= $row['metodo_pago'] ?></td> 
+                        <td class="text-center col"><?= ($row['referencia'] == '') ? '' :'#'.$row['referencia'] ?></td> 
+                        <td class="text-center col"><?= $row['cantidad_abonada_dolares'].' $' ?></td> 
+                        <td class="text-center col"><?= $row['cantidad_abonada_bolivares'].' bs' ?></td>
+                    </tr>
+                        
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </fielset>
 
 
 <?php }
@@ -204,4 +204,47 @@ if($modulo == "detalles_venta_del_dia"){
         </table>
         </div>
     </fielset> 
+<?php } 
+
+
+if ($modulo == "historial_proveedor"){ ?>
+
+    <div class="card-body p-3 table-responsive">
+    <table class="table table-striped " id="example">
+        <thead>
+            <tr>
+                <th class="col text-center" scope="col">#</th>
+                <th class="col text-center" scope="col">PRODUCTO</th>
+                <th class="col text-center" scope="col">PROVEEDOR</th>
+                <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
+                <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
+                <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
+                <th class="col text-center" scope="col">FECHA / HORA</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+            // script para crear una lista de proveedor
+            // se consultan las proveedor de la base de datos
+            $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada 
+                FROM entrada AS E 
+                INNER JOIN producto AS P ON P.id_producto = E.id_producto 
+                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor WHERE PROV.id_proveedor = $id ORDER BY E.fecha_entrada DESC");
+
+            $i = 0;
+            // se guardan los datos en un array y se imprime
+            while ( $mostrar = mysqli_fetch_array($consulta)) { $i++;?>    
+                <tr>
+                    <td class="col text-center"><?= $i; ?></td>
+                    <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                    <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                    <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
+                    <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>
+                    <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
+                    <td class="col text-center"><?= $mostrar["fecha_entrada"]; ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    </div>
 <?php } ?>

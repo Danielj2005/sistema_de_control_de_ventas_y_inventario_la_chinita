@@ -59,7 +59,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
       </main>
       <div class="msjFormSend"></div>
-      <!-- Modal -->
+      <!-- Modal modificar proveedor -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -107,7 +107,28 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </div>
-      <?php   include_once("../include/footer.php");  include_once("../include/scripts_include.php"); ?>
+
+      <!-- Modal detalles del historial -->
+      <div class="modal fade" id="historial_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Historial</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal_historial_proveedor">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <?php   
+        include_once("../include/footer.php");  
+        include_once("../include/scripts_include.php"); ?>
       <script>
         function asignar_id_proveedor(id_proveedor){
           let proveedor = document.getElementById(`id_proveedor__${id_proveedor}`).value;
@@ -123,6 +144,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           }
         }
       </script>
+      
+      <script src="./js/detalles_listas.js"></script>
     </body>
   </html>
 <?php } ?>

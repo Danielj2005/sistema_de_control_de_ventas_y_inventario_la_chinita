@@ -7,14 +7,16 @@ btn.forEach((boton) => {
         let parametros = {
             'modulo': boton.getAttribute("modulo"),
             'id': boton.value,
+            'modal': boton.getAttribute("modal"),
         };
+
         if(parametros['id'] !==  ""){
             $.ajax({
                 data: parametros,
                 url: "../include/detalles_venta.php",
                 type: "post",
                 success:function(valores){ 
-                    $('.modal-body').html(valores);
+                    $('#'+parametros['modal']).html(valores);
                 }
             });
         }else{
