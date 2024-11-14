@@ -9,8 +9,21 @@ $modulo = $_POST['modulo'];
 if($modulo === 'Guardar'){
     
     $id_categoria = $_POST['id_categoria'];
-    $nombre_producto = strtoupper(modeloPrincipal::limpiar_cadena($_POST['nombre_producto']));
-    
+    $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
+
+    // se comprueba que no exista un registro con los mismos datos
+    if(mysqli_num_rows(modeloprincipal::consultar("SELECT nombre_producto FROM producto WHERE nombre_producto = '$nombre_producto'")) > 0){
+        /********** No se puede registrar un usuario si ya existe **********/
+        echo '<script type="text/javascript">
+                swal({ 
+                    title:"¡Ocurrió un error inesperado!", 
+                    text:"Ya se encuentra Registrado un producto con ese nombre, por favor ingresa otro", 
+                    type: "error", 
+                    confirmButtonText: "Aceptar" 
+                });
+            </script>'; 
+        exit(); 
+    }
     // verificar datos
     if($id_categoria == "" || $nombre_producto == ""){
         echo'<script type="text/javascript">

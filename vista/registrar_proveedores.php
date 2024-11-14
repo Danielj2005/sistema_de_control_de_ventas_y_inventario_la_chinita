@@ -59,10 +59,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <label for="validationDefault03" class="form-label">DIRECCIÓN <span style="color:#f00;">*</span></label>
                       <input type="text" class="form-control" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
                     </div>
-                    <div class="d-grid gap-2 mb-3">
-                      <div class="text-start">
-                        <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                      </div>
+                    <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
+                      <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
                       <button name="registrar" class="btn btn-success">REGISTRAR PROVEEDOR</button>
                     </div>
                   </form>
