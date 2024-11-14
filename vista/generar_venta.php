@@ -161,13 +161,23 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     <fieldset class="row p-3">
                       <legend class="col-12 mb-3 text-primary">CUENTA</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>MONTO TOTAL (USD)</span>
+                        <span>SUB TOTAL (USD)</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar" name="total_dolar_venta" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>MONTO TOTAL (BS)</span>
+                        <span>SUB TOTAL (BS)</span>
                         <input class="form-control bg-dark-subtle" id="totalBolivar" name="total_bolivares_venta" readonly value="0">
+                        
+                      </div>
+                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
+                        <span>MONTO TOTAL + IVA (USD)</span>
+                        <input class="form-control bg-dark-subtle" id="totalDolar_iva" name="total_dolar_venta_iva" readonly value="0">
+                        
+                      </div>
+                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
+                        <span>MONTO TOTAL + IVA (BS)</span>
+                        <input class="form-control bg-dark-subtle" id="totalBolivar_iva" name="total_bolivares_venta_iva" readonly value="0">
                         
                       </div>
                     </fieldset>
@@ -228,6 +238,23 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             input_referencia.classList.add('bg-dark-subtle');
             input_referencia.setAttribute('readOnly','');
           }
+        }
+      
+        // funcion para agregar el iva a la venta
+        function add_iva(sub_total_bs,sub_total_dolar){
+          const iva = 0.16;
+          const input_bolivares = document.getElementById('totalBolivar_iva');
+          const input_dolares = document.getElementById('totalDolar_iva');
+
+          let total_bolivares = parseFloat(sub_total_bs);
+          let total_dolares = parseFloat(sub_total_dolar);
+
+          total_bolivares = (total_bolivares * iva) + total_bolivares;
+          total_dolares = (total_dolares * iva) + total_dolares;
+
+          input_bolivares.value = total_bolivares.toFixed(2);
+          input_dolares.value = total_dolares.toFixed(2)
+
         }
       </script>
       <?php 

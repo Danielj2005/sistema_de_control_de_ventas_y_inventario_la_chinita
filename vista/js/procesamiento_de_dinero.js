@@ -38,4 +38,6 @@ function monto_total_productos() {
         // se imprime en la vista el total del precio en bolivar de los productos a ingresar en el inventario
         document.getElementById("totalBolivar").value = total_bolivar.toFixed(2); 
     }
+
+    add_iva(total_bolivar.toFixed(2),total_dolar);
 }
