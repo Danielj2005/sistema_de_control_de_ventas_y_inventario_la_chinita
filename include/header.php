@@ -104,13 +104,14 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>CONFIGURACIÓN</span>
-              </a>
-            </li>
+            <?php //if ($_SESSION["rol"] == "1") {?>
+          <!-- <li>
+                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                  <i class="bi bi-gear"></i>
+                  <span>CONFIGURACIÓN</span>
+                </a>
+              </li> -->
+            <?php //} ?>
             <li>
               <hr class="dropdown-divider">
             </li>

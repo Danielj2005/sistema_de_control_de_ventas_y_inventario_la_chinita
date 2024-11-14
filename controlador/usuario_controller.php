@@ -121,7 +121,7 @@ if($modulo === "Guardar"){
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "El campo telefono no cumple con el formato establecido",
+                text: "El campo teléfono no cumple con el formato establecido",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });

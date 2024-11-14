@@ -12,13 +12,12 @@ $contraseña = modeloPrincipal::limpiar_encriptar($_POST["contraseña"]);
 if(empty($usuario) || empty($contraseña)){
     echo'<script type="text/javascript">
         swal({ 
-            title:"¡Porfavor llenar todos los campos!", 
-            text:"Hay campos sin llenar, recordar que todos los campos son obligatorios", 
+            title: "¡Ocurrio un error!",
+            text: "Exiten Campos obligatorios Que Estan Vacíos",
             type: "error", 
             confirmButtonColor: "#036cbd",
             confirmButtonText: "Aceptar"  
         });
-        $(".form_SRCB")[0].reset();
     </script>';
     exit();
 }

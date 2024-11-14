@@ -84,24 +84,19 @@
         </ul>
       </li><!-- End Charts Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../vista/lista_empleados.php">
-          <i class="bi bi-person-plus"></i>
-          <span>EMPLEADOS</span>
-        </a>
-      </li><!-- End Register Page Nav -->
+      <?php if ($_SESSION["rol"] == "1") {?>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="../vista/lista_empleados.php">
+            <i class="bi bi-person-plus"></i>
+            <span>EMPLEADOS</span>
+          </a>
+        </li>
+      <?php } ?>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../vista/cliente.php">
           <i class="bi bi-people"></i>
           <span>CLIENTES</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="./mi_perfil.php">
-          <i class="bi bi-person"></i>
-          <span>MI PERFIL</span>
         </a>
       </li>
 
