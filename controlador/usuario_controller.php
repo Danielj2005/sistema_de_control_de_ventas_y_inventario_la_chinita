@@ -150,11 +150,9 @@ if($modulo === "Guardar"){
             </script>';
         exit();
     }
-    // datos verificados que se van a Registrar
-    // crear notificacion de las preguntas de seguridad
-    // $notificaciones = modeloprincipal::InsertSQL("notificacion","tipo, mensaje, fecha, estado, nombre_usuario","'1','Estimado/a ".modeloprincipal::decryption($usuario)." Debes escoger tus preguntas de seguridad, ve a tú perfil.','$fecha_actual','1','$usuario'");
     
-    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$pass', '$telefono', '$direccion',1,'$id_rol',1")) {
+    // datos verificados que se van a Registrar
+    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion',1,'$id_rol',1")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Registro Exitoso!",

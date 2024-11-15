@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 31-10-2024 a las 04:04:52
+-- Tiempo de generación: 14-11-2024 a las 22:58:00
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL,
-  `nombre` varchar(30) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -39,10 +39,7 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
 (1, 'COMESTIBLE'),
 (2, 'BEBIDAS'),
-(3, 'FRITURAS'),
-(4, 'JODAS'),
-(5, 'XDLÑÑ'),
-(6, 'KLJKLJLKJ');
+(3, 'FRITURAS');
 
 -- --------------------------------------------------------
 
@@ -52,7 +49,7 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
 
 CREATE TABLE `categoria_equipo` (
   `id_categoria_equipo` int NOT NULL,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -63,9 +60,9 @@ CREATE TABLE `categoria_equipo` (
 
 CREATE TABLE `cliente` (
   `id_cliente` int NOT NULL,
-  `cedula` varchar(11) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `nombre` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `telefono` varchar(11) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `cedula` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -76,7 +73,8 @@ INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `telefono`) VALUES
 (1, 'V-15214817', 'Jhoan Torrez', '04128053290'),
 (2, 'V-28587583', 'daniel barrueta', '04125238909'),
 (7, 'V-14540481', 'maría gimenez', '04245494211'),
-(8, 'V-30887827', 'KATTY RONDON', '04242344312');
+(8, 'V-30887827', 'KATTY RONDON', '04242344312'),
+(9, 'V-29775798', 'LUISA', '04123456789');
 
 -- --------------------------------------------------------
 
@@ -99,9 +97,10 @@ CREATE TABLE `detalles_menu` (
 INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `numero_detalles_menu`, `id_menu`) VALUES
 (1, 1, 2, 1, 1),
 (2, 4, 1, 1, 1),
-(3, 2, 1, 0, 3),
-(4, 4, 3, 1, 3),
-(5, 1, 5, 1, 4);
+(5, 1, 5, 1, 4),
+(6, 1, 2, 1, 5),
+(7, 1, 1, 1, 6),
+(8, 4, 1, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -112,8 +111,8 @@ INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `num
 CREATE TABLE `detalles_pago` (
   `id_detalle_pago` int NOT NULL,
   `id_venta` int NOT NULL,
-  `metodo_pago` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `referencia` varchar(30) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
+  `metodo_pago` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `referencia` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
   `cantidad_abonada_dolares` float NOT NULL,
   `cantidad_abonada_bolivares` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -187,7 +186,15 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (62, 143, 'Divisa', NULL, 30, 1436.4),
 (63, 143, 'Transferencia / Pago movíl', '9477563738475', 4, 191.52),
 (64, 144, 'Divisa', NULL, 25, 1197),
-(65, 144, 'Transferencia / Pago movíl', '7676454334588', 15, 718.2);
+(65, 144, 'Transferencia / Pago movíl', '7676454334588', 15, 718.2),
+(66, 145, 'Divisa', NULL, 6, 287.28),
+(67, 145, 'Transferencia / Pago movíl', '5463425785', 6, 287.28),
+(68, 146, 'Divisa', NULL, 5, 239.4),
+(69, 146, 'Transferencia / Pago movíl', '3456634764', 5, 239.4),
+(70, 147, 'Divisa', NULL, 10, 478.8),
+(71, 148, 'Divisa', NULL, 1, 47.88),
+(72, 149, 'Divisa', NULL, 20, 957.6),
+(73, 150, 'Divisa', NULL, 30, 1436.4);
 
 -- --------------------------------------------------------
 
@@ -214,26 +221,17 @@ CREATE TABLE `detalles_venta` (
 
 INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
 (1, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 1),
-(2, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 2),
-(3, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 3),
-(4, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 4),
-(5, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 6),
 (6, NULL, NULL, NULL, NULL, 3, 5, 1, 40, 23),
 (7, NULL, NULL, NULL, NULL, 3, 5, 40, 0, 26),
-(8, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 27),
-(9, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 28),
 (10, NULL, NULL, NULL, NULL, 3, 4, 40, 0, 28),
 (11, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 29),
 (12, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 30),
 (13, NULL, NULL, NULL, NULL, 4, 2, 120, 0, 30),
 (14, 1, 3, 15, 718.2, NULL, NULL, NULL, NULL, 31),
-(15, 3, 4, 10.5, 502.74, NULL, NULL, NULL, NULL, 32),
 (16, 1, 4, 15, 718.2, NULL, NULL, NULL, NULL, 33),
 (17, NULL, NULL, NULL, NULL, 4, 3, 120, 0, 34),
 (18, NULL, NULL, NULL, NULL, 4, 12, 120, 0, 35),
-(19, 3, 2, 10.5, 502.74, NULL, NULL, NULL, NULL, 36),
 (20, NULL, NULL, NULL, NULL, 5, 2, 239.4, 0, 36),
-(21, 3, 2, 10.5, 502.74, 5, 3, 239.4, 0, 37),
 (22, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 38),
 (23, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 39),
 (24, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 40),
@@ -313,7 +311,13 @@ INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_serv
 (98, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 141),
 (99, NULL, NULL, NULL, NULL, 4, 2, 3, 120, 142),
 (100, 1, 2, 15, 718.2, 1, 4, 1, 40, 143),
-(101, 1, 2, 15, 718.2, 1, 10, 1, 40, 144);
+(101, 1, 2, 15, 718.2, 1, 10, 1, 40, 144),
+(102, 5, 2, 4, 191.52, 1, 4, 1, 40, 145),
+(103, 5, 2, 4, 191.52, 1, 2, 1, 40, 146),
+(104, 4, 2, 5, 239.4, NULL, NULL, NULL, NULL, 147),
+(105, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 148),
+(106, 6, 2, 10, 478.8, NULL, NULL, NULL, NULL, 149),
+(107, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 150);
 
 -- --------------------------------------------------------
 
@@ -360,13 +364,7 @@ CREATE TABLE `entrada` (
 INSERT INTO `entrada` (`id_entrada`, `id_producto`, `id_proveedor`, `precio_compra_dolar`, `precio_compra_bs`, `stock_comprado`, `fecha_entrada`, `n_compra`) VALUES
 (1, 1, 1, 3, 0, 3, '2024-09-25 11:37:54', 0),
 (2, 2, 1, 4, 0, 4, '2024-09-25 11:37:54', 1),
-(3, 1, 3, 1, 0, 20, '2024-09-28 08:50:27', 0),
-(4, 1, 3, 2, 0, 10, '2024-09-28 09:16:25', 0),
-(5, 3, 3, 2, 0, 5, '2024-09-28 09:16:25', 1),
-(6, 1, 3, 1, 40, 5, '2024-10-06 04:27:34', 0),
-(7, 3, 3, 1, 40, 5, '2024-10-06 04:27:34', 1),
-(8, 4, 3, 3, 120, 50, '2024-10-06 04:37:48', 0),
-(9, 2, 3, 1.5, 60, 5, '2024-10-06 05:49:11', 0);
+(12, 4, 7, 5, 239.4, 5, '2024-11-14 09:25:32', 0);
 
 -- --------------------------------------------------------
 
@@ -377,7 +375,7 @@ INSERT INTO `entrada` (`id_entrada`, `id_producto`, `id_proveedor`, `precio_comp
 CREATE TABLE `equipo` (
   `id_equipo` int NOT NULL,
   `codigo` int NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_categoria_equipo` int NOT NULL,
   `id_status_equipo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -390,9 +388,9 @@ CREATE TABLE `equipo` (
 
 CREATE TABLE `menu` (
   `id_menu` int NOT NULL,
-  `nombre_platillo` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre_platillo` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `precio_dolar` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `descripcion` varchar(70) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `descripcion` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `estatus` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -402,9 +400,9 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
 (1, 'POLLO ASADO COMPLETO', '15', 'pollo asado completo con ensalada y yuca', 1),
-(2, 'POLOO', '10.5', 'POLOOOOOOOO', 1),
-(3, 'POLLOOO', '10.5', 'POLOOOOOOOO', 1),
-(4, 'GLUPS', '5', 'COMBO DE REFRESCOS', 1);
+(4, 'GLUPS', '5', 'COMBO DE REFRESCOS', 1),
+(5, 'POLLO COREANO', '4', 'POLLO FRITO COREANO', 1),
+(6, 'MEDIO POLLO CON FRESCO', '10', 'MEDIO POLLON ASADO CON GLUP', 1);
 
 -- --------------------------------------------------------
 
@@ -415,7 +413,7 @@ INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`,
 CREATE TABLE `preguntas_secretas` (
   `id` int NOT NULL,
   `id_pregunta` int NOT NULL,
-  `respuesta` varchar(80) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `respuesta` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `numero_pregunta` int NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -439,7 +437,7 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 CREATE TABLE `producto` (
   `id_producto` int NOT NULL,
   `id_categoria` int NOT NULL,
-  `nombre_producto` varchar(30) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre_producto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `precio_compra_dolar` float NOT NULL,
   `precio_compra_bs` float NOT NULL,
   `stock` int NOT NULL,
@@ -451,11 +449,12 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `id_categoria`, `nombre_producto`, `precio_compra_dolar`, `precio_compra_bs`, `stock`, `estatus`) VALUES
-(1, 2, 'GLUP', 1, 40, 70, 1),
+(1, 2, 'GLUP', 1, 40, 38, 1),
 (2, 2, 'Pepsi 1.5 LT', 1.5, 60, 0, 0),
 (3, 2, 'LIGHT', 1, 40, 0, 0),
-(4, 1, 'POLLO', 3, 120, 0, 0),
-(7, 2, 'COCA COLA', 0, 0, 0, 0);
+(4, 1, 'POLLO', 5, 239.4, 1, 1),
+(7, 2, 'COCA COLA', 0, 0, 0, 0),
+(12, 2, 'GLUP', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -465,11 +464,11 @@ INSERT INTO `producto` (`id_producto`, `id_categoria`, `nombre_producto`, `preci
 
 CREATE TABLE `proveedor` (
   `id_proveedor` int NOT NULL,
-  `cedula_rif` varchar(11) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `nombre` varchar(40) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `correo` varchar(70) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `direccion` varchar(70) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `telefono` varchar(11) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `cedula_rif` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `correo` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `direccion` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -477,7 +476,8 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `direccion`, `telefono`) VALUES
-(1, '16934956', 'EL CORRALITO', 'Corral@pollera.com', 'acarigua calle 3 avenida 5 y 6', '04122343443');
+(1, '16934956', 'EL CORRALITO', 'Corral@pollera.com', 'acarigua calle 3 avenida 5 y 6', '04122343443'),
+(7, '29775798', 'LUISA', 'LUISAGMAIL.COM', 'andres eloy', '04122345678');
 
 -- --------------------------------------------------------
 
@@ -487,7 +487,7 @@ INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `dire
 
 CREATE TABLE `rol` (
   `id_rol` int NOT NULL,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -506,7 +506,7 @@ INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
 
 CREATE TABLE `seguridad` (
   `id_seguridad` int NOT NULL,
-  `pregunta` varchar(80) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `pregunta` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -527,7 +527,7 @@ INSERT INTO `seguridad` (`id_seguridad`, `pregunta`) VALUES
 
 CREATE TABLE `status_equipo` (
   `id_status_equipo` int NOT NULL,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -538,13 +538,13 @@ CREATE TABLE `status_equipo` (
 
 CREATE TABLE `usuario` (
   `id_usuario` int NOT NULL,
-  `cedula` varchar(10) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `apellido` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `correo` varchar(70) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `contraseña` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `telefono` varchar(11) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `direccion` varchar(70) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `cedula` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `correo` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `contraseña` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `direccion` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `primer_inicio` tinyint(1) NOT NULL,
   `id_rol` int NOT NULL,
   `estado` int NOT NULL
@@ -555,9 +555,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `primer_inicio`, `id_rol`, `estado`) VALUES
-(1, '30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', 1, 1, 1),
+(1, '30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', 1, 2, 1),
 (2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', 0, 1, 1),
-(3, 'V-12345678', 'CARLOS', 'PEREZ', 'carlosp@gmail.com', '', '04122343443', 'AVENIDA 1, ENTRE CALLE 4 Y 5', 1, 2, 1);
+(3, 'V-12345678', 'CARLOS', 'PEREZ', 'carlosp@gmail.com', '', '04122343443', 'AVENIDA 1, ENTRE CALLE 4 Y 5', 1, 2, 1),
+(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'dbe9tbGxpaSklbe/vg==', '04122343434', 'BARRIO EL PAEZ', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -722,7 +723,13 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `monto_total_dolares`, `monto_to
 (141, '2024-10-30 07:45:29', 30, 1436.4, 2, 2),
 (142, '2024-10-30 07:46:11', 6, 240, 2, 2),
 (143, '2024-10-30 07:47:20', 34, 1596.4, 2, 2),
-(144, '2024-10-30 07:54:10', 40, 1836.4, 2, 2);
+(144, '2024-10-30 07:54:10', 40, 1836.4, 2, 2),
+(145, '2024-11-05 06:22:53', 12, 543.04, 2, 2),
+(146, '2024-11-06 04:51:09', 10, 463.04, 2, 2),
+(147, '2024-11-09 09:19:41', 10, 478.8, 2, 8),
+(148, '2024-11-13 09:51:54', 2, 80, 2, 2),
+(149, '2024-11-14 09:29:26', 20, 957.6, 1, 9),
+(150, '2024-11-14 10:45:50', 30, 1436.4, 1, 2);
 
 --
 -- Índices para tablas volcadas
@@ -872,25 +879,25 @@ ALTER TABLE `categoria_equipo`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_menu`
 --
 ALTER TABLE `detalles_menu`
-  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
@@ -902,7 +909,7 @@ ALTER TABLE `dolar`
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
@@ -914,7 +921,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas_secretas`
@@ -926,13 +933,13 @@ ALTER TABLE `preguntas_secretas`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -956,13 +963,13 @@ ALTER TABLE `status_equipo`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- Restricciones para tablas volcadas
@@ -985,50 +992,48 @@ ALTER TABLE `detalles_pago`
 -- Filtros para la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  ADD CONSTRAINT `detalles_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_venta_ibfk_3` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_venta_ibfk_5` FOREIGN KEY (`id_servicio`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalles_venta_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_venta_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  ADD CONSTRAINT `entrada_producto` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`),
-  ADD CONSTRAINT `entrada_proveedor` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`);
+  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  ADD CONSTRAINT `id_categoria_equipo` FOREIGN KEY (`id_categoria_equipo`) REFERENCES `categoria_equipo` (`id_categoria_equipo`),
-  ADD CONSTRAINT `id_status_equipo` FOREIGN KEY (`id_status_equipo`) REFERENCES `status_equipo` (`id_status_equipo`);
+  ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`id_status_equipo`) REFERENCES `status_equipo` (`id_status_equipo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `equipo_ibfk_2` FOREIGN KEY (`id_categoria_equipo`) REFERENCES `categoria_equipo` (`id_categoria_equipo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preguntas_secretas`
 --
 ALTER TABLE `preguntas_secretas`
-  ADD CONSTRAINT `pregunta_seguridad` FOREIGN KEY (`id_pregunta`) REFERENCES `seguridad` (`id_seguridad`),
-  ADD CONSTRAINT `preguntas_secretas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `preguntas_secretas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `seguridad` (`id_seguridad`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preguntas_secretas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `id_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`),
-  ADD CONSTRAINT `tipo_usuario` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`);
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `venta`
 --
 ALTER TABLE `venta`
-  ADD CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
-  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
