@@ -11,7 +11,7 @@ if($modulo == "detalles_venta"){
     
 
     $detalles_venta_servicios = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.cantidad_servicio, 
-        DV.precio_servicio_dolares, DV.precio_servicio_bolivares FROM detalles_venta as DV
+        DV.precio_servicio_dolares, DV.precio_servicio_bolivares, M.descripcion FROM detalles_venta as DV
         INNER JOIN menu as M ON M.id_menu = DV.id_servicio WHERE DV.id_venta = $id");
     
     $detalles_venta_productos = modeloPrincipal::consultar("SELECT P.nombre_producto, DV.cantidad, 
@@ -23,13 +23,14 @@ if($modulo == "detalles_venta"){
 
 
 
-    <fielset>
+    <fielset class="mb-5">
         <legend>Servicios </legend>
         <div class="table table-responsive">
             <table class="table table-striped " id="example">
                 <thead>
                     <tr>
                     <th class="col text-center" scope="col">NOMBRE</th>
+                    <th class="col text-center" scope="col">DESCRIPCIÓN</th>
                     <th class="col text-center" scope="col">CANTIDAD</th>
                     <th class="col text-center" scope="col">PRECIO EN $</th>
                     <th class="col text-center" scope="col">PRECIO EN BS</th>
@@ -40,6 +41,7 @@ if($modulo == "detalles_venta"){
 
                     <tr>
                         <td class="text-center col"><?= $row['nombre_platillo'] ?></td> 
+                        <td class="text-center col"><?= $row['descripcion'] ?></td> 
                         <td class="text-center col"><?= $row['cantidad_servicio'] ?></td> 
                         <td class="text-center col"><?= $row['precio_servicio_dolares'].' $' ?></td> 
                         <td class="text-center col"><?= $row['precio_servicio_bolivares'].' bs' ?></td>
@@ -51,7 +53,7 @@ if($modulo == "detalles_venta"){
         </div>
     </fielset>
 
-    <fielset>
+    <fielset class="mb-5">
         <legend>Productos</legend>
         <div class="table table-responsive">
             <table class="table table-striped " id="example">
@@ -79,7 +81,7 @@ if($modulo == "detalles_venta"){
         </div>
     </fielset>
 
-    <fielset>
+    <fielset class="mb-5">
         <legend>Métodos de Pago</legend>
         <div class="table table-responsive">
             <table class="table table-striped " id="example">

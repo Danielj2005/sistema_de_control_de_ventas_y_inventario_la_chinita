@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>AÑADIR SERVICIO</title>
+      <title>Añadir Servicio</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -26,31 +26,42 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1> REGISTRAR SERVICIO </h1> </div>
+        <div class="pagetitle">
+          <h1> 
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./menu.php">&nbsp; Volver</a>
+            Registrar Servicio
+          </h1>
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
               <div class="card top-selling overflow-auto">
                 <div class="card-body p-3">
-                  <h5 class="card-title"> DATOS DEL SERVICIO </h5>
                   <form method="post" action="../controlador/menu_controlador.php" class="row SendFormAjax p-3" autocomplete="off" data-type-form="save">
                     <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['dolar']; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
-                    <div class="col-md-6">
-                      <label for="validationDefault01" class="form-label">NOMBRE DEL SERVICIO</label>
-                      <div class="col-md-4 input-group">
-                        <input type="text" class="form-control" placeholder="NOMBRE DEL SERVICIO" name="nombre_platillo" id="nombre_platillo" required>
+
+                    <div class="col-12 col-sm-12 col-md-12 mb-3">
+                      <h5 class="card-title"> Datos del Servicio </h5>
+                      <div class="row mt-2">
+                        <div class="col-md-6">
+                          <label class="form-label">Nombre del Servicio</label>
+                          <div class="col-md-4 input-group">
+                            <input type="text" class="form-control" placeholder="ingresa el nombre del servicio" name="nombre_platillo" id="nombre_platillo" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Descripción</label>
+                          <input type="text" class="form-control" placeholder="ingresa la descripción" id="descripcion" name="descripcion" required>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <label for="validationDefault02" class="form-label">DESCRIPCIÓN</label>
-                      <input type="text" class="form-control" placeholder="DESCRIPCIÓN" id="descripcion" name="descripcion" required>
-                    </div>
-                    <h7 class="card-title">PRODUCTO A INGRESAR A LA LISTA</h7>
-                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 form-group overflow-hidden row">
-                      <label for="validationDefault05" class="form-label">PRODUCTO <span style="color:#f00;">*</span></label>
+                    
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 form-group overflow-hidden">
+                      <h5 class="card-title">Productos a agregar al servicio</h5>
+                      <label class="form-label">Producto <span style="color:#f00;">*</span></label>
                       <select multiple onchange="añadir_tr_a_tabla('productos_servicio')" class="form-control Select" id="id_producto" name="producto[]" required>
-                        <option>Selecciona un producto</option>
+                        <option>Selecciona una opción</option>
                         <?php
                           $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto FROM producto WHERE estatus = 1");
 
@@ -61,39 +72,42 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <?php } ?>
                       </select>
                     </div>
+
                     <div class="col-md-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">LISTA DE PRODUCTOS A INGRESAR</h5>
-                          <table class="table table-striped" id="cart-list" id="example">
-                            <thead>
-                              <tr>
-                                <th class="col text-center" scope="col">#</th>
-                                <th class="col text-center" scope="col">PRODUCTO</th>
-                                <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN DOLARES</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BOLIVARES</th>
-                              </tr>
-                            </thead>
-                            <tbody id="lista_productos">
-                              
-                            </tbody>
-                          </table>
+                      <h5 class="card-title">Lista de productos</h5>
+                      <table class="table table-striped" id="cart-list" id="example">
+                        <thead>
+                          <tr>
+                            <th class="col text-center" scope="col">#</th>
+                            <th class="col text-center" scope="col">PRODUCTO</th>
+                            <th class="col text-center" scope="col">CANTIDAD</th>
+                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN DOLARES</th>
+                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BOLIVARES</th>
+                          </tr>
+                        </thead>
+                        <tbody id="lista_productos">
+                          
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 mb-3 mt-5"> 
+                      <h7 class="card-title">Precio del Servicio</h7>
+
+                      <div class="row mt-2">
+                        <div class="col-12 col-sm-6 col-md-6 mb-3 text-start">
+                          <label class="form-label">En Dolares ($)</label>
+                          <input class="form-control" onkeyup="transformar('precio_dolar_servicio','precio_bolivar_servcio')" id="precio_dolar_servicio" name="precio_dolar" placeholder="ingresa el precio en $">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 mb-3 text-center">
+                          <label class="form-label">En Bolivares (BSS)</label>
+                          <input class="form-control " id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
                         </div>
                       </div>
                     </div>
 
-                    <h7 class="card-title">PRECIO TOTAL DEL SERVICIO</h7>
-                    <div class="col-md-6 mb-5 justify-content-center align-items-center">
-                      <label class="form-label">PRECIO DEL SERVICIO DOLARES($)</label>
-                      <input class="form-control" onkeyup="transformar('precio_dolar_servicio','precio_bolivar_servcio')" id="precio_dolar_servicio" name="precio_dolar" placeholder="ingresa el precio en $">
-                    </div>
-                    <div class="col-md-6 mb-5 justify-content-center align-items-center">
-                      <label class="form-label">PRECIO DEL SERVICIO EN BOLIVARES(BSS)</label>
-                      <input class="form-control " id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
-                    </div>
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-                      <button type="submit" class="btn btn-success">REGISTRAR SERVICIO</button>
+                      <button type="submit" class="btn btn-success">Registra Servicio</button>
                     </div>
                   </form>
                 </div>

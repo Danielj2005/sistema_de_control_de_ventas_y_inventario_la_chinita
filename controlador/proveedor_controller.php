@@ -11,10 +11,10 @@ $modulo = $_POST["modulo"];
 // modulo para Guardar un registro
 if($modulo == "Guardar" ){
 
-    $cedula = modeloPrincipal::limpiar_cadena($_POST["cedula"]);
+    $cedula = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']);
     $nombre = modeloPrincipal::limpiar_mayusculas($_POST["nombre_proveedor"]);
     $correo = modeloPrincipal::limpiar_cadena($_POST["correo"]);
-    $direccion = modeloPrincipal::limpiar_cadena($_POST["direccion"]);
+    $direccion = modeloPrincipal::limpiar_mayusculas($_POST["direccion"]);
     $telefono = modeloPrincipal::limpiar_cadena($_POST["telefono"]);
 
     /* se consulta la base de datos para verificar que no exista un registro con los mismos datos*/
@@ -36,7 +36,7 @@ if($modulo == "Guardar" ){
             echo'<script type="text/javascript">
                     swal({
                         title: "¡Ocurrio un error!",
-                        text: "El campo CÉDULA / RIF no cumple con el formato establecido",
+                        text: "El campo Cédula / RIF no cumple con el formato establecido",
                         type: "error",
                         confirmBottonText: "Aceptar"
                     });
@@ -47,7 +47,7 @@ if($modulo == "Guardar" ){
             echo'<script type="text/javascript">
                 swal({
                     title: "¡Ocurrio un error!",
-                    text: "El campo NOMBRE no cumple con el formato establecido",
+                    text: "El campo Nombre no cumple con el formato establecido",
                     type: "error",
                     confirmBottonText: "Aceptar"
                 });
@@ -69,7 +69,7 @@ if($modulo == "Guardar" ){
             echo'<script type="text/javascript">
                 swal({
                     title: "¡Ocurrio un error!",
-                    text: "El campo CORREO no cumple con el formato establecido",
+                    text: "El campo Correo no cumple con el formato establecido",
                     type: "error",
                     confirmBottonText: "Aceptar"
                 });
@@ -80,7 +80,7 @@ if($modulo == "Guardar" ){
             echo'<script type="text/javascript">
                 swal({
                     title: "¡Ocurrio un error!",
-                    text: "El campo TEÉLEFONO no cumple con el formato establecido",
+                    text: "El campo Teléfono no cumple con el formato establecido",
                     type: "error",
                     confirmBottonText: "Aceptar"
                 });

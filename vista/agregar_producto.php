@@ -7,92 +7,90 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   exit();
   
 }else{ ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php"); ?>
-
-    <!-- titulo -->
-    <title>PRODUCTOS</title>
-    
-    <!-- ======= estilos y librerias css ======= -->
-    <?php include_once("../include/css_include.php"); ?>
-</head>
-  <body>
-
-    <!-- ======= Header ======= -->
-    <?php include_once("../include/header.php"); ?>
-    <!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <?php include_once("../include/sliderbar.php"); ?>
-    <!-- End Sidebar-->
-
-    <main id="main" class="main">
-
-      <div class="pagetitle"> <h1>PRODUCTOS</h1> </div> <!-- End Page Title -->
-
-      <section class="section dashboard">
-        <div class="row">
-
-          <!-- Left side columns -->
-          <div class="col-lg-12">
-            <div class="row">
-
-              <div class="col-lg-12">
-
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">AÑADIR NUEVO PRODUCTO</h5>
-
-                      <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                        <input type="hidden" name="modulo" value="Guardar">
-                          <div class="row mb-3">
-                            <label for="inputEmail3" class="col-form-label">NOMBRE DEL PRODUCTO</label>
-                            <div class="col-sm-12">
-                              <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="nombre del producto" class="form-control" id="id" name="nombre_producto">
-                            </div>
-                          </div>
-
-                          <div class="row mb-3">
-                            <label for="inputEmail3" class="col-form-label">SELECCIONA EL TIPO DE CATEGORIA AL QUE PERTENECERA</label>
-                            <div class="col-sm-12">
-                              <select name="id_categoria" id="producto" class="form-select">
-                                <option value="">SELECCIONA LA CATEGORÍA</option>
-                                <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="text-center">
-                            <button type="submit" form="añadir_producto" class="btn btn-success">AÑADIR PRODUCTO</button>
-                          </div>
-
-                      </form>
-
-                    </div>
-                  </div>
-            </div>
-
-            </div>
-          </div><!-- End Left side columns -->
-
-          <!-- Right side columns -->
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <!-- titulo -->
+      <title>Productos</title>
+      <?php 
+        // se incluyen los meta datos 
+        include_once("../include/meta_include.php"); 
+        // se incluyen los estilos css y sus librerias a la vista
+        include_once("../include/css_include.php"); ?>
+    </head>
+    <body>
+      <?php 
+        // se incluye el header / encabezado a la vista
+        include_once("../include/header.php");
+        // se incluye el menu lateral a la vista 
+        include_once("../include/sliderbar.php"); ?>
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <h1>
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./productos.php">&nbsp; Volver</a>
+            Producto
+          </h1> 
         </div>
-      </section>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title">Añadir Nuevo Producto</h2>
+                    <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                      <input type="hidden" name="modulo" value="Guardar">
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="col-form-label">Cógido Del Producto</label>
+                          <div class="col-sm-12">
+                            <input type="text" pattern="[0-9]{4,30}" required="" placeholder="código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="col-form-label">Nombre Del Producto</label>
+                          <div class="col-sm-12">
+                            <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
+                          </div>
+                        </div>
+                        <!-- selector de categoría  -->
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="col-form-label">Selecciona una Categoría</label>
+                          <div class="col-sm-12">
+                            <select name="id_categoria" id="categoria" class="form-select">
+                              <option value="">Selecciona una categoría</option>
+                              <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
+                            </select>
+                          </div>
+                        </div>
+                        <!-- selector de presentacion -->
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="col-form-label">Selecciona una Presentación</label>
+                          <div class="col-sm-12">
+                            <select name="id_presentacion" id="select_presentacion" class="form-select">
+                              <option value="0">Selecciona una presentación</option>
+                              <?php require_once ('../include/select_dinamico.php');?>
+                            
+                            </select>
+                          </div>
+                        </div>
 
-    </main><!-- End #main -->
-    <div class="msjFormSend"></div>
-    <!-- ======= Footer ======= -->
-    
-    <?php include_once("../include/footer.php"); ?>
-    <!-- End Footer -->
-
-    <!-- ======= javascript ======= -->
-    <?php include_once("../include/scripts_include.php"); ?>
-    <!-- End javascript -->
-  </body>
-
+                        <div class="text-center">
+                          <button type="submit" form="añadir_producto" class="btn btn-success">Añadir</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <div class="msjFormSend"></div>
+      
+      <script type="text/javascript" src="./js/selector_dinamico.js"></script>
+      <?php 
+        // se incluye el footer / pie de pagina a la vista
+        include_once("../include/footer.php");
+        // se incluyen los script de javascript a la vista 
+        include_once("../include/scripts_include.php"); ?>
+    </body>
   </html>
 <?php } ?>

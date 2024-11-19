@@ -25,17 +25,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1> SERVICIOS </h1> </div>
+        <div class="pagetitle">
+          <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+          <h1 class="my-3"> Servicios </h1> 
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
               <div class="card top-selling overflow-auto">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a class="btn btn-success" href="./agregar_servicio.php">AÑADIR NUEVO SERVICIO</a>
-                  <button type="button" class="btn btn-primary">EXPORTAR MENÚ</button>
+                  <a class="btn btn-success" href="./agregar_servicio.php">Añadir Nuevo Servicio</a>
+                  <button type="button" class="btn btn-primary">Exportar Menú</button>
                 </div>
                 <div class="card-body pb-3">
-                  <h5 class="card-title">LISTA DE SERVICIOS</h5>
+                  <h5 class="card-title">Lista de servicios</h5>
                   <table class="table table-striped table-responsive datatable" id="example">
                     <thead>
                       <tr>
@@ -56,6 +59,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+      <div class="msjFormSend"></div>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

@@ -4,7 +4,7 @@ session_start();
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
   // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php.php');
+  header('Location: ../index.php');
   exit();
   
 }else{ ?>
@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>ENTRADAS DE PRODUCTOS</title>
+      <title>Entrada de Producto</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -26,47 +26,54 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1>REGISTRAR ENTRADA</h1></div>
+        <div class="pagetitle">
+          <h1>
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./entrada_de_productos.php">&nbsp; Volver</a>
+            Registrar Entrada
+          </h1>
+        </div>
         <section class="section dashboard">
           <div class="row"> 
             <div class="col-12">
               <div class="card top-selling overflow-auto"> 
                 <div class="card-body pb-0">
-                  <h5 class="card-title">DATOS DEL PROVEEDOR</h5> 
+                  <h5 class="card-title">Datos del proveedor</h5> 
                   <form id="añadir_producto" action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
                     <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['dolar']; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
-                      <label for="validationDefault01" class="form-label">CÉDULA / RIF <span style="color:#f00;">*</span></label>
+                      <label for="validationDefault01" class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
                       <div class="col-md-4 input-group">
-                        <select class="input-group-text" name="nacionalidad" id="validationDefault04" required>
-                          <option>V</option>
-                          <option>RIF</option>
+                        <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
+                          <option value="V-">V</option>
+                          <option value="R-">RIF</option>
+                          <option value="E-">E</option>
                         </select>
                         <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
                       </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
-                      <label for="validationDefault02" class="form-label">NOMBRE <span style="color:#f00;">*</span></label>
+                      <label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
                       <input type="text" class="form-control"  placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
-                      <label for="validationDefault02" class="form-label">CORREO <span style="color:#f00;">*</span></label>
+                      <label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
                       <input type="text" class="form-control" placeholder ="ingresa el correo" id="correo" name="correo" required>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
-                      <label for="validationDefault05" class="form-label">TELÉFONO <span style="color:#f00;">*</span></label>
+                      <label   class="form-label">Teléfono <span style="color:#f00;">*</span></label>
                       <input type="text" class="form-control" name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
-                      <label for="validationDefault03" class="form-label">DIRECCIÓN <span style="color:#f00;">*</span></label>
+                      <label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
                       <input type="text" class="form-control" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
                     </div>
-                    <h5 class="card-title me-3">PRODUCTO A INGRESAR A LA LISTA</h5>
-                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 form-group row">
-                      <label for="validationDefault05" class="form-label">PRODUCTO <span style="color:#f00;">*</span></label>
-                      <select multiple onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-control Select" id="id_producto" name="producto[]" required>
-                        <option>Selecciona un producto</option>
+
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                      <h5 class="card-title">Productos a ingresar</h5>
+                      <label class="form-label">Productos <span style="color:#f00;">*</span></label>
+                      <select multiple onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-select Select" id="id_producto" name="producto[]" required>
+                        <option>Selecciona una o más opciones</option>
 
                         <?php
                           $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto FROM producto");
@@ -79,38 +86,39 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       </select>
                     </div>
                     <div class="col-md-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">LISTA DE PRODUCTOS A INGRESAR</h5>
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th class="col text-center" scope="col">#</th>
-                                <th class="col text-center" scope="col">PRODUCTO</th>
-                                <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN DOLARES</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BOLIVARES</th>
-                              </tr>
-                            </thead>
-                            <tbody id="lista_productos">
-                              
-                            </tbody>
-                          </table>
+                      <h5 class="card-title">Lista de prooductos</h5>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th class="col text-center" scope="col">#</th>
+                            <th class="col text-center" scope="col">PRODUCTO</th>
+                            <th class="col text-center" scope="col">CANTIDAD</th>
+                            <th class="col text-center" scope="col">PRESENTACIÓN</th>
+                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN DOLARES</th>
+                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BOLIVARES</th>
+                          </tr>
+                        </thead>
+                        <tbody id="lista_productos">
+                          
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 mb-3">
+                      <h7 class="card-title text-start mb-3">Total invertido</h7>
+                      <div class="row mt-2">
+                        <div class="col-12 col-sm-6 col-md-6 mb-3 text-center">
+                          <label class="form-label">Total en base a la tasa registrada ($)</label>
+                          <input class="btn btn-primary w-50" id="totalDolar" disabled value="0">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 mb-3 text-center">
+                          <label class="form-label">Total en base a la moneda nacional (BSS)</label>
+                          <input class="btn btn-primary" id="totalBolivar" disabled value="0">
                         </div>
                       </div>
                     </div>
-
-                    <h7 class="card-title">MONTO TOTAL</h7>
-                    <div class="col-md-6 mb-3 d-grid gap-2 justify-content-center align-items-center">
-                      <label for="validationDefault05" class="form-label">TOTAL EN BASE A LA TASA REGISTRADA ($)</label>
-                      <input class="btn btn-primary" id="totalDolar" disabled value="0">
-                    </div>
-                    <div class="col-md-6 mb-3 d-grid gap-2 justify-content-center align-items-center">
-                      <label for="validationDefault05" class="form-label">TOTAL EN BASE A LA MONEDA NACIONAL (BSS)</label>
-                      <input class="btn btn-primary" id="totalBolivar" disabled value="0">
-                    </div>
-                    <div class="d-grid gap-2 mb-3">
-                      <button name="insertar" class="btn btn-success">REGISTRAR ENTRADA</button>
+                    <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+                      <button name="insertar" class="btn btn-success">Registrar entrada</button>
                     </div>
                   </form>
                 </div>
@@ -120,7 +128,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
       </main>
       <div class="msjFormSend"></div>
-      <?php   include_once("../include/footer.php"); 
+      <?php 
+        // se incluye el footer / pie de pagina a la vista
+        include_once("../include/footer.php");
+        // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>

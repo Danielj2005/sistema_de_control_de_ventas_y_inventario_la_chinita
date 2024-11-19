@@ -1,29 +1,29 @@
 // función para buscar datos de un proveedor ya registrado
 
 function buscar_proveedor(){
-
-    cedula = document.getElementById("cedula").value;
+    let nacionalidad = document.getElementById('nacionalidad').value;
+    let cedula = document.getElementById("cedula").value;
 
     if (cedula =="") {
-        swal("Atención!","EL CAMPO CÉDULA DE ENCUENTRA VACÍO, POR FAVOR LLENAR TODOS LOS CAMPOS PARA PODER CONTINUAR","warning");
+        swal("Atención!","El campo cédula se encuentra vacío, Por favor llenar todos los campos para continuar","warning");
     }
-
+    
     let parametros = {
         "buscar": "1",
-        "cedula" : cedula
+        "cedula" : nacionalidad+cedula
     };
 
     $.ajax({
         data:  parametros,
         url:   '../controlador/buscar_proveedor.php',
         type:  'post',
+        dataType: 'json',
         success: function (datos) {
-            let datosObj = $.parseJSON(datos);
-            if (datosObj.existe==1) {
-                $("#nombre_proveedor").val(datosObj.nombre);
-                $("#telefono").val(datosObj.telefono);
-                $("#correo").val(datosObj.correo);
-                $("#direccion").val(datosObj.direccion);
+            if (datos.existe==1) {
+                $("#nombre_proveedor").val(datos.nombre);
+                $("#telefono").val(datos.telefono);
+                $("#correo").val(datos.correo);
+                $("#direccion").val(datos.direccion);
             }
         }
     });

@@ -5,7 +5,7 @@
     if (isset($_POST["buscar"])) {
 
         //datos via Post
-        $cedula = modeloPrincipal::LimpiarCadenaTexto($_POST['cedula']);
+        $cedula = modeloPrincipal::limpiar_cadena($_POST['cedula']); 
         $datos = array();
         $datos['existe'] = "0";
 

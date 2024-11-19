@@ -11,20 +11,25 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <!DOCTYPE html>
   <html lang="en">
   <head>
-    <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php"); ?>
-
     <!-- titulo -->
-    <title>EMPLEADOS</title>
-
-    <!-- ======= estilos y librerias css ======= -->
-    <?php include_once("../include/css_include.php"); ?>
-  </head>
-  <body>
-    <?php include_once("../include/header.php"); 
-      include_once("../include/sliderbar.php"); ?>
+    <title>Empleados</title>
+      <?php 
+        // se incluyen los meta datos 
+        include_once("../include/meta_include.php"); 
+        // se incluyen los estilos css y sus librerias a la vista
+        include_once("../include/css_include.php"); ?>
+    </head>
+    <body>
+      <?php
+        // se incluye el header / encabezado a la vista
+        include_once("../include/header.php"); 
+        // se incluye el menu lateral a la vista 
+        include_once("../include/sliderbar.php"); ?>
     <main id="main" class="main">
-      <div class="pagetitle"><h1>EMPLEADOS</h1></div>
+      <div class="pagetitle">
+        <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+        <h1 class="my-3">Empleados</h1>
+      </div>
       <section class="section dashboard">
         <div class="row">
           <div class="col-lg-12">
@@ -33,10 +38,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="card">
                   <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                     <a class="btn btn-primary" href="./registrar_empleados.php">Registar Empleado</a>
-                    <a target="_blank" href="./reportes/lista_empleados.php" class="btn btn-success">Exportar Lista De Empleado</a>
+                    <a target="_blank" href="./reportes/lista_empleados.php" class="btn btn-success">Exportar Lista de Empleados</a>
                   </div>
                   <div class="card-body pb-3">
-                    <h5 class="card-title">LISTA DE EMPLEADOS</h5>
+                    <h5 class="card-title">Lista de Empleados</h5>
                     <table class="table table-borderless table-responsive table-striped datatable" id="example">
                       <thead>
                         <tr>
@@ -61,8 +66,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       </section>
     </main>
     <div class="msjFormSend"></div>
-    <?php include_once("../include/footer.php"); ?>
-    <?php include_once("../include/scripts_include.php"); ?>
+    <?php 
+      // se incluye el footer / pie de pagina a la vista
+      include_once("../include/footer.php");
+      // se incluyen los script de javascript a la vista 
+      include_once("../include/scripts_include.php"); ?>
   </body>
   </html>
 <?php }else {

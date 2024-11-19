@@ -20,10 +20,10 @@ if($modulo == 'Guardar'){
 
     if(mysqli_num_rows($existe_proveedor) < 1){
 
-        $cedula = modeloPrincipal::limpiar_cadena($_POST["cedula"]);
+        $cedula = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']);
         $nombre = modeloPrincipal::limpiar_mayusculas($_POST["nombre_proveedor"]);
-        $correo = modeloPrincipal::limpiar_mayusculas($_POST["correo"]);
-        $direccion = modeloPrincipal::limpiar_cadena($_POST["direccion"]);
+        $correo = modeloPrincipal::limpiar_cadena($_POST["correo"]);
+        $direccion = modeloPrincipal::limpiar_mayusculas($_POST["direccion"]);
         $telefono = modeloPrincipal::limpiar_cadena($_POST["telefono"]);
 
          // verificar que no se hayan recibido datos en blanco o vacios 

@@ -11,12 +11,32 @@ function consultar_registros($tabla){
     if ($tabla === "categoria") {
         // script para crear una lista de categorias
         // se consultan las categorias de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT nombre FROM categoria");
+        $consulta = modeloPrincipal::consultar("SELECT * FROM categoria");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
                 <td class="col text-center"> </td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                <td scope="row" class="text-center">
+                    <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
+                        
+                        <?php if ($mostrar["estado"] === "1") { ?>
+
+                            <input type="hidden" name="modulo" value="activo">                            
+                            <input type="hidden" name="tabla" value="categoria">
+                            <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
+                            <button class="btn btn-success" title="estado de la categoría">Activa </button>
+                        
+                        <?php }else if ($mostrar["estado"] === "0") { ?>
+
+                            <input type="hidden" name="modulo" value="inactivo">                            
+                            <input type="hidden" name="tabla" value="categoria">
+                            <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
+                            <button class="btn btn-danger" title="estado de la categoría">Inactiva </button>
+                        
+                        <?php } ?>
+                    </form>
+                </td>
             </tr>
         <?php  } 
     }
@@ -107,7 +127,26 @@ function consultar_registros($tabla){
                 <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
                 <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
                 <td class="col text-center"><?= strtoupper($mostrar["descripcion"]); ?></td>
-                <td class="col text-center"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
+                <td scope="row" class="text-center">
+                    <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
+                        
+                        <?php if ($mostrar["estatus"] === "1") { ?>
+
+                            <input type="hidden" name="modulo" value="activo">                            
+                            <input type="hidden" name="tabla" value="menu">
+                            <input type="hidden" name="id" value="<?= $mostrar["id_menu"]; ?>">
+                            <button class="btn btn-success" title="estado del servicio">Activo </button>
+                        
+                        <?php }else if ($mostrar["estatus"] === "0") { ?>
+
+                            <input type="hidden" name="modulo" value="inactivo">                            
+                            <input type="hidden" name="tabla" value="menu">
+                            <input type="hidden" name="id" value="<?= $mostrar["id_menu"]; ?>">
+                            <button class="btn btn-danger" title="estado del servicio">Inactivo </button>
+                        
+                        <?php } ?>
+                    </form>
+                </td>
             </tr>
         <?php }
     }
@@ -135,8 +174,8 @@ function consultar_registros($tabla){
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["cedula_rif"]; ?></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["nombre"]; ?></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["correo"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["direccion"]; ?></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["telefono"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["direccion"]; ?></td>
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
@@ -166,13 +205,13 @@ function consultar_registros($tabla){
                 <td scope='col' class="text-center col">
                     <form action="clienteModificar.php" method="post" class="text-center">
                         <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                        <button type="submit" class="btn btn-success open-modal">MODIFICAR</button>
+                        <button type="submit" class="btn btn-success open-modal bi bi-repeat"></button>
                     </form>
                 </td>
 
                 <!-- <td scope='col' class="text-center col">
                     <form action="historial.php" method="post">
-                        <input type="hidden" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
+                        <input type="hidden" name="valor" value="<?php // $mostrar["id_cliente"]; ?>">
                         <button type="submit" class="btn btn-info">VER HISTORAL</button>
                     </form>
                 </td>  -->

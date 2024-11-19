@@ -9,12 +9,15 @@ if (isset($_POST['producto'])) {
 
     for($i = 0; $i < COUNT($id_producto); $i++){
 
-        $datos_producto = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT nombre_producto, id_producto, precio_compra_dolar, precio_compra_bs 
+        $datos_producto = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT nombre_producto, id_producto, precio_compra_dolar, precio_compra_bs,stock
             FROM producto WHERE id_producto = ".$id_producto[$i]."")); ?>
         
         <tr id="producto_<?= $id_producto[$i] ?>">
             <th class="col text-center" scope="row"><?=$j++ ?></th>
             <td class="col text-center" id="producto_<?= $id_producto[$i] ?>"><?= $datos_producto["nombre_producto"] ?></td>
+            <td class="col text-center" id="stock_<?= $id_producto[$i] ?>">
+                <input type="text" class="form-control cantidad_total" name="stock_producto[]" disabled value="<?= $datos_producto['stock'] ?>" required>
+            </td>
             <td class="col text-center" id="cantidad_<?= $id_producto[$i] ?>">
                 <input type="text" class="form-control cantidad_total" name="cantidad_producto[]" onblur="monto_total_productos()" placeholder="cantidad a ingresar" required>
             </td>

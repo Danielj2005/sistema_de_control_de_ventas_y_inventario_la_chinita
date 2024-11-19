@@ -25,7 +25,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1> Generar Venta </h1> </div>
+        <div class="pagetitle"> 
+          <h1> 
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./venta.php">&nbsp; Volver</a>
+            Generar Venta
+          </h1> 
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
@@ -35,41 +40,42 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['dolar']; ?>">
                     
                     <fieldset class="p-3">
-                      <legend>Datos del Cliente</legend>
+                      <legend >Datos del Cliente</legend>
                       <div class="row mb-3">
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="form-label">CÉDULA / RIF <span style="color:#f00;">*</span></label>
+                          <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
                           <div class="col-md-4 input-group">
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="modulo" value="Guardar">
                             <select class="input-group-text" name="nacionalidad" id="nacionalidad" required>
                               <option value="V-">V</option>
+                              <option value="R-">RIF</option>
                               <option value="E-">E</option>
                             </select>
                             <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula_cliente" id="cedula" required>
                           </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="control-label">NOMBRE Y APELLIDO <span style="color:#f00;">*</span></label>
-                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el Nombre" class="form-control" id="nombre_cliente" name="nombre_cliente">
+                          <label class="control-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
+                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el nombre" class="form-control" id="nombre_cliente" name="nombre_cliente">
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="control-label">TELÉFONO <span style="color:#f00;">*</span></label>
-                          <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el Teléfono" class="form-control" id="telefono_cliente" name="telefono_cliente">
+                          <label class="control-label">Teléfono <span style="color:#f00;">*</span></label>
+                          <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el teléfono" class="form-control" id="telefono_cliente" name="telefono_cliente">
                         </div>
                       </div>
                     </fieldset>
                     <fieldset class="row mb-3 border p-3"> 
                       <div class="col-md-12 mb-4 row">
-                        <legend>SERVICIOS SOLICITADOS</legend>
-                        <label for="firstName" class="form-label">Selecciona un servicio</label>
+                        <legend>Servicios Solicitados</legend>
+                        <label for="firstName" class="form-label">Selecciona un Servicio</label>
                         <select multiple onchange="añadir_tr_a_tabla('servicios')" class=" Select mb-3 col-12" id="id_servicio" name="servicios[]">
-                          <option value="">Selecciona un servicio</option>
+                          <option value="">Selecciona una opción</option>
     
                           <?php
                             $consulta = modeloPrincipal::consultar("SELECT M.id_menu,M.nombre_platillo FROM producto AS P 
                               INNER JOIN detalles_menu AS D ON D.id_producto = P.id_producto
-                              INNER JOIN menu AS M ON M.id_menu = D.id_menu WHERE P.stock > 0 group by M.id_menu;");
+                              INNER JOIN menu AS M ON M.id_menu = D.id_menu WHERE P.stock > 0 AND P.estatus = 1 AND M.estatus = 1 group by M.id_menu;");
     
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
     
@@ -81,13 +87,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <div class="col-md-12">
                         <div class="car">
                           <div class="bor">
-                            <h5 class="text-primary">LISTA DE SERVICIOS SOLICITADOS</h5>
+                            <h5 class="text-primary">Lista de Servicios Solicitados</h5>
                             <div class="table-responsive mb-3"> 
                               <table class="tableMetodo table table-striped border"  id="cart-list">
                                 <thead>
                                   <tr>
                                     <th class="col text-center" scope="col">#</th>
                                     <th class="col text-center" scope="col">NOMBRE</th>
+                                    <th class="col text-center" scope="col">DESCRIPCIÓN</th>
                                     <th class="col text-center" scope="col">CANTIDAD</th>
                                     <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
                                     <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
@@ -102,13 +109,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     </fieldset>                        
                     <fieldset class="row mb-4 border p-3 border"> 
                       <div class="col-12 mb-4 row mb-3">
-                        <legend class="col-12">PRODUCTOS SOLICITADOS</legend> 
+                        <legend class="col-12">Productos Solicitados</legend> 
                         <label class="form-label col-12">Selecciona un producto</label>
                         <select multiple onchange="añadir_tr_a_tabla('productos')" class="form-select col-12 control Select mb-3" id="id_producto" name="producto[]">
                           <option value="">Selecciona un producto</option>
     
                           <?php
-                            $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto FROM producto WHERE stock > 0");
+                            $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto 
+                              FROM producto WHERE stock > 0 AND estatus = 1");
     
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
     
@@ -118,13 +126,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </select>
                       </div>
                       <div class="col-12 col-md-12 mb-3">
-                        <h5 class="text-primary">LISTA DE PRODUCTOS SOLICITADOS</h5>
+                        <h5 class="text-primary">Lista de productos</h5>
                         <div class="table-responsive mb-3"> 
                           <table class="tableMetodo table table-striped" id="cart-list">
                             <thead>
                               <tr>
                                 <th class="col text-center" scope="col">#</th>
                                 <th class="col text-center" scope="col">PRODUCTO</th>
+                                <th class="col text-center" scope="col">STOCK</th>
                                 <th class="col text-center" scope="col">CANTIDAD</th>
                                 <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
                                 <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
@@ -136,7 +145,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       </div>
                     </fieldset>
                     <fieldset class="mb-4 border p-3 row">
-                      <legend>MÉTODO DE PAGO</legend>
+                      <legend>Método de Pago</legend>
                       <div class="col-12 col-md-12 mb-3">
                         <div class="table-responsive mb-4 row mb-3"> 
                           <table class="tableMetodo table table-striped" id="metodos_pago">
@@ -154,40 +163,40 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                       </div>
                       <div class="col-12 col-md-12 mb-3 text-start">
-                        <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> AGREGAR MÉTODO DE PAGO</button>
+                        <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> Agregar Método de Pago</button>
                       </div>
 
                     </fieldset>
                     <fieldset class="row p-3">
-                      <legend class="col-12 mb-3 text-primary">CUENTA</legend>
+                      <legend class="col-12 mb-3 text-primary">Cuenta</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>SUB TOTAL (USD)</span>
+                        <span>Sub Total (USD)</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar" name="total_dolar_venta" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>SUB TOTAL (BS)</span>
+                        <span>Sub Total (BS)</span>
                         <input class="form-control bg-dark-subtle" id="totalBolivar" name="total_bolivares_venta" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>MONTO TOTAL + IVA (USD)</span>
+                        <span>Monto Total + IVA (16%)</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar_iva" name="total_dolar_venta_iva" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>MONTO TOTAL + IVA (BS)</span>
+                        <span>Monto Total + IVA (16%)</span>
                         <input class="form-control bg-dark-subtle" id="totalBolivar_iva" name="total_bolivares_venta_iva" readonly value="0">
                         
                       </div>
                     </fieldset>
                     <div class="col-12 mb-1">
                       <div class="form-group">
-                          <p class="form-p">LOS CAMPOS SON <span style="color:#f00;">*</span> SON OBLIGATORIOS</p>
+                          <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="submit" form="generar_venta" class="btn btn-success">GENERAR VENTA</button>
+                      <button type="submit" form="generar_venta" class="btn btn-success">Generar Venta</button>
                     </div>
                   </form>
                 </div>
@@ -205,10 +214,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           let tr = `<tr id="metodo_${i}">
                       <td class="text-center col">
                         <select name="metodo_pago[]" id="metodo_pago_${i}" class="form-select selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_${i}','num_referencia_${i}')">
-                          <option value="" selected>SELECCIONE UN MÉTODO DE PAGO</option>
+                          <option value="" selected>seleccione una opción</option>
                           <option value="1">Divisa</option>
                           <option value="2">Punto de Venta</option>
                           <option value="3">Transferencia / Pago movíl</option>
+                          <option value="4">Bolivares en Efectivo</option>
                         </select>
                       </td>
                       <td class="text-center col"><input type="text" class="form-control" id="cantidad_${i}" name="monto_pagar[]" placeholder="MONTO A PAGAR" required></td>

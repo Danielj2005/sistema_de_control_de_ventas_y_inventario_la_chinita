@@ -40,17 +40,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         $monto_total_hoy_en_bolivares = $montos_ventas_del_dia['total_de_ventas_en_bolivares'];
       ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1> VENTAS </h1> </div> 
+        <div class="pagetitle">
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al Inicio</a>
+            <h1 class="mt-3"> Ventas </h1>
+        </div> 
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">TOTAL GENERADO</h5>
+                  <h5 class="card-title">Total Generado</h5>
                   <div class="row">
                     <div class="col-6">
                       <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">MONTO TOTAL (USD)</span>
+                        <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
                         <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
                         <span class="input-group-text" id="basic-addon1">$</span>
                       </div>
@@ -58,7 +61,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                     <div class="col-6">
                       <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">MONTO TOTAL (BS)</span>
+                        <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
                         <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? 0 : $monto_total_hoy_en_bolivares ?>">
                         <span class="input-group-text" id="basic-addon1">BS</span>
                       </div>
@@ -72,7 +75,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="col-12">
                   <div class="card top-selling overflow-auto">
                     <div class="card-body pb-0">
-                      <h5 class="card-title">VENTAS REALIZADAS</h5>
+                      <h5 class="card-title">Ventas Realizadas</h5>
                       <form method="post" class="mb-3">
                         DESDE: 
                         <input style="border:right;" class="btn btn-sm btn-outline-secondary" type="date" name="fecha1" value="<?php echo $fecha1 ?>">
@@ -87,7 +90,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <thead>
                             <tr>
                               <th class="col text-center" scope="col">#</th>
-                              <th class="col text-center" scope="col">NÚMERO DE FACTURA</th>
+                              <th class="col text-center" scope="col">Nº DE FACTURA</th>
                               <th class="col text-center" scope="col">CÉDULA DEL CLIENTE</th>
                               <th class="col text-center" scope="col">NOMBRE DEL CLIENTE</th>
                               <th class="col text-center" scope="col">MONTO TOTAL EN DOLARES</th>
@@ -133,7 +136,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       
       <!-- Modal detalles de venta -->
       <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Detalles de Venta</h5>

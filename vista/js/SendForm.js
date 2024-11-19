@@ -20,8 +20,8 @@ $(document).ready(function () {
                 type: metodo,
                 url: peticion,
                 data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
-                 processData: false, // Evita que jQuery procese los datos
-            contentType: false, // Evita que jQuery establezca el tipo de contenido
+                processData: false, // Evita que jQuery procese los datos
+                contentType: false, // Evita que jQuery establezca el tipo de contenido
                 beforeSend: function(){
                     $('.msjFormSend').html(MsjSending);
                 },
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     break;
                 case "updateEstado":
                     title_alert = "¿Quieres realizar el cambio?";
-                    text_alert = "El Préstamo será actualizado a devuelto, no puedes deshacer estos cambios";
+                    text_alert = "Puedes activar o desactivar en cualquier momento";
                     type_alert = "warning";
                     break;
                 default:
