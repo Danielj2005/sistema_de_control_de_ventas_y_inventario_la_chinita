@@ -17,7 +17,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <!-- metadatos -->  
       <?php include_once("../include/meta_include.php"); ?>
       <!-- titulo -->
-      <title>INICIO</title>
+      <title>Inicio</title>
       <!-- ======= estilos y librerias css ======= -->
       <?php include_once("../include/css_include.php"); ?>
     </head>
@@ -38,18 +38,18 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         $monto_total_hoy_en_bolivares = $monto_ventas_del_dia['total_de_ventas_en_bolivares'];
       ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1> INICIO </h1> </div> 
+        <div class="pagetitle"> <h1> Inicio </h1> </div> 
         <section class="section dashboard">
           <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
               <div class="col-lg-8">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">TOTAL GENERADO EN EL DÍA</h5>
+                    <h5 class="card-title">Total generado en el Día</h5>
                     <div class="row">
                       <div class="col-6">
                         <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1">MONTO TOTAL (USD)</span>
+                          <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
                           <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
                           <span class="input-group-text" id="basic-addon1">$</span>
                         </div>
@@ -57,7 +57,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                       <div class="col-6">
                         <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1">MONTO TOTAL (BS)</span>
+                          <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
                           <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
                           <span class="input-group-text" id="basic-addon1">BS</span>
                         </div>
@@ -73,7 +73,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">TOTAL GENERADO EN EL DÍA</h5>
+                    <h5 class="card-title">Total Generado en el Día</h5>
                     <div class="row">
                       <div class="col-12">
                         <div class="input-group mb-3">
@@ -108,7 +108,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   <div class="card top-selling overflow-auto">
 
                     <div class="card-body p-3 table-responsive">
-                      <h5 class="card-title">ÚLTIMAS VENTAS REALIZADAS</h5>
+                      <h5 class="card-title">Últimas Ventas Realizadas</h5>
 
                       <table class="table table-striped " id="example">
                         <thead>

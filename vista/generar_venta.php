@@ -57,7 +57,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
                           <label class="control-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
-                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el nombre" class="form-control" id="nombre_cliente" name="nombre_cliente">
+                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el nombre y apellido" class="form-control" id="nombre_cliente" name="nombre_cliente">
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
                           <label class="control-label">Teléfono <span style="color:#f00;">*</span></label>
