@@ -41,7 +41,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             <th class="text-center col" scope="col">NOMBRE</th>
                             <th class="text-center col" scope="col">TELÉFONO</th>
                             <th class="text-center col" scope="col">MODIFICAR</th>
-                            <!-- <th class="text-center col" scope="col">VER HISTORAL</th> -->
+                            <th class="text-center col" scope="col">VER HISTORAL</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -56,10 +56,22 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+      
+      <!-- Modal detalles de venta -->
+      <div class="modal fade" id="historial_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-content" id="detalles_historial_cliente">
+            
+          </div>
+        </div>
+      </div>
+
       <div class="msjFormSend"></div>
       <?php 
         include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
+      <script src="./js/detalles_listas.js"></script>
+
     </body>
   </html>
 <?php } ?>

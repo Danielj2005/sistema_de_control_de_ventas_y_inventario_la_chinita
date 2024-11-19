@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 	header('Location: ../index.php');
 	exit();
   
-}else{ ?>
+}else if ($_SESSION['rol'] == "1"){  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>

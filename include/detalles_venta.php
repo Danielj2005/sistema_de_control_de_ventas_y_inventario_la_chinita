@@ -209,7 +209,9 @@ if($modulo == "detalles_venta_del_dia"){
 <?php } 
 
 
-if ($modulo == "historial_proveedor"){ ?>
+
+if ($modulo == "historial_proveedor"){ 
+    ?>
 
     <div class="card-body p-3 table-responsive">
     <table class="table table-striped " id="example">
@@ -249,4 +251,64 @@ if ($modulo == "historial_proveedor"){ ?>
         </tbody>
     </table>
     </div>
-<?php } ?>
+<?php } 
+
+
+
+if ($modulo == "historial_cliente"){ 
+    
+    
+    $historial_cliente = modeloPrincipal::consultar("SELECT V.id_venta, V.fecha_venta, V.monto_total_dolares,
+        V.monto_total_bolivares FROM venta AS V WHERE V.id_cliente = $id ORDER BY V.id_venta DESC");
+
+    $nombre_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT C.nombre FROM cliente as C WHERE C.id_cliente = $id"));
+
+
+    ?>
+
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Historial de Compras Del Cliente : ( <?= $nombre_cliente['nombre'] ?> )</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="table table-responsive">
+            <table class="table table-striped example" id="">
+                <thead>
+                    <tr>
+                        <th class="col text-center" scope="col">#</th>
+                        <th class="col text-center" scope="col">Nº DE FACTURA</th>
+                        <th class="col text-center" scope="col">TOTAL EN $</th>
+                        <th class="col text-center" scope="col">TOTAL EN BS</th>
+                        <th class="col text-center" scope="col">FECHA / HORA</th>
+                        <th class="col text-center" scope="col">VER FACTURA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        while ( $mostrar = mysqli_fetch_array($historial_cliente)) { ?>    
+                            <tr>
+                                <td class="text-center col"> </td>
+                                <td class="text-center col"><?= $mostrar["id_venta"]; ?></td>
+                                <td class="text-center col"><?= $mostrar["fecha_venta"]; ?></td>
+                                <td class="text-center col"><?= $mostrar["monto_total_dolares"]; ?></td>
+                                <td class="text-center col"><?= $mostrar["monto_total_bolivares"]; ?></td>
+
+                                <td scope='col' class="text-center col">
+                                    <form  target="_blank" action="./factura.php" method="post" class="text-center">
+                                        <input type="hidden" name="id_venta" value="<?= $mostrar["id_venta"]; ?>">
+                                        <button type="submit" class="btn btn-info bi bi-eye"></button>
+                                    </form>
+                                </td>
+                            </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+    <script>dataTable();</script>
+
+<?php } 
+?>

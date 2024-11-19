@@ -25,14 +25,14 @@ function consultar_registros($tabla){
                             <input type="hidden" name="modulo" value="activo">                            
                             <input type="hidden" name="tabla" value="categoria">
                             <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button class="btn btn-success" title="estado de la categoría">Activa </button>
+                            <button <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-success" title="estado de la categoría">Activa </button>
                         
                         <?php }else if ($mostrar["estado"] === "0") { ?>
 
                             <input type="hidden" name="modulo" value="inactivo">                            
                             <input type="hidden" name="tabla" value="categoria">
                             <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button class="btn btn-danger" title="estado de la categoría">Inactiva </button>
+                            <button <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-danger" title="estado de la categoría">Inactiva </button>
                         
                         <?php } ?>
                     </form>
@@ -205,16 +205,13 @@ function consultar_registros($tabla){
                 <td scope='col' class="text-center col">
                     <form action="clienteModificar.php" method="post" class="text-center">
                         <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                        <button type="submit" class="btn btn-success open-modal bi bi-repeat"></button>
+                        <button type="submit" <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-success open-modal bi bi-repeat"></button>
                     </form>
                 </td>
 
-                <!-- <td scope='col' class="text-center col">
-                    <form action="historial.php" method="post">
-                        <input type="hidden" name="valor" value="<?php // $mostrar["id_cliente"]; ?>">
-                        <button type="submit" class="btn btn-info">VER HISTORAL</button>
-                    </form>
-                </td>  -->
+                <td scope='col' class="text-center col">
+                    <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"></button>
+                </td> 
             </tr>
         <?php } 
     }

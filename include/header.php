@@ -98,7 +98,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="./mi_perfil.php">
                 <i class="bi bi-person"></i>
-                <span>MI PERFIL</span>
+                <span>Mi Pefil</span>
               </a>
             </li>
             <li>
@@ -123,7 +123,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center btn-exit-system" href="#!">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>CERRAR SESIÓN</span>
+                <span>Cerrar Sesión</span>
               </a>
             </li>
 

@@ -65,6 +65,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                       </div>
                     </fieldset>
+
                     <fieldset class="row mb-3 border p-3"> 
                       <div class="col-md-12 mb-4 row">
                         <legend>Servicios Solicitados</legend>
@@ -85,28 +86,25 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </select>
                       </div>
                       <div class="col-md-12">
-                        <div class="car">
-                          <div class="bor">
-                            <h5 class="text-primary">Lista de Servicios Solicitados</h5>
-                            <div class="table-responsive mb-3"> 
-                              <table class="tableMetodo table table-striped border"  id="cart-list">
-                                <thead>
-                                  <tr>
-                                    <th class="col text-center" scope="col">#</th>
-                                    <th class="col text-center" scope="col">NOMBRE</th>
-                                    <th class="col text-center" scope="col">DESCRIPCIÓN</th>
-                                    <th class="col text-center" scope="col">CANTIDAD</th>
-                                    <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
-                                    <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="lista_servicios"> </tbody>
-                              </table>
-                            </div>
-                          </div>
+                        <h5 class="text-primary">Lista de Servicios Solicitados</h5>
+                        <div class="table-responsive mb-3"> 
+                          <table class="tableMetodo table table-striped border"  id="cart-list">
+                            <thead>
+                              <tr>
+                                <th class="col text-center" scope="col">#</th>
+                                <th class="col text-center" scope="col">NOMBRE</th>
+                                <th class="col text-center" scope="col">DESCRIPCIÓN</th>
+                                <th class="col text-center" scope="col">CANTIDAD</th>
+                                <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
+                                <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
+                              </tr>
+                            </thead>
+                            <tbody id="lista_servicios"> </tbody>
+                          </table>
                         </div>
                       </div>
-                    </fieldset>                        
+                    </fieldset>
+
                     <fieldset class="row mb-4 border p-3 border"> 
                       <div class="col-12 mb-4 row mb-3">
                         <legend class="col-12">Productos Solicitados</legend> 
@@ -144,6 +142,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                       </div>
                     </fieldset>
+
                     <fieldset class="mb-4 border p-3 row">
                       <legend>Método de Pago</legend>
                       <div class="col-12 col-md-12 mb-3">
@@ -165,8 +164,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <div class="col-12 col-md-12 mb-3 text-start">
                         <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> Agregar Método de Pago</button>
                       </div>
-
                     </fieldset>
+
                     <fieldset class="row p-3">
                       <legend class="col-12 mb-3 text-primary">Cuenta</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
@@ -190,11 +189,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         
                       </div>
                     </fieldset>
+
                     <div class="col-12 mb-1">
                       <div class="form-group">
                           <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                       </div>
                     </div>
+                    
                     <div class="text-center">
                       <button type="submit" form="generar_venta" class="btn btn-success">Generar Venta</button>
                     </div>
