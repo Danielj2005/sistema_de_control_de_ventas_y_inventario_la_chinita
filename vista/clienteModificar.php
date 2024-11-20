@@ -50,11 +50,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     <div class="row mb-3">
                       <div class="col-12 mb-3">
                         <label class="form-label">Cédula</label>
-                        <input type="text" readonly class="bg-dark-subtle form-control" id="cedula" value="<?= $mostrar['cedula']; ?>" name="cedula">
+                        <input type="text" class=" <?php ($_SESSION['rol'] == "1") ? '' : 'bg-dark-subtle' ?> form-control" id="cedula" value="<?= $mostrar['cedula']; ?>" <?php ($_SESSION['rol'] == "1") ? '' : 'readonly' ?> name="cedula">
                       </div>
                       <div class="col-12 mb-3">
                         <label class="col-sm-2 col-form-label">Nombre y Apellido</label>
-                        <input type="text" class="bg-dark-subtle form-control" id="inputEmail" value="<?= $mostrar['nombre']; ?>" readonly name="nombre">
+                        <input type="text" class=" <?php ($_SESSION['rol'] == "1") ? '' : 'bg-dark-subtle' ?> form-control" value="<?= $mostrar['nombre']; ?>" <?php ($_SESSION['rol'] == "1") ? '' : 'readonly' ?> name="nombre">
                       </div>
                       <div class="col-12 mb-3">
                         <label for="inputPassword3" class="col-sm-2 col-form-label">Teléfono</label>

@@ -32,27 +32,27 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <!-- informacion del usuario -->
                       <?php require_once ("../include/datos_usuario_include.php"); ?>
                       <div class="mi_informacion_container col-10 col-lg-12 my-3">
-                        <fieldset class="row row-cols-2 mb-3">
-                            <legend class="col-10 col-sm-12"><i class="bi bi-person"></i> &nbsp;Información personal</legend>
-                            <div class="col-12 col-sm-6 mb-3">
+                        <fieldset class="row mb-3">
+                            <legend class="col-12 col-sm-12"><i class="bi bi-person"></i> &nbsp;Información personal</legend>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Cédula</label>
                                   <input type="text" pattern="[0-9\-]{1,30}" class="form-control" value="<?= $cedula_user; ?>" id="cedula" name="cedula" readOnly="true" maxlength="9">
                               </div>
                             </div>
-                            <div class="col-12 col-sm-6 mb-3">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                 <label class="control-label">Nombres</label>
                                 <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="form-control" value="<?= $nombre_user; ?>" id="nombres" name="nombres" readOnly="true" maxlength="30">
                               </div>
                             </div>
-                            <div class="col-12 col-sm-6 mb-3">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                 <label class="control-label text-black">Apellidos</label>
                                   <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="form-control" value="<?= $apellido_user; ?>" id="apellido" name="apellido" readOnly="true" maxlength="30">
                               </div>
                             </div>
-                            <div class="col-12 col-sm-6 mb-3">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                 <label class="control-label">Correo</label>
                                 <input type="email" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="form-control" value="<?= $correo_user; ?>" id="email" name="email" readOnly="true" maxlength="30">
@@ -63,13 +63,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <hr>
                         <fieldset class="row mb-4">
                             <legend><i class="bi-person-circle"></i> &nbsp;Datos de la Cuenta</legend>
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Nombre de Usuario</label>
                                   <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="form-control" value="<?= $correo_user; ?>" id="nombres" name="nombres" readOnly="true" maxlength="30">
                               </div>
                             </div>
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Usuario</label>
                                     <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="form-control" value="<?= $rol_usuario; ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">

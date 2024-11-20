@@ -100,7 +100,8 @@ function consultar_registros($tabla){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
         $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
-            P.estatus, C.nombre FROM producto AS P INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria ORDER BY P.nombre_producto");
+            P.estatus, C.nombre FROM producto AS P 
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria ORDER BY P.id_producto DESC");
 
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 

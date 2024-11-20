@@ -107,7 +107,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                     <fieldset class="row mb-4 border p-3 border"> 
                       <div class="col-12 mb-4 row mb-3">
-                        <legend class="col-12">Productos Solicitados</legend> 
+                        <legend class="col-12">Productos Solicitados &nbsp; </legend>
+                        
+                        <button type="button" class="btn btn-secondary bi bi-plus">&nbsp; Registar un producto</button>
+                        
                         <label class="form-label col-12">Selecciona un producto</label>
                         <select multiple onchange="añadir_tr_a_tabla('productos')" class="form-select col-12 control Select mb-3" id="id_producto" name="producto[]">
                           <option value="">Selecciona un producto</option>

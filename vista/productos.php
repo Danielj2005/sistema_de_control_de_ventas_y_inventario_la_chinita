@@ -33,10 +33,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <div class="row">
             <div class="col-12">
               <div class="card top-selling overflow-auto pb-3">
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a class="btn btn-primary" href="./agregar_producto.php">Añadir Nuevo Producto</a>
-                  <a class="btn btn-success" href="./categoria_producto.php">Añadir Categoría</a>
-                  <a class="btn btn-primary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
+                <div class="row btn-group text-center">
+                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                    <a class="col-12 btn btn-primary" href="./agregar_producto.php">Añadir Nuevo Producto</a>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                    <a class="col-12 btn btn-success" href="./categoria_producto.php">Añadir Categoría</a>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
+                  </div>
                 </div>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Productos</h5>

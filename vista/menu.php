@@ -11,7 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>SERVICIOS</title>
+      <title>Servicios</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -33,10 +33,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <div class="row">
             <div class="col-12">
               <div class="card top-selling overflow-auto">
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a class="btn btn-success" href="./agregar_servicio.php">Añadir Nuevo Servicio</a>
-                  <button type="button" class="btn btn-primary">Exportar Menú</button>
+                <div class="row btn-group text-center">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a type="button" class="col-12 btn btn-success" href="./agregar_servicio.php">Añadir Nuevo Servicio</a>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a class="col-12 btn btn-primary" target="_blank" href="./reportes/menu.php">Exportar Menú</a>
+                  </div>
                 </div>
+
                 <div class="card-body pb-3">
                   <h5 class="card-title">Lista de servicios</h5>
                   <table class="table table-striped table-responsive datatable" id="example">

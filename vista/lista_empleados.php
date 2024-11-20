@@ -33,32 +33,32 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <section class="section dashboard">
         <div class="row">
           <div class="col-lg-12">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <a class="btn btn-primary" href="./registrar_empleados.php">Registar Empleado</a>
-                    <a target="_blank" href="./reportes/lista_empleados.php" class="btn btn-success">Exportar Lista de Empleados</a>
-                  </div>
-                  <div class="card-body pb-3">
-                    <h5 class="card-title">Lista de Empleados</h5>
-                    <table class="table table-borderless table-responsive table-striped datatable" id="example">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">CÉDULA</th>
-                          <th scope="col">NOMBRE</th>
-                          <th scope="col">APELLIDO</th>
-                          <th scope="col">TELÉFONO</th>
-                          <th scope="col" class="text-center">ESTADO</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('usuario'); ?>  
-                      </tbody>
-                    </table>
-                  </div>
+            <div class="card">
+              <div class="row btn-group text-center">
+                <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                  <a class="col-12 btn btn-primary" href="./registrar_empleados.php">Registar Empleado</a>
                 </div>
+                <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                  <a target="_blank" href="./reportes/lista_empleados.php" class=col-12 "btn btn-success">Exportar Lista de Empleados</a>
+                </div>
+              </div>
+              <div class="card-body pb-3">
+                <h5 class="card-title">Lista de Empleados</h5>
+                <table class="table table-borderless table-responsive table-striped datatable" id="example">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">CÉDULA</th>
+                      <th scope="col">NOMBRE</th>
+                      <th scope="col">APELLIDO</th>
+                      <th scope="col">TELÉFONO</th>
+                      <th scope="col" class="text-center">ESTADO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php include("../include/listas_registros_include.php"); consultar_registros('usuario'); ?>  
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

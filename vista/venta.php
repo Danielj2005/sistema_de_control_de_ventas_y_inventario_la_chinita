@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>VENTAS</title>
+      <title>Ventas</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -38,6 +38,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
         $monto_total_hoy_en_dolares = $montos_ventas_del_dia['total_de_ventas_en_dolares'];
         $monto_total_hoy_en_bolivares = $montos_ventas_del_dia['total_de_ventas_en_bolivares'];
+
+        $fecha_actual = date('-m-d');
+
+        $fecha1 = $_POST['fecha1'];
+        $fecha2 = $_POST['fecha2'];
+        
+
       ?>
       <main id="main" class="main">
         <div class="pagetitle">
@@ -51,7 +58,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="card-body">
                   <h5 class="card-title">Total Generado</h5>
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
                         <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
@@ -59,7 +66,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
                         <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? 0 : $monto_total_hoy_en_bolivares ?>">
@@ -76,12 +83,22 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   <div class="card top-selling overflow-auto">
                     <div class="card-body pb-0">
                       <h5 class="card-title">Ventas Realizadas</h5>
-                      <form method="post" class="mb-3">
-                        DESDE: 
-                        <input style="border:right;" class="btn btn-sm btn-outline-secondary" type="date" name="fecha1" value="<?php echo $fecha1 ?>">
-                        HASTA:
-                        <input style="border:right;" class="btn btn-sm btn-outline-secondary" type="date" name="fecha2" value="<?php echo $fecha2 ?>">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar Fecha</button>
+                      <form method="post" class="row mb-3" id="rango_fechas">
+                        <p class="alert alert-info">Seleciona un rango de fechas para ver las ventas realizadas dentro de ese rango de fechas</p>
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          DESDE: 
+                          <input style="border:right;" class="btn btn-outline-secondary" type="date" id="fecha1" name="fecha1">
+                          <input class="btn btn-outline-secondary" type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha1 ?>">
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          HASTA:
+                          <input style="border:right;" class="btn btn-outline-secondary" type="date" id="fecha2" name="fecha2">
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
+                          <button type="submit" class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
+                        </div>
+                        <p class="alert alert-secondary">Rango selecionado, fecha inicial: <?= $fecha1 ?> fecha final: <?= $fecha2 ?> </p>
+
                       </form>
 
                       
@@ -101,14 +118,47 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           </thead>
                           <tbody>
                             <?php
+                              if ($fecha1 >=  $fecha_actual || $fecha2 >=  $fecha_actual){
+                                echo '<script type="text/javascript">
+                                        swal({ 
+                                          title:"¡Ocurrió un error en la selección de Fechas!", 
+                                          text: "No se puede realizar la operación si las fechas son superiores a la actual, por favor verifique e intente nuevamente", 
+                                          type: "error", 
+                                          confirmButtonText: "Aceptar" 
+                                      });
+                                </script>';
+                              }
+                              if ($fecha1 >= $fecha2){
+                                echo '<script type="text/javascript">
+                                        swal({ 
+                                            title:"¡Ocurrió un error en la selección de Fechas!", 
+                                            text: "No se puede realizar la operación si la fecha inicial es superior o igual a la actual, por favor verifique e intente nuevamente", 
+                                            type: "error", 
+                                            confirmButtonText: "Aceptar" 
+                                        });
+                                </script>';
+                              }
 
-                              $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
-                                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                                INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC");
+
+                              if($fecha1 == "" && $fecha2 == ""){
+                                $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
+                                  V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
+                                  INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC");
                               
+                              }else{
+                                $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
+                                  V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
+                                  INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
+                                  WHERE V.fecha_venta BETWEEN '$fecha1' AND '$fecha2' ORDER BY V.id_venta DESC");
+                                
+                              }
+
+
+
+
                               $i = 1 ;
-                              if(mysqli_num_rows($ventas_del_dia) > 0){
-                                while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
+                              if(mysqli_num_rows($ventas_realizadas) > 0){
+                                while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
                                   <tr>
                                     <td class="text-center col"><?= $i++ ?></td> 
                                     <td class="text-center col">#<?= $row['id_venta'] ?></td> 

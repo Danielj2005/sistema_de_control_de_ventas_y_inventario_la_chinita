@@ -47,7 +47,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   <div class="card-body">
                     <h5 class="card-title">Total generado en el Día</h5>
                     <div class="row">
-                      <div class="col-6">
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
                           <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
@@ -55,7 +55,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                       </div>
 
-                      <div class="col-6">
+                      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
                           <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
@@ -107,14 +107,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="col-12">
                   <div class="card top-selling overflow-auto">
 
-                    <div class="card-body p-3 table-responsive">
+                    <div class="card-body p-3 ">
                       <h5 class="card-title">Últimas Ventas Realizadas</h5>
 
-                      <table class="table table-striped " id="example">
+                      <table class="table table-striped  overflow-x-auto" id="example">
                         <thead>
                           <tr>
                             <th class="col text-center" scope="col">#</th>
-                            <th class="col text-center" scope="col">NÚMERO DE FACTURA</th>
+                            <th class="col text-center" scope="col">Nº DE FACTURA</th>
                             <th class="col text-center" scope="col">CÉDULA DEL CLIENTE</th>
                             <th class="col text-center" scope="col">NOMBRE DEL CLIENTE</th>
                             <th class="col text-center" scope="col">MONTO TOTAL EN $</th>

@@ -1,7 +1,7 @@
 <?php
 require('fpdf/fpdf.php');
-require('../../config/config_server.php');
-require('../../model/main_model.php');
+require('../../config/ConfigServer.php');
+require('../../modelo/modeloPrincipal.php');
 
 date_default_timezone_set('America/Caracas');
 
@@ -138,7 +138,7 @@ if($fecha_inicio > $fecha_actual || $fecha_fin > $fecha_actual ){
 }
 
 // se realiza una consulta para hacer el reporte de solvencias bibliotecaria
-$datos = Main::Consulta("SELECT S.nombre, S.apellido, S.cedula, C.nombre_carrera,
+$datos = modeloPrincipal::consultar("SELECT S.nombre, S.apellido, S.cedula, C.nombre_carrera,
 P.semestre_solicitante, S.telefono, L.titulo, L.cota, T.solicitante AS solicitante,
 P.fecha_prestamo, P.fecha_max_devolucion
 FROM prestamo AS P INNER JOIN libro AS L ON P.id_libro = L.id
@@ -149,7 +149,7 @@ WHERE P.fecha_prestamo BETWEEN '$fecha_inicio' AND '$fecha_fin' ORDER BY P.fecha
 
 // se verifica si se encontraron datos
 if(mysqli_num_rows($datos) < 1){
- 
+
   $pdf->SetFont('Arial','B',24);
   $pdf->SetX(235);
   $pdf->SetY(200);

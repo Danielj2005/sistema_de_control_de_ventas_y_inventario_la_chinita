@@ -34,9 +34,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <div class="row">
             <div class="col-12">
               <div class="card top-selling overflow-auto">
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a type="button" class="btn btn-success" href="./registrar_proveedores.php">Registrar Proveedor</a>
-                  <a type="button" class="btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">Exportar Lista de Proveedores</a>
+                <div class="row btn-group text-center">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a type="button" class="col-12 btn btn-success" href="./registrar_proveedores.php">Registrar Proveedor</a>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a class="col-12 btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">Exportar Lista de Proveedores</a>
+                  </div>
                 </div>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Proveedores</h5>

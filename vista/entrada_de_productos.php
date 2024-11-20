@@ -45,11 +45,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <div class="row">
             
             <div class="col-lg-12">
-              <div class="card top-selling overflow-auto">
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                  <a type="button" class="btn btn-success" href="registrar_entrada.php">Registrar Nueva Entrada</a>
-                  <a class="btn btn-primary" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de Entradas</a>
-                  
+              <div class="card top-selling ">
+                <div class="row btn-group text-center">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a type="button" class="col-12 btn btn-success" href="registrar_entrada.php">Registrar Nueva Entrada</a>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a class="col-12 btn btn-primary" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de Entradas</a>
+                  </div>
                 </div>
                 <div class="card-body pb-3">
                   <h5 class="card-title">Lista de Entradas</h5>
