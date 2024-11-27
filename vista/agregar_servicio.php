@@ -38,7 +38,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card top-selling overflow-auto">
                 <div class="card-body p-3">
                   <form method="post" action="../controlador/menu_controlador.php" class="row SendFormAjax p-3" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['dolar']; ?>">
+                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
@@ -63,32 +63,35 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <select multiple onchange="añadir_tr_a_tabla('productos_servicio')" class="form-control Select" id="id_producto" name="producto[]" required>
                         <option>Selecciona una opción</option>
                         <?php
-                          $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto FROM producto WHERE estatus = 1");
+                          $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto FROM producto WHERE estatus = 1");
 
                           while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
 
-                            <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['nombre_producto']; ?></option>
+                            <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
 
                         <?php } ?>
                       </select>
                     </div>
 
                     <div class="col-md-12">
-                      <h5 class="card-title">Lista de productos</h5>
-                      <table class="table table-striped" id="cart-list" id="example">
-                        <thead>
-                          <tr>
-                            <th class="col text-center" scope="col">#</th>
-                            <th class="col text-center" scope="col">PRODUCTO</th>
-                            <th class="col text-center" scope="col">CANTIDAD</th>
-                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN DOLARES</th>
-                            <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BOLIVARES</th>
-                          </tr>
-                        </thead>
-                        <tbody id="lista_productos">
-                          
-                        </tbody>
-                      </table>
+                      <div class="table-responsive">
+                        <h5 class="card-title">Lista de productos</h5>
+                        <table class="table table-striped" id="example">
+                          <thead>
+                            <tr>
+                              <th class="col text-center" scope="col">#</th>
+                              <th class="col text-center" scope="col">PRODUCTO</th>
+                              <th class="col text-center" scope="col">PRESENTACIÓN</th>
+                              <th class="col text-center" scope="col">CANTIDAD</th>
+                              <th class="col text-center" scope="col">PRECIO POR UNIDAD EN $</th>
+                              <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BS</th>
+                            </tr>
+                          </thead>
+                          <tbody id="lista_productos">
+                            
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3 mt-5"> 
@@ -101,13 +104,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 mb-3 text-center">
                           <label class="form-label">En Bolivares (BSS)</label>
-                          <input class="form-control " id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
+                          <input class="form-control  bg-dark-subtle" readonly id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
                         </div>
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-                      <button type="submit" class="btn btn-success">Registra Servicio</button>
+                      <button type="submit" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registra Servicio</button>
                     </div>
                   </form>
                 </div>

@@ -6,19 +6,30 @@ include_once("../modelo/modeloPrincipal.php");
 
 $modulo = modeloPrincipal::limpiar_cadena($_POST['modulo']);
 
-if($modulo === 'Guardar'){
+if($modulo === 'modificar'){
     
     $id = modeloPrincipal::limpiar_cadena($_POST['id']);
-    $cedula = modeloPrincipal::limpiar_cadena($_POST['cedula']);
+    $cedula = modeloPrincipal::limpiar_mayusculas($_POST['cedula']);
     $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre']);
     $telefono = modeloPrincipal::limpiar_cadena($_POST['telefono']);
     
     // verificar datos
-    if($nombre == "" || $telefono == ""){
+    if($cedula == "" || $nombre == "" || $telefono == ""){
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
                 text: "Exiten Campos obligatorios Que Estan Vacíos",
+                type: "error",
+                confirmBottonText: "Aceptar"
+            });
+        </script>';
+        exit();
+    }
+    if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,10}",$cedula)) {
+        echo'<script type="text/javascript">
+            swal({
+                title: "¡Ocurrio un error!",
+                text: "El campo cédula no cumple con el formato requerido, debe colocar en mayúscula la letra de la nacionalidad seguido de un guión, por ejemplo (V-12345678), por favor verifique e intente de nuevo ",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -48,7 +59,7 @@ if($modulo === 'Guardar'){
         exit();
     }
     //datos verificados modificar
-    if (modeloprincipal::UpdateSQL("cliente","nombre = '$nombre', telefono ='$telefono'", "id_cliente = $id")) {
+    if (modeloprincipal::UpdateSQL("cliente","cedula = '$cedula', nombre = '$nombre', telefono ='$telefono'", "id_cliente = $id")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Modificacion exitosa!",

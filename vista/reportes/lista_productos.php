@@ -41,14 +41,20 @@ class PDF extends FPDF{
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage('P',[220,297],0);
+$pdf->AddPage('P',[420,497],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-$consulta = modeloPrincipal::consultar("SELECT nombre_producto,precio_compra_dolar,stock,nombre AS categoria FROM producto AS P 
-    INNER JOIN categoria AS C ON P.id_categoria = C.id_categoria ORDER BY nombre ASC");
+$consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
+    P.precio_compra_bs, P.stock, P.estatus, C.nombre, PS.nombre as nombre_presentacion, D.dolar 
+    FROM producto AS P 
+    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
+    RIGHT JOIN entrada AS E ON E.id_producto = P.id_producto 
+    RIGHT JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+    ORDER BY P.id_producto DESC");
 
 // en caso de que no se encuentren proveedores registrados
 
@@ -62,9 +68,14 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->SetFont('Arial','B',10);
     $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode('CANTIDAD'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
+    $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
+    $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+    $pdf->Cell(45, 5, utf8_decode('STOCK'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('ESTADO'),'B',0,'C',0);
+
     $pdf->SetFont('Arial','',10);
 
     $pdf->Cell(210, 5, utf8_decode('NO SE ENCONTRARON PRODUCTOS REGISTRADOS.'),'B',1,'C',0);
@@ -80,22 +91,31 @@ $pdf->setX(10);
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
-$pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA'),'B',0,'C',0);
-$pdf->Cell(45, 5, utf8_decode('CANTIDAD'),'B',0,'C',0);
+$pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
+$pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
+$pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
+$pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+$pdf->Cell(45, 5, utf8_decode('STOCK'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
+$pdf->Cell(50, 5, utf8_decode('ESTADO'),'B',0,'C',0);
+
 $pdf->Ln();
 
 
 $pdf->SetFont('Arial','',8);
 $i = 1;
 while ( $mostrar = mysqli_fetch_array($consulta)) { 
-    
+
     $pdf->setX(10);
     $pdf->Cell(10, 5, utf8_decode($i++),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode($mostrar["nombre_producto"]),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre_presentacion"]),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_dolar"].'$'),'B',0,'C',0);
+    $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_bs"].' bs'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["dolar"].' bs'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["stock"]),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode($mostrar["categoria"]),'B',1,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode(($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'),'B',1,'C',0);
     
 } 
-$pdf->Output("I","Listado de Productos (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado de Productos (".date('d-m-Y / h:i:a').").pdf",true);

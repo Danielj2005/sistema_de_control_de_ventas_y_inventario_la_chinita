@@ -106,7 +106,7 @@ if($modulo === "Guardar"){
         </script>';
         exit();
     }
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}",$correo)) {
+    if (modeloprincipal::verificar_datos("[@.A-Za-zÁÉÍÚÓáéíóúñÑ0-9]{11,30}",$correo)) {
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",

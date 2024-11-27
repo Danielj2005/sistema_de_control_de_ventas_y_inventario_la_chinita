@@ -12,7 +12,7 @@ btn.forEach((boton) => {
 
         $.ajax({
             data: parametros,
-            url: "../include/detalles_venta.php",
+            url: "../include/detalles_modulos.php",
             type: "post",
             success:function(valores){ 
                 $('#'+parametros['modal']).html(valores);

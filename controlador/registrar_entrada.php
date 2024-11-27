@@ -8,15 +8,24 @@ include_once("../modelo/modeloPrincipal.php");
 $modulo = modeloPrincipal::limpiar_cadena($_POST["modulo"]);
 
 if($modulo == 'Guardar'){
-    $cedula = $_POST['cedula'];
+    $cedula = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']);
+    
     $id_productos = $_POST['producto'];
     $cantidad_productos = $_POST['cantidad_producto'];
     $precios_dolar_productos = $_POST['precio_dolar'];
     $precios_bolivares_productos = $_POST['precio_bolivar'];
-    $fecha_entrada = date('Y-m-d h:i:s');
+    
+    $fecha_entrada_auto = date('Y-m-d h:i:s');
+
+    $fecha_entrada = $_POST['fecha_entrada'];    
+    $hora_entrada = $_POST['hora_entrada'];    
+    
+    $fecha_entrada = date('Y-m-d H:i:s', strtotime($fecha_entrada.' '.$hora_entrada));
     
     $existe_proveedor = modeloPrincipal::Consultar("SELECT id_proveedor FROM proveedor 
         WHERE cedula_rif = '$cedula'");
+        
+    $dolarPrice = $_POST['dolar'];
 
     if(mysqli_num_rows($existe_proveedor) < 1){
 
@@ -138,7 +147,7 @@ if($modulo == 'Guardar'){
     for($i = 0; $i < COUNT($cantidad_productos); $i++){
 
         // se registran los datos verificados
-        if (modeloPrincipal::InsertSQL( "entrada","id_producto, id_proveedor, precio_compra_dolar, precio_compra_bs, stock_comprado, fecha_entrada, n_compra","".$id_productos[$i].",$id_proveedor,".$precios_dolar_productos[$i].", ".$precios_bolivares_productos[$i].",".$cantidad_productos[$i].",'$fecha_entrada',$i")) {
+        if (modeloPrincipal::InsertSQL( "entrada","id_producto, id_proveedor, precio_compra_dolar, precio_compra_bs, stock_comprado, fecha_entrada, id_dolar","".$id_productos[$i].",$id_proveedor,".$precios_dolar_productos[$i].", ".$precios_bolivares_productos[$i].",".$cantidad_productos[$i].",'$fecha_entrada',$dolarPrice")) {
             modeloPrincipal::UpdateSQL("producto","precio_compra_dolar = ".$precios_dolar_productos[$i].", precio_compra_bs = ".$precios_bolivares_productos[$i].",stock = stock + ".$cantidad_productos[$i].", estatus = 1", "id_producto = ".$id_productos[$i]."");
             echo '<script type="text/javascript">
                 swal({

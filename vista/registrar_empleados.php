@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 	header('Location: ../index.php');
 	exit();
   
-}else if ($_SESSION['rol'] == "1"){  ?> 
+}else if ($_SESSION['id_rol'] < "3"){  ?> 
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -38,7 +38,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Registrar un nuevo Empleado</h5>
-                      <form id="registro_empleado" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax"  data-type-form="save">
+                      <form id="registro_empleado" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
                         <input type="hidden" name="modulo" value="Guardar">
                         <div class="row">
                           <div class="mb-3 col-sm-6">
@@ -87,15 +87,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             </div>
                           </div>
 
-                          <div class="mb-3 col-sm-6 label-floathing form-group">
+                          <div class="mb-3 col-sm-6 label-floathing row m-0">
                             <label class="control-label">Contraseña <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="form-control" id="password" name="password">
+                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="input__field form-control" id="password" name="password">
                           </div>
 
                           <div class="mb-3 col-sm-6 label-floathing form-group">
                             <label class="control-label">Repetir contraseña <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="form-control" id="password2" name="password2">
+                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="input__field form-control" id="password2" name="password2">
                           </div>
+                          
                         </div>
                         <div class="col-12 mb-1">
                           <div class="form-group">

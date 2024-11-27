@@ -32,8 +32,8 @@ if($modulo == 'Guardar'){
     // datos de la venta 
     $precio_dolar = $_POST['dolar'];
     $fecha_venta = date('Y-m-d h:i:s');
-    $total_venta_dolar = $_POST['total_dolar_venta'];
-    $total_venta_bolivares = $_POST['total_bolivares_venta'];
+    $total_venta_dolar = $_POST['total_dolar_venta_iva'];
+    $total_venta_bolivares = $_POST['total_bolivares_venta_iva'];
 
     // se comprueba que se no hayan datos vacíos
     if ($id_metodo_pago == "" || $cantidad_pago == "" || $total_venta_dolar == "" || $total_venta_bolivares == "") {
@@ -238,6 +238,7 @@ if($modulo == 'Guardar'){
                 if(intval($id_metodo_pago[$i]) == 1){ $id_metodo_pago[$i] = 'Divisa'; }
                 if(intval($id_metodo_pago[$i]) == 2){ $id_metodo_pago[$i] = 'Punto de Venta'; }
                 if(intval($id_metodo_pago[$i]) == 3){ $id_metodo_pago[$i] = 'Transferencia / Pago movíl'; }
+                if(intval($id_metodo_pago[$i]) == 4){ $id_metodo_pago[$i] = 'Bolivares en Efectivo'; }
 
                 $cantidad_abonada_bolivares = $precio_dolar * $cantidad_pago[$i];
 
@@ -254,16 +255,16 @@ if($modulo == 'Guardar'){
             }
             echo '<script type="text/javascript">
                 swal({
-                    title:"¡Registro Exitoso!",
-                    text:"Los datos se Registraron Correctamente",
+                    title:"¡Venta Realizada!",
+                    text:"La Venta se Realizo Correctamente",
                     type: "success",
                     confirmButtonText: "Aceptar"
                 },
                 function(isConfirm){  
                     if (isConfirm) {
-                        location.reload();
+                        location.href="./factura.php";
                     } else { 
-                        location.reload();
+                        location.href="./factura.php";
                     } 
                 });
             </script>';
@@ -288,6 +289,7 @@ if($modulo == 'Guardar'){
                 if(intval($id_metodo_pago[$i]) == 1){ $id_metodo_pago[$i] = 'Divisa'; }
                 if(intval($id_metodo_pago[$i]) == 2){ $id_metodo_pago[$i] = 'Punto de Venta'; }
                 if(intval($id_metodo_pago[$i]) == 3){ $id_metodo_pago[$i] = 'Transferencia / Pago movíl'; }
+                if(intval($id_metodo_pago[$i]) == 4){ $id_metodo_pago[$i] = 'Bolivares en Efectivo'; }
 
                 $cantidad_abonada_bolivares = $precio_dolar * $cantidad_pago[$i];
 
@@ -358,6 +360,7 @@ if($modulo == 'Guardar'){
                 if(intval($id_metodo_pago[$i]) == 1){ $id_metodo_pago[$i] = 'Divisa'; }
                 if(intval($id_metodo_pago[$i]) == 2){ $id_metodo_pago[$i] = 'Punto de Venta'; }
                 if(intval($id_metodo_pago[$i]) == 3){ $id_metodo_pago[$i] = 'Transferencia / Pago movíl'; }
+                if(intval($id_metodo_pago[$i]) == 4){ $id_metodo_pago[$i] = 'Bolivares en Efectivo'; }
 
 
                 $cantidad_abonada_bolivares = $precio_dolar * $cantidad_pago[$i];
@@ -370,10 +373,11 @@ if($modulo == 'Guardar'){
                     modeloPrincipal::InsertSQL( "detalles_pago","id_venta, metodo_pago, referencia, cantidad_abonada_dolares, cantidad_abonada_bolivares","$id_venta,'".$id_metodo_pago[$i]."',".$referencia_pago[$i].",".$cantidad_pago[$i].",$cantidad_abonada_bolivares");
                 }
             }
+
             echo '<script type="text/javascript">
                 swal({
-                    title:"¡Registro Exitoso!",
-                    text:"La venta se Registraron Correctamente",
+                    title:"Venta Realizada!",
+                    text:"La venta se realizo correctamente",
                     type: "success",
                     confirmButtonText: "Aceptar"
                 },

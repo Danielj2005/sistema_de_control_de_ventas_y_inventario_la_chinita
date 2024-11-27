@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 	header('Location: ../index.php');
 	exit();
   
-}else if ($_SESSION['rol'] == "1"){  ?>
+}else if ($_SESSION['id_rol'] < "3"){  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -35,30 +35,40 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
       ?>
       <main id="main" class="main">
-        <div class="pagetitle"><h1>Clientes</h1></div>
+        <div class="pagetitle">
+          <h1> 
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./cliente.php">&nbsp; Volver</a>
+            Clientes
+          </h1>
+        </div>
         <section class="section dashboard">
-          <div class="row">
-            <div class="col-12">
+          <div class="row justify-content-center">
+            <div class="col-6">
               <div class="card top-selling overflow-auto">
                 <div class="card-body pb-0 pb-3">
                   <h5 class="card-title">Modificar Cliente</h5>
                   <form method="post" action="../controlador/cliente_controller.php" class="SendFormAjax" data-type-form="update">
 
                     <input type="hidden" name="id" value="<?= $id; ?>">
-                    <input type="hidden" name="modulo" value="Guardar">
+                    <input type="hidden" name="modulo" value="modificar">
 
                     <div class="row mb-3">
                       <div class="col-12 mb-3">
-                        <label class="form-label">Cédula</label>
-                        <input type="text" class=" <?php ($_SESSION['rol'] == "1") ? '' : 'bg-dark-subtle' ?> form-control" id="cedula" value="<?= $mostrar['cedula']; ?>" <?php ($_SESSION['rol'] == "1") ? '' : 'readonly' ?> name="cedula">
+                        <label class="form-label">Cédula <span style="color:#f00;">*</span></label>
+                        <input type="text" class=" <?php ($_SESSION['id_rol'] < "3") ? '' : 'bg-dark-subtle' ?> form-control" id="cedula" value="<?= $mostrar['cedula']; ?>" <?php ($_SESSION['id_rol'] < "3") ? '' : 'readonly' ?> name="cedula">
                       </div>
                       <div class="col-12 mb-3">
-                        <label class="col-sm-2 col-form-label">Nombre y Apellido</label>
-                        <input type="text" class=" <?php ($_SESSION['rol'] == "1") ? '' : 'bg-dark-subtle' ?> form-control" value="<?= $mostrar['nombre']; ?>" <?php ($_SESSION['rol'] == "1") ? '' : 'readonly' ?> name="nombre">
+                        <label class="form-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
+                        <input type="text" class=" <?php ($_SESSION['id_rol'] < "3") ? '' : 'bg-dark-subtle' ?> form-control" value="<?= $mostrar['nombre']; ?>" <?php ($_SESSION['id_rol'] < "3") ? '' : 'readonly' ?> name="nombre">
                       </div>
                       <div class="col-12 mb-3">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="inputPassword" value="<?= $mostrar['telefono']; ?>" name="telefono">
+                        <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>
+                        <input type="text" class="form-control" value="<?= $mostrar['telefono']; ?>" name="telefono">
+                      </div>
+                    </div>
+                    <div class="col-12 mb-1">
+                      <div class="form-group">
+                          <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                       </div>
                     </div>
                     <div class="text-center">
@@ -77,4 +87,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+  <?php }else {
+	// Redirigir al usuario a la página principal
+	header('Location: ./inicio.php');
+	exit();
+	} 
+?>

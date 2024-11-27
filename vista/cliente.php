@@ -27,29 +27,31 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
-              <div class="card top-selling overflow-auto">
+              <div class="card top-selling">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-12 mb-3 row m-0">
                     <a target="_blank" href="./reportes/lista_clientes.php" class="col-12 btn btn-success">Exportar Lista de Clientes</a>
                   </div>
                 </div>
                 <div class="card-body pb-3">
-                  <h5 class="card-title">Lista de Clientes</h5>
-                  <table class="table table-borderless datatable" id="example">
-                    <thead>
-                      <tr>
-                        <th class="col" scope="col">#</th>
-                        <th class="text-center col" scope="col">CÉDULA</th>
-                        <th class="text-center col" scope="col">NOMBRE</th>
-                        <th class="text-center col" scope="col">TELÉFONO</th>
-                        <th class="text-center col" scope="col">MODIFICAR</th>
-                        <th class="text-center col" scope="col">VER HISTORAL</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php include("../include/listas_registros_include.php"); consultar_registros('cliente'); ?>  
-                    </tbody>
-                  </table>
+                  <div class="table table-responsive" id="table">
+                    <h5 class="card-title">Lista de Clientes</h5>
+                    <table class="table table-striped datatable" id="example">
+                      <thead>
+                        <tr>
+                          <th class="col" scope="col">#</th>
+                          <th class="text-center col" scope="col">CÉDULA</th>
+                          <th class="text-center col" scope="col">NOMBRE</th>
+                          <th class="text-center col" scope="col">TELÉFONO</th>
+                          <th class="text-center col" scope="col">MODIFICAR</th>
+                          <th class="text-center col" scope="col">VER HISTORAL</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php include("../include/listas_registros_include.php"); consultar_registros('cliente'); ?>  
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

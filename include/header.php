@@ -29,15 +29,19 @@
         <?php 
           $precio_dolar = modeloPrincipal::consultar("SELECT id_dolar from dolar");
           $precio_dolar = mysqli_num_rows($precio_dolar);
-          $precio_dolar = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = '$precio_dolar'");
+          $precio_dolar = modeloPrincipal::consultar("SELECT id_dolar, dolar from dolar WHERE id_dolar = '$precio_dolar'");
           $mostrarDolar = mysqli_fetch_array($precio_dolar);
 
         ?>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-          <li class="dropdown-header">
-            LA TASA DEL DIA ES: <?= $mostrarDolar['dolar']; ?> bs<br>
-            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">ACTUALIZAR PRECIO DEL DOLAR</span></a>
+          <li class="dropdown-header row">
+            <p class="mb-2">
+              La Tasa del Día es: 
+              <span id="tasa_dolar"><?= $mostrarDolar['dolar'] ?> </span>
+              bs<br>
+            </p>
+            <button class="nav-link" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate"><span class="badge rounded-pill bg-primary p-2 ms-2">Actualizar Tasa</span></button>
           </li>
           <li>
             <hr class="dropdown-divider">

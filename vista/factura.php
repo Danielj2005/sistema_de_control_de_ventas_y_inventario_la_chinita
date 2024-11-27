@@ -6,11 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   header('Location: ../index.php');
   exit();
   
-}else{ 
-  
-  require_once ('../config/ConfigServer.php');
-  require_once ('../modelo/modeloPrincipal.php');
-  ?>
+}else{ ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -27,7 +23,62 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el header / encabezado a la vista
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once("../include/sliderbar.php"); 
+        
+        // datos del cliente
+        // $id_cliente = $_POST['id_cliente'];
+        // $cedula_cliente = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula_cliente']); 
+        // $nombre_cliente = modeloPrincipal::limpiar_mayusculas($_POST['nombre_cliente']);
+        // $telefono_cliente = modeloPrincipal::limpiar_cadena($_POST['telefono_cliente']);
+    
+        // datos de los servicios
+        // $id_servicios = $_POST['servicios'];
+        // $cantidad_servicios = $_POST['cantidad_servicio'];
+        // $precio_servicio_dolar = $_POST['precio_servicio_dolar'];
+        // $precio_servicio_bolivar = $_POST['precio_servicio_bolivar'];
+
+        // datos  de los productos
+        // $id_productos = $_POST['producto'];
+        // $cantidad_productos = $_POST['cantidad_producto'];
+        // $precios_dolar_productos = $_POST['precio_producto_dolar'];
+        // $precios_bolivares_productos = $_POST['precio_producto_bolivar'];
+
+        // datos del metodo de pago
+        // $id_metodo_pago = $_POST['metodo_pago'];
+        // $cantidad_pago = $_POST['monto_pagar'];
+        // $referencia_pago = $_POST['num_referencia'];
+
+        // datos de la venta 
+        // $precio_dolar = $_POST['dolar'];
+
+        // $fecha_venta = date('Y-m-d');
+        // $hora_venta = date('h:i:a');
+
+        // $sub_total_dolar = $_POST['total_dolar_venta'];
+        // $sub_total_bolivares = $_POST['total_bolivares_venta'];
+        
+        // $total_dolar = $_POST['total_dolar_venta_iva'];
+        // $total_bolivares = $_POST['total_bolivares_venta_iva'];
+
+
+
+  
+        require_once ('../config/ConfigServer.php');
+        require_once ('../modelo/modeloPrincipal.php');
+
+        $id_venta = $_POST['id_venta'];
+        $id_client = $_POST['id_cliente'];
+
+        $query = modeloPrincipal::consultar("SELECT V.id_venta, V.fecha_venta, V.monto_total_dolares,
+          V.monto_total_bolivares FROM venta AS V WHERE V.id_venta = $id_venta");
+        
+        $dataClient = modeloPrincipal::consultar("SELECT C.cedula, C.nombre 
+          FROM cliente as C 
+          WHERE C.id_cliente = $id_client");
+
+        $dataClient = mysqli_fetch_array( $dataClient);
+
+?>
 
       <main id="main" class="main">
         <div class="pagetitle">
@@ -42,55 +93,64 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                 <div class="card-body p-3 table-responsive">
                   <h5 class="card-title text-center">Pollera La Chinita</h5>
-                  <div class="list-group-flush">
-                    <ul class="list-decoration-none list-group-item list-unstyled">
-                      <li class="list-item">RIF / C.I.: V-12345678</li>
-                      <li class="list-item">RAZÓN SOCIAL: nombre del cliente</li>
-                      <li class="list-item">DIRECCIÓN: </li>
-                      <li class="list-item">TOTAL DE ARTÍCULOS: 5</li>
-                      <li class="list-item">CONDICIÓN DE PAGO: Pago inmediato</li>
-                    </ul>
-                  </div>        
-                  <hr style="border-top: dotted; border-color: #000 !important;">
-                  <h5 class="card-title text-center">FACTURA</h5>
-                  <div class="row">
-                    <div class="col-12 row">
-                      <p class="col-6 text-start">FACTURA:</p>
-                      <p class="col-6 text-end">12345678</p>
-                      <p class="col-6 text-start">FECHA: 19-11-2024</p>
-                      <p class="col-6 text-end">HORA: 17:20</p>
-                    </div>
+                  
+                    <div class="list-group-flush">
+                      <ul class="list-decoration-none list-group-item list-unstyled">
+                        <li class="list-item">RIF / C.I.:  <?= $dataClient['cedula'] ?></li>
+                        <li class="list-item">RAZÓN SOCIAL:  <?= $dataClient['nombre'] ?></li>
+                        <li class="list-item">DIRECCIÓN: <?php ?></li>
+                        <li class="list-item">TOTAL DE ARTÍCULOS:  <?php ?></li>
+                        <li class="list-item">CONDICIÓN DE PAGO: Pago inmediato</li>
+                      </ul>
+                    </div>        
+                    <hr style="border-top: dotted; border-color: #000 !important;">
+                    <h5 class="card-title text-center">FACTURA</h5>
+                    <?php while($row = mysqli_fetch_array($query)){ 
 
-                  </div>
-                  <hr style="border-top: dotted; border-color: #000 !important;">
-                  <div>
-                    <div class="col-12 mb-2 row">
-                      <p class="col-6 text-start">['código de producto'] (nombre del producto) (presentacion) (exento o no de iva)</p>
-                      <p class="col-6 text-end">Bs (precio)</p>
+                                  ?>
+                    <div class="row">
+                      <div class="col-12 row">
+                        <p class="col-6 text-start">FACTURA:</p>
+                        <p class="col-6 text-end"><?= $row['id_venta'] ?></p>
+                        <p class="col-6 text-start">FECHA: <?= $fecha = date( 'Y-m-d' , strtotime($row['fecha_venta']));  ?></p>
+                        <p class="col-6 text-end">HORA: <?= $hora = date( 'h:i:a' , strtotime($row['fecha_venta'])); ?></p>
+                      </div>
+
                     </div>
-                  </div>
-                  <hr style="border-top: dotted; border-color: #000 !important;">
-                  <div>
-                    <div class="col-12 mb-2 row">
-                      <p class="col-6 text-start">SUBTOTAL</p>
-                      <p class="col-6 text-end">Bs (subtotal)</p>
+                    <hr style="border-top: dotted; border-color: #000 !important;">
+                    <div>
+                      <div class="col-12 mb-2 row">
+                        <p class="col-6 text-start">['código de producto'] (nombre del producto) (presentacion) (exento o no de iva)</p>
+                        <p class="col-6 text-end">Bs (precio)</p>
+                      </div>
                     </div>
-                  </div>
-                  <hr style="border-top: dotted; border-color: #000 !important;">
-                  <div>
-                    <div class="col-12 mb-2 d-flex justify-content-between">
-                      <p>BI G16,00%</p>
-                      <p>Bs (subtotal) IVA G16,00%</p>
-                      <p>Bs (iva del subtotal)</p>
+                    <hr style="border-top: dotted; border-color: #000 !important;">
+                    <div>
+                      <div class="col-12 mb-2 row">
+                        <p class="col-6 text-start">SUBTOTAL</p>
+                        <p class="col-6 text-end">$ <?= $sub_total_dolar ?></p>
+                      </div>
+                      <div class="col-12 mb-2 row">
+                        <p class="col-6 text-start">SUBTOTAL</p>
+                        <p class="col-6 text-end">Bs <?= $sub_total_bolivares ?></p>
+                      </div>
                     </div>
-                  </div>
-                  <hr style="border-top: dotted; border-color: #000 !important;">
-                  <div>
-                    <div class="col-12 mb-2 row">
-                      <p class="col-6 text-start">TOTAL</p>
-                      <p class="col-6 text-end">Bs (total)</p>
+                    <hr style="border-top: dotted; border-color: #000 !important;">
+                    <div>
+                      <div class="col-12 mb-2 d-flex justify-content-between">
+                        <p>BI G16,00%</p>
+                        <p>Bs (subtotal) IVA G16,00%</p>
+                        <p>Bs (iva del subtotal)</p>
+                      </div>
                     </div>
-                  </div>
+                    <hr style="border-top: dotted; border-color: #000 !important;">
+                    <div>
+                      <div class="col-12 mb-2 row">
+                        <p class="col-6 text-start">TOTAL</p>
+                        <p class="col-6 text-end">Bs (total)</p>
+                      </div>
+                    </div>
+                  <?php } ?>
                 </div>
               </div>
             </div>

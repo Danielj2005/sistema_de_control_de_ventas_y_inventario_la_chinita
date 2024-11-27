@@ -174,6 +174,13 @@ class modeloPrincipal {
             return true;
         }
     }
+    // public static function verifyEmail($email){
+    //     if(filter_var( $email , FILTER_VALIDATE_EMAIL)){
+    //         return $correo = mysqli_real_escape_string( $conexion, $_POST["correo"]);
+    //     }else{
+    //         return $errors["correo"] = "Tiene que proporcionar un email valido";
+    //     } 
+    // }
 
     /*---------- Funcion Verificar Fechas ----------*/
     // public static function verificar_fecha($Fecha){

@@ -39,7 +39,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         $monto_total_hoy_en_dolares = $montos_ventas_del_dia['total_de_ventas_en_dolares'];
         $monto_total_hoy_en_bolivares = $montos_ventas_del_dia['total_de_ventas_en_bolivares'];
 
-        $fecha_actual = date('-m-d');
+        $fecha_actual = date('Y-m-d');
 
         $fecha1 = $_POST['fecha1'];
         $fecha2 = $_POST['fecha2'];
@@ -77,27 +77,37 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
               </div>
             </div>
+            
             <div class="col-lg-12">
               <div class="row">
                 <div class="col-12">
                   <div class="card top-selling overflow-auto">
                     <div class="card-body pb-0">
-                      <h5 class="card-title">Ventas Realizadas</h5>
+                      <h5 class="card-title">Listado de Ventas</h5>
+                      <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
                       <form method="post" class="row mb-3" id="rango_fechas">
                         <p class="alert alert-info">Seleciona un rango de fechas para ver las ventas realizadas dentro de ese rango de fechas</p>
+                        
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          DESDE: 
-                          <input style="border:right;" class="btn btn-outline-secondary" type="date" id="fecha1" name="fecha1">
-                          <input class="btn btn-outline-secondary" type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha1 ?>">
+                          <div class="input-group mb-3 justify-content-center">
+                            <span class="input-group-text">Desde</span>
+                            <input class="form-control" onblur="dateValidate()" type="date" id="fecha1" name="fecha1">
+                          </div>
                         </div>
+
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          HASTA:
-                          <input style="border:right;" class="btn btn-outline-secondary" type="date" id="fecha2" name="fecha2">
+                          <div class="input-group mb-3 justify-content-center">
+                            <span class="input-group-text">Hasta</span>
+                            <input class="form-control" onblur="dateValidate()" type="date" id="fecha2" name="fecha2">
+                          </div>
                         </div>
                         <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
-                          <button type="submit" class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
+                          <button type="submit" disabled class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
                         </div>
-                        <p class="alert alert-secondary">Rango selecionado, fecha inicial: <?= $fecha1 ?> fecha final: <?= $fecha2 ?> </p>
+                        <!-- mensajes -->
+                        <p class="alert alert-danger d-none" id="mensaje_fecha_iguales">La fecha de inicio no puede ser mayor a la fecha de fin y la fecha de fin no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
+                        <p class="alert alert-danger d-none" id="mensaje_fechas_mayores">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
+                        <p class="alert alert-secondary">Rango selecionado:<br> fecha inicial: <?= $fecha1 ?> <br>fecha final: <?= $fecha2 ?> </p>
 
                       </form>
 
@@ -110,34 +120,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                               <th class="col text-center" scope="col">Nº DE FACTURA</th>
                               <th class="col text-center" scope="col">CÉDULA DEL CLIENTE</th>
                               <th class="col text-center" scope="col">NOMBRE DEL CLIENTE</th>
-                              <th class="col text-center" scope="col">MONTO TOTAL EN DOLARES</th>
-                              <th class="col text-center" scope="col">MONTO TOTAL EN BOLIVARES</th>
+                              <th class="col text-center" scope="col">MONTO TOTAL EN $</th>
+                              <th class="col text-center" scope="col">MONTO TOTAL EN BS</th>
                               <th class="col text-center" scope="col">FECHA</th>
                               <th class="col text-center" scope="col">DETALLES DE VENTA</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
-                              if ($fecha1 >=  $fecha_actual || $fecha2 >=  $fecha_actual){
-                                echo '<script type="text/javascript">
-                                        swal({ 
-                                          title:"¡Ocurrió un error en la selección de Fechas!", 
-                                          text: "No se puede realizar la operación si las fechas son superiores a la actual, por favor verifique e intente nuevamente", 
-                                          type: "error", 
-                                          confirmButtonText: "Aceptar" 
-                                      });
-                                </script>';
-                              }
-                              if ($fecha1 >= $fecha2){
-                                echo '<script type="text/javascript">
-                                        swal({ 
-                                            title:"¡Ocurrió un error en la selección de Fechas!", 
-                                            text: "No se puede realizar la operación si la fecha inicial es superior o igual a la actual, por favor verifique e intente nuevamente", 
-                                            type: "error", 
-                                            confirmButtonText: "Aceptar" 
-                                        });
-                                </script>';
-                              }
+                              
 
 
                               if($fecha1 == "" && $fecha2 == ""){
@@ -201,10 +192,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </div>
+      <script >
+        
 
+      </script>
       <?php   include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
       <script src="./js/detalles_listas.js"></script>
+      <script src="./js/rango_fechas.js"></script>
+      
     </body>
   </html>
 <?php } ?>

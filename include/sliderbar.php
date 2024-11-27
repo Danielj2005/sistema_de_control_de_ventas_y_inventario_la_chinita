@@ -84,7 +84,7 @@
         </ul>
       </li><!-- End Charts Nav -->
 
-      <?php if ($_SESSION["rol"] == "1") {?>
+      <?php if ($_SESSION["id_rol"] < "3") {?>
         <li class="nav-item">
           <a class="nav-link collapsed" href="../vista/lista_empleados.php">
             <i class="bi bi-person-plus"></i>
@@ -106,21 +106,29 @@
         </a>
         <ul id="ayuda-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="ayuda-chartjs.html" target="_blank">
+            <a href="../vista/manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank">
               <i class="bi bi-circle"></i><span>MANUAL DE USUARIO</span>
             </a>
           </li>
           <li>
-            <a href="ayuda-apexcharts.html" target="_blank">
+            <a href="./manuales/MANUAL_DE_INSTALACION_CHINITA.pdf" target="_blank">
               <i class="bi bi-circle"></i><span>MANUAL DE INSTALACIÓN</span>
             </a>
           </li>
           <li>
-            <a href="ayuda-echarts.html" target="_blank">
+            <a href="./manuales/MANUAL_DE_SISTEMA_CHINITA.pdf" target="_blank">
               <i class="bi bi-circle"></i><span>MANUAL DE SISTEMA</span>
             </a>
           </li>
         </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; MI PERFIL</a>
+      </li>
+
+      <li class="nav-item">
+        <button class="nav-link collapsed bi bi-box-arrow-right btn-exit-system">&nbsp; CERRAR SESIÓN</button>
       </li>
     </ul>
 

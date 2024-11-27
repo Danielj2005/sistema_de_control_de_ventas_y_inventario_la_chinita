@@ -59,7 +59,7 @@ if(mysqli_num_rows($selectUser) == 0){
         
         /*------- datos de el usuario en variables de sesion -------*/
         $_SESSION["id_usuario"] = $datos_usuario["id_usuario"];
-        $_SESSION["rol"] = $datos_usuario["id_rol"];
+        $_SESSION["id_rol"] = $datos_usuario["id_rol"];
 
         /* variable de sesion para comprobar si un usuario inicio sesion */
         $_SESSION['logged_in'] = true;

@@ -1,31 +1,59 @@
-const form_fechas = document.getElementById('rango_fechas');
-const input_fecha1 = document.getElementById('fecha1').value;
-const input_fecha2 = document.getElementById('fecha2').value;
-const fecha_actual = document.getElementById('fecha_actual').value;
-const btn_enviar = document.getElementById('btn_fechas');
 
+function dateValidate(){
 
-form_fechas.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    let datos = new FormData(form_fechas);
+    let inputDateStart = document.getElementById('fecha1').value;
+    let inputDateEnd = document.getElementById('fecha2').value;
+    let msjDate = document.getElementById('mensaje_fecha_iguales');
+    const btn_enviar = document.getElementById('btn_fechas');
 
-    if (input_fecha1 > fecha_actual || input_fecha2 > fecha_actual){
-        swal({ 
-            title:"¡Ocurrió un error en la selección de Fechas!", 
-            text: "No se puede realizar la operación si las fechas son superiores a la actual, por favor verifique e intente nuevamente", 
-            type: "error", 
-            confirmButtonText: "Aceptar" 
-        });
-    }else  if (input_fecha1 >= input_fecha2){
-        swal({ 
-            title:"¡Ocurrió un error en la selección de Fechas!", 
-            text: "No se puede realizar la operación si la fecha inicial es superior o igual a la actual, por favor verifique e intente nuevamente", 
-            type: "error", 
-            confirmButtonText: "Aceptar" 
-        });
-    }else{
-        location.reload();
+    if (inputDateStart != "" && inputDateEnd != "") {
+        if (inputDateStart > inputDateEnd) {
+            msjDate.classList.remove('d-none');
+            msjDate.classList.add('d-block');
+
+            btn_enviar.setAttribute('disabled','disabled');
+
+        }else{
+            msjDate.classList.remove('d-block');
+            msjDate.classList.add('d-none');
+
+            btn_enviar.classList.remove('btn-outline-secondary');
+            btn_enviar.classList.add('btn-outline-primary');
+
+            btn_enviar.removeAttribute('disabled');
+            fechas_mayores();
+        }
     }
+}
 
 
-});
+function fechas_mayores(){
+
+    let inputDateStart = document.getElementById('fecha1').value;
+    let inputDateEnd = document.getElementById('fecha2').value;
+    let msjDateOld = document.getElementById('mensaje_fechas_mayores');
+    let dateToday = document.getElementById('fecha_actual').value;
+    const btn_enviar = document.getElementById('btn_fechas');
+
+    if (inputDateStart != "" && inputDateEnd != "") {
+
+        if ( inputDateStart > dateToday || inputDateEnd > dateToday){
+
+            msjDateOld.classList.remove('d-none');
+            msjDateOld.classList.add('d-block');
+
+            btn_enviar.classList.remove('btn-outline-primary');
+            btn_enviar.classList.add('btn-outline-secondary');
+            btn_enviar.setAttribute('disabled','disabled');
+
+        }else{
+            msjDateOld.classList.remove('d-block');
+            msjDateOld.classList.add('d-none');
+
+            btn_enviar.classList.remove('btn-outline-secondary');
+            btn_enviar.classList.add('btn-outline-primary');
+
+            btn_enviar.removeAttribute('disabled');
+        }
+    }
+}

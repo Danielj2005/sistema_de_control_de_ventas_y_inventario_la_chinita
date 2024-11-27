@@ -37,16 +37,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card">
                 <div class="card-body">
                   <form id="generar_venta" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['dolar']; ?>">
+                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
+                    <input type="hidden" name="modulo" value="Guardar">
                     
                     <fieldset class="p-3">
                       <legend >Datos del Cliente</legend>
-                      <div class="row mb-3">
+                      <div class="row mb-3" id="datos_cliente">
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
                           <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
                           <div class="col-md-4 input-group">
                             <input type="hidden" name="id_cliente" id="id_cliente">
-                            <input type="hidden" name="modulo" value="Guardar">
                             <select class="input-group-text" name="nacionalidad" id="nacionalidad" required>
                               <option value="V-">V</option>
                               <option value="R-">RIF</option>
@@ -85,6 +85,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <?php } ?>
                         </select>
                       </div>
+
                       <div class="col-md-12">
                         <h5 class="text-primary">Lista de Servicios Solicitados</h5>
                         <div class="table-responsive mb-3"> 
@@ -95,8 +96,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                 <th class="col text-center" scope="col">NOMBRE</th>
                                 <th class="col text-center" scope="col">DESCRIPCIÓN</th>
                                 <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
-                                <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
+                                <th class="col text-center" scope="col">PRECIO EN $</th>
+                                <th class="col text-center" scope="col">PRECIO EN BS</th>
                               </tr>
                             </thead>
                             <tbody id="lista_servicios"> </tbody>
@@ -107,37 +108,41 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                     <fieldset class="row mb-4 border p-3 border"> 
                       <div class="col-12 mb-4 row mb-3">
-                        <legend class="col-12">Productos Solicitados &nbsp; </legend>
-                        
-                        <button type="button" class="btn btn-secondary bi bi-plus">&nbsp; Registar un producto</button>
+                        <legend class="col-12 col-sm-12 col-md-8 mb-3">Productos Solicitados &nbsp; </legend>
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <button type="button" class="btn btn-secondary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
+
+                        </div>
                         
                         <label class="form-label col-12">Selecciona un producto</label>
-                        <select multiple onchange="añadir_tr_a_tabla('productos')" class="form-select col-12 control Select mb-3" id="id_producto" name="producto[]">
-                          <option value="">Selecciona un producto</option>
-    
+                        <select multiple="on" onchange="añadir_tr_a_tabla('productos')" class="form-select Select" id="id_producto" name="producto[]" required>
+                        <option>Selecciona una o más opciones</option>
+
                           <?php
-                            $consulta = modeloPrincipal::consultar("SELECT id_producto, nombre_producto 
+                            $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto 
                               FROM producto WHERE stock > 0 AND estatus = 1");
-    
+              
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
     
-                              <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['nombre_producto']; ?></option>
+                              <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
     
                           <?php } ?>
                         </select>
                       </div>
-                      <div class="col-12 col-md-12 mb-3">
+
+                      <div class="d-non" id="container_comparacion"></div>                      <div class="col-12 col-md-12 mb-3">
                         <h5 class="text-primary">Lista de productos</h5>
                         <div class="table-responsive mb-3"> 
-                          <table class="tableMetodo table table-striped" id="cart-list">
+                          <table class="table table-striped">
                             <thead>
                               <tr>
                                 <th class="col text-center" scope="col">#</th>
                                 <th class="col text-center" scope="col">PRODUCTO</th>
+                                <th class="col text-center" scope="col">PRESENTACIÓN</th>
                                 <th class="col text-center" scope="col">STOCK</th>
                                 <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO EN DOLARES</th>
-                                <th class="col text-center" scope="col">PRECIO EN BOLIVARES</th>
+                                <th class="col text-center" scope="col">PRECIO EN $</th>
+                                <th class="col text-center" scope="col">PRECIO EN BS</th>
                               </tr>
                             </thead>
                             <tbody id="lista_productos"> </tbody>
@@ -154,7 +159,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             <thead>
                               <tr>
                                 <th class="col text-center" scope="col">MÉTODO SELECCIONADO</th>
-                                <th class="col text-center" scope="col">CANTIDAD A PAGAR EN DOLARES ($)</th>
+                                <th class="col text-center" scope="col">CANTIDAD A PAGAR EN $</th>
                                 <th class="col text-center" scope="col">NÚMERO DE REFERENCIA</th>
                                 <th class="col text-center" scope="col">QUITAR</th>
                               </tr>
@@ -164,6 +169,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
 
                       </div>
+
                       <div class="col-12 col-md-12 mb-3 text-start">
                         <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> Agregar Método de Pago</button>
                       </div>
@@ -200,7 +206,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     </div>
                     
                     <div class="text-center">
-                      <button type="submit" form="generar_venta" class="btn btn-success">Generar Venta</button>
+                      <button type="submit" form="generar_venta" class="btn btn-success zmdi zmdi-floppy">&nbsp; Generar Venta</button>
                     </div>
                   </form>
                 </div>
@@ -209,6 +215,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+
       <div class="msjFormSend"></div>
       <script type="text/javascript">
         // función para añadir un metodo de pago 
@@ -254,23 +261,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           }
         }
       
-        // funcion para agregar el iva a la venta
-        function add_iva(sub_total_bs,sub_total_dolar){
-          const iva = 0.16;
-          const input_bolivares = document.getElementById('totalBolivar_iva');
-          const input_dolares = document.getElementById('totalDolar_iva');
-
-          let total_bolivares = parseFloat(sub_total_bs);
-          let total_dolares = parseFloat(sub_total_dolar);
-
-          total_bolivares = (total_bolivares * iva) + total_bolivares;
-          total_dolares = (total_dolares * iva) + total_dolares;
-
-          input_bolivares.value = total_bolivares.toFixed(2);
-          input_dolares.value = total_dolares.toFixed(2)
-
-        }
+        
       </script>
+      <script src="./js/eliminar_tr_tabla.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php"); 

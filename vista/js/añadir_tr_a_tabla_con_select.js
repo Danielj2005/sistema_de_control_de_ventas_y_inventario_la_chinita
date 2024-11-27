@@ -2,6 +2,8 @@
     se utiliza un id del body detabla a la que queremos agregar el contenido
 
 */
+let iterale = 1;
+
 function añadir_tr_a_tabla(tabla){
     
     // buscar los datos de un producto
@@ -15,12 +17,12 @@ function añadir_tr_a_tabla(tabla){
     
         if (id_producto.length > 0 ) {
             $.ajax({
-            url : '../include/datos_productos_generar_venta.php',
-            type: 'post',
-            data: parametros,
-            success: function(valores){
-                $('#lista_productos').html(valores);
-            }
+                url : '../include/productos_generar_venta.php',
+                type: 'post',
+                data: parametros,
+                success: function(valores){
+                    $(`#lista_productos`).html(valores);
+                }
             });
         }
     }
@@ -31,12 +33,12 @@ function añadir_tr_a_tabla(tabla){
     
         if (id_producto.length > 0 ) {
             $.ajax({
-            url : '../include/datos_servicios_include.php',
-            type: 'post',
-            data: parametros,
-            success: function(valores){
-                $('#lista_servicios').html(valores);
-            }
+                url : '../include/datos_servicios_include.php',
+                type: 'post',
+                data: parametros,
+                success: function(valores){
+                    $('#lista_servicios').html(valores);
+                }
             });
         }
     }
@@ -52,12 +54,13 @@ function añadir_tr_a_tabla(tabla){
     
         if (id_producto.length > 0 ) {
             $.ajax({
-            url : '../include/datos_productos.php',
-            type: 'post',
-            data: parametros,
-            success: function(valores){
-                $('#lista_productos').html(valores);
-            }
+                url : '../include/datos_productos.php',
+                type: 'post',
+                data: parametros,
+                success: function(valores){   
+                    $('#lista_productos').html(valores);
+
+                }
             });
         }
     }
@@ -72,13 +75,37 @@ function añadir_tr_a_tabla(tabla){
     
         if (id_producto.length > 0 ) {
             $.ajax({
-            url : '../include/datos_productos.php',
-            type: 'post',
-            data: parametros,
-            success: function(valores){
-                $('#lista_productos').html(valores);
-            }
+                url : '../include/datos_productos.php',
+                type: 'post',
+                data: parametros,
+                success: function(valores){
+                    $('#lista_productos').html(valores);
+                }
             });
         }
     }
 } 
+
+function updateTr(id_table_body, values) {
+    $('#container_comparacion').html(values);
+    let containerTr = document.querySelectorAll('#container_comparacion tr');
+    
+    let tr = {};
+
+    containerTr.forEach((ctr)=>{
+        tr = [ctr.getAttribute('id')];
+    });
+
+    
+    let allTr = document.querySelectorAll(`#${id_table_body} tr`);
+
+    allTr.forEach((tr)=>{
+        for (let i = 0; i < tr.length; i++) {
+            if(tr.getAttribute('id') != tr[i]) {
+                $(`#${id_table_body}`).append(values);
+    
+            }
+        }
+    });
+
+}

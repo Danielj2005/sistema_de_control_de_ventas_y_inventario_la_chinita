@@ -24,7 +24,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <?php   include_once("../include/header.php"); ?>
       <?php   include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
-        <div class="pagetitle"> <h1>Registrar Proveeedor</h1></div>
+        <div class="pagetitle">
+          <h1>
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./proveedor.php">&nbsp; Volver</a>
+            Registrar Proveeedor
+          </h1>
+        </div>
         <section class="section dashboard">
           <div class="row"> 
             <div class="col-12">
@@ -62,7 +67,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
                       <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
-                      <button name="registrar" class="btn btn-success">Registrar</button>
+                      <button name="registrar" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registrar</button>
                     </div>
                   </form>
                 </div>

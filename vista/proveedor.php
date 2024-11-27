@@ -26,14 +26,15 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
         <div class="pagetitle row">
-          <div class="col-6 mb-4">
+          <div class="col-12 col-sm-12 col-md-12 mb-4">
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
             <h1 class="mt-3"> Proveedores </h1>
           </div>
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
-              <div class="card top-selling overflow-auto">
+              <div class="card top-selling">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
                     <a type="button" class="col-12 btn btn-success" href="./registrar_proveedores.php">Registrar Proveedor</a>
@@ -44,6 +45,29 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Proveedores</h5>
+                  <form method="post" class="row mb-3" id="rango_fechas">
+                    <p class="alert alert-info">Seleciona un rango de fechas para ver el historial de compras realizadas a proveedores dentro de ese rango de fechas</p>
+                    <input class="btn btn-outline-secondary" type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha1 ?>">
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3">
+                      <div class="input-group mb-3 justify-content-center">
+                        <span class="input-group-text" id="basic-addon1">Desde</span>
+                        <input class="form-control" type="date" id="fecha1" name="fecha1">
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3">
+                      <div class="input-group mb-3 justify-content-center">
+                        <span class="input-group-text" id="basic-addon1">Hasta</span>
+                        <input class="form-control" type="date" id="fecha2" name="fecha2">
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
+                      <button type="submit" class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
+                    </div>
+                  </form>
+
                   <div class="table table-responsive">
                     <table class="table table-borderless table-striped datatable" id="example">
                       <thead>
@@ -123,17 +147,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <!-- Modal detalles del historial -->
       <div class="modal fade" id="historial_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Historial</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modal_historial_proveedor">
-              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+          <div class="modal-content" id="modal_historial_proveedor">
           </div>
         </div>
       </div>

@@ -66,7 +66,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           </div>
                         </div>
                         <div class="text-center">
-                          <button type="submit" form="añadir_categoria" class="btn btn-success">Añadir</button>
+                          <button type="submit" form="añadir_categoria" class="btn btn-success zmdi zmdi-floppy">&nbsp; Añadir</button>
                         </div>
                     </form>
                   </div>

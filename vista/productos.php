@@ -32,7 +32,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
-              <div class="card top-selling overflow-auto pb-3">
+              <div class="card top-selling pb-3">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
                     <a class="col-12 btn btn-primary" href="./agregar_producto.php">Añadir Nuevo Producto</a>
@@ -47,15 +47,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Productos</h5>
                   <div class="table table-responsive">
-                    <table class="table table-borderless table-striped datatable" id="example">
+                    <table class="table table-borderless datatable" id="example">
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
                           <th class="text-center col" scope="col">NOMBRE DEL PRODUCTO</th>
+                          <th class="text-center col" scope="col">PRESENTACIÓN</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
-                          <th class="text-center col" scope="col">CANTIDAD ALMACENADA</th>
-                          <th class="text-center col" scope="col">CATEGORIA</th>
+                          <th class="text-center col" scope="col">STOCK</th>
+                          <th class="text-center col" scope="col">CATEGORÍA</th>
                           <th class="text-center col" scope="col">ESTADO</th>
                         </tr>
                       </thead>

@@ -12,6 +12,7 @@ if($modulo === 'Guardar'){
     $id_categoria = $_POST['id_categoria'];
     $id_presentacion = $_POST['id_presentacion'];
     $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
+    $vista = $_POST['vista'];
 
     // se comprueba que no exista un registro con los mismos datos
     if(mysqli_num_rows(modeloprincipal::consultar("SELECT codigo FROM producto WHERE codigo = '$codigo'")) > 0){
@@ -71,9 +72,9 @@ if($modulo === 'Guardar'){
             },
             function(isConfirm){  
                 if (isConfirm) {
-                    window.location="../vista/productos.php";
+                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
                 } else { 
-                    window.location="../vista/productos.php";
+                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
                 } 
             });
         </script>';

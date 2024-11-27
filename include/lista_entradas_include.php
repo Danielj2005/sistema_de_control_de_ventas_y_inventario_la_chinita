@@ -20,6 +20,6 @@ while ( $mostrar = mysqli_fetch_array($consulta)) { $i++;?>
         <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
         <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>
         <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
-        <td class="col text-center"><?= $mostrar["fecha_entrada"]; ?></td>
+        <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
     </tr>
 <?php } ?>

@@ -52,6 +52,7 @@
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="./js/datatables.min.js"></script>
 <script src="js/dataTables.bootstrap5.min.js"></script>
+<script src="js/send_data.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

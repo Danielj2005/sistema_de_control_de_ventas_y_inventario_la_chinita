@@ -25,14 +25,14 @@ function consultar_registros($tabla){
                             <input type="hidden" name="modulo" value="activo">                            
                             <input type="hidden" name="tabla" value="categoria">
                             <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-success" title="estado de la categoría">Activa </button>
+                            <button <?= ($_SESSION['id_rol'] < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado de la categoría">Activa </button>
                         
                         <?php }else if ($mostrar["estado"] === "0") { ?>
 
                             <input type="hidden" name="modulo" value="inactivo">                            
                             <input type="hidden" name="tabla" value="categoria">
                             <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-danger" title="estado de la categoría">Inactiva </button>
+                            <button <?= ($_SESSION['id_rol'] < "3") ? '' : 'disabled' ?> class="btn btn-danger" title="estado de la categoría">Inactiva </button>
                         
                         <?php } ?>
                     </form>
@@ -40,6 +40,7 @@ function consultar_registros($tabla){
             </tr>
         <?php  } 
     }
+
     if ($tabla === "categoria_opcion") {
         // script para crear una lista de categorias
         // se consultan las categorias de la base de datos
@@ -50,15 +51,17 @@ function consultar_registros($tabla){
 
         <?php  } 
     }
+
     if ($tabla === "rol") {
         // script para crear una lista de tipos usuarios
         // se consultan las tipos usuarios de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT * FROM $tabla");
+        $consulta = modeloPrincipal::consultar("SELECT * FROM rol WHERE id_rol != 1");
        // se imprimen los datos de la consulta 
-        while($row = mysqli_fetch_assoc($consulta)) {
-            echo '<option class="" name="id_tipo" value="'.$row['id_rol'].'" >'.$row['nombre'].'</option>';
-        }
+        while($row = mysqli_fetch_assoc($consulta)) { ?>
+            <option class="" name="id_tipo" value="<?= $row['id_rol'] ?>" ><?= $row['nombre'] ?></option>
+        <?php }
     }
+
     if($tabla === 'usuario'){
         // script para crear una lista de usuario
         // se consultan las usuario de la base de datos
@@ -79,14 +82,14 @@ function consultar_registros($tabla){
                         <?php if ($mostrar["estado"] === "1") { ?>
 
                             <input type="hidden" name="modulo" value="activo">
-                            <button class="btn btn-success" title="estado del usuario">
+                            <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
                                 <i class="zmdi zmdi-check"></i> Activo 
                             </button>
                         
                         <?php }else if ($mostrar["estado"] === "0") { ?>
 
                             <input type="hidden" name="modulo" value="inactivo">
-                            <button class="btn btn-danger">
+                            <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-danger">
                                 <i class="zmdi zmdi-close"></i> Inactivo 
                             </button>
                         
@@ -96,27 +99,32 @@ function consultar_registros($tabla){
             </tr>
         <?php }
     }
+
     if($tabla === 'producto'){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
         $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
-            P.estatus, C.nombre FROM producto AS P 
-            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria ORDER BY P.id_producto DESC");
+            P.estatus, C.nombre, PS.nombre as nombre_presentacion FROM producto AS P 
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
+            ORDER BY P.id_producto DESC");
 
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
-            <tr>
+            <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "10") { echo 'text-warning';} ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?php echo $mostrar["nombre_producto"]; ?></td>
-                <td class="text-center"><?php echo $mostrar["precio_compra_dolar"].' $'; ?></td>
-                <td class="text-center"><?php echo $mostrar["precio_compra_bs"].' bs'; ?></td>
-                <td class="text-center"><?php echo $mostrar["stock"]; ?></td>
-                <td class="text-center"><?php echo $mostrar["nombre"]; ?></td>
-                <td class="text-center"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
+                <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
+                <td class="text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
+                <td class="text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>
+                <td class="text-center"><?= $mostrar["stock"]; ?></td>
+                <td class="text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="text-center <?= ($mostrar["estatus"] == '1') ? 'text-success':'text-danger'; ?>"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
             </tr>
             
         <?php }
     }
+    
     if($tabla === 'menu'){
         //  se consulta base de datos en busca de los servivios rgistrados
         $consulta = modeloPrincipal::consultar("SELECT * FROM menu");
@@ -151,6 +159,7 @@ function consultar_registros($tabla){
             </tr>
         <?php }
     }
+    
     if($tabla === "seleccionar_producto"){
         // script para crear una lista con las preguntas de seguridad
         // se consultan todas las preguntas de seguridad registradas
@@ -162,6 +171,7 @@ function consultar_registros($tabla){
         }
         mysqli_free_result($datos); 
     }
+    
     if ($tabla === 'proveedor') {
         
         // script para crear una lista de proveedor
@@ -180,7 +190,7 @@ function consultar_registros($tabla){
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
-                    <button type="submit" class="btn btn-success bi bi-repeat" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                    <button type="submit" <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success bi bi-repeat" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
                 </td>
 
                 <td scope='col' class="col text-center">
@@ -189,6 +199,7 @@ function consultar_registros($tabla){
             </tr>
         <?php } 
     }
+    
     if ($tabla === "cliente") {
     
         // script para crear una lista de cliente
@@ -197,24 +208,24 @@ function consultar_registros($tabla){
 
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <tr>
-                <td class="text-center col"> </td>
-                <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
-                <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
-                <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
+        <tr>
+            <td class="text-center col"> </td>
+            <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
+            <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
+            <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
 
-                <td scope='col' class="text-center col">
-                    <form action="clienteModificar.php" method="post" class="text-center">
-                        <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                        <button type="submit" <?php ($_SESSION['rol'] == "1") ? '' : 'disabled' ?> class="btn btn-success open-modal bi bi-repeat"></button>
-                    </form>
-                </td>
+            <td scope='col' class="text-center col">
+                <form action="clienteModificar.php" method="post" class="text-center">
+                    <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
+                    <button type="submit" <?= $permiso = ($_SESSION['id_rol'] == "1") ? '' : 'disabled'; ?> class="btn btn-success open-modal bi bi-repeat"></button>
+                </form>
+            </td>
 
-                <td scope='col' class="text-center col">
-                    <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"></button>
-                </td> 
-            </tr>
-        <?php } 
+            <td scope='col' class="text-center col">
+                <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"></button>
+            </td> 
+        </tr>
+    <?php }
     }
 }; 
 /*------- fin de la función -------*/

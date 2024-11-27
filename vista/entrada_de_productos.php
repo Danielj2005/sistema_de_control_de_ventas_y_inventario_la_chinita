@@ -23,22 +23,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el header / encabezado a la vista
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once("../include/sliderbar.php"); 
+        $fecha_actual = date('Y-m-d');
+
+        $fecha1 = $_POST['fecha1'];
+        $fecha2 = $_POST['fecha2']; ?>
+        
       <main id="main" class="main">
         <div class="pagetitle row">
-          <div class="col-6 mb-4">
+          <div class="col-12 mb-4">
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-            <h1 class="my-3"> Inventario </h1>
-          </div>
-          <div class="col-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Exportar Entradas en un Rango de Fechas</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
+            <h1 class="my-3"> Entradas</h1>
           </div>
         </div>
         <section class="section dashboard">
@@ -56,33 +51,101 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
                 <div class="card-body pb-3">
                   <h5 class="card-title">Lista de Entradas</h5>
-                  <table class="table table-borderless table-striped" id="example">
-                    <thead>
-                      <tr>
-                        <th class="col text-center" scope="col">#</th>
-                        <th class="col text-center" scope="col">PRODUCTO</th>
-                        <th class="col text-center" scope="col">PROVEEDOR</th>
-                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
-                        <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
-                        <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
-                        <th class="col text-center" scope="col">FECHA / HORA</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <?php include ('../include/lista_entradas_include.php'); ?>
-                    </tbody>
-                  </table>
+                  <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
+                  <form method="post" class="row mb-3" id="rango_fechas">
+                    <p class="alert alert-info">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
+                    
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3">
+                      <div class="input-group mb-3 justify-content-center">
+                        <span class="input-group-text">Desde</span>
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha1" name="fecha1">
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3">
+                      <div class="input-group mb-3 justify-content-center">
+                        <span class="input-group-text">Hasta</span>
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha2" name="fecha2">
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
+                      <button type="submit" disabled class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
+                    </div>
+                    
+                    <!-- mensajes -->
+                    <p class="alert alert-danger d-none" id="mensaje_fecha_iguales">La fecha de inicio no puede ser mayor a la fecha de fin y la fecha de fin no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
+                    <p class="alert alert-danger d-none" id="mensaje_fechas_mayores">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
+                    <p class="alert alert-secondary">Rango selecionado:<br> fecha inicial: <?= $fecha1 ?> <br>fecha final: <?= $fecha2 ?> </p>
+
+                  </form>
+                  <div class="table-responsive">
+                    <table class="table table-borderless table-striped" id="example">
+                      <thead>
+                        <tr>
+                          <th class="col text-center" scope="col">#</th>
+                          <th class="col text-center" scope="col">PRODUCTO</th>
+                          <th class="col text-center" scope="col">PROVEEDOR</th>
+                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
+                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
+                          <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
+                          <th class="col text-center" scope="col">FECHA / HORA</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <?php 
+                          
+
+                            if($fecha1 == "" && $fecha2 == ""){
+                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
+                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada 
+                                FROM entrada AS E 
+                                INNER JOIN producto AS P ON P.id_producto = E.id_producto 
+                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor ORDER BY E.fecha_entrada DESC");
+                            
+                            }else{
+                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
+                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada 
+                                FROM entrada AS E 
+                                INNER JOIN producto AS P ON P.id_producto = E.id_producto 
+                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor
+                                WHERE E.fecha_entrada  BETWEEN '$fecha1' AND '$fecha2' ORDER BY E.fecha_entrada DESC");
+                                
+                              
+                            }
+                            
+                            
+                            $i = 1;
+                            // se guardan los datos en un array y se imprime
+                            while ( $mostrar = mysqli_fetch_array($consulta)) { ;?>    
+                              <tr>
+                                  <td class="col text-center"><?= $i++; ?></td>
+                                  <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                                  <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                                  <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
+                                  <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+                              </tr>
+                            <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </main>
+      
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php"); ?>
+        
+      <script src="./js/rango_fechas.js"></script>
     </body>
   </html>
 <?php } ?>

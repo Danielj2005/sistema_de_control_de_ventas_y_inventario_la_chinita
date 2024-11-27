@@ -180,6 +180,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
         
       <script src="./js/detalles_listas.js"></script>
+      <script src="./js/priceDollar.js"></script>
     </body>
   </html>
 <?php } ?>
