@@ -11,7 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>INVENTARIO</title>
+      <title>ESTADISTICAS</title>
       <?php
         include_once("../include/meta_include.php"); 
         include_once("../include/css_include.php"); ?>
@@ -23,121 +23,52 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/sliderbar.php"); ?>
 
       <main id="main" class="main">
-        <div class="pagetitle"><h1> ESTADISTICAS DE VENTA </h1></div>
+      <div class="pagetitle"><h1> ESTADISTICAS DE PRODUCTOS VENDIDOS </h1></div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">VENTAS DE LA SEMANA ACTUAL</h5>
+                <h5 class="card-title">Graficas de productos vendidos unitariamente</h5>
                   <!-- Default Tabs -->
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">BARRA</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">LINEAS</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">DONA</button>
-                    </li>
-                  </ul>
+
+                  <?php include("../include/listas_estadisticas_include.php"); consultar_registros('estadistica_producto'); ?>  
+
 
                   <div class="tab-content pt-2" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                       <div id="barChart" style="min-height: 400px;" class="echart"></div>
                       <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                          echarts.init(document.querySelector("#barChart")).setOption({
-                            xAxis: {
-                              type: 'category',
-                              data: ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO']
-                            },
-                            yAxis: {
-                              type: 'value'
-                            },
-                            series: [{
-                              data: [10, 12, 14, 15, 3, 6, 200],
-                              type: 'bar'
-                            }]
-                          });
-                        });
+
+                        a = 1;
+                        var cantidad = [];
+                        var array =[];
+                            while (c = document.getElementById('producto'+a).value) {
+                              k = document.getElementById('cantidad'+a).value;
+                              array.push(c);
+                              cantidad.push(k);
+                              a += 1;
+                           
+
+                            document.addEventListener("DOMContentLoaded", () => {
+                      echarts.init(document.querySelector("#barChart")).setOption({
+                        xAxis: {
+                          type: 'category',
+                          data: array
+                        },
+                        yAxis: {
+                          type: 'value'
+                        },
+                        series: [{
+                          data: cantidad,
+                          type: 'bar'
+                        }]
+                      });
+                    }); 
+                  }
                       </script>
                     </div>
-
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                      <div id="lineChart"></div>
-
-                      <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                          new ApexCharts(document.querySelector("#lineChart"), {
-                            series: [{
-                              name: "Desktops",
-                              data: [10, 12, 14, 15, 3, 6, 11]
-                            }],
-                            chart: {
-                              height: 350,
-                              type: 'line',
-                              zoom: {
-                                enabled: false
-                              }
-                            },
-                            dataLabels: {
-                              enabled: false
-                            },
-                            stroke: {
-                              curve: 'straight'
-                            },
-                            grid: {
-                              row: {
-                                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                                opacity: 0.5
-                              },
-                            },
-                            xaxis: {
-                              categories: ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'],
-                            }
-                          }).render();
-                        });
-                      </script>
-
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                      <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
-                      <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                          new Chart(document.querySelector('#doughnutChart'), {
-                            type: 'doughnut',
-                            data: {
-                              labels: [
-                                'LUNES',
-                                'MARTES',
-                                'MIERCOLES',
-                                'JUEVES',
-                                'VIERNES',
-                                'SABADO',
-                                'DOMINGO'
-                              ],
-                              datasets: [{
-                                label: 'My First Dataset',
-                                data: [10, 12, 14, 15, 3, 6, 11],
-                                backgroundColor: [
-                                  'rgb(255, 0, 0)',
-                                  'rgb(255, 255, 0)',
-                                  'rgb(0, 128, 0)',
-                                  'rgb(0, 0, 128)',
-                                  'rgb(128, 0, 128)',
-                                  'rgb(0, 128, 128)',
-                                  'rgb(0, 0, 255)'
-                                ],
-                                hoverOffset: 4
-                              }]
-                            }
-                          });
-                        });
-                      </script>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
