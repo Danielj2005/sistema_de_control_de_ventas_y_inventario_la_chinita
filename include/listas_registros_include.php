@@ -113,7 +113,8 @@ function consultar_registros($tabla){
 
             <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["codigo"]." - ".$mostrar["nombre_producto"]; ?></td>
+                <td class="text-center"><?= $mostrar["codigo"]; ?></td>
+                <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                 <td class="text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
                 <td class="text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>

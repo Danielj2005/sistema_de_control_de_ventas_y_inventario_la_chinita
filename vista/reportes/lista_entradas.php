@@ -57,13 +57,13 @@ class PDF extends FPDF{
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage('P',[400,497],0);
+$pdf->AddPage('P',[440,527],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-$consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
+$consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_compra_dolar, 
     P.precio_compra_bs, PROV.nombre, E.stock_comprado, E.fecha_entrada, C.nombre AS nombre_categoria,
     ROUND(P.precio_compra_bs / P.precio_compra_dolar,2 ) AS tasa,
     PS.nombre as nombre_presentacion
@@ -86,16 +86,17 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->SetFont('Arial','B',10);
     $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('PROVEEDOR'),'B',0,'C',0);
-    $pdf->Cell(20, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
-    $pdf->Cell(65, 5, utf8_decode('CANTIDAD COMPRADA'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+    $pdf->Cell(30, 5, utf8_decode('CÓDIGO'),'B',0,'C',0);
+    $pdf->Cell(30, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
+    $pdf->Cell(40, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
+    $pdf->Cell(40, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('CANTIDAD COMPRADA'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
+    $pdf->Cell(40, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
     $pdf->Cell( 25, 5, utf8_decode('FECHA / HORA'),'B',1,'C',0);
-    $pdf->SetFont('Arial','',10);
 
+    $pdf->SetFont('Arial','',10);
     $pdf->Cell(210, 5, utf8_decode('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
     $pdf->Cell(210, 5, utf8_decode('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LAS ENTRADAS.'),'B',1,'C',0);
     
@@ -109,6 +110,7 @@ $pdf->setX(5);
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PROVEEDOR'),'B',0,'C',0);
+$pdf->Cell(30, 5, utf8_decode('CÓDIGO'),'B',0,'C',0);
 $pdf->Cell(30, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
 $pdf->Cell(40, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
 $pdf->Cell(40, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
@@ -125,6 +127,7 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->setX(5);
     $pdf->Cell( 10,10, utf8_decode($i++),'B',0,'C',0);
     $pdf->Cell( 50,10, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
+    $pdf->Cell(30, 10, utf8_decode($mostrar["codigo"]),'B',0,'C',0);
     $pdf->Cell(30, 10, utf8_decode($mostrar["nombre_producto"]),'B',0,'C',0);
     $pdf->Cell(40, 10, utf8_decode($mostrar["nombre_presentacion"]),'B',0,'C',0);
     $pdf->Cell(40, 10, utf8_decode($mostrar["nombre_categoria"]),'B',0,'C',0);

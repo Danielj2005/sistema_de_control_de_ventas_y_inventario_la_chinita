@@ -55,13 +55,13 @@ class PDF extends FPDF{
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage('P',[420,497],0);
+$pdf->AddPage('P',[410,497],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-$consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
+$consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_compra_dolar, 
     P.precio_compra_bs, P.stock, P.estatus, C.nombre, PS.nombre as nombre_presentacion,
     ROUND(P.precio_compra_bs / P.precio_compra_dolar,2 ) AS tasa
     FROM producto AS P 
@@ -80,13 +80,14 @@ if (mysqli_num_rows($consulta) < 1 ){
     // En esta parte estan los encabezados 
     $pdf->SetFont('Arial','B',10);
     $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
+    $pdf->Cell(35, 5, utf8_decode('CÓDIGO'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode('STOCK'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
+    $pdf->Cell(30, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+    $pdf->Cell(20, 5, utf8_decode('STOCK'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode('ESTADO'),'B',0,'C',0);
 
     $pdf->SetFont('Arial','',10);
@@ -103,13 +104,14 @@ $pdf->setX(10);
 // En esta parte estan los encabezados 
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
+$pdf->Cell(35, 5, utf8_decode('CÓDIGO'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
 $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
 $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
-$pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
-$pdf->Cell(45, 5, utf8_decode('STOCK'),'B',0,'C',0);
+$pdf->Cell(30, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+$pdf->Cell(20, 5, utf8_decode('STOCK'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('ESTADO'),'B',0,'C',0);
 
 $pdf->Ln();
@@ -121,13 +123,14 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
     $pdf->setX(10);
     $pdf->Cell(10, 5, utf8_decode($i++),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode(" ".$mostrar["nombre_producto"]),'B',0,'C',0);
+    $pdf->Cell(35, 5, utf8_decode(" ".$mostrar["codigo"]),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre_producto"]),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode($mostrar["nombre_presentacion"]),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_dolar"].'$'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_bs"].' bs'),'B',0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode(($mostrar["tasa"] == "" ) ? '0 bs' : $mostrar["tasa"].' bs'),'B',0,'C',0);
-    $pdf->Cell(45, 5, utf8_decode($mostrar["stock"]),'B', 0,'C',0);
+    $pdf->Cell(30, 5, utf8_decode(($mostrar["tasa"] == "" ) ? '0 bs' : $mostrar["tasa"].' bs'),'B',0,'C',0);
+    $pdf->Cell(20, 5, utf8_decode($mostrar["stock"]),'B', 0,'C',0);
     $pdf->Cell(50, 5, utf8_decode(($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'),'B',1,'C',0);
     
 } 

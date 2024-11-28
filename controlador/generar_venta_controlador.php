@@ -166,7 +166,7 @@ if($modulo == 'Guardar'){
                 $stock_producto_actual = mysqli_fetch_array($stock_producto_actual);
 
                 if ($stock_producto_actual['stock'] < 0) {
-                    modeloPrincipal::UpdateSQL("producto", "stock = 0", "id_producto = ".intval($id_producto));
+                    modeloPrincipal::UpdateSQL("producto", "stock = 0, status = 0", "id_producto = ".intval($id_producto));
                 }
 
                 // Verificar si el stock es suficiente

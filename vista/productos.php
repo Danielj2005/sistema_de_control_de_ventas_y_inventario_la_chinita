@@ -54,6 +54,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
+                          <th class="text-center col" scope="col">CÓDIGO DEL PRODUCTO</th>
                           <th class="text-center col" scope="col">NOMBRE DEL PRODUCTO</th>
                           <th class="text-center col" scope="col">PRESENTACIÓN</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
