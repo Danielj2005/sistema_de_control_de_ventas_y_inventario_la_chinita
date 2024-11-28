@@ -179,12 +179,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <legend class="col-12 mb-3 text-primary">Cuenta</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
                         <span>Sub Total (USD)</span>
-                        <input class="form-control bg-dark-subtle" id="totalDolar" name="total_dolar_venta" readonly value="0">
+                        <input class="form-control bg-dark-subtle" id="totalDolar" name="sub_total_dolar" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
                         <span>Sub Total (BS)</span>
-                        <input class="form-control bg-dark-subtle" id="totalBolivar" name="total_bolivares_venta" readonly value="0">
+                        <input class="form-control bg-dark-subtle" id="totalBolivar" name="sub_total_bs" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">

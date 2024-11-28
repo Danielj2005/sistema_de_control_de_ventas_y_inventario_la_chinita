@@ -32,8 +32,13 @@ if($modulo == 'Guardar'){
     // datos de la venta 
     $precio_dolar = $_POST['dolar'];
     $fecha_venta = date('Y-m-d h:i:s');
+
+    $sub_total_dolar = $_POST['sub_total_dolar'];
+    $sub_total_bs = $_POST['sub_total_bs'];
+
     $total_venta_dolar = $_POST['total_dolar_venta_iva'];
     $total_venta_bolivares = $_POST['total_bolivares_venta_iva'];
+
 
     // se comprueba que se no hayan datos vacíos
     if ($id_metodo_pago == "" || $cantidad_pago == "" || $total_venta_dolar == "" || $total_venta_bolivares == "") {
@@ -207,7 +212,7 @@ if($modulo == 'Guardar'){
     }
 
     // se registran los datos verificados
-    if (modeloPrincipal::InsertSQL( "venta","fecha_venta, monto_total_dolares, monto_total_bolivares, id_usuario, id_cliente","'$fecha_venta',$total_venta_dolar,$total_venta_bolivares,$id_usuario,$id_cliente")){
+    if (modeloPrincipal::InsertSQL( "venta","fecha_venta, sub_total_dolares, sub_total_bs, monto_total_dolares, monto_total_bolivares, id_usuario, id_cliente","'$fecha_venta',$sub_total_dolar,$sub_total_bs,$total_venta_dolar,$total_venta_bolivares,$id_usuario,$id_cliente")){
         
         // se consulta la id de la venta recien registrada
         $id_venta = modeloPrincipal::consultar("SELECT id_venta from venta");

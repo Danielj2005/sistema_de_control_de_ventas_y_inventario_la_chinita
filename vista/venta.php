@@ -152,7 +152,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                 while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
                                   <tr>
                                     <td class="text-center col"><?= $i++ ?></td> 
-                                    <td class="text-center col">#<?= $row['id_venta'] ?></td> 
+                                    <td class="text-center col">#<?= modeloPrincipal::generar_numero($row['id_venta']) ?></td> 
                                     <td class="text-center col"><?= $row['cedula'] ?></td> 
                                     <td class="text-center col"><?= $row['nombre'] ?></td> 
                                     <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 

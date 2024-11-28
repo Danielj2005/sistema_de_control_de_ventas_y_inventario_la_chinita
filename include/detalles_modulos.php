@@ -226,8 +226,6 @@ if($modulo == "detalles_venta_del_dia"){
     </fielset> 
 <?php } 
 
-
-
 if ($modulo == "historial_proveedor"){ 
     $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar,
         P.precio_compra_bs, PROV.id_proveedor, PROV.nombre, E.stock_comprado, E.fecha_entrada, 
@@ -292,13 +290,14 @@ if ($modulo == "historial_proveedor"){
     </div>
 <?php } 
 
-
-
 if ($modulo == "historial_cliente"){ 
     
     
     $historial_cliente = modeloPrincipal::consultar("SELECT V.id_venta, V.fecha_venta, V.monto_total_dolares,
-        V.monto_total_bolivares FROM venta AS V WHERE V.id_cliente = $id ORDER BY V.id_venta DESC");
+        V.monto_total_bolivares, V.id_usuario
+        FROM venta AS V 
+        WHERE V.id_cliente = $id 
+        ORDER BY V.id_venta DESC");
 
     $nombre_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT C.nombre FROM cliente as C WHERE C.id_cliente = $id"));
 
@@ -327,7 +326,7 @@ if ($modulo == "historial_cliente"){
                         while ( $mostrar = mysqli_fetch_array($historial_cliente)) { ?>    
                             <tr>
                                 <td class="text-center col"> </td>
-                                <td class="text-center col">#<?= $mostrar["id_venta"]; ?></td>
+                                <td class="text-center col">#<?= modeloPrincipal::generar_numero($mostrar['id_venta']); ?></td>
                                 <td class="text-center col"><?= $mostrar["monto_total_dolares"].' $'; ?></td>
                                 <td class="text-center col"><?= $mostrar["monto_total_bolivares"].' bs'; ?></td>
                                 <td class="text-center col"><?= $mostrar["fecha_venta"]; ?></td>
@@ -335,6 +334,7 @@ if ($modulo == "historial_cliente"){
                                 <td scope='col' class="text-center col">
                                     <form  target="_blank" action="./reportes/factura_cliente.php" method="post" class="text-center">
                                         <input type="hidden" name="id_venta" value="<?= $mostrar["id_venta"]; ?>">
+                                        <input type="hidden" name="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
                                         <input type="hidden" name="id_cliente" value="<?= $id; ?>">
                                         <button type="submit" class="btn btn-info bi bi-eye"></button>
                                     </form>

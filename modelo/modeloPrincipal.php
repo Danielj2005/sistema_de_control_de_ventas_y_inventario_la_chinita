@@ -174,13 +174,17 @@ class modeloPrincipal {
             return true;
         }
     }
-    // public static function verifyEmail($email){
-    //     if(filter_var( $email , FILTER_VALIDATE_EMAIL)){
-    //         return $correo = mysqli_real_escape_string( $conexion, $_POST["correo"]);
-    //     }else{
-    //         return $errors["correo"] = "Tiene que proporcionar un email valido";
-    //     } 
-    // }
+    public static function generar_numero($num){
+        if(strlen($num) == 1){
+            return $num = '0000000'.$num;
+        }
+        if(strlen($num) == 2){
+            return $num = '000000'.$num;
+        }
+        if(strlen($num) == 3){
+            return $num = '00000'.$num;
+        }
+}
 
     /*---------- Funcion Verificar Fechas ----------*/
     // public static function verificar_fecha($Fecha){
