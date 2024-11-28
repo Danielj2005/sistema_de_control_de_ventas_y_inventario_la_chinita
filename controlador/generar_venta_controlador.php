@@ -152,9 +152,9 @@ if($modulo == 'Guardar'){
         // Verificación de si hay suficientes productos para el servicio solicitado
         for ($i = 0; $i < count($id_servicios); $i++) {
             // Obtener la cantidad de productos necesarios para el servicio
-            $cantidad_producto_por_servicio = modeloPrincipal::consultar("SELECT id_producto, cantidad FROM detalles_menu WHERE id_menu = " . intval($id_servicios[$i]));
+            $cantidad_producto_por_servicio = modeloPrincipal::consultar("SELECT id_producto, cantidad FROM detalles_menu WHERE id_menu = ". intval($id_servicios[$i]));
             
-            $nombre_servicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT nombre_platillo FROM menu WHERE id_menu = " . intval($id_servicios[$i])));
+            $nombre_servicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT nombre_platillo FROM menu WHERE id_menu = ". intval($id_servicios[$i])));
             
             // Iterar sobre los productos necesarios
             while ($row_cantidad_producto_por_servicio = mysqli_fetch_array($cantidad_producto_por_servicio)) {
@@ -162,8 +162,12 @@ if($modulo == 'Guardar'){
                 $id_producto = intval($row_cantidad_producto_por_servicio['id_producto']);
                 $cantidad_necesaria = intval($row_cantidad_producto_por_servicio['cantidad']) * intval($cantidad_servicios[$i]);
 
-                $stock_producto_actual = modeloPrincipal::consultar("SELECT nombre_producto,stock FROM producto WHERE id_producto = $id_producto");
+                $stock_producto_actual = modeloPrincipal::consultar("SELECT nombre_producto, stock FROM producto WHERE id_producto = $id_producto");
                 $stock_producto_actual = mysqli_fetch_array($stock_producto_actual);
+
+                if ($stock_producto_actual['stock'] < 0) {
+                    modeloPrincipal::UpdateSQL("producto", "stock = 0", "id_producto = ".intval($id_producto));
+                }
 
                 // Verificar si el stock es suficiente
                 if ($stock_producto_actual['stock'] < $cantidad_necesaria) {
@@ -177,6 +181,7 @@ if($modulo == 'Guardar'){
                     </script>';
                     exit();
                 }
+                
             }
         }
     }
@@ -258,18 +263,19 @@ if($modulo == 'Guardar'){
                 
                 }
             }
+            
             echo '<script type="text/javascript">
                 swal({
-                    title:"¡Venta Realizada!",
-                    text:"La Venta se Realizo Correctamente",
+                    title:"Venta Realizada!",
+                    text:"La venta se realizo correctamente",
                     type: "success",
                     confirmButtonText: "Aceptar"
                 },
                 function(isConfirm){  
                     if (isConfirm) {
-                        location.href="./factura.php";
+                        location.reload();
                     } else { 
-                        location.href="./factura.php";
+                        location.reload();
                     } 
                 });
             </script>';
@@ -309,10 +315,11 @@ if($modulo == 'Guardar'){
                 
                 }
             }
+            
             echo '<script type="text/javascript">
                 swal({
-                    title:"¡Registro Exitoso!",
-                    text:"Los datos se Registraron Correctamente",
+                    title:"Venta Realizada!",
+                    text:"La venta se realizo correctamente",
                     type: "success",
                     confirmButtonText: "Aceptar"
                 },
@@ -342,6 +349,7 @@ if($modulo == 'Guardar'){
             
                 while ($mostrar = mysqli_fetch_array($restar_stock_producto)) { // Cambié $consulta a $restar_stock_producto
                    // Se descuenta del stock
+                    
                     modeloPrincipal::UpdateSQL("producto", "stock = stock - ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])), "id_producto = " . intval($mostrar['id_producto']));
                 
                 }

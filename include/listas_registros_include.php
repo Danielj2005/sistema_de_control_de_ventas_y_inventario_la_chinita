@@ -44,7 +44,7 @@ function consultar_registros($tabla){
     if ($tabla === "categoria_opcion") {
         // script para crear una lista de categorias
         // se consultan las categorias de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT id_categoria, nombre FROM categoria");
+        $consulta = modeloPrincipal::consultar("SELECT id_categoria, nombre FROM categoria WHERE estado = 1");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <option value="<?= $mostrar["id_categoria"];?>"><?= $mostrar["nombre"]; ?></option>

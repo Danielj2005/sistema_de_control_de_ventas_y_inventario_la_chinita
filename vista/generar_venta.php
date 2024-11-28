@@ -76,8 +76,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <?php
                             $consulta = modeloPrincipal::consultar("SELECT M.id_menu,M.nombre_platillo FROM producto AS P 
                               INNER JOIN detalles_menu AS D ON D.id_producto = P.id_producto
-                              INNER JOIN menu AS M ON M.id_menu = D.id_menu WHERE P.stock > 0 AND P.estatus = 1 AND M.estatus = 1 group by M.id_menu;");
-    
+                              INNER JOIN menu AS M ON M.id_menu = D.id_menu 
+                              WHERE P.stock > 0 AND P.estatus = 1 AND M.estatus = 1 group by M.id_menu");
+                            
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
     
                               <option value="<?= $mostrar['id_menu']; ?>" name="<?= $mostrar['nombre_platillo']; ?>"><?= $mostrar['nombre_platillo']; ?></option>
@@ -115,7 +116,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                         
                         <label class="form-label col-12">Selecciona un producto</label>
-                        <select multiple="on" onchange="añadir_tr_a_tabla('productos')" class="form-select Select" id="id_producto" name="producto[]" required>
+                        <select multiple="on" onchange="añadir_tr_a_tabla('productos')" class="form-select Select" id="id_producto" name="producto[]">
                         <option>Selecciona una o más opciones</option>
 
                           <?php
