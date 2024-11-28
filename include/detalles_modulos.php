@@ -213,17 +213,17 @@ if($modulo == "detalles_venta_del_dia"){
 
 if ($modulo == "historial_proveedor"){ 
     $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar,
-        P.precio_compra_bs , D.dolar, PROV.nombre, E.stock_comprado, E.fecha_entrada 
+        P.precio_compra_bs, PROV.id_proveedor, PROV.nombre, E.stock_comprado, E.fecha_entrada, 
+        ROUND(P.precio_compra_bs / P.precio_compra_dolar,2 ) AS tasa
         FROM entrada AS E 
         INNER JOIN producto AS P ON P.id_producto = E.id_producto 
-        INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-        INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+        INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor
         WHERE PROV.id_proveedor = $id ORDER BY E.fecha_entrada DESC");
 
-    $nombre_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT nombre FROM proveedor WHERE id_proveedor = $id"));
+    $nombre_proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_proveedor, nombre FROM proveedor WHERE id_proveedor = $id"));
     ?>
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Historial de Proveedor: <?php echo mb_strtoupper($nombre_cliente["nombre"]); ?></h5>
+        <h5 class="modal-title" id="exampleModalLabel">Historial de Proveedor: <?php echo mb_strtoupper($nombre_proveedor["nombre"]); ?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -251,7 +251,7 @@ if ($modulo == "historial_proveedor"){
                                 <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
                                 <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
                                 <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>
-                                <td class="col text-center"><?= $mostrar["dolar"].'bs'; ?></td>
+                                <td class="col text-center"><?= $mostrar["tasa"].'bs'; ?></td>
                                 <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
                                 <td class="col text-center"><?= date('d-m-Y / h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
                             </tr>
@@ -262,7 +262,7 @@ if ($modulo == "historial_proveedor"){
     </div>
     <div class="modal-footer">
         <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
-            <input type="hidden" value="<?= $mostar['id_proveedor'] ?>" name="id_proveedor">
+            <input type="hidden" value="<?= $nombre_proveedor['id_proveedor'] ?>" name="id_proveedor">
             <button type="submit" class="btn btn-primary">Exportar Historial en PDF</button>
         </form>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
