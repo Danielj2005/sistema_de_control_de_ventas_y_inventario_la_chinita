@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-11-2024 a las 17:37:57
+-- Tiempo de generación: 28-11-2024 a las 20:01:57
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -206,7 +206,11 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (79, 155, 'Punto de Venta', NULL, 23.2, 1082.05),
 (80, 156, 'Divisa', NULL, 15, 699.6),
 (81, 156, 'Punto de Venta', NULL, 1.24, 57.8336),
-(82, 157, 'Punto de Venta', NULL, 19.72, 919.741);
+(82, 157, 'Punto de Venta', NULL, 19.72, 919.741),
+(83, 158, 'Divisa', NULL, 50, 2332),
+(84, 158, 'Punto de Venta', NULL, 5.68, 264.915),
+(85, 159, 'Punto de Venta', NULL, 34.8, 1623.07),
+(86, 160, 'Transferencia / Pago movíl', '85746534253647564536', 34.8, 1623.07);
 
 -- --------------------------------------------------------
 
@@ -339,7 +343,10 @@ INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_serv
 (114, NULL, NULL, NULL, NULL, 3, 5, 2, 95.76, 155),
 (115, NULL, NULL, NULL, NULL, 13, 5, 2, 95.76, 155),
 (116, 5, 2, 4, 186.56, 7, 2, 3, 143.64, 156),
-(117, 5, 2, 4, 186.56, 7, 3, 3, 143.64, 157);
+(117, 5, 2, 4, 186.56, 7, 3, 3, 143.64, 157),
+(118, 1, 1, 15, 699.6, 3, 24, 2, 95.76, 158),
+(119, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 159),
+(120, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 160);
 
 -- --------------------------------------------------------
 
@@ -502,12 +509,12 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `id_categoria`, `codigo`, `nombre_producto`, `id_presentacion`, `precio_compra_dolar`, `precio_compra_bs`, `stock`, `estatus`) VALUES
-(1, 2, '', 'GLUP', 1, 2, 95.76, -1, 1),
-(2, 2, '', 'Pepsi 1.5 LT', 2, 5, 239.4, 0, 1),
-(3, 2, '', 'LIGHT', 2, 2, 95.76, 22, 1),
-(4, 1, '', 'POLLO', 6, 5, 239.4, 16, 1),
-(7, 2, '', 'COCA COLA', 3, 3, 143.64, -1, 1),
-(15, 1, '00004', 'ALITAS', 6, 0, 0, 0, 0);
+(1, 2, '00000001', 'GLUP', 1, 2, 95.76, 0, 1),
+(2, 2, '00000002', 'Pepsi 1.5 LT', 2, 5, 239.4, 0, 1),
+(3, 2, '00000003', 'LIGHT', 2, 2, 95.76, 2, 1),
+(4, 1, '00000004', 'POLLO', 6, 5, 239.4, 11, 1),
+(7, 2, '00000005', 'COCA COLA', 3, 3, 143.64, 1, 1),
+(15, 1, '00000006', 'ALITAS', 6, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -788,10 +795,13 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 (151, '2024-11-15 12:10:27', 0, 0, 30, 1318.2, 2, 7),
 (152, '2024-11-15 12:18:59', 0, 0, 10, 478.8, 2, 7),
 (153, '2024-11-22 11:42:54', 0, 0, 108, 5171.04, 2, 8),
-(154, '2024-11-26 09:44:21', 0, 0, 39.44, 1845.24, 5, 2),
+(154, '2024-11-26 09:44:21', 34, 1590.72, 39.44, 1845.24, 5, 2),
 (155, '2024-11-26 10:22:39', 0, 0, 23.2, 1110.82, 5, 8),
 (156, '2024-11-27 04:52:23', 0, 0, 16.24, 766.06, 2, 8),
-(157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 8);
+(157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 8),
+(158, '2024-11-28 03:09:53', 63, 2997.84, 73.08, 3477.49, 2, 8),
+(159, '2024-11-28 03:23:34', 30, 1399.2, 34.8, 1623.07, 2, 8),
+(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 8);
 
 --
 -- Índices para tablas volcadas
@@ -961,13 +971,13 @@ ALTER TABLE `detalles_menu`
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
@@ -1045,7 +1055,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- Restricciones para tablas volcadas

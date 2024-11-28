@@ -24,100 +24,121 @@ if($modulo == "detalles_venta"){
         WHERE DV.id_venta = $id");
     
     $detalles_pago = modeloPrincipal::consultar("SELECT M.metodo_pago, M.referencia, M.cantidad_abonada_dolares, 
-        M.cantidad_abonada_bolivares FROM detalles_pago as M  WHERE M.id_venta = $id");  ?>
+        M.cantidad_abonada_bolivares FROM detalles_pago as M  WHERE M.id_venta = $id");
+    
+    $datos_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT V.id_venta,
+        V.id_usuario, V.id_cliente
+        FROM venta AS V 
+        WHERE V.id_venta = $id ORDER BY V.id_venta DESC"));  ?>
 
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles de Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
 
+        <fielset class="mb-5">
+            <legend>Servicios </legend>
+            <div class="table table-responsive">
+                <table class="table table-striped " id="example">
+                    <thead>
+                        <tr>
+                        <th class="col text-center" scope="col">NOMBRE</th>
+                        <th class="col text-center" scope="col">DESCRIPCIÓN</th>
+                        <th class="col text-center" scope="col">CANTIDAD</th>
+                        <th class="col text-center" scope="col">PRECIO EN $</th>
+                        <th class="col text-center" scope="col">PRECIO EN BS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while($row = mysqli_fetch_array($detalles_venta_servicios)){ ?>
 
-    <fielset class="mb-5">
-        <legend>Servicios </legend>
-        <div class="table table-responsive">
-            <table class="table table-striped " id="example">
-                <thead>
-                    <tr>
-                    <th class="col text-center" scope="col">NOMBRE</th>
-                    <th class="col text-center" scope="col">DESCRIPCIÓN</th>
-                    <th class="col text-center" scope="col">CANTIDAD</th>
-                    <th class="col text-center" scope="col">PRECIO EN $</th>
-                    <th class="col text-center" scope="col">PRECIO EN BS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while($row = mysqli_fetch_array($detalles_venta_servicios)){ ?>
+                        <tr>
+                            <td class="text-center col"><?= $row['nombre_platillo'] ?></td> 
+                            <td class="text-center col"><?= $row['descripcion'] ?></td> 
+                            <td class="text-center col"><?= $row['cantidad_servicio'] ?></td> 
+                            <td class="text-center col"><?= $row['precio_servicio_dolares'].' $' ?></td> 
+                            <td class="text-center col"><?= $row['precio_servicio_bolivares'].' bs' ?></td>
+                        </tr>
+                            
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </fielset>
 
-                    <tr>
-                        <td class="text-center col"><?= $row['nombre_platillo'] ?></td> 
-                        <td class="text-center col"><?= $row['descripcion'] ?></td> 
-                        <td class="text-center col"><?= $row['cantidad_servicio'] ?></td> 
-                        <td class="text-center col"><?= $row['precio_servicio_dolares'].' $' ?></td> 
-                        <td class="text-center col"><?= $row['precio_servicio_bolivares'].' bs' ?></td>
-                    </tr>
-                        
-                    <?php } ?>
-                </tbody>
-            </table>
+        <fielset class="mb-5">
+            <legend>Productos</legend>
+            <div class="table table-responsive">
+                <table class="table table-striped " id="example">
+                    <thead>
+                        <tr>
+                        <th class="col text-center" scope="col">NOMBRE</th>
+                        <th class="col text-center" scope="col">PRESENTACIÓN</th>
+                        <th class="col text-center" scope="col">CATEGORÍA</th>
+                        <th class="col text-center" scope="col">CANTIDAD</th>
+                        <th class="col text-center" scope="col">PRECIO EN $</th>
+                        <th class="col text-center" scope="col">PRECIO EN BS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php  while($row = mysqli_fetch_array($detalles_venta_productos)){ ?>
+
+                        <tr>
+                            <td class="text-center col"><?= $row['nombre_producto'] ?></td> 
+                            <td class="text-center col"><?= $row['nombre_presentacion'] ?></td> 
+                            <td class="text-center col"><?= $row['nombre_categoria'] ?></td> 
+                            <td class="text-center col"><?= $row['cantidad'] ?></td> 
+                            <td class="text-center col"><?= $row['precio_unidad_dolares'].' $' ?></td> 
+                            <td class="text-center col"><?= $row['precio_unidad_bolivares'].' bs' ?></td>
+                        </tr>
+                            
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </fielset>
+
+        <fielset class="mb-5">
+            <legend>Métodos de Pago</legend>
+            <div class="table table-responsive">
+                <table class="table table-striped " id="example">
+                    <thead>
+                        <tr>
+                        <th class="col text-center" scope="col">NOMBRE</th>
+                        <th class="col text-center" scope="col">REFERENCIA</th>
+                        <th class="col text-center" scope="col">CANTIDAD EN $</th>
+                        <th class="col text-center" scope="col">CANTIDAD EN BS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while($row = mysqli_fetch_array($detalles_pago)){ ?>
+
+                        <tr>
+                            <td class="text-center col"><?= $row['metodo_pago'] ?></td> 
+                            <td class="text-center col"><?= ($row['referencia'] == '') ? '' :'#'.$row['referencia'] ?></td> 
+                            <td class="text-center col"><?= $row['cantidad_abonada_dolares'].' $' ?></td> 
+                            <td class="text-center col"><?= $row['cantidad_abonada_bolivares'].' bs' ?></td>
+                        </tr>
+                            
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </fielset>
+    </div>
+    <div class="modal-footer ">
+        <div class="">
+            <form  target="_blank" action="./reportes/factura_cliente.php" method="post" class="text-center">
+                <input type="hidden" name="id_venta" value="<?= $datos_cliente["id_venta"]; ?>">
+                <input type="hidden" name="id_usuario" value="<?= $datos_cliente["id_usuario"]; ?>">
+                <input type="hidden" name="id_cliente" value="<?= $datos_cliente["id_cliente"]; ?>">
+                <button type="submit" class="btn btn-info bi bi-eye text-white">&nbsp; Ver Factura</button>
+            </form>
+
         </div>
-    </fielset>
-
-    <fielset class="mb-5">
-        <legend>Productos</legend>
-        <div class="table table-responsive">
-            <table class="table table-striped " id="example">
-                <thead>
-                    <tr>
-                    <th class="col text-center" scope="col">NOMBRE</th>
-                    <th class="col text-center" scope="col">PRESENTACIÓN</th>
-                    <th class="col text-center" scope="col">CATEGORÍA</th>
-                    <th class="col text-center" scope="col">CANTIDAD</th>
-                    <th class="col text-center" scope="col">PRECIO EN $</th>
-                    <th class="col text-center" scope="col">PRECIO EN BS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php  while($row = mysqli_fetch_array($detalles_venta_productos)){ ?>
-
-                    <tr>
-                        <td class="text-center col"><?= $row['nombre_producto'] ?></td> 
-                        <td class="text-center col"><?= $row['nombre_presentacion'] ?></td> 
-                        <td class="text-center col"><?= $row['nombre_categoria'] ?></td> 
-                        <td class="text-center col"><?= $row['cantidad'] ?></td> 
-                        <td class="text-center col"><?= $row['precio_unidad_dolares'].' $' ?></td> 
-                        <td class="text-center col"><?= $row['precio_unidad_bolivares'].' bs' ?></td>
-                    </tr>
-                        
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </fielset>
-
-    <fielset class="mb-5">
-        <legend>Métodos de Pago</legend>
-        <div class="table table-responsive">
-            <table class="table table-striped " id="example">
-                <thead>
-                    <tr>
-                    <th class="col text-center" scope="col">NOMBRE</th>
-                    <th class="col text-center" scope="col">REFERENCIA</th>
-                    <th class="col text-center" scope="col">CANTIDAD EN $</th>
-                    <th class="col text-center" scope="col">CANTIDAD EN BS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while($row = mysqli_fetch_array($detalles_pago)){ ?>
-
-                    <tr>
-                        <td class="text-center col"><?= $row['metodo_pago'] ?></td> 
-                        <td class="text-center col"><?= ($row['referencia'] == '') ? '' :'#'.$row['referencia'] ?></td> 
-                        <td class="text-center col"><?= $row['cantidad_abonada_dolares'].' $' ?></td> 
-                        <td class="text-center col"><?= $row['cantidad_abonada_bolivares'].' bs' ?></td>
-                    </tr>
-                        
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </fielset>
-
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    </div>
 
 <?php }
 

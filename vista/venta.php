@@ -178,17 +178,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <!-- Modal detalles de venta -->
       <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Detalles de Venta</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="detalles_de_ventas">
-            
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+          <div class="modal-content" id="detalles_de_ventas">
           </div>
         </div>
       </div>

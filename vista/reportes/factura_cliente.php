@@ -266,10 +266,10 @@ $pdf->Ln(5);
     $pdf->Ln(9);
 
     # Codigo de barras #
-    $pdf->Code128(5,$pdf->GetY(),"COD000001V0001",70,20);
+    $pdf->Code128(5,$pdf->GetY(),modeloPrincipal::generar_numero($id_venta),70,20);
     $pdf->SetXY(0,$pdf->GetY()+21);
     $pdf->SetFont('Arial','',14);
-    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","COD000001V0001"),0,'C',false);
+    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",modeloPrincipal::generar_numero($id_venta)),0,'C',false);
     
     # Nombre del archivo PDF #
     $pdf->Output("I","Ticket_Nro_".modeloPrincipal::generar_numero($id_venta).".pdf",true);
