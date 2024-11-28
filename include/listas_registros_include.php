@@ -111,7 +111,7 @@ function consultar_registros($tabla){
 
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
-            <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "10") { echo 'text-warning';} ?>">
+            <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
@@ -183,10 +183,10 @@ function consultar_registros($tabla){
             <tr>
                 <td class="col text-center"></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["cedula_rif"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= mb_strtoupper($mostrar["nombre"]); ?></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["correo"]; ?></td>
                 <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["telefono"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["direccion"]; ?></td>
+                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= mb_strtoupper($mostrar["direccion"]); ?></td>
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">

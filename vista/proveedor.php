@@ -45,29 +45,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Proveedores</h5>
-                  <form method="post" class="row mb-3" id="rango_fechas">
-                    <p class="alert alert-info">Seleciona un rango de fechas para ver el historial de compras realizadas a proveedores dentro de ese rango de fechas</p>
-                    <input class="btn btn-outline-secondary" type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha1 ?>">
-
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text" id="basic-addon1">Desde</span>
-                        <input class="form-control" type="date" id="fecha1" name="fecha1">
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text" id="basic-addon1">Hasta</span>
-                        <input class="form-control" type="date" id="fecha2" name="fecha2">
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
-                      <button type="submit" class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
-                    </div>
-                  </form>
-
+                  
                   <div class="table table-responsive">
                     <table class="table table-borderless table-striped datatable" id="example">
                       <thead>
@@ -101,7 +79,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <div class="modal-content">
             <form id="update_proveedor" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Datos del Proveedor</h5>
+                <h5 class="modal-title">Datos del Proveedor</h5>
                 <input type="hidden" name="modulo" value="Modificar">
                 <input type="hidden" id="id_proveedor_modificar" name="id_proveedor_modificar" value="">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -110,7 +88,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="row m-0">
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label> Cédula <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="text" maxlength="11" disabled class="modificar_proveedor form-control" id="cedula" name="cedula" pattern="[A-Za-z0-9]{7,11}" placeholder="ingrese la cédula">
+                    <input type="text" maxlength="11"class="modificar_proveedor form-control  <?php ($_SESSION['id_rol'] < "3") ? '' : 'bg-dark-subtle' ?>" <?php ($_SESSION['id_rol'] < "3") ? '' : 'readonly' ?> id="cedula" name="cedula" placeholder="ingrese la cédula">
                   </div>
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label> Nombre<span style="color: red; font-size: 20px;"> * </span></label>
@@ -118,7 +96,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                   </div>
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label> Correo <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="email" maxlength="30" class="modificar_proveedor form-control correo" id="correo" name="correo" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ0-9\.\@ ]{3,70}" placeholder="ingrese el correo" >
+                    <input type="email" maxlength="30" class="modificar_proveedor form-control correo" id="correo" name="correo" placeholder="ingrese el correo" >
                   </div>
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label> Teléfono <span style="color: red; font-size: 20px;"> * </span></label>

@@ -32,7 +32,7 @@ if($modulo == "Guardar" ){
             exit();
         }
         // verificar que los datos cumplen con los parametros de formato
-        if (modeloPrincipal::verificar_datos("[A-Z0-9\-]{7,10}", $cedula)) {
+        if (modeloPrincipal::verificar_datos("[V|E|J|P][0-9|-]{5,12}", $cedula)) {
             echo'<script type="text/javascript">
                     swal({
                         title: "¡Ocurrio un error!",
@@ -134,13 +134,14 @@ if($modulo == "Guardar" ){
 if($modulo == "Modificar"){
 
     $id_proveedor_modificar = $_POST["id_proveedor_modificar"];
+    $cedula = modeloPrincipal::limpiar_mayusculas($_POST["cedula"]);
     $nombre = modeloPrincipal::limpiar_mayusculas($_POST["nombre"]);
     $correo = modeloPrincipal::limpiar_cadena($_POST["correo"]);
-    $direccion = modeloPrincipal::limpiar_cadena($_POST["direccion"]);
+    $direccion = modeloPrincipal::limpiar_mayusculas($_POST["direccion"]);
     $telefono = modeloPrincipal::limpiar_cadena($_POST["telefono"]);
 
     // verificar que no se hayan recibido datos en blanco o vacios 
-    if($id_proveedor_modificar == "" || $nombre == "" || $correo == "" || $direccion == "" || $telefono == ""){
+    if($cedula == "" || $id_proveedor_modificar == "" || $nombre == "" || $correo == "" || $direccion == "" || $telefono == ""){
         echo '<script type="text/javascript">
                 swal({
                     title: "¡Ocurrió un error!",
@@ -152,6 +153,17 @@ if($modulo == "Modificar"){
         exit();
     }
 
+    if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,12}",$cedula)) {
+        echo'<script type="text/javascript">
+            swal({
+                title: "¡Ocurrio un error!",
+                text: "El campo cédula no cumple con el formato requerido, el formato debe ser, por ejemplo (V-12345678), datos permitidos (V,E,J,P), por favor verifique e intente de nuevo ",
+                type: "error",
+                confirmBottonText: "Aceptar"
+            });
+        </script>';
+        exit();
+    }
     // verificar que los datos cumplen con los parametros de formato
     if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóú ]{3,40}",$nombre)) {
         echo '<script type="text/javascript">
@@ -193,7 +205,7 @@ if($modulo == "Modificar"){
         echo '<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "El campo DIRECCIÓN { '.$direccion.' } no cumple con el formato establecido",
+                text: "El campo DIRECCIÓN no cumple con el formato establecido",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -202,7 +214,7 @@ if($modulo == "Modificar"){
     }
 
     // despues de verificar los datos se modifican
-    if (modeloPrincipal::UpdateSQL("proveedor","nombre = '$nombre', correo = '$correo', telefono = '$telefono', direccion = '$direccion'","id_proveedor = '$id_proveedor_modificar'")) {
+    if (modeloPrincipal::UpdateSQL("proveedor","cedula_rif = '$cedula', nombre = '$nombre', correo = '$correo', telefono = '$telefono', direccion = '$direccion'","id_proveedor = '$id_proveedor_modificar'")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Modificación Exitosa!",

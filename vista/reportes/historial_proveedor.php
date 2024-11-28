@@ -33,6 +33,9 @@ $pdf->Cell(410,7,utf8_decode("RIF: V-04608675-5"),0,1,'C');
 
 $pdf->Cell(410,7,utf8_decode("Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,1,'C');
 
+$pdf->Ln(5);
+$pdf->Cell(410,7,utf8_decode("Historial de Proveedor"),0,1,'C');
+
 $pdf->Ln(15);
 
 if (!isset($_POST['id_proveedor'])){
@@ -73,7 +76,7 @@ $pdf->setX(25);
 $pdf->Cell(8,7,utf8_decode("Cédula / RIF: ".mb_strtoupper($nombre_proveedor["cedula_rif"])),0,1,'L');
 
 $pdf->setX(25);
-$pdf->Cell(13,7,utf8_decode("Nombre y Apellido: ".mb_strtoupper($nombre_proveedor["nombre"])),0,1, 'L');
+$pdf->Cell(13,7,utf8_decode("Nombre: ".mb_strtoupper($nombre_proveedor["nombre"])),0,1, 'L');
 
 $pdf->setX(25);
 $pdf->Cell(7,7,utf8_decode("Correo: ".mb_strtoupper($nombre_proveedor["correo"])),0,1,'L');
@@ -136,11 +139,11 @@ $pdf->setX(15);
 $pdf->Cell(20,8, utf8_decode("Nº"),'B',0,'C',0);
 $pdf->Cell(50,8, utf8_decode("PRODUCTO"),'B',0,'C',0);
 $pdf->Cell(50,8, utf8_decode("PRESENTACIÓN"),'B',0,'C',0);
+$pdf->Cell(40,8 , utf8_decode("CANTIDAD COMPRADA"),'B',0,'C',0);
 $pdf->Cell(50,8, utf8_decode("CATEGORÍA"),'B',0,'C',0);
 $pdf->Cell(50,8, utf8_decode("PRECIO DE COMPRA EN $"),'B',0,'C',0);
 $pdf->Cell(50,8, utf8_decode("PRECIO DE COMPRA EN BS"),'B',0,'C',0);
 $pdf->Cell(40,8, utf8_decode("TASA REGISTRADA"),'B',0,'C',0);
-$pdf->Cell(40,8 , utf8_decode("CANTIDAD COMPRADA"),'B',0,'C',0);
 $pdf->Cell(40,8, utf8_decode("FECHA / HORA"),'B',0,'C',0);
 
 $pdf->Ln(8);
@@ -160,11 +163,11 @@ while ( $row = mysqli_fetch_array($consulta)) {
 	$pdf->Cell(20,8 , utf8_decode($i++),'B',0,'C',0);
 	$pdf->Cell(50,8, utf8_decode($row['nombre_producto']),'B',0,'C',0);
 	$pdf->Cell(50,8, utf8_decode($row['nombre_presentacion']),'B',0,'C',0);
+	$pdf->Cell(40,8, utf8_decode($row['stock_comprado']),'B',0,'C',0);
 	$pdf->Cell(50,8, utf8_decode($row['nombre_categoria']),'B',0,'C',0);
 	$pdf->Cell(50,8, utf8_decode($row['precio_compra_dolar']." $"),'B',0,'C',0);
 	$pdf->Cell(50,8, utf8_decode($row['precio_compra_bs']." bs"),'B',0,'C',0);
 	$pdf->Cell(40,8, utf8_decode($row['tasa'].' bs'),'B',0,'C',0);
-	$pdf->Cell(40,8, utf8_decode($row['stock_comprado']),'B',0,'C',0);
 	$pdf->Cell(40,8, utf8_decode(DATE('Y-m-d / h:i:A', strtotime($row['fecha_entrada']))),'B',1,'C',0);
 }
 

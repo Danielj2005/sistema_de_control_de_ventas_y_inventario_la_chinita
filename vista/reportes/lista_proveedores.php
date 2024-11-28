@@ -9,23 +9,39 @@ date_default_timezone_set('America/caracas');
 class PDF extends FPDF{
     function Header(){
         
-        $this->Image('../img/logo.png',25,5,33);
+        $this->Image('../img/logo.png',180,10,35,35,'PNG');
         
         $this->setY(10);
         $this->setX(10);
-        $this->SetFont('times', 'B', 13);
-        $this->Cell(0,5,utf8_decode("BAR-RESTAURANT"),0,0,"C");
+        $this->SetFont('Arial', 'B', 12);
+        $this->SetDrawColor(255,255,255);
+        $this->SetTextColor(255,255,255);
+        $this->Cell(400,5,utf8_decode("."),0,1,"C");
+        $this->SetDrawColor(0,0,0);
+        $this->SetTextColor(0,0,0);
+        $this->Cell(0,5,utf8_decode("BAR RESTAURANT Y LUNCHERIA 'LA CHINITA'"),0,1,"C");
         
+        $this->SetFont('Arial', '', 12);
         $this->setY(15);
         $this->setX(10);
-        $this->Cell(0,5,utf8_decode("LA CHINITA"),0,0,"C");
+        $this->Cell(0,5,utf8_decode(" "),0,1,"C");
+        $this->Cell(0,5,utf8_decode("PISTA DE BAILE Y MESA DE POOL"),0,1,"C");
 
+        $this->setY(25);
+        $this->setX(10);
+        $this->Cell(0,7,utf8_decode("RIF: V-04608675-5"),0,1,'C');
+
+        $this->setY(30);
+        $this->setX(10);
+        $this->Cell(0,7,utf8_decode("Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,1,'C');
+        
         $this->setY(40);
         $this->setX(10);
         $this->Cell(0,5,utf8_decode("Lista de Proveedores"),0,0,"C");
 
         $this->Ln(50);
     }
+
 
     function Footer(){
         $this->SetFont('helvetica', 'B', 8);
@@ -77,7 +93,7 @@ $pdf->setY(60);
 $pdf->setX(5);
 
 // En esta parte estan los encabezados 
-$pdf->SetFont('Arial','B',8);
+$pdf->SetFont('Arial','B',10);
 $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
 $pdf->Cell(20, 5, utf8_decode('CÉDULA/RIF'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('NOMBRE'),'B',0,'C',0);
@@ -92,11 +108,11 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     
     $pdf->setX(5);
     $pdf->Cell(10, 5, utf8_decode($i++),'B',0,'C',0);
-    $pdf->Cell(20, 5, utf8_decode($mostrar["cedula_rif"]),'B',0,'S',0);
-    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'S',0);
-    $pdf->Cell(40, 5, utf8_decode($mostrar["correo"]),'B',0,'S',0);
-    $pdf->Cell(65, 5, utf8_decode($mostrar["direccion"]),'B',0,'S',0);
-    $pdf->Cell(25, 5, utf8_decode($mostrar["telefono"]),'B',1,'E',0);
+    $pdf->Cell(20, 5, utf8_decode($mostrar["cedula_rif"]),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
+    $pdf->Cell(40, 5, utf8_decode($mostrar["correo"]),'B',0,'C',0);
+    $pdf->Cell(65, 5, utf8_decode($mostrar["direccion"]),'B',0,'C',0);
+    $pdf->Cell(25, 5, utf8_decode($mostrar["telefono"]),'B',1,'C',0);
     
 } 
-$pdf->Output("I","Listado de Proveedores (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado de Proveedores (".date('d/m/Y | h:i:a').").pdf",true);

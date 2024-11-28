@@ -34,13 +34,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             <div class="col-12">
               <div class="card top-selling pb-3">
                 <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
                     <a class="col-12 btn btn-primary" href="./agregar_producto.php">Añadir Nuevo Producto</a>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
                     <a class="col-12 btn btn-success" href="./categoria_producto.php">Añadir Categoría</a>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-4 mb-3 row m-0">
+                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
+                    <button class="col-12 btn btn-info text-white " data-bs-toggle="modal" data-bs-target="#addPresentacion">Añadir Presentación</button>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
                   </div>
                 </div>
@@ -72,6 +75,39 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+      <!-- Modal detalles de venta -->
+      <div class="modal fade" id="addPresentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación <span style="color:#f00;">*</span> </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="detalles_de_ventas">
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación</label>
+                  <div class="col-sm-10">
+                    <input  type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                    <input  type="hidden" name="modulo" value="guardar">
+                  </div>
+                  
+                  <div class="col-12 mb-1">
+                    <div class="form-group">
+                        <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                    
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="msjFormSend"></div>
       <?php 
         // se incluye el footer / pie de pagina a la vista

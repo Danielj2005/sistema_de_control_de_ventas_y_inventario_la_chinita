@@ -105,11 +105,11 @@ $pdf->SetFont('Arial','B',10);
 $pdf->Cell(10, 5, utf8_decode('Nº'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRODUCTO'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRESENTACIÓN'),'B',0,'C',0);
+$pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
 $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
 $pdf->Cell(45, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
 $pdf->Cell(45, 5, utf8_decode('STOCK'),'B',0,'C',0);
-$pdf->Cell(50, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('ESTADO'),'B',0,'C',0);
 
 $pdf->Ln();
@@ -123,11 +123,11 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->Cell(10, 5, utf8_decode($i++),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode(" ".$mostrar["nombre_producto"]),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode($mostrar["nombre_presentacion"]),'B',0,'C',0);
+    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_dolar"].'$'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["precio_compra_bs"].' bs'),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode(($mostrar["tasa"] == "" ) ? '0 bs' : $mostrar["tasa"].' bs'),'B',0,'C',0);
     $pdf->Cell(45, 5, utf8_decode($mostrar["stock"]),'B', 0,'C',0);
-    $pdf->Cell(50, 5, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
     $pdf->Cell(50, 5, utf8_decode(($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'),'B',1,'C',0);
     
 } 

@@ -86,6 +86,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <tr>
                           <th class="col text-center" scope="col">#</th>
                           <th class="col text-center" scope="col">PRODUCTO</th>
+                          <th class="col text-center" scope="col">PRESENTACIÓN</th>
                           <th class="col text-center" scope="col">PROVEEDOR</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
@@ -99,18 +100,24 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                             if($fecha1 == "" && $fecha2 == ""){
                               $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
-                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada 
+                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada,
+                                PS.nombre AS nombre_presentacion
                                 FROM entrada AS E 
                                 INNER JOIN producto AS P ON P.id_producto = E.id_producto 
-                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor ORDER BY E.fecha_entrada DESC");
+                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+                                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
+                                ORDER BY E.fecha_entrada DESC");
                             
                             }else{
                               $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
-                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada 
+                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada,
+                                PS.nombre AS nombre_presentacion
                                 FROM entrada AS E 
                                 INNER JOIN producto AS P ON P.id_producto = E.id_producto 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor
-                                WHERE E.fecha_entrada  BETWEEN '$fecha1' AND '$fecha2' ORDER BY E.fecha_entrada DESC");
+                                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
+                                WHERE E.fecha_entrada  BETWEEN '$fecha1' AND '$fecha2' 
+                                ORDER BY E.fecha_entrada DESC");
                                 
                               
                             }
@@ -122,9 +129,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                               <tr>
                                   <td class="col text-center"><?= $i++; ?></td>
                                   <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                                  <td class="col text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                                   <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                                  <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
-                                  <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>
                                   <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
                                   <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
                               </tr>
