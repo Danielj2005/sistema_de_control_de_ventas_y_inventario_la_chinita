@@ -8,8 +8,23 @@ $modulo = modeloPrincipal::limpiar_cadena($_POST['modulo']);
 
 if($modulo === 'guardar'){
     
-    $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre_presentacion']);
+    $nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre_presentacion']);
     
+    $presentaciones = modeloPrincipal::Consultar("SELECT id FROM presentacion 
+        WHERE nombre = '$nombre'");
+    
+    if(mysqli_num_rows($presentaciones) > 0){
+        echo'<script type="text/javascript">
+                swal({
+                    title: "¡Ocurrio un error!",
+                    text: "Ya existe una presentación con este nombre.",
+                    type: "error",
+                    confirmBottonText: "Aceptar"
+                });
+            </script>';
+        exit();
+    }
+
     // verificar datos
     if($nombre == "" ){
         echo'<script type="text/javascript">

@@ -103,7 +103,7 @@ function consultar_registros($tabla){
     if($tabla === 'producto'){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
-        $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
+        $consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
             P.estatus, C.nombre, PS.nombre as nombre_presentacion FROM producto AS P 
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
@@ -113,7 +113,7 @@ function consultar_registros($tabla){
 
             <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                <td class="text-center"><?= $mostrar["codigo"]." - ".$mostrar["nombre_producto"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                 <td class="text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
                 <td class="text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>
