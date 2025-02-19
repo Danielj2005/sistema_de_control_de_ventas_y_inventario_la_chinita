@@ -1,94 +1,103 @@
   <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-
+      <!-- apartado de página principal -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="inicio.php">
           <i class="bi bi-grid"></i>
-          <span>INICIO</span>
+          <span>Inicio</span>
         </a>
-      </li><!-- End Dashboard Nav -->
-
+      </li>
+      
+      <!-- apartado de inventario -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>INVENTARIO</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Inventario</span>
+          <i class="bi bi-chevron-down ms-auto"></i>
         </a>
+
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="../vista/entrada_de_productos.php">
-              <i class="bi bi-circle"></i><span>ENTRADA</span>
+              <i class="bi bi-circle"></i>
+              <span>Entrada de productos</span>
             </a>
           </li>
           <li>
             <a href="../vista/productos.php">
-              <i class="bi bi-circle"></i><span>PRODUCTOS</span>
+              <i class="bi bi-circle"></i>
+              <span>Productos</span>
             </a>
           </li>
-
           <li>
             <a href="../vista/proveedor.php">
-              <i class="bi bi-circle"></i><span>PROVEEDORES</span>
+              <i class="bi bi-circle"></i>
+              <span>Proveedores</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Components Nav -->
+      </li>
 
+      <!-- apartado de ventas  -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>VENTAS</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Ventas</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="../vista/venta.php">
-              <i class="bi bi-circle"></i><span>VENTAS</span>
+              <i class="bi bi-circle"></i><span>Ventas Realizadas</span>
             </a>
           </li>
           <li>
             <a href="./generar_venta.php">
-              <i class="bi bi-circle"></i><span>GENERAR VENTAS</span>
+              <i class="bi bi-circle"></i><span>Generar ventas</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Forms Nav -->
-
-
+      </li>
+      
+      <!-- apartado de manú de servicios -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>MENÚ</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i> <span>Menú</span> <i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../vista/menu.php">
-              <i class="bi bi-circle"></i><span>SERVICIOS</span>
-            </a>
+            <a href="../vista/menu.php"> <i class="bi bi-circle"></i> <span>Servicios</span> </a>
           </li>
           <li>
             <a href="../vista/agregar_servicio.php">
-              <i class="bi bi-circle"></i><span>AÑADIR NUEVO SERVICIO</span>
+              <i class="bi bi-circle"></i><span>Añadir nuevo servicio</span>
             </a>
           </li>
-
         </ul>
-      </li><!-- End Tables Nav -->
+      </li>
 
+      <!-- apartado de estadísticas de ventas  -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>ESTADÍSTICAS</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-bar-chart"></i>
+          <span>Estadísticas</span>
+          <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="estadisticas_generales.php">
-              <i class="bi bi-circle"></i><span>ESTADÍSTICAS DE VENTAS</span>
+              <i class="bi bi-circle"></i>
+              <span>Estadísticas de ventas</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Charts Nav -->
-
+      </li>
+      
+      <!-- apartado de gestión de usuarios  -->
       <?php if ($_SESSION["id_rol"] < "3") {?>
         <li class="nav-item">
           <a class="nav-link collapsed" href="../vista/lista_empleados.php">
             <i class="bi bi-person-plus"></i>
-            <span>EMPLEADOS</span>
+            <span>Empleados</span>
           </a>
         </li>
       <?php } ?>
@@ -96,40 +105,58 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="../vista/cliente.php">
           <i class="bi bi-people"></i>
-          <span>CLIENTES</span>
+          <span>Clientes</span>
         </a>
       </li>
 
+      <!-- apartado de ayuda  -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#ayuda-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-question-circle"></i><span>AYUDA</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-question-circle"></i>
+          <span>Ayuda</span>
+          <i class="bi bi-chevron-down ms-auto"></i>
         </a>
+
         <ul id="ayuda-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="../vista/manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank">
-              <i class="bi bi-circle"></i><span>MANUAL DE USUARIO</span>
+              <i class="bi bi-circle"></i>
+              <span>Manual de usuario</span>
             </a>
           </li>
+
           <li>
             <a href="./manuales/MANUAL_DE_INSTALACION_CHINITA.pdf" target="_blank">
-              <i class="bi bi-circle"></i><span>MANUAL DE INSTALACIÓN</span>
+              <i class="bi bi-circle"></i>
+              <span>Manual de instalación</span>
             </a>
           </li>
           <li>
             <a href="./manuales/MANUAL_DE_SISTEMA_CHINITA.pdf" target="_blank">
-              <i class="bi bi-circle"></i><span>MANUAL DE SISTEMA</span>
+              <i class="bi bi-circle"></i>
+              <span>Manual de sistema</span>
             </a>
           </li>
         </ul>
       </li>
 
+      <!-- apartado del perfil de usuario  -->
       <li class="nav-item">
-        <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; MI PERFIL</a>
+        <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; Mi perfil</a>
       </li>
 
+      <!-- apartado de configuración de sistema -->
+      <?php if ($_SESSION["rol"] < "3") {?>
+        <li class="nav-item">
+          <a class="nav-link collapsed dropdown-item d-flex align-items-center" href="./configuracion.php">
+            <i class="bi bi-gear"></i>
+            <span>Configuración</span>
+          </a>
+        </li>
+      <?php } ?>
+
       <li class="nav-item">
-        <button class="nav-link collapsed bi bi-box-arrow-right btn-exit-system">&nbsp; CERRAR SESIÓN</button>
+        <button class="nav-link collapsed bi bi-box-arrow-right btn-exit-system">&nbsp; Cerrar sesión</button>
       </li>
     </ul>
-
   </aside>

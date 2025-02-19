@@ -25,11 +25,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); 
-        
 
         require_once ('../config/ConfigServer.php');
         require_once ('../modelo/modeloPrincipal.php');
-
       
         $montos_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
           ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_en_dolares,
@@ -111,7 +109,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                       </form>
 
-                      
                       <div class="card-body p-3 table-responsive">
                         <table class="table table-striped " id="example">
                           <thead>
@@ -128,8 +125,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           </thead>
                           <tbody>
                             <?php
-                              
-
 
                               if($fecha1 == "" && $fecha2 == ""){
                                 $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
@@ -141,14 +136,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                   V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
                                   INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
                                   WHERE V.fecha_venta BETWEEN '$fecha1' AND '$fecha2' ORDER BY V.id_venta DESC");
-                                
                               }
 
-
-
-
-                              $i = 1 ;
                               if(mysqli_num_rows($ventas_realizadas) > 0){
+                                $i = 1 ;
                                 while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
                                   <tr>
                                     <td class="text-center col"><?= $i++ ?></td> 
@@ -182,15 +173,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </div>
-      <script >
-        
 
-      </script>
-      <?php   include_once("../include/footer.php"); 
+      <?php 
+        include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
+
       <script src="./js/detalles_listas.js"></script>
       <script src="./js/rango_fechas.js"></script>
-      
     </body>
   </html>
 <?php } ?>

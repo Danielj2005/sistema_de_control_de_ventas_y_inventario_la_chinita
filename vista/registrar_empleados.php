@@ -115,7 +115,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

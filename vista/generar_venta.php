@@ -74,7 +74,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <option value="">Selecciona una opción</option>
     
                           <?php
-                            $consulta = modeloPrincipal::consultar("SELECT M.id_menu,M.nombre_platillo FROM producto AS P 
+                            $consulta = modeloPrincipal::consultar("SELECT M.id_menu, M.nombre_platillo FROM producto AS P 
                               INNER JOIN detalles_menu AS D ON D.id_producto = P.id_producto
                               INNER JOIN menu AS M ON M.id_menu = D.id_menu 
                               WHERE P.stock > 0 AND P.estatus = 1 AND M.estatus = 1 group by M.id_menu");
@@ -168,9 +168,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             <tbody id="tabla_metodo_pago"> </tbody>
                           </table>
                         </div>
-
                       </div>
-
                       <div class="col-12 col-md-12 mb-3 text-start">
                         <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> Agregar Método de Pago</button>
                       </div>
@@ -217,7 +215,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
       </main>
 
-      <div class="msjFormSend"></div>
       <script type="text/javascript">
         // función para añadir un metodo de pago 
         let i = 1;
@@ -247,6 +244,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           let tr = document.getElementById(`metodo_${num}`);
           tr.remove();
         }
+        
         // estafuncion sirve para habilitar e inhabilitar el input de el número de referencia de un pago 
         function habilitar_referencia (id_del_selector,input_num_referencia){
 
@@ -262,7 +260,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           }
         }
       
-        
       </script>
       <script src="./js/eliminar_tr_tabla.js"></script>
       <?php 
@@ -270,7 +267,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/footer.php"); 
         // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php"); ?>
-    
     </body>
   </html>
 <?php } ?>

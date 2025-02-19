@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-11-2024 a las 20:01:57
+-- Tiempo de generación: 18-02-2025 a las 22:48:18
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `chinita`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bitacora`
+--
+
+CREATE TABLE `bitacora` (
+  `id` int NOT NULL,
+  `fecha_hora` date NOT NULL,
+  `mensaje` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `id_usuario` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -76,6 +89,21 @@ INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `telefono`) VALUES
 (7, 'V-14540481', 'maría gimenez', '04245494211'),
 (8, 'V-30887827', 'KATTY RONDON', '04242344312'),
 (9, 'V-29775798', 'LUISA', '04123456789');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `configuracion`
+--
+
+CREATE TABLE `configuracion` (
+  `id` int NOT NULL,
+  `c_preguntas` int NOT NULL,
+  `c_caracteres` int NOT NULL,
+  `c_numeros` int NOT NULL,
+  `c_simbolos` int NOT NULL,
+  `tiempo_inactividad` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -470,7 +498,7 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 
 CREATE TABLE `presentacion` (
   `id` int NOT NULL,
-  `nombre` varchar(45) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
@@ -495,7 +523,7 @@ INSERT INTO `presentacion` (`id`, `nombre`) VALUES
 CREATE TABLE `producto` (
   `id_producto` int NOT NULL,
   `id_categoria` int NOT NULL,
-  `codigo` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `codigo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `nombre_producto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_presentacion` int NOT NULL,
   `precio_compra_dolar` float NOT NULL,
@@ -808,6 +836,13 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 --
 
 --
+-- Indices de la tabla `bitacora`
+--
+ALTER TABLE `bitacora`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
@@ -824,6 +859,12 @@ ALTER TABLE `categoria_equipo`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`id_cliente`);
+
+--
+-- Indices de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `detalles_menu`
@@ -944,6 +985,12 @@ ALTER TABLE `venta`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `bitacora`
+--
+ALTER TABLE `bitacora`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
@@ -960,6 +1007,12 @@ ALTER TABLE `categoria_equipo`
 --
 ALTER TABLE `cliente`
   MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_menu`
@@ -1060,6 +1113,12 @@ ALTER TABLE `venta`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `bitacora`
+--
+ALTER TABLE `bitacora`
+  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalles_menu`

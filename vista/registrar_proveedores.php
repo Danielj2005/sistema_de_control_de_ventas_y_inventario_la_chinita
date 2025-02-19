@@ -1,7 +1,6 @@
 <?php 
 session_start();
 
-
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
   // Redirigir el acceso a la página sino inició de sesión
   header('Location: ../index.php.php');
@@ -11,18 +10,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <!DOCTYPE html>
   <html lang="en">
     <head>
-      <!-- metadatos -->  
-      <?php include_once("../include/meta_include.php"); ?>
-
       <!-- titulo -->
       <title>Registro de Proveedores</title>
-
-      <!-- ======= estilos y librerias css ======= -->
-      <?php include_once("../include/css_include.php"); ?>
+      
+      <!-- metadatos -->  
+      <?php 
+        include_once("../include/meta_include.php");
+        // ======= estilos y librerias css ======= 
+        include_once("../include/css_include.php"); ?>
     </head>
     <body>
-      <?php   include_once("../include/header.php"); ?>
-      <?php   include_once("../include/sliderbar.php"); ?>
+      <?php 
+        include_once("../include/header.php"); 
+        include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
         <div class="pagetitle">
           <h1>
@@ -76,9 +76,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
       
-      <?php   include_once("../include/footer.php"); 
+      <?php 
+        include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>

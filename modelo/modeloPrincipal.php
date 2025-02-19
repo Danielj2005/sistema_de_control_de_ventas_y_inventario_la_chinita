@@ -184,6 +184,21 @@ class modeloPrincipal {
         if(strlen($num) == 3){
             return $num = '00000'.$num;
         }
+        if(strlen($num) == 4){
+            return $num = '0000'.$num;
+        }
+        if(strlen($num) == 5){
+            return $num = '000'.$num;
+        }
+        if(strlen($num) == 6){
+            return $num = '00'.$num;
+        }
+        if(strlen($num) == 7){
+            return $num = '0'.$num;
+        }
+        if(strlen($num) == 8){
+            return $num;
+        }
 }
 
     /*---------- Funcion Verificar Fechas ----------*/

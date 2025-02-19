@@ -60,7 +60,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <th class="col text-center" scope="col" class="text-center">VER HISTORAL DE COMPRAS</th>
                         </tr>
                       </thead>
-
                       <tbody>
                         <?php include("../include/listas_registros_include.php"); consultar_registros('proveedor'); ?>  
                       </tbody>
@@ -72,7 +71,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
+      
       <!-- Modal modificar proveedor -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

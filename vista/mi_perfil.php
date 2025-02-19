@@ -10,16 +10,18 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <!DOCTYPE html>
   <html lang="en">
     <head>
-      <!-- metadatos -->  
-      <?php include_once("../include/meta_include.php"); ?>
       <!-- titulo -->
       <title>Mi Perfil</title>
-      <!-- ======= estilos y librerias css ======= -->
-      <?php include_once("../include/css_include.php"); ?>
+      <!-- metadatos -->  
+      <?php 
+        include_once("../include/meta_include.php");
+        // ======= estilos y librerias css ======= 
+        include_once("../include/css_include.php"); ?>
     </head>
     <body>
-      <?php include_once("../include/header.php"); ?>
-      <?php include_once("../include/sliderbar.php"); ?>
+      <?php
+        include_once("../include/header.php"); 
+        include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
         <div class="pagetitle"><h1>Mi Perfil</h1></div>
         <section class="section dashboard">
@@ -81,7 +83,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </fieldset>
                         <hr>
                         <fieldset class="row">
-                          <legend><i class="bi bi-shield"></i> &nbsp;Actualizar Pregunta de Seguridad</legend>
+                          <legend><i class="bi bi-shield"></i> &nbsp; Actualizar Pregunta de Seguridad</legend>
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
                               <button type="submit" class="btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#preguntas_seguridad"><i class='zmdi zmdi-refresh'></i> Actualizar</button>
                           </div>
@@ -95,7 +97,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
+      
       <!-- Modal actualizar informacion del usuario -->
       <div class="modal fade" id="info_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -147,6 +149,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </div>
+
       <!-- Modal actualizar preguntas de segruidad -->
       <div class="modal fade" id="preguntas_seguridad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -202,6 +205,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </div>
       </div>
+      
       <?php include_once("../include/footer.php"); ?>
       <script>
         // función para alerta de configuración de preguntas secretas.

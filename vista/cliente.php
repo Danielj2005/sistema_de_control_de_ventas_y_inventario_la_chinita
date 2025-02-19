@@ -68,12 +68,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </div>
       </div>
 
-      <div class="msjFormSend"></div>
       <?php 
         include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
       <script src="./js/detalles_listas.js"></script>
-
     </body>
   </html>
 <?php } ?>

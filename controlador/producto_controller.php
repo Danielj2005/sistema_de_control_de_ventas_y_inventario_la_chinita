@@ -62,7 +62,7 @@ if($modulo === 'Guardar'){
         exit();
     }
     //datos verificados modificar
-    if (modeloPrincipal::InsertSQL("producto", "id_categoria, codigo, nombre_producto, id_presentacion, precio_compra_dolar, precio_compra_bs, stock, estatus", "'$id_categoria', '$codigo', '$nombre_producto', '$id_presentacion', '0', '0', '0',0")) {
+    if (modeloPrincipal::InsertSQL("producto", "id_categoria, codigo, nombre_producto, id_presentacion, precio_compra_dolar, precio_compra_bs, stock, estatus", "'$id_categoria', '$codigo', '$nombre_producto', '$id_presentacion', '0', '0', '0',1")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Registro exitoso!",

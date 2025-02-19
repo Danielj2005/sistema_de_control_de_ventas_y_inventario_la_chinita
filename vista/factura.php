@@ -60,9 +60,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // $total_dolar = $_POST['total_dolar_venta_iva'];
         // $total_bolivares = $_POST['total_bolivares_venta_iva'];
 
-
-
-  
         require_once ('../config/ConfigServer.php');
         require_once ('../modelo/modeloPrincipal.php');
 

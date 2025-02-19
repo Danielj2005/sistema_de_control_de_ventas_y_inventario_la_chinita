@@ -9,8 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css">
 		<style>
-			
-			
 			* {
 				margin: 0;
 				padding: 0;
@@ -19,11 +17,10 @@
 				-moz-box-sizing: border-box;
 			}
 			
-
 			div i{
-				top: 1.5em;
+				top: 1.4em;
 				z-index: 2;
-				right: 0;
+				right: 0.3rem;
 				bottom: 0;
 				width: 2rem;
 				height: 1.5rem;
@@ -44,7 +41,6 @@
 			/* Make images responsive on mobile devices */
 
 			@media only screen and (max-width: 768px) {
-
 				.carousel-item img {
 
 					height: 1080px !important;
@@ -57,14 +53,21 @@
 			
 				}
 				div i{
-					top: 1.8em;
+					top: 1.4em;
 				}
 
+			}
+
+			.glassmorph{
+				background-color: rgba(0, 0, 0, 0.80);
+				backdrop-filter: blur(5px);
+				-webkit-backdrop-filter: blur(5);
+				-moz-backdrop-filter: blur(10px);
 			}
 		</style>
 	</head>
 <body>
-	<div class="row justify-content-center ">
+	<div class="row justify-content-center m-0">
 		<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
 			<div class="carousel-indicators">
 				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -92,31 +95,32 @@
 			</button>
 		</div>
 
-
 		<div class="col-12 position-absolute row justify-content-center">
-			<div class="col-10 col-sm-6 col-md-6 bg-black bg-opacity-75 m-5 p-3 pt-4 rounded-4">
+			<div class="col-10 col-sm-6 col-md-6 glassmorph m-5 p-3 pt-4 rounded-4">
 				<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
-					<div class="avatar text-center mb-5">
-						<img src="vista/img/logo.png">
-						<h2>INICIO DE SESIÓN</h2>
-					</div>
-					<div class=" mb-3">
-						<label>CORREO ELECTRÓNICO</label>
-						<input type="text" class="form-control" id="correo" name="correo" placeholder="CORREO ELECTRÓNICO">
-					</div>
-					<div class="boton mb-3 position-relative">
-						<label>CONTRASEÑA</label>
-						<input type="password" class="input__field passw form-control" id="pswd" name="contraseña" placeholder="CONTRASEÑA">
-						<i class="bi bi-eye input__icon text-black position-absolute h3 m-0"></i>
-					</div>
-					<div class="row mb-4">
-						<div class="col-12 mb-3 text-center">
-							<button type="submit" class="btn btn-primary btn-md w-75 mt-4 mx-4">INICIAR SESIÓN</button>
+					<div class="row justify-content-center">
+						<div class="col-12 avatar text-center mb-5">
+							<img src="vista/img/logo.png">
+							<h2>Inicio de Sesión </h2>
 						</div>
-						<div class="col-12 mb-3 text-center">
-							<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
-								¿HAS OLVIDADO TU CONTRASEÑA?
-							</button>
+						<div class="col-12 col-sm-12 col-md-12 mb-3">
+							<label>Correo Electrónico</label>
+							<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tú correo">
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 boton mb-3 position-relative">
+							<label>Contraseña</label>
+							<input type="password" class="p-1 input__field passw form-control" id="pswd" name="contraseña" placeholder="ingresa tú contraseña">
+							<i class="bi bi-eye input__icon text-black position-absolute h3 m-0"></i>
+						</div>
+						<div class="row mb-4">
+							<div class="col-12 mb-3 text-center">
+								<button type="submit" class="btn btn-primary btn-md mt-4 mx-4">iniciar sesión</button>
+							</div>
+							<div class="col-12 mb-3 text-center">
+								<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
+									¿Has olvidado tú contraseña?
+								</button>
+							</div>
 						</div>
 					</div>
 				</form>
@@ -124,16 +128,18 @@
 		</div>
 	</div>
 	<div class="msjFormSend"></div>
+
 	<!-- modal recuperar contraseña -->
 	<div class="modal fade position-absolute" id="recuperar_contraseña" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content bg-black bg-opacity-75">
-				<form method="post" action="./vista/recuperar_contraseña.php" >
+				<form method="post" action="./vista/recuperar_contraseña.php">
+					<input type="hidden"  name="acceso_recuperar_contraseña" value="ecDAuKiplp8=">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Recuperar contraseña</h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabel"> Recuperar contraseña</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div class="modal-body ">
+					<div class="modal-body">
 						<div class="">
 							<label class="mb-3">Ingresa tu correo</label>
 							<input type="text" class="input__field form-control" name="correo_recuperar_contraseña" id="correo_recuperar_contraseña" placeholder="ingresa tu correo">

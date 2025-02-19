@@ -43,32 +43,29 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         a = 1;
                         var cantidad = [];
                         var array =[];
-                            while (c = document.getElementById('producto'+a).value) {
-                              k = document.getElementById('cantidad'+a).value;
-                              array.push(c);
-                              cantidad.push(k);
-                              a += 1;
-                           
-
-                            document.addEventListener("DOMContentLoaded", () => {
-                      echarts.init(document.querySelector("#barChart")).setOption({
-                        xAxis: {
-                          type: 'category',
-                          data: array
-                        },
-                        yAxis: {
-                          type: 'value'
-                        },
-                        series: [{
-                          data: cantidad,
-                          type: 'bar'
-                        }]
-                      });
-                    }); 
-                  }
+                        while (c = document.getElementById('producto'+a).value) {
+                          k = document.getElementById('cantidad'+a).value;
+                          array.push(c);
+                          cantidad.push(k);
+                          a += 1;
+                          document.addEventListener("DOMContentLoaded", () => {
+                            echarts.init(document.querySelector("#barChart")).setOption({
+                              xAxis: {
+                                type: 'category',
+                                data: array
+                              },
+                              yAxis: {
+                                type: 'value'
+                              },
+                              series: [{
+                                data: cantidad,
+                                type: 'bar'
+                              }]
+                            });
+                          }); 
+                        }
                       </script>
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -76,6 +73,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+
       <?php 
         include_once("../include/footer.php");
         include_once("../include/scripts_include.php"); ?>

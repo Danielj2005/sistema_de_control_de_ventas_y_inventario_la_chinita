@@ -1,7 +1,6 @@
 <?php 
 session_start();
 
-
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
   // Redirigir el acceso a la página sino inició de sesión
   header('Location: ../index.php');
@@ -25,6 +24,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/header.php"); 
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); ?>
+
       <main id="main" class="main">
         <div class="pagetitle">
           <h1>
@@ -39,7 +39,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="card-body pb-0">
                   <h5 class="card-title">Datos del proveedor</h5> 
                   <form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="dolar" value="<?= $mostrarDolar['id_dolar']; ?>">
+                    <input type="hidden" name="id_dolar" id="dolar" value="<?= $mostrarDolar['id_dolar']; ?>">
                     <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
@@ -48,6 +48,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
                           <option value="V-">V</option>
                           <option value="R-">RIF</option>
+                          <option value="J-">JURIDICO</option>
                           <option value="E-">E</option>
                         </select>
                         <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
@@ -74,9 +75,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos a ingresar</h5>
                       <div class="col-12 col-sm-12 col-md-4 mb-3">
                         <button type="button" class="btn btn-secondary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
-
                       </div>
+
                       <label class="form-label">Productos <span style="color:#f00;">*</span></label>
+
                       <select multiple="on" onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-select Select" id="id_producto" name="producto[]" required>
                         <option>Selecciona una o más opciones</option>
 
@@ -84,19 +86,16 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto 
                             FROM producto WHERE stock > 0 AND estatus = 1");
               
-                          while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
+                          while ($mostrar = mysqli_fetch_array($consulta)) { ?>
     
                             <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
     
                         <?php } ?>
                       </select>
                     </div>
-                    
-                    <div class="d-non" id="container_comparacion"></div>
 
                     <div class="col-md-12">
                       <div class="table-responsive">
-
                         <h5 class="card-title">Lista de prooductos</h5>
                         <table class="table table-striped">
                           <thead>
@@ -156,7 +155,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
-                      <button name="insertar" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registrar entrada</button>
+                      <button name="insertar" class="btn btn-success">&nbsp; Registrar entrada</button>
                     </div>
                   </form>
                 </div>
@@ -223,8 +222,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </div>
       </div>
 
-
-      <div class="msjFormSend"></div>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

@@ -26,12 +26,10 @@
           <i class="bi bi-currency-exchange"></i>
         </a>
 
-        <?php 
-          $precio_dolar = modeloPrincipal::consultar("SELECT id_dolar from dolar");
-          $precio_dolar = mysqli_num_rows($precio_dolar);
-          $precio_dolar = modeloPrincipal::consultar("SELECT id_dolar, dolar from dolar WHERE id_dolar = '$precio_dolar'");
+        <?php
+          $precio_dolar = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) from dolar"));
+          $precio_dolar = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = ".$precio_dolar['MAX(id_dolar)']."");
           $mostrarDolar = mysqli_fetch_array($precio_dolar);
-
         ?>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
@@ -108,18 +106,14 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <?php //if ($_SESSION["rol"] == "1") {?>
-          <!-- <li>
+            <?php if ($_SESSION["rol"] < "3") {?>
+              <li>
                 <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                   <i class="bi bi-gear"></i>
-                  <span>CONFIGURACIÓN</span>
+                  <span>Configuración</span>
                 </a>
-              </li> -->
-            <?php //} ?>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
+              </li>
+            <?php } ?>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -130,13 +124,10 @@
                 <span>Cerrar Sesión</span>
               </a>
             </li>
-
           </ul>
-          <!-- End Profile Dropdown Items -->
         </li>
-        <!-- End Profile Nav -->
-
       </ul>
-    </nav><!-- End Icons Navigation -->
-
+    </nav>
   </header>
+  
+	<div class="msjFormSend"></div>

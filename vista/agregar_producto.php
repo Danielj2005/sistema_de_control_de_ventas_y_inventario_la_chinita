@@ -88,7 +88,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
       
       <script type="text/javascript" src="./js/selector_dinamico.js"></script>
       <?php 

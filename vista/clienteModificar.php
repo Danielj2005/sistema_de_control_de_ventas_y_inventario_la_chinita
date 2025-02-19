@@ -14,10 +14,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <title>Modificar Clientes</title>
       <!-- metadatos -->  
       <?php include_once("../include/meta_include.php"); ?>
-
-
-        <!-- ======= estilos y librerias css ======= -->
-        <?php include_once("../include/css_include.php"); ?>
+      <!-- ======= estilos y librerias css ======= -->
+      <?php include_once("../include/css_include.php"); ?>
     </head>
     <body>
       <?php   
@@ -81,7 +79,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <div class="msjFormSend"></div>
       <?php 
         include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); ?>
