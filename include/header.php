@@ -108,7 +108,7 @@
             </li>
             <?php if ($_SESSION["rol"] < "3") {?>
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
                   <i class="bi bi-gear"></i>
                   <span>Configuración</span>
                 </a>
