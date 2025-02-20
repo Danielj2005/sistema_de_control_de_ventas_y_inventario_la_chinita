@@ -1,0 +1,119 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+	// Redirigir el acceso a la página sino inició de sesión
+	header('Location: ../index.php');
+	exit();
+  
+}else{ 
+  $estado = (!isset($_POST['estado_rol'])) ? '1' : $_POST['estado_rol'];
+  ?>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <!-- titulo -->
+      <title>Roles</title> 
+      <?php 
+        // se incluyen los meta datos 
+        include_once("../include/meta_include.php"); 
+        // se incluyen los estilos css y sus librerias a la vista
+        include_once("../include/css_include.php"); ?>
+    </head>
+    <body>
+      <?php 
+        // se incluye el header / encabezado a la vista
+        include_once("../include/header.php");
+        // se incluye el menu lateral a la vista 
+        include_once("../include/sliderbar.php"); ?>
+
+      <main id="main" class="main">
+        <div class="pagetitle">
+          <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+          <h1 class="my-3">Roles</h1>
+        </div>
+        <section class="section dashboard">
+          <div class="row">
+            <div class="col-12">
+              <div class="card top-selling pb-3">
+                <div class="row btn-group text-center">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <a class="col-12 btn btn-success" href="./registrar_rol.php">Registrar un nuevo rol</a>
+                  </div>
+
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <form action="./roles.php" method="post">
+                        <input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
+                        <button type="submit" class="col-12 btn btn-secondary">
+                          <?= ($estado == '0') ? "Activos" : "Inactivos"?>
+                        </button>
+                    </form>
+                  </div>
+                  
+                </div>
+                <div class="card-body pb-0">
+                  <h5 class="card-title">Lista de Roles <?= ($estado == '1') ? "Activos" : "Inactivos"?></h5>
+                  <div class="table table-responsive">
+                    <table class="table table-borderless datatable" id="example">
+                      <thead>
+                        <tr>
+                          <th class="text-center col" scope="col">#</th>
+                          <th class="text-center col" scope="col">NOMBRE</th>
+                          <th class="text-center col" scope="col">MODIFICAR</th>
+                          <th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
+                        </tr>
+                      </thead>
+    
+                      <tbody>
+                        <?php // include("../include/listas_registros_include.php"); consultar_registros('producto'); ?>  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- Modal detalles de venta -->
+      <div class="modal fade" id="addPresentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación <span style="color:#f00;">*</span> </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="detalles_de_ventas">
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación</label>
+                  <div class="col-sm-10">
+                    <input  type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                    <input  type="hidden" name="modulo" value="guardar">
+                  </div>
+                  
+                  <div class="col-12 mb-1">
+                    <div class="form-group">
+                        <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                    
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <?php 
+        // se incluye el footer / pie de pagina a la vista
+        include_once("../include/footer.php");
+        // se incluyen los script de javascript a la vista 
+        include_once("../include/scripts_include.php"); ?>
+    </body>
+  </html>
+<?php } ?>

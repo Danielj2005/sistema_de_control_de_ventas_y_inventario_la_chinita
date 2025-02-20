@@ -51,7 +51,7 @@
           </li>
           <li>
             <a href="./generar_venta.php">
-              <i class="bi bi-circle"></i><span>Generar ventas</span>
+              <i class="bi bi-circle"></i><span>Generar venta</span>
             </a>
           </li>
         </ul>
@@ -92,22 +92,36 @@
         </ul>
       </li>
       
-      <!-- apartado de gestión de usuarios  -->
-      <?php if ($_SESSION["id_rol"] < "3") {?>
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="../vista/lista_empleados.php">
-            <i class="bi bi-person-plus"></i>
-            <span>Empleados</span>
-          </a>
-        </li>
-      <?php } ?>
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="../vista/cliente.php">
           <i class="bi bi-people"></i>
           <span>Clientes</span>
         </a>
       </li>
+
+      <!-- apartado de gestión de usuarios  -->
+      <?php if ($_SESSION["id_rol"] < "3") {?>
+        
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person-circle"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="user-list" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="../vista/lista_empleados.php">
+                <i class="bi bi-circle"></i>
+                <span>Empleados</span>
+              </a>
+            </li>
+            <li>
+              <a href="./roles.php">
+                <i class="bi bi-circle"></i>
+                <span>Roles</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      <?php } ?>
 
       <!-- apartado de ayuda  -->
       <li class="nav-item">
