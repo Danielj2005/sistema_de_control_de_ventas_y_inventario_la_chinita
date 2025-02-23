@@ -54,10 +54,16 @@
               <i class="bi bi-circle"></i><span>Generar venta</span>
             </a>
           </li>
+          <li>
+            <a href="./estadisticas_generales.php">
+              <i class="bi bi-circle"></i><span>Estadísticas de ventas</span>
+            </a>
+          </li>
         </ul>
       </li>
       
       <!-- apartado de manú de servicios -->
+      
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i> <span>Menú</span> <i class="bi bi-chevron-down ms-auto"></i>
@@ -73,32 +79,7 @@
           </li>
         </ul>
       </li>
-
-      <!-- apartado de estadísticas de ventas  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i>
-          <span>Estadísticas</span>
-          <i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-
-        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="estadisticas_generales.php">
-              <i class="bi bi-circle"></i>
-              <span>Estadísticas de ventas</span>
-            </a>
-          </li>
-        </ul>
-      </li>
       
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../vista/cliente.php">
-          <i class="bi bi-people"></i>
-          <span>Clientes</span>
-        </a>
-      </li>
-
       <!-- apartado de gestión de usuarios  -->
       <?php if ($_SESSION["id_rol"] < "3") {?>
         
@@ -106,7 +87,14 @@
           <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
             <i class="bi bi-person-circle"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="user-list" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="../vista/cliente.php">
+                <i class="bi bi-circle"></i>
+                <span>Clientes</span>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link collapsed" href="../vista/lista_empleados.php">
                 <i class="bi bi-circle"></i>
@@ -117,6 +105,41 @@
               <a href="./roles.php">
                 <i class="bi bi-circle"></i>
                 <span>Roles</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      <?php } ?>
+
+      
+
+      <!-- apartado del perfil de usuario  -->
+      <li class="nav-item">
+        <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; Mi perfil</a>
+      </li>
+
+      <!-- apartado de configuración de sistema -->
+      <?php if ($_SESSION["rol"] < "3") {?>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-gear"></i>
+            <span>Configuración</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+
+          <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="./configuracion.php">
+                <i class="bi bi-circle"></i>
+                <span>Ajustes del sistema</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="./bitacora.php">
+                <i class="bi bi-circle"></i>
+                <span>Bitácora</span>
               </a>
             </li>
           </ul>
@@ -153,21 +176,6 @@
           </li>
         </ul>
       </li>
-
-      <!-- apartado del perfil de usuario  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; Mi perfil</a>
-      </li>
-
-      <!-- apartado de configuración de sistema -->
-      <?php if ($_SESSION["rol"] < "3") {?>
-        <li class="nav-item">
-          <a class="nav-link collapsed dropdown-item d-flex align-items-center" href="./configuracion.php">
-            <i class="bi bi-gear"></i>
-            <span>Configuración</span>
-          </a>
-        </li>
-      <?php } ?>
 
       <li class="nav-item">
         <button class="nav-link collapsed bi bi-box-arrow-right btn-exit-system">&nbsp; Cerrar sesión</button>

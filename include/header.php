@@ -67,7 +67,7 @@
             <i class="bi bi-alarm text-warning"></i>
             <div>
               <h4>RECIBIR PEDIDO</h4>
-              <p>EL DIA DE HOY <?= $_SESSION["fecha"]; ?> LLEGA EL PEDIDO SOLICITADO</p>
+              <p>EL DIA DE HOY <?php //$_SESSION["fecha"]; ?> LLEGA EL PEDIDO SOLICITADO</p>
             </div>
           </li>
 

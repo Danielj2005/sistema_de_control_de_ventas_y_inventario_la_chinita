@@ -53,6 +53,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           <th scope="col">NOMBRE</th>
                           <th scope="col">APELLIDO</th>
                           <th scope="col">TELÉFONO</th>
+                          <th scope="col" class="text-center">MODIFICAR</th>
                           <th scope="col" class="text-center">ESTADO</th>
                         </tr>
                       </thead>
@@ -67,6 +68,36 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
+
+      
+      <div class="modal fade" id="update_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificar o actualizar acceso al sistema del empleado</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="../controlador/producto_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                <input type="hidden" name="modulo" value="Guardar">
+                <div id="modificar_usuario" class="row">
+
+                  
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- modal modificar -->
+      <script src="./js/modal.js"></script>
+
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

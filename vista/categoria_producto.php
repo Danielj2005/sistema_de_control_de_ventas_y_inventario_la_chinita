@@ -54,6 +54,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
               </div>
             </div>
+            
             <div class="col-12 col-sm-5 col-md-5 mb-3">
                 <div class="card">
                   <div class="card-body">
@@ -66,7 +67,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           </div>
                         </div>
                         <div class="text-center">
-                          <button type="submit" form="añadir_categoria" class="btn btn-success zmdi zmdi-floppy">&nbsp; Añadir</button>
+                          <button type="submit" form="añadir_categoria" class="btn btn-success">&nbsp; Añadir</button>
                         </div>
                     </form>
                   </div>

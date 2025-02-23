@@ -37,6 +37,7 @@ if($modulo === 'guardar'){
         </script>';
         exit();
     }
+
     if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9 ]{3,20}",$nombre)) {
         echo'<script type="text/javascript">
             swal({
@@ -48,11 +49,12 @@ if($modulo === 'guardar'){
         </script>';
         exit();
     }
+
     //datos verificados modificar
     if (modeloprincipal::InsertSQL("presentacion","nombre", "'$nombre'")) {
         echo '<script type="text/javascript">
             swal({
-                title:"¡Reegistro exitoso!",
+                title:"¡Registro exitoso!",
                 text:"Los datos se registraron correctamente",
                 type: "success",
                 confirmButtonText: "Aceptar"

@@ -11,7 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>Productos</title>
+      <title>Roles</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -28,62 +28,173 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         <div class="pagetitle">
           <h1>
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./productos.php">&nbsp; Volver</a>
-            Producto
+            Registro de rol
           </h1> 
         </div>
         <section class="section dashboard">
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h2 class="card-title">Añadir Nuevo Producto</h2>
-                    <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                      <input type="hidden" name="modulo" value="Guardar">
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Cógido Del Producto <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <input type="text" pattern="[0-9]{4,30}" required="" placeholder="ingresa el código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Nombre Del Producto <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
-                          </div>
-                        </div>
-                        <!-- selector de categoría  -->
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <select name="id_categoria" id="categoria" class="form-select">
-                              <option value="">Selecciona una opción</option>
-                              <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
-                            </select>
-                          </div>
-                        </div>
-                        <!-- selector de presentacion -->
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <select name="id_presentacion" id="select_presentacion" class="form-select">
-                              <option value="0">Selecciona una opción</option>
-                              <?php require_once ('../include/select_dinamico.php');?>
-                            
-                            </select>
-                          </div>
-                        </div>
+          <div class="card p-3">
+            <div class="container-fluid row mb-3 p-0 justify-content-around">
+              <fieldset class="row mb-2 m-0 p-3 justify-content-around gap-1">
+              
+                <!-- vistas de proveedores -->
+                <div class="col-12 col-sm-12 col-md-12 mb-1 m-0 rounded-3">
+                  <form id="" action="../controlador/rol_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                    <input type="hidden" name="modulo" value="Guardar">
 
-                        <div class="col-12 mb-1">
-                          <div class="form-group">
-                              <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                    <div class="col-12 col-md-12 mb-3">
+                      <h4 class="mb-3">Inventario</h4>
+                      <hr>
+                      <div class="row m-0 p-0 justify-content-between">
+                        <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
+                          <div class="border col-12 col-sm-12 col-md-5 mb-3 p-2 rounded-3">
+                            <h4 class="card-title">
+                              <input type="checkbox">
+                              Proveedores
+                            </h4>
+                            <ul id="" class="nav-content list-unstyled"> 
+                              <li>
+                                <input type="checkbox">
+                                <span>Registro de proveedores</span>
+                              </li>
+    
+                              <li>
+                                <input type="checkbox">
+                                <span>Proveedores registrados</span>
+                              </li>
+    
+                              <li>
+                                <input type="checkbox">
+                                <span>Modificar proveedores</span>
+                              </li>
+                              
+                              <li>
+                                <input type="checkbox">
+                                <span>Historial de compras</span>
+                              </li>
+                            </ul>
+                          </div>
+    
+                          <div class="border col-12 col-sm-12 col-md-5 mb-3 p-2 rounded-3">
+                            <h2 class="card-title">
+                              <input type="checkbox">
+                              Productos
+                            </h2>
+                            <ul id="" class="nav-content list-unstyled">
+                              <li>
+                                <input type="checkbox">
+                                <span>Registrar categoría</span>
+                              </li>
+                              <li>
+                                <input type="checkbox">
+                                <span>Registrar presentación</span>
+                              </li>
+                              <li>
+                                <input type="checkbox">
+                                <span>Registro de productos</span>
+                              </li>
+    
+                              <li>
+                                <input type="checkbox">
+                                <span>Productos registrados</span>
+                              </li>
+                              
+                              <li>
+                                <input type="checkbox">
+                                <span>Entrada de productos</span>
+                              </li>
+                            </ul>
                           </div>
                         </div>
-                        <div class="text-center">
-                          <button type="submit" form="añadir_producto" class="btn btn-success zmdi zmdi-floppy">&nbsp; Añadir</button>
+                      </div>
+                    </div>
+
+                    <hr>
+                    <hr>
+
+                    <div class="row">
+                      <div class="col-12 col-md-6 mb-3">
+                        <h4 class="mb-3">Ventas</h4>
+                        <hr>
+                        <div class="row m-0 p-0 justify-content-between">
+                          <div class="border col-12 col-sm-12 col-md-12 mb-3 p-2 rounded-3">
+                            <h2 class="card-title">
+                              <input type="checkbox">
+                              Ventas
+                            </h2>
+                            <ul id="" class="nav-content list-unstyled"> 
+                              <li>
+                                <input type="checkbox">
+                                <span>Ventas realizadas</span>
+                              </li>
+                              <li>
+                                <input type="checkbox">
+                                <span>Detalles de ventas</span>
+                              </li>
+    
+                              <li>
+                                <input type="checkbox">
+                                <span>Ver factura</span>
+                              </li>
+    
+                              <li>
+                                <input type="checkbox">
+                                <span>Ver estadísticas</span>
+                              </li>
+                              
+                              <li>
+                                <input type="checkbox">
+                                <span>Generar venta</span>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
-                    </form>
-                  </div>
+                      </div>
+
+                      <div class="col-12 col-md-6 mb-3">
+                      <h4 class="mb-3">Menú</h4>
+                        <hr>
+                        <div class="row m-0 p-0 gap- justify-content-between">
+    
+                          <div class="border col-12 col-sm-12 col-md-12 mb-3 p-2 rounded-3">
+                            <h2 class="card-title">
+                              <input type="checkbox">
+                              Menú
+                            </h2>
+                            <ul id="" class="nav-content list-unstyled"> 
+                              <li>
+                                <input type="checkbox">
+                                <span>Registro de servicio</span>
+                              </li>
+
+                              <li>
+                                <input type="checkbox">
+                                <span>Ver servicios registrados</span>
+                              </li>
+                              <li>
+                                <input type="checkbox">
+                                <span>Modificación de estado de los servicios</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr>
+                    <hr>
+
+                  </form>
                 </div>
+              </fieldset>
+            </div>
+            
+            <div class="col-12 mb-1">
+              <div class="form-group">
+                  <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" form="añadir_producto" class="btn btn-success">Añadir</button>
             </div>
           </div>
         </section>

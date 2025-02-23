@@ -76,21 +76,22 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <!-- Modal detalles de venta -->
+
+      <!-- Modal para registrar una presentación -->
       <div class="modal fade" id="addPresentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación <span style="color:#f00;">*</span> </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body" id="detalles_de_ventas">
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación</label>
+                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación <span style="color:#f00;">*</span></label>
                   <div class="col-sm-10">
-                    <input  type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
-                    <input  type="hidden" name="modulo" value="guardar">
+                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                    <input type="hidden" name="modulo" value="guardar">
                   </div>
                   
                   <div class="col-12 mb-1">
@@ -102,7 +103,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               </div>
                     
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                <button type="submit" class="btn btn-success">Añadir</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
               </div>
             </form>

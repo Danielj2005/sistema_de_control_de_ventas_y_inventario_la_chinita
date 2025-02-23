@@ -5,7 +5,6 @@
 <script src="./js/jquery-3.6.0.min.js"></script>
 <script src="./js/hiddeInput.js"></script>
 
-
 <!-- Send Form -->
 <script src="./js/SendForm.js"></script>
 <!-- script para llamar la información de un producto -->
@@ -31,10 +30,6 @@
 
 <!-- cambio de vista en el menu del perfil de usuario -->
 <script src="./js/menu_perfil_opciones.js"></script>
-
-<!-- modal modificar -->
-<script src="./js/modal.js"></script>
-
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

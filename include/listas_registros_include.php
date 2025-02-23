@@ -76,6 +76,9 @@ function consultar_registros($tabla){
                 <td><?= $mostrar["apellido"]; ?></td>
                 <td><?= $mostrar["telefono"]; ?></td>
                 <td scope="row" class="text-center">
+                    <buttom module="modificar_empleado" valor="<?= $mostrar["id_usuario"]; ?>" data-bs-toggle="modal" data-bs-target="#update_user" class="modificar_user btn btn-warning bi bi-gear"></buttom>
+                </td>
+                <td scope="row" class="text-center">
                     <form action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="updateAccounUser" >
                         <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
                         

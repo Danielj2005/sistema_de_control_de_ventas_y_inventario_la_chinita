@@ -11,7 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>Inventario</title>
+      <title>Entrada de producto</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 

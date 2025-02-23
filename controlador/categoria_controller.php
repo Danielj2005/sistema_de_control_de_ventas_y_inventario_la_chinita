@@ -30,11 +30,11 @@ if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,30}", 
     </script>';
     exit();
 }
-if (modeloPrincipal::InsertSQL("categoria", "nombre" ,"'$nombre'")) {
+if (modeloPrincipal::InsertSQL("categoria", "nombre,estado" ,"'$nombre',1")) {
     echo '<script type="text/javascript">
             swal({
-                title:"¡Registro Exitoso!",
-                text:"La Categoría Se a Añadido Exitosamente",
+                title: "¡Registro Exitoso!",
+                text: "La Categoría Se a Añadido Exitosamente",
                 type: "success",
                 confirmButtonText: "Aceptar"
             },
