@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-02-2025 a las 22:48:18
+-- Tiempo de generación: 23-02-2025 a las 22:00:41
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bitacora` (
   `id` int NOT NULL,
   `fecha_hora` date NOT NULL,
+  `accion` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `mensaje` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -53,7 +54,8 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 (1, 'COMESTIBLE', 0),
 (2, 'BEBIDAS', 1),
-(3, 'FRITURAS', 1);
+(3, 'FRITURAS', 1),
+(7, 'GOOBIE', 1);
 
 -- --------------------------------------------------------
 
@@ -238,7 +240,9 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (83, 158, 'Divisa', NULL, 50, 2332),
 (84, 158, 'Punto de Venta', NULL, 5.68, 264.915),
 (85, 159, 'Punto de Venta', NULL, 34.8, 1623.07),
-(86, 160, 'Transferencia / Pago movíl', '85746534253647564536', 34.8, 1623.07);
+(86, 160, 'Transferencia / Pago movíl', '85746534253647564536', 34.8, 1623.07),
+(87, 161, 'Divisa', NULL, 40, 1865.6),
+(88, 161, 'Punto de Venta', NULL, 1.76, 82.0864);
 
 -- --------------------------------------------------------
 
@@ -374,7 +378,8 @@ INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_serv
 (117, 5, 2, 4, 186.56, 7, 3, 3, 143.64, 157),
 (118, 1, 1, 15, 699.6, 3, 24, 2, 95.76, 158),
 (119, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 159),
-(120, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 160);
+(120, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 160),
+(121, 1, 2, 15, 699.6, 7, 2, 3, 143.64, 161);
 
 -- --------------------------------------------------------
 
@@ -397,7 +402,11 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (2, 40, '2024-09-17 13:00:00'),
 (3, 47.88, '2024-10-13 21:49:03'),
 (4, 34, '2024-11-26 16:37:20'),
-(5, 46.64, '2024-11-26 16:39:13');
+(5, 46.64, '2024-11-26 16:39:13'),
+(6, 62.18, '2025-02-19 17:23:58'),
+(7, 62.18, '2025-02-19 17:24:12'),
+(8, 62.18, '2025-02-19 17:26:24'),
+(9, 63, '2025-02-19 17:33:15');
 
 -- --------------------------------------------------------
 
@@ -512,7 +521,8 @@ INSERT INTO `presentacion` (`id`, `nombre`) VALUES
 (4, '3 L'),
 (5, '1/2 KG'),
 (6, '1 KG'),
-(7, '500ML');
+(7, '500ML'),
+(8, '200GR');
 
 -- --------------------------------------------------------
 
@@ -537,12 +547,13 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `id_categoria`, `codigo`, `nombre_producto`, `id_presentacion`, `precio_compra_dolar`, `precio_compra_bs`, `stock`, `estatus`) VALUES
-(1, 2, '00000001', 'GLUP', 1, 2, 95.76, 0, 1),
+(1, 2, '00000001', 'GLUP', 1, 2, 95.76, -4, 1),
 (2, 2, '00000002', 'Pepsi 1.5 LT', 2, 5, 239.4, 0, 1),
 (3, 2, '00000003', 'LIGHT', 2, 2, 95.76, 2, 1),
-(4, 1, '00000004', 'POLLO', 6, 5, 239.4, 11, 1),
-(7, 2, '00000005', 'COCA COLA', 3, 3, 143.64, 1, 1),
-(15, 1, '00000006', 'ALITAS', 6, 0, 0, 0, 0);
+(4, 1, '00000004', 'POLLO', 6, 5, 239.4, 9, 1),
+(7, 2, '00000005', 'COCA COLA', 3, 3, 143.64, -1, 1),
+(15, 1, '00000006', 'ALITAS', 6, 0, 0, 0, 0),
+(19, 2, '00000007', 'PIÑA COLADA', 7, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -574,17 +585,18 @@ INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `dire
 
 CREATE TABLE `rol` (
   `id_rol` int NOT NULL,
-  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `estado` tinyint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
-(1, 'DESARROLLADOR'),
-(2, 'ADIMINISTRADOR'),
-(3, 'EMPLEADO');
+INSERT INTO `rol` (`id_rol`, `nombre`, `estado`) VALUES
+(1, 'DESARROLLADOR', 1),
+(2, 'ADIMINISTRADOR', 1),
+(3, 'EMPLEADO', 1);
 
 -- --------------------------------------------------------
 
@@ -633,6 +645,9 @@ CREATE TABLE `usuario` (
   `contraseña` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `direccion` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `ultima_sesion` date DEFAULT NULL,
+  `sesion_activa` tinyint NOT NULL,
+  `inhabilitado` tinyint NOT NULL,
   `primer_inicio` tinyint(1) NOT NULL,
   `id_rol` int NOT NULL,
   `estado` int NOT NULL
@@ -642,11 +657,12 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `primer_inicio`, `id_rol`, `estado`) VALUES
-(1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', 1, 2, 1),
-(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'fsLDsaW4ZGA=', '04125238909', 'SECTOR E GUASDUAL CALLE 1', 0, 1, 1),
-(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'dbe9tbGxpaSklbe/vg==', '04122343434', 'BARRIO EL PAEZ', 1, 3, 1),
-(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'ecDAuKiplp8=', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', 1, 3, 1);
+INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `inhabilitado`, `primer_inicio`, `id_rol`, `estado`) VALUES
+(1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 1, 2, 1),
+(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', NULL, 0, 0, 0, 1, 1),
+(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 3, 1),
+(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 1, 3, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -829,7 +845,8 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 (157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 8),
 (158, '2024-11-28 03:09:53', 63, 2997.84, 73.08, 3477.49, 2, 8),
 (159, '2024-11-28 03:23:34', 30, 1399.2, 34.8, 1623.07, 2, 8),
-(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 8);
+(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 8),
+(161, '2025-02-18 08:42:08', 36, 1686.48, 41.76, 1956.32, 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -994,7 +1011,7 @@ ALTER TABLE `bitacora`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria_equipo`
@@ -1024,25 +1041,25 @@ ALTER TABLE `detalles_menu`
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
@@ -1066,13 +1083,13 @@ ALTER TABLE `preguntas_secretas`
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -1102,13 +1119,13 @@ ALTER TABLE `status_equipo`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- Restricciones para tablas volcadas
