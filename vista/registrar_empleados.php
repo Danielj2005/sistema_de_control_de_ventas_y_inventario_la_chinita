@@ -104,7 +104,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                           </div>
                         </div>
                         <div class="text-center">
-                          <button type="submit" form="registro_empleado" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registrar</button>
+                          <button type="submit" form="registro_empleado" class="btn btn-success">Registrar</button>
                         </div>
                       </form>
                     </div>
