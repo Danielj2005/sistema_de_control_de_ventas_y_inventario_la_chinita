@@ -69,7 +69,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
       </main>
 
-      
       <div class="modal fade" id="update_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
           <div class="modal-content">
@@ -78,22 +77,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="../controlador/producto_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                <input type="hidden" name="modulo" value="Guardar">
-                <div id="modificar_usuario" class="row">
-
-                  
-                </div>
+              <form id="update_user_info" action="../controlador/modificar_usuario.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+                <div id="modificar_usuario" class="row"> </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Guardar</button>
+              <button form="update_user_info" type="submit" class="btn btn-success">Guardar</button>
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
             </div>
           </div>
         </div>
       </div>
-
 
       <!-- modal modificar -->
       <script src="./js/modal.js"></script>

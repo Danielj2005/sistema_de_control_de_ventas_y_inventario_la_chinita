@@ -79,25 +79,19 @@ function consultar_registros($tabla){
                     <buttom module="modificar_empleado" valor="<?= $mostrar["id_usuario"]; ?>" data-bs-toggle="modal" data-bs-target="#update_user" class="modificar_user btn btn-warning bi bi-gear"></buttom>
                 </td>
                 <td scope="row" class="text-center">
-                    <form action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="updateAccounUser" >
-                        <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
+                    <?php if ($mostrar["estado"] === "1") { ?>
                         
-                        <?php if ($mostrar["estado"] === "1") { ?>
+                        <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
+                            <i class="zmdi zmdi-check"></i> Activo 
+                        </button>
+                    
+                    <?php }else if ($mostrar["estado"] === "0") { ?>
 
-                            <input type="hidden" name="modulo" value="activo">
-                            <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
-                                <i class="zmdi zmdi-check"></i> Activo 
-                            </button>
-                        
-                        <?php }else if ($mostrar["estado"] === "0") { ?>
-
-                            <input type="hidden" name="modulo" value="inactivo">
-                            <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-danger">
-                                <i class="zmdi zmdi-close"></i> Inactivo 
-                            </button>
-                        
-                        <?php } ?>
-                    </form>
+                        <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-danger">
+                            <i class="zmdi zmdi-close"></i> Inactivo 
+                        </button>
+                    
+                    <?php } ?>
                 </td>
             </tr>
         <?php }

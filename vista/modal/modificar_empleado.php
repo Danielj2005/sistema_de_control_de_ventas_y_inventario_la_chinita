@@ -8,14 +8,14 @@ $modulo = $_POST['modulo'];
 
 if ($modulo == 'modificar_empleado') {
     $id_usuario = $_POST['id_usuario'];
-    $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.cedula, U.nombre, U.apellido, U.telefono, U.estado,
-        R.nombre AS nombre_rol, inhabilitado FROM usuario AS U
+    $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.id_usuario, U.cedula, U.nombre, U.apellido, U.telefono,
+        U.estado, R.nombre AS nombre_rol, inhabilitado FROM usuario AS U
         INNER JOIN rol AS R ON R.id_rol = U.id_rol
         WHERE id_usuario = $id_usuario"));
     
     ?>
 
-    <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
+    <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $existe["id_usuario"]; ?>">
     
     <div class="col-12 col-sm-12 col-md-4 mb-3">
         <label class="col-form-label">Cédula de identidad</label>
@@ -38,8 +38,8 @@ if ($modulo == 'modificar_empleado') {
 
             <select class="form-select" name="cambiar_estado" id="cambiar_estado">
 
-                <option <?= ($existe['estado'] == 0) ? 'selected' : ''; ?>>Activar</option>
-                <option <?= ($existe['estado'] == 0) ? '' : 'selected'; ?>>Inactivar</option>
+                <option value="1" <?= ($existe['estado'] == 0) ? 'selected' : ''; ?>>Activar</option>
+                <option value="0" <?= ($existe['estado'] == 0) ? '' : 'selected'; ?>>Inactivar</option>
             </select>
         </div>
     </div>
@@ -48,8 +48,8 @@ if ($modulo == 'modificar_empleado') {
         <div class="form-group">
             <label class="col-form-label">Permiso de inicio de sesión (<?= ($existe['inhabilitado'] == 0) ? '<span class="text-success">Permitido</span>' : '<span class="text-danger">Denegado</span>'; ?>)</label>
             <select class="form-select" name="permitir_acceso" id="permitir_acceso">
-                <option <?= ($existe['inhabilitado'] == 1) ? 'selected' : ''; ?>>Permitir</option>
-                <option <?= ($existe['inhabilitado'] == 1) ? '' : 'selected'; ?>>Denegar</option>
+                <option value="0" <?= ($existe['inhabilitado'] == 1) ? 'selected' : ''; ?>>Permitir</option>
+                <option value="1" <?= ($existe['inhabilitado'] == 1) ? '' : 'selected'; ?>>Denegar</option>
             </select>
         </div>
     </div>
