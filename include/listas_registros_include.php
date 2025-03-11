@@ -52,6 +52,7 @@ function consultar_registros($tabla){
         <?php  } 
     }
 
+    // en este apartado se genera un select con los roles
     if ($tabla === "rol") {
         // script para crear una lista de tipos usuarios
         // se consultan las tipos usuarios de la base de datos
@@ -59,6 +60,32 @@ function consultar_registros($tabla){
        // se imprimen los datos de la consulta 
         while($row = mysqli_fetch_assoc($consulta)) { ?>
             <option class="" name="id_tipo" value="<?= $row['id_rol'] ?>" ><?= $row['nombre'] ?></option>
+        <?php }
+    }
+
+    // en este apartado se una lista de los roles registrados
+    if ($tabla === "roles") {
+        // script para crear una lista de tipos usuarios
+        // se consultan las tipos usuarios de la base de datos
+        $consulta = modeloPrincipal::consultar("SELECT * FROM rol WHERE id_rol != 1");
+       // se imprimen los datos de la consulta 
+        while($row = mysqli_fetch_assoc($consulta)) { ?>
+            <tr>
+                <th class="text-center col" scope="col"></th>
+                <th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
+                <th class="text-center col" scope="col">
+                    <form action="./modificar_rol.php" method="post" class="SendFormAjax" data-type-form="load">
+                        <button class="btn bi bi-gear btn-warning"></button>
+                    </form>
+                </th>
+                <th class="text-center col" scope="col">
+                    <form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">
+                        <input name="modulo" type="hidden" value="<?= ($row['estado'] == '1') ? 'activo' : 'inactivo'; ?>">
+                        <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
+                        <button class="btn bi <?= ($row['estado'] == '1') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"></button>
+                    </form>
+                </th>
+            </tr>
         <?php }
     }
 
