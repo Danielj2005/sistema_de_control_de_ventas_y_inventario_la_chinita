@@ -13,7 +13,61 @@ $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
 if($modulo === "Guardar"){
 
     $nombre = modeloprincipal::limpiar_mayusculas($_POST["nombre_rol"]);
+    // vistas del modulo proveedores
+    $r_proveedores = (!isset($_POST["r_proveedores"]) || $_POST["r_proveedores"] == "") ? '0' : modeloprincipal::limpiar_cadena($_POST["r_proveedores"]);
+    $l_proveedores = modeloprincipal::limpiar_cadena($_POST["l_proveedores"]);
+    $m_proveedores = modeloprincipal::limpiar_cadena($_POST["m_proveedores"]);
+    $h_proveedores = modeloprincipal::limpiar_cadena($_POST["h_proveedores"]);
+
+    // vistas del modulo productos
+    $r_categoria = modeloprincipal::limpiar_cadena($_POST["r_categoria"]);
+    $r_presentacion = modeloprincipal::limpiar_cadena($_POST["r_presentacion"]);
+    $r_productos = modeloprincipal::limpiar_cadena($_POST["r_productos"]);
+    $l_productos = modeloprincipal::limpiar_cadena($_POST["l_productos"]);
+    $e_productos = modeloprincipal::limpiar_cadena($_POST["e_productos"]);
+
+    // vistas del modulo ventas
+    $g_venta = modeloprincipal::limpiar_cadena($_POST["g_venta"]);
+    $l_venta = modeloprincipal::limpiar_cadena($_POST["l_venta"]);
+    $d_venta = modeloprincipal::limpiar_cadena($_POST["d_venta"]);
+    $f_venta = modeloprincipal::limpiar_cadena($_POST["f_venta"]);
+    $est_venta = modeloprincipal::limpiar_cadena($_POST["est_venta"]);
+        
+    // vistas del modulo menú
+    $r_servicio = modeloprincipal::limpiar_cadena($_POST["r_servicio"]);
+    $l_servicio = modeloprincipal::limpiar_cadena($_POST["l_servicio"]);
+    $m_servicio = modeloprincipal::limpiar_cadena($_POST["m_servicio"]);
+
     
+    // vistas del modulo usuario
+    // vista de clientes
+    $r_cliente = modeloprincipal::limpiar_cadena($_POST["r_cliente"]);
+    $l_cliente = modeloprincipal::limpiar_cadena($_POST["l_cliente"]);
+    $m_cliente = modeloprincipal::limpiar_cadena($_POST["m_cliente"]);
+    $h_cliente = modeloprincipal::limpiar_cadena($_POST["h_cliente"]);
+    $f_cliente = modeloprincipal::limpiar_cadena($_POST["f_cliente"]);
+    // vista de empleados
+    $r_empleado = modeloprincipal::limpiar_cadena($_POST["r_empleado"]);
+    $l_empleado = modeloprincipal::limpiar_cadena($_POST["l_empleado"]);
+    $m_empleado = modeloprincipal::limpiar_cadena($_POST["m_empleado"]);
+    // vista de roles
+    $r_rol = modeloprincipal::limpiar_cadena($_POST["r_rol"]);
+    $l_rol = modeloprincipal::limpiar_cadena($_POST["l_rol"]);
+    $m_rol = modeloprincipal::limpiar_cadena($_POST["m_rol"]);
+
+    
+    // vistas del modulo configuración
+    // vista de ajustes del sistema
+    $m_cant_pregunta_seguridad = modeloprincipal::limpiar_mayusculas($_POST["m_cant_pregunta_seguridad"]);
+    $m_tiempo_sesion = modeloprincipal::limpiar_mayusculas($_POST["m_tiempo_sesion"]);
+    $m_cant_caracteres = modeloprincipal::limpiar_mayusculas($_POST["m_cant_caracteres"]);
+    $m_cant_simbolos = modeloprincipal::limpiar_mayusculas($_POST["m_cant_simbolos"]);
+    $m_cant_num = modeloprincipal::limpiar_mayusculas($_POST["m_cant_num"]);
+    // vista de bitácora
+    $v_bitacora = modeloprincipal::limpiar_mayusculas($_POST["v_bitacora"]);
+    $d_bitacora = modeloprincipal::limpiar_mayusculas($_POST["d_bitacora"]);
+        
+
     // se comprueba que no exista un registro con los mismos datos
     if(mysqli_num_rows(modeloprincipal::consultar("SELECT nombre FROM rol WHERE nombre = '$nombre'")) > 0){
         /********** No se puede registrar un usuario si ya existe **********/
@@ -29,11 +83,11 @@ if($modulo === "Guardar"){
     }
 
     // verificar datos
-    if($nombre == ""){
+    if($nombre == "" || $r_proveedores == "" || $l_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $l_productos == "" || $e_productos == "" || $g_venta == "" || $l_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $l_servicio == "" || $m_servicio == "" || $r_cliente == "" || $l_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $l_empleado == "" || $m_empleado == "" || $r_rol == "" || $l_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $d_bitacora == ""){
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "Exiten Campos obligatorios Que Estan Vacíos",
+                text: "Exiten Campos obligatorios Que Estan Vacíos o no han sido seleccionados",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -54,7 +108,7 @@ if($modulo === "Guardar"){
     }
     
     // datos verificados que se van a Registrar
-    if (modeloprincipal::InsertSQL("rol", "nombre, estado", "'$nombre',1")) {
+    if (modeloprincipal::InsertSQL("rol", "nombre, r_proveedores, l_proveedores, m_proveedores, h_proveedores, r_categoria, r_presentacion, r_productos, l_productos, e_productos, g_venta, l_venta, d_venta, f_venta, est_venta, r_servicio, l_servicio, m_servicio, r_cliente, l_cliente, m_cliente, h_cliente, f_cliente, r_empleado, l_empleado, m_empleado, r_rol, l_rol, m_rol, m_cant_pregunta_seguridad, m_tiempo_sesion, m_cant_caracteres, m_cant_simbolos, m_cant_num, v_bitacora, d_bitacora, estado", "'$nombre', $r_proveedores, $l_proveedores, $m_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $e_productos, $g_venta, $l_venta, $d_venta, $f_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $l_cliente, $m_cliente, $h_cliente, $f_cliente, $r_empleado, $l_empleado, $m_empleado, $r_rol, $l_rol, $m_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $v_bitacora, $d_bitacora, 1")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Registro Exitoso!",

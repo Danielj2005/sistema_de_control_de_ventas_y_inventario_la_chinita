@@ -44,7 +44,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <legend class="h5 card-title">Configuración estandar del sistema</legend>
                       <div class="row m-0">
                         <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="mb-2">Cantidad de preguntas para los usuarios <span style="color:#f00;">*</span></label>
+                          <label class="mb-2">Cantidad de preguntas de seguridad para los usuarios <span style="color:#f00;">*</span></label>
                           <input class="form-control" type="number" name="c_preguntas" min="3" max="6" id="">
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 mb-3">
@@ -58,7 +58,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     <hr>
 
                     <fieldset class="boder rounded-3 mb-4">
-                      <legend class="h5 card-title">Parametros de contraseña para los usuarios del sistema</legend>
+                      <legend class="h5 card-title">Parámetros de contraseña para los usuarios</legend>
                       <div class="row m-0">
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
                           <label for="">Cantidad de caracteres <span style="color:#f00;">*</span></label>
@@ -66,7 +66,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </div>
                         
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          <label for="">Cantidad de simbolos <span style="color:#f00;">*</span></label>
+                          <label for="">Cantidad de símbolos <span style="color:#f00;">*</span></label>
                           <input class="form-control" type="number" name="c_simbolos" min="1" max="8" id="">
                         </div>
                         

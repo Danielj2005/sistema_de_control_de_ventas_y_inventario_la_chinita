@@ -1,12 +1,18 @@
-let contenedor = document.getElementById('cliente');
-let casillas = document.querySelectorAll('.rol_cliente');
+let contenedor = document.querySelectorAll('.vista');
 
-contenedor.addEventListener('click', ()=>{
-	casillas.forEach((li)=>{
-        if(li.checked == true){
-            li.checked = false;
-        }else{
-            li.checked = true;
-        }
-    });
-})
+contenedor.forEach(ul => {
+
+    ul.addEventListener('click', ()=>{
+    
+        let casillas = document.querySelectorAll(`.${ul.value}`);
+
+        casillas.forEach((li)=>{
+
+            if(li.checked == true){
+                li.checked = false;
+            }else{
+                li.checked = true;
+            }
+        });
+    })
+});
