@@ -14,8 +14,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 
   $estado = (!isset($_POST['estado_rol'])) ? '1' : $_POST['estado_rol'];
-  $consulta = modeloPrincipal::consultar("SELECT nombre, estado 
+
+  $consulta = modeloPrincipal::consultar("SELECT id_rol, nombre, estado 
     FROM rol WHERE id_rol != 1 AND estado = $estado");
+
   ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -67,6 +69,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <tr>
                           <th class="text-center col" scope="col">#</th>
                           <th class="text-center col" scope="col">NOMBRE</th>
+                          <th class="text-center col" scope="col">VER PERMISOS</th>
                           <th class="text-center col" scope="col">MODIFICAR</th>
                           <th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
                         </tr>
@@ -76,20 +79,27 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <?php
                           while($row = mysqli_fetch_assoc($consulta)) { ?>
                             <tr>
-                                <th class="text-center col" scope="col"></th>
-                                <th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
-                                <th class="text-center col" scope="col">
-                                    <form action="./modificar_rol.php" method="post" class="SendFormAjax" data-type-form="load">
-                                        <button class="btn bi bi-gear btn-warning"></button>
-                                    </form>
-                                </th>
-                                <th class="text-center col" scope="col">
-                                    <form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">
-                                        <input name="modulo" type="hidden" value="<?= ($row['estado'] == '1') ? 'activo' : 'inactivo'; ?>">
-                                        <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
-                                        <button class="btn bi <?= ($row['estado'] == '1') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"></button>
-                                    </form>
-                                </th>
+                              <th class="text-center col" scope="col"></th>
+                              <th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
+                              <th class="text-center col" scope="col">
+                                <form action="./permisos_rol.php" method="post">
+                                  <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
+                                  <button class="btn bi bi-eye btn-info"></button>
+                                </form>
+                              </th>
+                              <th class="text-center col" scope="col">
+                                <form action="./modificar_rol.php" method="post">
+                                  <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
+                                  <button class="btn bi bi-gear btn-warning"></button>
+                                </form>
+                              </th>
+                              <th class="text-center col" scope="col">
+                                <form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">
+                                  <input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
+                                  <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
+                                  <button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"></button>
+                                </form>
+                              </th>
                             </tr>
                         <?php } ?>  
                       </tbody>

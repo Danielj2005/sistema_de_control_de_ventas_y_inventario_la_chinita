@@ -11,7 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>Roles</title>
+      <title>Permisos de rol</title>
       <?php 
         // se incluyen los meta datos 
         include_once("../include/meta_include.php"); 
@@ -23,12 +23,33 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el header / encabezado a la vista
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once("../include/sliderbar.php");
+
+        include_once("../config/ConfigServer.php"); 
+        include_once("../modelo/modeloPrincipal.php"); 
+        
+        $id_rol = $_POST['id_rol'];
+        $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT nombre, r_proveedores,
+          l_proveedores, m_proveedores, h_proveedores 
+          FROM rol WHERE id_rol = $id_rol"));
+        
+        $nombre = $permisos['nombre'];
+
+        function check_todas_vistas (...$vistas) {
+          foreach ($vistas as $vista) {
+            if ($vista == "1") {
+              echo 'true';
+            }
+          }
+        }
+
+
+      ?>
       <main id="main" class="main">
         <div class="pagetitle">
           <h1>
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./roles.php">&nbsp; Volver</a>
-            Registro de rol
+            Permisos de acceso a los modulos
           </h1> 
         </div>
         <section class="section dashboard">
@@ -38,167 +59,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="col-12 col-sm-12 col-md-12 mb-1 m-0 rounded-3">
                 <form id="" action="../controlador/rol.php" method="post" class="SendFormAjax row justify-content-center" autocomplete="off" data-type-form="save">
                   <input type="hidden" name="modulo" value="Guardar">
-                  <div class="col-12 col-md-6 mb-3">
-                    <label class="col-label-form">Nombre del rol <span style="color:#f00;">*</span></label>
-                    <input type="text" name="nombre_rol" id="nombre_rol" class="form-control">
+
+                  <div class="col-12 col-md-12 mb-3 text-center">
+                    <h3>Nombre del rol '<?= $nombre; ?>'</h3>
                   </div>
-
-                  <!-- <div class="table-responsive">
-                    <h5 class="card-title">Lista de pantallas del sistema</h5>
-                    <table class="table table-borderless datatable border">
-                      <thead>
-                        <tr class="table-secondary">
-                          <th scope="col">INVENTARIO</th>
-                          <th scope="col">VENTAS</th>
-                          <th scope="col">MENÚ</th>
-                          <th scope="col">USUARIOS</th>
-                          <th scope="col" class="text-center">CONFIGURACIÓN</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          inventario 
-                          <td class="col">
-                            <div class="border mb-3 p-2 rounded-3">
-                              <h4 class="card-title">
-                                <input type="checkbox">
-                                Proveedores
-                              </h4>
-                              <ul id="" class="nav-content list-unstyled"> 
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Registro de proveedores</span>
-                                </li>
-
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Proveedores registrados</span>
-                                </li>
-
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Modificar proveedores</span>
-                                </li>
-                                
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Historial de compras</span>
-                                </li>
-                              </ul>
-                            </div>
-                          </td>
-
-                          ventas 
-                          <td>
-                            <div class="border p-2 rounded-3">
-                              <h2 class="card-title">
-                                <input type="checkbox">
-                                Ventas
-                              </h2>
-                              <ul id="" class="nav-content list-unstyled"> 
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Ventas realizadas</span>
-                                </li>
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Detalles de ventas</span>
-                                </li>
-      
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Ver factura</span>
-                                </li>
-      
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Ver estadísticas</span>
-                                </li>
-                                
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Generar venta</span>
-                                </li>
-                              </ul>
-                            </div>
-                          </td>
-                          
-                          menú  
-                          <td>
-                            <div class="border p-2 rounded-3">
-                              <h2 class="card-title">
-                                <input type="checkbox">
-                                Menú
-                              </h2>
-                              <ul id="" class="nav-content list-unstyled"> 
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Registro de servicio</span>
-                                </li>
-
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Ver servicios registrados</span>
-                                </li>
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Modificación de estado de los servicios</span>
-                                </li>
-                              </ul>
-                            </div>
-                            
-                          </td>
-
-
-                          <td>
-                            
-                          </td>
-
-
-                          <td scope="row" class="text-center">
-                            
-                          </td>
-                        </tr>
-                        
-                        <tr>
-                          <td class="col">
-                            <div class="border mb-3 p-2 rounded-3">
-                              <h2 class="card-title">
-                                <input type="checkbox">
-                                Productos
-                              </h2>
-                              <ul id="" class="nav-content list-unstyled">
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Registrar categoría</span>
-                                </li>
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Registrar presentación</span>
-                                </li>
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Registro de productos</span>
-                                </li>
-
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Productos registrados</span>
-                                </li>
-                                
-                                <li>
-                                  <input type="checkbox">
-                                  <span>Entrada de productos</span>
-                                </li>
-                              </ul>
-                            </div>
-                          </td>
-
-
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div> -->
 
                   <div class="col-12 col-md-12 mb-3">
                     <h4 class="mb-3">Inventario</h4>
@@ -211,22 +75,22 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         </h4>
                         <ul id="" class="nav-content list-unstyled"> 
                           <li>
-                            <input class="proveedores" type="checkbox" value="1" name="r_proveedores">
+                            <input checked="<?= $permisos['r_proveedores'] == "1" ? 'true' : '' ; ?>" class="proveedores" type="checkbox" value="1" name="r_proveedores">
                             <span>Registro de proveedores</span>
                           </li>
 
                           <li>
-                            <input class="proveedores" type="checkbox" value="1" name="l_proveedores">
+                            <input checked="<?= $permisos['l_proveedores'] == "1" ? 'true' : '' ; ?>" class="proveedores" type="checkbox" value="1" name="l_proveedores">
                             <span>Lista de proveedores registrados</span>
                           </li>
 
                           <li>
-                            <input class="proveedores" type="checkbox" value="1" name="m_proveedores">
+                            <input checked="<?= $permisos['m_proveedores'] == "1" ? 'true' : '' ; ?>" class="proveedores" type="checkbox" value="1" name="m_proveedores">
                             <span>Modificar proveedores</span>
                           </li>
                           
                           <li>
-                            <input class="proveedores" type="checkbox" value="1" name="h_proveedores">
+                            <input checked="<?= $permisos['h_proveedores'] == "1" ? 'true' : '' ; ?>" class="proveedores" type="checkbox" value="1" name="h_proveedores">
                             <span>Historial de compras</span>
                           </li>
                         </ul>
@@ -425,6 +289,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                   <hr>
                   <hr>
+
                   <div class="col-12 col-md-12 mb-3">
                     <h4 class="mb-3">Configuración</h4>
                     <hr>
@@ -483,6 +348,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                   <hr>
                   <hr>
+
                   <div class="form-group">
                       <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                   </div>
