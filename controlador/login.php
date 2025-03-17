@@ -50,6 +50,7 @@ if(mysqli_num_rows($selectUser) == 0){
 
     // obtenemos los resultado de las consulta y la guardamos en un array
     $datos_usuario = mysqli_fetch_array($selectUser);
+
     if($datos_usuario["estado"] == 1){
 
         /*------- info personal de el usuario en variables de sesion -------*/
@@ -63,7 +64,8 @@ if(mysqli_num_rows($selectUser) == 0){
 
         /* variable de sesion para comprobar si un usuario inicio sesion */
         $_SESSION['logged_in'] = true;
-    
+        modeloPrincipal::bitacora("Inicio de sesión","El usuario accedio al sistema.");
+
         /* mensaje que se muestra cuando un usuario inicia sesion */
         echo '<script type="text/javascript">
                 swal({ 

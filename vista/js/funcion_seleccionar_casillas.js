@@ -1,6 +1,6 @@
-let contenedor = document.querySelectorAll('.vista');
+let div = document.querySelectorAll('.vista');
 
-contenedor.forEach(ul => {
+div.forEach((ul) => {
 
     ul.addEventListener('click', ()=>{
     

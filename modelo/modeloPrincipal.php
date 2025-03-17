@@ -63,6 +63,20 @@ class modeloPrincipal {
         return $consulta;
     }
 
+    // funcion para registrar movimientos del sistema en la bitácora
+    
+    public static function bitacora($accion,$mensaje) {
+        $usuario = $_SESSION["id_usuario"];
+
+        $fechas = date('Y-m-d H:i:s');
+
+        if (!$consul = self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$usuario")) {
+            die("Ha ocurrido un error al guardar la bitacora");
+        }
+        return $consul;
+    }
+
+
     /********** Funcion limpiar Cadena  **********/
     public static function limpiar_cadena($valor) {
         $valor = trim($valor);
@@ -103,42 +117,6 @@ class modeloPrincipal {
         $data = addslashes($val);
         $datos = self::limpiar_cadena($data);
         return $datos;
-    }
-
-    /********** Funcion paginar tablas  **********/
-    public static function paginador($pagina,$Npaginas,$url,$botones,$idioma){
-        if($idioma=="es"){
-            $txt_anterior="Anterior";
-            $txt_siguiente="Siguiente";
-        }else{
-            $txt_anterior="Previous";
-            $txt_siguiente="Next";
-        }
-
-        $tabla='<nav aria-label="..."><ul class="pagination">';
-        if ($pagina==1) {
-            $tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">'.$txt_anterior.'</a></li>';
-        }else{
-            $tabla.='<li class="page-item"><a class="page-link" href="'.$url.($pagina-1).'/" tabindex="-1">'.$txt_anterior.'</a></li>';
-        }
-
-        $ci=0;
-        for ($i=$pagina; $i<=$Npaginas; $i++) { 
-            if ($pagina==$i) {
-                $tabla.='<li class="page-item active" aria-current="page"><a class="page-link" href="'.$url.$i.'">'.$i.'</a></li>';
-            } else {
-                $tabla.='<li class="page-item " aria-current="page"><a class="page-link" href="'.$url.$i.'">'.$i.'</a></li>';
-                
-            }
-        }
-        if ($pagina==$Npaginas) {
-            $tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">'.$txt_siguiente.'</a></li>';
-        }else{
-            $tabla.='<li class="page-item"><a class="page-link" href="'.$url.($pagina+1).'/" tabindex="-1">'.$txt_siguiente.'</a></li>';
-        }
-
-        $tabla.='</ul></nav>';
-        return $tabla;
     }
 
     /********** Funcion encriptar Cadena  **********/
@@ -199,17 +177,30 @@ class modeloPrincipal {
         if(strlen($num) == 8){
             return $num;
         }
-}
+    }
 
-    /*---------- Funcion Verificar Fechas ----------*/
-    // public static function verificar_fecha($Fecha){
-    //     $valores = explode('/', $fecha);
-    //     if (count($valores) == 3 && checkdate($valores[1], $valores[0], $valores[2])) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
+    
+    // funcion para verificar los premisos de un rol
+    public static function verificar_rol($vista){
+        $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
+        $id_rol = mysqli_fetch_array(Self::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario"));
+        $id_rol = $id_rol['id_rol'];
+        
+        $permiso_rol = mysqli_fetch_array(Self::consultar("SELECT $vista FROM rol WHERE id_rol = $id_rol"));
+        $permiso_rol = $permiso_rol[$vista];
+        return $permiso_rol;
+    }
+    // funcion para verificar los premisos de un modulo del  sistema
+    public static function permisos_modulos($vista){
+        $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
+        $id_rol = mysqli_fetch_array(Self::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario"));
+        $id_rol = $id_rol['id_rol'];
+        
+        $permiso_rol = mysqli_fetch_array(Self::consultar("SELECT SUM($vista) AS permiso_vista FROM rol WHERE id_rol = $id_rol"));
+        $permiso_rol = $permiso_rol['permiso_vista'];
+        return $permiso_rol;
+    }
+
 
     /*---- funcion para convertir caracteres con acentos o caracteres especiales en mayúsculas  ----*/
     public static function convertir_mayusculas($variable){

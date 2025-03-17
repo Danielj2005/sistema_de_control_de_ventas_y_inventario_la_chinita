@@ -51,6 +51,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                         <th class="col text-center"scope="col">NOMBRE DEL PLATILLO</th>
                         <th class="col text-center"scope="col">PRECIO DE VENTA</th>
                         <th class="col text-center"scope="col">DESCRIPCIÓN</th>
+                        <th class="text-center col" scope="col">MODIFICAR</th>
                         <th class="col text-center"scope="col">ESTATUS</th>
                       </tr>
                     </thead>
@@ -65,6 +66,26 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </section>
       </main>
       
+      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificación de un servicio</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="update_user_info" action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+                <div id="body_modal" class="row"> </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" form="update_user_info" type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

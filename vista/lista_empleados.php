@@ -78,7 +78,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             </div>
             <div class="modal-body">
               <form id="update_user_info" action="../controlador/modificar_usuario.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
-                <div id="modificar_usuario" class="row"> </div>
+                <div id="body_modal" class="row"> </div>
               </form>
             </div>
             <div class="modal-footer">

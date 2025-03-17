@@ -1,5 +1,8 @@
-<?php 
+<?php
 session_start();
+
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
@@ -23,7 +26,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // se incluye el header / encabezado a la vista
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once("../include/sliderbar.php"); 
+
+        $consulta = modeloPrincipal::consultar("SELECT B.*, U.nombre, U.apellido FROM bitacora AS B
+          INNER JOIN usuario AS U ON B.id_usuario = U.id_usuario ORDER BY id DESC");
+        ?>
       <main id="main" class="main">
         <div class="pagetitle">
           <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
@@ -36,19 +43,29 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <div class="card-body pb-0">
                   <h5 class="card-title">Movimientos del sistema</h5>
                   <div class="table table-responsive">
-                    <table class="table table-borderless datatable" id="example">
+                    <table class="table table-striped datatable" id="example">
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
                           <th class="text-center col" scope="col">ACCIÓN</th>
                           <th class="text-center col" scope="col">DESCRIPCIÓN</th>
                           <th class="text-center col" scope="col">USUARIO</th>
-                          <th class="col text-center" scope="col">FECHA</th>
+                          <th class="col text-center" scope="col">FECHA / HORA</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php //include("../include/listas_registros_include.php"); consultar_registros('producto'); ?>  
-                      </tbody>
+
+                          <?php
+                            while($row = mysqli_fetch_assoc($consulta)) { ?>
+                              <tr>
+                                <th class="col" scope="col"></th>
+                                <th class="col" scope="col"><?= $row['accion'] ?></th>
+                                <th class="col" scope="col"><?= $row['mensaje'] ?></th>
+                                <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
+                                <th class="col" scope="col"><?= date('d-m-Y / h:i a', strtotime($row['fecha_hora'])) ?></th>
+                              </tr>
+                          <?php } ?>  
+                        </tbody>
                     </table>
                   </div>
                 </div>
@@ -57,40 +74,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           </div>
         </section>
       </main>
-      <!-- Modal detalles de venta -->
-      <div class="modal fade" id="addPresentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación <span style="color:#f00;">*</span> </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" id="detalles_de_ventas">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación</label>
-                  <div class="col-sm-10">
-                    <input  type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
-                    <input  type="hidden" name="modulo" value="guardar">
-                  </div>
-                  
-                  <div class="col-12 mb-1">
-                    <div class="form-group">
-                        <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                    
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

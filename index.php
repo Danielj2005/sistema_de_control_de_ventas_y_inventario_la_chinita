@@ -17,7 +17,7 @@
 				-moz-box-sizing: border-box;
 			}
 			
-			div i{
+			/* div i{
 				top: 1.4em;
 				z-index: 2;
 				right: 0.3rem;
@@ -26,7 +26,7 @@
 				height: 1.5rem;
 				transform: translate(-20%,-60%);
 				transform-origin: center;
-			}
+			}*/
 			.carousel-item img {
 
 				height: 720px !important;
@@ -104,14 +104,27 @@
 							<h2>Inicio de Sesión </h2>
 						</div>
 						<div class="col-12 col-sm-12 col-md-12 mb-3">
-							<label>Correo Electrónico</label>
-							<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tú correo">
+							<label class="mb-2">Correo Electrónico</label>
+							<div class="input-group mb-3">
+								<span class="input-group-text" id="basic-addon1">@</span>
+								<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tú correo" aria-label="email" aria-describedby="basic-addon1">
+							</div>
 						</div>
-						<div class="col-12 col-sm-12 col-md-12 boton mb-3 position-relative">
-							<label>Contraseña</label>
-							<input type="password" class="p-1 input__field passw form-control" id="pswd" name="contraseña" placeholder="ingresa tú contraseña">
-							<i class="bi bi-eye input__icon text-black position-absolute h3 m-0"></i>
+						<div class="col-12 col-sm-12 col-md-12 mb-3 ">
+							<label class="mb-2">Contraseña</label>
+							
+							<div class="input-group mb-3">
+								<span class="input-group-text"><i class="bi bi-lock"></i></span>
+
+								<input type="password" class="p-1 input__field passw form-control" id="pswd" name="contraseña" placeholder="Ingresa tu contraseña">
+								
+								<span class="input-group-text btn btn-secondary">
+									<i class="bi bi-eye input__icon" id="eyeIcon"></i>
+								</span>
+							</div>
 						</div>
+						<div class="g-recaptcha" data-sitekey="6Lc5m_cqAAAAADXMIfIbH51RfFGiEQjZRqenu6_a"></div>
+
 						<div class="row mb-4">
 							<div class="col-12 mb-3 text-center">
 								<button type="submit" class="btn btn-primary btn-md mt-4 mx-4">iniciar sesión</button>

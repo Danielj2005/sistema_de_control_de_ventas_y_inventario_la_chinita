@@ -16,13 +16,7 @@ $(document).ready(function(){
         },
         function (isComfirm) {
             if (isComfirm) {
-                $.ajax({
-                    url:   "../controlador/salir.php",
-                    type:  'post',
-                    success:  function (){
-                        window.location.href="../index.php";
-                    }
-                });
+                window.location.href="../controlador/salir.php";
             }
         });
     });

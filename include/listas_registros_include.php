@@ -77,7 +77,7 @@ function consultar_registros($tabla){
                 <td><?= $mostrar["apellido"]; ?></td>
                 <td><?= $mostrar["telefono"]; ?></td>
                 <td scope="row" class="text-center">
-                    <buttom module="modificar_empleado" valor="<?= $mostrar["id_usuario"]; ?>" data-bs-toggle="modal" data-bs-target="#update_user" class="modificar_user btn btn-warning bi bi-gear"></buttom>
+                    <buttom url="./modal/modificar_empleado.php" value="<?= $mostrar["id_usuario"]; ?>" data-bs-toggle="modal" data-bs-target="#update_user" class="btn_modal btn btn-warning bi bi-gear"></buttom>
                 </td>
                 <td scope="row" class="text-center">
                     <?php if ($mostrar["estado"] === "1") { ?>
@@ -135,6 +135,9 @@ function consultar_registros($tabla){
                 <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
                 <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
                 <td class="col text-center"><?= strtoupper($mostrar["descripcion"]); ?></td>
+                <td class="col text-center">
+                    <button btn="modificar" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? '' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" url="./modal/modificar_servicio.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                </td>
                 <td scope="row" class="text-center">
                     <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
                         
