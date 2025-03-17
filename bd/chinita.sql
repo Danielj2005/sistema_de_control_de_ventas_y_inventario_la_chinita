@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 23-02-2025 a las 22:00:41
+-- Tiempo de generación: 17-03-2025 a las 23:21:30
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -29,11 +29,34 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bitacora` (
   `id` int NOT NULL,
-  `fecha_hora` date NOT NULL,
+  `fecha_hora` datetime NOT NULL,
   `accion` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `mensaje` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `bitacora`
+--
+
+INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) VALUES
+(1, '2025-03-16 13:19:00', 'Intento de acceso sin permisos', 'El usuario intentó accedera a la pantalla roles sin permiso.', 2),
+(2, '2025-03-16 13:19:51', 'Cierre de sesión', 'El usuario acaba de cerrar sesión.', 2),
+(3, '2025-03-16 13:21:14', 'Inicio de sesión', 'El usuario inicio sesión.', 2),
+(4, '2025-03-16 13:32:27', 'Intento de acceso sin permisos', 'El usuario intentó acceder a la pantalla roles sin permiso.', 2),
+(5, '2025-03-16 13:32:27', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(6, '2025-03-16 13:35:57', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(7, '2025-03-16 13:36:03', 'Intento de acceso a la pantalla roles sin permiso', 'La sesion del usuario fué cerrada por seguridad.', 2),
+(8, '2025-03-16 13:36:04', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(9, '2025-03-16 13:36:09', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(10, '2025-03-16 14:10:26', 'Intentó acceder a la pantalla roles sin permisos.', 'La sesion del usuario fué cerrada por seguridad.', 2),
+(11, '2025-03-16 14:10:26', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(12, '2025-03-16 14:11:13', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(13, '2025-03-16 15:40:15', 'Intentó acceder a la pantalla roles sin permisos.', 'La sesion del usuario fué cerrada por seguridad.', 2),
+(14, '2025-03-16 15:40:15', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(15, '2025-03-16 15:49:38', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(16, '2025-03-16 16:13:43', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(17, '2025-03-17 17:55:47', 'Inicio de sesión', 'El usuario accedio al sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -586,17 +609,47 @@ INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `dire
 CREATE TABLE `rol` (
   `id_rol` int NOT NULL,
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `estado` tinyint NOT NULL
+  `estado` tinyint NOT NULL,
+  `r_proveedores` tinyint NOT NULL,
+  `m_proveedores` tinyint NOT NULL,
+  `h_proveedores` tinyint NOT NULL,
+  `r_categoria` tinyint NOT NULL,
+  `r_presentacion` tinyint(1) NOT NULL,
+  `r_productos` tinyint NOT NULL,
+  `e_productos` tinyint NOT NULL,
+  `g_venta` tinyint(1) NOT NULL,
+  `d_venta` tinyint(1) NOT NULL,
+  `f_venta` tinyint(1) NOT NULL,
+  `est_venta` tinyint(1) NOT NULL,
+  `r_servicio` tinyint(1) NOT NULL,
+  `m_servicio` tinyint(1) NOT NULL,
+  `r_cliente` tinyint(1) NOT NULL,
+  `m_cliente` tinyint(1) NOT NULL,
+  `h_cliente` tinyint(1) NOT NULL,
+  `f_cliente` tinyint(1) NOT NULL,
+  `r_empleado` tinyint(1) NOT NULL,
+  `m_empleado` tinyint(1) NOT NULL,
+  `r_rol` tinyint(1) NOT NULL,
+  `m_rol` tinyint(1) NOT NULL,
+  `m_cant_pregunta_seguridad` tinyint(1) NOT NULL,
+  `m_tiempo_sesion` tinyint(1) NOT NULL,
+  `m_cant_caracteres` tinyint(1) NOT NULL,
+  `m_cant_simbolos` tinyint(1) NOT NULL,
+  `m_cant_num` tinyint(1) NOT NULL,
+  `v_bitacora` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id_rol`, `nombre`, `estado`) VALUES
-(1, 'DESARROLLADOR', 1),
-(2, 'ADIMINISTRADOR', 1),
-(3, 'EMPLEADO', 1);
+INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `e_productos`, `g_venta`, `d_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `r_cliente`, `m_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `r_rol`, `m_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `v_bitacora`) VALUES
+(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'SUSCRIPTOR', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -661,8 +714,8 @@ INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 1, 2, 1),
 (2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', NULL, 0, 0, 0, 1, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 3, 1),
-(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 2, 1);
+(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 1, 1, 2, 0),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1058,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -1101,7 +1154,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `seguridad`
