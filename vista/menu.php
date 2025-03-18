@@ -74,7 +74,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form id="update_user_info" action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+              <form id="update_user_info" action="../controlador/menu_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
                 <div id="body_modal" class="row"> </div>
               </form>
             </div>
@@ -86,6 +86,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         </div>
       </div>
 
+      <!-- modal modificar -->
+      <script src="./js/modal.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

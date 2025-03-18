@@ -89,7 +89,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                 <button btn="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                               </th>
                               <th class="text-center col" scope="col">
-                                <button btn="modificar" <?= modeloPrincipal::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" url="./modal/modificar_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                <button btn="modificar" <?= modeloPrincipal::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
                               </th>
                               <th class="text-center col" scope="col">
                                 <form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">

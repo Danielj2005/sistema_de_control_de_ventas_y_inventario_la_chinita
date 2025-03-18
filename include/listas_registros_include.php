@@ -136,7 +136,7 @@ function consultar_registros($tabla){
                 <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
                 <td class="col text-center"><?= strtoupper($mostrar["descripcion"]); ?></td>
                 <td class="col text-center">
-                    <button btn="modificar" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? '' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" url="./modal/modificar_servicio.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                    <button value="<?= $mostrar["id_menu"]; ?>" btn="modificar" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'url="./modal/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
                 <td scope="row" class="text-center">
                     <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
@@ -146,14 +146,14 @@ function consultar_registros($tabla){
                             <input type="hidden" name="modulo" value="activo">                            
                             <input type="hidden" name="tabla" value="menu">
                             <input type="hidden" name="id" value="<?= $mostrar["id_menu"]; ?>">
-                            <button class="btn btn-success" title="estado del servicio">Activo </button>
+                            <button class="btn btn-success" title="estado del servicio" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'type="submit"' : 'disabled' ?> >Activo </button>
                         
                         <?php }else if ($mostrar["estatus"] === "0") { ?>
 
                             <input type="hidden" name="modulo" value="inactivo">                            
                             <input type="hidden" name="tabla" value="menu">
                             <input type="hidden" name="id" value="<?= $mostrar["id_menu"]; ?>">
-                            <button class="btn btn-danger" title="estado del servicio">Inactivo </button>
+                            <button class="btn btn-danger" title="estado del servicio" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'type="submit"' : 'disabled' ?> >Inactivo </button>
                         
                         <?php } ?>
                     </form>

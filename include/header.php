@@ -25,16 +25,19 @@
         </a>
 
         <?php
-          $precio_dolar = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) from dolar"));
-          $precio_dolar = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = ".$precio_dolar['MAX(id_dolar)']."");
-          $mostrarDolar = mysqli_fetch_array($precio_dolar);
+          $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id_dolar from dolar"));
+          $precio_dolar_actual = $precio_dolar_actual['id_dolar'];
+          $precio_dolar_actual = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $precio_dolar_actual");
+          $precio_dolar_actual = mysqli_fetch_array($precio_dolar_actual);
+          $precio_dolar_actual = $precio_dolar_actual['dolar'];
+          $_SESSION['dolar'] = $precio_dolar_actual;
         ?>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header row">
             <p class="mb-2">
               La Tasa del Día es: 
-              <span id="tasa_dolar"><?= $mostrarDolar['dolar'] ?></span>
+              <span id="tasa_dolar"><?= $precio_dolar_actual ?></span>
               bs<br>
             </p>
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">

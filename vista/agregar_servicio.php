@@ -38,7 +38,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card top-selling overflow-auto">
                 <div class="card-body p-3">
                   <form method="post" action="../controlador/menu_controlador.php" class="row SendFormAjax p-3" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
+                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
@@ -110,7 +110,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-                      <button type="submit" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registra Servicio</button>
+                      <button type="submit" class="btn btn-success">Registra Servicio</button>
                     </div>
                   </form>
                 </div>
