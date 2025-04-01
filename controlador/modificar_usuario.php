@@ -28,7 +28,7 @@ if($id_usuario == "" || $cambiar_estado == "" || $permitir_acceso == "" || $asig
 
 // se modifican los datos verificados
 
-if (modeloPrincipal::UpdateSQL("usuario","estado = $cambiar_estado, inhabilitado = $permitir_acceso, id_rol = $asignar_rol","id_usuario = $id_usuario")) {
+if (modeloPrincipal::UpdateSQL("usuario","estado = $cambiar_estado, bloqueado = $permitir_acceso, id_rol = $asignar_rol","id_usuario = $id_usuario")) {
     
     echo "<script type='text/javascript'>
         swal({

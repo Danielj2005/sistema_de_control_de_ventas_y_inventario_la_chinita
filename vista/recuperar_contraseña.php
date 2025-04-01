@@ -7,7 +7,7 @@ include_once("../modelo/modeloPrincipal.php");
 
 $numero_pregunta_random = rand(1,3);
 
-if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_contraseña'] = "ecDAuKiplp8=") { ?>
+if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_contraseña'] == "ecDAuKiplp8=") { ?>
 	<!DOCTYPE html>
 	<html>
 		<head>

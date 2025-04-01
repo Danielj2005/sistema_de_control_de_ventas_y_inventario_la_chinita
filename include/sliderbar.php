@@ -154,7 +154,7 @@
                   </a>
                 </li>
 
-            <?php } if ($usuario >= 1 && $usuaio <= 3) {  ?>
+            <?php } if ($usuario >= 1 && $usuario <= 3) {  ?>
 
                 <!-- modulo de empleados (usuario) -->
                 <li class="nav-item">
@@ -184,8 +184,12 @@
     </li>
 
     <!-- apartado de configuración de sistema -->
-    <?php if ($_SESSION["rol"] < "3") {?>
+    <?php 
+      // vistas
+      $configuracion = modeloPrincipal::permisos_modulos('m_cant_pregunta_seguridad + m_cant_num + m_cant_simbolos + m_cant_caracteres + m_tiempo_sesion');
+      $bitacora = modeloPrincipal::permisos_modulos('v_bitacora');
 
+      if ($configuracion > '0' || $bitacora > '0') {?>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gear"></i>
@@ -194,19 +198,23 @@
         </a>
 
         <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="./configuracion.php">
-              <i class="bi bi-circle"></i>
-              <span>Ajustes del sistema</span>
-            </a>
-          </li>
+          
+          <?php if ($configuracion >= 1 && $configuracion <= 5) {  ?>
+            <li>
+              <a href="./configuracion.php">
+                <i class="bi bi-circle"></i>
+                <span>Ajustes del sistema</span>
+              </a>
+            </li>
 
-          <li>
-            <a href="./bitacora.php">
-              <i class="bi bi-circle"></i>
-              <span>Bitácora</span>
-            </a>
-          </li>
+          <?php } if ($bitacora == 1) {  ?>
+            <li>
+              <a href="./bitacora.php">
+                <i class="bi bi-circle"></i>
+                <span>Bitácora</span>
+              </a>
+            </li>
+          <?php } ?>
         </ul>
       </li>
     <?php } ?>
