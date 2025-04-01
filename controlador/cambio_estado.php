@@ -29,12 +29,20 @@ $texto_desactivado = ['categoria' => 'La categoría se desactivo exitosamente',
 $estado = ['categoria' => 'estado',
             'menu' => 'estatus'
 ];
+$existe_platillo = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM menu WHERE id_menu = $id"));
+$existe_platillo_nombre_platillo = $existe_platillo['nombre_platillo'];
+$existe_platillo_precio_dolar = $existe_platillo['precio_dolar'];
+$existe_platillo_descripcion = $existe_platillo['descripcion'];
+$existe_platillo_estatus = $existe_platillo['estatus'];
 
 /* ----------------- modulo para cambiar el estado de un registro ------------------ */
 
 if ($modulo == "activo"){
 
     if(modeloPrincipal::UpdateSQL("$tabla","".$estado[$tabla]." = '0'", "".$id_tablas[$tabla]." = '$id'")){
+        // se guarda en bitacora el registro de un servicio 
+        modeloPrincipal::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Inactivo");
+        
         echo '<script type="text/javascript">
                 swal({ 
                     title: "'.$titulo_desactivado[$tabla].'", 
@@ -67,6 +75,8 @@ if ($modulo == "activo"){
 if ($modulo == "inactivo"){
 
     if(modeloPrincipal::UpdateSQL("$tabla","".$estado[$tabla]." = '1'", "".$id_tablas[$tabla]." = '$id'")){
+        modeloPrincipal::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Activo");
+        
         echo '<script type="text/javascript">
                 swal({ 
                     title: "'.$titulo_activado[$tabla].'", 

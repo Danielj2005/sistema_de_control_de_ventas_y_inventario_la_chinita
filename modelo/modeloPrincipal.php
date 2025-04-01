@@ -66,11 +66,9 @@ class modeloPrincipal {
     // funcion para registrar movimientos del sistema en la bitácora
     
     public static function bitacora($accion,$mensaje) {
-        $usuario = $_SESSION["id_usuario"];
-
         $fechas = date('Y-m-d H:i:s');
-
-        if (!$consul = self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$usuario")) {
+        $id_usuario = $_SESSION["id_usuario"];
+        if (!$consul = Self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$id_usuario")) {
             die("Ha ocurrido un error al guardar la bitacora");
         }
         return $consul;

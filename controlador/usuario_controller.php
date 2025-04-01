@@ -27,6 +27,7 @@ if($modulo === "Guardar"){
     $contraseña2 = modeloprincipal::limpiar_encriptar($_POST['password2']);
     
     $id_rol =  modeloprincipal::limpiar_cadena($_POST["id_tipo"]);
+
     // $id_seguridad =  modeloprincipal::limpiar_cadena($_POST["id_seguridad"]);
     // $respuesta =  modeloprincipal::limpiar_encriptar($_POST["respuesta"]);
 
@@ -152,7 +153,7 @@ if($modulo === "Guardar"){
     }
     
     // datos verificados que se van a Registrar
-    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, inhabilitado, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 1,'$id_rol',1")) {
+    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 0, 1,'$id_rol',1")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Registro Exitoso!",
@@ -187,15 +188,11 @@ if($modulo === "Guardar"){
 if($modulo === "Modificar_info_personal"){
     
     /*------------------ información personal de el usuario ------------------*/
-    $nombre =  modeloprincipal::limpiar_mayusculas($_POST["nombre"]);
-    $apellido = modeloprincipal::limpiar_mayusculas($_POST["apellido"]);
-    $correo =  modeloprincipal::limpiar_cadena($_POST["correo"]);
+    $nombre =  (!isset($_POST["nombre"]) || $_POST["nombre"] == "$nombre_user") ? : modeloprincipal::limpiar_mayusculas($_POST["nombre"]);
+    $apellido = (!isset($_POST["apellido"]) || $_POST["apellido"] == "$apellido_user") ? : modeloprincipal::limpiar_mayusculas($_POST["apellido"]);
+    $correo =  (!isset($_POST["correo"]) || $_POST["correo"] == "$correo_user") ? : modeloprincipal::limpiar_cadena($_POST["correo"]);
     $contraseña =  modeloprincipal::limpiar_cadena($_POST["contraseña"]);
 
-    if($nombre == ""){$nombre = $nombre_user; }
-    if($apellido == ""){$apellido = $apellido_user; }
-    if($correo == ""){$correo = $correo_user;}
-    
     // verificar datos
     if($nombre == "" || $apellido == "" || $correo == ""){
         echo'<script type="text/javascript">
@@ -243,6 +240,8 @@ if($modulo === "Modificar_info_personal"){
     }
     //datos verificados modificar
     if (modeloprincipal::UpdateSQL("usuario","nombre = '$nombre', apellido = '$apellido', correo = '$correo'", "id_usuario = $_SESSION[user_id]")) {
+        modeloPrincipal::bitacora("Modificación del perfil de usuario","El usuario actualizó su información personal (nombre = $nombre_user, apellido = $apellido_user, correo = $correo_user) por (nombre = '$nombre', apellido = '$apellido', correo = '$correo').");
+        
         echo '<script type="text/javascript">
             swal({
                 title:"¡Modificacion exitosa!",

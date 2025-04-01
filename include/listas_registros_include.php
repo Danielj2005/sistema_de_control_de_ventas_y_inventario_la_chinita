@@ -71,29 +71,29 @@ function consultar_registros($tabla){
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
-                <td></td>
-                <td><?= $mostrar["cedula"]; ?></td>
-                <td><?= $mostrar["nombre"]; ?></td>
-                <td><?= $mostrar["apellido"]; ?></td>
-                <td><?= $mostrar["telefono"]; ?></td>
-                <td scope="row" class="text-center">
-                    <buttom url="./modal/modificar_empleado.php" value="<?= $mostrar["id_usuario"]; ?>" data-bs-toggle="modal" data-bs-target="#update_user" class="btn_modal btn btn-warning bi bi-gear"></buttom>
-                </td>
-                <td scope="row" class="text-center">
+                <th></th>
+                <th><?= $mostrar["cedula"]; ?></th>
+                <th><?= $mostrar["nombre"]; ?></th>
+                <th><?= $mostrar["apellido"]; ?></th>
+                <th><?= $mostrar["telefono"]; ?></th>
+                <th scope="col" class="col text-center">
+                    <buttom btn="modificar" <?= modeloPrincipal::verificar_rol('m_empleado') == '1' ? 'url="./modal/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> value="<?= $mostrar["id_usuario"]; ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
+                </th>
+                <th scope="col" class="col text-center">
                     <?php if ($mostrar["estado"] === "1") { ?>
                         
-                        <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
+                        <button <?= modeloPrincipal::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
                             <i class="zmdi zmdi-check"></i> Activo 
                         </button>
                     
                     <?php }else if ($mostrar["estado"] === "0") { ?>
 
-                        <button <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-danger">
+                        <button <?= modeloPrincipal::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> class="btn btn-danger">
                             <i class="zmdi zmdi-close"></i> Inactivo 
                         </button>
                     
                     <?php } ?>
-                </td>
+                </th>
             </tr>
         <?php }
     }
@@ -139,7 +139,7 @@ function consultar_registros($tabla){
                     <button value="<?= $mostrar["id_menu"]; ?>" btn="modificar" <?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'url="./modal/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
                 <td scope="row" class="text-center">
-                    <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
+                    <form action="<?= modeloPrincipal::verificar_rol('m_servicio') == '1' ? '../controlador/cambio_estado.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="updateEstado" >
                         
                         <?php if ($mostrar["estatus"] === "1") { ?>
 
@@ -192,11 +192,11 @@ function consultar_registros($tabla){
 
                 <td scope='col' class="col text-center">
                     <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
-                    <button type="submit" <?= ($_SESSION['id_rol']  < "3") ? '' : 'disabled' ?> class="btn btn-success bi bi-repeat" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                    <button type="submit" <?= modeloPrincipal::verificar_rol('m_proveedores') == '1' ?  '' : 'disabled' ?> class="btn btn-warning bi bi-gear" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
                 </td>
 
                 <td scope='col' class="col text-center">
-                    <button value="<?= $mostrar["id_proveedor"]; ?>" modal="modal_historial_proveedor" modulo="historial_proveedor" class="btn btn-info bi bi-eye detalles_generales" data-bs-toggle="modal" data-bs-target="#historial_proveedor"></button>
+                    <button value="<?= $mostrar["id_proveedor"]; ?>" <?= modeloPrincipal::verificar_rol('m_proveedores') == '1' ?  'modal="modal_historial_proveedor" modulo="historial_proveedor" data-bs-toggle="modal" data-bs-target="#historial_proveedor"' : 'disabled' ?> class="btn btn-info bi bi-eye detalles_generales"></button>
                 </td> 
             </tr>
         <?php } 
@@ -217,14 +217,13 @@ function consultar_registros($tabla){
             <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
 
             <td scope='col' class="text-center col">
-                <form action="clienteModificar.php" method="post" class="text-center">
+                <form action="<?= modeloPrincipal::verificar_rol('m_cliente') == '1' ?  'clienteModificar.php' : 'cliente.php'?>" method="post" class="text-center">
                     <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                    <button type="submit" <?= $permiso = ($_SESSION['id_rol'] == "1") ? '' : 'disabled'; ?> class="btn btn-success open-modal bi bi-repeat"></button>
+                    <button type="submit" <?= modeloPrincipal::verificar_rol('m_cliente') == '1' ?  '' : 'disabled' ?> class="btn btn-warning open-modal bi bi-gear"></button>
                 </form>
             </td>
-
             <td scope='col' class="text-center col">
-                <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"></button>
+                <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" <?= modeloPrincipal::verificar_rol('h_cliente') == '1' ?  'modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"' : 'disabled' ?> ></button>
             </td> 
         </tr>
     <?php }

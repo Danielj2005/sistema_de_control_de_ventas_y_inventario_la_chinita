@@ -10,8 +10,11 @@ function consultar_registros($tabla){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
 
-        $consulta = modeloPrincipal::consultar("SELECT producto.nombre_producto, SUM(detalles_venta.cantidad) FROM detalles_venta, producto WHERE detalles_venta.id_producto = producto.id_producto GROUP BY detalles_venta.id_producto");
-                $a=1;
+        $consulta = modeloPrincipal::consultar("SELECT producto.nombre_producto, SUM(detalles_venta.cantidad) 
+            FROM detalles_venta, producto
+            WHERE detalles_venta.id_producto = producto.id_producto
+            GROUP BY detalles_venta.id_producto");
+        $a=1;
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
             <tr>

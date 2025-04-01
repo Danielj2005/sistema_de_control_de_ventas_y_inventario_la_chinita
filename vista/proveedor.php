@@ -1,12 +1,21 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
 	exit();
-  
-}else{ ?>
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol >= 1 && $rol <= 4) {  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -37,7 +46,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card top-selling">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a type="button" class="col-12 btn btn-success" href="./registrar_proveedores.php">Registrar Proveedor</a>
+                    <a type="button" class="col-12 btn btn-success" href="./<?= modeloPrincipal::verificar_rol('r_proveedores') == 1 ? 'registrar_proveedores.php' : 'proveedor.php' ?>">Registrar Proveedor</a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
                     <a class="col-12 btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">Exportar Lista de Proveedores</a>
@@ -151,4 +160,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <script src="./js/detalles_listas.js"></script>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla lista de proveedores.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

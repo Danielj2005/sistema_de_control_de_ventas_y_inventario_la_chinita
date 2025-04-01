@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 17-03-2025 a las 23:21:30
+-- Tiempo de generación: 29-03-2025 a las 22:29:18
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `bitacora` (
   `id` int NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `accion` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `mensaje` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `accion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `mensaje` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -56,7 +56,29 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (14, '2025-03-16 15:40:15', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
 (15, '2025-03-16 15:49:38', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
 (16, '2025-03-16 16:13:43', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
-(17, '2025-03-17 17:55:47', 'Inicio de sesión', 'El usuario accedio al sistema.', 2);
+(17, '2025-03-17 17:55:47', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(18, '2025-03-17 21:20:18', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(19, '2025-03-18 07:50:13', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(20, '2025-03-18 08:04:06', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(21, '2025-03-18 08:05:45', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(22, '2025-03-18 08:21:20', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(23, '2025-03-18 16:13:47', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(24, '2025-03-19 19:52:58', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(25, '2025-03-22 12:47:33', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(26, '2025-03-22 13:51:59', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(27, '2025-03-23 17:35:56', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(28, '2025-03-23 18:14:48', 'Modificación de un rol', 'El usuario modificó la información del rol ( ) la actualizó a: ( ).', 2),
+(29, '2025-03-23 19:53:57', 'Modificación de un rol', 'El usuario modificó la información del rol () la actualizó a: ( ).', 2),
+(30, '2025-03-25 16:39:08', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(31, '2025-03-25 18:22:15', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(32, '2025-03-25 18:27:48', 'Modificación de un rol', 'Modificación de la información del rol (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) la actualizó a ( )', 2),
+(33, '2025-03-25 18:48:37', 'Modificación de un rol', 'Modificación de la información del rol () la actualizó a ( )', 2),
+(34, '2025-03-25 18:58:37', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(35, '2025-03-27 15:29:45', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(36, '2025-03-27 16:17:50', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(37, '2025-03-29 16:47:24', 'Inicio de sesión', 'El usuario accedio al sistema.', 8),
+(38, '2025-03-29 16:54:53', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(39, '2025-03-29 16:54:57', 'Inicio de sesión', 'El usuario accedio al sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -429,7 +451,8 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (6, 62.18, '2025-02-19 17:23:58'),
 (7, 62.18, '2025-02-19 17:24:12'),
 (8, 62.18, '2025-02-19 17:26:24'),
-(9, 63, '2025-02-19 17:33:15');
+(9, 63, '2025-02-19 17:33:15'),
+(10, 66.79, '2025-03-18 07:51:52');
 
 -- --------------------------------------------------------
 
@@ -492,10 +515,10 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
 (1, 'POLLO ASADO COMPLETO', '15', 'pollo asado completo con ensalada y yuca', 1),
-(4, 'GLUPS', '5', 'COMBO DE REFRESCOS', 0),
+(4, 'GLUPS', '132', 'COMBO DE REFRESCOS', 1),
 (5, 'POLLO COREANO', '4', 'POLLO FRITO COREANO', 1),
 (6, 'MEDIO POLLO CON FRESCO', '10', 'MEDIO POLLON ASADO CON GLUP', 1),
-(7, 'POLLO ESPECIAL', '10', 'POLLO + 3 GLUP', 0),
+(7, 'POLLO ESPECIAL', '10', 'POLLO + 3 GLUP', 1),
 (8, 'PABELLON', '7', 'ARROZ Y CARAOTA', 1);
 
 -- --------------------------------------------------------
@@ -612,25 +635,32 @@ CREATE TABLE `rol` (
   `estado` tinyint NOT NULL,
   `r_proveedores` tinyint NOT NULL,
   `m_proveedores` tinyint NOT NULL,
+  `l_proveedores` tinyint NOT NULL,
   `h_proveedores` tinyint NOT NULL,
   `r_categoria` tinyint NOT NULL,
   `r_presentacion` tinyint(1) NOT NULL,
   `r_productos` tinyint NOT NULL,
+  `l_productos` tinyint NOT NULL,
   `e_productos` tinyint NOT NULL,
   `g_venta` tinyint(1) NOT NULL,
   `d_venta` tinyint(1) NOT NULL,
+  `l_venta` tinyint(1) NOT NULL,
   `f_venta` tinyint(1) NOT NULL,
   `est_venta` tinyint(1) NOT NULL,
   `r_servicio` tinyint(1) NOT NULL,
   `m_servicio` tinyint(1) NOT NULL,
+  `l_servicio` tinyint(1) NOT NULL,
   `r_cliente` tinyint(1) NOT NULL,
   `m_cliente` tinyint(1) NOT NULL,
+  `l_cliente` tinyint(1) NOT NULL,
   `h_cliente` tinyint(1) NOT NULL,
   `f_cliente` tinyint(1) NOT NULL,
   `r_empleado` tinyint(1) NOT NULL,
   `m_empleado` tinyint(1) NOT NULL,
+  `l_empleado` tinyint(1) NOT NULL,
   `r_rol` tinyint(1) NOT NULL,
   `m_rol` tinyint(1) NOT NULL,
+  `l_rol` tinyint(1) NOT NULL,
   `m_cant_pregunta_seguridad` tinyint(1) NOT NULL,
   `m_tiempo_sesion` tinyint(1) NOT NULL,
   `m_cant_caracteres` tinyint(1) NOT NULL,
@@ -643,13 +673,14 @@ CREATE TABLE `rol` (
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `e_productos`, `g_venta`, `d_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `r_cliente`, `m_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `r_rol`, `m_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `v_bitacora`) VALUES
-(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'SUSCRIPTOR', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `l_productos`, `e_productos`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `v_bitacora`) VALUES
+(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'SUSCRIPTOR', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(7, 'PASANTE', 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -715,7 +746,8 @@ INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `
 (2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', NULL, 0, 0, 0, 1, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 3, 1),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 1, 1, 2, 0),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 3, 1);
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 3, 1),
+(8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', NULL, 0, 0, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -943,314 +975,6 @@ ALTER TABLE `detalles_menu`
   ADD PRIMARY KEY (`id_detalles_menu`),
   ADD KEY `id_producto` (`id_producto`),
   ADD KEY `id_menu` (`id_menu`);
-
---
--- Indices de la tabla `detalles_pago`
---
-ALTER TABLE `detalles_pago`
-  ADD PRIMARY KEY (`id_detalle_pago`),
-  ADD KEY `id_venta` (`id_venta`);
-
---
--- Indices de la tabla `detalles_venta`
---
-ALTER TABLE `detalles_venta`
-  ADD PRIMARY KEY (`id_detalles_venta`),
-  ADD KEY `id_menu` (`id_venta`),
-  ADD KEY `id_producto` (`id_producto`),
-  ADD KEY `id_sevicio` (`id_servicio`);
-
---
--- Indices de la tabla `dolar`
---
-ALTER TABLE `dolar`
-  ADD PRIMARY KEY (`id_dolar`);
-
---
--- Indices de la tabla `entrada`
---
-ALTER TABLE `entrada`
-  ADD PRIMARY KEY (`id_entrada`),
-  ADD KEY `entrada_producto` (`id_producto`),
-  ADD KEY `entrada_proveedor` (`id_proveedor`),
-  ADD KEY `id_dolar` (`id_dolar`);
-
---
--- Indices de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`id_equipo`),
-  ADD KEY `id_categoria_equipo` (`id_categoria_equipo`),
-  ADD KEY `id_status_equipo` (`id_status_equipo`);
-
---
--- Indices de la tabla `menu`
---
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id_menu`);
-
---
--- Indices de la tabla `preguntas_secretas`
---
-ALTER TABLE `preguntas_secretas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pregunta_seguridad` (`id_pregunta`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `id_categoria` (`id_categoria`),
-  ADD KEY `id_presentacion` (`id_presentacion`);
-
---
--- Indices de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`id_proveedor`);
-
---
--- Indices de la tabla `rol`
---
-ALTER TABLE `rol`
-  ADD PRIMARY KEY (`id_rol`);
-
---
--- Indices de la tabla `seguridad`
---
-ALTER TABLE `seguridad`
-  ADD PRIMARY KEY (`id_seguridad`);
-
---
--- Indices de la tabla `status_equipo`
---
-ALTER TABLE `status_equipo`
-  ADD PRIMARY KEY (`id_status_equipo`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_rol` (`id_rol`);
-
---
--- Indices de la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD PRIMARY KEY (`id_venta`),
-  ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `bitacora`
---
-ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `categoria_equipo`
---
-ALTER TABLE `categoria_equipo`
-  MODIFY `id_categoria_equipo` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `configuracion`
---
-ALTER TABLE `configuracion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalles_menu`
---
-ALTER TABLE `detalles_menu`
-  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `detalles_pago`
---
-ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
-
---
--- AUTO_INCREMENT de la tabla `detalles_venta`
---
-ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
-
---
--- AUTO_INCREMENT de la tabla `dolar`
---
-ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `entrada`
---
-ALTER TABLE `entrada`
-  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  MODIFY `id_equipo` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `menu`
---
-ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `preguntas_secretas`
---
-ALTER TABLE `preguntas_secretas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `producto`
---
-ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `rol`
---
-ALTER TABLE `rol`
-  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `seguridad`
---
-ALTER TABLE `seguridad`
-  MODIFY `id_seguridad` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `status_equipo`
---
-ALTER TABLE `status_equipo`
-  MODIFY `id_status_equipo` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `venta`
---
-ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `bitacora`
---
-ALTER TABLE `bitacora`
-  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalles_menu`
---
-ALTER TABLE `detalles_menu`
-  ADD CONSTRAINT `detalles_menu_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_menu_ibfk_2` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalles_pago`
---
-ALTER TABLE `detalles_pago`
-  ADD CONSTRAINT `detalles_pago_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalles_venta`
---
-ALTER TABLE `detalles_venta`
-  ADD CONSTRAINT `detalles_venta_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_venta_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `entrada`
---
-ALTER TABLE `entrada`
-  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_3` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`id_status_equipo`) REFERENCES `status_equipo` (`id_status_equipo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `equipo_ibfk_2` FOREIGN KEY (`id_categoria_equipo`) REFERENCES `categoria_equipo` (`id_categoria_equipo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `preguntas_secretas`
---
-ALTER TABLE `preguntas_secretas`
-  ADD CONSTRAINT `preguntas_secretas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `seguridad` (`id_seguridad`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `preguntas_secretas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -26,6 +26,7 @@ btn_modal.forEach((element)=>{
             type:  'post',
             success:function(valores){
                 contenedor.innerHTML = valores;
+                
                 let div = document.querySelectorAll('.vista');
 
                 div.forEach((ul) => {

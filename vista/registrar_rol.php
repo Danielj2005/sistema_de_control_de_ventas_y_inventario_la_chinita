@@ -6,15 +6,16 @@ include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso sin permisos","Un usuario intento acceder al sistema sin haber iniciado sesión.");
+	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
 	exit();
-  
-  
-}else{ 
+}
 
-  if (modeloPrincipal::verificar_rol('r_rol') > '0') { ?>
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::verificar_rol('r_rol');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol == 1) {  ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -69,7 +70,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             </li>
                             <li>
                               <input class="proveedores" type="checkbox" value="1" name="m_proveedores">
-                              <span>Modificar proveedores</span>
+                              <span>Modificar información de proveedores</span>
+                            </li>
+                            <li>
+                              <input class="proveedores" type="checkbox" value="1" name="l_proveedores">
+                              <span>Lista de proveedores registrados</span>
                             </li>
                             
                             <li>
@@ -89,17 +94,36 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                               <input name="r_categoria" class="productos" value="1" type="checkbox">
                               <span>Registro de categoría</span>
                             </li>
+                            <!-- <li>
+                              <input name="l_categoria" class="productos" value="1" type="checkbox">
+                              <span>Lista de categorías registradas</span>
+                            </li> -->
+                            <br>
                             <li>
                               <input name="r_presentacion" class="productos" value="1" type="checkbox">
                               <span>Registro de presentación</span>
                             </li>
+                            <!-- <li>
+                              <input name="l_presentacion" class="productos" value="1" type="checkbox">
+                              <span>Lista de presentaciones registradas</span>
+                            </li> -->
+                            <br>
                             <li>
                               <input name="r_productos" class="productos" value="1" type="checkbox">
                               <span>Registro de productos</span>
                             </li>
                             <li>
+                              <input name="l_productos" class="productos" value="1" type="checkbox">
+                              <span>Lista de productos registrados</span>
+                            </li>
+                            <br>
+                            <li>
                               <input name="e_productos" class="productos" value="1" type="checkbox">
                               <span>Entrada de productos</span>
+                            </li>
+                            <li>
+                              <input name="e_productos" class="productos" value="1" type="checkbox">
+                              <span>Lista de entrada de productos realizadas</span>
                             </li>
                           </ul>
                         </div>
@@ -125,6 +149,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                 <input name="g_venta" class="Ventas" value="1" type="checkbox">
                                 <span>Generar venta</span>
                               </li>
+                              <li>
+                                <input name="l_venta" class="Ventas" value="1" type="checkbox">
+                                <span>Lista de ventas realizadas</span>
+                              </li>
+    
                               <li>
                                 <input name="d_venta" class="Ventas" value="1" type="checkbox">
                                 <span>Detalles de ventas realizadas</span>
@@ -162,7 +191,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                               <li>
                                 <input name="m_servicio" class="servicio" value="1" type="checkbox" value="1">
-                                <span>Modificación de los servicios</span>
+                                <span>Modificación de servicios</span>
+                              </li>
+
+                              <li>
+                                <input name="l_servicio" class="servicio" value="1" type="checkbox" value="1">
+                                <span>Lista de servicios registrados</span>
                               </li>
                             </ul>
                           </div>
@@ -194,6 +228,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             </li>
 
                             <li>
+                              <input name="l_cliente" class="cliente" value="1" type="checkbox">
+                              <span>Lista de clientes registrados</span>
+                            </li>
+
+                            <li>
                               <input name="h_cliente" class="cliente" value="1" type="checkbox">
                               <span>Ver historial de clientes</span>
                             </li>
@@ -219,6 +258,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                               <input name="m_empleado" class="empleado" value="1" type="checkbox">
                               <span>Modificación de empleados</span>
                             </li>
+                            <li>
+                              <input name="l_empleado" class="empleado" value="1" type="checkbox">
+                              <span>Lista de empleados registrados</span>
+                            </li>
                           </ul>
                         </div>
 
@@ -235,6 +278,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                             <li>
                               <input name="m_rol" class="roles" value="1" type="checkbox">
                               <span>Modificación de roles</span>
+                            </li>
+                            <li>
+                              <input name="l_rol" class="roles" value="1" type="checkbox">
+                              <span>Lista de roles registrados</span>
                             </li>
                           </ul>
                         </div>
@@ -320,8 +367,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           include_once("../include/scripts_include.php"); ?>
       </body>
     </html>
-  <?php }else{
-    modeloPrincipal::bitacora("Intentó acceder a la pantalla roles sin permisos.","La sesion del usuario fué cerrada por seguridad.");
-    header("Location:../controlador/salir.php");
-  } 
-} ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla registro de roles.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

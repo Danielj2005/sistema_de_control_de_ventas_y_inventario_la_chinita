@@ -8,16 +8,16 @@ $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM rol WHE
 
 $nombre = $permisos['nombre'];
 // cantidad de vistas de inventario
-$proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['r_presentacion'] + $permisos['r_productos'] + $permisos['e_productos'];
+$proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
+$producto = $permisos['r_categoria'] + $permisos['r_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
 // cantidad de vistas de venta
-$venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'];
+$venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'];
 // cantidad de vistas de menu
-$menu = $permisos['r_servicio'] + $permisos['m_servicio'];
+$menu = $permisos['r_servicio'] + $permisos['m_servicio'] + $permisos['l_servicio'];
 // cantidad de vistas de usuario
-$cliente = $permisos['r_cliente'] + $permisos['m_cliente'] + $permisos['h_cliente'] + $permisos['f_cliente'];
-$empleado = $permisos['r_empleado'] + $permisos['m_empleado'];
-$rol = $permisos['r_rol'] + $permisos['m_rol'];
+$cliente = $permisos['r_cliente'] + $permisos['m_cliente'] + $permisos['l_cliente'] + $permisos['h_cliente'] + $permisos['f_cliente'];
+$empleado = $permisos['r_empleado'] + $permisos['m_empleado'] + $permisos['l_empleado'];
+$rol = $permisos['r_rol'] + $permisos['m_rol'] + $permisos['l_rol'];
 // cantidad de vistas de configuración
 $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion'] + $permisos['m_cant_caracteres'] + $permisos['m_cant_simbolos'] + $permisos['m_cant_num'];
 
@@ -46,7 +46,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
             <div class="row p-0 justify-content-around">
                 <div class="border col-12 col-sm-12 col-md-5 mb-3 p-2 rounded-3">
                     <h4 class="card-title">
-                        <input id="proveedores" class="vista" <?= $proveedor == 3 ? 'checked' : '' ?> type="checkbox" value="proveedores">
+                        <input id="proveedores" class="vista" <?= $proveedor == 4 ? 'checked' : '' ?> type="checkbox" value="proveedores">
                         Proveedores
                     </h4>
                     <ul id="" class="nav-content list-unstyled"> 
@@ -58,7 +58,10 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                             <input class="proveedores" type="checkbox" <?= $permisos['m_proveedores'] == 1 ? 'checked' : '' ?> value="1" name="m_proveedores">
                             <span>Modificar proveedores</span>
                         </li>
-                        
+                        <li>
+                            <input class="proveedores" type="checkbox" <?= $permisos['l_proveedores'] == 1 ? 'checked' : '' ?> value="1" name="l_proveedores">
+                            <span>Lista de proveedores registrados</span>
+                        </li>
                         <li>
                             <input class="proveedores" type="checkbox" <?= $permisos['h_proveedores'] == 1 ? 'checked' : '' ?> value="1" name="h_proveedores">
                             <span>Historial de compras</span>
@@ -68,7 +71,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
 
                 <div class="border col-12 col-sm-12 col-md-5 mb-3 p-2 rounded-3">
                     <h2 class="card-title">
-                        <input class="vista" type="checkbox" <?= $producto == 4 ? 'checked' : '' ?> value="productos">
+                        <input class="vista" type="checkbox" <?= $producto == 6 ? 'checked' : '' ?> value="productos">
                         Productos
                     </h2>
                     <ul id="" class="nav-content list-unstyled">
@@ -76,17 +79,28 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                             <input name="r_categoria" class="productos" <?= $permisos['r_categoria'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Registro de categoría</span>
                         </li>
+                        <br>
                         <li>
                             <input name="r_presentacion" class="productos" <?= $permisos['r_presentacion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Registro de presentación</span>
                         </li>
+                        <br>
                         <li>
                             <input name="r_productos" class="productos" <?= $permisos['r_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Registro de productos</span>
                         </li>
                         <li>
-                            <input name="e_productos" class="productos" <?= $permisos['e_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <input name="l_productos" class="productos" <?= $permisos['l_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <span>Lista de productos registrados</span>
+                        </li>
+                        <br>
+                        <li>
+                            <input name="r_entrada" class="productos" <?= $permisos['r_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Entrada de productos</span>
+                        </li>
+                        <li>
+                            <input name="l_entrada" class="productos" <?= $permisos['l_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <span>Lista de entrada de productos realizadas</span>
                         </li>
                     </ul>
                 </div>
@@ -105,7 +119,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                 <div class="row m-0 p-0 justify-content-around">
                     <div class="border col-12 col-sm-12 col-md-12 mb-3 p-2 rounded-3">
                         <h2 class="card-title">
-                            <input  class="vista" value="Ventas" <?= $venta == 4 ? 'checked' : '' ?> type="checkbox">
+                            <input  class="vista" value="Ventas" <?= $venta == 5 ? 'checked' : '' ?> type="checkbox">
                             Ventas
                         </h2>
                         <ul id="" class="nav-content list-unstyled"> 
@@ -114,6 +128,11 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                                 <input name="g_venta" class="Ventas" <?= $permisos['g_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                                 <span>Generar venta</span>
                             </li>
+                            <li>
+                                <input name="l_venta" class="Ventas" <?= $permisos['l_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                                <span>Lista de ventas realizadas</span>
+                            </li>
+
 
                             <li>
                                 <input name="d_venta" class="Ventas" <?= $permisos['d_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
@@ -141,18 +160,23 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
 
                     <div class="border col-12 col-sm-12 col-md-12 mb-3 p-2 rounded-3">
                         <h2 class="card-title">
-                            <input class="vista" type="checkbox" <?= $menu == 2 ? 'checked' : '' ?> value="servicio">
+                            <input class="vista" type="checkbox" <?= $menu == 3 ? 'checked' : '' ?> value="servicio">
                             Menú
                         </h2>
                         <ul id="" class="nav-content list-unstyled"> 
                             <li>
-                                <input name="r_servicio" class="servicio" value="1" type="checkbox" <?= $permisos['r_servicio'] == 1 ? 'checked' : '' ?> value="1">
+                                <input name="r_servicio" class="servicio" value="1" type="checkbox" <?= $permisos['r_servicio'] == 1 ? 'checked' : '' ?>>
                                 <span>Registro de servicio</span>
                             </li>
 
                             <li>
-                                <input name="m_servicio" class="servicio" value="1" type="checkbox" <?= $permisos['m_servicio'] == 1 ? 'checked' : '' ?> value="1">
+                                <input name="m_servicio" class="servicio" value="1" type="checkbox" <?= $permisos['m_servicio'] == 1 ? 'checked' : '' ?>>
                                 <span>Modificación de los servicios</span>
+                            </li>
+
+                            <li>
+                                <input name="l_servicio" class="servicio" value="1" type="checkbox" <?= $permisos['l_servicio'] == 1 ? 'checked' : '' ?>>
+                                <span>Lista de servicios registrados</span>
                             </li>
                         </ul>
                     </div>
@@ -171,7 +195,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
             <div class="row p-0 justify-content-around">
                 <div class="border col-12 col-sm-12 col-md-3 mb-3 p-2 rounded-3">
                     <h4 class="card-title">
-                        <input id="cliente" class="vista" type="checkbox" <?= $cliente == 4 ? 'checked' : '' ?> value="cliente">
+                        <input id="cliente" class="vista" type="checkbox" <?= $cliente == 5 ? 'checked' : '' ?> value="cliente">
                         Cliente
                     </h4>
                     <ul class="ul_cliente nav-content list-unstyled"> 
@@ -182,6 +206,11 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                         <li>
                             <input name="m_cliente" class="cliente" <?= $permisos['m_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Modificación de clientes</span>
+                        </li>
+
+                        <li>
+                            <input name="l_cliente" class="cliente" <?= $permisos['l_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <span>Lista de clientes registrados</span>
                         </li>
 
                         <li>
@@ -198,7 +227,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
 
                 <div class="border col-12 col-sm-12 col-md-3 mb-3 p-2 rounded-3">
                     <h2 class="card-title">
-                        <input class="vista" type="checkbox" <?= $empleado == 2 ? 'checked' : '' ?> value="empleado">
+                        <input class="vista" type="checkbox" <?= $empleado == 3 ? 'checked' : '' ?> value="empleado">
                         Empleados (usuarios)
                     </h2>
                     <ul id="" class="nav-content list-unstyled">
@@ -210,12 +239,16 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                             <input name="m_empleado" class="empleado" <?= $permisos['m_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Modificación de empleados</span>
                         </li>
+                        <li>
+                            <input name="l_empleado" class="empleado" <?= $permisos['l_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <span>Lista de empleados registrados</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="border col-12 col-sm-12 col-md-3 mb-3 p-2 rounded-3">
                     <h2 class="card-title">
-                        <input class="vista" type="checkbox" <?= $rol == 2 ? 'checked' : '' ?> value="roles">
+                        <input class="vista" type="checkbox" <?= $rol == 3 ? 'checked' : '' ?> value="roles">
                         Roles
                     </h2>
                     <ul id="" class="nav-content list-unstyled">
@@ -226,6 +259,10 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                         <li>
                             <input name="m_rol" class="roles" <?= $permisos['m_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                             <span>Modificación de roles</span>
+                        </li>
+                        <li>
+                            <input name="l_rol" class="roles" <?= $permisos['l_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                            <span>Lista de roles registrados</span>
                         </li>
                     </ul>
                 </div>

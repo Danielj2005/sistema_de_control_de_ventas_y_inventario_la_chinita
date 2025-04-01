@@ -1,12 +1,22 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php.php');
-  exit();
-  
-}else{ ?>
+	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
+	header('Location: ../index.php');
+	exit();
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::verificar_rol('r_rol');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol == 1) {  ?>
+
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -67,7 +77,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
                       <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
-                      <button name="registrar" class="btn btn-success zmdi zmdi-floppy">&nbsp; Registrar</button>
+                      <button name="registrar" class="btn btn-success"> Registrar</button>
                     </div>
                   </form>
                 </div>
@@ -82,4 +92,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla registro de proveedores.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

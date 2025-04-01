@@ -1,31 +1,30 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
   // Redirigir el acceso a la página sino inició de sesión
   header('Location: ../index.php');
   exit();
   
-}else{ 
-  
-  require_once ('../config/ConfigServer.php');
-  require_once ('../modelo/modeloPrincipal.php');
-  ?>
+}else{ ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
-      <!-- metadatos -->  
-      <?php include_once("../include/meta_include.php"); ?>
       <!-- titulo -->
       <title>Inicio</title>
-      <!-- ======= estilos y librerias css ======= -->
-      <?php include_once("../include/css_include.php"); ?>
+      <!-- metadatos -->  
+      <?php include_once("../include/meta_include.php");
+        // estilos y librerias css
+        include_once("../include/css_include.php"); ?>
     </head>
     <body>
       <?php   
         include_once("../include/header.php"); 
         include_once("../include/sliderbar.php");
-
 
         $fecha_del_dia = date("Y-m-d");
       
@@ -68,40 +67,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               </div>
             </div>
 
-
-            <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Total Generado en el Día</h5>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN DIVISA (USD)</span>
-                          <input type="text" class="form-control" disabled id="Total" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
-                          <span class="input-group-text" id="basic-addon1">$</span>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN PAGO MÓVIL</span>
-                          <input type="text" class="form-control" disabled id="TotaD" readOnly value="<?php //($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
-                          <span class="input-group-text" id="basic-addon1">$</span>
-                        </div>
-                      </div>
-
-                      <div class="col-12">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1">TOTAL GENERADO EN PUNTO DE VENTA</span>
-                          <input type="text" class="form-control" disabled id="TotBS" readOnly value="<?php //($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
-                          <span class="input-group-text" id="basic-addon1">BS</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
               <div class="row">
                 <div class="col-12">

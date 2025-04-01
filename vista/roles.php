@@ -7,17 +7,20 @@ include_once("../modelo/modeloPrincipal.php");
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema.");
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
 	exit();
-  
-}else{ 
-  
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::permisos_modulos('r_rol + m_rol + l_rol');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol >= 1 && $rol <= 3) {  
+
   $estado = (!isset($_POST['estado_rol'])) ? '1' : $_POST['estado_rol'];
 
-  $consulta = modeloPrincipal::consultar("SELECT id_rol, nombre, estado 
+  $consulta = modeloPrincipal::consultar("SELECT id_rol, nombre, estado
     FROM rol WHERE id_rol != 1 AND estado = $estado");
-
   ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -49,14 +52,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card top-selling pb-3">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a class="col-12 btn btn-success" href="./registrar_rol.php">Registrar un nuevo rol</a>
+                    <a class="col-12 btn btn-success" href="./<?= modeloPrincipal::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">Registrar un nuevo rol</a>
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
                     <form action="./roles.php" method="post">
                         <input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
                         <button type="submit" class="col-12 btn btn-secondary">
-                          <?= ($estado == '0') ? "Activos" : "Inactivos"?>
+                          <?= ($estado == '0') ? "Roles activos" : "Roles inactivos"?>
                         </button>
                     </form>
                   </div>
@@ -67,7 +70,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
                   <h5 class="card-title">Lista de Roles <?= ($estado == '1') ? "Activos" : "Inactivos"?></h5>
                   <div class="table table-responsive">
-                    <table class="table table-borderless datatable" id="example">
+                    <table class="table datatable table-striped" id="example">
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
@@ -112,21 +115,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       
       <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body row" id="body_modal" class="row"> </div>
+              <div class="modal-footer">
+                <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+              </div>
             </div>
-            <div class="modal-body">
-              <form id="update_user_info" action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
-                <div id="body_modal" class="row"> </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" form="update_user_info" type="submit" class="btn btn-success">Guardar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -141,5 +142,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       ?>
     </body>
   </html>
-
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla lista de roles.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

@@ -1,13 +1,22 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php');
-  exit();
-  
-}else{ ?>
+	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
+	header('Location: ../index.php');
+	exit();
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::verificar_rol('r_servicio');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol == 1) {  ?>
+
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -127,4 +136,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla registro de servicios.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

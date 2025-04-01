@@ -1,13 +1,21 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
 
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php');
-  exit();
-  
-}else{ ?>
+	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
+	header('Location: ../index.php');
+	exit();
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::permisos_modulos('d_venta + l_venta + f_venta');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol >= 1 && $rol <= 3) { ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -25,9 +33,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/header.php");
         // se incluye el menu lateral a la vista 
         include_once("../include/sliderbar.php"); 
-
-        require_once ('../config/ConfigServer.php');
-        require_once ('../modelo/modeloPrincipal.php');
       
         $montos_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
           ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_en_dolares,
@@ -150,7 +155,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                                     <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                                     <td class="text-center col"><?= $row['fecha_venta'] ?></td> 
                                     <td class="text-center col">
-                                        <button class="btn btn-info bi bi-eye detalles_generales" modal="detalles_de_ventas" modulo="detalles_venta" value="<?= $row['id_venta'] ?>" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                                        <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $row['id_venta'] ?>" <?= modeloPrincipal::verificar_rol('d_venta') == 1 ? ' modal="detalles_de_ventas" modulo="detalles_venta"  data-bs-toggle="modal" data-bs-target="#detalles_venta"' : 'disabled' ?>></button>
                                     </td> 
                                   </tr>
                               <?php } } ?>
@@ -182,4 +187,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       <script src="./js/rango_fechas.js"></script>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla lista de ventas realizadas.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

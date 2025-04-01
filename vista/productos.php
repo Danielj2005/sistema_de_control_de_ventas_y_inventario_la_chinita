@@ -1,12 +1,22 @@
 <?php 
 session_start();
 
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
 	exit();
-  
-}else{ ?>
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol >= 1 && $rol <= 4) {  
+?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -35,13 +45,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
               <div class="card top-selling pb-3">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <a class="col-12 btn btn-primary" href="./agregar_producto.php">Añadir Nuevo Producto</a>
+                    <a class="col-12 btn btn-primary" <?= modeloPrincipal::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <a class="col-12 btn btn-success" href="./categoria_producto.php">Añadir Categoría</a>
+                    <a class="col-12 btn btn-success" <?= modeloPrincipal::verificar_rol('r_categoria') == 1 ? 'href="./categoria_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Categoría</a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <button class="col-12 btn btn-info text-white " data-bs-toggle="modal" data-bs-target="#addPresentacion">Añadir Presentación</button>
+                    <button class="col-12 btn btn-info text-white" <?= modeloPrincipal::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
@@ -54,8 +64,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
-                          <th class="text-center col" scope="col">CÓDIGO DEL PRODUCTO</th>
-                          <th class="text-center col" scope="col">NOMBRE DEL PRODUCTO</th>
+                          <th class="text-center col" scope="col">CÓDIGO</th>
+                          <th class="text-center col" scope="col">NOMBRE</th>
                           <th class="text-center col" scope="col">PRESENTACIÓN</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
@@ -118,4 +128,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla lista de productos.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  header('Location: ./inicio.php');
+}

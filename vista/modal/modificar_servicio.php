@@ -57,28 +57,29 @@ $servicios = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM menu W
                         WHERE M.id_menu = $id_menu");
                     $i= 1;
                     while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
+                        <tr>
+                            <td class="col text-center" id=""><?=  $i++ ?></td>
 
-                        <td class="col text-center" id=""><?=  $i++ ?></td>
+                            <td class="col text-center" id="">
+                                <input type="text" class="form-control bg-dark-subtle" readonly name="" value="<?= $mostrar['nombre_producto'] ?>" required>
+                            </td>
 
-                        <td class="col text-center" id="">
-                            <input type="text" class="form-control bg-dark-subtle" readonly name="" value="<?= $mostrar['nombre_producto'] ?>" required>
-                        </td>
+                            <td class="col text-center" id="">
+                                <input type="text" class="form-control bg-dark-subtle" readonly name="" placeholder="cantidad a ingresar" required value="<?= $mostrar['nombre_presentacion'] ?>" >
+                            </td>
+                            
+                            <td class="col text-center">
+                                <input type="text" id="" class="form-control precio_dolar_total bg-dark-subtle" name="precio_dolar[]" value="<?= $mostrar['cantidad'];?>" readonly placeholder="precio en $" required>
+                            </td>
 
-                        <td class="col text-center" id="">
-                            <input type="text" class="form-control bg-dark-subtle" readonly name="" placeholder="cantidad a ingresar" required value="<?= $mostrar['nombre_presentacion'] ?>" >
-                        </td>
-                        
-                        <td class="col text-center">
-                            <input type="text" id="" class="form-control precio_dolar_total bg-dark-subtle" name="precio_dolar[]" value="<?= $mostrar['cantidad'];?>" readonly placeholder="precio en $" required>
-                        </td>
-
-                        <td class="col text-center">
-                            <input type="text" id="" class="form-control precio_bolivar_total bg-dark-subtle" name="precio_bolivar[]" value="<?= $mostrar['precio_compra_dolar']?>" readonly placeholder="precio en bs" required>
-                        </td>
-                        
-                        <td class="col text-center">
-                            <input type="text" id="" class="form-control precio_bolivar_total bg-dark-subtle" name="precio_bolivar[]" value="<?= $mostrar['precio_compra_bs']?>" readonly placeholder="precio en bs" required>
-                        </td>
+                            <td class="col text-center">
+                                <input type="text" id="" class="form-control precio_bolivar_total bg-dark-subtle" name="precio_bolivar[]" value="<?= $mostrar['precio_compra_dolar']?>" readonly placeholder="precio en bs" required>
+                            </td>
+                            
+                            <td class="col text-center">
+                                <input type="text" id="" class="form-control precio_bolivar_total bg-dark-subtle" name="precio_bolivar[]" value="<?= $mostrar['precio_compra_bs']?>" readonly placeholder="precio en bs" required>
+                            </td>
+                        </tr>
                 <?php } ?>
             </tbody>
         </table>
