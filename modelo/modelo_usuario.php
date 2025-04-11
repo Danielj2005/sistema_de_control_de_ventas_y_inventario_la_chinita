@@ -1,5 +1,8 @@
 <?php
+require "../config/ConfigServer.php";
+require "./modeloPrincipal.php";
 error_reporting(E_PARSE);
+
 class modelo_usuario extends modeloPrincipal {
     
     /**********************************************************************/ 
@@ -208,4 +211,33 @@ class modelo_usuario extends modeloPrincipal {
             exit();
         }
     }
+
+
+    
+    /***************************************************************/ 
+    /*       funcion para generar un token para un usuario         */
+    /***************************************************************/ 
+    public static function generateToken() {
+        do {
+
+            // Generar un token de 11 dígitos
+            $token = '';
+            for ($i = 0; $i < 11; $i++) {
+                $token .= mt_rand(0, 9); // Concatenar un número aleatorio entre 0 y 9
+            }
+            // Verificar si el token ya existe en la base de datos
+            $existToken = Self::consultar("SELECT token FROM usuario WHERE token = '$token'");
+        } while (mysqli_num_rows($existToken) > 0); // Repetir si el token ya existe
+        return $token;
+    }
+
+    /***************************************************************/ 
+    /*       funcion para obtener el token de un usuario           */
+    /***************************************************************/ 
+    public static function getToken($id_usuario) {
+        
+    }
+
+
+
 }

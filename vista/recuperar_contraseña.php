@@ -27,7 +27,7 @@ if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_co
 					-moz-box-sizing: border-box;
 				}
 				
-
+/* 
 				div i{
 					top: 1.5em;
 					z-index: 2;
@@ -37,7 +37,7 @@ if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_co
 					height: 1.5rem;
 					transform: translate(-20%,-60%);
 					transform-origin: center;
-				}
+				} */
 				.carousel-item img {
 
 					height: 720px !important;
@@ -68,6 +68,13 @@ if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_co
 						top: 1.8em;
 					}
 
+				}
+				
+				.glassmorph{
+					background-color: rgba(255, 255, 255, 0.32);
+					backdrop-filter: blur(5px);
+					-webkit-backdrop-filter: blur(5);
+					-moz-backdrop-filter: blur(10px);
 				}
 			</style>
 		</head>
@@ -102,7 +109,7 @@ if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_co
 				</div>
 				
 				<div class="col-12 position-absolute row justify-content-center">
-					<div class="col-10 col-sm-6 col-md-6 bg-black bg-opacity-75 m-5 p-3 pt-4 rounded-4">
+					<div class="col-10 col-sm-6 col-md-6 m-5 p-3 pt-4 rounded-4 glassmorph text-dark">
 						<div class="text-center mb-5">
 							<h2>Cambiar Contraseña</h2>
 						</div>
@@ -151,7 +158,7 @@ if (isset($_POST['acceso_recuperar_contraseña']) && $_POST['acceso_recuperar_co
 												<p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
 											</div>
 											<div class="col-12 mb-4">
-												<button form="recuperar_contraseña_preguntas" onclick="enviar_respuestas_recuperar_contraseña()" type="submit" class="btn btn-outline-light">Verificar</button>
+												<button form="recuperar_contraseña_preguntas" onclick="enviar_respuestas_recuperar_contraseña()" type="submit" class="btn btn-primary">Verificar</button>
 											</div>
 											<div class="col-12 mb-4">
 												<a href="../index.php" class="btn btn-link" title="Volver">Volver</a>

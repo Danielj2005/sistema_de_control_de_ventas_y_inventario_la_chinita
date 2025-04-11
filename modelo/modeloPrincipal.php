@@ -12,6 +12,8 @@ date_default_timezone_set('America/Caracas');
 // const SECRET_KEY = 'SPLCH2024';
 
 class modeloPrincipal {
+
+    
     /*----------- Funcion para conectar con la base de datos -----------*/
     public static function Conexion(){
         if(!$con = mysqli_connect(SERVER, USER, PASSWORD)){
@@ -23,6 +25,9 @@ class modeloPrincipal {
         mysqli_set_charset($con, "utf8");
         return $con;
     }
+
+
+
     /********** Funcion consulta simple BD**********/
     public static function consultar($query) {
         mysqli_query(Self::Conexion(),"SET AUTOCOMMIT=0;");
@@ -35,11 +40,16 @@ class modeloPrincipal {
         }
         return $consul;
     } 
+
+
+
     /*--------------------------------- CRUD ---------------------------------*/
     // C - create - crear
     // R - read - leer 
     // U - update - actualizar
     // D - delete - eliminar
+
+
     /*----------- Funcion insertar datos de Base de Datos -----------*/
     public static function InsertSQL($tabla,$campos,$valores) {
         if (!$consulta = Self::consultar("INSERT INTO $tabla ($campos) VALUES($valores)")) {
@@ -48,6 +58,8 @@ class modeloPrincipal {
         return $consulta;
     }
 
+
+
     /*----------- Funcion eliminar datos de Base de Datos -----------*/
     public static function DeleteSQL($tabla, $condicion) {
         if (!$consulta = Self::consultar("DELETE FROM $tabla WHERE $condicion")) {
@@ -55,6 +67,9 @@ class modeloPrincipal {
         }
         return $consulta;
     }
+
+
+
     /*----------- Funcion Modificar datos de Base de Datos -----------*/
     public static function UpdateSQL($tabla, $campos, $condicion) {
         if (!$consulta = Self::consultar("UPDATE $tabla SET $campos WHERE $condicion")) {
@@ -63,8 +78,9 @@ class modeloPrincipal {
         return $consulta;
     }
 
+
+
     // funcion para registrar movimientos del sistema en la bitácora
-    
     public static function bitacora($accion,$mensaje) {
         $fechas = date('Y-m-d H:i:s');
         $id_usuario = $_SESSION["id_usuario"];
@@ -111,11 +127,14 @@ class modeloPrincipal {
         $valor = trim($valor);
         return $valor;
     }
+
+
     public static function LimpiarCadenaTexto($val) {
         $data = addslashes($val);
         $datos = self::limpiar_cadena($data);
         return $datos;
     }
+
 
     /********** Funcion encriptar Cadena  **********/
     public static function encryption($string) {
@@ -129,6 +148,8 @@ class modeloPrincipal {
             }
         return base64_encode($result);
     }
+
+
     /********** Funcion desencriptar Cadena  **********/
     public static function decryption($string) {
         $key = SECRET_KEY;
@@ -142,6 +163,8 @@ class modeloPrincipal {
         }
         return $result;
     }
+
+
     /*---------- Funcion Verificar Datos ----------*/
     public static function verificar_datos($filtro,$cadena){
         if (preg_match("/^".$filtro."$/", $cadena)) {
@@ -150,6 +173,8 @@ class modeloPrincipal {
             return true;
         }
     }
+
+
     public static function generar_numero($num){
         if(strlen($num) == 1){
             return $num = '0000000'.$num;
@@ -178,6 +203,8 @@ class modeloPrincipal {
     }
 
     
+
+
     // funcion para verificar los premisos de un rol
     public static function verificar_rol($vista){
         $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
@@ -188,6 +215,8 @@ class modeloPrincipal {
         $permiso_rol = $permiso_rol[$vista];
         return $permiso_rol;
     }
+
+
     // funcion para verificar los premisos de un modulo del  sistema
     public static function permisos_modulos($vista){
         $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
@@ -228,4 +257,6 @@ class modeloPrincipal {
         $cadena_encripted = Self::encryption($cadena_limpia);
         return $cadena_encripted;
     }
+
+
 }

@@ -5,7 +5,9 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
   // Redirigir el acceso a la página sino inició de sesión
   header('Location: ../index.php');
   exit();

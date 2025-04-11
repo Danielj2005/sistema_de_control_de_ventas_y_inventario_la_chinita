@@ -5,9 +5,11 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
 	exit();
 }
@@ -94,6 +96,6 @@ if ($rol == 1) {  ?>
   </html>
 <?php }else{
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intentó acceder sin permisos a la pantalla registro de proveedores.","El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, este fué redirigido a la pantalla de inicio por seguridad.");
+  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla registro de proveedores.","Se ha registrado un intento de acceso incorrecto a la pantalla registro de proveedores por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
   header('Location: ./inicio.php');
 }

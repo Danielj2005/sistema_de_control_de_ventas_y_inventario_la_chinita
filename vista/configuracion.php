@@ -1,12 +1,24 @@
 <?php 
 session_start();
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-  // Redirigir el acceso a la página sino inició de sesión
-  header('Location: ../index.php');
-  exit();
-  
-}else{ ?>
+// importacion de la conexion a la base de datos y al modelo principal
+include_once ("../config/ConfigServer.php");
+include_once("../modelo/modeloPrincipal.php");
+
+$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
+	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema sin autenticación previa. Un usuario ha intentado acceder de manera no autorizada.");
+	header('Location: ../index.php');
+	exit();
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::permisos_modulos('intentos_inicio_sesion + m_cant_pregunta_seguridad + m_tiempo_sesion + m_cant_caracteres + m_cant_simbolos + m_cant_num');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol >= 1 && $rol <= 6) {  
+?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -43,13 +55,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                     <fieldset class="mb-4">
                       <legend class="h5 card-title">Configuración estandar del sistema</legend>
                       <div class="row m-0">
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
                           <label class="mb-2">Cantidad de preguntas de seguridad para los usuarios <span style="color:#f00;">*</span></label>
                           <input class="form-control" type="number" name="c_preguntas" min="3" max="6" id="">
                         </div>
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
                           <label class="mb-2">Tiempo de inactividad de sesión <span style="color:#f00;">*</span></label>
                           <input class="form-control" type="number" name="tiempo_inactividad" min="3" max="10" id="">
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="mb-2">Intentos de inicio de sesión para los usuarios <span style="color:#f00;">*</span></label>
+                          <input class="form-control" type="number" name="intentos_inicio_sesion" min="1" max="5" id="">
                         </div>
                       </div>
   
@@ -100,4 +116,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla de Configuración del sistema.","Se ha registrado un intento de acceso incorrecto a la pantalla configuración por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
+  header('Location: ./inicio.php');
+}

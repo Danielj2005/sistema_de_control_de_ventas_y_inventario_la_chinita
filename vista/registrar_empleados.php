@@ -5,9 +5,11 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin iniciar sesión","Un usuario intento acceder al sistema de manera incorrecta.");
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
 	header('Location: ../index.php');
 	exit();
 }
@@ -132,9 +134,8 @@ if ($rol == 1) {  ?>
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php }else {
-	// Redirigir al usuario a la página principal
-	header('Location: ./inicio.php');
-	exit();
-	} 
-?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla registro de registro de empleados.","Se ha registrado un intento de acceso incorrecto a la pantalla registro de empleados por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
+  header('Location: ./inicio.php');
+}

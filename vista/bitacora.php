@@ -4,12 +4,19 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
+  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
 	header('Location: ../index.php');
 	exit();
-  
-}else{ ?>
+}
+
+// esta funcion retorna si el rol tiene permiso a las vista
+$rol = modeloPrincipal::verificar_rol('v_bitacora');
+// se evalua que este rol tenga el acceso a esta vista
+if ($rol == 1) {  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -102,4 +109,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php } ?>
+<?php }else{
+  // se registran las acciones del usuario en la bitacora y es redirijido al inicio
+  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla bitácora.","Se ha registrado un intento de acceso incorrecto a la pantalla bitácora por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
+  header('Location: ./inicio.php');
+}

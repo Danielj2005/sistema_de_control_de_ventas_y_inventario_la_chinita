@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 29-03-2025 a las 22:29:18
+-- Tiempo de generación: 06-04-2025 a las 23:33:33
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `chinita`
 --
+CREATE DATABASE IF NOT EXISTS `chinita` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
+USE `chinita`;
 
 -- --------------------------------------------------------
 
@@ -31,10 +33,15 @@ CREATE TABLE `bitacora` (
   `id` int NOT NULL,
   `fecha_hora` datetime NOT NULL,
   `accion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `mensaje` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `mensaje` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `bitacora`
+--
+
+TRUNCATE TABLE `bitacora`;
 --
 -- Volcado de datos para la tabla `bitacora`
 --
@@ -78,7 +85,152 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (36, '2025-03-27 16:17:50', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
 (37, '2025-03-29 16:47:24', 'Inicio de sesión', 'El usuario accedio al sistema.', 8),
 (38, '2025-03-29 16:54:53', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
-(39, '2025-03-29 16:54:57', 'Inicio de sesión', 'El usuario accedio al sistema.', 2);
+(39, '2025-03-29 16:54:57', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(40, '2025-03-30 15:19:41', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(41, '2025-03-30 17:57:27', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio de: (nombre del platillo: existe_platillo_nombre_platillo, precio en dolares: existe_platillo_precio_dolar, descripción: existe_platillo_descripcion, estado: existe_platillo_estatus) a: (nombre del platillo: nombre_platillo, precio en dolares: precio_dolar, descripción: descripcion, estado: estado_menu).', 2),
+(42, '2025-03-30 18:01:08', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio de: (nombre del platillo: GLUPS \n  precio en dolares: 10 \n , descripción:  COMBO DE REFRESCOS \n , estado: existe_platillo_estatus) a: (nombre del platillo: nombre_platillo, precio en dolares: precio_dolar, descripción: descripcion, estado: estado_menu).', 2),
+(43, '2025-03-30 18:08:10', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio\n \n  \n        Información del servicio:\n \n \n        Nombre del platillo: GLUPS \n \n        Precio en dolares: 10$ \n \n        Descripción: COMBO DE REFRESCOS. \n \n        Estado: activo \n\n\n\n\n        Información del servicio actualizada \n \n \n        Nombre del platillo: GLUPS \n \n        Precio en dolares: 15$ \n \n        Descripción: COMBO DE REFRESCOS \n \n        Estado: activo', 2),
+(44, '2025-03-30 18:10:29', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: GLUPS \nPrecio en dolares: 15$ \nDescripción: COMBO DE REFRESCOS. \nEstado: activo \n\n\nInformación del servicio actualizada \n\nNombre del platillo: GLUPS \nPrecio en dolares: 16$ \nDescripción: COMBO DE REFRESCOS \nEstado: activo', 2),
+(45, '2025-03-30 18:17:49', 'Registro de un servicio', 'El usuario registro un servicio con la siguiente información: \n\nNombre del platillo: SERVICIO PRUEBA \nPrecio en dolares: 10$ \nDescripción: POLLO Y REFRESCO \nEstado: activo', 2),
+(46, '2025-03-30 18:27:56', 'Cambio de estado a un servicio', 'El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: GLUPS \nEstado: activo', 2),
+(47, '2025-03-30 18:31:23', 'Cambio de estado de un servicio', 'El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: GLUPS \nPrecio en dolares: $ \nDescripción: . \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: GLUPS \nPrecio en dolares: $ \nDescripción: . \nEstado: Inactivo', 2),
+(48, '2025-03-30 18:32:46', 'Cambio de estado de un servicio', 'El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: GLUPS \nPrecio en dolares: 16$ \nDescripción: COMBO DE REFRESCOS. \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: GLUPS \nPrecio en dolares: 16$ \nDescripción: COMBO DE REFRESCOS. \nEstado: Activo', 2),
+(49, '2025-03-30 18:35:59', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO ESPECIAL \nPrecio en dolares: 10$ \nDescripción: POLLO + 3 GLUP. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO ESPECIAL \nPrecio en dolares: 15$ \nDescripción: POLLO + 3 GLUP \nEstado: activo', 2),
+(50, '2025-03-30 21:05:40', 'Intento de acceso no autorizado a la pantalla registro de roles.', 'El usuario fue redirigido al inicio por seguridad.', 2),
+(51, '2025-03-30 21:10:35', 'Intento de acceso no autorizado a la pantalla registro de roles.', 'El usuario intentó acceder de manera incorracta a la pantalla sin tener los permisos correspondientes, luego fue redirigido al inicio por seguridad.', 2),
+(52, '2025-03-30 21:12:06', 'Intento de acceso no autorizado a la pantalla registro de roles.', 'El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, luego fue redirigido al inicio por seguridad.', 2),
+(53, '2025-03-30 21:16:32', 'Intento de acceso no autorizado a la pantalla lista de roles.', 'El usuario intentó acceder de manera incorracta a la pantalla y sin tener los permisos correspondientes, luego fue redirigido al inicio por seguridad.', 2),
+(54, '2025-03-30 21:27:01', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: PASANTE \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: PASANTE \nEstado: Activo', 2),
+(55, '2025-03-30 21:49:50', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: PASANTE \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: PASANTE \nEstado: Inactivo', 2),
+(56, '2025-03-30 21:49:56', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: FULL ACCESS \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: FULL ACCESS \nEstado: Inactivo', 2),
+(57, '2025-03-30 21:50:06', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: PASANTE \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: PASANTE \nEstado: Activo', 2),
+(58, '2025-03-30 22:32:22', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(59, '2025-03-31 17:30:00', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(60, '2025-03-31 18:56:17', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(61, '2025-03-31 19:01:03', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: EMPLEADO \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: EMPLEADO \nEstado: Activo', 2),
+(62, '2025-03-31 19:04:11', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(63, '2025-03-31 19:04:31', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: GLUPS \nPrecio en dolares: 16$ \nDescripción: COMBO DE REFRESCOS. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: GLUPS \nPrecio en dolares: 12$ \nDescripción: COMBO DE REFRESCOS \nEstado: activo', 2),
+(64, '2025-03-31 19:18:26', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(65, '2025-03-31 19:18:33', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(66, '2025-03-31 19:18:36', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(67, '2025-03-31 19:18:37', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(68, '2025-03-31 19:18:37', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(69, '2025-03-31 19:18:37', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(70, '2025-03-31 19:18:42', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(71, '2025-03-31 19:18:42', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(72, '2025-03-31 19:18:42', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(73, '2025-03-31 19:18:43', 'Inicio de sesión', 'El usuario accedio al sistema.', 2),
+(74, '2025-03-31 19:24:16', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(75, '2025-03-31 19:25:03', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(76, '2025-03-31 19:31:56', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(77, '2025-03-31 19:33:38', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(78, '2025-03-31 20:00:56', 'Modificación de un rol', 'El usuario hizo el registro de un rol DenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegado', 2),
+(79, '2025-03-31 20:08:43', 'Modificación de un rol', 'El usuario hizo el registro de un rol DenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegadoDenegado', 2),
+(80, '2025-03-31 21:32:38', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: FULL ACCESS \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: FULL ACCESS \nEstado: Activo', 2),
+(81, '2025-03-31 22:09:12', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\n\r\n        Nombre del rol: Denegado \n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Permitido \n\r\n        Modificación de Proveedores: Permitido \n\r\n        Lista de Proveedores registrados: Permitido\n\r\n        Historial de compras a Proveedores: Permitido\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Permitido \n\r\n        Registro de Presentación: Permitido \n\r\n        Registro de Productos: Permitido \n\r\n        Lista de Productos: Permitido \n\r\n        Registro de Entrada de Productos: Denegado\n\r\n        Lista de Entradas registradas: Denegado\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: Denegado \n\r\n        Estado: Activo.', 2),
+(82, '2025-03-31 22:11:50', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\n\r\n        Nombre del rol: Denegado \n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Permitido \n\r\n        Modificación de Proveedores: Permitido \n\r\n        Lista de Proveedores registrados: Permitido\n\r\n        Historial de compras a Proveedores: Permitido\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Denegado \n\r\n        Registro de Presentación: Denegado \n\r\n        Registro de Productos: Denegado \n\r\n        Lista de Productos: Denegado \n\r\n        Registro de Entrada de Productos: Denegado\n\r\n        Lista de Entradas registradas: Denegado\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: Denegado \n\r\n        Estado: Activo.', 2),
+(83, '2025-03-31 22:13:43', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\r\n        Nombre del rol: Denegado\n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Permitido\n\r\n        Modificación de Proveedores: Permitido\n\r\n        Lista de Proveedores registrados: Permitido\n\r\n        Historial de compras a Proveedores: Permitido\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Permitido\n\r\n        Registro de Presentación: Permitido\n\r\n        Registro de Productos: Permitido\n\r\n        Lista de Productos: Permitido\n\r\n        Registro de Entrada de Productos: Permitido\n\r\n        Lista de Entradas registradas: Permitido\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: Denegado\n\r\n        Estado: Activo.', 2),
+(84, '2025-03-31 22:16:00', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\r\n        Nombre del rol: Denegado\n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Permitido\n\r\n        Modificación de Proveedores: Permitido\n\r\n        Lista de Proveedores registrados: Permitido\n\r\n        Historial de compras a Proveedores: Permitido\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Denegado\n\r\n        Registro de Presentación: Denegado\n\r\n        Registro de Productos: Denegado\n\r\n        Lista de Productos: Denegado\n\r\n        Registro de Entrada de Productos: Permitido\n\r\n        Lista de Entradas registradas: Permitido\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: Denegado\n\r\n        Estado: Activo.', 2),
+(85, '2025-03-31 22:18:29', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\r\n        Nombre del rol: FULL COUNTE\n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Permitido\n\r\n        Modificación de Proveedores: Permitido\n\r\n        Lista de Proveedores registrados: Permitido\n\r\n        Historial de compras a Proveedores: Permitido\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Permitido\n\r\n        Registro de Presentación: Permitido\n\r\n        Registro de Productos: Permitido\n\r\n        Lista de Productos: Permitido\n\r\n        Registro de Entrada de Productos: Denegado\n\r\n        Lista de Entradas registradas: Denegado\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: FULL COUNTE\n\r\n        Estado: Activo.', 2),
+(86, '2025-03-31 23:33:55', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO COREANO \nPrecio en dolares: 4$ \nDescripción: POLLO FRITO COREANO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO COREANO \nPrecio en dolares: 14$ \nDescripción: POLLO FRITO COREANO \nEstado: activo', 2),
+(87, '2025-03-31 23:37:29', 'Intento de acceso no autorizado a la pantalla registro de servicios.', 'Se ha registrado un intento de acceso incorrecto a la pantalla  por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(88, '2025-04-01 00:07:12', 'Intento de acceso no autorizado a la pantalla lista de proveedores.', 'Se ha registrado un intento de acceso incorrecto a la pantalla  por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(89, '2025-04-01 00:21:03', 'Intento de acceso no autorizado a la pantalla lista de productos.', 'Se ha registrado un intento de acceso incorrecto a la pantalla  por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(90, '2025-04-01 00:26:09', 'Intento de acceso no autorizado a la pantalla lista de entradas.', 'Se ha registrado un intento de acceso incorrecto a la pantalla  por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(91, '2025-04-01 00:27:54', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(92, '2025-04-01 07:43:51', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(93, '2025-04-01 07:44:34', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: PASANTE \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: PASANTE \nEstado: Inactivo', 2),
+(94, '2025-04-01 07:44:42', 'Cambio de estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: EMPLEADO \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: EMPLEADO \nEstado: Inactivo', 2),
+(95, '2025-04-01 07:47:39', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(96, '2025-04-01 07:48:24', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(97, '2025-04-01 07:49:55', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(98, '2025-04-01 07:50:02', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(99, '2025-04-01 07:50:44', 'Modificación de un rol', 'El usuario modificó el rol con la siguiente información:\n\r\n        Nombre del rol: PASANTE\n\r\n        -- Modulo Inventario --\n\r\n        Vistas de Proveedores:\r\n        Registro de Proveedores: Denegado\n\r\n        Modificación de Proveedores: Denegado\n\r\n        Lista de Proveedores registrados: Denegado\n\r\n        Historial de compras a Proveedores: Denegado\n\n\r\n        Vistas de Productos:\r\n        Registro de Categorías: Denegado\n\r\n        Registro de Presentación: Permitido\n\r\n        Registro de Productos: Denegado\n\r\n        Lista de Productos: Denegado\n\r\n        Registro de Entrada de Productos: Denegado\n\r\n        Lista de Entradas registradas: Denegado\n\n\r\n        Información del servicio actualizada:\r\n        \n\n\r\n        Nombre del rol: PASANTE\n\r\n        Estado: Activo.', 2),
+(100, '2025-04-01 07:51:05', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(101, '2025-04-01 07:51:12', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(102, '2025-04-01 07:52:01', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(103, '2025-04-01 07:52:09', 'Inicio de sesión', 'El usuario accedió al sistema.', 2),
+(104, '2025-04-01 08:07:38', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(105, '2025-04-01 08:07:51', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(106, '2025-04-01 08:09:45', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(107, '2025-04-01 08:10:05', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(108, '2025-04-01 08:10:16', 'Inicio de sesión', 'El usuario accedió al sistema.', 8),
+(109, '2025-04-01 08:16:41', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(110, '2025-04-03 19:00:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(111, '2025-04-03 19:00:28', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(112, '2025-04-03 19:00:28', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(113, '2025-04-03 19:00:29', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(114, '2025-04-03 19:00:29', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(115, '2025-04-03 19:00:55', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(116, '2025-04-03 19:00:55', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(117, '2025-04-03 19:01:07', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(118, '2025-04-03 19:01:13', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(119, '2025-04-03 19:01:14', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(120, '2025-04-03 19:01:14', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(121, '2025-04-03 19:01:14', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(122, '2025-04-03 19:01:14', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(123, '2025-04-03 19:01:15', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(124, '2025-04-03 19:01:15', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(125, '2025-04-03 19:01:15', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(126, '2025-04-03 19:03:41', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(127, '2025-04-03 19:03:43', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(128, '2025-04-03 19:03:43', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(129, '2025-04-03 19:03:43', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(130, '2025-04-03 19:03:43', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(131, '2025-04-03 19:03:44', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(132, '2025-04-03 19:11:48', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(133, '2025-04-03 19:11:52', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(134, '2025-04-03 19:11:52', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(135, '2025-04-03 19:11:52', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(136, '2025-04-03 19:11:53', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(137, '2025-04-03 19:12:26', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(138, '2025-04-03 19:12:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(139, '2025-04-03 19:12:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(140, '2025-04-03 19:12:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(141, '2025-04-03 19:12:28', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(142, '2025-04-03 19:14:30', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(143, '2025-04-03 19:16:05', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(144, '2025-04-03 19:16:52', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(145, '2025-04-03 19:34:40', 'Cierre de sesión', 'El usuario cerró sesión.', 8),
+(146, '2025-04-06 15:06:06', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(147, '2025-04-06 15:06:22', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(148, '2025-04-06 15:07:10', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(149, '2025-04-06 15:07:56', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(150, '2025-04-06 15:09:06', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(151, '2025-04-06 15:11:31', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(152, '2025-04-06 15:12:00', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(153, '2025-04-06 15:13:59', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(154, '2025-04-06 15:14:26', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(155, '2025-04-06 15:15:18', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(156, '2025-04-06 15:15:25', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(157, '2025-04-06 15:18:23', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(158, '2025-04-06 18:48:19', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(159, '2025-04-06 18:49:16', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(160, '2025-04-06 18:49:33', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(161, '2025-04-06 19:00:17', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(162, '2025-04-06 19:03:08', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(163, '2025-04-06 19:03:44', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(164, '2025-04-06 19:04:40', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(165, '2025-04-06 19:04:51', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(166, '2025-04-06 19:05:52', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(167, '2025-04-06 19:06:57', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(168, '2025-04-06 19:09:24', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(169, '2025-04-06 19:09:47', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(170, '2025-04-06 19:15:01', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(171, '2025-04-06 19:15:24', 'El usuario inició sesión', 'El usuario accedió al sistema.', 8),
+(172, '2025-04-06 19:16:21', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(173, '2025-04-06 19:22:34', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(174, '2025-04-06 19:25:19', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(175, '2025-04-06 19:25:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(176, '2025-04-06 19:25:38', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(177, '2025-04-06 19:26:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(178, '2025-04-06 19:27:43', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(179, '2025-04-06 19:28:54', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(180, '2025-04-06 19:29:31', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(181, '2025-04-06 19:29:37', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(182, '2025-04-06 19:30:13', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2),
+(183, '2025-04-06 19:30:20', 'Cierre de sesión', 'El usuario cerró sesión.', 2),
+(184, '2025-04-06 19:30:27', 'El usuario inició sesión', 'El usuario accedió al sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -93,6 +245,11 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `categoria`
+--
+
+TRUNCATE TABLE `categoria`;
+--
 -- Volcado de datos para la tabla `categoria`
 --
 
@@ -101,17 +258,6 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 (2, 'BEBIDAS', 1),
 (3, 'FRITURAS', 1),
 (7, 'GOOBIE', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoria_equipo`
---
-
-CREATE TABLE `categoria_equipo` (
-  `id_categoria_equipo` int NOT NULL,
-  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -126,6 +272,11 @@ CREATE TABLE `cliente` (
   `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `cliente`
+--
+
+TRUNCATE TABLE `cliente`;
 --
 -- Volcado de datos para la tabla `cliente`
 --
@@ -149,9 +300,15 @@ CREATE TABLE `configuracion` (
   `c_caracteres` int NOT NULL,
   `c_numeros` int NOT NULL,
   `c_simbolos` int NOT NULL,
-  `tiempo_inactividad` int NOT NULL
+  `tiempo_inactividad` int NOT NULL,
+  `intentos_inicio_sesion` tinyint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `configuracion`
+--
+
+TRUNCATE TABLE `configuracion`;
 -- --------------------------------------------------------
 
 --
@@ -167,6 +324,11 @@ CREATE TABLE `detalles_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `detalles_menu`
+--
+
+TRUNCATE TABLE `detalles_menu`;
+--
 -- Volcado de datos para la tabla `detalles_menu`
 --
 
@@ -178,7 +340,9 @@ INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `num
 (7, 1, 1, 1, 6),
 (8, 4, 1, 2, 6),
 (9, 1, 3, 1, 7),
-(10, 4, 1, 2, 7);
+(10, 4, 1, 2, 7),
+(11, 2, 1, 1, 9),
+(12, 4, 1, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -195,6 +359,11 @@ CREATE TABLE `detalles_pago` (
   `cantidad_abonada_bolivares` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `detalles_pago`
+--
+
+TRUNCATE TABLE `detalles_pago`;
 --
 -- Volcado de datos para la tabla `detalles_pago`
 --
@@ -309,123 +478,10 @@ CREATE TABLE `detalles_venta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `detalles_venta`
+-- Truncar tablas antes de insertar `detalles_venta`
 --
 
-INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
-(1, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 1),
-(6, NULL, NULL, NULL, NULL, 3, 5, 1, 40, 23),
-(7, NULL, NULL, NULL, NULL, 3, 5, 40, 0, 26),
-(10, NULL, NULL, NULL, NULL, 3, 4, 40, 0, 28),
-(11, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 29),
-(12, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 30),
-(13, NULL, NULL, NULL, NULL, 4, 2, 120, 0, 30),
-(14, 1, 3, 15, 718.2, NULL, NULL, NULL, NULL, 31),
-(16, 1, 4, 15, 718.2, NULL, NULL, NULL, NULL, 33),
-(17, NULL, NULL, NULL, NULL, 4, 3, 120, 0, 34),
-(18, NULL, NULL, NULL, NULL, 4, 12, 120, 0, 35),
-(20, NULL, NULL, NULL, NULL, 5, 2, 239.4, 0, 36),
-(22, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 38),
-(23, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 39),
-(24, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 40),
-(25, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 51),
-(26, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 56),
-(27, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 59),
-(28, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 60),
-(29, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 61),
-(30, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 62),
-(31, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 63),
-(32, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 64),
-(33, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 65),
-(34, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 67),
-(35, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 68),
-(36, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 69),
-(37, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 71),
-(38, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 72),
-(39, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 73),
-(40, 1, 3, 15, 718.2, NULL, NULL, NULL, NULL, 74),
-(41, NULL, NULL, NULL, NULL, 1, 20, 1, 40, 76),
-(42, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 80),
-(43, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 81),
-(44, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 82),
-(45, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 83),
-(46, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 84),
-(47, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 85),
-(48, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 86),
-(49, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 88),
-(50, NULL, NULL, NULL, NULL, 1, 1, 1, 40, 89),
-(51, NULL, NULL, NULL, NULL, 1, 10, 1, 40, 90),
-(52, NULL, NULL, NULL, NULL, 1, 10, 1, 40, 91),
-(53, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 92),
-(54, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 93),
-(55, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 94),
-(56, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 95),
-(57, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 96),
-(58, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 97),
-(59, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 99),
-(60, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 101),
-(61, 1, 1, 15, 718.2, NULL, NULL, NULL, NULL, 102),
-(62, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 103),
-(63, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 104),
-(64, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 105),
-(65, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 106),
-(66, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 107),
-(67, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 108),
-(68, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 109),
-(69, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 110),
-(70, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 111),
-(71, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 112),
-(72, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 113),
-(73, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 115),
-(74, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 116),
-(75, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 117),
-(76, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 118),
-(77, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 119),
-(78, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 120),
-(79, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 121),
-(80, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 122),
-(81, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 124),
-(82, NULL, NULL, NULL, NULL, 1, 6, 1, 40, 125),
-(83, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 126),
-(84, NULL, NULL, NULL, NULL, 1, 5, 1, 40, 127),
-(85, 1, 20, 15, 718.2, NULL, NULL, NULL, NULL, 128),
-(86, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 129),
-(87, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 130),
-(88, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 131),
-(89, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 132),
-(90, NULL, NULL, NULL, NULL, 3, 1, 1, 40, 133),
-(91, NULL, NULL, NULL, NULL, 1, 4, 1, 40, 134),
-(92, NULL, NULL, NULL, NULL, 1, 4, 1, 40, 135),
-(93, NULL, NULL, NULL, NULL, 1, 4, 1, 40, 136),
-(94, NULL, NULL, NULL, NULL, 1, 4, 1, 40, 137),
-(95, NULL, NULL, NULL, NULL, 1, 4, 1, 40, 138),
-(96, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 139),
-(97, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 140),
-(98, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 141),
-(99, NULL, NULL, NULL, NULL, 4, 2, 3, 120, 142),
-(100, 1, 2, 15, 718.2, 1, 4, 1, 40, 143),
-(101, 1, 2, 15, 718.2, 1, 10, 1, 40, 144),
-(102, 5, 2, 4, 191.52, 1, 4, 1, 40, 145),
-(103, 5, 2, 4, 191.52, 1, 2, 1, 40, 146),
-(104, 4, 2, 5, 239.4, NULL, NULL, NULL, NULL, 147),
-(105, NULL, NULL, NULL, NULL, 1, 2, 1, 40, 148),
-(106, 6, 2, 10, 478.8, NULL, NULL, NULL, NULL, 149),
-(107, 1, 2, 15, 718.2, NULL, NULL, NULL, NULL, 150),
-(108, 1, 1, 15, 718.2, 1, 15, 1, 40, 151),
-(109, 7, 1, 10, 478.8, NULL, NULL, NULL, NULL, 152),
-(110, 1, 2, 15, 718.2, 3, 1, 2, 95.76, 153),
-(111, 5, 2, 4, 191.52, 3, 1, 2, 95.76, 153),
-(112, 6, 1, 10, 478.8, 3, 1, 2, 95.76, 153),
-(113, 1, 2, 15, 699.6, 3, 2, 2, 95.76, 154),
-(114, NULL, NULL, NULL, NULL, 3, 5, 2, 95.76, 155),
-(115, NULL, NULL, NULL, NULL, 13, 5, 2, 95.76, 155),
-(116, 5, 2, 4, 186.56, 7, 2, 3, 143.64, 156),
-(117, 5, 2, 4, 186.56, 7, 3, 3, 143.64, 157),
-(118, 1, 1, 15, 699.6, 3, 24, 2, 95.76, 158),
-(119, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 159),
-(120, 1, 2, 15, 699.6, NULL, NULL, NULL, NULL, 160),
-(121, 1, 2, 15, 699.6, 7, 2, 3, 143.64, 161);
-
+TRUNCATE TABLE `detalles_venta`;
 -- --------------------------------------------------------
 
 --
@@ -438,6 +494,11 @@ CREATE TABLE `dolar` (
   `fecha_precio` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `dolar`
+--
+
+TRUNCATE TABLE `dolar`;
 --
 -- Volcado de datos para la tabla `dolar`
 --
@@ -452,7 +513,8 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (7, 62.18, '2025-02-19 17:24:12'),
 (8, 62.18, '2025-02-19 17:26:24'),
 (9, 63, '2025-02-19 17:33:15'),
-(10, 66.79, '2025-03-18 07:51:52');
+(10, 66.79, '2025-03-18 07:51:52'),
+(11, 70, '2025-03-30 18:36:41');
 
 -- --------------------------------------------------------
 
@@ -472,6 +534,11 @@ CREATE TABLE `entrada` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `entrada`
+--
+
+TRUNCATE TABLE `entrada`;
+--
 -- Volcado de datos para la tabla `entrada`
 --
 
@@ -480,20 +547,6 @@ INSERT INTO `entrada` (`id_entrada`, `id_producto`, `id_proveedor`, `precio_comp
 (2, 2, 1, 4, 0, 4, '2024-09-25 11:37:54', 1),
 (13, 3, 1, 2, 95.76, 30, '2024-11-15 11:20:25', 1),
 (14, 4, 1, 4, 191.52, 20, '2024-11-15 11:48:18', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `equipo`
---
-
-CREATE TABLE `equipo` (
-  `id_equipo` int NOT NULL,
-  `codigo` int NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `id_categoria_equipo` int NOT NULL,
-  `id_status_equipo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -510,16 +563,22 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `menu`
+--
+
+TRUNCATE TABLE `menu`;
+--
 -- Volcado de datos para la tabla `menu`
 --
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
 (1, 'POLLO ASADO COMPLETO', '15', 'pollo asado completo con ensalada y yuca', 1),
-(4, 'GLUPS', '132', 'COMBO DE REFRESCOS', 1),
-(5, 'POLLO COREANO', '4', 'POLLO FRITO COREANO', 1),
+(4, 'GLUPS', '12', 'COMBO DE REFRESCOS', 1),
+(5, 'POLLO COREANO', '14', 'POLLO FRITO COREANO', 1),
 (6, 'MEDIO POLLO CON FRESCO', '10', 'MEDIO POLLON ASADO CON GLUP', 1),
-(7, 'POLLO ESPECIAL', '10', 'POLLO + 3 GLUP', 1),
-(8, 'PABELLON', '7', 'ARROZ Y CARAOTA', 1);
+(7, 'POLLO ESPECIAL', '15', 'POLLO + 3 GLUP', 1),
+(8, 'PABELLON', '7', 'ARROZ Y CARAOTA', 1),
+(9, 'SERVICIO PRUEBA', '10', 'POLLO Y REFRESCO', 1);
 
 -- --------------------------------------------------------
 
@@ -535,6 +594,11 @@ CREATE TABLE `preguntas_secretas` (
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `preguntas_secretas`
+--
+
+TRUNCATE TABLE `preguntas_secretas`;
 --
 -- Volcado de datos para la tabla `preguntas_secretas`
 --
@@ -556,6 +620,11 @@ CREATE TABLE `presentacion` (
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `presentacion`
+--
+
+TRUNCATE TABLE `presentacion`;
 --
 -- Volcado de datos para la tabla `presentacion`
 --
@@ -589,6 +658,11 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `producto`
+--
+
+TRUNCATE TABLE `producto`;
+--
 -- Volcado de datos para la tabla `producto`
 --
 
@@ -617,6 +691,11 @@ CREATE TABLE `proveedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `proveedor`
+--
+
+TRUNCATE TABLE `proveedor`;
+--
 -- Volcado de datos para la tabla `proveedor`
 --
 
@@ -641,7 +720,8 @@ CREATE TABLE `rol` (
   `r_presentacion` tinyint(1) NOT NULL,
   `r_productos` tinyint NOT NULL,
   `l_productos` tinyint NOT NULL,
-  `e_productos` tinyint NOT NULL,
+  `r_entrada` tinyint NOT NULL,
+  `l_entrada` tinyint DEFAULT NULL,
   `g_venta` tinyint(1) NOT NULL,
   `d_venta` tinyint(1) NOT NULL,
   `l_venta` tinyint(1) NOT NULL,
@@ -670,17 +750,24 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `rol`
+--
+
+TRUNCATE TABLE `rol`;
+--
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `l_productos`, `e_productos`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `v_bitacora`) VALUES
-(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'SUSCRIPTOR', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(7, 'PASANTE', 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0);
+INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `l_productos`, `r_entrada`, `l_entrada`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `v_bitacora`) VALUES
+(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'SUSCRIPTOR', 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(7, 'PASANTE', 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'FULL COUNTER', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'FULL COUNTE', 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -694,6 +781,11 @@ CREATE TABLE `seguridad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `seguridad`
+--
+
+TRUNCATE TABLE `seguridad`;
+--
 -- Volcado de datos para la tabla `seguridad`
 --
 
@@ -702,17 +794,6 @@ INSERT INTO `seguridad` (`id_seguridad`, `pregunta`) VALUES
 (2, '9hKVmmOZh3VSgKiXjZVogHF1faJwoJhof3F2hpiP'),
 (3, '9hKem5CKhHVSeJhwoJhof3V8g6VwjZCReX9SeJhwmIRoe354daGTlYSH'),
 (4, '9hKToYSUUnWFVJicbJGXf3KEeXOUkWOUc1B1faiUjYdodn+AeJhwmoSLe4OGeZI=');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `status_equipo`
---
-
-CREATE TABLE `status_equipo` (
-  `id_status_equipo` int NOT NULL,
-  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -729,25 +810,31 @@ CREATE TABLE `usuario` (
   `contraseña` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `direccion` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `ultima_sesion` date DEFAULT NULL,
+  `ultima_sesion` datetime DEFAULT NULL,
   `sesion_activa` tinyint NOT NULL,
-  `inhabilitado` tinyint NOT NULL,
+  `bloqueado` tinyint NOT NULL,
+  `suspender` tinyint NOT NULL,
   `primer_inicio` tinyint(1) NOT NULL,
   `id_rol` int NOT NULL,
   `estado` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
+-- Truncar tablas antes de insertar `usuario`
+--
+
+TRUNCATE TABLE `usuario`;
+--
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `inhabilitado`, `primer_inicio`, `id_rol`, `estado`) VALUES
-(1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', NULL, 0, 0, 0, 1, 1),
-(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 3, 1),
-(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 1, 1, 2, 0),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 1, 3, 1),
-(8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', NULL, 0, 0, 1, 7, 1);
+INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
+(1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
+(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-04-06 19:30:27', 1, 0, 0, 0, 1, 1),
+(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 0, 1, 3, 1),
+(6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 1, 0, 1, 2, 0),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', NULL, 0, 0, 0, 1, 3, 1),
+(8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-06 19:15:24', 1, 0, 0, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -766,6 +853,11 @@ CREATE TABLE `venta` (
   `id_cliente` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
+--
+-- Truncar tablas antes de insertar `venta`
+--
+
+TRUNCATE TABLE `venta`;
 --
 -- Volcado de datos para la tabla `venta`
 --
@@ -951,12 +1043,6 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Indices de la tabla `categoria_equipo`
---
-ALTER TABLE `categoria_equipo`
-  ADD PRIMARY KEY (`id_categoria_equipo`);
-
---
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
@@ -975,6 +1061,276 @@ ALTER TABLE `detalles_menu`
   ADD PRIMARY KEY (`id_detalles_menu`),
   ADD KEY `id_producto` (`id_producto`),
   ADD KEY `id_menu` (`id_menu`);
+
+--
+-- Indices de la tabla `detalles_pago`
+--
+ALTER TABLE `detalles_pago`
+  ADD PRIMARY KEY (`id_detalle_pago`),
+  ADD KEY `id_venta` (`id_venta`);
+
+--
+-- Indices de la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  ADD PRIMARY KEY (`id_detalles_venta`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_venta` (`id_venta`),
+  ADD KEY `id_servicio` (`id_servicio`);
+
+--
+-- Indices de la tabla `dolar`
+--
+ALTER TABLE `dolar`
+  ADD PRIMARY KEY (`id_dolar`);
+
+--
+-- Indices de la tabla `entrada`
+--
+ALTER TABLE `entrada`
+  ADD PRIMARY KEY (`id_entrada`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_proveedor` (`id_proveedor`),
+  ADD KEY `id_dolar` (`id_dolar`);
+
+--
+-- Indices de la tabla `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id_menu`);
+
+--
+-- Indices de la tabla `preguntas_secretas`
+--
+ALTER TABLE `preguntas_secretas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_pregunta` (`id_pregunta`);
+
+--
+-- Indices de la tabla `presentacion`
+--
+ALTER TABLE `presentacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`id_producto`),
+  ADD KEY `id_categoria` (`id_categoria`),
+  ADD KEY `id_presentacion` (`id_presentacion`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`id_proveedor`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `seguridad`
+--
+ALTER TABLE `seguridad`
+  ADD PRIMARY KEY (`id_seguridad`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_rol` (`id_rol`);
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`id_venta`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `bitacora`
+--
+ALTER TABLE `bitacora`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_menu`
+--
+ALTER TABLE `detalles_menu`
+  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_pago`
+--
+ALTER TABLE `detalles_pago`
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `dolar`
+--
+ALTER TABLE `dolar`
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `entrada`
+--
+ALTER TABLE `entrada`
+  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `preguntas_secretas`
+--
+ALTER TABLE `preguntas_secretas`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `presentacion`
+--
+ALTER TABLE `presentacion`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `seguridad`
+--
+ALTER TABLE `seguridad`
+  MODIFY `id_seguridad` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `bitacora`
+--
+ALTER TABLE `bitacora`
+  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalles_menu`
+--
+ALTER TABLE `detalles_menu`
+  ADD CONSTRAINT `detalles_menu_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_menu_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalles_pago`
+--
+ALTER TABLE `detalles_pago`
+  ADD CONSTRAINT `detalles_pago_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalles_venta`
+--
+ALTER TABLE `detalles_venta`
+  ADD CONSTRAINT `detalles_venta_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_venta_ibfk_2` FOREIGN KEY (`id_servicio`) REFERENCES `menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_venta_ibfk_3` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `entrada`
+--
+ALTER TABLE `entrada`
+  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_ibfk_3` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `preguntas_secretas`
+--
+ALTER TABLE `preguntas_secretas`
+  ADD CONSTRAINT `preguntas_secretas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `seguridad` (`id_seguridad`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preguntas_secretas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

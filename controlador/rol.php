@@ -227,6 +227,7 @@ if($modulo === "Guardar"){
     $m_cant_caracteres = validar_post("m_cant_caracteres");
     $m_cant_simbolos = validar_post("m_cant_simbolos");
     $m_cant_num = validar_post("m_cant_num");
+    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
     // vista de bitácora
     $v_bitacora = validar_post("v_bitacora");
     
@@ -246,7 +247,7 @@ if($modulo === "Guardar"){
     }
 
     // verificar datos
-    if($nombre == "" || $r_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $r_entrada == "" || $g_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $m_servicio == "" || $r_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $m_empleado == "" || $r_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $l_proveedores == "" || $l_productos == "" || $l_entrada == "" || $l_venta == "" || $l_servicio == "" || $l_cliente == "" || $l_empleado == "" || $l_rol == ""){
+    if($nombre == "" || $r_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $r_entrada == "" || $g_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $m_servicio == "" || $r_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $m_empleado == "" || $r_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $l_proveedores == "" || $l_productos == "" || $l_entrada == "" || $l_venta == "" || $l_servicio == "" || $l_cliente == "" || $l_empleado == "" || $l_rol == "" || $intentos_inicio_sesion == ""){
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
@@ -270,7 +271,7 @@ if($modulo === "Guardar"){
         exit();
     }
     // datos verificados que se van a Registrar
-    if (modeloprincipal::InsertSQL("rol", "nombre, r_proveedores, m_proveedores, l_proveedores, h_proveedores, r_categoria, r_presentacion, r_productos, l_productos, r_entrada, l_entrada, g_venta, d_venta, l_venta, f_venta, est_venta, r_servicio, m_servicio, l_servicio, r_cliente, m_cliente, l_cliente, h_cliente, f_cliente, r_empleado, m_empleado, l_empleado, r_rol, m_rol, l_rol, m_cant_pregunta_seguridad, m_tiempo_sesion, m_cant_caracteres, m_cant_simbolos, m_cant_num, v_bitacora, estado", "'$nombre', $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $v_bitacora, 1")) {
+    if (modeloprincipal::InsertSQL("rol", "nombre, r_proveedores, m_proveedores, l_proveedores, h_proveedores, r_categoria, r_presentacion, r_productos, l_productos, r_entrada, l_entrada, g_venta, d_venta, l_venta, f_venta, est_venta, r_servicio, m_servicio, l_servicio, r_cliente, m_cliente, l_cliente, h_cliente, f_cliente, r_empleado, m_empleado, l_empleado, r_rol, m_rol, l_rol, m_cant_pregunta_seguridad, m_tiempo_sesion, m_cant_caracteres, m_cant_simbolos, m_cant_num, intentos_inicio_sesion, v_bitacora, estado", "'$nombre', $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, 1")) {
         
         $id_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_rol) AS id_rol FROM rol"));
         $id_rol = $id_rol['id_rol'];
@@ -379,12 +380,13 @@ if($modulo === "Modificar"){
     $m_tiempo_sesion = validar_post("m_tiempo_sesion");
     $m_cant_caracteres = validar_post("m_cant_caracteres");
     $m_cant_simbolos = validar_post("m_cant_simbolos");
+    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
     $m_cant_num = validar_post("m_cant_num");
     // vista de bitácora
     $v_bitacora = validar_post("v_bitacora");
     
     // verificar datos
-    if ($nombre == "" || $r_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $g_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $m_servicio == "" || $r_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $m_empleado == "" || $r_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $l_proveedores == "" || $l_productos == "" || $r_entrada == "" || $l_entrada == "" || $l_venta == "" || $l_servicio == "" || $l_cliente == "" || $l_empleado == "" || $l_rol == ""){
+    if ($nombre == "" || $r_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $g_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $m_servicio == "" || $r_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $m_empleado == "" || $r_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $l_proveedores == "" || $l_productos == "" || $r_entrada == "" || $l_entrada == "" || $l_venta == "" || $l_servicio == "" || $l_cliente == "" || $l_empleado == "" || $l_rol == "" ||  $intentos_inicio_sesion == ""){
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
@@ -409,7 +411,7 @@ if($modulo === "Modificar"){
     }
 
     // datos verificados que se van a Registrarcondicion: condicion: condicion: 
-    if (modeloprincipal::UpdateSQL("rol", "nombre = '$nombre', r_proveedores = $r_proveedores, m_proveedores = $m_proveedores, l_proveedores = $l_proveedores, h_proveedores = $h_proveedores, r_categoria = $r_categoria, r_presentacion = $r_presentacion, r_productos = $r_productos, l_productos = $l_productos, r_entrada = $r_entrada, l_entrada = $l_entrada, g_venta = $g_venta, d_venta = $d_venta, l_venta = $l_venta, f_venta = $f_venta, est_venta = $est_venta, r_servicio = $r_servicio, m_servicio = $m_servicio, l_servicio = $l_servicio, r_cliente = $r_cliente, m_cliente = $m_cliente, l_cliente = $l_cliente, h_cliente = $h_cliente, f_cliente = $f_cliente, r_empleado = $r_empleado, m_empleado = $m_empleado, l_empleado = $l_empleado, r_rol = $r_rol, m_rol = $m_rol, l_rol = $l_rol, m_cant_pregunta_seguridad = $m_cant_pregunta_seguridad, m_tiempo_sesion = $m_tiempo_sesion, m_cant_caracteres = $m_cant_caracteres, m_cant_simbolos = $m_cant_simbolos, m_cant_num = $m_cant_num, v_bitacora = $v_bitacora, estado = $estado", "id_rol = $id_rol")) {
+    if (modeloprincipal::UpdateSQL("rol", "nombre = '$nombre', r_proveedores = $r_proveedores, m_proveedores = $m_proveedores, l_proveedores = $l_proveedores, h_proveedores = $h_proveedores, r_categoria = $r_categoria, r_presentacion = $r_presentacion, r_productos = $r_productos, l_productos = $l_productos, r_entrada = $r_entrada, l_entrada = $l_entrada, g_venta = $g_venta, d_venta = $d_venta, l_venta = $l_venta, f_venta = $f_venta, est_venta = $est_venta, r_servicio = $r_servicio, m_servicio = $m_servicio, l_servicio = $l_servicio, r_cliente = $r_cliente, m_cliente = $m_cliente, l_cliente = $l_cliente, h_cliente = $h_cliente, f_cliente = $f_cliente, r_empleado = $r_empleado, m_empleado = $m_empleado, l_empleado = $l_empleado, r_rol = $r_rol, m_rol = $m_rol, l_rol = $l_rol, m_cant_pregunta_seguridad = $m_cant_pregunta_seguridad, m_tiempo_sesion = $m_tiempo_sesion, m_cant_caracteres = $m_cant_caracteres, m_cant_simbolos = $m_cant_simbolos, m_cant_num = $m_cant_num, intentos_inicio_sesion = $intentos_inicio_sesion, v_bitacora = $v_bitacora, estado = $estado", "id_rol = $id_rol")) {
         
         modeloPrincipal::bitacora("Modificación de un rol","".info_actual_del_rol($id_rol)."");
         

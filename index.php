@@ -1,10 +1,10 @@
 <?php 
 session_start();
 
-include_once("./modelo/modeloPrincipal.php");
-
 $_SESSION['numero_1'] = rand(1, 7);
 $_SESSION['numero_2'] = rand(1, 7);
+$_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +67,7 @@ $_SESSION['numero_2'] = rand(1, 7);
 			}
 
 			.glassmorph{
-				background-color: rgba(0, 0, 0, 0.80);
+				background-color: rgba(0, 0, 0, 0.50);
 				backdrop-filter: blur(5px);
 				-webkit-backdrop-filter: blur(5);
 				-moz-backdrop-filter: blur(10px);
@@ -76,6 +76,7 @@ $_SESSION['numero_2'] = rand(1, 7);
 	</head>
 	<body>
 		<div class="row justify-content-center m-0">
+			<!-- galeria de imagenes -->
 			<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
 				<div class="carousel-indicators">
 					<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -102,7 +103,7 @@ $_SESSION['numero_2'] = rand(1, 7);
 					<span class="visually-hidden">Next</span>
 				</button>
 			</div>
-
+			<!-- fomulario de inicio de sesión -->
 			<div class="col-12 position-absolute row justify-content-center">
 				<div class="col-10 col-sm-6 col-md-6 glassmorph m-5 p-3 pt-4 rounded-4">
 					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
@@ -147,7 +148,7 @@ $_SESSION['numero_2'] = rand(1, 7);
 								</div>
 								<div class="col-12 mb-3 text-center">
 									<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
-										¿Has olvidado tú contraseña?
+										¿Problemas para iniciar sesión? Recupera tu acceso
 									</button>
 								</div>
 							</div>
@@ -159,18 +160,18 @@ $_SESSION['numero_2'] = rand(1, 7);
 		<div class="msjFormSend"></div>
 
 		<!-- modal recuperar contraseña -->
-		<div class="modal fade position-absolute" id="recuperar_contraseña" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade p-5" id="recuperar_contraseña" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content bg-black bg-opacity-75">
+				<div class="modal-content bg-75">
 					<form method="post" action="./vista/recuperar_contraseña.php">
-						<input type="hidden"  name="acceso_recuperar_contraseña" value="ecDAuKiplp8=">
+						<input type="hidden" name="acceso_recuperar_contraseña" value="ecDAuKiplp8=">
 						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel"> Recuperar contraseña</h1>
+							<h1 class="modal-title fs-3 text-black" id="exampleModalLabel"> Recuperar acceso</h1>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<div class="">
-								<label class="mb-3">Ingresa tu correo</label>
+								<label class="mb-3 text-black">Correo <span class="text-danger"> * </span></label>
 								<input type="text" class="input__field form-control" name="correo_recuperar_contraseña" id="correo_recuperar_contraseña" placeholder="ingresa tu correo">
 							</div>
 						</div>

@@ -153,7 +153,7 @@ if($modulo === "Guardar"){
     }
     
     // datos verificados que se van a Registrar
-    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 0, 1,'$id_rol',1")) {
+    if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, token, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 0, 0, 1,'$id_rol',1")) {
         echo '<script type="text/javascript">
             swal({
                 title:"¡Registro Exitoso!",
