@@ -5,9 +5,7 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
-
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {  
 	// Redirigir el acceso a la página sino inició de sesión
   modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
 	header('Location: ../index.php');

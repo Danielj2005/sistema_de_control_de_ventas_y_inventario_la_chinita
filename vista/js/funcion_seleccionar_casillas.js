@@ -1,18 +1,18 @@
-let div = document.querySelectorAll('.vista');
 
-div.forEach((ul) => {
+function evaluar_casillas () { // Función para evaluar las casillas
+    const div = document.querySelectorAll('.vista'); // Selecciona todos los divs con la clase 'vista'
 
-    ul.addEventListener('click', ()=>{
-    
-        let casillas = document.querySelectorAll(`.${ul.value}`);
+    div.forEach((ul) => { // Itera sobre cada div
 
-        casillas.forEach((li)=>{
+        ul.addEventListener('click', ()=>{  // Añade un evento de clic a cada div
+        
+            let casillas = document.querySelectorAll(`.${ul.value}`); // Selecciona todas las casillas dentro del div que se ha clicado
+            let estado_casilla = ul.checked; // Estado de la casilla que se ha marcado o desmarcado
+            
+            casillas.forEach((li)=>{
 
-            if(li.checked == true){
-                li.checked = false;
-            }else{
-                li.checked = true;
-            }
-        });
-    })
-});
+                li.checked = estado_casilla; // Cambia el estado de la casilla
+            });
+        })
+    });
+}

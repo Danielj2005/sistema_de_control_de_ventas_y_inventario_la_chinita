@@ -50,13 +50,13 @@
       <li class="nav-item dropdown pe-3">
 
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
-          <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['nombre'], " ", $_SESSION['apellido']; ?></span>
+          <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['nombre'], " ", $_SESSION['apellido']; ?></span>
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6><?php echo $_SESSION['nombre'], " ", $_SESSION['apellido']; ?></h6>
-            <span><?php echo $_SESSION['nombre_tipo_usuario']; ?></span>
+            <h6><?= $_SESSION['nombre'], " ", $_SESSION['apellido']; ?></h6>
+            <span><?= $_SESSION['nombre_tipo_usuario']; ?></span>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -71,13 +71,17 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <?php if ($_SESSION["rol"] < "3") {?>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
-                <i class="bi bi-gear"></i>
-                <span>Configuración</span>
-              </a>
-            </li>
+          <?php 
+            // esta funcion retorna si el rol tiene permiso a las vista
+            $rol = modeloPrincipal::permisos_modulos('intentos_inicio_sesion + m_cant_pregunta_seguridad + m_tiempo_sesion + m_cant_caracteres + m_cant_simbolos + m_cant_num');
+            // se evalua que este rol tenga el acceso a esta vista
+            if ($rol >= 1 && $rol <= 6) {?>
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
+                  <i class="bi bi-gear"></i>
+                  <span>Configuración</span>
+                </a>
+              </li>
           <?php } ?>
           <li>
             <hr class="dropdown-divider">

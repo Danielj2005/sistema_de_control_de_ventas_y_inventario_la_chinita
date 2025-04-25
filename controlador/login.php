@@ -218,7 +218,7 @@ if (!isset($_SESSION['logged_in'])) {
 
 /*------- info personal de el usuario en variables de sesion -------*/
 //** guardamos los datos de las consulta en variables de sesión **// 
-$_SESSION['logged_in'][$id_usuario] = true; // variable de inicio de sesion
+$_SESSION['logged_in'] = true; // variable de inicio de sesion
 
 $_SESSION['nombre'] = $datos_usuario["nombre"]; // variable con el nombre del usuario
 $_SESSION['apellido'] = $datos_usuario["apellido"]; // variable con el apellido del usuario
@@ -236,8 +236,10 @@ modeloPrincipal::UpdateSQL("usuario","ultima_sesion = '$fecha_ultima_sesion', se
 echo '<script type="text/javascript">
         swal({ 
             title:"Acceso Exitoso!",
-            text:"Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].', espere un momento, por favor.",
+            text:"Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].', haz click en aceptar para continuar.",
             type: "info",
+            confirmButtonColor: "#10478e",
+            confirmButtonText: "Aceptar"  
         },
         function (isConfirm) {
                 if (isConfirm) {

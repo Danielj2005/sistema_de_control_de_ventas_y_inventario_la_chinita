@@ -5,9 +5,7 @@ session_start();
 include_once ("../config/ConfigServer.php");
 include_once("../modelo/modeloPrincipal.php");
 
-$id_usuario = $_SESSION['id_usuario']; // recibimos el id del usuario que incio sesión
-
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'][$id_usuario] !== true) { 
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
 	// Redirigir el acceso a la página sino inició de sesión
   modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Un usuario intento acceder al sistema de manera incorrecta.");
 	header('Location: ../index.php');
@@ -52,12 +50,12 @@ if ($rol >= 1 && $rol <= 3) {
           <div class="row">
             <div class="col-12">
               <div class="card top-selling pb-3">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                <div class="row text-center p-2">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3">
                     <a class="col-12 btn btn-success" href="./<?= modeloPrincipal::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">Registrar un nuevo rol</a>
                   </div>
 
-                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                  <div class="col-12 col-sm-12 col-md-6 mb-3">
                     <form action="./roles.php" method="post">
                         <input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
                         <button type="submit" class="col-12 btn btn-secondary">
@@ -135,6 +133,10 @@ if ($rol >= 1 && $rol <= 3) {
 
       <!-- modal modificar -->
       <script src="./js/modal.js"></script>
+      <!-- se incluye el script para seleccionar las casillas de verificacion -->
+      <script type="text/javascript" src="./js/funcion_seleccionar_casillas.js"></script>
+
+      
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");

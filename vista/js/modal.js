@@ -1,3 +1,4 @@
+
 /*-------  Funcion para Mostrar ventana Modal modificar usuario  ------- */
 const btn_modal = document.querySelectorAll('.btn_modal');
 const contenedor = document.getElementById('body_modal');
@@ -15,9 +16,9 @@ btn_modal.forEach((element)=>{
 
         if (estado_btn_guardar_modal == "ver") {
             btn_guardar_modal.classList.add('d-none');
-            document.getElementById('exampleModalLabel').textContent="Permisos de acceso a los modulos";
+            document.getElementById('exampleModalLabel').textContent="Permisos de acceso a los módulos";
         }else{
-            document.getElementById('exampleModalLabel').textContent="Modificación de acceso a los modulos";
+            document.getElementById('exampleModalLabel').textContent="Modificación de acceso a los módulos";
             btn_guardar_modal.classList.remove('d-none');
         }
         $.ajax({
@@ -26,25 +27,7 @@ btn_modal.forEach((element)=>{
             type:  'post',
             success:function(valores){
                 contenedor.innerHTML = valores;
-                
-                let div = document.querySelectorAll('.vista');
-
-                div.forEach((ul) => {
-
-                    ul.addEventListener('click', ()=>{
-                    
-                        let casillas = document.querySelectorAll(`.${ul.value}`);
-
-                        casillas.forEach((li)=>{
-
-                            if(li.checked == true){
-                                li.checked = false;
-                            }else{
-                                li.checked = true;
-                            }
-                        });
-                    })
-                });
+                evaluar_casillas (); // Llama a la función para evaluar las casillas
             }
         });
     });

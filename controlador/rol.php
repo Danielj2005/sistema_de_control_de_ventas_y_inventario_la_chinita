@@ -15,6 +15,7 @@ function validar_post($post) {
     return $post;
 }
 
+
 function info_actual_del_rol($id_rol) {
     // se consulta base de datos para obtener la información actual del rol
     $info_rol = modeloPrincipal::Consultar("SELECT * FROM rol WHERE id_rol = $id_rol");
@@ -259,11 +260,11 @@ if($modulo === "Guardar"){
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,20}",$nombre)) {
+    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre)) {
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "El campo NOMBRE no cumple con el formato establecido",
+                text: "El campo NOMBRE debe contener entre 3 y 20 caracteres. Por favor, asegúrate de que cumple con este formato.",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -276,7 +277,7 @@ if($modulo === "Guardar"){
         $id_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_rol) AS id_rol FROM rol"));
         $id_rol = $id_rol['id_rol'];
 
-        modeloPrincipal::bitacora("Modificación de un rol", "El usuario modificó el rol con la siguiente información:\n\n
+        modeloPrincipal::bitacora("Registro de un rol", "El usuario Registró el rol con la siguiente información:\n\n
         Nombre del rol: ".$permisos_roles['nombre']." \n
         -- Modulo Inventario --\n
         Vistas de Proveedores:
@@ -380,8 +381,8 @@ if($modulo === "Modificar"){
     $m_tiempo_sesion = validar_post("m_tiempo_sesion");
     $m_cant_caracteres = validar_post("m_cant_caracteres");
     $m_cant_simbolos = validar_post("m_cant_simbolos");
-    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
     $m_cant_num = validar_post("m_cant_num");
+    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
     // vista de bitácora
     $v_bitacora = validar_post("v_bitacora");
     
@@ -398,11 +399,11 @@ if($modulo === "Modificar"){
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,20}",$nombre)) {
+    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre)) {
         echo'<script type="text/javascript">
             swal({
                 title: "¡Ocurrio un error!",
-                text: "El campo NOMBRE no cumple con el formato establecido",
+                text: "El campo NOMBRE debe contener entre 3 y 20 caracteres. Por favor, asegúrate de que cumple con este formato.",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
