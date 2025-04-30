@@ -1,19 +1,14 @@
 <?php 
 session_start();
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-// importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
-	header('Location: ../index.php');
-	exit();
-}
+// validación para verificar que el usuario inicio sesion de manera correcta
+model_user::verificar_intento_de_acceso_al_sistema();
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = modeloPrincipal::permisos_modulos('r_servicio + m_servicio + l_servicio');
+$rol = rol_model::permisos_modulos('r_servicio + m_servicio + l_servicio');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 3) { ?>
   <!DOCTYPE html>
@@ -44,7 +39,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
               <div class="card top-selling">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-12 mb-3 row m-0">
-                    <a type="button" class="col-12 btn btn-success" href="<?= modeloPrincipal::verificar_rol('r_servicio') == '1' ? './agregar_servicio.php' : './menu.php'?>">Añadir Nuevo Servicio</a>
+                    <a type="button" class="col-12 btn btn-success" href="<?= rol_model::verificar_rol('r_servicio') == '1' ? './agregar_servicio.php' : './menu.php'?>">Añadir Nuevo Servicio</a>
                   </div>
                   <div class="d-none col-12 col-sm-12 col-md-6 mb-3 row m-0">
                     <a class="col-12 btn btn-primary" target="_blank" href="./reportes/menu.php">Exportar Menú</a>
@@ -106,6 +101,5 @@ if ($rol >= 1 && $rol <= 3) { ?>
   </html>
 <?php }else{
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla lista de servicios.","Se ha registrado un intento de acceso incorrecto a la pantalla lista de servicios por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-  header('Location: ./inicio.php');
+  bitacora::intento_de_acceso_a_vista_sin_permisos("lista de servicios");
 }

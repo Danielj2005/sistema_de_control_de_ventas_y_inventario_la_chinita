@@ -1,19 +1,14 @@
 <?php 
 session_start();
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-// importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {  
-	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema sin autenticación previa. Un usuario ha intentado acceder de manera no autorizada.");
-	header('Location: ../index.php');
-	exit();
-}
+// validación para verificar que el usuario inicio sesion de manera correcta
+model_user::verificar_intento_de_acceso_al_sistema();
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = modeloPrincipal::permisos_modulos('intentos_inicio_sesion + m_cant_pregunta_seguridad + m_tiempo_sesion + m_cant_caracteres + m_cant_simbolos + m_cant_num');
+$rol = rol_model::permisos_modulos('intentos_inicio_sesion + m_cant_pregunta_seguridad + m_tiempo_sesion + m_cant_caracteres + m_cant_simbolos + m_cant_num');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 6) {  
 ?>
@@ -116,6 +111,5 @@ if ($rol >= 1 && $rol <= 6) {
   </html>
 <?php }else{
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla de Configuración del sistema.","Se ha registrado un intento de acceso incorrecto a la pantalla configuración por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-  header('Location: ./inicio.php');
+  bitacora::intento_de_acceso_a_vista_sin_permisos("de Configuración del sistema");
 }

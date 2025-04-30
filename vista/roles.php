@@ -1,19 +1,17 @@
 <?php 
 session_start();
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-// importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Un usuario intento acceder al sistema de manera incorrecta.");
-	header('Location: ../index.php');
-	exit();
-}
+// validación para verificar que el usuario inicio sesion de manera correcta
+model_user::verificar_intento_de_acceso_al_sistema();
 
-// esta funcion retorna si el rol tiene permiso a las vista
-$rol = modeloPrincipal::permisos_modulos('r_rol + m_rol + l_rol');
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+
+model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+
+$rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol'); // esta funcion retorna si el rol tiene permiso a las vista
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 3) {  
 
@@ -52,7 +50,7 @@ if ($rol >= 1 && $rol <= 3) {
               <div class="card top-selling pb-3">
                 <div class="row text-center p-2">
                   <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <a class="col-12 btn btn-success" href="./<?= modeloPrincipal::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">Registrar un nuevo rol</a>
+                    <a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">Registrar un nuevo rol</a>
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-6 mb-3">
@@ -89,16 +87,16 @@ if ($rol >= 1 && $rol <= 3) {
                               <th class="text-center col" scope="col"></th>
                               <th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
                               <th class="text-center col" scope="col">
-                                <button btn="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                <button modal="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                               </th>
                               <th class="text-center col" scope="col">
-                                <button btn="modificar" <?= modeloPrincipal::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
+                                <button modal="modificar_rol_usuario" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
                               </th>
                               <th class="text-center col" scope="col">
                                 <form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">
                                   <input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
                                   <input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
-                                  <button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= modeloPrincipal::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
+                                  <button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= rol_model::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
                                 </form>
                               </th>
                             </tr>
@@ -121,7 +119,7 @@ if ($rol >= 1 && $rol <= 3) {
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body row" id="body_modal" class="row"> </div>
+              <div class="modal-body row" id="body_modal"> </div>
               <div class="modal-footer">
                 <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -131,12 +129,12 @@ if ($rol >= 1 && $rol <= 3) {
         </div>
       </div>
 
-      <!-- modal modificar -->
-      <script src="./js/modal.js"></script>
+      
       <!-- se incluye el script para seleccionar las casillas de verificacion -->
       <script type="text/javascript" src="./js/funcion_seleccionar_casillas.js"></script>
-
       
+      <!-- lógica de los modales -->
+      <script src="./js/modal.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
@@ -148,6 +146,5 @@ if ($rol >= 1 && $rol <= 3) {
   </html>
 <?php }else{
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla lista de roles.","Se ha registrado un intento de acceso incorrecto a la pantalla lista de roles por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-  header('Location: ./inicio.php');
+  bitacora::intento_de_acceso_a_vista_sin_permisos('lista de roles');
 }

@@ -2,14 +2,15 @@
 error_reporting(E_PARSE);
 date_default_timezone_set('America/Caracas');
 
-// // Definimos contantes podemos utilizar define("NOMBRE", "valor");
-// // tambien podemos utilizar const NOMBRE="valor";
+// Definimos contantes podemos utilizar define("NOMBRE", "valor");
+// tambien podemos utilizar const NOMBRE="valor";
 
-// const SERVER = "localhost"; // Servidor de mysql
-// const USER = "root";  // Nombre de usuario de mysql
-// const PASSWORD = ""; // Contraseña de myqsl
-// const DB = "bdchinita"; // Nombre de la base de datos
-// const SECRET_KEY = 'SPLCH2024';
+const SERVER = "localhost"; // Servidor de mysql
+const USER = "root";  // Nombre de usuario de mysql
+const PASSWORD = ""; // Contraseña de myqsl
+const DB = "chinita"; // Nombre de la base de datos
+const SECRET_KEY = 'SPLCH2024';
+
 
 class modeloPrincipal {
 
@@ -26,6 +27,11 @@ class modeloPrincipal {
         return $con;
     }
 
+    /*--------------------------------- CRUD ---------------------------------*/
+    // C - create - crear
+    // R - read - leer 
+    // U - update - actualizar
+    // D - delete - eliminar
 
 
     /********** Funcion consulta simple BD**********/
@@ -41,16 +47,8 @@ class modeloPrincipal {
         return $consul;
     } 
 
-
-
-    /*--------------------------------- CRUD ---------------------------------*/
-    // C - create - crear
-    // R - read - leer 
-    // U - update - actualizar
-    // D - delete - eliminar
-
-
     /*----------- Funcion insertar datos de Base de Datos -----------*/
+
     public static function InsertSQL($tabla,$campos,$valores) {
         if (!$consulta = Self::consultar("INSERT INTO $tabla ($campos) VALUES($valores)")) {
             die("Ha ocurrido un error al guardar los datos");
@@ -58,17 +56,14 @@ class modeloPrincipal {
         return $consulta;
     }
 
-
-
     /*----------- Funcion eliminar datos de Base de Datos -----------*/
+
     public static function DeleteSQL($tabla, $condicion) {
         if (!$consulta = Self::consultar("DELETE FROM $tabla WHERE $condicion")) {
             die("Ha ocurrido un error al eliminar los datos");
         }
         return $consulta;
     }
-
-
 
     /*----------- Funcion Modificar datos de Base de Datos -----------*/
     public static function UpdateSQL($tabla, $campos, $condicion) {
@@ -78,20 +73,111 @@ class modeloPrincipal {
         return $consulta;
     }
 
-
-
-    // funcion para registrar movimientos del sistema en la bitácora
-    public static function bitacora($accion,$mensaje) {
-        $fechas = date('Y-m-d H:i:s');
-        $id_usuario = $_SESSION["id_usuario"];
-        if (!$consul = Self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$id_usuario")) {
-            die("Ha ocurrido un error al guardar la bitacora");
-        }
-        return $consul;
+    
+    /****************************************************************************************************************/
+    /*********************** funciones para encryptacion y desencryptacion de datos sencibles ***********************/
+    /****************************************************************************************************************/
+    /********** Funcion encriptar Cadena  **********/
+    public static function encryption($string) {
+        $key = SECRET_KEY;
+        $result = '';
+            for($i=0; $i<strlen($string); $i++) {
+                $char = substr($string, $i, 1);
+                $keychar = substr($key, ($i % strlen($key))-1, 1);
+                $char = chr(ord($char)+ord($keychar));
+                $result.=$char;
+            }
+        return base64_encode($result);
     }
 
 
+    /********** Funcion desencriptar Cadena  **********/
+    public static function decryption($string) {
+        $key = SECRET_KEY;
+        $result = '';
+        $string = base64_decode($string);
+        for($i=0; $i<strlen($string); $i++) {
+            $char = substr($string, $i, 1);
+            $keychar = substr($key, ($i % strlen($key))-1, 1);
+            $char = chr(ord($char)-ord($keychar));
+            $result.=$char;
+        }
+        return $result;
+    }
+
+    /********** Funcion ocultar datos de una Cadena con asteriscos (***...) **********/
+    public static function ocultar_info($info) {
+        $cantidad_caracteres = strlen($info); // obtiene la cantidad de caracteres de la cadena
+
+        $mitad = intval($cantidad_caracteres / 1.1); // obtiene la mitad de la cadena
+
+        $asteriscos = str_repeat("*", $mitad); // obtiene la cantidad de asteriscos a mostrar
+
+        $inicio = substr($info, 0, $cantidad_caracteres - $mitad); // obtiene la parte inicial de la cadena
+
+        $info_oculta = $inicio . $asteriscos; // concatena la parte inicial de la cadena con los asteriscos
+
+        return $info_oculta; // retorna la cadena oculta
+    }
+
+
+    /**********************************************************************************/
+    /*********************** funciones para validar datos       ***********************/
+    /**********************************************************************************/
+
+    /*---------- Funcion Verificar Datos ----------*/
+    public static function verificar_datos($filtro,$cadena){
+        if (preg_match("/^".$filtro."$/", $cadena)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function validacion_registro_existente($campos,$tabla,$condicion){
+        // se comprueba que no exista un registro con los mismos datos
+        if(mysqli_num_rows(Self::consultar("SELECT $campos FROM $tabla WHERE $condicion")) > 0){
+            /********** No se puede registrar un usuario si ya existe **********/
+            alert_model::alert_resgister_exist();
+            exit(); 
+        }
+        
+    }
+
+    public static function validar_campos_vacios($campos){
+        foreach ( $campos as $key){
+            if(empty($key)) {
+                alert_model::alert_fields_empty();
+                exit();
+            }
+        }
+    }
+
+    /********** Funcion verificar las consultas a la BD**********/
+    public static function verificar_consulta($query,$tabla) {
+        if (!$query) { // se muestra un mensaje en caso de que no se pueda realizar la consulta
+            alert_model::alerta_simple('¡Error!', "No se pudo realizar la consulta de $tabla.", 'error');
+            exit();
+        }
+    } 
+
+    
+    // funcion para validar si se esta recibiendo datos por post
+    public static function validar_post($post) {
+
+        if (!isset($_POST["$post"]) || $_POST["$post"] == ""){
+            $post = '';
+        } else{
+            $post = modeloprincipal::limpiar_cadena($_POST["$post"]);
+        }
+        return $post;
+    }
+
+    /**********************************************************************************/
+    /******************* funciones para sanear cadenas de texto ***********************/
+    /**********************************************************************************/
     /********** Funcion limpiar Cadena  **********/
+
     public static function limpiar_cadena($valor) {
         $valor = trim($valor);
         $valor = stripslashes($valor);
@@ -128,104 +214,10 @@ class modeloPrincipal {
         return $valor;
     }
 
-
     public static function LimpiarCadenaTexto($val) {
         $data = addslashes($val);
         $datos = self::limpiar_cadena($data);
         return $datos;
-    }
-
-
-    /********** Funcion encriptar Cadena  **********/
-    public static function encryption($string) {
-        $key = SECRET_KEY;
-        $result = '';
-            for($i=0; $i<strlen($string); $i++) {
-                $char = substr($string, $i, 1);
-                $keychar = substr($key, ($i % strlen($key))-1, 1);
-                $char = chr(ord($char)+ord($keychar));
-                $result.=$char;
-            }
-        return base64_encode($result);
-    }
-
-
-    /********** Funcion desencriptar Cadena  **********/
-    public static function decryption($string) {
-        $key = SECRET_KEY;
-        $result = '';
-        $string = base64_decode($string);
-        for($i=0; $i<strlen($string); $i++) {
-            $char = substr($string, $i, 1);
-            $keychar = substr($key, ($i % strlen($key))-1, 1);
-            $char = chr(ord($char)-ord($keychar));
-            $result.=$char;
-        }
-        return $result;
-    }
-
-
-    /*---------- Funcion Verificar Datos ----------*/
-    public static function verificar_datos($filtro,$cadena){
-        if (preg_match("/^".$filtro."$/", $cadena)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-    public static function generar_numero($num){
-        if(strlen($num) == 1){
-            return $num = '0000000'.$num;
-        }
-        if(strlen($num) == 2){
-            return $num = '000000'.$num;
-        }
-        if(strlen($num) == 3){
-            return $num = '00000'.$num;
-        }
-        if(strlen($num) == 4){
-            return $num = '0000'.$num;
-        }
-        if(strlen($num) == 5){
-            return $num = '000'.$num;
-        }
-        if(strlen($num) == 6){
-            return $num = '00'.$num;
-        }
-        if(strlen($num) == 7){
-            return $num = '0'.$num;
-        }
-        if(strlen($num) == 8){
-            return $num;
-        }
-    }
-
-    
-
-
-    // funcion para verificar los premisos de un rol
-    public static function verificar_rol($vista){
-        $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
-        $id_rol = mysqli_fetch_array(Self::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario"));
-        $id_rol = $id_rol['id_rol'];
-        
-        $permiso_rol = mysqli_fetch_array(Self::consultar("SELECT $vista FROM rol WHERE id_rol = $id_rol"));
-        $permiso_rol = $permiso_rol[$vista];
-        return $permiso_rol;
-    }
-
-
-    // funcion para verificar los premisos de un modulo del  sistema
-    public static function permisos_modulos($vista){
-        $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
-        $id_rol = mysqli_fetch_array(Self::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario"));
-        $id_rol = $id_rol['id_rol'];
-        
-        $permiso_rol = mysqli_fetch_array(Self::consultar("SELECT SUM($vista) AS permiso_vista FROM rol WHERE id_rol = $id_rol"));
-        $permiso_rol = $permiso_rol['permiso_vista'];
-        return $permiso_rol;
     }
 
 
@@ -257,6 +249,5 @@ class modeloPrincipal {
         $cadena_encripted = Self::encryption($cadena_limpia);
         return $cadena_encripted;
     }
-
 
 }

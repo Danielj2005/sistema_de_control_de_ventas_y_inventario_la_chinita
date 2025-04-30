@@ -1,19 +1,15 @@
 <?php 
 session_start();
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-// importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
-	header('Location: ../index.php');
-	exit();
-}
+// validación para verificar que el usuario inicio sesion de manera correcta
+model_user::verificar_intento_de_acceso_al_sistema();
+
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = modeloPrincipal::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
+$rol = rol_model::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 4) {  
 ?>
@@ -45,13 +41,13 @@ if ($rol >= 1 && $rol <= 4) {
               <div class="card top-selling pb-3">
                 <div class="row btn-group text-center">
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <a class="col-12 btn btn-primary" <?= modeloPrincipal::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
+                    <a class="col-12 btn btn-primary" <?= rol_model::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <a class="col-12 btn btn-success" <?= modeloPrincipal::verificar_rol('r_categoria') == 1 ? 'href="./categoria_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Categoría</a>
+                    <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_categoria') == 1 ? 'href="./categoria_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Categoría</a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <button class="col-12 btn btn-info text-white" <?= modeloPrincipal::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
+                    <button class="col-12 btn btn-info text-white" <?= rol_model::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
                   </div>
                   <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
@@ -130,6 +126,5 @@ if ($rol >= 1 && $rol <= 4) {
   </html>
 <?php }else{
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla lista de productos.","Se ha registrado un intento de acceso incorrecto a la pantalla lista de productos por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-  header('Location: ./inicio.php');
+  bitacora::intento_de_acceso_a_vista_sin_permisos("lista de productos");
 }

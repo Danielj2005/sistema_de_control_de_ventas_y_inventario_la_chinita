@@ -1,223 +1,95 @@
 <?php
 session_start();
-/*------- configuración y conexión a base de datos -------*/
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+
+require_once '../modelo/modeloPrincipal.php'; // se importa el modelo de usuario
+require_once '../modelo/modelo_usuario.php'; // se importa el modelo de usuario
+require_once '../modelo/rol_model.php'; // se incluye el modelo de rol
+require_once '../modelo/bitacora_model.php'; // se incluye el modelo de rol
+require_once '../modelo/alert_model.php'; // se incluye el modelo de alertas
 
 // intentos de sesión
 $_SESSION["numero_sesion"] = 0;
 
-/********** Obtener y limpiar los datos via POST **********/
-$usuario = modeloPrincipal::limpiar_cadena($_POST["correo"]);
-$contraseña = modeloPrincipal::limpiar_encriptar($_POST["contraseña"]);
+// Se limpian y validan los datos recibidos a través de POST (usuario y contraseña).
 
-/********** Se verifica que no se hayan recibido campos vacios **********/
-if(empty($usuario) || empty($contraseña)){
-    echo'<script type="text/javascript">
-        swal({ 
-            title: "¡Ocurrio un error!",
-            text: "Exiten campos obligatorios que estan vacíos",
-            type: "error", 
-            confirmButtonColor: "#036cbd",
-            confirmButtonText: "Aceptar"  
-        });
-    </script>';
-    exit();
-}
+$usuario = modeloPrincipal::limpiar_cadena($_POST['correo']);
+$contraseña = modeloPrincipal::limpiar_encriptar($_POST['contraseña']);
+
+// Se verifica que no se hayan recibido campos vacíos.
+modeloPrincipal::validar_campos_vacios([$usuario, $contraseña]);
 
 /** verificación del captcha enviado por el usuario */
+
 $captcha = intval($_SESSION['captcha']); // captcha recibido desde la vista de inicio de sesión
-$respuesta_captcha = intval($_POST['respuesta_captcha']);
+
+$respuesta_captcha = intval($_POST['respuesta_captcha']); // captcha enviado por el usuario
+
 // se verifica que se esté recibiendo la respuesta del captcha
-if ($_POST['respuesta_captcha'] == "" || !isset($_POST['respuesta_captcha'])) { 
-    echo "<script type='text/javascript'>
-    swal({ 
-        title: '¡Ocurrio un Error!', 
-        text: 'El campo de captcha se encuentra vacio, verifique e intente nuevamente', 
-        type: 'error', 
-        confirmButtonColor: '#10478e',
-        confirmButtonText: 'Aceptar'  
-    });
-    </script>";
+if (empty($_POST['respuesta_captcha']) || !isset($_POST['respuesta_captcha'])) { 
+    alert_model::alerta_simple('¡Ocurrio un Error!','El campo de captcha se encuentra vacio, verifique e intente nuevamente','error');
     exit();
-    
 } 
+
 // se verifica que el captcha recibido sea igual al mostrado al usuario
 if ($respuesta_captcha !== $captcha) {
-    echo "<script type='text/javascript'>
-        swal({ 
-            title: '¡El capcha es invalido!', 
-            text: 'Verifique y intente nuevamente', 
-            type: 'error', 
-            confirmButtonColor: '#10478e',
-            confirmButtonText: 'Aceptar'  
-        });
-    </script>";
+    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente','error');
     exit();
 }
+// Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, 
+    U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario","U.correo = '$usuario' AND U.contraseña = '$contraseña'");
 
-/********** Realizamos una consulta a la BD para ver si ese usuario existe **********/
-$selectUser = modeloPrincipal::consultar("SELECT U.id_usuario, U.nombre, U.apellido, U.estado,
-    U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario 
-    FROM usuario AS U
-    INNER JOIN rol AS R ON U.id_rol = R.id_rol 
-    WHERE U.correo = '$usuario' AND U.contraseña = '$contraseña'");
-
-/*------- si el usuario y contraseña no estan registrados -------*/
+// Si el usuario y contraseña no están registrados, se muestra un mensaje de error.
 if(mysqli_num_rows($selectUser) == 0){
-
-    /* variable de sesion para compobar si un usuario inició sesión */
     $_SESSION['logged_in'] = false;
     $_SESSION["numero_sesion"]++;
-    /*------- se muestra el siguiente mensaje en una sweet-alert -------*/
-    echo'<script type="text/javascript">
-        swal({ 
-            title:"¡Ocurrió un error inesperado!", 
-            text:"El usuario o la contraseña son incorrecto, por favor verifica e intenta nuevamente", 
-            type: "error", 
-            confirmButtonColor: "#036cbd",
-            confirmButtonText: "Aceptar"  
-        });
-        $(".SendFormAjax")[0].reset();
-    </script>';
+    alert_model::alerta_simple('¡Ocurrió un error inesperado!','El usuario o la contraseña son incorrectos, por favor verifica e intenta nuevamente','error');
     exit();
 }
-// manejar la logica de comparacion de los parametros de seguridad-----
-// if ($_SESSION["numero_sesion"] == $permisos_g['limite_de_intentos_inicio_sesion']) {
-
-// se verifica si el numero de intentos de inicio de sesión es igual, a 3 
-// if ($_SESSION["numero_sesion"] == $permisos_g['limite_de_intentos_inicio_sesion']) {
-
-if ($_SESSION["numero_sesion"] == 3) {
-
-    // se bloquea el usuario para iniciar sesion en caso de alcanzar el limite de intentos
-    modeloPrincipal::UpdateSQL("usuario","suspender = 1","id_usuario = $id");
-    $_SESSION["numero_sesion"]='0';
-    echo "<script type='text/javascript'>
-        swal({
-            title: '¡Cuenta suspendida!',
-            text: 'Su cuenta ha sido suspendida temporalmente por razones de seguridad. Para activar nuevamente, por favor recupere su contraseña.',
-            type: 'warning',
-            confirmButtonColor: '#10478e',
-            confirmButtonText: 'Aceptar'
-        });
-        $('.SendFormAjax')[0].reset();
-    </script>";
-    exit();
-}
-
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
 
 $id_usuario = $datos_usuario["id_usuario"];
 
+// se verifica si el numero de intentos de inicio de sesión es igual, a 3
+if ($_SESSION["numero_sesion"] == 3) {
+    // se bloquea el usuario para iniciar sesion en caso de alcanzar el limite de intentos
+    modeloPrincipal::UpdateSQL("usuario","suspender = 1","id_usuario = $id_usuario");
+    $_SESSION["numero_sesion"]='0';
+    alert_model::alerta_simple('¡Cuenta suspendida!','Su cuenta ha sido suspendida temporalmente por razones de seguridad. Para activar nuevamente, por favor recupere su contraseña.','warning');
+    exit();
+}
 
 /** se verifica si el usuario esta activo **/
-if($datos_usuario['estado'] == 0){
-    echo "<script type='text/javascript'>
-            swal({
-                title: '¡Atención: Usuario Inactivo',
-                text: 'Pongase en contacto con un administrador para la activación de su usuario.', 
-                type: 'warning', 
-                confirmButtonColor: '#10478e',
-                confirmButtonText: 'Aceptar'  
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    location.reload();
-                }else {                       
-                    location.reload();
-                } 
-            });
-            $('.SendFormAjax')[0].reset();
-    </script>";
+if ($datos_usuario["estado"] == 0) {
+    alert_model::alert_reload('¡Cuenta inactiva!','Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.','warning');
     exit();
 }
+
+
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
-if($datos_usuario['bloqueado'] == 1){
-    echo "<script type='text/javascript'>
-            swal({
-                title: '¡Atención!',
-                text: 'Su cuenta ha sido bloqueada. Por favor, póngase en contacto con un administrador para restablecer el acceso.',
-                type: 'warning', 
-                buttons: {
-                    confirm: {
-                        text: 'Aceptar',
-                        value: true,
-                        visible: true,
-                        className: 'btn-primary',
-                        closeModal: true // Cierra el modal al hacer clic
-                    }
-                },
-                dangerMode: true, // Resalta el botón de aceptar
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    location.reload();
-                }else {                       
-                    location.reload();
-                } 
-            });
-            $('.SendFormAjax')[0].reset();
-    </script>";
+if ($datos_usuario["bloqueado"] == 1) {
+    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta se encuentra bloqueada, por favor contacte al administrador del sistema.','warning');
     exit();
 }
+
+
 /** se verifica si el usuario esta suspendido: 
  * la cuenta es suspendida luego de tres intentos fallidos de inicio de sesión */
-if($datos_usuario['suspender'] == 1){
-    echo "<script type='text/javascript'>
-            swal({
-                title: '¡Atención!',
-                text: 'Su cuenta ha sido suspendida debido a tres intentos fallidos de inicio de sesión. Por favor, ve a recuperación de usuario para restablecer el acceso.',
-                type: 'warning', 
-                confirmButtonColor: '#10478e',
-                confirmButtonText: 'Aceptar'  
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    location.reload();
-                }else {                       
-                    location.reload();
-                } 
-            });
-            $('.SendFormAjax')[0].reset();
-    </script>";
+if ($datos_usuario["suspender"] == 1) {
+    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida debido a tres intentos fallidos de inicio de sesión. Por favor, ve a recuperación de usuario para restablecer el acceso.','warning');
     exit();
 }
+
 /** se verifica si el usuario tiene una sesion activa **/
-if($datos_usuario['sesion_activa'] == 1){
-    echo "<script type='text/javascript'>
-            swal({
-                title: '¡Sesión activa detectada!',
-                text:'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.',
-                type: 'warning', 
-                confirmButtonColor: '#10478e',
-                confirmButtonText: 'Aceptar'  
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    location.reload();
-                }else {                       
-                    location.reload();
-                } 
-            });
-            $('.SendFormAjax')[0].reset();
-    </script>";
+if ($datos_usuario["sesion_activa"] == 1) {
+    alert_model::alert_reload('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
     $_SESSION['logged_in'] = false;
     exit();
 }
 
-
-// Verifica si la variable de sesión con el acceso del usuario al sistema ya está iniciada
-if (!isset($_SESSION['logged_in'])) {
-
-    $_SESSION['logged_in'] = []; // Inicializa el array si no existe
-}
-
-/*------- info personal de el usuario en variables de sesion -------*/
-//** guardamos los datos de las consulta en variables de sesión **// 
 $_SESSION['logged_in'] = true; // variable de inicio de sesion
 
 $_SESSION['nombre'] = $datos_usuario["nombre"]; // variable con el nombre del usuario
@@ -226,28 +98,22 @@ $_SESSION['apellido'] = $datos_usuario["apellido"]; // variable con el apellido 
 $_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
 
-
 $fecha_ultima_sesion = date('Y-m-d H:i:s');
 
-modeloPrincipal::bitacora("El usuario inició sesión","El usuario accedió al sistema.");
-modeloPrincipal::UpdateSQL("usuario","ultima_sesion = '$fecha_ultima_sesion', sesion_activa = 1","id_usuario = $id_usuario");
+/** se verifica si es el primer inicio de sesión del usuario  **/
+if ($datos_usuario["primer_inicio"] == 1) {
+    bitacora::login(); // se registra el inicio de sesión en la bitácora
+    model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
+    alert_model::alert_redirect('¡Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','mi_perfil');
+    exit();
+}
 
-/* mensaje que se muestra cuando un usuario inicia sesion */
-echo '<script type="text/javascript">
-        swal({ 
-            title:"Acceso Exitoso!",
-            text:"Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].', haz click en aceptar para continuar.",
-            type: "info",
-            confirmButtonColor: "#10478e",
-            confirmButtonText: "Aceptar"  
-        },
-        function (isConfirm) {
-                if (isConfirm) {
-                    window.location = "./vista/'.($datos_usuario["primer_inicio"] =='1' ? "mi_perfil.php" : "inicio.php").'";
-                }else {
-                    window.location = "./vista/'.($datos_usuario["primer_inicio"] =='1' ? "mi_perfil.php" : "inicio.php").'";
-                } 
-        });
-    </script>';
+
+bitacora::login(); // se registra el inicio de sesión en la bitácora
+
+// se actualiza el estado de la sesión del usuario a activa
+model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
+
+alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','inicio');
 mysqli_free_result($selectUser);
 exit();

@@ -14,68 +14,12 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<title>INICIO</title>
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
-		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css">
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;    
-				-webkit-box-sizing: border-box;
-				-moz-box-sizing: border-box;
-			}
-			
-			/* div i{
-				top: 1.4em;
-				z-index: 2;
-				right: 0.3rem;
-				bottom: 0;
-				width: 2rem;
-				height: 1.5rem;
-				transform: translate(-20%,-60%);
-				transform-origin: center;
-			}*/
-			.carousel-item img {
-
-				height: 720px !important;
-				width: 100%; 
-				max-width: 100%;
-				background: cover !important;
-				background-repeat: no-repeat !important;
-				background-size: cover !important;
-				background-attachment: fixed !important;
-
-			}
-			/* Make images responsive on mobile devices */
-
-			@media only screen and (max-width: 768px) {
-				.carousel-item img {
-
-					height: 1080px !important;
-					width: 150%; 
-					max-width: 150%;
-					background: cover !important;
-					background-repeat: no-repeat !important;
-					background-size: cover !important;
-					background-attachment: fixed !important;
-			
-				}
-				div i{
-					top: 1.4em;
-				}
-
-			}
-
-			.glassmorph{
-				background-color: rgba(0, 0, 0, 0.50);
-				backdrop-filter: blur(5px);
-				-webkit-backdrop-filter: blur(5);
-				-moz-backdrop-filter: blur(10px);
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
 	<body>
 		<div class="row justify-content-center m-0">
+
 			<!-- galeria de imagenes -->
 			<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
 				<div class="carousel-indicators">
@@ -103,6 +47,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 					<span class="visually-hidden">Next</span>
 				</button>
 			</div>
+
 			<!-- fomulario de inicio de sesión -->
 			<div class="col-12 position-absolute row justify-content-center">
 				<div class="col-10 col-sm-6 col-md-6 glassmorph m-5 p-3 pt-4 rounded-4">

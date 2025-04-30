@@ -1,27 +1,244 @@
 <?php
-require "../config/ConfigServer.php";
-require "./modeloPrincipal.php";
-error_reporting(E_PARSE);
 
-class modelo_usuario extends modeloPrincipal {
+// include_once '../modelo/modeloPrincipal.php'; // se incluye el modelo principal
+// require_once '../modelo/rol_model.php'; // se incluye el modelo de rol
+// require_once '../modelo/bitacora_model.php'; // se incluye el modelo de rol
+// require_once '../modelo/alert_model.php'; // se incluye el modelo de alertas
+
+class model_user extends modeloPrincipal {
     
-    /**********************************************************************/ 
-    /*                MODULO de listas de usuarios                        */
-    /**********************************************************************/ 
+    
+    /********************************************************************************************************/ 
+    /*********************************     CRUD de usuarios         *****************************************/
+    /********************************************************************************************************/ 
+    
+
+    /***************************************************************/
+    /******* funciones para consultar datos de los usuarios ********/
+    /***************************************************************/
+    public static function consultar_usuario($query) {
+        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario");
+        modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    public static function consulta_usuario_id($query,$id_usuario) {
+        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario WHERE id_usuario = '$id_usuario'");
+        modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    public static function consulta_usuario_condicion($query,$condition) {
+        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario WHERE $condition");
+        modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+
+    public static function consulta_usuario_existe($query,$condition) {
+        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario AS U INNER JOIN rol AS R ON U.id_rol = R.id_rol WHERE $condition");
+        modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    
+    /*************************************************v*********************/
+    /*** funciones para consultar preguntas de seguridad de los usuarios ***/
+    /***********************************************************************/
+
+    public static function consultar_todas_las_preguntas_seguridad () {
+        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM seguridad");
+        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
+        return $preguntas_sistema;
+    }
+    
+    
+    public static function consultar_preguntas_seguridad_por_pregunta($pregunta) {
+        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM seguridad WHERE pregunta = '$pregunta'");
+        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
+        return $preguntas_sistema;
+    }
+    
+
+    public static function consultar_preguntas_seguridad_por_id($id_pregunta) {
+        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM seguridad WHERE id_pregunta = '$id_pregunta'");
+        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
+        return $preguntas_sistema;
+    }
+    
+
+    public static function consultar_preguntas_seguridad_por_id_usuario($id_usuario) {
+        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
+        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
+        return $preguntas_sistema;
+    }
+
+    /****************************************************************************/ 
+    /*       funciones de insertar datos de los usuarios   */
+    /****************************************************************************/ 
+
+    public static function insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol){
+
+        if (modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 1, $id_rol, 1")) {
+            self::asignar_preguntas_seguridad_usuario();
+            self::bitacora_registro_nuevo_usuario($nombre, $apellido);
+            alert_model::alert_reg_success();
+        } else { // se muestra un mensaje en caso de que no se pueda Registrar los datos
+            alert_model::alert_reg_error();
+            exit();
+        }
+    }
+
+    
+    /**************************************************************/ 
+    /*       funciones de modificación de datos de los usuarios   */
+    /**************************************************************/ 
+    public static function modificar_usuario($id_usuario, $cedula, $nombre, $apellido, $correo, $telefono, $direccion, $id_rol) {
+        // se modifica el usuario
+        if (modeloPrincipal::UpdateSQL("usuario", "cedula = '$cedula', nombre = '$nombre', apellido = '$apellido', correo = '$correo', telefono = '$telefono', direccion = '$direccion', id_rol = '$id_rol'", "id_usuario = '$id_usuario'")) {
+            alert_model::alert_mod_success();
+        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
+            alert_model::alert_mod_error();
+            exit();
+        }
+    }
+
+    public static function modificar_estado_usuario($id_usuario, $estado) {
+        // se modifica el estado del usuario
+        
+        $cambio_estado = modeloPrincipal::UpdateSQL("usuario", "estado = '$estado'", "id_usuario = '$id_usuario'");
+        return $cambio_estado;    
+    }
+    public static function modificar_usuario_bloqueado($id_usuario, $bloqueado) {
+        // se modifica el estado del usuario
+        if (modeloPrincipal::UpdateSQL("usuario", "bloqueado = '$bloqueado'", "id_usuario = '$id_usuario'")) {
+            alert_model::alert_mod_success();
+        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
+            alert_model::alert_mod_error();
+            exit();
+        }
+    }
+    public static function modificar_contraseña($id_usuario, $contraseña) {
+        // se modifica la contraseña del usuario
+        if (modeloPrincipal::UpdateSQL("usuario", "contraseña = '$contraseña'", "id_usuario = '$id_usuario'")) {
+            alert_model::alert_mod_success();
+        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
+            alert_model::alert_mod_error();
+            exit();
+        }
+    }
+
+    public static function modificar_sesion_usuario($id_usuario, $sesion_activa) {
+        // se modifica el estado de la sesion activa/inactiva del usuario
+        if (modeloPrincipal::UpdateSQL("usuario", "sesion_activa = '$sesion_activa'", "id_usuario = '$id_usuario'")) {
+            alert_model::alert_mod_success();
+        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
+            alert_model::alert_mod_error();
+            exit();
+        }
+    }
+
+    public static function modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, $estado_sesion) {
+        // se modifica la fecha de la ultima sesion del usuario
+        // se actualiza el estado de la sesión del usuario a activa
+        if (!modeloPrincipal::UpdateSQL("usuario","ultima_sesion = '$fecha_ultima_sesion', sesion_activa = '$estado_sesion'","id_usuario = $id_usuario")) {
+            return exit();
+        }
+    }
+
+    
+    /************************************************************/ 
+    /*       funciones de asignación de datos de los usuarios   */
+    /************************************************************/ 
+    private static function asignar_preguntas_seguridad_usuario() {
+        // Obtener la cantidad de preguntas configuradas en el sistema
+        $configuracion = modeloPrincipal::consultar("SELECT c_preguntas FROM configuracion");
+        if (!$configuracion || mysqli_num_rows($configuracion) == 0) {
+            alert_model::alerta_simple('¡Error!', 'No se pudo obtener la configuración de preguntas de seguridad.', 'error');
+            exit();
+        }
+        $cantidad_preguntas = intval(mysqli_fetch_array($configuracion)['c_preguntas']);
+
+        // Obtener el ID del usuario recién registrado
+        $id_usuario = self::obtener_id_usuario_recien_registrado();
+        if (!$id_usuario) {
+            alert_model::alerta_simple('¡Error!', 'No se pudo obtener el ID del usuario recién registrado.', 'error');
+            exit();
+        }
+
+        // Obtener la información personal del usuario (por ejemplo, cédula) y encriptarla
+        $respuesta = self::obtener_info_personal_usuario('cedula', $id_usuario);
+        if (!$respuesta) {
+            alert_model::alerta_simple('¡Error!', 'No se pudo obtener la información personal del usuario.', 'error');
+            exit();
+        }
+        $respuesta_encriptada = modeloPrincipal::encryption($respuesta);
+
+        // Obtener la cantidad total de preguntas disponibles en el sistema
+        $preguntas_disponibles = modeloPrincipal::consultar("SELECT id_seguridad FROM seguridad");
+        if (!$preguntas_disponibles || mysqli_num_rows($preguntas_disponibles) == 0) {
+            alert_model::alerta_simple('¡Error!', 'No hay preguntas de seguridad disponibles en el sistema.', 'error');
+            exit();
+        }
+
+        // Convertir las preguntas disponibles en un array
+        $ids_preguntas = [];
+        while ($row = mysqli_fetch_assoc($preguntas_disponibles)) {
+            $ids_preguntas[] = $row['id_seguridad'];
+        }
+
+        // Seleccionar preguntas aleatorias y asignarlas al usuario
+        $preguntas_asignadas = [];
+        for ($i = 1; $i <= $cantidad_preguntas; $i++) {
+            do {
+                // Seleccionar una pregunta aleatoria
+                $id_pregunta = $ids_preguntas[array_rand($ids_preguntas)];
+            } while (in_array($id_pregunta, $preguntas_asignadas)); // Evitar duplicados
+
+            // Registrar la pregunta en la base de datos
+            $resultado = modeloPrincipal::InsertSQL(
+                "preguntas_secretas",
+                "id_pregunta, respuesta, numero_pregunta, id_usuario",
+                "'$id_pregunta', '$respuesta_encriptada', '$i', '$id_usuario'"
+            );
+
+            if (!$resultado) {
+                alert_model::alerta_simple('¡Error!', 'No se pudo asignar la pregunta de seguridad al usuario.', 'error');
+                exit();
+            }
+
+            // Agregar la pregunta a las asignadas
+            $preguntas_asignadas[] = $id_pregunta;
+        }
+    }
+
+
+    
+    /*************************************************************/ 
+    /*       funciones de componentes de datos de los usuarios   */
+    /*************************************************************/ 
     
     // funcion para crear una lista de los tipos de usuarios
     
-    public static function lista_tipo_usuarios(){
+    public static function select_tipo_usuario(){
+
         $lista_tipo_usuarios = modeloPrincipal::consultar("SELECT * FROM tipo_usuario WHERE id_tipo != 1");
-        while($row = mysqli_fetch_array($lista_tipo_usuarios)) { ?>
-            <option class="" name="id_tipo" value="<?= $row['id_tipo']; ?>" ><?= $row['nombre']; ?></option>
-        <?php 
+
+        while($row = mysqli_fetch_array($lista_tipo_usuarios)) { 
+
+            echo '<option name="id_tipo" value="'.$row['id_tipo'].'" >'.$row['nombre'].'</option>';
+
         }
     }
 
     //  Funcion para pedir una lista de empleados del negocio 
     public static function lista_de_usuarios() {
-        $lista_usuario = modeloPrincipal::consultar("SELECT id_usuario, cedula, nombre, apellido, telefono, estado FROM usuario WHERE id_tipo != 1 ORDER BY nombre ASC");
+
+        $lista_usuario = modeloPrincipal::consultar("SELECT id_usuario, cedula, nombre, apellido, telefono, estado 
+            FROM usuario
+            WHERE id_tipo != 1 
+            ORDER BY nombre ASC");
+        
         // se imprimen los resultados de la consulta
         while ( $mostrar = mysqli_fetch_array($lista_usuario)) { ?>    
             <tr>
@@ -52,10 +269,6 @@ class modelo_usuario extends modeloPrincipal {
         <?php }
     } 
 
-    /**********************************************************************/ 
-    /*                MODULO de preguntas de seguridad                    */
-    /**********************************************************************/ 
-
     public static function lista_preguntas_seguridad() {
         $datos = modeloPrincipal::consultar("SELECT * FROM seguridad"); 
 
@@ -67,153 +280,132 @@ class modelo_usuario extends modeloPrincipal {
     }
 
     
-    /**********************************************************************/ 
-    /*                MODULO de registro de usuarios                       */
-    /**********************************************************************/ 
-    public static function registrar_usuarios($cedula,$nombre,$apellido,$correo,$pass,$telefono,$direccion,$id_tipo) {
-        if (modeloprincipal::InsertSQL("usuario", "cedula, nombre, apellido, correo, contraseña, telefono, direccion, id_tipo, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$pass', '$telefono', '$direccion', '$id_tipo',1")) {
-            echo '<script type="text/javascript">
-                swal({
-                    title:"¡Registro Exitoso!",
-                    text:"Los Datos Se Registraron Correctamente",
-                    type: "success",
-                    confirmButtonText: "Aceptar"
-                },
-                function(isConfirm){  
-                    if (isConfirm) {     
-                        location.reload();
-                    } else {    
-                        location.reload();
-                    } 
-                });
-                $(".SendFormAjax")[0].reset();
-            </script>';
-            exit();
-        } else { // se muestra un mensaje en caso de que no se pueda Registrar los datos
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "los datos no se pudieron registrar, verifique he intente de nuevo ",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-    }
-
 
     
-    /**********************************************************************/ 
-    /*       MODULO de verificar datos del registro de usuarios           */
-    /**********************************************************************/ 
-    public static function validar_datos_de_registro_usuario($cedula,$nombre,$apellido,$correo,$contraseña,$contraseña2,$telefono,$direccion) {
-        /********** verificar que las contraseñas coinciden **********/
-        // se muestra un mensaje de error si las contraseñas no coinciden
+    /********************************************************************/ 
+    /*       MODULO de verificar / validar datos del usuarios           */
+    /********************************************************************/ 
+    
+    // funcion para verificar coincidencia de contraseña de un usuario
+
+    public static function verificar_coincidencia_de_contraseña($contraseña,$contraseña2){
         if ($contraseña !== $contraseña2) {
-            echo '<script type="text/javascript">
-                    swal({ 
-                        title:"¡Ocurrió un error inesperado!", 
-                        text:"Las contraseñas no coinciden, por favor verifica e intenta nuevamente", 
-                        type: "error", 
-                        confirmButtonText: "Aceptar" 
-                    });
-                </script>';
-            exit(); 
-
-        }
-        if($cedula == "" || $nombre == "" || $apellido == "" || $correo == "" || $telefono == "" || $contraseña == ""){
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "Exiten Campos obligatorios Que Estan Vacíos",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-z0-9-]{7,10}",$cedula)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo CÉDULA no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,20}",$nombre)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo NOMBRE no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{4,20}",$apellido)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo APELLIDO no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}",$correo)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo CORREO no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[0-9]{11}",$telefono)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo telefono no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9- ]{10,50}",$direccion)) {
-            echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "El campo DIRECCIÓN no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
-            exit();
-        }
-        if (modeloprincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\.\*\_\-]{8,16}", modeloprincipal::decryption($contraseña))) {
-            echo'<script type="text/javascript">
-                    swal({
-                        title: "¡Ocurrio un error!",
-                        text: "El campo CONTRASEÑA no cumple con el formato establecido",
-                        type: "error",
-                        confirmBottonText: "Aceptar"
-                    });
-                </script>';
-            exit();
+            alert_model::alerta_simple('¡Ocurrio un Error!','Las contraseñas no coinciden, por favor verifica e intenta nuevamente','error');
+            exit();    
         }
     }
 
 
+    public static function validar_primer_inicio($id_usuario){
+        $primer_inicio = Self::obtener_info_personal_usuario("primer_inicio",$id_usuario);
+        if($primer_inicio == '1'){
+            echo "<script type='text/javascript'>
+                    window.location.href='./mi_perfil.php';
+                </script>";
+            exit();
+        }
+    }
+
+    public static function validar_sesion_activa($id_usuario){
+        $sesion_activa = Self::obtener_info_personal_usuario("sesion_activa",$id_usuario);
+        if($sesion_activa == '1'){
+            echo "<script type='text/javascript'>
+                    window.location.href='./vista/inicio.php';
+                </script>";
+            exit(); // Added exit() to terminate the script after redirection
+        }
+    }
     
+    public static function verificar_preguntas_seguridad_alterada($pregunta){
+        $pregunta = Self::encryption($pregunta);
+        $preguntas_sistema = self::consultar_preguntas_seguridad_por_pregunta("$pregunta");
+        
+        if (mysqli_num_rows($preguntas_sistema) < '1'){
+            alert_model::alerta_condicional("Atención!","Alguna de las preguntas fue alterada de manera incorrecta y no coinciden con las que están registradas en el sistema. Se cerrará tu sesión por motivos de seguridad.","","window.location = '../controlador/salir.php';");
+            exit();
+        }
+    }
+
+    public static function verificar_intento_de_acceso_al_sistema(){
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+            // Redirigir el acceso a la página sino inició de sesión
+            bitacora::intento_de_acceso_al_sistema_de_manera_incorrecta();
+            header('Location: ../index.php');
+            exit();
+        }
+    }
+
+    public static function validar_preguntas_de_seguridad($preguntas,$respuestas) {
+        
+        //datos verificados modificar
+
+        for ($i = 0; $i < count($preguntas); $i++) { 
+            // Verificamos si la pregunta es automática o no
+            $j=1;
+            // se verifica si se recibieron campos vacios
+            
+            if($respuestas[$i] == ""){
+                alert_model::alerta_simple('¡Atención!','La respuesta nº'.($j+1).' no puede estar vacia','warning');
+                exit();
+            }
+            if($preguntas[$i] == ""){
+                alert_model::alerta_simple('¡Atención!','La pregunta nº'.$preguntas[$i].' no puede estar vacia','warning');
+                exit();
+            }
+
+            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0 ]{3,50}$/",$respuestas[$i])) {
+                alert_model::alerta_simple('Atención!',"La respuesta nº ".($j+1)." no cumple con el formato establecido",'warning');
+                exit();
+            }
+
+            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ?¿]{8,150}$/",$preguntas[$i])) {
+                // si no cumple con el formato establecido se muestra un mensaje de error
+                alert_model::alerta_simple('Atención!',"La pregunta nº ".$preguntas[$i]." no cumple con el formato establecido",'warning');
+                exit(); // fijar exit() position
+            }
+
+            $respuestas[$i] = strtoupper($respuestas[$i]);  
+
+            //lo hice de esta manera porque no me queria agarrar de otra forma la vidacion si lo logran acomodar en un futuro seria bueno jajajajjaja ;D suerte 
+            self::verificar_preguntas_seguridad_alterada($preguntas[$i]);
+            
+        }
+
+    }
+
+    public static function validar_usuario_existe($campos,$tabla,$condicion){
+        // se comprueba que no exista un registro con los mismos datos
+        modeloPrincipal::validacion_registro_existente($campos,$tabla,$condicion);
+
+    }
+
+
+    /**********************************************************************************/
+    /********************** funciones obtener datos de un usuario  ********************/
+    /**********************************************************************************/
+    
+    // funcion para obtener_info_personal_usuario
+
+    public static function obtener_info_personal_usuario($info,$id_usuario) {
+        if ($info == 'id_rol') {
+            $id_rol = rol_model::obtener_id_rol_usuario();
+            $nombre_rol = rol_model::obtener_nombre_rol_usuario($id_rol);
+            $info_usuario[$info] = $nombre_rol;
+        }else{
+            $info_usuario = mysqli_fetch_array(modeloPrincipal::consultar("SELECT $info FROM usuario WHERE id_usuario = $id_usuario"));
+        }
+
+        return $info_usuario[$info];
+    }
+
+    // funcion para obtener el id de un usuario
+
+    public static function obtener_id_usuario_recien_registrado(){
+        $id_usaurio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_usuario) AS id FROM usuario"));
+        $id_usaurio = $id_usaurio['id'];
+        return $id_usaurio;
+    }
+
     /***************************************************************/ 
     /*       funcion para generar un token para un usuario         */
     /***************************************************************/ 
@@ -226,7 +418,7 @@ class modelo_usuario extends modeloPrincipal {
                 $token .= mt_rand(0, 9); // Concatenar un número aleatorio entre 0 y 9
             }
             // Verificar si el token ya existe en la base de datos
-            $existToken = Self::consultar("SELECT token FROM usuario WHERE token = '$token'");
+            $existToken = modeloPrincipal::consultar("SELECT token FROM usuario WHERE token = '$token'");
         } while (mysqli_num_rows($existToken) > 0); // Repetir si el token ya existe
         return $token;
     }
@@ -238,6 +430,88 @@ class modelo_usuario extends modeloPrincipal {
         
     }
 
+    /**********************************************************************************/
+    /********************** funciones para ocultar la contaseña de un usuario  ********************/
+    /**********************************************************************************/
+    public static function ocultar_contraseña_usuario ($id_usuario, $contraseña = "") {
 
+        if ($contraseña == "") {
 
+            $contraseña = self::obtener_info_personal_usuario('contraseña',$id_usuario); // se obtiene la contraseña del usuario
+            $cantidad_caracteres = strlen($contraseña); // obtiene la cantidad de caracteres de la cadena
+            $asteriscos = str_repeat("*", $cantidad_caracteres); // obtiene la cantidad de asteriscos a mostrar
+
+        } else {
+
+            $asteriscos = str_repeat("*", strlen($contraseña));
+
+        }
+
+        return $asteriscos; // retorna la cadena oculta
+    }
+
+    
+
+    /*********************************************************************************************************/
+    /*********************** funciones para el CRUD de la bitácora de registro de información ****************/
+    /********************************************************************************************************/
+
+    // funcion para Registra en la bitácora el registro exitoso de un nuevo usuario
+
+    public static function bitacora_registro_nuevo_usuario($nombre, $apellido) {
+        $consult = bitacora::nuevo_registro("un nuevo usuario","un nuevo usuario: $nombre $apellido.");
+        modeloPrincipal::verificar_consulta($consult,'bitacora');
+        return $consult;
+    }
+
+    
+    public static function bitacora_info_personal_usuario_modificada($cedula_original, $nombre_original, $apellido_original, $correo_original, $direccion_original, $telefono_original, $id_usuario) {
+        
+        bitacora::bitacora("Modificación del perfil de usuario","El usuario actualizó su información personal\n
+        Información original:\n
+        Cédula: ".$cedula_original."\n
+        Nombre: ".$nombre_original."\n
+        Apellido: ".$apellido_original."\n
+        Correo: ".$correo_original."\n
+        Dirección: ".$direccion_original."\n
+        Teléfono: ".$telefono_original."\n
+
+        Información Actual:\n
+        Cédula: ".self::obtener_info_personal_usuario('cedula',$id_usuario)."\n
+        Nombre: ".self::obtener_info_personal_usuario('nombre',$id_usuario)."\n
+        Apellido: ".self::obtener_info_personal_usuario('apellido',$id_usuario)."\n
+        Correo: ".self::obtener_info_personal_usuario('correo',$id_usuario)."\n
+        Dirección: ".self::obtener_info_personal_usuario('direccion',$id_usuario)."\n
+        Teléfono: ".self::obtener_info_personal_usuario('telefono',$id_usuario)."
+        ");
+    }
+
+    public static function bitacora_modificacion_contraseña() {
+
+        bitacora::bitacora("Modificación exitosa del perfil de usuario.","El usuario actualizó su contraseña.");
+    }
+
+    
+    public static function bitacora_cambio_estado($estado) {
+        
+        try {
+
+            if ($estado == 1) {
+                $nuevo_estado = 'Activado'; 
+                $estado = 'Inactivo';
+            } else if ($estado == 0) {
+                $nuevo_estado = 'Inactivo'; 
+                $estado = 'Activado';
+            }
+
+            $bitacora_cambio_estado = bitacora::bitacora("Cambio exitoso del estado.","El usuario modificó el estado de un usuario de: $estado a: $nuevo_estado.");
+            
+            return $bitacora_cambio_estado;
+        } catch (Exception $e) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo guardar la operación realizada en bitácora, por favor intente nuevamente","error");
+            exit();
+        }
+        
+    }
+    
 }

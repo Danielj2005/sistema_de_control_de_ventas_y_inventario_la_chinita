@@ -11,9 +11,9 @@
     <!-- apartado de inventario -->
     <?php 
       // vistas
-      $entrada = modeloPrincipal::permisos_modulos('r_entrada + l_entrada');
-      $productos = modeloPrincipal::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
-      $proveedores = modeloPrincipal::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
+      $entrada = rol_model::permisos_modulos('r_entrada + l_entrada');
+      $productos = rol_model::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
+      $proveedores = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
 
       if ($entrada > '0' || $productos > '0' || $proveedores > '0') {?>
         <li class="nav-item">
@@ -52,11 +52,11 @@
 
     //  <!-- apartado de ventas  -->
 
-      $generar_venta = modeloPrincipal::permisos_modulos('g_venta');
-      $est_venta = modeloPrincipal::permisos_modulos('est_venta');
-      $lista_venta = modeloPrincipal::permisos_modulos('l_venta');
-      $detalles_venta = modeloPrincipal::permisos_modulos('d_venta');
-      $factura_venta = modeloPrincipal::permisos_modulos('f_venta');
+      $generar_venta = rol_model::permisos_modulos('g_venta');
+      $est_venta = rol_model::permisos_modulos('est_venta');
+      $lista_venta = rol_model::permisos_modulos('l_venta');
+      $detalles_venta = rol_model::permisos_modulos('d_venta');
+      $factura_venta = rol_model::permisos_modulos('f_venta');
 
       if ($generar_venta > '0' || $est_venta > '0' || $detalles_venta > '0' || $factura_venta > '0' || $lista_venta > 0) {?>
       
@@ -93,9 +93,9 @@
         </li>
     <?php } 
     // <!-- apartado de manú de servicios -->
-      $registro_servicio = modeloPrincipal::permisos_modulos('r_servicio');
-      $modificar_servicio = modeloPrincipal::permisos_modulos('m_servicio');
-      $lista_servicio = modeloPrincipal::permisos_modulos('l_servicio');
+      $registro_servicio = rol_model::permisos_modulos('r_servicio');
+      $modificar_servicio = rol_model::permisos_modulos('m_servicio');
+      $lista_servicio = rol_model::permisos_modulos('l_servicio');
 
       if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) {?>
       
@@ -128,9 +128,9 @@
 
     <!-- apartado de gestión de usuarios  -->
     <?php 
-      $cliente = modeloPrincipal::permisos_modulos('r_cliente + m_cliente + l_cliente + h_cliente + f_cliente');
-      $usuario = modeloPrincipal::permisos_modulos('r_empleado + m_empleado + l_empleado');
-      $rol = modeloPrincipal::permisos_modulos('r_rol + m_rol + l_rol');
+      $cliente = rol_model::permisos_modulos('r_cliente + m_cliente + l_cliente + h_cliente + f_cliente');
+      $usuario = rol_model::permisos_modulos('r_empleado + m_empleado + l_empleado');
+      $rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol');
 
       if ($_SESSION["id_rol"] < "3" && $cliente > '0' || $usuario > '0' || $rol > '0' ) {?>
       
@@ -186,8 +186,8 @@
     <!-- apartado de configuración de sistema -->
     <?php 
       // vistas
-      $configuracion = modeloPrincipal::permisos_modulos('m_cant_pregunta_seguridad + m_cant_num + m_cant_simbolos + m_cant_caracteres + m_tiempo_sesion');
-      $bitacora = modeloPrincipal::permisos_modulos('v_bitacora');
+      $configuracion = rol_model::permisos_modulos('m_cant_pregunta_seguridad + m_cant_num + m_cant_simbolos + m_cant_caracteres + m_tiempo_sesion');
+      $bitacora = rol_model::permisos_modulos('v_bitacora');
 
       if ($configuracion > '0' || $bitacora > '0') {?>
       <li class="nav-item">

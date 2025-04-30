@@ -2,32 +2,40 @@
 /*-------  Funcion para Mostrar ventana Modal modificar usuario  ------- */
 const btn_modal = document.querySelectorAll('.btn_modal');
 const contenedor = document.getElementById('body_modal');
+const titulo_modal = document.getElementById('exampleModalLabel');
+const btn_guardar_modal = document.getElementById('btn_guardar_modal');
 
-btn_modal.forEach((element)=>{
-    element.addEventListener('click', (e) =>{
+btn_modal.forEach((btn_update)=>{
+    btn_update.addEventListener('click', (e) =>{
         e.preventDefault();
         
-        let id = element.getAttribute('value');
-        let url = element.getAttribute('url');
-        const btn_guardar_modal = document.getElementById('btn_guardar_modal');
-        let estado_btn_guardar_modal = element.getAttribute('btn');
-
+        let id = btn_update.getAttribute('value');
+        let modal = btn_update.getAttribute('modal');
+        let url = btn_update.getAttribute('url');
         let	parametros = { 'id' : id  };
-
-        if (estado_btn_guardar_modal == "ver") {
+        
+        if (modal == 'modificar_info_personal_usuario') {
+            titulo_modal.innerHTML = '<i class="bi bi-person"></i> &nbsp; Actualizar información personal';
+        }else if (modal == 'ver') {
             btn_guardar_modal.classList.add('d-none');
-            document.getElementById('exampleModalLabel').textContent="Permisos de acceso a los módulos";
+        }else if (modal == 'datos_usuario') {
+            titulo_modal.innerHTML = '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario';
+        }else if (modal == 'preguntas_seguridad') {
+            titulo_modal.innerHTML = '<i class="bi bi-person-circle"></i> &nbsp; Actualizar preguntas de seguridad del usuario';
         }else{
-            document.getElementById('exampleModalLabel').textContent="Modificación de acceso a los módulos";
             btn_guardar_modal.classList.remove('d-none');
         }
+
+
         $.ajax({
             data:  parametros,
             url:  url,
             type:  'post',
             success:function(valores){
                 contenedor.innerHTML = valores;
-                evaluar_casillas (); // Llama a la función para evaluar las casillas
+                if (modal == 'modificar_rol_usuario') {
+                    evaluar_casillas (); // Llama a la función para evaluar las casillas
+                }
             }
         });
     });

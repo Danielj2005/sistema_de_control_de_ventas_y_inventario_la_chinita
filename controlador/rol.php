@@ -1,20 +1,8 @@
 <?php 
 session_start();
+
 /* archivos de configuracion y conexcion a la base de datos */
-
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
-
-// funcion para saber si se recibe o no un datos por post
-function validar_post($post) {
-    if (!isset($_POST["$post"]) || $_POST["$post"] == ""){
-        $post = 0;
-    }else{
-        $post = modeloprincipal::limpiar_cadena($_POST["$post"]);
-    }
-    return $post;
-}
-
+include_once("../modelo/rol_model.php");
 
 function info_actual_del_rol($id_rol) {
     // se consulta base de datos para obtener la información actual del rol
@@ -180,57 +168,57 @@ if($modulo === "Guardar"){
 
     $nombre = modeloprincipal::limpiar_mayusculas($_POST["nombre_rol"]);
     // vistas del modulo proveedores
-    $r_proveedores = validar_post("r_proveedores");
-    $m_proveedores = validar_post("m_proveedores");
-    $l_proveedores = validar_post("l_proveedores");
-    $h_proveedores = validar_post("h_proveedores");
+    $r_proveedores = rol_model::validar_post_roles("r_proveedores");
+    $m_proveedores = rol_model::validar_post_roles("m_proveedores");
+    $l_proveedores = rol_model::validar_post_roles("l_proveedores");
+    $h_proveedores = rol_model::validar_post_roles("h_proveedores");
 
     // vistas del modulo productos
-    $r_categoria = validar_post("r_categoria");
-    $r_presentacion = validar_post("r_presentacion");
-    $r_productos = validar_post("r_productos");
-    $l_productos = validar_post("l_productos");
-    $r_entrada = validar_post("r_entrada");
-    $l_entrada = validar_post("l_entrada");
+    $r_categoria = rol_model::validar_post_roles("r_categoria");
+    $r_presentacion = rol_model::validar_post_roles("r_presentacion");
+    $r_productos = rol_model::validar_post_roles("r_productos");
+    $l_productos = rol_model::validar_post_roles("l_productos");
+    $r_entrada = rol_model::validar_post_roles("r_entrada");
+    $l_entrada = rol_model::validar_post_roles("l_entrada");
 
     // vistas del modulo ventas
-    $g_venta = validar_post("g_venta");
-    $d_venta = validar_post("d_venta");
-    $f_venta = validar_post("f_venta");
-    $l_venta = validar_post("l_venta");
-    $est_venta = validar_post("est_venta");
+    $g_venta = rol_model::validar_post_roles("g_venta");
+    $d_venta = rol_model::validar_post_roles("d_venta");
+    $f_venta = rol_model::validar_post_roles("f_venta");
+    $l_venta = rol_model::validar_post_roles("l_venta");
+    $est_venta = rol_model::validar_post_roles("est_venta");
     
     // vistas del modulo menú
-    $r_servicio = validar_post("r_servicio");
-    $l_servicio = validar_post("l_servicio");
-    $m_servicio = validar_post("m_servicio");
+    $r_servicio = rol_model::validar_post_roles("r_servicio");
+    $l_servicio = rol_model::validar_post_roles("l_servicio");
+    $m_servicio = rol_model::validar_post_roles("m_servicio");
 
     // vistas del modulo usuario
     // vista de clientes
-    $r_cliente = validar_post("r_cliente");
-    $m_cliente = validar_post("m_cliente");
-    $l_cliente = validar_post("l_cliente");
-    $h_cliente = validar_post("h_cliente");
-    $f_cliente = validar_post("f_cliente");
+    $r_cliente = rol_model::validar_post_roles("r_cliente");
+    $m_cliente = rol_model::validar_post_roles("m_cliente");
+    $l_cliente = rol_model::validar_post_roles("l_cliente");
+    $h_cliente = rol_model::validar_post_roles("h_cliente");
+    $f_cliente = rol_model::validar_post_roles("f_cliente");
     // vista de empleados
-    $r_empleado = validar_post("r_empleado");
-    $m_empleado = validar_post("m_empleado");
-    $l_empleado = validar_post("l_empleado");
+    $r_empleado = rol_model::validar_post_roles("r_empleado");
+    $m_empleado = rol_model::validar_post_roles("m_empleado");
+    $l_empleado = rol_model::validar_post_roles("l_empleado");
     // vista de roles
-    $r_rol = validar_post("r_rol");
-    $m_rol = validar_post("m_rol");
-    $l_rol = validar_post("l_rol");
+    $r_rol = rol_model::validar_post_roles("r_rol");
+    $m_rol = rol_model::validar_post_roles("m_rol");
+    $l_rol = rol_model::validar_post_roles("l_rol");
 
     // vistas del modulo configuración
     // vista de ajustes del sistema
-    $m_cant_pregunta_seguridad = validar_post("m_cant_pregunta_seguridad");
-    $m_tiempo_sesion = validar_post("m_tiempo_sesion");
-    $m_cant_caracteres = validar_post("m_cant_caracteres");
-    $m_cant_simbolos = validar_post("m_cant_simbolos");
-    $m_cant_num = validar_post("m_cant_num");
-    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
+    $m_cant_pregunta_seguridad = rol_model::validar_post_roles("m_cant_pregunta_seguridad");
+    $m_tiempo_sesion = rol_model::validar_post_roles("m_tiempo_sesion");
+    $m_cant_caracteres = rol_model::validar_post_roles("m_cant_caracteres");
+    $m_cant_simbolos = rol_model::validar_post_roles("m_cant_simbolos");
+    $m_cant_num = rol_model::validar_post_roles("m_cant_num");
+    $intentos_inicio_sesion = rol_model::validar_post_roles('intentos_inicio_sesion');
     // vista de bitácora
-    $v_bitacora = validar_post("v_bitacora");
+    $v_bitacora = rol_model::validar_post_roles("v_bitacora");
     
 
     // se comprueba que no exista un registro con los mismos datos
@@ -277,7 +265,7 @@ if($modulo === "Guardar"){
         $id_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_rol) AS id_rol FROM rol"));
         $id_rol = $id_rol['id_rol'];
 
-        modeloPrincipal::bitacora("Registro de un rol", "El usuario Registró el rol con la siguiente información:\n\n
+        bitacora::bitacora("Registro de un rol", "El usuario Registró el rol con la siguiente información:\n\n
         Nombre del rol: ".$permisos_roles['nombre']." \n
         -- Modulo Inventario --\n
         Vistas de Proveedores:
@@ -334,57 +322,57 @@ if($modulo === "Modificar"){
     $nombre = modeloprincipal::limpiar_mayusculas($_POST["nombre_rol"]);
     $estado = modeloprincipal::limpiar_cadena($_POST["estado_rol"]);
     // vistas del modulo proveedores
-    $r_proveedores = validar_post("r_proveedores");
-    $m_proveedores = validar_post("m_proveedores");
-    $l_proveedores = validar_post("l_proveedores");
-    $h_proveedores = validar_post("h_proveedores");
+    $r_proveedores = rol_model::validar_post_roles("r_proveedores");
+    $m_proveedores = rol_model::validar_post_roles("m_proveedores");
+    $l_proveedores = rol_model::validar_post_roles("l_proveedores");
+    $h_proveedores = rol_model::validar_post_roles("h_proveedores");
 
     // vistas del modulo productos
-    $r_categoria = validar_post("r_categoria");
-    $r_presentacion = validar_post("r_presentacion");
-    $r_productos = validar_post("r_productos");
-    $l_productos = validar_post("l_productos");
-    $r_entrada = validar_post("r_entrada");
-    $l_entrada = validar_post("l_entrada");
+    $r_categoria = rol_model::validar_post_roles("r_categoria");
+    $r_presentacion = rol_model::validar_post_roles("r_presentacion");
+    $r_productos = rol_model::validar_post_roles("r_productos");
+    $l_productos = rol_model::validar_post_roles("l_productos");
+    $r_entrada = rol_model::validar_post_roles("r_entrada");
+    $l_entrada = rol_model::validar_post_roles("l_entrada");
 
     // vistas del modulo ventas
-    $g_venta = validar_post("g_venta");
-    $d_venta = validar_post("d_venta");
-    $f_venta = validar_post("f_venta");
-    $l_venta = validar_post("l_venta");
-    $est_venta = validar_post("est_venta");
+    $g_venta = rol_model::validar_post_roles("g_venta");
+    $d_venta = rol_model::validar_post_roles("d_venta");
+    $f_venta = rol_model::validar_post_roles("f_venta");
+    $l_venta = rol_model::validar_post_roles("l_venta");
+    $est_venta = rol_model::validar_post_roles("est_venta");
     
     // vistas del modulo menú
-    $r_servicio = validar_post("r_servicio");
-    $l_servicio = validar_post("l_servicio");
-    $m_servicio = validar_post("m_servicio");
+    $r_servicio = rol_model::validar_post_roles("r_servicio");
+    $l_servicio = rol_model::validar_post_roles("l_servicio");
+    $m_servicio = rol_model::validar_post_roles("m_servicio");
 
     // vistas del modulo usuario
     // vista de clientes
-    $r_cliente = validar_post("r_cliente");
-    $m_cliente = validar_post("m_cliente");
-    $l_cliente = validar_post("l_cliente");
-    $h_cliente = validar_post("h_cliente");
-    $f_cliente = validar_post("f_cliente");
+    $r_cliente = rol_model::validar_post_roles("r_cliente");
+    $m_cliente = rol_model::validar_post_roles("m_cliente");
+    $l_cliente = rol_model::validar_post_roles("l_cliente");
+    $h_cliente = rol_model::validar_post_roles("h_cliente");
+    $f_cliente = rol_model::validar_post_roles("f_cliente");
     // vista de empleados
-    $r_empleado = validar_post("r_empleado");
-    $m_empleado = validar_post("m_empleado");
-    $l_empleado = validar_post("l_empleado");
+    $r_empleado = rol_model::validar_post_roles("r_empleado");
+    $m_empleado = rol_model::validar_post_roles("m_empleado");
+    $l_empleado = rol_model::validar_post_roles("l_empleado");
     // vista de roles
-    $r_rol = validar_post("r_rol");
-    $m_rol = validar_post("m_rol");
-    $l_rol = validar_post("l_rol");
+    $r_rol = rol_model::validar_post_roles("r_rol");
+    $m_rol = rol_model::validar_post_roles("m_rol");
+    $l_rol = rol_model::validar_post_roles("l_rol");
 
     // vistas del modulo configuración
     // vista de ajustes del sistema
-    $m_cant_pregunta_seguridad = validar_post("m_cant_pregunta_seguridad");
-    $m_tiempo_sesion = validar_post("m_tiempo_sesion");
-    $m_cant_caracteres = validar_post("m_cant_caracteres");
-    $m_cant_simbolos = validar_post("m_cant_simbolos");
-    $m_cant_num = validar_post("m_cant_num");
-    $intentos_inicio_sesion = validar_post('intentos_inicio_sesion');
+    $m_cant_pregunta_seguridad = rol_model::validar_post_roles("m_cant_pregunta_seguridad");
+    $m_tiempo_sesion = rol_model::validar_post_roles("m_tiempo_sesion");
+    $m_cant_caracteres = rol_model::validar_post_roles("m_cant_caracteres");
+    $m_cant_simbolos = rol_model::validar_post_roles("m_cant_simbolos");
+    $m_cant_num = rol_model::validar_post_roles("m_cant_num");
+    $intentos_inicio_sesion = rol_model::validar_post_roles('intentos_inicio_sesion');
     // vista de bitácora
-    $v_bitacora = validar_post("v_bitacora");
+    $v_bitacora = rol_model::validar_post_roles("v_bitacora");
     
     // verificar datos
     if ($nombre == "" || $r_proveedores == "" || $m_proveedores == "" || $h_proveedores == "" || $r_categoria == "" || $r_presentacion == "" || $r_productos == "" || $g_venta == "" || $d_venta == "" || $f_venta == "" || $est_venta == "" || $r_servicio == "" || $m_servicio == "" || $r_cliente == "" || $m_cliente == "" || $h_cliente == "" || $f_cliente == "" || $r_empleado == "" || $m_empleado == "" || $r_rol == "" || $m_rol == "" || $m_cant_pregunta_seguridad == "" || $m_tiempo_sesion == "" || $m_cant_caracteres == "" || $m_cant_simbolos == "" || $m_cant_num == "" || $v_bitacora == "" || $l_proveedores == "" || $l_productos == "" || $r_entrada == "" || $l_entrada == "" || $l_venta == "" || $l_servicio == "" || $l_cliente == "" || $l_empleado == "" || $l_rol == "" ||  $intentos_inicio_sesion == ""){
@@ -414,7 +402,7 @@ if($modulo === "Modificar"){
     // datos verificados que se van a Registrarcondicion: condicion: condicion: 
     if (modeloprincipal::UpdateSQL("rol", "nombre = '$nombre', r_proveedores = $r_proveedores, m_proveedores = $m_proveedores, l_proveedores = $l_proveedores, h_proveedores = $h_proveedores, r_categoria = $r_categoria, r_presentacion = $r_presentacion, r_productos = $r_productos, l_productos = $l_productos, r_entrada = $r_entrada, l_entrada = $l_entrada, g_venta = $g_venta, d_venta = $d_venta, l_venta = $l_venta, f_venta = $f_venta, est_venta = $est_venta, r_servicio = $r_servicio, m_servicio = $m_servicio, l_servicio = $l_servicio, r_cliente = $r_cliente, m_cliente = $m_cliente, l_cliente = $l_cliente, h_cliente = $h_cliente, f_cliente = $f_cliente, r_empleado = $r_empleado, m_empleado = $m_empleado, l_empleado = $l_empleado, r_rol = $r_rol, m_rol = $m_rol, l_rol = $l_rol, m_cant_pregunta_seguridad = $m_cant_pregunta_seguridad, m_tiempo_sesion = $m_tiempo_sesion, m_cant_caracteres = $m_cant_caracteres, m_cant_simbolos = $m_cant_simbolos, m_cant_num = $m_cant_num, intentos_inicio_sesion = $intentos_inicio_sesion, v_bitacora = $v_bitacora, estado = $estado", "id_rol = $id_rol")) {
         
-        modeloPrincipal::bitacora("Modificación de un rol","".info_actual_del_rol($id_rol)."");
+        bitacora::bitacora("Modificación de un rol","".info_actual_del_rol($id_rol)."");
         
         echo '<script type="text/javascript">
                 swal({
@@ -455,7 +443,7 @@ if ($modulo === "activo"){
 
     if(modeloprincipal::UpdateSQL("rol","estado = '0'", "id_rol = '$id_rol'")){
         
-        modeloPrincipal::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Activo");
+        bitacora::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Activo");
         
         echo '<script type="text/javascript">
                 $(document).ready(function(){
@@ -491,7 +479,7 @@ if ($modulo === "activo"){
 if ($modulo === "inactivo"){
 
     if(modeloprincipal::UpdateSQL("rol","estado = '1'", "id_rol = '$id_rol'")){
-        modeloPrincipal::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Inactivo");
+        bitacora::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Inactivo");
         echo '<script type="text/javascript">
                 $(document).ready(function(){
                     swal({ 

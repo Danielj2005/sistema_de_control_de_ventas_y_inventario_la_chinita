@@ -1,19 +1,14 @@
 <?php 
 session_start();
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-// importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-	// Redirigir el acceso a la página sino inició de sesión
-  modeloPrincipal::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
-	header('Location: ../index.php');
-	exit();
-}
+// validación para verificar que el usuario inicio sesion de manera correcta
+model_user::verificar_intento_de_acceso_al_sistema();
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = modeloPrincipal::verificar_rol('r_empleado');
+$rol = rol_model::verificar_rol('r_empleado');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
 
@@ -36,7 +31,7 @@ if ($rol == 1) {  ?>
       <main id="main" class="main">
         <div class="pagetitle">
           <h1>
-            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./lista_empleados.php">Volver</a>
+            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./lista_empleados.php"> Volver </a>
             Empleados
           </h1>
         </div>
@@ -64,17 +59,17 @@ if ($rol == 1) {  ?>
                         
                           <div class="mb-3 col-sm-6 ">
                             <label class="control-label">Nombre <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" maxlength="30" required="" placeholder="Ingresa el Nombre" class="form-control" id="nombre" name="nombre">
+                            <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,100}" maxlength="100" required="" placeholder="Ingresa el Nombre" class="form-control" id="nombre" name="nombre">
                           </div>
 
                           <div class="mb-3 col-sm-6 label-floathing form-group">
                             <label class="control-label">Apellido <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" maxlength="30" required="" placeholder="Ingrese el Apellido" class="form-control" id="apellido" name="apellido">
+                            <input form="registro_empleado" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,100}" maxlength="100" required="" placeholder="Ingrese el Apellido" class="form-control" id="apellido" name="apellido">
                           </div>
 
                           <div class="mb-3 col-sm-6 label-floathing form-group">
                             <label class="control-label">Correo <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}" maxlength="30" required="" placeholder="Ingrese el Correo" class="form-control" id="correo" name="correo">
+                            <input form="registro_empleado" type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,200}" maxlength="200" required="" placeholder="Ingrese el Correo" class="form-control" id="correo" name="correo">
                           </div>
 
                           <div class="mb-3 col-sm-6 label-floathing form-group">
@@ -84,7 +79,7 @@ if ($rol == 1) {  ?>
                           
                           <div class="mb-3 col-sm-6 label-floathing form-group">
                             <label class="control-label">Dirección <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="text" maxlength="50" required="" placeholder="Ingrese la Dirección  " class="form-control" id="direccion" name="direccion">
+                            <input form="registro_empleado" type="text" maxlength="250" required="" placeholder="Ingrese la Dirección" class="form-control" id="direccion" name="direccion">
                           </div>
 
                           <div class="mb-3 col-sm-12 label-floathing">
@@ -96,17 +91,6 @@ if ($rol == 1) {  ?>
                               </select>
                             </div>
                           </div>
-
-                          <div class="mb-3 col-sm-6 label-floathing row m-0">
-                            <label class="control-label">Contraseña <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="input__field form-control" id="password" name="password">
-                          </div>
-
-                          <div class="mb-3 col-sm-6 label-floathing form-group">
-                            <label class="control-label">Repetir contraseña <span style="color:#f00;">*</span></label>
-                            <input form="registro_empleado" type="password" pattern="[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9]{8,16}" maxlength="16" required="" placeholder="Ingrese la contraseña" class="input__field form-control" id="password2" name="password2">
-                          </div>
-                          
                         </div>
                         <div class="col-12 mb-1">
                           <div class="form-group">
@@ -132,8 +116,8 @@ if ($rol == 1) {  ?>
         include_once("../include/scripts_include.php"); ?>
     </body>
   </html>
-<?php }else{
+
+<?php } else {
   // se registran las acciones del usuario en la bitacora y es redirijido al inicio
-  modeloPrincipal::bitacora("Intento de acceso no autorizado a la pantalla registro de registro de empleados.","Se ha registrado un intento de acceso incorrecto a la pantalla registro de empleados por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-  header('Location: ./inicio.php');
+  bitacora::intento_de_acceso_a_vista_sin_permisos("registro de empleados");
 }
