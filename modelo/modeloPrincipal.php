@@ -145,8 +145,9 @@ class modeloPrincipal {
     }
 
     public static function validar_campos_vacios($campos){
-        foreach ( $campos as $key){
-            if(empty($key)) {
+        
+        foreach ($campos as $key){
+            if($key == "") {
                 alert_model::alert_fields_empty();
                 exit();
             }
@@ -192,6 +193,7 @@ class modeloPrincipal {
         $valor = str_ireplace("DROP DATABASE", "", $valor);
         $valor = str_ireplace("TRUNCATE TABLE", "", $valor);
         $valor = str_ireplace("SHOW TABLE", "", $valor);
+        $valor = str_ireplace("OR 1 = 1", "", $valor);
         $valor = str_ireplace("SHOW DATABASES", "", $valor);
         $valor = str_ireplace("<?php>", "", $valor);
         $valor = str_ireplace("?>", "", $valor);

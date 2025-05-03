@@ -5,10 +5,12 @@ include_once ("../include/modelos_include.php"); // se incluyen los modelos nece
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
+
 if (!isset($_POST["modulo"])) {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
     exit();
 }
+
 $id_usuario = $_SESSION['id_usuario'];
 
 // modulo para Guardar un registro de un usuario
@@ -129,7 +131,7 @@ if($modulo === "modificar_info_personal_usuario"){
         
         
         if (!$actualizar) {
-            alert_model::alerta_simple("¡Error!", "ocurrio un error al actualizar la información personal del usuario.", "error");
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar la información personal del usuario.", "error");
             exit();
         }
 
@@ -151,7 +153,7 @@ if($modulo === "modificar_info_personal_usuario"){
         ");
 
         if (!$bitacora_modificacion_info_usuario) {
-            alert_model::alerta_simple("¡Error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
             exit();
         }
 
@@ -190,12 +192,25 @@ if($modulo === "modificar_contraseña_usuario"){
         exit();
     }
 
-    //datos verificados modificar
-    if (modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_nueva'","id_usuario = $id_usuario")) {
+    try {
+        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_nueva'","id_usuario = $id_usuario");
+
+        if (!$actualizar) {
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la nueva contraseña .", "error");
+            exit();
+        }
+
+        $primer_inicio = model_user::verificar_primer_inicio();
+
+        if ($primer_inicio == true) {
+            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
+        }
+
         model_user::bitacora_modificacion_contraseña();
+
         alert_model::alert_mod_success();
         exit();
-    } else {
+    } catch (Exception $e) {
         alert_model::alert_mod_error();
         exit();
     }
@@ -211,7 +226,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
     // Obtener la cantidad de preguntas configuradas en el sistema
     $configuracion = modeloPrincipal::consultar("SELECT c_preguntas FROM configuracion");
     if (!$configuracion || mysqli_num_rows($configuracion) == 0) {
-        alert_model::alerta_simple("¡Error!", "No se pudo obtener la configuración de preguntas de seguridad.", "error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la configuración de preguntas de seguridad.", "error");
         exit();
     }
 
@@ -225,20 +240,20 @@ if ($modulo === "modificar_preguntas_seguridad") {
 
     // Validar que las preguntas y respuestas sean la cantidad correcta
     if (count($preguntas) < $cantidad_preguntas || count($respuestas) < $cantidad_preguntas) {
-        alert_model::alerta_simple("¡Error!", "Debe completar todas las preguntas de seguridad.", "error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "Debe completar todas las preguntas de seguridad.", "error");
         exit();
     }
 
+    // Validar que las preguntas y respuestas no estén vacías
     try {
-        // Validar que las preguntas y respuestas no estén vacías
         modeloPrincipal::validar_campos_vacios([$preguntas, $respuestas]);
         
         if (count($preguntas) !== count(array_unique($preguntas))) {
-            alert_model::alerta_simple("¡Error!", "Las preguntas de seguridad deben ser únicas.", "error");
+            alert_model::alerta_simple("Ha ocurrido un error!", "Las preguntas de seguridad deben ser únicas.", "error");
             exit();
         }
     } catch (Exception $e) {
-        alert_model::alerta_simple("¡Error!", "Debe completar todas las preguntas de seguridad.", "error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "Debe completar todas las preguntas de seguridad.", "error");
         exit();
     }
 
@@ -261,7 +276,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
                 $id_seguridades = modeloPrincipal::consultar("SELECT id_seguridad FROM seguridad WHERE pregunta = '$pregunta_encriptada'");
 
                 if (!$id_seguridades || mysqli_num_rows($id_seguridades) == 0) {
-                    alert_model::alerta_simple("¡Error!", "ocurrio un error al consultar la ID de la pregunta de seguridad.", "error");
+                    alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al consultar la ID de la pregunta de seguridad.", "error");
                     exit();
                 }
                 
@@ -273,7 +288,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
 
             }
     } catch (Exception $e) {
-        alert_model::alerta_simple("¡Error!", "No se pudo obtener la ID de las preguntas de seguridad.", "error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la ID de las preguntas de seguridad.", "error");
         exit();
     }
 
@@ -283,7 +298,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
         
 
         if (!$id_pregunta || mysqli_num_rows($id_pregunta) == 0) {
-            alert_model::alerta_simple("¡Error!", "ocurrio un error al consultar la ID de las preguntas secretas.", "error");
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al consultar la ID de las preguntas secretas.", "error");
             exit();
         }
         $i=0;
@@ -293,11 +308,9 @@ if ($modulo === "modificar_preguntas_seguridad") {
         }
 
     } catch (Exception $e) {
-        alert_model::alerta_simple("¡Error!", "No se pudo obtener la ID de las preguntas secretas.", "error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la ID de las preguntas secretas.", "error");
         exit();
     }
-
-    $primer_inicio = model_user::obtener_info_personal_usuario('primer_inicio',$id_usuario);
     
     try {
 
@@ -312,11 +325,14 @@ if ($modulo === "modificar_preguntas_seguridad") {
             $numero_pregunta++;
             
             if (!$actualizar) {
-                alert_model::alerta_simple("¡Error!", "ocurrio un error al actualizar la pregunta de seguridad.", "error");
+                alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar la pregunta de seguridad.", "error");
                 exit();
             } 
         }
-        if ($primer_inicio == 1) {
+
+        $primer_inicio = model_user::verificar_primer_inicio();
+        
+        if ($primer_inicio == true) {
             modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
         }
         // Registrar la modificación en la bitácora
@@ -329,46 +345,207 @@ if ($modulo === "modificar_preguntas_seguridad") {
     }
 }
 
-/* ----------------- modulo para cambiar el estado de un usuario ------------------ */
-$id_usuario = modeloprincipal::limpiar_cadena($_POST["id_usuario"]);
+// modulo para modificar las caracteristicas de acceso de un usuario
 
-if ($modulo === "activo"){
+if ($modulo === 'caracteristicas_de_acceso'){
+    // caracteristicas a actualizar del usuario
+    $id_usuario = modeloPrincipal::LimpiarCadenaTexto($_POST["id_usuario_a_modificar"]);
+    $nuevo_estado = modeloPrincipal::LimpiarCadenaTexto($_POST['cambiar_estado']);
+    $suspender = modeloPrincipal::LimpiarCadenaTexto($_POST['permitir_acceso']);
+    $rol_asignado = modeloPrincipal::LimpiarCadenaTexto($_POST['asignar_rol']);
+
+    $cedula = modeloPrincipal::LimpiarCadenaTexto($_POST['cedula_user']); 
+    $nombre = modeloPrincipal::LimpiarCadenaTexto($_POST['nombre_completo']); 
+    $telefono = modeloPrincipal::LimpiarCadenaTexto($_POST['telefono_user']);
+
+    // se evaluan los campos y que no estén vacíos
+    modeloPrincipal::validar_campos_vacios([$id_usuario, $nuevo_estado, $suspender, $rol_asignado, $cedula, $nombre, $telefono]);
+    
+    // se evaluan que los campos cumplan con el formato establecido
+    if (modeloprincipal::verificar_datos("[0-1]{1}",$nuevo_estado)) {
+        alert_model::alert_of_format_wrong("'estado'");
+        exit();
+    }
+    
+    if (modeloprincipal::verificar_datos("[0-1]{1}",$suspender)) {
+        alert_model::alert_of_format_wrong("'permitir inicio de sesión'");
+        exit();
+    }
+    
+    if (modeloprincipal::verificar_datos("[0-9]{1,5}",$rol_asignado)) {
+        alert_model::alert_of_format_wrong("'rol'");
+        exit();
+    }
+
+    // caracteristicas originales del usuario
+    $estado_original = model_user::obtener_info_personal_usuario('estado',$id_usuario);
+    $permiso_inicio_sesion_original = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
+    $rol_original = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+
+    
     try {
-        $cabiar_estado = model_user::modificar_estado_usuario($id_usuario, 0);
+
+        $estado_user = ($estado_original == 1) ? 'Activo' : 'Inactivo' ;
+        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 1) ? 'Permitido' : 'Denegado' ;
+
+        $estado_original = $estado_user;
+        $permiso_inicio_sesion_original = $permiso_inicio_sesion_user;
         
-        if (!$cabiar_estado) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la desactivación del usuario, por favor intente nuevamente","error");
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al obtener las caracteristicas originales.", "error");
+        exit();
+    }
+
+    // se actualizan las caracteristicas del usuario
+    try {
+        
+        $actualizar_usuario = model_user::actualizar_usuario_por_su_id ("suspender = $suspender, estado = $nuevo_estado, id_rol = $rol_asignado",$id_usuario);
+        
+        if (!$actualizar_usuario) {
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar las características de acceso del usuario.", "error");
+            exit();
         }
 
-        $registro_bitacora = model_user::bitacora_cambio_estado($estado);
+        // caracteristicas actuales del usuario
+        $estado_actual = model_user::obtener_info_personal_usuario('estado',$id_usuario);
+        $permiso_inicio_sesion_actual  = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
+        $rol_actual  = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
 
-        if (!$registro_bitacora) {
-            alert_model::alerta_simple("¡Error!", "ocurrio un error al guardar la modificación de estado en bitácora.", "error");
-            exit();
-        } 
+        $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
+        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 1) ? 'Permitido' : 'Denegado' ;
 
-        $bitacora_cambio_estado = bitacora::bitacora("MOdificación exitoso del estado de usuario.","El usuario modificó el estado de un usuario de: $estado a: $nuevo_estado.");
-            
-        if (!$bitacora_cambio_estado) {
-            alert_model::alerta_simple("¡Error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
+        $estado_actual = $estado_user_actual;
+        $permiso_inicio_sesion_actual = $permiso_inicio_sesion_user_actual;
+
+        $bitacora = bitacora::bitacora("Modificación exitosa de características de acceso de un usuario","Se modificaron las características de acceso de un usuario: <br><br>
+        Información del usuario modificado:<br>
+        Cédula: ".$cedula."<br>
+        Nombre: ".$nombre."<br>
+        Teléfono: ".$telefono."<br><br>
+        Información original:<br>
+        Estado: ".$estado_original."<br>
+        Permiso de inicio de sesión: ".$permiso_inicio_sesion_original."<br>
+        Rol asignado: ".$rol_original."<br><br>
+        Información Actual:<br>
+        Estado: ".$estado_actual."<br>
+        Permiso de inicio de sesión: ".$permiso_inicio_sesion_actual."<br>
+        Rol asignado: ".$rol_actual."
+        ");
+
+        if (!$bitacora) {
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al registrar las características de acceso del usuario en la bitácora.", "error");
             exit();
-        } 
+        }
+
         alert_model::alert_mod_success();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();
-        
         exit();
     }
 }
 
-if ($modulo === "inactivo"){
+// modulo para resetear el acceso de un usuario
+
+if ($modulo === 'resetear_contraseña'){
+
+    // caracteristicas a actualizar del usuario
+    $id_usuario = modeloPrincipal::LimpiarCadenaTexto($_POST["id_usuario_a_modificar"]);
     
+    modeloPrincipal::validar_campos_vacios([$id_usuario]);
+
+    $existe_usuario = model_user::consulta_usuario_id("nombre, apellido, 
+        primer_inicio, bloqueado, suspender, estado, id_rol",$id_usuario);
+
+    if (!$existe_usuario) {
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se encontraron datos del usuario asegúrese de que esté se encuentre registrado en el sistema, por favor verifique e intente nuevamente","error");
+    }
+    
+    $cedula = model_user::obtener_info_personal_usuario('cedula', $id_usuario);
+    $nombre = model_user::obtener_info_personal_usuario('nombre', $id_usuario);
+    $apellido = model_user::obtener_info_personal_usuario('apellido', $id_usuario);
+    
+    $cedula_reseteo = trim($cedula);
+    $cedula_reseteo = str_ireplace("V", "", $cedula_reseteo);
+    $cedula_reseteo = str_ireplace("E", "", $cedula_reseteo);
+    $cedula_reseteo = str_ireplace("-", "", $cedula_reseteo);
+    $cedula_reseteo = stripslashes($cedula_reseteo);
+    $cedula_reseteo = trim($cedula_reseteo);
+    $cedula_reseteo = modeloPrincipal::encryption($cedula_reseteo);
+
+    // caracteristicas originales del usuario
+    $estado_original = model_user::obtener_info_personal_usuario('estado',$id_usuario);
+    $permiso_inicio_sesion_original = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
+    $rol_original = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+    $bloqueado_original = model_user::obtener_info_personal_usuario('bloqueado',$id_usuario);
+
     try {
-        model_user::modificar_estado_usuario($id_usuario, 1);
-        exit();
+
+        $estado_user = ($estado_original == 1) ? 'Activo' : 'Inactivo' ;
+        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 1) ? 'Permitido' : 'Denegado' ;
+        $bloqueado_original = ($bloqueado_original == 1) ? 'Sí' : 'No' ;
+
+        $estado_original = $estado_user;
+        $permiso_inicio_sesion_original = $permiso_inicio_sesion_user;
+        
     } catch (Exception $e) {
-        alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la activación del usuario, por favor intente nuevamente","error");
+        alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al obtener las caracteristicas originales.", "error");
         exit();
     }
+
+
+    try {
+
+
+        $desbloquear_usuario = modeloPrincipal::UpdateSQL("usuario", "contraseña = '$cedula_reseteo', sesion_activa = 0, primer_inicio = 1, suspender = 0, bloqueado = 0, estado = 1", "id_usuario = '$id_usuario'");
+
+        if (!$desbloquear_usuario) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo desbloquear al usuario debido a un error interno o alteracion de la información ya registrada, por favor verifique e intente nuevamente","error");
+        }
+
+        $actualizar = modeloPrincipal::UpdateSQL("preguntas_secretas", "respuesta = '$cedula_reseteo'", "id_usuario = '$id_usuario'");
+
+        if (!$actualizar) {
+            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al resetear las preguntas de seguridad.", "error");
+            exit();
+        } 
+        
+
+        // caracteristicas actuales del usuario
+        $estado_actual = model_user::obtener_info_personal_usuario('estado',$id_usuario);
+        $permiso_inicio_sesion_actual  = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
+        $rol_actual  = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+        $bloqueado_actual = model_user::obtener_info_personal_usuario('bloqueado',$id_usuario);
+
+        $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
+        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 1) ? 'Permitido' : 'Denegado' ;
+        $bloqueado_actual = ($bloqueado_actual == 1) ? 'Sí' : 'No' ;
+
+        $estado_actual = $estado_user_actual;
+        $permiso_inicio_sesion_actual = $permiso_inicio_sesion_user_actual;
+
+        bitacora::bitacora("Modificación exitosa del acceso de un usuario.","Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>
+        Información del usuario modificado:<br>
+        Cédula: ".$cedula."<br>
+        Nombre: ".$nombre."<br>
+        Apellido: ".$apellido."<br><br>
+        Información original:<br>
+        Estado: ".$estado_original."<br>
+        Permiso de inicio de sesión: ".$permiso_inicio_sesion_original."<br>
+        Rol asignado: ".$rol_original."<br>
+        Bloqueado: ".$bloqueado_original."<br><br>
+        Información Actual:<br>
+        Estado: ".$estado_actual."<br>
+        Permiso de inicio de sesión: ".$permiso_inicio_sesion_actual."<br>
+        Rol asignado: ".$rol_actual."<br>
+        Bloqueado: ".$bloqueado_actual."
+        ");
+        alert_model::alert_mod_success();
+        exit();
+    } catch (Exception $e) {
+        alert_model::alert_mod_error();
+        exit();
+    }
+
+    
 }

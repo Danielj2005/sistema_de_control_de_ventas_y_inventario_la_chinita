@@ -1,8 +1,11 @@
 <?php 
 session_start();
 
+$_SESSION["intentos_sesion"] = 1;
+
 $_SESSION['numero_1'] = rand(1, 7);
 $_SESSION['numero_2'] = rand(1, 7);
+
 $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 
 ?>
@@ -15,6 +18,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css">
+		<link rel="shortcut icon" href="vista/img/logo.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
 	<body>
@@ -121,14 +125,15 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-primary">Enviar</button>
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
+							<button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 
+		<script type="text/javascript" src="vista/js/recovery_access.js"></script>
 		<script type="text/javascript" src="vista/js/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="vista/js/bootstrap.min.js"></script>
 		<script src="vista/js/hiddeInput.js"></script>

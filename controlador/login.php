@@ -1,17 +1,12 @@
-<?php
+<?php 
 session_start();
 
-require_once '../modelo/modeloPrincipal.php'; // se importa el modelo de usuario
-require_once '../modelo/modelo_usuario.php'; // se importa el modelo de usuario
-require_once '../modelo/rol_model.php'; // se incluye el modelo de rol
-require_once '../modelo/bitacora_model.php'; // se incluye el modelo de rol
-require_once '../modelo/alert_model.php'; // se incluye el modelo de alertas
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-// intentos de sesión
-$_SESSION["numero_sesion"] = 0;
+$configuracion = mysqli_fetch_array(modeloPrincipal::consultar("SELECT intentos_inicio_sesion FROM configuracion"));
+$intentos_inicio_sesion = intval($configuracion['intentos_inicio_sesion']);
 
 // Se limpian y validan los datos recibidos a través de POST (usuario y contraseña).
-
 $usuario = modeloPrincipal::limpiar_cadena($_POST['correo']);
 $contraseña = modeloPrincipal::limpiar_encriptar($_POST['contraseña']);
 
@@ -36,27 +31,36 @@ if ($respuesta_captcha !== $captcha) {
     exit();
 }
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, 
-    U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario","U.correo = '$usuario' AND U.contraseña = '$contraseña'");
-
-// Si el usuario y contraseña no están registrados, se muestra un mensaje de error.
-if(mysqli_num_rows($selectUser) == 0){
-    $_SESSION['logged_in'] = false;
-    $_SESSION["numero_sesion"]++;
-    alert_model::alerta_simple('¡Ocurrió un error inesperado!','El usuario o la contraseña son incorrectos, por favor verifica e intenta nuevamente','error');
-    exit();
-}
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario","U.correo = '$usuario'");
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
 
 $id_usuario = $datos_usuario["id_usuario"];
 
+// Si el usuario y contraseña no están registrados, se muestra un mensaje de error.
+if(mysqli_num_rows($selectUser) == 0){
+    $_SESSION['logged_in'] = false;
+    $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
+    alert_model::alerta_simple('¡Ocurrió un error inesperado!','El usuario es incorrecto, por favor verifica e intenta nuevamente','error');
+    exit();
+}
+
 // se verifica si el numero de intentos de inicio de sesión es igual, a 3
-if ($_SESSION["numero_sesion"] == 3) {
+if ($_SESSION["intentos_sesion"] >= $intentos_inicio_sesion) {
     // se bloquea el usuario para iniciar sesion en caso de alcanzar el limite de intentos
-    modeloPrincipal::UpdateSQL("usuario","suspender = 1","id_usuario = $id_usuario");
-    $_SESSION["numero_sesion"]='0';
-    alert_model::alerta_simple('¡Cuenta suspendida!','Su cuenta ha sido suspendida temporalmente por razones de seguridad. Para activar nuevamente, por favor recupere su contraseña.','warning');
+    modeloPrincipal::UpdateSQL("usuario","bloqueado = 1","id_usuario = $id_usuario");
+    $_SESSION["intentos_sesion"] = 0;
+    alert_model::alerta_simple('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada por razones de seguridad. Para activar nuevamente, por favor contacte al administrador del sistema.','warning');
+    exit();
+}
+
+
+$contraseña_usuario = $datos_usuario["contraseña"];
+// se verifica si la contraseña es correcta
+if ($contraseña !== $contraseña_usuario) {
+    $_SESSION['logged_in'] = false; // variable de inicio de sesion
+    $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
+    alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
     exit();
 }
 
@@ -66,11 +70,10 @@ if ($datos_usuario["estado"] == 0) {
     exit();
 }
 
-
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["bloqueado"] == 1) {
-    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta se encuentra bloqueada, por favor contacte al administrador del sistema.','warning');
+    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
@@ -78,7 +81,7 @@ if ($datos_usuario["bloqueado"] == 1) {
 /** se verifica si el usuario esta suspendido: 
  * la cuenta es suspendida luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["suspender"] == 1) {
-    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida debido a tres intentos fallidos de inicio de sesión. Por favor, ve a recuperación de usuario para restablecer el acceso.','warning');
+    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
@@ -87,6 +90,8 @@ if ($datos_usuario["sesion_activa"] == 1) {
     alert_model::alert_reload('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
     $_SESSION['logged_in'] = false;
+    session_unset(); // remueve o elimina las variables de sesion
+    session_destroy(); // Destruye la sesión actual
     exit();
 }
 

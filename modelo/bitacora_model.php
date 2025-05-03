@@ -12,9 +12,10 @@ class bitacora extends model_user {
     
 
     /******funcion para registrar movimientos del sistema en la bitácora  ******/ 
-    public static function bitacora($accion,$mensaje) {
+    public static function bitacora($accion, $mensaje) {
         $fechas = date('Y-m-d H:i:s');
-        $id_usuario = $_SESSION["id_usuario"];
+        $id_usuario = ($_SESSION["id_usuario"]);
+
         if (!$consul = Self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$id_usuario")) {
             die("Ha ocurrido un error al guardar la bitacora");
         }

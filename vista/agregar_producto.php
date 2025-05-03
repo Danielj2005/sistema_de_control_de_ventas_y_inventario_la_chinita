@@ -7,6 +7,10 @@ include_once ("../include/modelos_include.php"); // se incluyen los modelos nece
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+
+model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::verificar_rol('r_productos');
 // se evalua que este rol tenga el acceso a esta vista

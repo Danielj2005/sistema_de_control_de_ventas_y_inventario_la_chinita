@@ -12,6 +12,7 @@ class rol_model extends model_user {
     // funcion para verificar los permisos de un rol
 
     public static function verificar_rol($vista){
+
         $id_rol = self::obtener_id_rol_usuario();
         
         $permiso_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT $vista FROM rol WHERE id_rol = $id_rol"));
@@ -33,7 +34,13 @@ class rol_model extends model_user {
 
     public static function obtener_id_rol_usuario(){
         $id_usuario = $_SESSION["id_usuario"]; // se recibe el id del usuario que inició sesión
-        $id_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario"));
+        $id_rol = modeloPrincipal::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario");
+
+        if (!$id_rol) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se encontró el rol del usuario, por favor verifique e intente nuevamente","error");
+        }
+        
+        $id_rol = mysqli_fetch_array($id_rol);
         return $id_rol['id_rol'];
     }
 

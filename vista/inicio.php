@@ -10,6 +10,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+
 ?>
 
 <!DOCTYPE html>

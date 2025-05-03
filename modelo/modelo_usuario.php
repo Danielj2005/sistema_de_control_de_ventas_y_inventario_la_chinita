@@ -12,28 +12,27 @@ class model_user extends modeloPrincipal {
     /*********************************     CRUD de usuarios         *****************************************/
     /********************************************************************************************************/ 
     
-
     /***************************************************************/
     /******* funciones para consultar datos de los usuarios ********/
     /***************************************************************/
-    public static function consultar_usuario($query) {
-        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario");
+
+    public static function consultar_usuario($fields) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM usuario");
         modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
         return $consul;
     }
 
-    public static function consulta_usuario_id($query,$id_usuario) {
-        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario WHERE id_usuario = '$id_usuario'");
-        modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
+    public static function consulta_usuario_id($fields, $id_usuario) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM usuario WHERE id_usuario = '$id_usuario'");
+        modeloPrincipal::verificar_consulta($consul, 'usuario'); // se verifica si la consulta fue exitosa
         return $consul;
     }
 
-    public static function consulta_usuario_condicion($query,$condition) {
-        $consul = modeloPrincipal::consultar("SELECT $query FROM usuario WHERE $condition");
+    public static function consulta_usuario_condicion($fields,$condition) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM usuario WHERE $condition");
         modeloPrincipal::verificar_consulta($consul,'usuario'); // se verifica si la consulta fue exitosa
         return $consul;
     }
-
 
     public static function consulta_usuario_existe($query,$condition) {
         $consul = modeloPrincipal::consultar("SELECT $query FROM usuario AS U INNER JOIN rol AS R ON U.id_rol = R.id_rol WHERE $condition");
@@ -93,6 +92,30 @@ class model_user extends modeloPrincipal {
     /**************************************************************/ 
     /*       funciones de modificación de datos de los usuarios   */
     /**************************************************************/ 
+
+    public static function actualizar_usuario_logeado ($campos) {
+        
+        $id_usuario = $_SESSION['id_usuario'];
+        
+        $actualizar = modeloPrincipal::UpdateSQL("usuario","$campos","id_usuario = $id_usuario");
+        if (!$actualizar) {
+            alert_model::alert_mod_error();
+            exit();
+        } 
+    
+    }
+
+    public static function actualizar_usuario_por_su_id ($campos, $id_usuario) {
+        
+        $actualizar = modeloPrincipal::UpdateSQL("usuario",$campos,"id_usuario = $id_usuario");
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Error!", "ocurrio un error al realizar la operación de actualizar las características de acceso del usuario.", "error");
+            exit();
+        } 
+        return $actualizar;
+    
+    }
+
     public static function modificar_usuario($id_usuario, $cedula, $nombre, $apellido, $correo, $telefono, $direccion, $id_rol) {
         // se modifica el usuario
         if (modeloPrincipal::UpdateSQL("usuario", "cedula = '$cedula', nombre = '$nombre', apellido = '$apellido', correo = '$correo', telefono = '$telefono', direccion = '$direccion', id_rol = '$id_rol'", "id_usuario = '$id_usuario'")) {
@@ -110,13 +133,13 @@ class model_user extends modeloPrincipal {
         return $cambio_estado;    
     }
     public static function modificar_usuario_bloqueado($id_usuario, $bloqueado) {
-        // se modifica el estado del usuario
-        if (modeloPrincipal::UpdateSQL("usuario", "bloqueado = '$bloqueado'", "id_usuario = '$id_usuario'")) {
-            alert_model::alert_mod_success();
-        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
-            alert_model::alert_mod_error();
-            exit();
+        $bloqueo = modeloPrincipal::UpdateSQL("usuario", "bloqueado = '$bloqueado'", "id_usuario = '$id_usuario'");
+
+        if (!$bloqueo) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo resetear el usuario asegúrese de que su información no haya sido alterada, por favor verifique e intente nuevamente","error");
         }
+        return $bloqueo;
+
     }
     public static function modificar_contraseña($id_usuario, $contraseña) {
         // se modifica la contraseña del usuario
@@ -297,7 +320,9 @@ class model_user extends modeloPrincipal {
 
 
     public static function validar_primer_inicio($id_usuario){
+
         $primer_inicio = Self::obtener_info_personal_usuario("primer_inicio",$id_usuario);
+
         if($primer_inicio == '1'){
             echo "<script type='text/javascript'>
                     window.location.href='./mi_perfil.php';
@@ -328,12 +353,39 @@ class model_user extends modeloPrincipal {
 
     public static function verificar_intento_de_acceso_al_sistema(){
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-            // Redirigir el acceso a la página sino inició de sesión
-            bitacora::intento_de_acceso_al_sistema_de_manera_incorrecta();
-            header('Location: ../index.php');
+            // // Redirigir el acceso a la página sino inició de sesión
+            // bitacora::intento_de_acceso_al_sistema_de_manera_incorrecta()
+            header('Location: ../controlador/salir.php');
             exit();
         }
     }
+
+
+    public static function verificar_primer_inicio(){
+        $id_usuario = $_SESSION['id_usuario'];
+
+        $cedula = self::obtener_info_personal_usuario('cedula',$id_usuario);
+        $cedula = trim($cedula);
+        $cedula = str_ireplace("V", "", $cedula);
+        $cedula = str_ireplace("E", "", $cedula);
+        $cedula = str_ireplace("-", "", $cedula);
+        $cedula = stripslashes($cedula);
+        $cedula = trim($cedula);
+        $cedula = modeloPrincipal::encryption($cedula);
+
+        $contraseña = self::obtener_info_personal_usuario('contraseña',$id_usuario);
+
+        $respuestas = modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
+        $respuestas = mysqli_fetch_array($respuestas);
+
+        foreach ($respuestas as $key){
+            if ($key !== $cedula && $key !== $contraseña) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static function validar_preguntas_de_seguridad($preguntas,$respuestas) {
         

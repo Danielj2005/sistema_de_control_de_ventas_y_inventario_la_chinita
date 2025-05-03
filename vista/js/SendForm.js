@@ -1,10 +1,34 @@
 $(document).ready(function () {
-    var MsjErrorSending = '<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i></div><p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p></div></div>';
-    var MsjSending = '<div class="responseProcess text-white"><div class="container-loader"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><p class="text-center lead text-white">Procesando... Un momento por favor</p></div></div>';
-    
-    var MjProcesando= `<div class="responseProcess text-white bg-dark"><div class="container-loader p-5 d-flex justify-content-center align-items-center">
-                            <div class="loader"></div></div><p class="text-center lead text-white">Procesando... Un momento por favor</p></div>`;
+    SendFormAjax();
+});
 
+function SendFormAjax() {
+    var MsjErrorSending = `<div class="responseProcess text-white">
+                                <div class="container-loader">
+                                    <div class="loader">
+                                        <i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i>
+                                    </div>
+                                    <p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p>
+                                </div>
+                            </div>`;
+
+    var MsjSending = `<div class="responseProcess text-white">
+                        <div class="container-loader">
+                            <div class="loader">
+                                <svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg>
+                            </div>
+                            <p class="text-center lead text-white">Procesando... Un momento por favor</p>
+                        </div>
+                    </div>`;
+    
+    var MjProcesando= `<div class="responseProcess text-white bg-dark">
+                            <div class="container-loader p-5 d-flex justify-content-center align-items-center">
+                                <div class="loader"></div>
+                            </div>
+                            <p class="text-center lead text-white">Procesando... Un momento por favor</p>
+                        </div>`;
+
+    
     $('.SendFormAjax').submit(function (e) {
         e.preventDefault();
         var formData = new FormData(this); // Crea un objeto FormData con los datos del formulario
@@ -23,7 +47,7 @@ $(document).ready(function () {
                 processData: false, // Evita que jQuery procese los datos
                 contentType: false, // Evita que jQuery establezca el tipo de contenido
                 beforeSend: function(){
-                    $('.msjFormSend').html(MsjSending);
+                    $('.msjFormSend').html(MjProcesando);
                 },
                 error: function() {
                     $('.msjFormSend').html(MsjErrorSending);
@@ -106,6 +130,9 @@ $(document).ready(function () {
                     error: function () {
                         $('.msjFormSend').html(MsjErrorSending);
                     },
+                    process: function (){
+                        $('.msjFormSend').html(MjProcesando);
+                    }, 
                     success: function (data) {
                         $('.msjFormSend').html(data);
                     }
@@ -114,4 +141,56 @@ $(document).ready(function () {
             });
         }
     });
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Selecciona el nodo objetivo para observar (por ejemplo, el body)
+    const targetNode = document.body;
+
+    // Opciones de configuración para observar cambios
+    const config = { childList: true, subtree: true };
+
+    // Callback que se ejecuta cuando hay mutaciones en el DOM
+
+    const callback = function(mutationsList, observer) {
+
+        for (let mutation of mutationsList) {
+
+            if (mutation.type === 'childList') {
+
+                mutation.addedNodes.forEach(node => {
+
+                    if (node.nodeType === 1) { // Es un elemento HTML
+
+                        // Aquí puedes comprobar si el nodo coincide con lo que buscas, por ejemplo un modal con una clase o id específico
+
+                        if (node.matches('#update_user_info') || node.querySelector('#update_user_info')) {
+
+                            console.log('¡Se detectó un modal insertado en el DOM!', node);
+                            SendFormAjax();
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+        }
+
+    };
+
+
+    // Crea un observer con el callback
+    const observer = new MutationObserver(callback);
+
+
+    // Empieza a observar el nodo con las configuraciones indicadas
+    observer.observe(targetNode, config);
+
+    // Si alguna vez quieres dejar de observar:
+    // observer.disconnect();
+
 });

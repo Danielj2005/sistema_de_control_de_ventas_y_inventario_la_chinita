@@ -81,7 +81,7 @@ class alert_model {
         // se verifica si la url es diferente a la vista de inicio de sesion
         switch ($url) {
             case 'index':
-                $url = 'index.php';
+                $url = '../index.php';
                 break;
             case 'inicio':
                 $url = './vista/inicio.php';
@@ -118,6 +118,7 @@ class alert_model {
             $(".SendFormAjax")[0].reset();
         </script>';
     }
+
     public static function alert_reg_error(){
         echo '<script type="text/javascript">
             swal({
@@ -128,6 +129,7 @@ class alert_model {
             });
         </script>';
     }
+
     public static function alert_mod_success(){
         echo '<script type="text/javascript">
             swal({
@@ -157,6 +159,7 @@ class alert_model {
             });
         </script>';
     }
+
     public static function alert_error($title,$text){
         echo '<script type="text/javascript">
             swal({

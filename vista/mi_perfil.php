@@ -1,8 +1,11 @@
 <?php 
 session_start();
-// importacion de la conexion a la base de datos y al modelo de usuario
+
+// importacion de la conexion a la base de datos y al modelo principal
 
 include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -140,14 +143,6 @@ model_user::verificar_intento_de_acceso_al_sistema();
         </div>
       </div>
     </div>
-    <!-- lógica de los modales -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
     <script src="./js/modal.js"></script>
 
     <?php include_once("../include/footer.php"); ?>
@@ -158,7 +153,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
         setTimeout(() => {
           swal({
               title: '¡Atención!',
-              text: 'Debes configurar tus preguntas de seguridad, para poder cambiar tu contraseña en caso de que se te olvide o bloqueo.',
+              text: 'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
               type: 'warning',
               confirmButtonColor: '#10478e',
               confirmButtonText: 'Aceptar'
@@ -171,7 +166,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <?php 
       include_once("../include/scripts_include.php");
     
-      if(model_user::obtener_info_personal_usuario('primer_inicio', 'usuario') == '1'){
+      if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){
         echo "<script type='text/javascript'>
                 primer_inicio_de_usuario();
             </script>";

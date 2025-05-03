@@ -1,11 +1,10 @@
 <?php 
 // importacion de la conexion a la base de datos y al modelo principal
 include_once("../modelo/modeloPrincipal.php");
-
 /*------- función para mostrar los registros de una tabla -------*/
 function consultar_registros($tabla){
-    $id_usuario = $_SESSION['user_id'];
         
+    $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario que inicio sesion
     // se consultan los registros dependiendo de la tabla
     if ($tabla === "categoria") {
         // script para crear una lista de categorias
@@ -76,22 +75,22 @@ function consultar_registros($tabla){
                 <th><?= $mostrar["apellido"]; ?></th>
                 <th><?= $mostrar["telefono"]; ?></th>
                 <th scope="col" class="col text-center">
-                    <buttom btn="modificar" <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> value="<?= $mostrar["id_usuario"]; ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
+                    <buttom 
+                        modal="modificar" 
+                        <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
+                        value="<?= $mostrar["id_usuario"]; ?>" 
+                        class="btn_modal btn btn-warning bi bi-gear">
+                    </buttom>
                 </th>
                 <th scope="col" class="col text-center">
-                    <?php if ($mostrar["estado"] === "1") { ?>
-                        
-                        <button <?= rol_model::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> class="btn btn-success" title="estado del usuario">
-                            <i class="zmdi zmdi-check"></i> Activo 
-                        </button>
-                    
-                    <?php }else if ($mostrar["estado"] === "0") { ?>
+                        <button <?= rol_model::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> 
 
-                        <button <?= rol_model::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> class="btn btn-danger">
-                            <i class="zmdi zmdi-close"></i> Inactivo 
+                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success' : 'btn-danger' ?>" > 
+                                
+                                <i class="zmdi <?= ($mostrar["estado"] === "1") ? 'zmdi-check' : 'zmdi-close' ?>"></i> 
+
+                                <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
                         </button>
-                    
-                    <?php } ?>
                 </th>
             </tr>
         <?php }
@@ -228,4 +227,5 @@ function consultar_registros($tabla){
     <?php }
     }
 }; 
+
 /*------- fin de la función -------*/

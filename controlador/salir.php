@@ -14,6 +14,7 @@ $id_usuario = $_SESSION["id_usuario"];
 
 model_user::modificar_sesion_usuario($id_usuario, '0'); // se modifica el estado de la sesion activa/inactiva del usuario
 
+$_SESSION['logged_in'] = false;
 session_unset(); // remueve o elimina las variables de sesion
 session_destroy(); // Destruye la sesión actual
 header("location: ../index.php");

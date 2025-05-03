@@ -29,8 +29,6 @@
 <!-- cerrar sesion -->
 <script src="./js/cerrar_sesion.js"></script>
 
-<!-- cambio de vista en el menu del perfil de usuario -->
-<script src="./js/menu_perfil_opciones.js"></script>
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -44,7 +42,6 @@
 <script src="assets/js/main.js"></script>
 
 <!-- datatable js files -->
-
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="./js/datatables.min.js"></script>
 <script src="js/dataTables.bootstrap5.min.js"></script>
@@ -67,6 +64,7 @@
         } ).draw();
         
     } );
+    
     function dataTable(){
 
         $(document).ready(function() {
