@@ -144,7 +144,11 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
     <?php   
       include_once("../include/footer.php");
-      include_once("../include/scripts_include.php"); ?>
+      include_once("../include/scripts_include.php");
+
+      config_model::verificar_actualizacion_configuracion(); 
+
+      ?>
       
     <script src="./js/detalles_listas.js"></script>
     <script src="./js/priceDollar.js"></script>

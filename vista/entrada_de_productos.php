@@ -50,14 +50,17 @@ if ($rol >= 1 && $rol <= 3) {
             
             <div class="col-lg-12">
               <div class="card top-selling ">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a type="button" class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_entrada') == 1 ? 'registrar_entrada.php' : 'entrada_de_productos.php' ?>">Registrar Nueva Entrada</a>
+                <div class="row text-center p-2 align-items-center">
+							
+                  <div class="col-12 col-sm-12 col-md-6 mb-2">
+                    <a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_entrada') == 1 ? 'registrar_entrada.php' : 'entrada_de_productos.php' ?>">Registrar Nueva Entrada</a>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a class="col-12 btn btn-primary" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de Entradas</a>
+
+                  <div class="col-12 col-sm-12 col-md-6 mb-2">
+                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de Entradas</a>
                   </div>
                 </div>
+                <hr>
                 <div class="card-body pb-3">
                   <h5 class="card-title">Lista de Entradas</h5>
                   <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
@@ -160,7 +163,11 @@ if ($rol >= 1 && $rol <= 3) {
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php");
+
+        config_model::verificar_actualizacion_configuracion(); 
+
+        ?>
         
       <script src="./js/rango_fechas.js"></script>
     </body>

@@ -79,22 +79,7 @@ class alert_model {
 
     public static function alert_redirect ($title, $text, $type, $url) {
         // se verifica si la url es diferente a la vista de inicio de sesion
-        switch ($url) {
-            case 'index':
-                $url = '../index.php';
-                break;
-            case 'inicio':
-                $url = './vista/inicio.php';
-                break;
-            case 'recuperar':
-                $url = 'recuperar.php';
-                break;
-            case 'mi_perfil':
-                $url = './vista/mi_perfil.php';
-                break;
-            default:
-                $url = 'index.php';
-        }
+        
         self::alerta_condicional($title, $text, $type, "window.location = '".$url."';");
         
     }

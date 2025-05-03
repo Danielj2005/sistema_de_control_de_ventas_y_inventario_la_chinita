@@ -43,14 +43,26 @@ if ($rol >= 1 && $rol <= 4) {  ?>
           <div class="row">
             <div class="col-12">
               <div class="card top-selling">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a type="button" class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_proveedores') == 1 ? 'registrar_proveedores.php' : 'proveedor.php' ?>">Registrar Proveedor</a>
+                <div class="row p-2 text-center">
+                  
+                  <div class="col-12 col-sm-12 col-md-6 mb-3">
+                    <a class="col-12 btn btn-success" 
+                      href="./<?= rol_model::verificar_rol('r_proveedores') == 1 ? 'registrar_proveedores.php' : 'proveedor.php' ?>">
+                        Registrar Proveedor
+                    </a>
                   </div>
+
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
-                    <a class="col-12 btn btn-primary" target="_blank" href="./reportes/lista_proveedores.php">Exportar Lista de Proveedores</a>
+                    <a class="col-12 btn btn-secondary" 
+                      target="_blank" 
+                      href="./reportes/lista_proveedores.php">
+                        Exportar Lista de Proveedores
+                    </a>
                   </div>
                 </div>
+
+                <hr>
+
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Proveedores</h5>
                   
@@ -139,8 +151,12 @@ if ($rol >= 1 && $rol <= 4) {  ?>
 
       <?php   
         include_once("../include/footer.php");  
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php"); 
+        
+        config_model::verificar_actualizacion_configuracion(); ?>
+      
       <script>
+        
         function asignar_id_proveedor(id_proveedor){
           let proveedor = document.getElementById(`id_proveedor__${id_proveedor}`).value;
           document.getElementById('id_proveedor_modificar').value = proveedor;
@@ -154,6 +170,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
             
           }
         }
+        
       </script>
       
       <script src="./js/detalles_listas.js"></script>

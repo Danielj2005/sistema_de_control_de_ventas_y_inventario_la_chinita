@@ -103,7 +103,10 @@ if ($rol == 1) {  ?>
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php");
+        config_model::verificar_actualizacion_configuracion(); 
+
+        ?>
     </body>
   </html>
 <?php }else{

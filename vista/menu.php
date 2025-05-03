@@ -41,15 +41,15 @@ if ($rol >= 1 && $rol <= 3) { ?>
           <div class="row">
             <div class="col-12">
               <div class="card top-selling">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-12 mb-3 row m-0">
+                <div class="row p-4 text-center">
+                  <div class="col-12 col-sm-12 col-md-12 mb-2 row m-0">
                     <a type="button" class="col-12 btn btn-success" href="<?= rol_model::verificar_rol('r_servicio') == '1' ? './agregar_servicio.php' : './menu.php'?>">Añadir Nuevo Servicio</a>
                   </div>
-                  <div class="d-none col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                  <div class="d-none col-12 col-sm-12 col-md-6 mb-2 row m-0">
                     <a class="col-12 btn btn-primary" target="_blank" href="./reportes/menu.php">Exportar Menú</a>
                   </div>
                 </div>
-
+                <hr>
                 <div class="card-body pb-3">
                   <h5 class="card-title">Lista de servicios</h5>
                   <table class="table table-striped table-responsive datatable" id="example">
@@ -100,7 +100,11 @@ if ($rol >= 1 && $rol <= 3) { ?>
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php");
+
+				config_model::verificar_actualizacion_configuracion(); 
+		
+				?>
     </body>
   </html>
 <?php }else{

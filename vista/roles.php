@@ -32,7 +32,7 @@ if ($rol >= 1 && $rol <= 3) {
 				include_once("../include/css_include.php"); ?>
 		</head>
 		<body>
-      
+	
 			<?php 
 				// se incluye el header / encabezado a la vista
 				include_once("../include/header.php");
@@ -111,7 +111,7 @@ if ($rol >= 1 && $rol <= 3) {
 					</div>
 				</section>
 			</main>
-      
+			
 			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-xl">
 					<form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
@@ -141,8 +141,9 @@ if ($rol >= 1 && $rol <= 3) {
 				include_once("../include/footer.php");
 
 				// se incluyen los script de javascript a la vista 
-				include_once("../include/scripts_include.php");
-			?>
+				include_once("../include/scripts_include.php"); 
+        
+				config_model::verificar_actualizacion_configuracion(); ?>
 		</body>
 	</html>
 <?php }else{

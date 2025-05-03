@@ -28,7 +28,9 @@ model_user::verificar_intento_de_acceso_al_sistema();
       include_once("../include/header.php"); 
       include_once("../include/sliderbar.php"); ?>
     <main id="main" class="main">
-      <div class="pagetitle"><h1>Mi Perfil</h1></div>
+      <div class="pagetitle">
+        <h1> Mi Perfil </h1>
+      </div>
       <section class="section dashboard">
         <div class="row">
           <div class="col-lg-12">
@@ -149,18 +151,6 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <!-- ======= Scripts ======= -->
     <script>
       // función para alerta de configuración de preguntas secretas.
-      function primer_inicio_de_usuario() {
-        setTimeout(() => {
-          swal({
-              title: '¡Atención!',
-              text: 'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
-              type: 'warning',
-              confirmButtonColor: '#10478e',
-              confirmButtonText: 'Aceptar'
-          });
-          
-        }, 300);
-      }
     </script>
 
     <?php 
@@ -168,9 +158,21 @@ model_user::verificar_intento_de_acceso_al_sistema();
     
       if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){
         echo "<script type='text/javascript'>
-                primer_inicio_de_usuario();
+                setTimeout(() => {
+                  swal({
+                      title: '¡Atención!',
+                      text: 'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
+                      type: 'warning',
+                      confirmButtonColor: '#10478e',
+                      confirmButtonText: 'Aceptar'
+                  });
+                  
+                }, 300);
             </script>";
       }
+      
+      config_model::verificar_actualizacion_configuracion(1); 
+
     ?>
   </body>
 </html>

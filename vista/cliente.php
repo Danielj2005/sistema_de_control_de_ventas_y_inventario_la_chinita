@@ -38,11 +38,10 @@ if ($rol >= 1 && $rol <= 3) {  ?>
           <div class="row">
             <div class="col-12">
               <div class="card top-selling">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-12 mb-3 row m-0">
-                    <a target="_blank" href="./reportes/lista_clientes.php" class="col-12 btn btn-success">Exportar Lista de Clientes</a>
-                  </div>
+                <div class="row p-4 mb-3">
+                  <a target="_blank" href="./reportes/lista_clientes.php" class="btn btn-secondary">Exportar Lista de Clientes</a>
                 </div>
+                <hr>
                 <div class="card-body pb-3">
                   <div class="table table-responsive" id="table">
                     <h5 class="card-title">Lista de Clientes</h5>
@@ -80,7 +79,10 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 
       <?php 
         include_once("../include/footer.php"); 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php"); 
+        config_model::verificar_actualizacion_configuracion(); 
+
+        ?>
       <script src="./js/detalles_listas.js"></script>
     </body>
   </html>

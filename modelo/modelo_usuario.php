@@ -78,7 +78,7 @@ class model_user extends modeloPrincipal {
 
     public static function insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol){
 
-        if (modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio ,id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 1, $id_rol, 1")) {
+        if (modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio, parametros_actualizados, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 0, 1, $id_rol, 1")) {
             self::asignar_preguntas_seguridad_usuario();
             self::bitacora_registro_nuevo_usuario($nombre, $apellido);
             alert_model::alert_reg_success();
@@ -430,7 +430,6 @@ class model_user extends modeloPrincipal {
         modeloPrincipal::validacion_registro_existente($campos,$tabla,$condicion);
 
     }
-
 
     /**********************************************************************************/
     /********************** funciones obtener datos de un usuario  ********************/

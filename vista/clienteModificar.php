@@ -87,7 +87,10 @@ if ($rol == 1) {  ?>
       </main>
       <?php 
         include_once("../include/footer.php"); 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php");
+        config_model::verificar_actualizacion_configuracion(); 
+
+        ?>
     </body>
   </html>
 <?php }else{

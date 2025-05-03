@@ -42,20 +42,25 @@ if ($rol >= 1 && $rol <= 4) {
           <div class="row">
             <div class="col-12">
               <div class="card top-selling pb-3">
-                <div class="row btn-group text-center">
-                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <a class="col-12 btn btn-primary" <?= rol_model::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
+                <div class="row p-2 text-center">
+
+                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
+                    <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
+
+                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
                     <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_categoria') == 1 ? 'href="./categoria_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Categoría</a>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
-                    <button class="col-12 btn btn-info text-white" <?= rol_model::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
+
+                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
+                    <button class="col-12 btn btn-success text-white" <?= rol_model::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
                   </div>
-                  <div class="col-12 col-sm-12 col-md-3 mb-3 row m-0">
+
+                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
                   </div>
                 </div>
+                <hr>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Productos</h5>
                   <div class="table table-responsive">
@@ -124,7 +129,10 @@ if ($rol >= 1 && $rol <= 4) {
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php"); ?>
+        include_once("../include/scripts_include.php"); 
+        
+        config_model::verificar_actualizacion_configuracion(); ?>
+      
     </body>
   </html>
 <?php }else{

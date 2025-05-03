@@ -109,7 +109,7 @@ $fecha_ultima_sesion = date('Y-m-d H:i:s');
 if ($datos_usuario["primer_inicio"] == 1) {
     bitacora::login(); // se registra el inicio de sesión en la bitácora
     model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
-    alert_model::alert_redirect('¡Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','mi_perfil');
+    alert_model::alert_redirect('¡Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','./vista/mi_perfil.php');
     exit();
 }
 
@@ -119,6 +119,6 @@ bitacora::login(); // se registra el inicio de sesión en la bitácora
 // se actualiza el estado de la sesión del usuario a activa
 model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
 
-alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','inicio');
+alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','./vista/inicio.php');
 mysqli_free_result($selectUser);
 exit();
