@@ -130,11 +130,11 @@ if($modulo == "detalles_venta"){
     </div>
     <div class="modal-footer ">
         <div class="">
-            <form  target="_blank" action="./<?= modeloPrincipal::verificar_rol('f_venta') == 1 ? 'reportes/factura_cliente.php' : 'venta.php' ?>" method="post" class="text-center">
+            <form  target="_blank" action="./<?= rol_model::verificar_rol('f_venta') == 1 ? 'reportes/factura_cliente.php' : 'venta.php' ?>" method="post" class="text-center">
                 <input type="hidden" name="id_venta" value="<?= $datos_cliente["id_venta"]; ?>">
                 <input type="hidden" name="id_usuario" value="<?= $datos_cliente["id_usuario"]; ?>">
                 <input type="hidden" name="id_cliente" value="<?= $datos_cliente["id_cliente"]; ?>">
-                <button type="submit" class="btn btn-info bi bi-eye" <?= modeloPrincipal::verificar_rol('f_venta') == 1 ? '' : 'disabled' ?>>&nbsp; Ver Factura</button>
+                <button type="submit" class="btn btn-info bi bi-eye" <?= rol_model::verificar_rol('f_venta') == 1 ? '' : 'disabled' ?>>&nbsp; Ver Factura</button>
             </form>
 
         </div>
@@ -348,17 +348,17 @@ if ($modulo == "historial_cliente"){
                         while ( $mostrar = mysqli_fetch_array($historial_cliente)) { ?>    
                             <tr>
                                 <td class="text-center col"> </td>
-                                <td class="text-center col">#<?= modeloPrincipal::generar_numero($mostrar['id_venta']); ?></td>
+                                <td class="text-center col">#<?= venta_model::generar_numero($mostrar['id_venta']); ?></td>
                                 <td class="text-center col"><?= $mostrar["monto_total_dolares"].' $'; ?></td>
                                 <td class="text-center col"><?= $mostrar["monto_total_bolivares"].' bs'; ?></td>
                                 <td class="text-center col"><?= $mostrar["fecha_venta"]; ?></td>
 
                                 <td scope='col' class="text-center col">
-                                    <form <?= modeloPrincipal::verificar_rol('f_cliente') == '1' ?  'action="./reportes/factura_cliente.php" target="_blank"' : 'action="./cliente.php " target="_blank"' ?> method="post" class="text-center">
+                                    <form <?= rol_model::verificar_rol('f_cliente') == '1' ?  'action="./reportes/factura_cliente.php" target="_blank"' : 'action="./cliente.php " target="_blank"' ?> method="post" class="text-center">
                                         <input type="hidden" name="id_venta" value="<?= $mostrar["id_venta"]; ?>">
                                         <input type="hidden" name="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
                                         <input type="hidden" name="id_cliente" value="<?= $id; ?>">
-                                        <button type="submit" class="btn btn-info bi bi-eye" <?= modeloPrincipal::verificar_rol('f_cliente') == '1' ?  '' : 'disabled' ?>></button>
+                                        <button type="submit" class="btn btn-info bi bi-eye" <?= rol_model::verificar_rol('f_cliente') == '1' ?  '' : 'disabled' ?>></button>
                                     </form>
                                 </td>
                             </tr>

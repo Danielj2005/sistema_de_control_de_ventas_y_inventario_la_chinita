@@ -16,7 +16,6 @@ modeloPrincipal::validar_campos_vacios([$usuario, $contraseña]);
 /** verificación del captcha enviado por el usuario */
 
 $captcha = intval($_SESSION['captcha']); // captcha recibido desde la vista de inicio de sesión
-
 $respuesta_captcha = intval($_POST['respuesta_captcha']); // captcha enviado por el usuario
 
 // se verifica que se esté recibiendo la respuesta del captcha
@@ -30,8 +29,10 @@ if ($respuesta_captcha !== $captcha) {
     alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente','error');
     exit();
 }
+
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
 $selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario","U.correo = '$usuario'");
+
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
 
@@ -46,7 +47,7 @@ if(mysqli_num_rows($selectUser) == 0){
 }
 
 // se verifica si el numero de intentos de inicio de sesión es igual, a 3
-if ($_SESSION["intentos_sesion"] >= $intentos_inicio_sesion) {
+if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
     // se bloquea el usuario para iniciar sesion en caso de alcanzar el limite de intentos
     modeloPrincipal::UpdateSQL("usuario","bloqueado = 1","id_usuario = $id_usuario");
     $_SESSION["intentos_sesion"] = 0;
@@ -56,9 +57,9 @@ if ($_SESSION["intentos_sesion"] >= $intentos_inicio_sesion) {
 
 
 $contraseña_usuario = $datos_usuario["contraseña"];
+
 // se verifica si la contraseña es correcta
 if ($contraseña !== $contraseña_usuario) {
-    $_SESSION['logged_in'] = false; // variable de inicio de sesion
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
     alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
     exit();
@@ -73,15 +74,15 @@ if ($datos_usuario["estado"] == 0) {
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["bloqueado"] == 1) {
-    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
 
 /** se verifica si el usuario esta suspendido: 
- * la cuenta es suspendida luego de tres intentos fallidos de inicio de sesión */
+ * la cuenta es suspendida cuando se modifica su permiso para el inicio de sesión */
 if ($datos_usuario["suspender"] == 1) {
-    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
@@ -89,7 +90,6 @@ if ($datos_usuario["suspender"] == 1) {
 if ($datos_usuario["sesion_activa"] == 1) {
     alert_model::alert_reload('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
-    $_SESSION['logged_in'] = false;
     session_unset(); // remueve o elimina las variables de sesion
     session_destroy(); // Destruye la sesión actual
     exit();
@@ -109,10 +109,9 @@ $fecha_ultima_sesion = date('Y-m-d H:i:s');
 if ($datos_usuario["primer_inicio"] == 1) {
     bitacora::login(); // se registra el inicio de sesión en la bitácora
     model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
-    alert_model::alert_redirect('¡Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','./vista/mi_perfil.php');
+    alert_model::alert_redirect('¡Bienvenido!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','./vista/mi_perfil.php');
     exit();
 }
-
 
 bitacora::login(); // se registra el inicio de sesión en la bitácora
 

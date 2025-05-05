@@ -28,7 +28,7 @@ btn_enviar.addEventListener('click', (e) => {
         type: "post",
         dataType: "json",
         success:function(valores){
-            // Check if the response is valid JSON
+            
             console.log(valores.usuario_bloqueado);
 
             if (valores.usuario_bloqueado == 1) {

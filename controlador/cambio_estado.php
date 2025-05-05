@@ -41,7 +41,16 @@ if ($modulo == "activo"){
 
     if(modeloPrincipal::UpdateSQL("$tabla","".$estado[$tabla]." = '0'", "".$id_tablas[$tabla]." = '$id'")){
         // se guarda en bitacora el registro de un servicio 
-        modeloPrincipal::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Inactivo");
+        bitacora::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\n
+        Nombre del platillo: $existe_platillo_nombre_platillo \n
+        Precio en dolares: $existe_platillo_precio_dolar$ \n
+        Descripción: $existe_platillo_descripcion. \n
+        Estado: Activo \n\n\n
+        Información del servicio actualizada: \n\n
+        Nombre del platillo: $existe_platillo_nombre_platillo \n
+        Precio en dolares: $existe_platillo_precio_dolar$ \n
+        Descripción: $existe_platillo_descripcion. \n
+        Estado: Inactivo");
         
         echo '<script type="text/javascript">
                 swal({ 
@@ -75,7 +84,16 @@ if ($modulo == "activo"){
 if ($modulo == "inactivo"){
 
     if(modeloPrincipal::UpdateSQL("$tabla","".$estado[$tabla]." = '1'", "".$id_tablas[$tabla]." = '$id'")){
-        modeloPrincipal::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: Activo");
+        bitacora::bitacora("Cambio de estado de un servicio","El usuario cambió el estado del servicio con la siguiente información: \n\n
+        Nombre del platillo: $existe_platillo_nombre_platillo \n
+        Precio en dolares: $existe_platillo_precio_dolar$ \n
+        Descripción: $existe_platillo_descripcion. \n
+        Estado: Inactivo \n\n
+        Información del servicio actualizada: \n\n
+        Nombre del platillo: $existe_platillo_nombre_platillo \n
+        Precio en dolares: $existe_platillo_precio_dolar$ \n
+        Descripción: $existe_platillo_descripcion. \n
+        Estado: Activo");
         
         echo '<script type="text/javascript">
                 swal({ 

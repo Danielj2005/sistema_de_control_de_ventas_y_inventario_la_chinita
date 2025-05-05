@@ -136,5 +136,21 @@ class config_model extends modeloPrincipal {
             }
         }
     }
+    
 
+
+
+// Ejemplo de uso (reemplaza estos valores)
+
+// $backupPath = backupDatabase('localhost', 'usuario', 'clave', 'basededatos');
+
+// if($backupPath) {
+
+//     echo "Respaldo creado en: $backupPath";
+
+// } else {
+
+//     echo "Error al crear respaldo";
+
+// }
 }

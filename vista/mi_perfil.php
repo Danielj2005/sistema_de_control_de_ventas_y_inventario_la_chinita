@@ -38,7 +38,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-body pb-3">
-                    <div class="mi_informacion_container col-10 col-lg-12 my-3">
+                    <div class="mi_informacion_container col-12 col-lg-12 my-3">
                       <fieldset class="row mb-3">
                           <legend class="col-12 col-sm-12"><i class="bi bi-person"></i> &nbsp;Información personal</legend>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
@@ -90,13 +90,13 @@ model_user::verificar_intento_de_acceso_al_sistema();
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                                 <label class="control-label">Nombre de Usuario</label>
-                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="form-control" value="<?= modeloPrincipal::ocultar_info(model_user::obtener_info_personal_usuario('correo',$id_usuario)); ?>" id="nombre_usuario" name="nombre_usuario" readOnly="true" maxlength="30">
+                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= modeloPrincipal::ocultar_info(model_user::obtener_info_personal_usuario('correo',$id_usuario)); ?>" id="nombre_usuario" name="nombre_usuario" readOnly="true" maxlength="30">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Tipo de Usuario</label>
-                                  <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="form-control" value="<?= model_user::obtener_info_personal_usuario('id_rol',$id_usuario); ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">
+                                  <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('id_rol',$id_usuario); ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">
                               </div>
                           </div>
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
@@ -171,6 +171,8 @@ model_user::verificar_intento_de_acceso_al_sistema();
             </script>";
       }
       
+      model_user::validar_sesion_activa($id_usuario);
+
       config_model::verificar_actualizacion_configuracion(1); 
 
     ?>

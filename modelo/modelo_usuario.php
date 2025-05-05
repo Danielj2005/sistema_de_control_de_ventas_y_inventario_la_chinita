@@ -333,11 +333,10 @@ class model_user extends modeloPrincipal {
 
     public static function validar_sesion_activa($id_usuario){
         $sesion_activa = Self::obtener_info_personal_usuario("sesion_activa",$id_usuario);
-        if($sesion_activa == '1'){
-            echo "<script type='text/javascript'>
-                    window.location.href='./vista/inicio.php';
-                </script>";
-            exit(); // Added exit() to terminate the script after redirection
+        if($sesion_activa == '0'){
+            modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
+            alert_model::alert_redirect('¡Sesión activa detectada!', 'Se ha detectado un intento de inicio de sesión desde otro dispositivo asociado a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning', '../controlador/salir.php');
+            exit();
         }
     }
     

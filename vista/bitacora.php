@@ -81,8 +81,9 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
+
       <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-dialog modal-dialog-scrollable ">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Detalles de la bitácora</h5>
@@ -98,13 +99,15 @@ if ($rol == 1) {  ?>
           </div>
         </div>
       </div>
-      <!-- modal modificar -->
+
+      <!-- modal -->
       <script src="./js/modal.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php");
+        
         config_model::verificar_actualizacion_configuracion(); 
 
         ?>

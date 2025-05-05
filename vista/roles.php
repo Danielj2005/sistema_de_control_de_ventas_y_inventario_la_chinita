@@ -90,10 +90,10 @@ if ($rol >= 1 && $rol <= 3) {
 												<th class="text-center col" scope="col"></th>
 												<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
 												<th class="text-center col" scope="col">
-												<button modal="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+													<button modal="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
 												</th>
 												<th class="text-center col" scope="col">
-												<button modal="modificar_rol_usuario" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
+													<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
 												</th>
 												<th class="text-center col" scope="col">
 												<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">

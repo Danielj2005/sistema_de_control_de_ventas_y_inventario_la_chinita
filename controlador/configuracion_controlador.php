@@ -3,7 +3,7 @@ session_start();
 
 include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-if (!isset($_POST["modulo"]) || $_POST['modulo'] !== "Guardar") {
+if (!isset($_POST["modulo"]) || $_POST['modulo'] == "") {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud, asegurese de no alterar la información del sistema","error");
     exit();
 }
@@ -16,7 +16,6 @@ $id_usuario = $_SESSION['id_usuario'];
 // modulo para Modificar configuración del sistema
 if($modulo === "Guardar"){
     
-    echo 'pe <br>';
     /*------------------ datos de la configuración del sistema ------------------*/
     $c_preguntas = intval(modeloPrincipal::limpiar_cadena($_POST["c_preguntas"]));
     $tiempo_inactividad = intval(modeloPrincipal::limpiar_mayusculas($_POST["tiempo_inactividad"]));
@@ -120,4 +119,64 @@ if($modulo === "Guardar"){
         exit();
     }
     
+}
+
+
+// modulo para crear una copia de seguridad de la base de datos del sistema
+if($modulo === "backup"){
+    
+    /*** Función para hacer respaldo de una base de datos MySQL            */
+
+    function backupDatabaseLaragon($host, $user, $password, $dbname, $backupDir) {
+        // Verificar que la ruta backupDir es absoluta y existe (o crearla)
+        if (!is_dir($backupDir)) {
+            if (!mkdir($backupDir, 0755, true)) {
+                echo "No se pudo crear el directorio de backup: $backupDir\n";
+                return false;
+            }
+        }
+
+        $date = date('d-m-Y - h-i-a'); // obtenemos la fecha de exportacion
+    
+        // Asegurar que backupDir termina sin barra inversa final
+        $backupDir = rtrim($backupDir, DIRECTORY_SEPARATOR);
+        $backupFile = $backupDir . DIRECTORY_SEPARATOR . "backup_{$dbname}_{$date}.sql";
+    
+        // Ruta al mysqldump.exe en Laragon - AJUSTAR según tu instalación
+        $mysqldumpPath = 'C:\\laragon\\bin\\mysql\\mysql-8.0.30-winx64\\bin\\mysqldump.exe';
+        // Componer comando. 
+        // En Windows, para que redirección > funcione con exec, es mejor usar cmd /c
+        // Construir comando
+        $command = "cmd /c \"\"{$mysqldumpPath}\" --user={$user} --password={$password} --host={$host} {$dbname} > \"{$backupFile}\"\"";
+    
+        exec($command, $output, $returnVar);
+
+        if ($returnVar !== 0) {
+            return false;
+        }
+    
+        if (file_exists($backupFile)) {
+            return $backupFile;
+        } else {
+            return false;
+        }
+    
+    }
+    
+    // Ejemplo de uso - Ajusta la ruta a donde quieres guardar el backup (ruta absoluta)
+    
+    $backupDir = 'C:\\laragon\\www\\sistema_de_control_de_ventas_y_inventario_la_chinita\\bd_backups';
+    
+    $backupPath = backupDatabaseLaragon(SERVER, USER, PASSWORD, DB, $backupDir);
+    
+    if ($backupPath === false) {
+        alert_model::alerta_simple("¡Ocurrio un error!","Ha ocurrido un error al crear un respaldo de la base de datos del sistema","error");
+        exit();
+    } else {
+        alert_model::alerta_simple("Respaldo creado exitosamente!","Se ha creado un respaldo de la base de datos del sistema, Respaldo guardado en la carpeta 'bd_backups' del sistema","success");
+        bitacora::bitacora("Copia de seguridad creada exitosamente","El usuario a creado una copia de segurida de la base de datos del sistema.");
+        exit();
+    }
+
+
 }

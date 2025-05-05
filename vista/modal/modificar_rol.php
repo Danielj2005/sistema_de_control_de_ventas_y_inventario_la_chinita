@@ -23,7 +23,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
 
 ?>
 
-<div class="container-fluid row mb-3 p-3 justify-content-around">
+<div class="container-fluid row mb-3 p-3 justify-content-around" id="SendForm">
     <input type="hidden" value="<?= $id_rol ?>" name="id_rol">
     <input type="hidden" value="<?= $permisos['estado'] ?>" name="estado_rol">
     <input type="hidden" value="<?= $nombre ?>" name="nombre_rol">

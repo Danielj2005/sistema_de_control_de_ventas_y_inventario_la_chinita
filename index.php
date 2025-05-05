@@ -22,7 +22,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
 	<body>
-		<div class="row justify-content-center m-0">
+		<div class="row justify-content-center">
 
 			<!-- galeria de imagenes -->
 			<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
@@ -53,8 +53,8 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 			</div>
 
 			<!-- fomulario de inicio de sesión -->
-			<div class="col-12 position-absolute row justify-content-center">
-				<div class="col-10 col-sm-6 col-md-6 glassmorph m-5 p-3 pt-4 rounded-4">
+			<div class="col-12 position-absolute row justify-content-center align-items-center">
+				<div class="col-12 col-sm-6 col-md-6 glassmorph p-3 pt-2 rounded-4">
 					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
 						<div class="row justify-content-center">
 							<div class="col-12 avatar text-center mb-3">
@@ -76,28 +76,29 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 
 									<input type="password" class="p-1 input__field passw form-control" id="pswd" name="contraseña" placeholder="Ingresa tu contraseña">
 									
-									<span class="input-group-text btn btn-secondary">
-										<i class="bi bi-eye input__icon" id="eyeIcon"></i>
-									</span>
+									<button class="input-group-text btn btn-secondary" id="eyeIcon" >
+										<i class="bi bi-eye input__icon"></i>
+									</button>
 								</div>
 							</div>
-							
 							<!-- Captcha de seguridad -->
-							<div class="card col-6 mb-2 text-center border-dark">
+							<div class="card text-center p-0 border-dark col-12 col-md-6">
 								<div class="card-header">
-									<p class="card-title">Ingresa el captcha: <?= $_SESSION['numero_1']." + ".$_SESSION['numero_2'] ?></p>
+									<p class="card-title">Ingresa el captcha: </p>
+									<p class="card-title"><?= $_SESSION['numero_1']." + ".$_SESSION['numero_2'] ?></p>
 								</div>
 								<div class="card-footer">
 									<input type="text" id="respuesta_captcha" name="respuesta_captcha" autocomplete="off" min="1" pattern="[0-9]{1,20}" required class="d-block text-center w-100 border border-2 border-dark rounded-3">
 								</div>
 							</div>
-							<div class="row mb-4">
+							<div class="row col-12 mb-4 m-0 text-center justify-content-center">
 								<div class="col-12 mb-3 text-center">
 									<button type="submit" class="btn btn-primary btn-md mt-4 mx-4">iniciar sesión</button>
 								</div>
-								<div class="col-12 mb-3 text-center">
+								<div class="col-12 col-md-6 mb-3 text-center">
 									<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
-										¿Problemas para iniciar sesión? Recupera tu acceso
+										¿Problemas para iniciar sesión?<br>
+										Recupera tu acceso
 									</button>
 								</div>
 							</div>

@@ -9,7 +9,7 @@ $precio_dolar_actual = $_SESSION['dolar'];
 $servicios = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM menu WHERE id_menu = $id_menu"));
 
 ?>
-<div class="card-body p-3">
+<div class="card-body p-3" id="SendForm">
     <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
     <input type="hidden" name="modulo" value="Modificar">    
     <input type="hidden" value="<?= $id_menu ?>" name="id_menu">

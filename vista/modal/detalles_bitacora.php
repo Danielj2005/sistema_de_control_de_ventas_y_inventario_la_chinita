@@ -9,6 +9,6 @@ $mensaje = $bitacora['mensaje'];
 
 ?>
 <div class="col-12 col-sm-12 col-md-12">
-    <h4 class="text-decoration-underline">Mensaje:</h4>
+    <h6 class="text-decoration-underline">Mensaje:</h6>
     <p><?= $mensaje; ?></p>
 </div>

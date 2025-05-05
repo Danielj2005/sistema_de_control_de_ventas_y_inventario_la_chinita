@@ -40,6 +40,14 @@ if ($rol >= 1 && $rol <= 6) {
           <h1>
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver</a>
             Configuración del sistema
+            <form id="backUp" action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="load">
+              <input type="hidden" name="modulo" id="input" class="form-control" value="backup">
+                
+              <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+                <button form="backUp" name="insertar" class="btn btn-dark">Guardar copia de seguridad de la base de datos</button>
+              </div>
+
+            </form>
           </h1>
         </div>
         <section class="section dashboard">
@@ -112,6 +120,8 @@ if ($rol >= 1 && $rol <= 6) {
         // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php"); 
 
+        model_user::validar_sesion_activa($id_usuario);
+        
         config_model::verificar_actualizacion_configuracion(); 
 
         ?>

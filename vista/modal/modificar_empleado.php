@@ -12,7 +12,7 @@ $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.id_usuario, U.
 
 ?>
 
-<form id="update_user_info" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax row mb-3" autocomplete="off" data-type-form="update">
+<form id="SendForm" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax row mb-3" autocomplete="off" data-type-form="update">
 
     <input type="hidden" name="id_usuario_a_modificar" id="id_usuario" value="<?= $existe["id_usuario"]; ?>">
     <input type="hidden" name="modulo" value="caracteristicas_de_acceso">

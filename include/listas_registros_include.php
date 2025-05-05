@@ -76,7 +76,7 @@ function consultar_registros($tabla){
                 <th><?= $mostrar["telefono"]; ?></th>
                 <th scope="col" class="col text-center">
                     <buttom 
-                        modal="modificar" 
+                        modal="modificar_usuario" 
                         <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
                         value="<?= $mostrar["id_usuario"]; ?>" 
                         class="btn_modal btn btn-warning bi bi-gear">

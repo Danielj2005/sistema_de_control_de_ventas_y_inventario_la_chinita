@@ -7,7 +7,7 @@ include_once ("../../modelo/modelo_usuario.php");  // se incluye el modelo de us
 ?>
 <input type="hidden" name="modulo" value="modificar_contraseña_usuario">
 
-<div class="row p-2 mb-3">
+<div class="row p-2 mb-3" id="SendForm">
     <div class="col-12 col-md-12 mb-2">
         <label>
             Contraseña actual
