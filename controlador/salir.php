@@ -12,7 +12,8 @@ $id_usuario = $_SESSION["id_usuario"];
 //registramos los movimientos en la bitacora
 bitacora::bitacora("Cierre de sesión exitoso","El usuario ha cerrado sesión correctamente en el sistema.");
 
-model_user::modificar_sesion_usuario($id_usuario, '0'); // se modifica el estado de la sesion activa/inactiva del usuario
+// se modifica el estado de la sesion activa/inactiva del usuario
+modeloPrincipal::UpdateSQL("usuario", "sesion_activa = '0'", "id_usuario = '$id_usuario'");
 
 session_unset(); // remueve o elimina las variables de sesion
 session_destroy(); // Destruye la sesión actual

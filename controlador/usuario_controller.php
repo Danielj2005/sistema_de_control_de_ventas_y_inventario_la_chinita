@@ -73,7 +73,51 @@ if($modulo === "Guardar"){
     }
     
     // datos verificados que se van a Registrar
-    model_user::insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol);
+    try {
+        $actualizar = model_user::insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol);
+        
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar al usuario en la base de datos.","error");
+        }
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "ocurrio un error al registrar al usuario en la base de datos.", "error");
+        exit();
+    }
+    
+
+    try {
+
+        model_user::asignar_preguntas_seguridad_usuario();
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "ocurrio un error al asignar preguntas de seguridad del usuario", "error");
+        exit();
+    }
+
+    try {
+
+        $id_usuario = model_user::obtener_id_usuario_recien_registrado();
+        $rol_asignado = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
+
+        bitacora::bitacora("Registro exitoso de un nuevo usuario.","Se registró un nuevo usuario con la siguiente informacón: <br><br>
+        <b>****** Información del usuario registrado:   ******</b><br><br>
+        Cédula: <b>$cedula </b><br>
+        Nombre: <b>$nombre </b><br>
+        Apellido: <b>$apellido </b><br>
+        Correo: <b>$correo </b><br>
+        Teléfono: <b>$telefono </b><br>
+        Dirección: <b>$direccion </b><br>
+        Rol asignado: <b>$rol_asignado </b>
+        ");
+
+        alert_model::alert_mod_success();
+        exit();
+    } catch (Exception $e) {
+        alert_model::alert_mod_error();
+        exit();
+    }
+
 
 }
 
@@ -318,7 +362,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
         for ($i = 0; $i < $cantidad_preguntas; $i++) {
 
             // Encriptar la nueva respuesta
-            $respuesta_encriptada = modeloPrincipal::encryption($respuestas[$i]);
+            $respuesta_encriptada = modeloPrincipal::limpiar_mayusculas_encriptar($respuestas[$i]);
             
             $actualizar = modeloPrincipal::UpdateSQL("preguntas_secretas", "id_pregunta = ".$id_seguridad[$i].", respuesta = '$respuesta_encriptada', numero_pregunta = $numero_pregunta", "id_usuario = '$id_usuario' AND id = '".$id_preguntas[$i]."'");
             
@@ -380,13 +424,13 @@ if ($modulo === 'caracteristicas_de_acceso'){
     // caracteristicas originales del usuario
     $estado_original = model_user::obtener_info_personal_usuario('estado',$id_usuario);
     $permiso_inicio_sesion_original = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
-    $rol_original = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+    $rol_original = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
 
     
     try {
 
         $estado_user = ($estado_original == 1) ? 'Activo' : 'Inactivo' ;
-        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 1) ? 'Permitido' : 'Denegado' ;
+        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 0) ? 'Permitido' : 'Denegado' ;
 
         $estado_original = $estado_user;
         $permiso_inicio_sesion_original = $permiso_inicio_sesion_user;
@@ -408,28 +452,30 @@ if ($modulo === 'caracteristicas_de_acceso'){
 
         // caracteristicas actuales del usuario
         $estado_actual = model_user::obtener_info_personal_usuario('estado',$id_usuario);
-        $permiso_inicio_sesion_actual  = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
-        $rol_actual  = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+        $permiso_inicio_sesion_actual = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
+        $rol_actual = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
 
         $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
-        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 1) ? 'Permitido' : 'Denegado' ;
+        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 0) ? 'Permitido' : 'Denegado' ;
 
         $estado_actual = $estado_user_actual;
         $permiso_inicio_sesion_actual = $permiso_inicio_sesion_user_actual;
 
-        $bitacora = bitacora::bitacora("Modificación exitosa de características de acceso de un usuario","Se modificaron las características de acceso de un usuario: <br><br>
-        Información del usuario modificado:<br>
-        Cédula: ".$cedula."<br>
-        Nombre: ".$nombre."<br>
-        Teléfono: ".$telefono."<br><br>
-        Información original:<br>
-        Estado: ".$estado_original."<br>
-        Permiso de inicio de sesión: ".$permiso_inicio_sesion_original."<br>
-        Rol asignado: ".$rol_original."<br><br>
-        Información Actual:<br>
-        Estado: ".$estado_actual."<br>
-        Permiso de inicio de sesión: ".$permiso_inicio_sesion_actual."<br>
-        Rol asignado: ".$rol_actual."
+        $bitacora = bitacora::bitacora("Modificación exitosa de las características de acceso de un usuario","El usuario modificó las características de acceso de un usuario: <br><br>
+         <b>****** Información del usuario modificado:   ******</b><br>
+        Cédula: <b>".$cedula."</b><br>
+        Nombre: <b>".$nombre."</b><br>
+        Teléfono: <b>".$telefono."</b><br><br>
+
+         <b>****** Información original:   ******</b><br>
+        Estado: <b>".$estado_original."</b><br>
+        Permiso de inicio de sesión: <b>".$permiso_inicio_sesion_original."</b><br>
+        Rol asignado: <b>".$rol_original."</b><br><br>
+
+         <b>****** Información Actualizada:   ******</b><br>
+        Estado: <b>".$estado_actual."</b><br>
+        Permiso de inicio de sesión: <b>".$permiso_inicio_sesion_actual."</b><br>
+        Rol asignado: <b>".$rol_actual."</b>
         ");
 
         if (!$bitacora) {
@@ -476,13 +522,13 @@ if ($modulo === 'resetear_contraseña'){
     // caracteristicas originales del usuario
     $estado_original = model_user::obtener_info_personal_usuario('estado',$id_usuario);
     $permiso_inicio_sesion_original = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
-    $rol_original = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+    $rol_original = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
     $bloqueado_original = model_user::obtener_info_personal_usuario('bloqueado',$id_usuario);
 
     try {
 
         $estado_user = ($estado_original == 1) ? 'Activo' : 'Inactivo' ;
-        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 1) ? 'Permitido' : 'Denegado' ;
+        $permiso_inicio_sesion_user = ($permiso_inicio_sesion_original == 0) ? 'Permitido' : 'Denegado' ;
         $bloqueado_original = ($bloqueado_original == 1) ? 'Sí' : 'No' ;
 
         $estado_original = $estado_user;
@@ -514,31 +560,31 @@ if ($modulo === 'resetear_contraseña'){
         // caracteristicas actuales del usuario
         $estado_actual = model_user::obtener_info_personal_usuario('estado',$id_usuario);
         $permiso_inicio_sesion_actual  = model_user::obtener_info_personal_usuario('suspender',$id_usuario);
-        $rol_actual  = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+        $rol_actual  = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
         $bloqueado_actual = model_user::obtener_info_personal_usuario('bloqueado',$id_usuario);
 
         $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
-        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 1) ? 'Permitido' : 'Denegado' ;
+        $permiso_inicio_sesion_user_actual = ($permiso_inicio_sesion_actual == 0) ? 'Permitido' : 'Denegado' ;
         $bloqueado_actual = ($bloqueado_actual == 1) ? 'Sí' : 'No' ;
 
         $estado_actual = $estado_user_actual;
         $permiso_inicio_sesion_actual = $permiso_inicio_sesion_user_actual;
 
         bitacora::bitacora("Modificación exitosa del acceso de un usuario.","Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>
-        Información del usuario modificado:<br>
-        Cédula: ".$cedula."<br>
-        Nombre: ".$nombre."<br>
-        Apellido: ".$apellido."<br><br>
-        Información original:<br>
-        Estado: ".$estado_original."<br>
-        Permiso de inicio de sesión: ".$permiso_inicio_sesion_original."<br>
-        Rol asignado: ".$rol_original."<br>
-        Bloqueado: ".$bloqueado_original."<br><br>
-        Información Actual:<br>
-        Estado: ".$estado_actual."<br>
-        Permiso de inicio de sesión: ".$permiso_inicio_sesion_actual."<br>
-        Rol asignado: ".$rol_actual."<br>
-        Bloqueado: ".$bloqueado_actual."
+         <b>****** Información del usuario modificado:   ******</b><br><br>
+        Cédula: <b>".$cedula."</b><br>
+        Nombre: <b>".$nombre."</b><br>
+        Apellido: <b>".$apellido."</b><br><br>
+         <b>****** Información original:   ******</b><br><br>
+        Estado: <b>".$estado_original."</b><br>
+        Permiso de inicio de sesión: <b>".$permiso_inicio_sesion_original."</b><br>
+        Rol asignado: <b>".$rol_original."</b><br>
+        Bloqueado: <b>".$bloqueado_original."</b><br><br>
+         <b>****** Información Actual:   ******</b><br><br>
+        Estado:  <b>".$estado_actual."</b><br>
+        Permiso de inicio de sesión: <b>".$permiso_inicio_sesion_actual."</b><br>
+        Rol asignado: <b>".$rol_actual."</b><br>
+        Bloqueado: <b>".$bloqueado_actual."</b>
         ");
         alert_model::alert_mod_success();
         exit();

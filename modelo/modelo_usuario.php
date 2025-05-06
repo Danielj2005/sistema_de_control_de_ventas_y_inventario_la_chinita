@@ -78,14 +78,12 @@ class model_user extends modeloPrincipal {
 
     public static function insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol){
 
-        if (modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio, parametros_actualizados, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 0, 1, $id_rol, 1")) {
-            self::asignar_preguntas_seguridad_usuario();
-            self::bitacora_registro_nuevo_usuario($nombre, $apellido);
-            alert_model::alert_reg_success();
-        } else { // se muestra un mensaje en caso de que no se pueda Registrar los datos
-            alert_model::alert_reg_error();
-            exit();
+        $actualizar = modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 1, $id_rol, 1");
+        
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo desbloquear al usuario debido a un error interno o alteracion de la información ya registrada, por favor verifique e intente nuevamente","error");
         }
+        return $actualizar;
     }
 
     
@@ -173,7 +171,9 @@ class model_user extends modeloPrincipal {
     /************************************************************/ 
     /*       funciones de asignación de datos de los usuarios   */
     /************************************************************/ 
-    private static function asignar_preguntas_seguridad_usuario() {
+
+    public static function asignar_preguntas_seguridad_usuario() {
+
         // Obtener la cantidad de preguntas configuradas en el sistema
         $configuracion = modeloPrincipal::consultar("SELECT c_preguntas FROM configuracion");
         if (!$configuracion || mysqli_num_rows($configuracion) == 0) {
@@ -354,11 +354,10 @@ class model_user extends modeloPrincipal {
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
             // // Redirigir el acceso a la página sino inició de sesión
             // bitacora::intento_de_acceso_al_sistema_de_manera_incorrecta()
-            header('Location: ../controlador/salir.php');
+            header('Location: ../');
             exit();
         }
     }
-
 
     public static function verificar_primer_inicio(){
         $id_usuario = $_SESSION['id_usuario'];
@@ -384,7 +383,6 @@ class model_user extends modeloPrincipal {
         }
         return false;
     }
-
 
     public static function validar_preguntas_de_seguridad($preguntas,$respuestas) {
         
@@ -439,6 +437,27 @@ class model_user extends modeloPrincipal {
     public static function obtener_info_personal_usuario($info,$id_usuario) {
         if ($info == 'id_rol') {
             $id_rol = rol_model::obtener_id_rol_usuario();
+            $nombre_rol = rol_model::obtener_nombre_rol_usuario($id_rol);
+            $info_usuario[$info] = $nombre_rol;
+        }else{
+            $info_usuario = mysqli_fetch_array(modeloPrincipal::consultar("SELECT $info FROM usuario WHERE id_usuario = $id_usuario"));
+        }
+
+        return $info_usuario[$info];
+    }
+    // funcion para obtener_info_personal_usuario
+
+    public static function obtener_info_de_un_usuario($info,$id_usuario) {
+        if ($info == 'id_rol') {
+            $id_rol = modeloPrincipal::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario");
+
+            if (!$id_rol) {
+                alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se encontró el rol del usuario, por favor verifique e intente nuevamente","error");
+            }
+            
+            $id_rol = mysqli_fetch_array($id_rol);
+            $id_rol = $id_rol['id_rol'];
+
             $nombre_rol = rol_model::obtener_nombre_rol_usuario($id_rol);
             $info_usuario[$info] = $nombre_rol;
         }else{

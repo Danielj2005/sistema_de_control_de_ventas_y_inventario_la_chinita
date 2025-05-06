@@ -152,6 +152,8 @@ if ($rol >= 1 && $rol <= 4) {  ?>
       <?php   
         include_once("../include/footer.php");  
         include_once("../include/scripts_include.php"); 
+      
+        model_user::validar_sesion_activa($id_usuario);
         
         config_model::verificar_actualizacion_configuracion(); ?>
       

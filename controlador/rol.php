@@ -22,7 +22,7 @@ function info_actual_del_rol($id_rol) {
     // se itera sobre el resultado de la consulta para imprimir un mensaje con la información actual del rol
     
     $mensaje = "El usuario modificó el rol con la siguiente información:\n
-        Nombre del rol: $nombre_rol\n
+        Nombre del rol:  <b>$nombre_rol\n
         -- Modulo Inventario --\n
         Vistas de Proveedores:
         Registro de Proveedores: ".$permisos_roles['r_proveedores']."\n
@@ -38,7 +38,7 @@ function info_actual_del_rol($id_rol) {
         Lista de Entradas registradas: ".$permisos_roles['l_entrada']."\n\n
         Información del servicio actualizada:
         \n\n
-        Nombre del rol: $nombre_rol\n
+        Nombre del rol:  <b>$nombre_rol\n
         Estado: Activo.";
 
     return $mensaje;
@@ -125,11 +125,11 @@ function info_actual_del_rol($id_rol) {
 
 //     foreach ($resultados as $key => $resultado) {
 
-//         $texto_resultados .= "$key: $resultado ";
+//         $texto_resultados .= "$key:  <b>$resultado ";
 
 //     }
 
-//     $mensaje = "\n\nNombre del rol: $nombre \nEstado: Inactivo";
+//     $mensaje = "\n\nNombre del rol:  <b>$nombre \nEstado: Inactivo";
 //     // Retornar el texto de resultados
 
 //     return $texto_resultados;
@@ -240,7 +240,7 @@ if($modulo === "Guardar"){
     }
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$id_rol, $nombre, $estado, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $f_venta, $l_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $nombre, $m_cant_num, $intentos_inicio_sesion, $v_bitacora]);
+    modeloPrincipal::validar_campos_vacios([$nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $f_venta, $l_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $nombre, $m_cant_num, $intentos_inicio_sesion, $v_bitacora]);
     
     if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre)) {
         alert_model::alerta_simple( "¡Ocurrio un error!", "El campo NOMBRE debe contener entre 3 y 20 caracteres. Por favor, asegúrate de que cumple con este formato.", "error");
@@ -259,36 +259,16 @@ if($modulo === "Guardar"){
         $id_rol = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_rol) AS id_rol FROM rol"));
         $id_rol = $id_rol['id_rol'];
 
-        bitacora::bitacora("Registro exitoso de un rol", "El usuario Registró el rol con la siguiente infromación <br>
-        Nombre del rol: '$nombre'<br>
-        Estado: Activo.");
-        
-        echo '<script type="text/javascript">
-            swal({
-                title:"¡Registro Exitoso!",
-                text:"Los Datos Se Registraron Correctamente",
-                type: "success",
-                confirmButtonText: "Aceptar"
-            },
-            function(isConfirm){  
-                if (isConfirm) {     
-                    location.reload();
-                } else {    
-                    location.reload();
-                } 
-            });
-            $(".SendFormAjax")[0].reset();
-        </script>';
+        bitacora::bitacora("Registro exitoso de un rol", "El usuario Registró el rol con la siguiente infromación: <br>
+        Nombre del rol: <b>$nombre</b><br>
+        Estado: <b>Activo</b>");
+
+        alert_model::alert_reg_success();
+
         exit();
-    } else { // se muestra un mensaje en caso de que no se pueda Registrar los datos
-        echo'<script type="text/javascript">
-            swal({
-                title: "¡Ocurrio un error!",
-                text: "los datos no se pudieron registrar, verifique he intente de nuevo ",
-                type: "error",
-                confirmBottonText: "Aceptar"
-            });
-        </script>';
+    } else { 
+        alert_model::alert_reg_error();
+
         exit();
     }
 }
@@ -418,137 +398,136 @@ if($modulo === "Modificar"){
     try {
 
         $bitacora_modificacion_rol = bitacora::bitacora("Modificación exitosa de un rol", "El usuario modificó el rol con la siguiente información:<br> 
-        Información del rol:<br>
-        Nombre del rol: $nombre<br>
-        Estado: Activo <br><br>
-        ************* Información original: ************* <br><br>
-        ****** Módulo Proveedores   ******<br>
-        Acceso al módulo de Proveedores: $modulo_proveedor_originales<br>
-        Registrar Nuevos Proveedores: ".$datos_originales['r_proveedores']." <br>
-        Modificar Información de Proveedores: ".$datos_originales['m_proveedores']." <br>
-        Consultar Lista de Proveedores Registrados: ".$datos_originales['l_proveedores']." <br>
-        Visualizar Historial de Compras: ".$datos_originales['h_proveedores']." <br><br>
+        Nombre del rol: <b>$nombre</b><br>
+        Estado: <b>Activo</b> <br><br>
+        <b>************* Información original: ************* </b><br><br>
+         <b>****** Módulo Proveedores   ******</b><br>
+        Acceso al módulo de Proveedores: <b>$modulo_proveedor_originales</b><br>
+        Registrar Nuevos Proveedores: <b>".$datos_originales['r_proveedores']."</b> <br>
+        Modificar Información de Proveedores: <b>".$datos_originales['m_proveedores']."</b> <br>
+        Consultar Lista de Proveedores Registrados: <b>".$datos_originales['l_proveedores']."</b> <br>
+        Visualizar Historial de Compras: <b>".$datos_originales['h_proveedores']."</b> <br><br>
 
-        ****** Módulo Productos     ******<br>
-        Acceso al módulo de Productos: $modulo_producto_originales <br>
-        Registrar Nuevas Categorías: ".$datos_originales['r_categoria']." <br>
-        Registrar Nuevas Presentaciones: ".$datos_originales['r_presentacion']." <br>
-        Registrar Nuevos Productos: ".$datos_originales['r_productos']." <br>
-        Consultar Lista de Productos Registrados: ".$datos_originales['l_productos']." <br>
-        Registrar Entrada de Productos: ".$datos_originales['r_entrada']." <br>
-        Consultar Lista de Entradas de Productos: ".$datos_originales['l_entrada']." <br><br>
+         <b>****** Módulo Productos     ******</b><br>
+        Acceso al módulo de Productos: <b>$modulo_producto_originales</b> <br>
+        Registrar Nuevas Categorías: <b>".$datos_originales['r_categoria']." </b><br>
+        Registrar Nuevas Presentaciones: <b>".$datos_originales['r_presentacion']." </b><br>
+        Registrar Nuevos Productos: <b>".$datos_originales['r_productos']." </b><br>
+        Consultar Lista de Productos Registrados: <b>".$datos_originales['l_productos']." </b><br>
+        Registrar Entrada de Productos: <b>".$datos_originales['r_entrada']." </b><br>
+        Consultar Lista de Entradas de Productos: <b>".$datos_originales['l_entrada']." </b><br><br>
         
-        ****** Módulo Ventas        ******<br>
-        Acceso al módulo de Ventas: $modulo_venta_originales <br>
-        Generar Nuevas Ventas: ".$datos_originales['g_venta']." <br>
-        Consultar Lista de Ventas Realizadas: ".$datos_originales['l_venta']." <br>
-        Visualizar Detalles de Ventas: ".$datos_originales['d_venta']." <br>
-        Acceder a Facturas de Ventas: ".$datos_originales['f_venta']." <br>
-        Consultar Estadísticas de Ventas: ".$datos_originales['est_venta']." <br><br>
+         <b>****** Módulo Ventas        ******</b><br>
+        Acceso al módulo de Ventas:  <b>$modulo_venta_originales </b> <br>
+        Generar Nuevas Ventas: <b>".$datos_originales['g_venta']." </b><br>
+        Consultar Lista de Ventas Realizadas: <b>".$datos_originales['l_venta']." </b><br>
+        Visualizar Detalles de Ventas: <b>".$datos_originales['d_venta']." </b><br>
+        Acceder a Facturas de Ventas: <b>".$datos_originales['f_venta']." </b><br>
+        Consultar Estadísticas de Ventas: <b>".$datos_originales['est_venta']." </b><br><br>
 
-        ****** Módulo Menú          ******<br>
-        Acceso al módulo de Servicios: $modulo_menu_originales <br>
-        Registrar Nuevos Servicios: ".$datos_originales['r_servicio']." <br>
-        Modificar Información de Servicios: ".$datos_originales['l_servicio']." <br>
-        Consultar Lista de Servicios Registrados: ".$datos_originales['m_servicio']." <br><br>
+         <b>****** Módulo Menú          ******</b><br>
+        Acceso al módulo de Servicios:  <b>$modulo_menu_originales </b><br>
+        Registrar Nuevos Servicios: <b>".$datos_originales['r_servicio']." </b><br>
+        Modificar Información de Servicios: <b>".$datos_originales['l_servicio']." </b><br>
+        Consultar Lista de Servicios Registrados: <b>".$datos_originales['m_servicio']." </b><br><br>
 
-        ****** Módulo Clientes      ******<br>
-        Acceso al módulo de Clientes: $modulo_cliente_originales <br>
-        Registrar Nuevos Clientes: ".$datos_originales['r_cliente']." <br>
-        Modificar Información de Clientes: ".$datos_originales['m_cliente']." <br>
-        Consultar Lista de Clientes Regitrados: ".$datos_originales['l_cliente']." <br>
-        Visualizar Historial de Clientes: ".$datos_originales['h_cliente']." <br>
-        Acceder a Facturas de Clientes: ".$datos_originales['f_cliente']." <br><br>
+         <b>****** Módulo Clientes      ******</b><br>
+        Acceso al módulo de Clientes:  <b>$modulo_cliente_originales </b><br>
+        Registrar Nuevos Clientes: <b>".$datos_originales['r_cliente']." </b><br>
+        Modificar Información de Clientes: <b>".$datos_originales['m_cliente']." </b><br>
+        Consultar Lista de Clientes Regitrados: <b>".$datos_originales['l_cliente']." </b><br>
+        Visualizar Historial de Clientes: <b>".$datos_originales['h_cliente']." </b><br>
+        Acceder a Facturas de Clientes: <b>".$datos_originales['f_cliente']." </b><br><br>
 
-        ****** Módulo Empleados          ******<br>
-        Acceso al módulo de Empleados: $modulo_empleado_originales <br>
-        Registrar Nuevos Empleados: ".$datos_originales['r_empleado']." <br>
-        Modificar Información de Empleados: ".$datos_originales['m_empleado']." <br>
-        Consultar Lista de Empleados Registrados: ".$datos_originales['l_empleado']." <br><br>
+         <b>****** Módulo Empleados          ******</b><br>
+        Acceso al módulo de Empleados:  <b>$modulo_empleado_originales </b><br>
+        Registrar Nuevos Empleados: <b>".$datos_originales['r_empleado']." </b><br>
+        Modificar Información de Empleados: <b>".$datos_originales['m_empleado']." </b><br>
+        Consultar Lista de Empleados Registrados: <b>".$datos_originales['l_empleado']." </b><br><br>
 
-        ****** Módulo Roles  ******<br>
-        Acceso al módulo de Roles: $modulo_rol_originales <br>
-        Registrar Nuevos Roles: ".$datos_originales['r_rol']." <br>
-        Modificar Información de Roles: ".$datos_originales['m_rol']." <br>
-        Consultar Lista de Roles Registrados: ".$datos_originales['l_rol']." <br>
+         <b>****** Módulo Roles  ******</b><br>
+        Acceso al módulo de Roles:  <b>$modulo_rol_originales </b><br>
+        Registrar Nuevos Roles: <b>".$datos_originales['r_rol']." </b><br>
+        Modificar Información de Roles: <b>".$datos_originales['m_rol']." </b><br>
+        Consultar Lista de Roles Registrados: <b>".$datos_originales['l_rol']." </b> <br><br>
 
-        ****** Módulo Configuración del sistema  ******<br>
-        Acceso al módulo los Ajustes del Sistema: $modulo_ajustes_originales <br>
-        Modificar Cantidad de Preguntas de Seguridad: ".$datos_originales['m_cant_pregunta_seguridad']." <br>
-        Modificar Tiempo de Inactividad de Sesión: ".$datos_originales['m_tiempo_sesion']." <br>
-        Modificar Cantidad de Caracteres Permitidos: ".$datos_originales['m_cant_caracteres']." <br>
-        Modificar Cantidad de Símbolos Permitidos: ".$datos_originales['m_cant_simbolos']." <br>
-        Modificar Cantidad de Números Permitidos: ".$datos_originales['m_cant_num']." <br>
-        Modificar Intentos de Inicio de Sesión: ".$datos_originales['intentos_inicio_sesion']." <br><br>
+         <b>****** Módulo Configuración del sistema  ******</b><br>
+        Acceso al módulo los Ajustes del Sistema:  <b>$modulo_ajustes_originales </b><br>
+        Modificar Cantidad de Preguntas de Seguridad: <b>".$datos_originales['m_cant_pregunta_seguridad']." </b><br>
+        Modificar Tiempo de Inactividad de Sesión: <b>".$datos_originales['m_tiempo_sesion']." </b><br>
+        Modificar Cantidad de Caracteres Permitidos: <b>".$datos_originales['m_cant_caracteres']." </b><br>
+        Modificar Cantidad de Símbolos Permitidos: <b>".$datos_originales['m_cant_simbolos']." </b><br>
+        Modificar Cantidad de Números Permitidos: <b>".$datos_originales['m_cant_num']." </b><br>
+        Modificar Intentos de Inicio de Sesión: <b>".$datos_originales['intentos_inicio_sesion']." </b><br><br>
 
-        ****** Módulo Bitátora      ******<br>
-        Acceso al módulo la Bitácora: ".rol_model::obtener_texto_de_acceso_modulos($permisos['v_bitacora'], 1)." <br>
-        Consultar Registros de la Bitácora: ".$datos_originales['v_bitacora']." <br><br><br>
+         <b>****** Módulo Bitátora      ******</b><br>
+        Acceso al módulo la Bitácora: <b>".rol_model::obtener_texto_de_acceso_modulos($permisos['v_bitacora'], 1)." </b><br>
+        Consultar Registros de la Bitácora: <b>".$datos_originales['v_bitacora']." </b><br><br><br>
 
 
-        ************* Información original: ************* <br><br>
-        ****** Módulo Proveedores   ******<br>
-        Acceso al módulo de Proveedores: $modulo_proveedor<br>
-        Registrar Nuevos Proveedores: ".$datos_actuales['r_proveedores']." <br>
-        Modificar Información de Proveedores: ".$datos_actuales['m_proveedores']." <br>
-        Consultar Lista de Proveedores Registrados: ".$datos_actuales['l_proveedores']." <br>
-        Visualizar Historial de Compras: ".$datos_actuales['h_proveedores']." <br><br>
+        <b>************* Información actualizada: ************* </b><br><br>
+         <b>****** Módulo Proveedores   ******</b><br>
+        Acceso al módulo de Proveedores:  <b>$modulo_proveedor</b><br>
+        Registrar Nuevos Proveedores: <b>".$datos_actuales['r_proveedores']." </b><br>
+        Modificar Información de Proveedores: <b>".$datos_actuales['m_proveedores']." </b><br>
+        Consultar Lista de Proveedores Registrados: <b>".$datos_actuales['l_proveedores']." </b><br>
+        Visualizar Historial de Compras: <b>".$datos_actuales['h_proveedores']." </b><br><br>
 
-        ****** Módulo Productos     ******<br>
-        Acceso al módulo de Productos: $modulo_producto <br>
-        Registrar Nuevas Categorías: ".$datos_actuales['r_categoria']." <br>
-        Registrar Nuevas Presentaciones: ".$datos_actuales['r_presentacion']." <br>
-        Registrar Nuevos Productos: ".$datos_actuales['r_productos']." <br>
-        Consultar Lista de Productos Registrados: ".$datos_actuales['l_productos']." <br>
-        Registrar Entrada de Productos: ".$datos_actuales['r_entrada']." <br>
-        Consultar Lista de Entradas de Productos: ".$datos_actuales['l_entrada']." <br><br>
+         <b>****** Módulo Productos     ******</b><br>
+        Acceso al módulo de Productos:  <b>$modulo_producto </b><br>
+        Registrar Nuevas Categorías: <b>".$datos_actuales['r_categoria']." </b><br>
+        Registrar Nuevas Presentaciones: <b>".$datos_actuales['r_presentacion']." </b><br>
+        Registrar Nuevos Productos: <b>".$datos_actuales['r_productos']." </b><br>
+        Consultar Lista de Productos Registrados: <b>".$datos_actuales['l_productos']." </b><br>
+        Registrar Entrada de Productos: <b>".$datos_actuales['r_entrada']." </b><br>
+        Consultar Lista de Entradas de Productos: <b>".$datos_actuales['l_entrada']." </b><br><br>
         
-        ****** Módulo Ventas        ******<br>
-        Acceso al módulo de Ventas: $modulo_venta <br>
-        Generar Nuevas Ventas: ".$datos_actuales['g_venta']." <br>
-        Consultar Lista de Ventas Realizadas: ".$datos_actuales['l_venta']." <br>
-        Visualizar Detalles de Ventas: ".$datos_actuales['d_venta']." <br>
-        Acceder a Facturas de Ventas: ".$datos_actuales['f_venta']." <br>
-        Consultar Estadísticas de Ventas: ".$datos_actuales['est_venta']." <br><br>
+         <b>****** Módulo Ventas        ******</b><br>
+        Acceso al módulo de Ventas:  <b>$modulo_venta </b><br>
+        Generar Nuevas Ventas: <b>".$datos_actuales['g_venta']." </b><br>
+        Consultar Lista de Ventas Realizadas: <b>".$datos_actuales['l_venta']." </b><br>
+        Visualizar Detalles de Ventas: <b>".$datos_actuales['d_venta']." </b><br>
+        Acceder a Facturas de Ventas: <b>".$datos_actuales['f_venta']." </b><br>
+        Consultar Estadísticas de Ventas: <b>".$datos_actuales['est_venta']." </b><br><br>
 
-        ****** Módulo Menú          ******<br>
-        Acceso al módulo de Servicios: $modulo_menu <br>
-        Registrar Nuevos Servicios: ".$datos_actuales['r_servicio']." <br>
-        Modificar Información de Servicios: ".$datos_actuales['l_servicio']." <br>
-        Consultar Lista de Servicios Registrados: ".$datos_actuales['m_servicio']." <br><br>
+         <b>****** Módulo Menú          ******</b><br>
+        Acceso al módulo de Servicios:  <b>$modulo_menu </b><br>
+        Registrar Nuevos Servicios: <b>".$datos_actuales['r_servicio']." </b><br>
+        Modificar Información de Servicios: <b>".$datos_actuales['l_servicio']." </b><br>
+        Consultar Lista de Servicios Registrados: <b>".$datos_actuales['m_servicio']." </b><br><br>
 
-        ****** Módulo Clientes      ******<br>
-        Acceso al módulo de Clientes: $modulo_cliente <br>
-        Registrar Nuevos Clientes: ".$datos_actuales['r_cliente']." <br>
-        Modificar Información de Clientes: ".$datos_actuales['m_cliente']." <br>
-        Consultar Lista de Clientes Registrados: ".$datos_actuales['l_cliente']." <br>
-        Visualizar Historial de Clientes: ".$datos_actuales['h_cliente']." <br>
-        Acceder a Facturas de Clientes: ".$datos_actuales['f_cliente']." <br><br>
+         <b>****** Módulo Clientes      ******</b><br>
+        Acceso al módulo de Clientes:  <b>$modulo_cliente </b><br>
+        Registrar Nuevos Clientes: <b>".$datos_actuales['r_cliente']." </b><br>
+        Modificar Información de Clientes: <b>".$datos_actuales['m_cliente']." </b><br>
+        Consultar Lista de Clientes Registrados: <b>".$datos_actuales['l_cliente']." </b><br>
+        Visualizar Historial de Clientes: <b>".$datos_actuales['h_cliente']." </b><br>
+        Acceder a Facturas de Clientes: <b>".$datos_actuales['f_cliente']." </b><br><br>
 
-        ****** Módulo Empleados          ******<br>
-        Acceso al módulo de Empleados: $modulo_empleado <br>
-        Registrar Nuevos Empleados: ".$datos_actuales['r_empleado']." <br>
-        Modificar Información de Empleados: ".$datos_actuales['m_empleado']." <br>
-        Consultar Lista de Empleados Registrados: ".$datos_actuales['l_empleado']." <br><br>
+         <b>****** Módulo Empleados          ******</b><br>
+        Acceso al módulo de Empleados:  <b>$modulo_empleado </b><br>
+        Registrar Nuevos Empleados: <b>".$datos_actuales['r_empleado']." </b><br>
+        Modificar Información de Empleados: <b>".$datos_actuales['m_empleado']." </b><br>
+        Consultar Lista de Empleados Registrados: <b>".$datos_actuales['l_empleado']." </b><br><br>
 
-        ****** Módulo Roles  ******<br>
-        Acceso al módulo de Roles: $modulo_rol <br>
-        Registrar Nuevos Roles: ".$datos_actuales['r_rol']." <br>
-        Modificar Información de Roles: ".$datos_actuales['m_rol']." <br>
-        Consultar Lista de Roles Registrados: ".$datos_actuales['l_rol']." <br>
+         <b>****** Módulo Roles  ******</b><br>
+        Acceso al módulo de Roles:  <b>$modulo_rol </b><br>
+        Registrar Nuevos Roles: <b>".$datos_actuales['r_rol']." </b><br>
+        Modificar Información de Roles: <b>".$datos_actuales['m_rol']." </b><br>
+        Consultar Lista de Roles Registrados: <b>".$datos_actuales['l_rol']." </b> <br><br>
 
-        ****** Módulo Configuración del sistema  ******<br>
-        Acceso al módulo los Ajustes del Sistema: $modulo_ajustes <br>
-        Modificar Cantidad de Preguntas de Seguridad: ".$datos_actuales['m_cant_pregunta_seguridad']." <br>
-        Modificar Tiempo de Inactividad de Sesión: ".$datos_actuales['m_tiempo_sesion']." <br>
-        Modificar Cantidad de Caracteres Permitidos: ".$datos_actuales['m_cant_caracteres']." <br>
-        Modificar Cantidad de Símbolos Permitidos: ".$datos_actuales['m_cant_simbolos']." <br>
-        Modificar Cantidad de Números Permitidos: ".$datos_actuales['m_cant_num']." <br>
-        Modificar Intentos de Inicio de Sesión: ".$datos_actuales['intentos_inicio_sesion']." <br><br>
+         <b>****** Módulo Configuración del sistema  ******</b><br>
+        Acceso al módulo los Ajustes del Sistema:  <b>$modulo_ajustes </b><br>
+        Modificar Cantidad de Preguntas de Seguridad: <b>".$datos_actuales['m_cant_pregunta_seguridad']." </b><br>
+        Modificar Tiempo de Inactividad de Sesión: <b>".$datos_actuales['m_tiempo_sesion']." </b><br>
+        Modificar Cantidad de Caracteres Permitidos: <b>".$datos_actuales['m_cant_caracteres']." </b><br>
+        Modificar Cantidad de Símbolos Permitidos: <b>".$datos_actuales['m_cant_simbolos']." </b><br>
+        Modificar Cantidad de Números Permitidos: <b>".$datos_actuales['m_cant_num']." </b><br>
+        Modificar Intentos de Inicio de Sesión: <b>".$datos_actuales['intentos_inicio_sesion']." </b><br><br>
 
-        ****** Módulo Bitátora      ******<br>
-        Acceso al módulo la Bitácora: ".rol_model::obtener_texto_de_acceso_modulos($permisos['v_bitacora'], 1)." <br>
-        Consultar Registros de la Bitácora: ".$datos_actuales['v_bitacora']."
+         <b>****** Módulo Bitátora      ******</b><br>
+        Acceso al módulo la Bitácora: <b>".rol_model::obtener_texto_de_acceso_modulos($permisos['v_bitacora'], 1)." </b><br>
+        Consultar Registros de la Bitácora: <b>".$datos_actuales['v_bitacora']."</b>
         ");
 
         if (!$bitacora_modificacion_rol) {
@@ -573,35 +552,18 @@ if ($modulo === "activo"){
 
     if(modeloprincipal::UpdateSQL("rol","estado = '0'", "id_rol = '$id_rol'")){
         
-        bitacora::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Activo");
-        
-        echo '<script type="text/javascript">
-                $(document).ready(function(){
-                    swal({ 
-                        title:"¡Rol Desactivado!", 
-                        text:"El rol se desactivo exitosamente.", 
-                        type: "success", 
-                        confirmButtonText: "Aceptar" 
-                    },
-                    function(isConfirm){  
-                        if (isConfirm) {     
-                            location.reload();
-                        } else {    
-                            location.reload();
-                        } 
-                    });
-                });
-            </script>';
+        bitacora::bitacora("Cambio exitoso del estado de un rol","El usuario cambió el estado del rol con la siguiente información: <br><br>
+        <b>***** Información del rol original: *****</b><br><br>
+        Nombre del rol:  <b>$rol_info </b><br><br>
+        Estado: <b>Activo</b> <br><br>
+        <b>***** Información del rol actualizada: *****</b><br><br>
+        Nombre del rol:  <b>$rol_info </b><br>
+        Estado: <b>Inactivo</b>");
+
+        alert_model::alert_reload("¡Rol Desactivado!","El rol se desactivo exitosamente.","success");
         exit();
     }else{
-        echo '<script type="text/javascript">
-                swal({ 
-                    title:"¡Ocurrió un error inesperado!", 
-                    text:"No se pudo realizar la operacion, por favor intente nuevamente", 
-                    type: "error", 
-                    confirmButtonText: "Aceptar" 
-                });
-            </script>';
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la operacion, por favor intente nuevamente","error");
         exit();
     }
 }
@@ -609,34 +571,18 @@ if ($modulo === "activo"){
 if ($modulo === "inactivo"){
 
     if(modeloprincipal::UpdateSQL("rol","estado = '1'", "id_rol = '$id_rol'")){
-        bitacora::bitacora("Cambio de estado de un rol","El usuario cambió el estado del rol con la siguiente información: \n\nNombre del rol: $rol_info \nEstado: Activo \n\n\nInformación del servicio actualizada: \n\nNombre del rol: $rol_info \nEstado: Inactivo");
-        echo '<script type="text/javascript">
-                $(document).ready(function(){
-                    swal({ 
-                        title:"¡Rol activado!", 
-                        text:"El rol se activo exitosamente.", 
-                        type: "success", 
-                        confirmButtonText: "Aceptar" 
-                    },
-                    function(isConfirm){  
-                        if (isConfirm) {     
-                            location.reload();
-                        } else {    
-                            location.reload();
-                        } 
-                    });
-                });
-            </script>';
+        bitacora::bitacora("Cambio exitoso del estado de un rol","El usuario cambió el estado del rol con la siguiente información: <br><br>
+        <b>***** Información del rol original: *****</b><br><br>
+        Nombre del rol:  <b>$rol_info </b><br><br>
+        Estado: <b>Inactivo</b> <br><br>
+        <b>***** Información del rol actualizada: *****</b><br><br>
+        Nombre del rol:  <b>$rol_info </b><br>
+        Estado: <b>Activo</b>");
+
+        alert_model::alert_reload("¡Rol activado!","El rol se activo exitosamente.","success");
         exit();
     }else{
-        echo '<script type="text/javascript">
-                swal({ 
-                    title:"¡Ocurrió un error inesperado!", 
-                    text:"No se pudo realizar la operacion, por favor intente nuevamente", 
-                    type: "error", 
-                    confirmButtonText: "Aceptar" 
-                });
-            </script>';
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la operacion, por favor intente nuevamente","error");
         exit();
     } 
 }

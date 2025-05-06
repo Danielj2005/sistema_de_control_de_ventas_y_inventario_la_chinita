@@ -9,9 +9,9 @@ $_SESSION['numero_2'] = rand(1, 7);
 $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 
 ?>
+
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="en">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>INICIO</title>
@@ -25,6 +25,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<div class="row justify-content-center">
 
 			<!-- galeria de imagenes -->
+			
 			<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
 				<div class="carousel-indicators">
 					<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -53,6 +54,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 			</div>
 
 			<!-- fomulario de inicio de sesión -->
+
 			<div class="col-12 position-absolute row justify-content-center align-items-center">
 				<div class="col-12 col-sm-6 col-md-6 glassmorph p-3 pt-2 rounded-4">
 					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
@@ -107,12 +109,13 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 				</div>
 			</div>
 		</div>
+
 		<div class="msjFormSend"></div>
 
 		<!-- modal recuperar contraseña -->
 		<div class="modal fade p-5" id="recuperar_contraseña" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content bg-75">
+				<div class="modal-content">
 					<form method="post" action="./vista/recuperar_contraseña.php">
 						<input type="hidden" name="acceso_recuperar_contraseña" value="ecDAuKiplp8=">
 						<div class="modal-header">
@@ -133,12 +136,12 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 				</div>
 			</div>
 		</div>
-
-		<script type="text/javascript" src="vista/js/recovery_access.js"></script>
+		
 		<script type="text/javascript" src="vista/js/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="vista/js/bootstrap.min.js"></script>
-		<script src="vista/js/hiddeInput.js"></script>
 		<script src="vista/js/SendForm.js"></script>
 		<script src="vista/js/sweet-alert.min.js"></script>
+		<!-- <script type="text/javascript" src="vista/js/recovery_access.js"></script> -->
+		<script src="vista/js/hiddeInput.js"></script>
 	</body>
 </html>

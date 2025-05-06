@@ -142,7 +142,9 @@ if ($rol >= 1 && $rol <= 3) {
 
 				// se incluyen los script de javascript a la vista 
 				include_once("../include/scripts_include.php"); 
-        
+				
+				model_user::validar_sesion_activa($id_usuario);
+				
 				config_model::verificar_actualizacion_configuracion(); ?>
 		</body>
 	</html>

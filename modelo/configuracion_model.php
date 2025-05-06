@@ -115,7 +115,6 @@ class config_model extends modeloPrincipal {
         if ($perfil == 1) {
             // Verificar si la contraseña cumple con la nueva longitud mínima
             if (strlen($contraseña) < $cant_caracteres) {
-                modeloPrincipal::UpdateSQL("usuario", "parametros_actualizados = 1", "id_usuario = '$id_usuario'");
                 alert_model::alerta_simple(
                     "¡Advertencia!",
                     "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
@@ -138,19 +137,4 @@ class config_model extends modeloPrincipal {
     }
     
 
-
-
-// Ejemplo de uso (reemplaza estos valores)
-
-// $backupPath = backupDatabase('localhost', 'usuario', 'clave', 'basededatos');
-
-// if($backupPath) {
-
-//     echo "Respaldo creado en: $backupPath";
-
-// } else {
-
-//     echo "Error al crear respaldo";
-
-// }
 }

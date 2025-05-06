@@ -145,6 +145,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
         </div>
       </div>
     </div>
+    
     <script src="./js/modal.js"></script>
 
     <?php include_once("../include/footer.php"); ?>

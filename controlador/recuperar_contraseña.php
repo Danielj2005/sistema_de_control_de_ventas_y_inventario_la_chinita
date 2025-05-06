@@ -1,7 +1,8 @@
 <?php 
+session_start();
 
-include_once ("../config/ConfigServer.php");
-include_once ("../modelo/modeloPrincipal.php");
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+
 /* se recibe el modulo a trabajar */
 $modulo = modeloPrincipal::LimpiarCadenaTexto($_POST['modulo']);
 
@@ -9,23 +10,16 @@ $modulo = modeloPrincipal::LimpiarCadenaTexto($_POST['modulo']);
 /* MODULO DE RECUPERACION DE CONTRASEÑA POR PREGUNTAS SECRETAS     */
 /*******************************************************************/ 
 if($modulo == 'verificar_preguntas'){
-    if(!isset($_POST['respuesta_seguridad']) || empty($_POST['respuesta_seguridad'])){
-        echo "<script type='text/javascript'>
-            swal({
-                title: '¡Ocurrio un error!',
-                text: 'Exiten Campos obligatorios Que Estan Vacíos',
-                type: 'error',
-                confirmBottonText: 'Aceptar'
-            });
-        </script>";
-        exit();
-    }
-
+    
+    // Se verifica que no se hayan recibido campos vacíos.
+    modeloPrincipal::validar_campos_vacios([$_POST['respuesta_seguridad']]);
+    
     $id_usuario = $_POST['id_usuario'];
+    $_SESSION['id_usuario'] = $_POST['id_usuario'];
 
     $numero_pregunta = $_POST['numero_pregunta'];
     
-    $respuesta_pregunta = strtoupper(modeloPrincipal::LimpiarCadenaTexto($_POST['respuesta_seguridad'])); 
+    $respuesta_pregunta = modeloPrincipal::Limpiar_mayusculas($_POST['respuesta_seguridad']); 
     
     // se hace una consulta para saber si el preguntas que inicia sesion esta registrado
     $existe_respuesta = mysqli_fetch_array(modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = '$id_usuario' AND numero_pregunta = '$numero_pregunta'"));
@@ -33,30 +27,10 @@ if($modulo == 'verificar_preguntas'){
 
     // si las respuestas coinciden se envia una alerta de validacion exitosa
     if ($existe_respuesta == $respuesta_pregunta) {
-        echo "<script type='text/javascript'>
-                swal({
-                    title:'Verificación Exitosa!',
-                    text: 'La respuesta a la pregunta de seguridad se ha verificado correctamente.',
-                    type: 'success',
-                    confirmButtonColor: '#10478e',
-                },
-                function(isConfirm){  
-                    if (isConfirm) {
-                        document.getElementById('verificar_respuestas').classList.add('d-none');
-                        
-                        document.getElementById('cambiar_contraseña').classList.remove('d-none');
-                    }
-                });
-            </script>";
+        alert_model::alerta_condicional('¡Verificación Exitosa!','La respuesta a la pregunta de seguridad se ha verificado correctamente.','success',"show_form_password();");
         exit();
     }else{
-        echo "<script type='text/javascript'>
-            swal({
-                title: '¡Ocurrio  error!',
-                text: 'La Respuesta no coincide con la que esta registrada en nuestro sistema, verifique he intente nuevamente.',
-                type: 'error'
-            });
-        </script>";
+        alert_model::alerta_simple("¡Ocurrió un error!","La Respuesta no coincide con la que esta registrada en nuestro sistema, verifique he intente nuevamente.","error");
         exit();
     }
 }
@@ -70,65 +44,43 @@ if($modulo === "cambiar_contraseña"){
 
     $contraseña = modeloPrincipal::LimpiarCadenaTexto($_POST['nueva_contraseña']);
     $contraseña2 = modeloPrincipal::LimpiarCadenaTexto($_POST['repite_nueva_contraseña2']);
-    $id_usuario = $_POST['id_usuario'];
+    $id_usuario =  modeloPrincipal::LimpiarCadenaTexto($_SESSION['id_usuario']);
 
-    
+
+    $configuracion = mysqli_fetch_array(config_model::consultar('c_caracteres'));
+
+    $cant_caracteres = intval($configuracion['c_caracteres']);
+
     if($contraseña !== $contraseña2){
-        echo'<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
+        alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
         exit();
     }
 
     // verificar datos
-    if (modeloPrincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\*\.]{7,16}",$contraseña)) {
-        echo '<script type="text/javascript">
-                swal({
-                    title: "¡Ocurrio un error!",
-                    text: "La contraseña no cumple con el formato establecido",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
+    if (modeloPrincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\*\.]{3,16}",$contraseña)) {
+        alert_model::alerta_simple("¡Ocurrió un error!","La contraseña no cumple con el formato establecido. ","error");
         exit();
     }
+
+    // Verificar si la contraseña cumple con la nueva longitud mínima
+    if (strlen($contraseña) < $cant_caracteres) {
+        alert_model::alerta_simple(
+            "¡Advertencia!",
+            "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
+            "warning"
+        );
+    }
+
     $contraseña = modeloPrincipal::encryption($contraseña);
 
     // actualizar contraseña
     if(modeloPrincipal::UpdateSQL("usuario","contraseña = '$contraseña'","id_usuario = '$id_usuario'")){
-        // modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0',inabilitado = '0'","id = '$id_usuario'");
-        echo '<script type="text/javascript">
-            swal({
-                title: "¡Modificación exitosa!",
-                text: "Los datos se modificaron correctamente",
-                type: "success",
-                confirmButtonText: "Aceptar"
-            },
-                function(isConfirm){  
-                    if (isConfirm) {     
-                        window.location="../index.php";
-                    } else {    
-                        window.location="../index.php";
-                    } 
-                });
-            </script>';
+        alert_model::alert_redirect('¡Modificación exitosa!','Los datos se modificaron correctamente.','success',"../");
         session_unset();
         session_destroy();
         exit();
-    }else {// mensaje de alerta en caso de error
-        echo '<script type="text/javascript"> 
-                swal({
-                    title: "¡Ocurrió un error!",
-                    text: "Los datos no se modificaron, verifique e intente nuevamente",
-                    type: "error",
-                    confirmBottonText: "Aceptar"
-                });
-            </script>';
+    }else {
+        alert_model::alert_mod_error();
         exit();
     }
 }

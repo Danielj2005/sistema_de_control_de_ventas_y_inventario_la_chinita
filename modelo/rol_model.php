@@ -51,7 +51,6 @@ class rol_model extends model_user {
         return $nombre_rol['nombre'];
     }
 
-
     // funcion para validar si se esta recibiendo datos por post
     public static function validar_post_roles($post) {
 

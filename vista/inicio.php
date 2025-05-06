@@ -145,6 +145,8 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
     <?php   
       include_once("../include/footer.php");
       include_once("../include/scripts_include.php");
+      
+      model_user::validar_sesion_activa($id_usuario);
 
       config_model::verificar_actualizacion_configuracion(); 
 

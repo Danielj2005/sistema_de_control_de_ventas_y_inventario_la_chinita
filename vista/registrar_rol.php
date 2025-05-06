@@ -485,8 +485,11 @@ if ($rol == 1) {  ?>
           </section>
         </main>
         
-        <script type="text/javascript" src="./js/funcion_seleccionar_casillas.js">
-          evaluar_casillas ();
+        <script type="text/javascript" src="./js/funcion_seleccionar_casillas.js"></script>
+        <script type="text/javascript">
+          setTimeout(() => {
+            evaluar_casillas();
+          }, 300);
         </script>
         <?php 
           // se incluye el footer / pie de pagina a la vista
