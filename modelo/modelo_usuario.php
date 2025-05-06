@@ -195,7 +195,13 @@ class model_user extends modeloPrincipal {
             alert_model::alerta_simple('¡Error!', 'No se pudo obtener la información personal del usuario.', 'error');
             exit();
         }
-        $respuesta_encriptada = modeloPrincipal::encryption($respuesta);
+        $cedula_reseteo = trim($respuesta);
+        $cedula_reseteo = str_ireplace("V", "", $cedula_reseteo);
+        $cedula_reseteo = str_ireplace("E", "", $cedula_reseteo);
+        $cedula_reseteo = str_ireplace("-", "", $cedula_reseteo);
+        $cedula_reseteo = stripslashes($cedula_reseteo);
+        $cedula_reseteo = trim($cedula_reseteo);
+        $respuesta_encriptada = modeloPrincipal::encryption($cedula_reseteo);
 
         // Obtener la cantidad total de preguntas disponibles en el sistema
         $preguntas_disponibles = modeloPrincipal::consultar("SELECT id_seguridad FROM seguridad");
