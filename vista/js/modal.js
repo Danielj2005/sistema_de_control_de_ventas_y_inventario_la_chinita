@@ -37,8 +37,17 @@ btn_modal.forEach((btn_update)=>{
 
             case 'modificar_usuario':
                 btn_guardar_modal.setAttribute('form','SendForm');
+                
                 break;
-            
+            case 'modificar_cliente':
+                titulo_modal.innerHTML = '<i class="bi bi-person-circle"></i> &nbsp; Modificar cliente';
+                btn_guardar_modal.classList.remove('d-none');
+                btn_guardar_modal.setAttribute('form','SendForm');
+                break;
+            case 'ver_cliente':
+                titulo_modal.innerHTML = '<i class="bi bi-cart-check"></i> &nbsp; Historial de Compras';
+                btn_guardar_modal.classList.add('d-none');
+                break;
             default:
                 btn_guardar_modal.classList.remove('d-none');
                 break;

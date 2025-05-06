@@ -57,7 +57,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('cliente'); ?>  
+                        <?= cliente_model::lista_clientes_registrados (); ?>  
                       </tbody>
                     </table>
                   </div>
@@ -69,14 +69,41 @@ if ($rol >= 1 && $rol <= 3) {  ?>
       </main>
       
       <!-- Modal detalles de venta -->
-      <div class="modal fade" id="historial_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="historial_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
           <div class="modal-content" id="detalles_historial_cliente">
-            
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-cart-check"></i> &nbsp; Historial de Compras</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row" id="body_modal">  </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
+      
+			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable modal-lg">
+					<div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row" id="body_modal">  </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+				</div>
+			</div>
+
+			<!-- lógica de los modales -->
+			<script src="./js/modal.js"></script>
       <?php 
         include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); 
@@ -85,7 +112,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
         config_model::verificar_actualizacion_configuracion(); 
 
         ?>
-      <script src="./js/detalles_listas.js"></script>
+        
     </body>
   </html>
 <?php }else{

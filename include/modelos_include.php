@@ -7,4 +7,5 @@ include_once ("../modelo/configuracion_model.php"); // se incluye el modelo de c
 include_once ("../modelo/alert_model.php"); // se incluye el modelo de alertas
 include_once ("../modelo/rol_model.php"); // se incluye el modelo rol
 include_once ("../modelo/empleado_model.php"); // se incluye el modelo empleado
-include_once ("../modelo/venta_model.php"); // se incluye el modelo empleado
+include_once ("../modelo/venta_model.php"); // se incluye el modelo venta
+include_once ("../modelo/cliente_model.php"); // se incluye el modelo cliente

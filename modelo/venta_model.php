@@ -1,32 +1,11 @@
 <?php
 
-// require_once __DIR__ . '/modeloPrincipal.php'; // se incluye el modelo principal
-// require_once __DIR__ . '/alert_model.php'; // se incluye el modelo principal
-// error_reporting(E_PARSE);
-
 class venta_model extends modeloPrincipal {
     
     
     /***************************************************************/ 
     /********************** CRUD de ventas *************************/
     /***************************************************************/ 
-
-    // public static function get_ventas($id_usuario) {
-    //     $query = "SELECT * FROM ventas WHERE id_usuario = :id_usuario AND estado = 1";
-    //     $stmt = modeloPrincipal::get_conexion()->prepare($query);
-    //     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-    //     $stmt->execute();
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-    
-    // public static function agregar_venta($id_usuario, $monto, $descripcion) {
-    //     $query = "INSERT INTO ventas (id_usuario, monto, descripcion, estado) VALUES (:id_usuario, :monto, :descripcion, 1)";
-    //     $stmt = modeloPrincipal::get_conexion()->prepare($query);
-    //     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-    //     $stmt->bindParam(':monto', $monto, PDO::PARAM_STR);
-    //     $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
-    //     return $stmt->execute();
-    // }
 
     
     /**********************************************************************************/
@@ -65,5 +44,4 @@ class venta_model extends modeloPrincipal {
         }
         return $num;
     }
-    
 }

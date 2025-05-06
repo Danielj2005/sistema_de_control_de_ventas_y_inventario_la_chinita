@@ -37,27 +37,28 @@ if($modulo === "Guardar"){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol]);
 
-    if (modeloprincipal::verificar_datos("[A-Za-z0-9-]{7,10}",$cedula)) {
-        alert_model::alert_of_format_wrong("'cédula'");
+    
+    if (modeloPrincipal::verificar_datos("[V|E|J|P][0-9|-]{7,10}",$cedula)) {
+        alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido, debe colocar en mayúscula la letra de la nacionalidad seguido de un guión, por ejemplo (V-12345678), por favor verifique e intente de nuevo ", "error");
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}",$nombre)) {
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}",$nombre)) {
         alert_model::alert_of_format_wrong("'nombre'");
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}",$apellido)) {
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}",$apellido)) {
         alert_model::alert_of_format_wrong("'apellido'");
         exit();
     } 
 
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}",$correo)) {
+    if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}",$correo)) {
         alert_model::alert_of_format_wrong("'correo'");
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[0-9]{11}",$telefono)) {
+    if (modeloPrincipal::verificar_datos("[0-9]{11}",$telefono)) {
         alert_model::alert_of_format_wrong("'teléfono'");
         exit();
     }
@@ -137,7 +138,7 @@ if($modulo === "modificar_info_personal_usuario"){
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $telefono, $direccion]);
 
     
-    if (modeloprincipal::verificar_datos("[A-Za-z0-9-]{7,10}",$cedula)) {
+    if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{7,10}",$cedula)) {
         alert_model::alert_of_format_wrong("CÉDULA");
         exit();
     }

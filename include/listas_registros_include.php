@@ -200,32 +200,6 @@ function consultar_registros($tabla){
         <?php } 
     }
     
-    if ($tabla === "cliente") {
-    
-        // script para crear una lista de cliente
-        // se consultan las cliente de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT * FROM cliente");
-
-        // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-        <tr>
-            <td class="text-center col"> </td>
-            <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
-            <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
-            <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
-
-            <td scope='col' class="text-center col">
-                <form action="<?= rol_model::verificar_rol('m_cliente') == '1' ?  'clienteModificar.php' : 'cliente.php'?>" method="post" class="text-center">
-                    <input type="hidden" id="id_cliente" name="valor" value="<?= $mostrar["id_cliente"]; ?>">
-                    <button type="submit" <?= rol_model::verificar_rol('m_cliente') == '1' ?  '' : 'disabled' ?> class="btn btn-warning open-modal bi bi-gear"></button>
-                </form>
-            </td>
-            <td scope='col' class="text-center col">
-                <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" <?= rol_model::verificar_rol('h_cliente') == '1' ?  'modal="detalles_historial_cliente" modulo="historial_cliente" data-bs-toggle="modal" data-bs-target="#historial_cliente"' : 'disabled' ?> ></button>
-            </td> 
-        </tr>
-    <?php }
-    }
 }; 
 
 /*------- fin de la función -------*/

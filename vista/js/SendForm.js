@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         if (node.matches('#SendForm') || node.querySelector('#SendForm')) {
                             // console.log('¡Se detectó un modal insertado en el DOM!', node);
                             SendFormAjax();
+                            dataTable();
                         }
                     }
                 });
