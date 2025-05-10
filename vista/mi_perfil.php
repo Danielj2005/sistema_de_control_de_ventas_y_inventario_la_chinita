@@ -79,7 +79,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
                           </div>
 
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="submit" modal='modificar_info_personal_usuario' class="btn_modal btn btn-success text-white" value="" url="./modal/modificar_info_personal_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
+                              <button type="submit" modal='modificar_info_personal_usuario' class="btn_modal btn btn-success text-white" value="" url="./modal/usuario/modificar_info_personal_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
                                 <i class='zmdi zmdi-refresh'></i> Actualizar
                               </button>
                           </div>
@@ -100,7 +100,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
                               </div>
                           </div>
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="submit" modal='datos_usuario' class="btn_modal btn btn-success text-white" url="./modal/modificar_contraseña_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
+                              <button type="submit" modal='datos_usuario' class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_contraseña_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
                                 <i class='zmdi zmdi-refresh'></i>
                                 Actualizar
                               </button>
@@ -110,7 +110,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
                       <fieldset class="row">
                         <legend><i class="bi bi-shield"></i> &nbsp; Actualizar Preguntas de Seguridad</legend>
                         <div class="col-12 my-4 text-center d-flex justify-content-end">
-                            <button modal="preguntas_seguridad" type="submit" class="btn_modal btn btn-success text-white" url="./modal/modificar_preguntas_seguridad.php" data-bs-toggle="modal" data-bs-target="#modal">
+                            <button modal="preguntas_seguridad" type="submit" class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_preguntas_seguridad.php" data-bs-toggle="modal" data-bs-target="#modal">
                               <i class='zmdi zmdi-refresh'></i> 
                               Actualizar
                             </button>
@@ -130,7 +130,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form id="from_modal" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
+          <form id="SendForm" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"> </h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -138,7 +138,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
             <div class="modal-body" id="body_modal">
             </div>
             <div class="modal-footer">
-              <button form="from_modal" type="submit" class="btn btn-success">Guardar cambios</button>
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar cambios</button>
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
             </div>
           </form>

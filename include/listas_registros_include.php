@@ -76,8 +76,8 @@ function consultar_registros($tabla){
                 <th><?= $mostrar["telefono"]; ?></th>
                 <th scope="col" class="col text-center">
                     <buttom 
-                        modal="modificar_usuario" 
-                        <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
+                        modal="modificar_empleado" 
+                        <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
                         value="<?= $mostrar["id_usuario"]; ?>" 
                         class="btn_modal btn btn-warning bi bi-gear">
                     </buttom>
@@ -170,34 +170,6 @@ function consultar_registros($tabla){
             echo '<option class="" name="id_producto" value="'.$row['id_producto'].'" selected >'.$row['nombre_producto'].'</option>';
         }
         mysqli_free_result($datos); 
-    }
-    
-    if ($tabla === 'proveedor') {
-        
-        // script para crear una lista de proveedor
-        // se consultan las proveedor de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
-
-        // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <tr>
-                <td class="col text-center"></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["cedula_rif"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= mb_strtoupper($mostrar["nombre"]); ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["correo"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= $mostrar["telefono"]; ?></td>
-                <td class="col text-center proveedor__<?= $mostrar["id_proveedor"]; ?>"><?= mb_strtoupper($mostrar["direccion"]); ?></td>
-
-                <td scope='col' class="col text-center">
-                    <input type="hidden" id="id_proveedor__<?= $mostrar["id_proveedor"]; ?>" name="id_proveedor" value="<?= $mostrar["id_proveedor"]; ?>">
-                    <button type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ?  '' : 'disabled' ?> class="btn btn-warning bi bi-gear" onclick="asignar_id_proveedor(<?= $mostrar['id_proveedor']; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
-                </td>
-
-                <td scope='col' class="col text-center">
-                    <button value="<?= $mostrar["id_proveedor"]; ?>" <?= rol_model::verificar_rol('m_proveedores') == '1' ?  'modal="modal_historial_proveedor" modulo="historial_proveedor" data-bs-toggle="modal" data-bs-target="#historial_proveedor"' : 'disabled' ?> class="btn btn-info bi bi-eye detalles_generales"></button>
-                </td> 
-            </tr>
-        <?php } 
     }
     
 }; 

@@ -33,7 +33,7 @@ if($modulo === 'modificar'){
     }
 
     if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,10}",$cedula)) {
-        alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido, debe colocar en mayúscula la letra de la nacionalidad seguido de un guión, por ejemplo (V-12345678), por favor verifique e intente de nuevo ", "error");
+        alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido o fue alterado. Por favor verifique e intente de nuevo ", "error");
         exit();
     }
 

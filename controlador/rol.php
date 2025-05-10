@@ -227,15 +227,7 @@ if($modulo === "Guardar"){
 
     // se comprueba que no exista un registro con los mismos datos
     if(mysqli_num_rows(modeloprincipal::consultar("SELECT nombre FROM rol WHERE nombre = '$nombre'")) > 0){
-        /********** No se puede registrar un usuario si ya existe **********/
-        echo '<script type="text/javascript">
-                swal({ 
-                    title:"¡Ocurrió un error inesperado!", 
-                    text:"Ya se encuentra Registrado un ROL con ese nombre, por favor verifica e intenta de nuevo", 
-                    type: "error", 
-                    confirmButtonText: "Aceptar" 
-                });
-            </script>'; 
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!", "Ya se encuentra Registrado un ROL con ese nombre, por favor verifica e intenta de nuevo", "error"); 
         exit(); 
     }
 

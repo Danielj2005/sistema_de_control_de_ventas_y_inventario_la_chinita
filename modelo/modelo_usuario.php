@@ -428,9 +428,9 @@ class model_user extends modeloPrincipal {
 
     }
 
-    public static function validar_usuario_existe($campos,$tabla,$condicion){
+    public static function validar_usuario_existe($campos,$condicion){
         // se comprueba que no exista un registro con los mismos datos
-        modeloPrincipal::validacion_registro_existente($campos,$tabla,$condicion);
+        modeloPrincipal::validacion_registro_existente($campos,"usuario","id_usuario = $condicion");
 
     }
 

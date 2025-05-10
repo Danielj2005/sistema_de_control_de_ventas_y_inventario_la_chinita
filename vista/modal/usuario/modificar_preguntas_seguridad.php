@@ -1,9 +1,9 @@
 <?php 
 session_start();
 
-include_once ("../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
-include_once ("../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
-include_once ("../../modelo/configuracion_model.php");  // se incluye el modelo de usuario
+include_once ("../../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
+include_once ("../../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
+include_once ("../../../modelo/configuracion_model.php");  // se incluye el modelo de usuario
 
 $id_usuario = $_SESSION['id_usuario'];
 

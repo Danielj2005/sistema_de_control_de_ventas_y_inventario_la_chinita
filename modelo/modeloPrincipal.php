@@ -141,6 +141,7 @@ class modeloPrincipal {
             alert_model::alert_resgister_exist();
             exit(); 
         }
+        return true;
         
     }
 

@@ -45,17 +45,18 @@ if ($rol == 1) {  ?>
               <div class="card top-selling overflow-auto"> 
                 <div class="card-body pb-0">
                   <h5 class="card-title">Datos del Proveeedor</h5> 
-                  <form id="añadir_producto" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                  <form id="" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
                     <input type="hidden" name="modulo" value="Guardar">
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
-                      <label for="validationDefault01" class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
+                      <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
                       <div class="col-md-4 input-group">
                         <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
                           <option value="V-">V</option>
                           <option value="R-">RIF</option>
                           <option value="E-">E</option>
+                          <option value="J-">J</option>
                         </select>
-                        <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
+                        <input type="text" class="form-control" pattern="[0-9]{7,8}" minlength="6" maxlength="8" placeholder="ingresa la cédula / RIF" name="cedula" id="cedula" required>
                       </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
@@ -64,7 +65,7 @@ if ($rol == 1) {  ?>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
-                      <input type="text" class="form-control" placeholder ="ingresa el correo" id="correo" name="correo" required>
+                      <input type="text" class="form-control" placeholder="ingresa el correo" id="correo" name="correo" required>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label for="validationDefault05" class="form-label">Teléfono <span style="color:#f00;">*</span></label>
@@ -76,7 +77,7 @@ if ($rol == 1) {  ?>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
                       <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
-                      <button name="registrar" class="btn btn-success"> Registrar</button>
+                      <button type="submit" class="btn btn-success"> Registrar</button>
                     </div>
                   </form>
                 </div>

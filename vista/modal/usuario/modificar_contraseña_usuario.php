@@ -1,13 +1,13 @@
 <?php 
 session_start();
 
-include_once ("../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
-include_once ("../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
+include_once ("../../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
+include_once ("../../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
 
 ?>
 <input type="hidden" name="modulo" value="modificar_contraseña_usuario">
 
-<div class="row p-2 mb-3" id="SendForm">
+<div class="row p-2 mb-3">
     <div class="col-12 col-md-12 mb-2">
         <label>
             Contraseña actual

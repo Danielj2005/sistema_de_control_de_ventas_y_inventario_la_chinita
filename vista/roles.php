@@ -90,13 +90,13 @@ if ($rol >= 1 && $rol <= 3) {
 												<th class="text-center col" scope="col"></th>
 												<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
 												<th class="text-center col" scope="col">
-													<button modal="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+													<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
 												</th>
 												<th class="text-center col" scope="col">
-													<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
+													<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
 												</th>
 												<th class="text-center col" scope="col">
-												<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update">
+												<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
 													<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
 													<input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
 													<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= rol_model::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
@@ -114,19 +114,17 @@ if ($rol >= 1 && $rol <= 3) {
 			
 			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-xl">
-					<form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel"></h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body row" id="body_modal"> </div>
-							<div class="modal-footer">
-								<button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-								<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-							</div>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel"></h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
-					</form>
+						<div class="modal-body row" id="body_modal"> </div>
+						<div class="modal-footer">
+							<button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+						</div>
+					</div>
 				</div>
 			</div>
 

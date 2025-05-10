@@ -68,23 +68,6 @@ if ($rol >= 1 && $rol <= 3) {  ?>
         </section>
       </main>
       
-      <!-- Modal detalles de venta -->
-      <!-- <div class="modal fade" id="historial_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
-          <div class="modal-content" id="detalles_historial_cliente">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-cart-check"></i> &nbsp; Historial de Compras</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body row" id="body_modal">  </div>
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       
 			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-lg">

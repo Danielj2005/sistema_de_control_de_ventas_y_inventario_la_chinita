@@ -32,14 +32,14 @@ if($modulo === "Guardar"){
     
 
     // se comprueba que no exista un registro con los mismos datos
-    model_user::validar_usuario_existe("correo","usuario","correo = '$correo'");
+    model_user::validar_usuario_existe("correo","$correo");
     
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol]);
 
     
     if (modeloPrincipal::verificar_datos("[V|E|J|P][0-9|-]{7,10}",$cedula)) {
-        alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido, debe colocar en mayúscula la letra de la nacionalidad seguido de un guión, por ejemplo (V-12345678), por favor verifique e intente de nuevo ", "error");
+        alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido o fue alterado. Por favor verifique e intente de nuevo ", "error");
         exit();
     }
 
@@ -112,10 +112,10 @@ if($modulo === "Guardar"){
         Rol asignado: <b>$rol_asignado </b>
         ");
 
-        alert_model::alert_mod_success();
+        alert_model::alert_reg_success();
         exit();
     } catch (Exception $e) {
-        alert_model::alert_mod_error();
+        alert_model::alert_reg_error();
         exit();
     }
 
@@ -137,7 +137,6 @@ if($modulo === "modificar_info_personal_usuario"){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $telefono, $direccion]);
 
-    
     if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{7,10}",$cedula)) {
         alert_model::alert_of_format_wrong("CÉDULA");
         exit();
@@ -181,20 +180,20 @@ if($modulo === "modificar_info_personal_usuario"){
         }
 
         $bitacora_modificacion_info_usuario = bitacora::bitacora("Modificación exitosa del perfil de usuario","El usuario actualizó su información personal <br><br>
-        Información original:<br>
-        Cédula: ".$cedula_user."<br>
-        Nombre: ".$nombre_user."<br>
-        Apellido: ".$apellido_user."<br>
-        Correo: ".$correo_user."<br>
-        Dirección: ".$direccion_user."<br>
-        Teléfono: ".$telefono_user."<br><br>
-        Información Actual:<br>
-        Cédula: ".model_user::obtener_info_personal_usuario('cedula',$id_usuario)."<br>
-        Nombre: ".model_user::obtener_info_personal_usuario('nombre',$id_usuario)."<br>
-        Apellido: ".model_user::obtener_info_personal_usuario('apellido',$id_usuario)."<br>
-        Correo: ".model_user::obtener_info_personal_usuario('correo',$id_usuario)."<br>
-        Dirección: ".model_user::obtener_info_personal_usuario('direccion',$id_usuario)."<br>
-        Teléfono: ".model_user::obtener_info_personal_usuario('telefono',$id_usuario)."
+        <b>****** Información original del usuario:   ******</b><br><br>
+        Cédula: <b>".$cedula_user."</b><br>
+        Nombre: <b>".$nombre_user."</b><br>
+        Apellido: <b>".$apellido_user."</b><br>
+        Correo: <b>".$correo_user."</b><br>
+        Dirección: <b>".$direccion_user."</b><br>
+        Teléfono: <b>".$telefono_user."</b><br><br>
+        <b>****** Información Actual del usuario:   ******</b><br><br>
+        Cédula: <b>".model_user::obtener_info_personal_usuario('cedula',$id_usuario)."</b><br>
+        Nombre: <b>".model_user::obtener_info_personal_usuario('nombre',$id_usuario)."</b><br>
+        Apellido: <b>".model_user::obtener_info_personal_usuario('apellido',$id_usuario)."</b><br>
+        Correo: <b>".model_user::obtener_info_personal_usuario('correo',$id_usuario)."</b><br>
+        Dirección: <b>".model_user::obtener_info_personal_usuario('direccion',$id_usuario)."</b><br>
+        Teléfono: <b>".model_user::obtener_info_personal_usuario('telefono',$id_usuario)."</b>
         ");
 
         if (!$bitacora_modificacion_info_usuario) {

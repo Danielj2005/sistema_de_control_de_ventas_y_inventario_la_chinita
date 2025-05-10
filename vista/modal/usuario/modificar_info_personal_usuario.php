@@ -1,8 +1,8 @@
 <?php 
 session_start();
 
-include_once ("../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
-include_once ("../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
+include_once ("../../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
+include_once ("../../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
 
 $id_usuario = $_SESSION['id_usuario'];
 $cedula = model_user::obtener_info_personal_usuario('cedula', $id_usuario);

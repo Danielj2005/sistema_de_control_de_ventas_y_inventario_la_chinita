@@ -68,7 +68,7 @@ if ($rol == 1) {  ?>
                                 <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
                                 <th class="col" scope="col"><?= date('d-m-Y / h:i a', strtotime($row['fecha_hora'])) ?></th>
                                 <th class="text-center col" scope="col">
-                                  <button modal="ver" class="btn_modal btn bi bi-eye btn-info" url="./modal/detalles_bitacora.php" value="<?= $row["id"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                  <button modal="ver_detalles_bitacora" class="btn_modal btn bi bi-eye btn-info" url="./modal/bitacora/detalles_bitacora.php" value="<?= $row["id"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                                 </th>
                               </tr>
                           <?php } ?>  
@@ -93,7 +93,7 @@ if ($rol == 1) {  ?>
             <div class="modal-body" id="body_modal" > </div>
 
             <div class="modal-footer">
-              <button id="btn_guardar_modal" form="update_user_info" type="submit" class="btn btn-success">Guardar</button> 
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button> 
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>

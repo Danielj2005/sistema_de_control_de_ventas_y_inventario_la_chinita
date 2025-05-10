@@ -71,17 +71,15 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">CÉULA/RIF</th>
-                          <th class="col text-center" scope="col">NOMBRE</th>
-                          <th class="col text-center" scope="col">CORREO</th>
-                          <th class="col text-center" scope="col">TELÉFONO</th>
-                          <th class="col text-center" scope="col">DIRECCIÓN</th>
-                          <th class="col text-center" scope="col" class="text-center">MODIFICAR</th>
-                          <th class="col text-center" scope="col" class="text-center">VER HISTORAL DE COMPRAS</th>
+                          <th class="col text-center" scope="col">Cédula / Rif</th>
+                          <th class="col text-center" scope="col">Nombre</th>
+                          <th class="col text-center" scope="col">Detalles</th>
+                          <th class="col text-center" scope="col" class="text-center">Modificar</th>
+                          <th class="col text-center" scope="col" class="text-center">Historial de compras</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('proveedor'); ?>  
+                        <?php proveedor_model::lista_proveedores_registrados(); ?>  
                       </tbody>
                     </table>
                   </div>
@@ -92,63 +90,38 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         </section>
       </main>
       
-      <!-- Modal modificar proveedor -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form id="update_proveedor" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
-              <div class="modal-header">
-                <h5 class="modal-title">Datos del Proveedor</h5>
-                <input type="hidden" name="modulo" value="Modificar">
-                <input type="hidden" id="id_proveedor_modificar" name="id_proveedor_modificar" value="">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="row m-0">
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <label> Cédula <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="text" maxlength="11"class="modificar_proveedor form-control  <?php ($_SESSION['id_rol'] < "3") ? '' : 'bg-dark-subtle' ?>" <?php ($_SESSION['id_rol'] < "3") ? '' : 'readonly' ?> id="cedula" name="cedula" placeholder="ingrese la cédula">
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <label> Nombre<span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="text" maxlength="30" class="modificar_proveedor form-control" id="nombre" name="nombre" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" placeholder="ingrese el nombre">
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <label> Correo <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="email" maxlength="30" class="modificar_proveedor form-control correo" id="correo" name="correo" placeholder="ingrese el correo" >
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <label> Teléfono <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="text" maxlength="11" class="modificar_proveedor form-control telefono" id="telefono" name="telefono" pattern="[0-9]{11}" placeholder="ingrese el teléfono" >
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-                    <label> Dirrección <span style="color: red; font-size: 20px;"> * </span></label>
-                    <input type="text" maxlength="30" class="modificar_proveedor form-control" id="direccion" name="direccion" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-\. ]{5,70}" placeholder="ingrese la dirección">
-                  </div>
-                  <div class="col-12 mb-3">
-                    <div class="form-group col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
-                      <p> Los campos con <span style="color: red; font-size: 20px;"> * </span> son obligatorios </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-              </div>
-            </form>
+      
+      <div class="responseProcess text-white">
+        <div class="container-loader">
+          <div class="loader">
+            <i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i>
           </div>
+          <p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p>
         </div>
       </div>
 
-      <!-- Modal detalles del historial -->
-      <div class="modal fade" id="historial_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
-          <div class="modal-content" id="modal_historial_proveedor">
-          </div>
-        </div>
-      </div>
 
+
+			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable modal-xl">
+					<div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row" id="body_modal">  </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+				</div>
+			</div>
+
+
+			<!-- lógica de los modales -->
+			<script src="./js/modal.js"></script>
+      
       <?php   
         include_once("../include/footer.php");  
         include_once("../include/scripts_include.php"); 
@@ -156,26 +129,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         model_user::validar_sesion_activa($id_usuario);
         
         config_model::verificar_actualizacion_configuracion(); ?>
-      
-      <script>
         
-        function asignar_id_proveedor(id_proveedor){
-          let proveedor = document.getElementById(`id_proveedor__${id_proveedor}`).value;
-          document.getElementById('id_proveedor_modificar').value = proveedor;
-
-          let datos = document.querySelectorAll(`.proveedor__${id_proveedor}`);
-          let modal = document.querySelectorAll(`.modificar_proveedor`);
-
-          for (let i = 0; i < datos.length; i++) {
-
-            modal[i].value = datos[i].textContent;
-            
-          }
-        }
-        
-      </script>
-      
-      <script src="./js/detalles_listas.js"></script>
     </body>
   </html>
 <?php }else{

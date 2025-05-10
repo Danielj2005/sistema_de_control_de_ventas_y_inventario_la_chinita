@@ -1,7 +1,7 @@
 <?php
-include_once("../../config/ConfigServer.php"); 
-include_once("../../modelo/modeloPrincipal.php"); 
-include_once("../../include/obtener_icono_permisos_include.php"); 
+
+include_once("../../../modelo/modeloPrincipal.php"); 
+include_once("../../../include/obtener_icono_permisos_include.php"); 
 
 $id_rol = modeloPrincipal::LimpiarCadenaTexto($_POST['id']);
 

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-include_once("../../config/ConfigServer.php"); 
-include_once("../../modelo/modeloPrincipal.php"); 
+include_once("../../../modelo/modeloPrincipal.php"); 
 
 $id_menu = $_POST['id'];
 $precio_dolar_actual = $_SESSION['dolar'];

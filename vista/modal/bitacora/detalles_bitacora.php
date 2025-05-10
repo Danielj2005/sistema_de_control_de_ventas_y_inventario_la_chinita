@@ -1,5 +1,5 @@
 <?php
-include_once("../../modelo/modeloPrincipal.php"); 
+include_once("../../../modelo/modeloPrincipal.php"); 
 
 $id = $_POST['id'];
 

@@ -1,6 +1,6 @@
 <?php
 // se importan los archivos de configuracion de la base de datos y modelo principal
-include_once("../../modelo/modeloPrincipal.php");
+include_once("../../../modelo/modeloPrincipal.php");
 
 $id_usuario = $_POST['id'];
 

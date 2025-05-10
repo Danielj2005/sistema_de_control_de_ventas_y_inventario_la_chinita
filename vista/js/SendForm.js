@@ -35,6 +35,27 @@ function SendFormAjax() {
         var type_form = $(this).attr('data-type-form');
         var procesando = $(this).attr('procesando');
 
+        const title_alerta = {
+            "save": "¿Quieres almacenar los datos?",
+            "delete": "¿Quieres eliminar los datos?",
+            "update": "¿Quieres actualizar los datos?",
+            "update_estate": "¿Quieres realizar el cambio?"
+        };
+
+        const text_alerta = {
+            "save": "Los datos se almacenarán en el sistema",
+            "delete": "Al eliminar estos datos no podrás recuperarlos después",
+            "update": "Los datos se actualizarán y no podrás recuperar los datos anteriores",
+            "update_estate": "Puedes cambiar el estado en cualquier momento"
+        };
+
+        const type_alerta = {
+            "save": "info",
+            "delete": "warning",
+            "update": "warning",
+            "update_estate": "warning"
+        };
+
         if(type_form === "load"){
             // No modification needed for "load" type
             $.ajax({
@@ -55,63 +76,19 @@ function SendFormAjax() {
             });
             return false;
         } else {
-            var title_alert;
-            var text_alert;
-            var type_alert;
-    
-            switch (type_form) {
-                case "save":
-                    title_alert = "¿Quieres almacenar los datos?";
-                    text_alert = "Los datos se almacenarán en el sistema";
-                    type_alert = "info";
-                    break;
-                case "delete":
-                    title_alert = "¿Quieres eliminar los datos?";
-                    text_alert = "Al eliminar estos datos no podrás recuperarlos después";
-                    type_alert = "warning";
-                    break;
-                case "suspender_empresa":
-                    title_alert = "¿Confirmación de Suspención?";
-                    text_alert = "Al suspender esta empresa ninguno de sus usaurios podran iniciar sesión, desea continuar?";
-                    type_alert = "warning";
-                    break;
-                case "activar_empresa":
-                    title_alert = "¿Confirmación de Activación?";
-                    text_alert = "Al activar esta empresa sus usaurios podran iniciar sesión, desea continuar?";
-                    type_alert = "warning";
-                    break;
-                case "update":
-                    title_alert = "¿Quieres actualizar los datos?";
-                    text_alert = "Los datos se actualizarán y no podrás recuperar los datos anteriores";
-                    type_alert = "info";
-                    break;
-                case "verificar":
-                    title_alert = "¿Quieres verificar pago?";
-                    text_alert = "Los datos se actualizarán y no podrás recuperar los datos anteriores";
-                    type_alert = "info";
-                    break;
-                case "updateAccounUser":
-                    title_alert = "¿Quieres realizar el cambio?";
-                    text_alert = "Puedes activar o desactivar la cuenta del usuario en cualquier momento";
-                    type_alert = "info";
-                    break;
-                case "updateEstado":
-                    title_alert = "¿Quieres realizar el cambio?";
-                    text_alert = "Puedes activar o desactivar en cualquier momento";
-                    type_alert = "warning";
-                    break;
-                default:
-                    console.error("No se reconoce el tipo de formulario:", type_form);
-                    return; // Exit if type_form is not recognized
+
+            if (title_alerta[`${type_form}`] == false && text_alerta[`${type_form}`] == false && type_alerta[`${type_form}`] == false) {
+                swal("¡Ocurrio un error inesperado", "No se reconoce el tipo de formulario: '"+ type_form +"'", "error");
+                return;
             }
-    
+
             swal({
-                title: title_alert,
-                text: text_alert,
-                type: type_alert,
+                title: title_alerta[`${type_form}`],
+                text: text_alerta[`${type_form}`],
+                type: type_alerta[`${type_form}`],
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6", // Default SweetAlert2 blue
-                confirmButtonText: "Si, continuar",
+                confirmButtonText: "Sí, continuar",
                 cancelButtonText: "No, cancelar",
                 animation: "slide-from-top"
             },
@@ -144,39 +121,3 @@ function SendFormAjax() {
 $(document).ready(function () {
     SendFormAjax();
 });
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Selecciona el nodo objetivo para observar (por ejemplo, el body)
-    const targetNode = document.body;
-
-    // Opciones de configuración para observar cambios
-    const config = { childList: true, subtree: true };
-
-    // Callback que se ejecuta cuando hay mutaciones en el DOM
-    const callback = function(mutationsList, observer) {
-        for (let mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-                mutation.addedNodes.forEach(node => {
-                    if (node.nodeType === 1) { // Es un elemento HTML
-                        // Aquí puedes comprobar si el nodo coincide con lo que buscas, por ejemplo un modal con una clase o id específico
-                        if (node.matches('#SendForm') || node.querySelector('#SendForm')) {
-                            // console.log('¡Se detectó un modal insertado en el DOM!', node);
-                            SendFormAjax();
-                            dataTable();
-                        }
-                    }
-                });
-            }
-        }
-    };
-
-    // Crea un observer con el callback
-    const observer = new MutationObserver(callback);
-
-    // Empieza a observar el nodo con las configuraciones indicadas
-    observer.observe(targetNode, config);
-
-    // Si alguna vez quieres dejar de observar:
-    // observer.disconnect();
-});
-
