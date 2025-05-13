@@ -12,9 +12,9 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::verificar_rol('r_categoria');
+$rol = rol_model::verificar_rol('r_categoria + m_categoria + l_categoria');
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol == 1) {  ?>
+if ($rol >= 1 && $rol <= 3) {  ?>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -56,7 +56,7 @@ if ($rol == 1) {  ?>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('categoria'); ?>  
+                        <?php category_model::lista(); ?>  
                       </tbody>
                     </table>
                   </div>
@@ -69,8 +69,9 @@ if ($rol == 1) {  ?>
                   <div class="card-body">
                     <h5 class="card-title">Añadir Nueva Categoría</h5>
                     <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                        <input type="hidden" name="modulo" value="Guardar">          
                         <div class="row mb-3">
-                          <label for="inputEmail3" class="col-form-label">Nombre de la Categoría</label>
+                          <label for="inputEmail3" class="col-form-label">Nombre</label>
                           <div class="col-sm-10">
                             <input form="añadir_categoria" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="id" name="nombre">
                           </div>

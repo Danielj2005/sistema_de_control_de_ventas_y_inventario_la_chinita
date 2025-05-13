@@ -1,10 +1,5 @@
 <?php
 
-// include_once '../modelo/modeloPrincipal.php'; // se incluye el modelo principal
-// require_once '../modelo/rol_model.php'; // se incluye el modelo de rol
-// require_once '../modelo/bitacora_model.php'; // se incluye el modelo de rol
-// require_once '../modelo/alert_model.php'; // se incluye el modelo de alertas
-
 class model_user extends modeloPrincipal {
     
     
@@ -359,7 +354,6 @@ class model_user extends modeloPrincipal {
     public static function verificar_intento_de_acceso_al_sistema(){
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
             // // Redirigir el acceso a la página sino inició de sesión
-            // bitacora::intento_de_acceso_al_sistema_de_manera_incorrecta()
             header('Location: ../');
             exit();
         }

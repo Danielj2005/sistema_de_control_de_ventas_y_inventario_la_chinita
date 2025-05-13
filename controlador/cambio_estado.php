@@ -1,17 +1,22 @@
-<?php
-// en este controlador se maneja la logica para el cambio de estado de varios registros
+<?php 
 session_start();
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
 
+include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-$modulo = strval($_POST['modulo']);
+// modulo a trabajar
+$modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
+
+if (!isset($_POST["modulo"])) {
+    alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
+    exit();
+}
+
 $tabla = strval($_POST['tabla']);
+
 $id = modeloPrincipal::limpiar_cadena($_POST["id"]);
             
 $id_tablas  = ['categoria' => 'id_categoria',
             'menu' => 'id_menu'];
-
 
 $titulo_activado = ['categoria' => '¡Categoría Activada!',
             'menu' => '¡Servicio Activado!'];
@@ -29,6 +34,7 @@ $texto_desactivado = ['categoria' => 'La categoría se desactivo exitosamente',
 $estado = ['categoria' => 'estado',
             'menu' => 'estatus'
 ];
+
 $existe_platillo = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM menu WHERE id_menu = $id"));
 $existe_platillo_nombre_platillo = $existe_platillo['nombre_platillo'];
 $existe_platillo_precio_dolar = $existe_platillo['precio_dolar'];

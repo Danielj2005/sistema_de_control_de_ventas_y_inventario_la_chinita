@@ -138,7 +138,7 @@ class modeloPrincipal {
         // se comprueba que no exista un registro con los mismos datos
         if(mysqli_num_rows(Self::consultar("SELECT $campos FROM $tabla WHERE $condicion")) > 0){
             /********** No se puede registrar un usuario si ya existe **********/
-            alert_model::alert_resgister_exist();
+            alert_model::alert_register_exist();
             exit(); 
         }
         return true;

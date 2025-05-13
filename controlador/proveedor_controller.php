@@ -38,12 +38,12 @@ if($modulo === "Guardar" ){
         alert_model::alert_of_format_wrong("'nombre'");
         exit();
     }
-echo 'zzz';
+    
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         alert_model::alert_of_format_wrong("correo");
         exit();
     }
-    echo 'xxx';
+    
 
     if (modeloPrincipal::verificar_datos("[0-9]{11}",$telefono)) {
         alert_model::alert_of_format_wrong("'teléfono'");

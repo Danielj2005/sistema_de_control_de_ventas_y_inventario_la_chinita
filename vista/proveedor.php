@@ -90,19 +90,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         </section>
       </main>
       
-      
-      <div class="responseProcess text-white">
-        <div class="container-loader">
-          <div class="loader">
-            <i class="zmdi zmdi-alert-triangle zmdi-hc-5x"></i>
-          </div>
-          <p class="text-center lead text-white">Ocurrio un problema, recargue la página e intente nuevamente o presione F5</p>
-        </div>
-      </div>
-
-
-
-			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-xl">
 					<div class="modal-content">
             <div class="modal-header">

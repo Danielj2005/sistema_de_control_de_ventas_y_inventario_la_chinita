@@ -1,0 +1,94 @@
+<?php
+
+class category_model extends modeloPrincipal {
+
+    public static function consultar($fields) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria");
+        modeloPrincipal::verificar_consulta($consul,'categoria'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    public static function consultar_condicional($fields, $condicion) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria WHERE $condicion");
+        modeloPrincipal::verificar_consulta($consul,'categoria'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    public static function consultar_categoria_por_id($fields, $id_categoria) {
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria WHERE id_categoria = $id_categoria");
+        modeloPrincipal::verificar_consulta($consul,'categoria'); // se verifica si la consulta fue exitosa
+        return $consul;
+    }
+
+    
+    // funcion para obtener el id de un categoria
+    public static function obtener_id_categoria_recien_registrada(){
+        $id_categoria = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_categoria) AS id FROM categoria"));
+        $id_categoria = $id_categoria['id'];
+        return $id_categoria;
+    }
+
+    public static function registrar ($nombre) {
+
+        $registrar = modeloPrincipal::InsertSQL("categoria", "nombre, estado" ,"'$nombre',1");
+    
+        if (!$registrar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el proveedor debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+        }
+        return $registrar;
+    }
+
+    public static function validar_categoria_existe($campos,$condicion){
+        // se comprueba que no exista un registro con los mismos datos
+        $consult = modeloPrincipal::validacion_registro_existente($campos,"categoria","id_categoria = $condicion");
+
+        if (!$consult) {
+            alert_model::alert_register_exist();
+            exit(); 
+        }
+
+    }
+
+    public static function lista(){
+        $consulta = self::consultar("*");
+        // se guardan los datos en un array y se imprime
+        $i = 1;
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <tr>
+                <td class="col text-center"><?= $i++ ?></td>
+                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                <td scope="row" class="text-center">
+                    <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                        
+                        <input type="hidden" name="modulo" value="<?= ($mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          
+                        <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
+                        <button 
+                            <?= (rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
+                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle'?>" 
+                            title="estado de la categoría">
+                                &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <?php  } 
+    }
+
+
+    public static function options() {
+        $consulta = self::consultar_condicional("id_categoria, nombre","estado = 1");
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <option value="<?= $mostrar["id_categoria"];?>"> <?= $mostrar["nombre"]; ?></option>
+        <?php  } 
+    }
+
+    public static function actualizar($estado, $id_categoria){
+        // se comprueba que no exista un registro con los mismos datos
+        
+        if (!modeloprincipal::UpdateSQL("categoria", "estado = $estado", "id_categoria = $id_categoria")) {
+            return false;
+        }
+        return true;
+    }
+}

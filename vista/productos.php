@@ -12,9 +12,9 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
+$rol = rol_model::permisos_modulos('r_productos + l_productos');
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 4) {  
+if ($rol == 1 || $rol == 2) {  
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -44,19 +44,11 @@ if ($rol >= 1 && $rol <= 4) {
               <div class="card top-selling pb-3">
                 <div class="row p-2 text-center">
 
-                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
+                  <div class="col-12 col-sm-12 col-md-6 mb-2 row m-0">
                     <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
                   </div>
 
-                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
-                    <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_categoria') == 1 ? 'href="./categoria_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Categoría</a>
-                  </div>
-
-                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
-                    <button class="col-12 btn btn-success text-white" <?= rol_model::verificar_rol('r_presentacion') == 1 ? 'data-bs-toggle="modal" data-bs-target="#addPresentacion"' : 'disbled'?>>Añadir Presentación</button>
-                  </div>
-
-                  <div class="col-12 col-sm-12 col-md-3 mb-2 row m-0">
+                  <div class="col-12 col-sm-12 col-md-6 mb-2 row m-0">
                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
                   </div>
                 </div>
@@ -64,23 +56,22 @@ if ($rol >= 1 && $rol <= 4) {
                 <div class="card-body pb-0">
                   <h5 class="card-title">Lista de Productos</h5>
                   <div class="table table-responsive">
-                    <table class="table table-borderless datatable" id="example">
+                    <table class="table table-borderless table-stripped" id="example">
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
                           <th class="text-center col" scope="col">CÓDIGO</th>
                           <th class="text-center col" scope="col">NOMBRE</th>
                           <th class="text-center col" scope="col">PRESENTACIÓN</th>
-                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
-                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
-                          <th class="text-center col" scope="col">STOCK</th>
                           <th class="text-center col" scope="col">CATEGORÍA</th>
+                          <th class="col text-center" scope="col">PRECIO DE VENTA EN $</th>
+                          <th class="text-center col" scope="col">STOCK</th>
                           <th class="text-center col" scope="col">ESTADO</th>
                         </tr>
                       </thead>
     
                       <tbody>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('producto'); ?>  
+                        <?php producto_model::lista(); ?>  
                       </tbody>
                     </table>
                   </div>
@@ -90,40 +81,6 @@ if ($rol >= 1 && $rol <= 4) {
           </div>
         </section>
       </main>
-
-      <!-- Modal para registrar una presentación -->
-      <div class="modal fade" id="addPresentacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Añadir Presentación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" id="detalles_de_ventas">
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-form-label">Nombre de la Presentación <span style="color:#f00;">*</span></label>
-                  <div class="col-sm-10">
-                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
-                    <input type="hidden" name="modulo" value="guardar">
-                  </div>
-                  
-                  <div class="col-12 mb-1">
-                    <div class="form-group">
-                        <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-                    
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Añadir</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
       
       <?php 
         // se incluye el footer / pie de pagina a la vista

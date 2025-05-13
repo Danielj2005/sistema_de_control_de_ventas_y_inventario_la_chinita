@@ -15,8 +15,12 @@
 ================================================================================================
 */
 #loader{
-    position: absolute;
+    /* position: absolute; */
     right: 0;
+	background-color: rgba(0, 0, 0, 0.50);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5);
+	-moz-backdrop-filter: blur(10px);
 }
 .loader {
     border: 16px solid #dadada; /* Light grey */
@@ -26,7 +30,12 @@
     height: 120px;
     animation: spin 2s linear infinite;
     margin: 4em auto;
+    transition: all ease-in-out .8s ;
     display: none;
+}
+.show_loader {
+    transition: all ease-in-out .8s ;
+    display: block;
 }
 #sub_loader{
     position: absolute;

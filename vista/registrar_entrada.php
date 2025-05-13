@@ -57,7 +57,7 @@ if ($rol == 1) {  ?>
                         <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
                           <option value="V-">V</option>
                           <option value="R-">RIF</option>
-                          <option value="J-">JURIDICO</option>
+                          <option value="J-">J</option>
                           <option value="E-">E</option>
                         </select>
                         <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
@@ -83,12 +83,12 @@ if ($rol == 1) {  ?>
                     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
                       <h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos a ingresar</h5>
                       <div class="col-12 col-sm-12 col-md-4 mb-3">
-                        <button type="button" class="btn btn-secondary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
+                        <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
                       </div>
 
                       <label class="form-label">Productos <span style="color:#f00;">*</span></label>
 
-                      <select multiple="on" onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-select Select" id="id_producto" name="producto[]" required>
+                      <select multiple="on" onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-select Select mb-5" id="id_producto" name="producto[]" required>
                         <option>Selecciona una o más opciones</option>
 
                         <?php
@@ -101,6 +101,9 @@ if ($rol == 1) {  ?>
     
                         <?php } ?>
                       </select>
+                      <div class="col-12 col-sm-12 col-md-4 mb-3">
+                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir un producto</button>
+                      </div>
                     </div>
 
                     <div class="col-md-12">
@@ -116,10 +119,12 @@ if ($rol == 1) {  ?>
                               <th class="col text-center" scope="col">CANTIDAD</th>
                               <th class="col text-center" scope="col">PRECIO POR UNIDAD $</th>
                               <th class="col text-center" scope="col">PRECIO POR UNIDAD BS</th>
+                              <th class="col text-center" scope="col">PRECIO VENTA $</th>
+                              <th class="col text-center" scope="col">ELIMINAR</th>
                             </tr>
                           </thead>
                           <tbody id="lista_productos">
-                            
+                            <?php include_once "../include/options_productos"; ?>
                           </tbody>
                         </table>
                       </div>
@@ -175,67 +180,31 @@ if ($rol == 1) {  ?>
       </main>
         
       <div class="modal fade" id="registrar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Registro de Producto</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <h2 class="card-title">Añadir Nuevo Producto</h2>
-              <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                <input type="hidden" name="modulo" value="Guardar">
-                  <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <label class="col-form-label">Cógido Del Producto</label>
-                    <div class="col-sm-12">
-                      <input type="text" pattern="[0-9]{4,30}" required="" placeholder="código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <label class="col-form-label">Nombre Del Producto</label>
-                    <div class="col-sm-12">
-                      <input form="añadir_producto" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
-                    </div>
-                  </div>
-                  <!-- selector de categoría  -->
-                  <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <label class="col-form-label">Selecciona una Categoría</label>
-                    <div class="col-sm-12">
-                      <select name="id_categoria" id="categoria" class="form-select">
-                        <option value="">Selecciona una categoría</option>
-                        <?php include("../include/listas_registros_include.php"); consultar_registros('categoria_opcion'); ?> 
-                      </select>
-                    </div>
-                  </div>
-                  <!-- selector de presentacion -->
-                  <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <label class="col-form-label">Selecciona una Presentación</label>
-                    <div class="col-sm-12">
-                      <select name="id_presentacion" id="select_presentacion" class="form-select">
-                        <option value="0">Selecciona una presentación</option>
-                        <?php require_once ('../include/select_dinamico.php');?>
-                      
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="text-center">
-                    <button type="submit" form="añadir_producto" class="btn btn-success">Añadir</button>
-                  </div>
-              </form>
+            <div class="modal-body" id="body_modal">
+              
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Registrar</button>
+              <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
 
-      <?php 
+			<!-- lógica de los modales -->
+			<script src="./js/modal.js"></script>
+			<script src="./js/añadir_elemento_lista.js"></script>
+      <?php
         // se incluye el footer / pie de pagina a la vista
-        include_once("../include/footer.php");
+        include_once ("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php"); 
+        include_once ("../include/scripts_include.php"); 
       
         model_user::validar_sesion_activa($id_usuario);
         

@@ -10,3 +10,6 @@ include_once ("../modelo/empleado_model.php"); // se incluye el modelo empleado
 include_once ("../modelo/venta_model.php"); // se incluye el modelo venta
 include_once ("../modelo/cliente_model.php"); // se incluye el modelo cliente
 include_once ("../modelo/proveedor_model.php"); // se incluye el modelo proveedor
+include_once ("../modelo/categoria_model.php"); // se incluye el modelo categoria
+include_once ("../modelo/presentacion_model.php"); // se incluye el modelo presentacion
+include_once ("../modelo/productos_model.php"); // se incluye el modelo producto

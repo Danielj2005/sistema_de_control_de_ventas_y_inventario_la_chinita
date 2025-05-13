@@ -14,7 +14,7 @@ class bitacora extends model_user {
     /******funcion para registrar movimientos del sistema en la bitácora  ******/ 
     public static function bitacora($accion, $mensaje) {
         $fechas = date('Y-m-d H:i:s');
-        $id_usuario = ($_SESSION["id_usuario"]);
+        $id_usuario = $_SESSION["id_usuario"];
 
         if (!$consul = Self::InsertSQL("bitacora","fecha_hora,accion,mensaje,id_usuario","'$fechas','$accion','$mensaje',$id_usuario")) {
             die("Ha ocurrido un error al guardar la bitacora");
@@ -30,9 +30,9 @@ class bitacora extends model_user {
 
     // funcion para registrar Intento de acceso al sistema sin autenticación previa en la bitácora
     
-    public static function intento_de_acceso_al_sistema_de_manera_incorrecta() {
+    public static function intento_de_acceso_a_los_archivos_del_sistema() {
         // Registra en la bitácora el intento de acceso sin iniciar sesion
-        return Self::bitacora("Intento de acceso al sistema sin autenticación previa.","Se ha registrado un intento de acceso al sistema de manera incorrecta por parte de un usuario no autenticado.");
+        return Self::bitacora("Intento de acceso a los archivos del sistema.","Se ha registrado un intento de acceso a los archivos del sistema de manera incorrecta por parte de un usuario.");
     }
 
     

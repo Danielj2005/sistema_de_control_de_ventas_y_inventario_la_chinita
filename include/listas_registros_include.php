@@ -5,51 +5,7 @@ include_once("../modelo/modeloPrincipal.php");
 function consultar_registros($tabla){
         
     $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario que inicio sesion
-    // se consultan los registros dependiendo de la tabla
-    if ($tabla === "categoria") {
-        // script para crear una lista de categorias
-        // se consultan las categorias de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT * FROM categoria");
-        // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <tr>
-                <td class="col text-center"> </td>
-                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                <td scope="row" class="text-center">
-                    <form action="../controlador/cambio_estado.php" method="post" class="SendFormAjax" data-type-form="updateEstado" >
-                        
-                        <?php if ($mostrar["estado"] === "1") { ?>
-
-                            <input type="hidden" name="modulo" value="activo">                            
-                            <input type="hidden" name="tabla" value="categoria">
-                            <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button <?= ($_SESSION['id_rol'] < "3") ? '' : 'disabled' ?> class="btn btn-success" title="estado de la categoría">Activa </button>
-                        
-                        <?php }else if ($mostrar["estado"] === "0") { ?>
-
-                            <input type="hidden" name="modulo" value="inactivo">                            
-                            <input type="hidden" name="tabla" value="categoria">
-                            <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                            <button <?= ($_SESSION['id_rol'] < "3") ? '' : 'disabled' ?> class="btn btn-danger" title="estado de la categoría">Inactiva </button>
-                        
-                        <?php } ?>
-                    </form>
-                </td>
-            </tr>
-        <?php  } 
-    }
-
-    if ($tabla === "categoria_opcion") {
-        // script para crear una lista de categorias
-        // se consultan las categorias de la base de datos
-        $consulta = modeloPrincipal::consultar("SELECT id_categoria, nombre FROM categoria WHERE estado = 1");
-        // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["id_categoria"];?>"><?= $mostrar["nombre"]; ?></option>
-
-        <?php  } 
-    }
-
+    
     // en este apartado se genera un select con los roles
     if ($tabla === "rol") {
         // script para crear una lista de tipos usuarios
@@ -95,33 +51,7 @@ function consultar_registros($tabla){
             </tr>
         <?php }
     }
-
-    if($tabla === 'producto'){
-        // script para crear una lista de productos disponibles
-        // consulta de los productos registrados
-        $consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_compra_dolar, P.precio_compra_bs, P.stock, 
-            P.estatus, C.nombre, PS.nombre as nombre_presentacion FROM producto AS P 
-            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
-            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
-            ORDER BY P.id_producto DESC");
-
-        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
-
-            <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
-                <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["codigo"]; ?></td>
-                <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
-                <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
-                <td class="text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
-                <td class="text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>
-                <td class="text-center"><?= $mostrar["stock"]; ?></td>
-                <td class="text-center"><?= $mostrar["nombre"]; ?></td>
-                <td class="text-center <?= ($mostrar["estatus"] == '1') ? 'text-success':'text-danger'; ?>"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
-            </tr>
-            
-        <?php }
-    }
-    
+     
     if($tabla === 'menu'){
         //  se consulta base de datos en busca de los servivios rgistrados
         $consulta = modeloPrincipal::consultar("SELECT * FROM menu");

@@ -12,10 +12,12 @@
     <?php 
       // vistas
       $entrada = rol_model::permisos_modulos('r_entrada + l_entrada');
-      $productos = rol_model::permisos_modulos('r_categoria + r_presentacion + r_productos + l_productos');
+      $categoria = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria');
+      $presentacion = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
+      $productos = rol_model::permisos_modulos('r_productos + l_productos');
       $proveedores = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
 
-      if ($entrada > '0' || $productos > '0' || $proveedores > '0') {?>
+      if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') {?>
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-menu-button-wide"></i>
@@ -31,7 +33,21 @@
                   <span>Entrada de productos</span>
                 </a>
               </li>
-            <?php } if ($productos >= 1 && $detalles_venta <= 4) {  ?>
+            <?php } if ($categoria >= 1 && $categoria <= 3) {  ?>
+              <li>
+                <a href="../vista/categoria_productos.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Categoría</span>
+                </a>
+              </li>
+            <?php }  if ($presentacion >= 1 && $presentacion <= 3) {  ?>
+              <li>
+                <a href="../vista/presentacion.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Presentación</span>
+                </a>
+              </li>
+            <?php }  if ($productos == 1 || $productos == 2 ) {  ?>
               <li>
                 <a href="../vista/productos.php">
                   <i class="bi bi-circle"></i>

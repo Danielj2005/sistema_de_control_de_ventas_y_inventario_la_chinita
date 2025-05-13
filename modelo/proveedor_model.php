@@ -33,10 +33,6 @@ class proveedor_model extends modeloPrincipal {
     }
 
 
-
-
-
-
     public static function registrar_proveedor ($cedula, $nombre, $correo, $telefono, $direccion) {
 
         $registrar = modeloPrincipal::InsertSQL("proveedor","cedula_rif, nombre, correo, direccion, telefono","'$cedula','$nombre','$correo','$direccion','$telefono'");
@@ -75,7 +71,7 @@ class proveedor_model extends modeloPrincipal {
                 </td>
 
                 <td class="col text-center">
-                    <button modal="modificar_proveedor" value="<?= $mostrar["id_proveedor"]; ?>"  type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ?  'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
+                    <button modal="modificar_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ?  'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
                 </td>
 
                 <td class="col text-center">

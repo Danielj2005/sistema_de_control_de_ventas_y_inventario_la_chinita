@@ -185,13 +185,13 @@ class alert_model {
         </script>';
     }
 
-    public static function alert_resgister_exist(){
+    public static function alert_register_exist(){
         echo '<script type="text/javascript">
-                swal({ 
-                    title:"¡Ocurrió un error!", 
-                    text:"La información ingresada ya se encuentra registrada en el sistema. le sugerimos revisar los datos o utilizar una informacón diferente", 
-                    type: "error", 
-                    confirmButtonText: "Aceptar" 
+                swal({
+                    title:"¡Ocurrió un error!",
+                    text:"La información ingresada ya se encuentra registrada en el sistema. le sugerimos revisar los datos o utilizar una información diferente",
+                    type: "error",
+                    confirmButtonText: "Aceptar"
                 });
         </script>'; 
     }

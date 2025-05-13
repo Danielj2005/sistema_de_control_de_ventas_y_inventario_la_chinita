@@ -12,7 +12,7 @@ btn_modal.forEach((btn_update)=>{
         let id = (btn_update.getAttribute('value') !== "") ? btn_update.getAttribute('value') : '';
         let modal = btn_update.getAttribute('modal');
         let url = btn_update.getAttribute('url');
-        let	parametros = { 'id' : id  };
+        let	parametros = {'id' : id  };
 
         const title_modal = {
             "ver_detalles_bitacora": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del registro en bitácora',
@@ -32,7 +32,8 @@ btn_modal.forEach((btn_update)=>{
 
             "ver_detalles_rol" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de permisos de acceso de un rol',
             "modificar_rol" : '<i class="bi bi-person-lines-fill"></i> &nbsp; Modificar permisos de acceso de un rol',
-
+            
+            "registrar_producto" : '<i class="bi bi-box-seam"></i> &nbsp; Añadir Nuevo Producto',
         };
         
 
@@ -53,8 +54,10 @@ btn_modal.forEach((btn_update)=>{
                 
                 // se evalúa si el modal incluye 'modificar' para llamarr a la funcion 'SendFormAjax()' para el envio de formularios en el modal
                 modal.includes('modificar') === true ? SendFormAjax() : '';
+                modal.includes('registrar_producto') === true ? SendFormAjax() : '';
                 // se evalúa si el modal incluye 'modificar' para asignar el atributo 'form' al boton 'guardar' en el modal y asociarlo a su respectivo formulario
                 modal.includes('modificar') === true ? btn_guardar_modal.setAttribute('form','SendForm') : '';
+                modal.includes('registrar_producto') === true ? btn_guardar_modal.setAttribute('form','SendForm') : '';
                 
                 // se evalúa si el modal incluye 'modificar_rol' para ejecutar la funcion 'evaluar_casillas()' para la seleccion de roles en el modal
                 modal === 'modificar_rol' ? evaluar_casillas() : '';

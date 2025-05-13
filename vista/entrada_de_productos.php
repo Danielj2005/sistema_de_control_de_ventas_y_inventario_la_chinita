@@ -14,7 +14,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::permisos_modulos('r_entrada + l_entrada');
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 3) {  
+if ($rol == 1 || $rol == 2) {  
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -101,7 +101,6 @@ if ($rol >= 1 && $rol <= 3) {
                           <th class="col text-center" scope="col">PRESENTACIÓN</th>
                           <th class="col text-center" scope="col">PROVEEDOR</th>
                           <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
-                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN BS</th>
                           <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
                           <th class="col text-center" scope="col">FECHA / HORA</th>
                         </tr>
@@ -111,8 +110,8 @@ if ($rol >= 1 && $rol <= 3) {
                           
 
                             if($fecha1 == "" && $fecha2 == ""){
-                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
-                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada,
+                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar, 
+                                PROV.nombre, E.stock_comprado, E.fecha_entrada,
                                 PS.nombre AS nombre_presentacion
                                 FROM entrada AS E 
                                 INNER JOIN producto AS P ON P.id_producto = E.id_producto 
@@ -121,8 +120,8 @@ if ($rol >= 1 && $rol <= 3) {
                                 ORDER BY E.fecha_entrada DESC");
                             
                             }else{
-                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar, 
-                                P.precio_compra_bs , PROV.nombre, E.stock_comprado, E.fecha_entrada,
+                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar, 
+                                P.precio_compra_bs, PROV.nombre, E.stock_comprado, E.fecha_entrada,
                                 PS.nombre AS nombre_presentacion
                                 FROM entrada AS E 
                                 INNER JOIN producto AS P ON P.id_producto = E.id_producto 
@@ -143,8 +142,7 @@ if ($rol >= 1 && $rol <= 3) {
                                   <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
                                   <td class="col text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                                   <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                                  <td class="col text-center"><?= $mostrar["precio_compra_dolar"].' $'; ?></td>
-                                  <td class="col text-center"><?= $mostrar["precio_compra_bs"].' bs'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
                                   <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
                                   <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
                               </tr>
