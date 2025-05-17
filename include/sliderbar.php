@@ -35,7 +35,7 @@
               </li>
             <?php } if ($categoria >= 1 && $categoria <= 3) {  ?>
               <li>
-                <a href="../vista/categoria_productos.php">
+                <a href="../vista/categoria_producto.php">
                   <i class="bi bi-circle"></i>
                   <span>Categoría</span>
                 </a>

@@ -25,7 +25,7 @@ if($modulo === "Guardar" ){
 
     // Se verifica que no el proveedor aha registrar no exista.    
     if(mysqli_num_rows(modeloPrincipal::consultar("SELECT cedula_rif FROM proveedor WHERE cedula_rif = '$cedula'")) > 0){
-        alert_model::alert_resgister_exist();
+        alert_model::alert_register_exist();
         exit(); 
     }
 
@@ -57,7 +57,7 @@ if($modulo === "Guardar" ){
 
     // se registran los datos del proveedor
     try {
-        $actualizar = proveedor_model::registrar_proveedor($cedula, $nombre, $correo, $telefono, $direccion);
+        $actualizar = proveedor_model::insertar_proveedor($cedula, $nombre, $correo, $telefono, $direccion);
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un proveedor en la base de datos.","error");

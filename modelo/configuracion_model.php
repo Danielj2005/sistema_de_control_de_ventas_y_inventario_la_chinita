@@ -40,7 +40,7 @@ class config_model extends modeloPrincipal {
                 return;
             }
     
-            $configuracion = mysqli_fetch_assoc($configuracion);
+            $configuracion = mysqli_fetch_array($configuracion);
     
             $cant_caracteres = intval($configuracion['c_caracteres']);
             $c_preguntas = intval($configuracion['c_preguntas']);
@@ -60,7 +60,7 @@ class config_model extends modeloPrincipal {
                 return;
             }
     
-            $usuario = mysqli_fetch_assoc($usuario);
+            $usuario = mysqli_fetch_array($usuario);
             $contraseña = modeloPrincipal::decryption($usuario['contraseña']);
 
         } catch (Exception $e) {
@@ -89,7 +89,6 @@ class config_model extends modeloPrincipal {
         if ($perfil == 0) {
             // Verificar si la contraseña cumple con la nueva longitud mínima
             if (strlen($contraseña) < $cant_caracteres) {
-                modeloPrincipal::UpdateSQL("usuario", "parametros_actualizados = 1", "id_usuario = '$id_usuario'");
                 alert_model::alert_redirect(
                     "¡Advertencia!",
                     "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
@@ -101,10 +100,9 @@ class config_model extends modeloPrincipal {
     
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
             if ($cantidad_preguntas < $c_preguntas) {
-                modeloPrincipal::UpdateSQL("usuario", "parametros_actualizados = 1", "id_usuario = '$id_usuario'");
                 alert_model::alert_redirect(
                     "¡Advertencia!",
-                    "La cantidad de preguntas de seguridad configuradas no cumple con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
+                    "La cantidad de preguntas de seguridad configuradas no cumplen con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
                     "warning",
                     'mi_perfil.php'
                 );
@@ -125,10 +123,9 @@ class config_model extends modeloPrincipal {
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
             if ($cantidad_preguntas < $c_preguntas) {
-                modeloPrincipal::UpdateSQL("usuario", "parametros_actualizados = 1", "id_usuario = '$id_usuario'");
                 alert_model::alerta_simple(
                     "¡Advertencia!",
-                    "La cantidad de preguntas de seguridad configuradas no cumple con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
+                    "La cantidad de preguntas de seguridad configuradas no cumplen con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
                     "warning"
                 );
                 return;

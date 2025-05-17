@@ -8,12 +8,13 @@ require_once ("../../../modelo/alert_model.php");
 
 $id_proveedor = modeloPrincipal::limpiar_cadena($_POST['id']);
 
-$consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_compra_dolar,
-    P.precio_compra_bs, PROV.id_proveedor, PROV.nombre, E.stock_comprado, E.fecha_entrada, 
-    ROUND(P.precio_compra_bs / P.precio_compra_dolar,2 ) AS tasa, PS.nombre AS nombre_presentacion, C.nombre AS nombre_categoria
-    FROM entrada AS E 
+$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, P.nombre_producto, C.nombre AS nombre_categoria,
+    PS.nombre AS nombre_presentacion, E.stock_comprado, 
+    E.precio_compra_dolar, ROUND(E.precio_compra_bs / E.precio_compra_dolar, 2 ) AS tasa,
+    (E.precio_compra_dolar * ROUND(E.precio_compra_bs / E.precio_compra_dolar, 2 )) AS precio_compra_bs, 
+    E.fecha_entrada FROM entrada AS E 
     INNER JOIN producto AS P ON P.id_producto = E.id_producto 
-    INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor
+    INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
     INNER JOIN categoria as C ON C.id_categoria = P.id_categoria 
     WHERE PROV.id_proveedor = $id_proveedor ORDER BY E.fecha_entrada DESC");
@@ -39,8 +40,8 @@ if (mysqli_num_rows($consulta) < 1) {
             <tr>
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">Producto</th>
+                <th class="col text-center" scope="col">Categoría</th>
                 <th class="col text-center" scope="col">Presentación</th>
-                <th class="col text-center" scope="col">Categorías</th>
                 <th class="col text-center" scope="col">Cantidad</th>
                 <th class="col text-center" scope="col">Precio $</th>
                 <th class="col text-center" scope="col">Precio BS</th>
@@ -57,8 +58,8 @@ if (mysqli_num_rows($consulta) < 1) {
                     <tr>
                         <td class="col text-center"></td>
                         <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                        <td class="text-center col"><?= $mostrar['nombre_categoria'] ?></td>
                         <td class="text-center col"><?= $mostrar['nombre_presentacion'] ?></td> 
-                        <td class="text-center col"><?= $mostrar['nombre_categoria'] ?></td> 
                         <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
                         <td class="col text-center"><?= $mostrar["precio_compra_dolar"].'$'; ?></td>
                         <td class="col text-center"><?= $mostrar["precio_compra_bs"].'bs'; ?></td>

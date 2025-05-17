@@ -90,18 +90,24 @@ class producto_model extends modeloPrincipal {
                 <td class="text-center"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
                 <td class="text-center"><?= $mostrar["stock"]; ?></td>
-                <td class="text-center> <?= ($mostrar["estatus"] == '1') ? 'text-success':'text-danger'; ?>"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
+                <td class="text-center <?= ($mostrar["estatus"] == '1') ? 'text-success':'text-danger'; ?>"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
             </tr>
         <?php } 
     }
 
 
     public static function options() {
-        $consulta = self::consultar_condicional("id_producto, nombre_producto","estado = 1");
+        $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
+            P.stock
+            FROM `producto` AS P 
+            INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id");
         // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["id_producto"];?>"> <?= $mostrar["nombre_producto"]; ?></option>
-        <?php  } 
+        
+        while ( $mostrar = mysqli_fetch_array($consulta)) { 
+            echo '<option value="'.$mostrar["id_producto"].'">
+                    '.$mostrar["nombre_producto"].' '.$mostrar["nombre"].'
+                </option>';
+        }
     }
 
     public static function actualizar_estado($estado, $id_producto){

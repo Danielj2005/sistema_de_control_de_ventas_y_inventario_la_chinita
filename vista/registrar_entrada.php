@@ -26,6 +26,49 @@ if ($rol == 1) {  ?>
         include_once("../include/meta_include.php"); 
         // se incluyen los estilos css y sus librerias a la vista
         include_once("../include/css_include.php"); ?>
+                    box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
+        <style>
+          /* body {
+              background: #f8f9fa;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              padding: 40px;
+              display: flex;
+              justify-content: center;
+          } */
+          .product-card {
+              max-width: 400px;
+              background: #ffffff;
+              border-radius: 0.75rem;
+              box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+              padding: 2rem;
+              transition: transform 0.3s ease;
+          }
+          .product-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
+          }
+          .card-title {
+              margin-bottom: 1.5rem;
+              border-bottom: 2px solid #012970;
+              padding-bottom: 0.5rem;
+          }
+          .label {
+              font-weight: 600;
+              color: #495057;
+          }
+          .value {
+              color: #212529;
+          }
+          .info-row {
+              display: flex;
+              justify-content: space-between;
+              padding: 0.4rem 0;
+              border-bottom: 1px solid #e9ecef;
+          }
+          .info-row:last-child {
+              border-bottom: none;
+          }
+      </style>
     </head>
     <body>
       <?php
@@ -48,9 +91,9 @@ if ($rol == 1) {  ?>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Datos del proveedor</h5> 
                   <form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="id_dolar" id="dolar" value="<?= $mostrarDolar['id_dolar']; ?>">
-                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
+                    <input type="hidden" name="id_dolar" id="dolar" value="<?= $id_precio_dolar_actual; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
+                    <!-- datos del proveedor al que se le compró -->
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
                       <div class="col-md-4 input-group">
@@ -60,104 +103,105 @@ if ($rol == 1) {  ?>
                           <option value="J-">J</option>
                           <option value="E-">E</option>
                         </select>
-                        <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
+                        <input type="text" class="form-control" minlength="7" maxlength="8" placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
                       </div>
                     </div>
+
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
-                      <input type="text" class="form-control"  placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
+                      <input type="text" class="form-control" minlength="3" maxlength="80" placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
                     </div>
+
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
-                      <input type="text" class="form-control" placeholder ="ingresa el correo" id="correo" name="correo" required>
+                      <input type="text" class="form-control"  minlength="10" maxlength="150" placeholder ="ingresa el correo" id="correo" name="correo" required>
                     </div>
+
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
                       <label   class="form-label">Teléfono <span style="color:#f00;">*</span></label>
-                      <input type="text" class="form-control" name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
+                      <input type="text" class="form-control" minlength="11" maxlength="11"  name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
                     </div>
+
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
                       <label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
-                      <input type="text" class="form-control" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
+                      <input type="text" class="form-control" minlength="3" maxlength="250" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
                     </div>
+
+                    <!-- datos de el (los) producto(s) comprados al proveedor -->
 
                     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
                       <h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos a ingresar</h5>
+
                       <div class="col-12 col-sm-12 col-md-4 mb-3">
-                        <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
+                        <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un nuevo producto</button>
                       </div>
 
                       <label class="form-label">Productos <span style="color:#f00;">*</span></label>
+                      <div class="col-12 col-sm-12 col-md-9 mb-3">
+                        <select name="producto_[]" id="producto_id" class="form-select selector_producto">
+                          <option value="" selected>seleccione una opción</option>
+                          <?php producto_model::options(); ?>
+                        </select>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-3 mb-3">
+                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir producto</button>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
+                      <div class="row p-2 justify-content-around">
+                        <h5 class="card-title col-12 mb-2">Lista de productos</h5>
 
-                      <select multiple="on" onchange="añadir_tr_a_tabla('registrar_entrada')" class="form-select Select mb-5" id="id_producto" name="producto[]" required>
-                        <option>Selecciona una o más opciones</option>
+                        <div class="col-12 table-responsive">
+                          <table class="table table-borderless table-striped" id="">
+                            <thead>
+                              <tr>
+                                <th class="col text-center" scope="col">PRODUCTO</th>
+                                <th class="col text-center" scope="col">CANTIDAD</th>
+                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN $</th>
+                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BS</th>
+                                <th class="col text-center" scope="col">PRECIO DE VENTA EN $</th>
+                                <th class="col text-center" scope="col">ELIMINAR</th>
 
-                        <?php
-                          $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto 
-                            FROM producto WHERE stock > 0 AND estatus = 1");
-              
-                          while ($mostrar = mysqli_fetch_array($consulta)) { ?>
-    
-                            <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
-    
-                        <?php } ?>
-                      </select>
-                      <div class="col-12 col-sm-12 col-md-4 mb-3">
-                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir un producto</button>
+                              </tr>
+                            </thead>
+                            <tbody id="lista_productos" >
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
 
-                    <div class="col-md-12">
-                      <div class="table-responsive">
-                        <h5 class="card-title">Lista de prooductos</h5>
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th class="col text-center" scope="col">#</th>
-                              <th class="col text-center" scope="col">PRODUCTO</th>
-                              <th class="col text-center" scope="col">PRESENTACIÓN</th>
-                              <th class="col text-center" scope="col">STOCK</th>
-                              <th class="col text-center" scope="col">CANTIDAD</th>
-                              <th class="col text-center" scope="col">PRECIO POR UNIDAD $</th>
-                              <th class="col text-center" scope="col">PRECIO POR UNIDAD BS</th>
-                              <th class="col text-center" scope="col">PRECIO VENTA $</th>
-                              <th class="col text-center" scope="col">ELIMINAR</th>
-                            </tr>
-                          </thead>
-                          <tbody id="lista_productos">
-                            <?php include_once "../include/options_productos"; ?>
-                          </tbody>
-                        </table>
+                    <hr class="divider">
+
+                    <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
+                      <div class="input-group mb-3 justify-content-center">
+                        <label class="input-group-text">Fecha de la Entrada</label>
+                        <input class="form-control" value="<?= $fecha = date("d/m/Y"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
                       <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text">Fecha de la Entrada</span>
-                        <input class="form-control" required type="date" id="fecha_entrada" name="fecha_entrada">
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
-                      <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text">Hora de la Entrada</span>
-                        <input class="form-control" required type="time" id="hora_entrada" name="hora_entrada">
+                        <label class="input-group-text">Hora de la Entrada</label>
+                        <input class="form-control" value="<?=  $fecha2 = date("h:i:a"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 my-3">
-                      <h7 class="card-title text-start mb-3">Total de la inversión</h7>
-                      <div class="row mt-2">
+                      <h7 class="card-title col-12">Total de la inversión</h7>
+                      <div class="row my-4">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                           <div class="input-group mb-3 justify-content-center">
                             <span class="input-group-text">Total $</span>
-                            <input class="form-control" id="totalDolar" disabled value="0">
+                            <input class="bg-secondary-subtle form-control" id="totalDolar" readonly value="0" name="totalDolar">
                           </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                           <div class="input-group mb-3 justify-content-center">
                             <span class="input-group-text">Total BS</span>
-                            <input class="form-control" id="totalBolivar" disabled value="0">
+                            <input class="bg-secondary-subtle form-control" id="totalBolivar" readonly value="0" name="totalBolivar">
                           </div>
                         </div>
                       </div>
@@ -200,6 +244,7 @@ if ($rol == 1) {  ?>
 			<!-- lógica de los modales -->
 			<script src="./js/modal.js"></script>
 			<script src="./js/añadir_elemento_lista.js"></script>
+			<script src="./js/convertir_dolar_bs.js"></script>
       <?php
         // se incluye el footer / pie de pagina a la vista
         include_once ("../include/footer.php");

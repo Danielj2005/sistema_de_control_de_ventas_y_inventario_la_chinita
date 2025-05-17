@@ -97,54 +97,52 @@ if ($rol == 1 || $rol == 2) {
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">PRODUCTO</th>
-                          <th class="col text-center" scope="col">PRESENTACIÓN</th>
+                          <!-- <th class="col text-center" scope="col">PRODUCTO</th>
+                          <th class="col text-center" scope="col">PRESENTACIÓN</th> -->
                           <th class="col text-center" scope="col">PROVEEDOR</th>
-                          <th class="col text-center" scope="col">PRECIO DE COMPRA EN $</th>
-                          <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
+                          <th class="col text-center" scope="col">TOTAL DE LA COMPRA EN $</th>
+                          <th class="col text-center" scope="col">TOTAL DE LA COMPRA EN BS</th>
+                          <th class="col text-center" scope="col">TASA</th>
                           <th class="col text-center" scope="col">FECHA / HORA</th>
+                          <th class="col text-center" scope="col">DETALLES</th>
                         </tr>
                       </thead>
                       <tbody>
-                          <?php 
+                          <?php
                           
 
                             if($fecha1 == "" && $fecha2 == ""){
-                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar, 
-                                PROV.nombre, E.stock_comprado, E.fecha_entrada,
-                                PS.nombre AS nombre_presentacion
+                              $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
+                                E.fecha_entrada, D.dolar AS tasa
                                 FROM entrada AS E 
-                                INNER JOIN producto AS P ON P.id_producto = E.id_producto 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-                                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
+                                INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
                                 ORDER BY E.fecha_entrada DESC");
                             
                             }else{
-                              $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar, 
-                                P.precio_compra_bs, PROV.nombre, E.stock_comprado, E.fecha_entrada,
-                                PS.nombre AS nombre_presentacion
+                              $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
+                                E.fecha_entrada, D.dolar AS tasa
                                 FROM entrada AS E 
-                                INNER JOIN producto AS P ON P.id_producto = E.id_producto 
-                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor
-                                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
-                                WHERE E.fecha_entrada  BETWEEN '$fecha1' AND '$fecha2' 
+                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+                                INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+                                WHERE E.fecha_entrada BETWEEN '$fecha1' AND '$fecha2' 
                                 ORDER BY E.fecha_entrada DESC");
-                                
-                              
                             }
-                            
                             
                             $i = 1;
                             // se guardan los datos en un array y se imprime
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ;?>    
                               <tr>
                                   <td class="col text-center"><?= $i++; ?></td>
-                                  <td class="col text-center"><?= $mostrar["nombre_producto"]; ?></td>
-                                  <td class="col text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                                   <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                                  <td class="col text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
-                                  <td class="col text-center"><?= $mostrar["stock_comprado"]; ?></td>
+                                  <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
+                                  <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
                                   <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+
+                                  <td class="text-center col" scope="col">
+                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= $row["id_rol"]; ?>"></button>
+                                  </td>
                               </tr>
                             <?php } ?>
                       </tbody>

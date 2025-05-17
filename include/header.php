@@ -28,9 +28,9 @@
         
           $id_usuario = $_SESSION['id_usuario'];
           
-          $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id_dolar from dolar"));
-          $precio_dolar_actual = $precio_dolar_actual['id_dolar'];
-          $precio_dolar_actual = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $precio_dolar_actual");
+          $id_precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id_dolar from dolar"));
+          $id_precio_dolar_actual = $id_precio_dolar_actual['id_dolar'];
+          $precio_dolar_actual = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $id_precio_dolar_actual");
           $precio_dolar_actual = mysqli_fetch_array($precio_dolar_actual);
           $precio_dolar_actual = $precio_dolar_actual['dolar'];
           $_SESSION['dolar'] = $precio_dolar_actual;
