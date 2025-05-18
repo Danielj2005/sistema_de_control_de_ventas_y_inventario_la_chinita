@@ -2,73 +2,64 @@
 session_start();
 
 require_once "../../../modelo/modeloPrincipal.php";
-require_once "../../../modelo/presentacion_model.php";
-require_once "../../../modelo/categoria_model.php";
 
-$id = modeloPrincipal::limpiar_cadena($_POST['id']);
+// $id = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id = 20;
 
-$detalles_entrada = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT mensaje FROM bitacora WHERE id = $id"));
+$detalles_entrada = modeloPrincipal::consultar("SELECT PV.nombre AS proveedor,
+    P.nombre_producto AS producto,
+    PS.nombre AS presentacion, 
+    C.nombre AS categoria, 
+    D.cantidad_comprada,
+    D.precio_unitario_dolar AS precio_dolar,
+    D.precio_unitario_bs AS precio_bs,
+    D.total_dolar, D.total_bs
+    FROM `detalles_entrada` AS D
+    INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada
+    INNER JOIN producto AS P ON P.id_producto = D.id_producto
+    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
+    INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor 
+    WHERE D.id_entrada = $id");
 
+$proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT  PV.nombre AS proveedor
+    FROM `entrada` AS E
+    INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor
+    WHERE E.id_entrada = $id"));
+
+$proveedor = $proveedor['proveedor'];
 ?>
 
 <div class="table-responsive">
-    <label class="col-form-label">Nombre proveedor: <b>nombre proveedor</b></label>
+    <label class="col-form-label">Nombre proveedor: <b><?= $proveedor ?></b></label>
     <table class="table table-borderless table-striped" id="example">
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">PRODUCTO</th>
-                <th class="col text-center" scope="col">PRESENTACIÓN</th>
                 <th class="col text-center" scope="col">CATEGORÍA</th>
-                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN $</th>
-                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BS</th>
-                <th class="col text-center" scope="col">CANTIDAD COMPRADA</th>
-                <th class="col text-center" scope="col">PRECIO TOTAL EN $</th>
-                <th class="col text-center" scope="col">PRECIO TOTAL EN BS</th>
+                <th class="col text-center" scope="col">CANTIDAD</th>
+                <th class="col text-center" scope="col">PRECIO POR UNIDAD $</th>
+                <th class="col text-center" scope="col">PRECIO POR UNIDAD BS</th>
+                <th class="col text-center" scope="col">TOTAL $</th>
+                <th class="col text-center" scope="col">TOTAL BS</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            
 
-            if($fecha1 == "" && $fecha2 == ""){
-                $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar,
-                PROV.nombre, E.fecha_entrada, PS.nombre AS nombre_presentacion, DE.cantidad_comprada
-                FROM entrada AS E 
-                INNER JOIN detalles_entrada AS DE ON DE.id_entrada = E.id_entrada 
-                INNER JOIN producto AS P ON P.id_producto = DE.id_producto 
-                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
-                ORDER BY E.fecha_entrada DESC");
-            
-            }else{
-                $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar,
-                PROV.nombre, E.fecha_entrada, PS.nombre AS nombre_presentacion, DE.cantidad_comprada
-                FROM entrada AS E 
-                INNER JOIN detalles_entrada AS DE ON DE.id_entrada = E.id_entrada 
-                INNER JOIN producto AS P ON P.id_producto = DE.id_producto 
-                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-                INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
-                WHERE E.fecha_entrada BETWEEN '$fecha1' AND '$fecha2' 
-                ORDER BY E.fecha_entrada DESC");
-                
-                
-            }
-            
-            
             $i = 1;
             // se guardan los datos en un array y se imprime
-            while ( $mostrar = mysqli_fetch_array($consulta)) { ;?>    
+            while ( $mostrar = mysqli_fetch_array($detalles_entrada)) { ?>    
                 <tr>
                     <td class="col text-center"><?= $i++; ?></td>
-                    <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                    <td class="col text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
+                    <td class="col text-center"><?= $mostrar["producto"].' '.$mostrar["presentacion"]; ?></td>
+                    <td class="col text-center"><?= $mostrar["categoria"]; ?></td>
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
-                    <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
-                
-                    <td class="text-center col" scope="col">
-                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/producto/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
-                    </td>
+                    <td class="col text-center"><?= $mostrar["precio_dolar"].' $'; ?></td>
+                    <td class="col text-center"><?= $mostrar["precio_bs"].' bs'; ?></td>
+                    <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
+                    <td class="col text-center"><?= $mostrar["total_bs"].' bs'; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

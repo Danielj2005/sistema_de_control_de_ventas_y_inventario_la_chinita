@@ -113,7 +113,7 @@ if ($rol == 1 || $rol == 2) {
 
                             if($fecha1 == "" && $fecha2 == ""){
                               $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-                                E.fecha_entrada, D.dolar AS tasa
+                                E.fecha_entrada, E.id_entrada, D.dolar AS tasa
                                 FROM entrada AS E 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
@@ -121,7 +121,7 @@ if ($rol == 1 || $rol == 2) {
                             
                             }else{
                               $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-                                E.fecha_entrada, D.dolar AS tasa
+                                E.fecha_entrada, E.id_entrada, D.dolar AS tasa
                                 FROM entrada AS E 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
@@ -141,7 +141,7 @@ if ($rol == 1 || $rol == 2) {
                                   <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
 
                                   <td class="text-center col" scope="col">
-                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= $row["id_rol"]; ?>"></button>
+                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= $mostrar["id_entrada"]; ?>"></button>
                                   </td>
                               </tr>
                             <?php } ?>
@@ -154,6 +154,29 @@ if ($rol == 1 || $rol == 2) {
           </div>
         </section>
       </main>
+      
+      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificación de un servicio</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="update_user_info" action="../controlador/menu_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+                <div id="body_modal" class="row"> </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" form="update_user_info" type="submit" class="btn btn-success">Guardar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal modificar -->
+      <script src="./js/modal.js"></script>
       
       <?php 
         // se incluye el footer / pie de pagina a la vista
