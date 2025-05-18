@@ -79,13 +79,10 @@ if ($rol >= 1 && $rol <= 3) { ?>
               <h5 class="modal-title" id="exampleModalLabel">Modificación de un servicio</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <form id="update_user_info" action="../controlador/menu_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
-                <div id="body_modal" class="row"> </div>
-              </form>
+            <div class="modal-body" id="body_modal">
             </div>
             <div class="modal-footer">
-              <button id="btn_guardar_modal" form="update_user_info" type="submit" class="btn btn-success">Guardar</button>
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
             </div>
           </div>

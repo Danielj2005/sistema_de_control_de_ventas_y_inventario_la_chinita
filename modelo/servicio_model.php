@@ -39,7 +39,7 @@ class servicio_model extends modeloPrincipal {
 
 
     public static function lista(){
-        $consulta = self::consultar("*");
+        $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC LIMIT 50");
 
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
@@ -51,7 +51,7 @@ class servicio_model extends modeloPrincipal {
                     <button value="<?= $mostrar["id_menu"]; ?>" modal="ver_detalles_servicio" <?= rol_model::verificar_rol('l_servicio') == '1' ? 'url="./modal/servicio/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('l_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-eye btn-info"></button>
                 </td>
                 <td class="col text-center">
-                    <button value="<?= $mostrar["id_menu"]; ?>" modal="modificar" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
+                    <button value="<?= $mostrar["id_menu"]; ?>" modal="modificar_servicio" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
                 <td scope="row" class="text-center">
                     <form action="<?= rol_model::verificar_rol('m_servicio') == '1' ? '../controlador/cambio_estado.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="updateEstado" >

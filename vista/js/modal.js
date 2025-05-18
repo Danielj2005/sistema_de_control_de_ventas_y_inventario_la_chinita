@@ -37,7 +37,7 @@ btn_modal.forEach((btn_update)=>{
             "ver_detalles_entrada" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
 
             "ver_detalles_servicio" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del servicio',
-            "modificar_servicio": '<i class="bi bi-person-plus"></i> &nbsp; Modificar servici',
+            "modificar_servicio": '<i class="bi bi-person-plus"></i> &nbsp; Modificar servicio',
         };
         
 

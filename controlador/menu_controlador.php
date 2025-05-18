@@ -141,11 +141,11 @@ if($modulo == 'Modificar'){
     $precio_dolar = $_POST['precio_dolar'];
     $precio_bolivar = $_POST['precio_bolivar'];
 
-    if($id_servicio == "" || $nombre_platillo == ""|| $descripcion == "" || empty($estado_menu) || empty($precio_dolar)){
+    if($id_servicio == "" || $nombre_platillo == ""|| $descripcion == "" || $estado_menu == "" ){
         echo '<script type="text/javascript">
             swal({
                 title: "¡Ocurrio una error!",
-                text: "Exiten Campos obligatorios Que Estan Vacíos",
+                text: "Existen Campos obligatorios que estan vacíos",
                 type: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -173,19 +173,19 @@ if($modulo == 'Modificar'){
     $existe_platillo_estatus = $existe_platillo['estatus'];
 
 
-    $id_servicio = modeloPrincipal::obtener_id_recien_registrado("id_menu", "menu");
-    $datos_originales = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
-    $datos_originales['estatus'] = $datos_originales['estatus'] == 1 ? 'Activo' : 'Inactivo';
+    // $id_servicio = modeloPrincipal::obtener_id_recien_registrado("id_menu", "menu");
+    // $datos_originales = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
+    // $datos_originales['estatus'] = $datos_originales['estatus'] == 1 ? 'Activo' : 'Inactivo';
 
     
-    $datos_actuales = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
-    $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
+    // $datos_actuales = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
+    // $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
 
 
 
     // se registran los datos verificados
-    if (modeloPrincipal::UpdateSQL( "menu","nombre_platillo = '$nombre_platillo',precio_dolar = '$precio_dolar',descripcion = '$descripcion',estatus = $estado_menu","id_menu = $id_servicio")) {
+    if (modeloPrincipal::UpdateSQL( "menu","nombre_platillo = '$nombre_platillo',precio_dolar = '$precio_dolar',descripcion = '$descripcion',estatus = '$estado_menu'","id_menu = $id_servicio")) {
         $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
         $existe_platillo_estatus = ($existe_platillo_estatus == '1') ? 'activo' : 'inactivo' ;
 
