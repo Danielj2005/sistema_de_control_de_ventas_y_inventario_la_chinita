@@ -1,19 +1,6 @@
 
 <!-- Favicons -->
 <link href="img/logo.png" rel="icon">
-<style>
-    .contraseñas i{
-        top: 1.7em;
-        z-index: 2;
-        right: 0;
-        bottom: 0;
-        width: 2rem;
-        height: 1.5rem;
-        transform: translate(-20%,-60%);
-        transform-origin: center;
-    }
-</style>
-
 <!-- sweet-alert -->
 <link href="./css/sweet-alert.css" rel="stylesheet">
 <!-- bootstrap -->
@@ -30,3 +17,11 @@
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="./css/select2.min.css">
+<style>
+    .card-title {
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #012970;
+        padding-bottom: 0.5rem;
+    }
+    
+</style>

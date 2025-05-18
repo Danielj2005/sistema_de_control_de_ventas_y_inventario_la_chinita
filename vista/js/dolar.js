@@ -1,20 +1,48 @@
-const API_URL = 'https://dolartoday.com/';
+function obtener_precio_dolar_auto() {
+	$.ajax({
+        data:  '',
+        url:   '../include/obtener_precio_dolar.php',
+        type:  'post',
+        success: function (datos) {
 
-const xhr = new XMLHttpRequest();
-
-function onRequestHandler() {
-	if (this.readyState = 4 && this.status = 200 ) {
-
-		//0 no se a llamado al metodo open
-		//1 opend, se ha llamado al metodo open
-		//2 HEADERS_Resived, se esta lamando al metodo send
-		//3 loading, esta cargando, es decir, resiviendo respuesta
-		//4 done, se ha completado la open
-
-		console.log(this.response);
-	}
+			// document.querySelector(".msjFormSend").innerHTML = datos;
+			document.getElementById('tasa_dolar').innerText = datos;
+			guardar_precio_dolar_auto(datos);
+        },
+        error: function () {
+			swal("Ocurrio un error!","Error al obtener el precio del dólar de manera automática, debes actualizar la tasa de manera manual","error");
+        }
+    });
+}
+function guardar_precio_dolar_auto(datos) {
+	$.ajax({
+        data:  { 'priceDolar': datos, 'manera': "automática"  },
+        url:   '../controlador/dolar.php',
+        type:  'post',
+        success: function (datos) {
+			swal({
+					title:"¡Actualización de la Tasa Exitosa!",
+					text:"La tasa se actualizó exitosamente",
+					type: "success",
+					confirmButtonText: "Aceptar"
+				},
+				function(isConfirm){
+					if (isConfirm) {
+						location.reload();
+					}else{
+						location.reload();
+					}
+				});
+        }, error: function (error) {
+			document.querySelector(".msjFormSend").innerHTML = error;
+		}
+    });
 }
 
-xhr.addEventListener('load',onRequestHandler);
-xhr.open('GET', '${API_URL}/users');
-xhr.send();
+const btn_update_dolar_auto = document.querySelector("#btn_update_dolar_auto");
+if (btn_update_dolar_auto) {
+	btn_update_dolar_auto.addEventListener("click", function(e){
+		e.preventDefault();
+		obtener_precio_dolar_auto();
+	});
+}

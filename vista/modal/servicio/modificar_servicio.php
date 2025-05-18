@@ -1,14 +1,22 @@
 <?php
-session_start();
 
-include_once("../../../modelo/modeloPrincipal.php"); 
+require_once("../../../modelo/modeloPrincipal.php"); 
+require_once("../../../modelo/proveedor_model.php"); 
 
-$id_menu = $_POST['id'];
+$id_menu = modeloPrincipal::limpiar_cadena($_POST['id']);
+
+if (!isset($_POST['id'])) {
+    alert_model::alerta_simple("¡Ocurrio un error!","No se está recibiendo correctamente el identificador del proveedor","error");
+    exit();
+}
+
+
 $precio_dolar_actual = $_SESSION['dolar'];
+
 $servicios = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM menu WHERE id_menu = $id_menu"));
 
 ?>
-<div class="card-body p-3" id="SendForm">
+<div class="card-body p-2" id="SendForm">
     <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
     <input type="hidden" name="modulo" value="Modificar">    
     <input type="hidden" value="<?= $id_menu ?>" name="id_menu">

@@ -96,11 +96,16 @@ class producto_model extends modeloPrincipal {
     }
 
 
-    public static function options() {
+    public static function options($estado = "") {
+        if ($estado == "agregar_servicio") {
+            $estado = "WHERE P.estatus = 1 AND P.stock > 0";
+        }else {
+            $estado = "";
+        }
         $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
             P.stock
             FROM `producto` AS P 
-            INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id");
+            INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id $estado");
         // se guardan los datos en un array y se imprime
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 

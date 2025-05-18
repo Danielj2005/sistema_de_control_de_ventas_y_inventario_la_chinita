@@ -3,7 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+require_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -66,25 +66,25 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 						</div>
 						<hr>
 						<div class="card-body pb-3">
-						<div class="table-responsive">
-							<h5 class="card-title">Lista de Empleados</h5>
-							<table class="table datatable table-striped" id="example">
-							<thead>
-								<tr>
-								<th scope="col">#</th>
-								<th scope="col">CÉDULA</th>
-								<th scope="col">NOMBRE</th>
-								<th scope="col">APELLIDO</th>
-								<th scope="col">TELÉFONO</th>
-								<th scope="col" class="text-center">MODIFICAR</th>
-								<th scope="col" class="text-center">ESTADO</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php include("../include/listas_registros_include.php"); consultar_registros('usuario'); ?>  
-							</tbody>
-							</table>
-						</div>
+							<div class="table-responsive">
+								<h5 class="card-title">Lista de Empleados</h5>
+								<table class="table datatable table-striped" id="example">
+								<thead>
+									<tr>
+									<th scope="col">#</th>
+									<th scope="col">CÉDULA</th>
+									<th scope="col">NOMBRE</th>
+									<th scope="col">APELLIDO</th>
+									<th scope="col">TELÉFONO</th>
+									<th scope="col" class="text-center">MODIFICAR</th>
+									<th scope="col" class="text-center">ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php model_user::lista_de_usuarios(); ?>  
+								</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</section>

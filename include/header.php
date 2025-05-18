@@ -38,14 +38,21 @@
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header row">
-            <p class="mb-2">
+            <p class="mb-2 col-12">
               La Tasa del Día es: 
               <span id="tasa_dolar"><?= $precio_dolar_actual ?></span>
               bs<br>
             </p>
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">
-              <span class="p-2 ms-2">Actualizar Tasa</span>
-            </button>
+            <div class=" col-12 mb-2">
+              <button id="btn_update_dolar_auto" class="btn btn-success text-center">
+                <span class="p-2 ms-2">Actualizar automáticamente</span>
+              </button>
+            </div>
+            <div class=" col-12 mb-2">
+              <button class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">
+                <span class="p-2 ms-2">Actualizar manualmente</span>
+              </button>
+            </div>
           </li>
         </ul>
       </li>

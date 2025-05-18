@@ -34,6 +34,9 @@ btn_modal.forEach((btn_update)=>{
             "modificar_rol" : '<i class="bi bi-person-lines-fill"></i> &nbsp; Modificar permisos de acceso de un rol',
             
             "registrar_producto" : '<i class="bi bi-box-seam"></i> &nbsp; Añadir Nuevo Producto',
+            "ver_detalles_entrada" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
+
+            "ver_detalles_servicio" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del servicio',
         };
         
 

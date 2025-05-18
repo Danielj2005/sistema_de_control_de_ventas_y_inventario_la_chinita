@@ -3,6 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="update_proveedor" action="../controlador/dolar.php" method="post" class="SendFormAjax" data-type-form="update">   
+        <input type="hidden" name="manera" value="manual">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Actualización de la Tasa del Dolar</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

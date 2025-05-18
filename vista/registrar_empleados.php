@@ -91,7 +91,7 @@ if ($rol == 1) {  ?>
                               <label class="control-label">Tipo de Usuario <span style="color:#f00;">*</span></label>
                               <select  class="form-select" name="id_tipo" id="id_tipo">
                                   <option disabled="disabled" selected="true" class="form-control" >selecciona una opción</option>
-                                  <?php include("../include/listas_registros_include.php"); consultar_registros('rol');?>  
+                                  <?php rol_model::option(); ?>  
                               </select>
                             </div>
                           </div>

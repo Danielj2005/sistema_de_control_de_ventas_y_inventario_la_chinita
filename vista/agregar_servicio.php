@@ -66,34 +66,32 @@ if ($rol == 1) {  ?>
                       </div>
                     </div>
                     
-                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 form-group overflow-hidden">
-                      <h5 class="card-title">Productos a agregar al servicio</h5>
+                    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row">
+                      <h5 class="card-title">Productos del servicio</h5>
                       <label class="form-label">Producto <span style="color:#f00;">*</span></label>
-                      <select multiple onchange="añadir_tr_a_tabla('productos_servicio')" class="form-control Select" id="id_producto" name="producto[]" required>
-                        <option>Selecciona una opción</option>
-                        <?php
-                          $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto FROM producto WHERE estatus = 1");
-
-                          while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-
-                            <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
-
-                        <?php } ?>
-                      </select>
+                      <div class="col-12 col-sm-12 col-md-9 mb-3">
+                        <select name="producto_[]" id="producto_id" class="form-select selector_producto">
+                          <option value="" selected>seleccione una opción</option>
+                          <?php producto_model::options("agregar_servicio"); ?>
+                        </select>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-3 mb-3">
+                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir producto</button>
+                      </div>
                     </div>
 
                     <div class="col-md-12">
                       <div class="table-responsive">
-                        <h5 class="card-title">Lista de productos</h5>
-                        <table class="table table-striped" id="example">
+                        <h5 class="card-title">Lista de productos seleccionados</h5>
+                        <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="col text-center" scope="col">#</th>
                               <th class="col text-center" scope="col">PRODUCTO</th>
                               <th class="col text-center" scope="col">PRESENTACIÓN</th>
+                              <th class="col text-center" scope="col">CATEGORÍA</th>
+                              <th class="col text-center" scope="col">STOCK DISPONIBLE(S)</th>
                               <th class="col text-center" scope="col">CANTIDAD</th>
-                              <th class="col text-center" scope="col">PRECIO POR UNIDAD EN $</th>
-                              <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BS</th>
+                              <th class="col text-center" scope="col">ELIMINAR</th>
                             </tr>
                           </thead>
                           <tbody id="lista_productos">
@@ -104,7 +102,7 @@ if ($rol == 1) {  ?>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 mb-3 mt-5"> 
-                      <h7 class="card-title">Precio del Servicio</h7>
+                      <h5 class="card-title">Precio del Servicio</h5>
 
                       <div class="row mt-2">
                         <div class="col-12 col-sm-6 col-md-6 mb-3 text-start">
@@ -115,6 +113,12 @@ if ($rol == 1) {  ?>
                           <label class="form-label">En Bolivares (BSS)</label>
                           <input class="form-control  bg-dark-subtle" readonly id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
                         </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12 mb-1">
+                      <div class="form-group">
+                          <p class="form-p fs-5">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                       </div>
                     </div>
 
@@ -129,6 +133,7 @@ if ($rol == 1) {  ?>
         </section>
       </main>
       
+			<script src="./js/añadir_elemento_lista.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php"); 

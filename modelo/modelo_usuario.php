@@ -257,38 +257,40 @@ class model_user extends modeloPrincipal {
 
     //  Funcion para pedir una lista de empleados del negocio 
     public static function lista_de_usuarios() {
+        $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario que inicio sesion
 
-        $lista_usuario = modeloPrincipal::consultar("SELECT id_usuario, cedula, nombre, apellido, telefono, estado 
-            FROM usuario
-            WHERE id_tipo != 1 
+        $lista_usuario = modeloPrincipal::consultar("SELECT *
+            FROM usuario 
+            WHERE id_usuario != '$id_usuario' 
+            AND id_rol != 1 
             ORDER BY nombre ASC");
         
         // se imprimen los resultados de la consulta
         while ( $mostrar = mysqli_fetch_array($lista_usuario)) { ?>    
             <tr>
-                <td></td>
-                <td><?= $mostrar["cedula"]; ?></td>
-                <td><?= $mostrar["nombre"]; ?></td>
-                <td><?= $mostrar["apellido"]; ?></td>
-                <td><?= $mostrar["telefono"]; ?></td>
-                <td scope="row" class="text-center">
-                    <form action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="updateAccounUser" >
-                        <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $mostrar["id_usuario"]; ?>">
-                        
-                        <?php if ($mostrar["estado"] === "1") { ?>
-                            <input type="hidden" name="modulo" value="activo">
-                            <button class="btn btn-success" title="estado del usuario">
-                                <i class="zmdi zmdi-check"></i> Activo 
-                            </button>
-                        
-                        <?php }else if ($mostrar["estado"] === "0") { ?>
-                            <input type="hidden" name="modulo" value="inactivo">
-                            <button class="btn btn-danger">
-                                <i class="zmdi zmdi-close"></i> Inactivo 
-                            </button>
-                        <?php } ?>
-                    </form>
-                </td>
+                <th></th>
+                <th><?= $mostrar["cedula"]; ?></th>
+                <th><?= $mostrar["nombre"]; ?></th>
+                <th><?= $mostrar["apellido"]; ?></th>
+                <th><?= $mostrar["telefono"]; ?></th>
+                <th scope="col" class="col text-center">
+                    <buttom 
+                        modal="modificar_empleado" 
+                        <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
+                        value="<?= $mostrar["id_usuario"]; ?>" 
+                        class="btn_modal btn btn-warning bi bi-gear">
+                    </buttom>
+                </th>
+                <th scope="col" class="col text-center">
+                        <button <?= rol_model::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> 
+
+                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success' : 'btn-danger' ?>" > 
+                                
+                                <i class="zmdi <?= ($mostrar["estado"] === "1") ? 'zmdi-check' : 'zmdi-close' ?>"></i> 
+
+                                <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
+                        </button>
+                </th>
             </tr>
         <?php }
     } 

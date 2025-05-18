@@ -5,6 +5,7 @@
 <script src="./js/jquery-3.6.0.min.js"></script>
 
 <script src="./js/hiddeInput.js"></script>
+<script src="./js/dolar.js"></script>
 
 <!-- Send Form -->
 <script src="./js/SendForm.js"></script>

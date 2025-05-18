@@ -26,49 +26,6 @@ if ($rol == 1) {  ?>
         include_once("../include/meta_include.php"); 
         // se incluyen los estilos css y sus librerias a la vista
         include_once("../include/css_include.php"); ?>
-                    box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
-        <style>
-          /* body {
-              background: #f8f9fa;
-              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              padding: 40px;
-              display: flex;
-              justify-content: center;
-          } */
-          .product-card {
-              max-width: 400px;
-              background: #ffffff;
-              border-radius: 0.75rem;
-              box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-              padding: 2rem;
-              transition: transform 0.3s ease;
-          }
-          .product-card:hover {
-              transform: translateY(-5px);
-              box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
-          }
-          .card-title {
-              margin-bottom: 1.5rem;
-              border-bottom: 2px solid #012970;
-              padding-bottom: 0.5rem;
-          }
-          .label {
-              font-weight: 600;
-              color: #495057;
-          }
-          .value {
-              color: #212529;
-          }
-          .info-row {
-              display: flex;
-              justify-content: space-between;
-              padding: 0.4rem 0;
-              border-bottom: 1px solid #e9ecef;
-          }
-          .info-row:last-child {
-              border-bottom: none;
-          }
-      </style>
     </head>
     <body>
       <?php
@@ -176,20 +133,20 @@ if ($rol == 1) {  ?>
 
                     <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
                       <div class="input-group mb-3 justify-content-center">
-                        <label class="input-group-text">Fecha de la Entrada</label>
+                        <label class="input-group-text">Fecha de la Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
                         <input class="form-control" value="<?= $fecha = date("d/m/Y"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
                       <div class="input-group mb-3 justify-content-center">
-                        <label class="input-group-text">Hora de la Entrada</label>
+                        <label class="input-group-text">Hora de la Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
                         <input class="form-control" value="<?=  $fecha2 = date("h:i:a"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-12 my-3">
-                      <h7 class="card-title col-12">Total de la inversión</h7>
+                      <h5 class="card-title col-12">Total de la inversión</h5>
                       <div class="row my-4">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                           <div class="input-group mb-3 justify-content-center">
@@ -209,7 +166,7 @@ if ($rol == 1) {  ?>
                     
                     <div class="col-12 mb-1">
                       <div class="form-group">
-                          <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                          <p class="form-p fs-5">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                       </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">

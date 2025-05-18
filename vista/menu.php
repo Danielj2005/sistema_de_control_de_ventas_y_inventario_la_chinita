@@ -1,9 +1,7 @@
 <?php 
 session_start();
 
-// importacion de la conexion a la base de datos y al modelo principal
-
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+require_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -56,15 +54,15 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <thead>
                       <tr>
                         <th class="col text-center"scope="col">#</th>
-                        <th class="col text-center"scope="col">NOMBRE DEL PLATILLO</th>
-                        <th class="col text-center"scope="col">PRECIO DE VENTA</th>
-                        <th class="col text-center"scope="col">DESCRIPCIÓN</th>
+                        <th class="col text-center"scope="col">NOMBRE</th>
+                        <th class="col text-center"scope="col">PRECIO DE VENTA EN $</th>
+                        <th class="text-center col" scope="col">DETALLES</th>
                         <th class="text-center col" scope="col">MODIFICAR</th>
-                        <th class="col text-center"scope="col">ESTATUS</th>
+                        <th class="col text-center"scope="col">ESTADO</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php include("../include/listas_registros_include.php"); consultar_registros('menu'); ?>  
+                      <?php servicio_model::lista(); ?>  
                     </tbody>
                   </table>
                 </div>
@@ -98,9 +96,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
       <script src="./js/modal.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
-        include_once("../include/footer.php");
+        include_once ("../include/footer.php");
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php");
+        include_once ("../include/scripts_include.php");
       
         model_user::validar_sesion_activa($id_usuario);
 

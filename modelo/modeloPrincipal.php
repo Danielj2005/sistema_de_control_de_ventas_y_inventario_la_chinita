@@ -253,4 +253,10 @@ class modeloPrincipal {
         return $cadena_encripted;
     }
 
+    public static function obtener_id_recien_registrado($id, $tabla){
+        $id = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX($id) AS id FROM $tabla"));
+        $id = $id['id'];
+        return $id;
+    }
+
 }

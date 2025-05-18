@@ -26,10 +26,23 @@ function validar_existencia() {
 
 btn_add.addEventListener('click', (e) => {
     e.preventDefault();
+
+    const get_url = () => {
+        let url = document.location.pathname.split("/");
+        url = url[3].split(".php");
+        url = url[0]
+        return url;
+    };
+    
+    const URL = {
+        'registrar_entrada' : '../include/options_productos.php',
+        'agregar_servicio' : '../include/productos_servicio.php'
+    };
+
     let params = {'id': select.value}
     $.ajax({
         data: params,
-        url:  '../include/options_productos.php',
+        url:  URL[get_url()],
         type:  'post',
         success:function(valores){
             if (!validar_existencia()) {

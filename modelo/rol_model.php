@@ -217,95 +217,14 @@ class rol_model extends model_user {
         ";
     }
 
-    public static function obtener_permisos_actuales_de_rol($id_rol, $type_info) {
-        $text_mensaje_actual = '';
-        
-        
-        $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM rol WHERE id_rol = $id_rol"));
-        
-        $datos_originales = self::texto_permisos_vista($permisos);
-        
-        // módulo de inventario
-        $modulo_proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-        $modulo_producto = $permisos['r_categoria'] + $permisos['r_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
-        // módulo de venta
-        $modulo_venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'] + $permisos['est_venta'];
-        // módulo de menu
-        $modulo_menu = $permisos['r_servicio'] + $permisos['m_servicio'] + $permisos['l_servicio'];
-        // módulo de usuario
-        $modulo_cliente = $permisos['r_cliente'] + $permisos['m_cliente'] + $permisos['l_cliente'] + $permisos['h_cliente'] + $permisos['f_cliente'];
-        $modulo_empleado = $permisos['r_empleado'] + $permisos['m_empleado'] + $permisos['l_empleado'];
-        $modulo_rol = $permisos['r_rol'] + $permisos['m_rol'] + $permisos['l_rol'];
-        // módulo de configuración
-        $modulo_ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion'] + $permisos['m_cant_caracteres'] + $permisos['m_cant_simbolos'] + $permisos['m_cant_num'] + $permisos['intentos_inicio_sesion'];
-
-        $text_mensaje_actual .= "************* Información actualizada: ************* <br><br>
-        ****** Módulo Proveedores   ******<br>
-        Acceso al módulo de Proveedores: ".self::obtener_texto_de_acceso_modulos($modulo_proveedor, 4)." <br>
-        Registrar Nuevos Proveedores: ".$datos_originales['r_proveedores']." <br>
-        Modificar Información de Proveedores: ".$datos_originales['m_proveedores']." <br>
-        Consultar Lista de Proveedores Registrados: ".$datos_originales['l_proveedores']." <br>
-        Visualizar Historial de Compras: ".$datos_originales['h_proveedores']." <br><br>
-
-        ****** Módulo Productos     ******<br>
-        Acceso al módulo de Productos: ".self::obtener_texto_de_acceso_modulos($modulo_producto, 6)." <br>
-        Registrar Nuevas Categorías: ".$datos_originales['r_categoria']." <br>
-        Registrar Nuevas Presentaciones: ".$datos_originales['r_presentacion']." <br>
-        Registrar Nuevos Productos: ".$datos_originales['r_productos']." <br>
-        Consultar Lista de Productos Registrados: ".$datos_originales['l_productos']." <br>
-        Registrar Entrada de Productos: ".$datos_originales['r_entrada']." <br>
-        Consultar Lista de Entradas de Productos: ".$datos_originales['l_entrada']." <br><br>
-        
-        ****** Módulo Ventas        ******<br>
-        Acceso al módulo de Ventas: ".self::obtener_texto_de_acceso_modulos($modulo_venta, 5)." <br>
-        Generar Nuevas Ventas: ".$datos_originales['g_venta']." <br>
-        Consultar Lista de Ventas Realizadas: ".$datos_originales['l_venta']." <br>
-        Visualizar Detalles de Ventas: ".$datos_originales['d_venta']." <br>
-        Acceder a Facturas de Ventas: ".$datos_originales['f_venta']." <br>
-        Consultar Estadísticas de Ventas: ".$datos_originales['est_venta']." <br><br>
-
-        ****** Módulo Menú          ******<br>
-        Acceso al módulo de Servicios: ".self::obtener_texto_de_acceso_modulos($modulo_menu, 3)." <br>
-        Registrar Nuevos Servicios: ".$datos_originales['r_servicio']." <br>
-        Modificar Información de Servicios: ".$datos_originales['l_servicio']." <br>
-        Consultar Lista de Servicios Registrados: ".$datos_originales['m_servicio']." <br><br>
-
-        ****** Módulo Clientes      ******<br>
-        Acceso al módulo de Clientes: ".self::obtener_texto_de_acceso_modulos($modulo_cliente, 3)." <br>
-        Registrar Nuevos Client: ".$datos_originales['r_cliente']." <br>
-        Modificar Información de Clientes: ".$datos_originales['m_cliente']." <br>
-        Consultar Lista de Clientes Reg: ".$datos_originales['l_cliente']." <br>
-        Visualizar Historial de Client: ".$datos_originales['h_cliente']." <br>
-        Acceder a Facturas de Clientes: ".$datos_originales['f_cliente']." <br><br>
-
-        ****** Módulo Empleados          ******<br>
-        Acceso al módulo de Empleados: ".self::obtener_texto_de_acceso_modulos($modulo_empleado, 3)." <br>
-        Registrar Nuevos Empleados: ".$datos_originales['r_empleado']." <br>
-        Modificar Información de Empleados: ".$datos_originales['m_empleado']." <br>
-        Consultar Lista de Empleados Registrados: ".$datos_originales['l_empleado']." <br><br>
-
-        ****** Módulo Roles  ******<br>
-        Acceso al módulo de Roles: ".self::obtener_texto_de_acceso_modulos($modulo_rol, 3)." <br>
-        Registrar Nuevos Roles: ".$datos_originales['r_rol']." <br>
-        Modificar Información de Roles: ".$datos_originales['m_rol']." <br>
-        Consultar Lista de Roles Registrados: ".$datos_originales['l_rol']." <br>
-
-        ****** Módulo Configución del sistema  ******<br>
-        Acceso al módulo los Ajustes del Sistema: ".self::obtener_texto_de_acceso_modulos($modulo_ajustes, 6)." <br>
-        Modificar Cantidad de Preguntas de Seguridad: ".$datos_originales['m_cant_pregunta_seguridad']." <br>
-        Modificar Tiempo de Inactividad de Sesión: ".$datos_originales['m_tiempo_sesion']." <br>
-        Modificar Cantidad de Caracteres Permitidos: ".$datos_originales['m_cant_caracteres']." <br>
-        Modificar Cantidad de Símbolos Permitidos: ".$datos_originales['m_cant_simbolos']." <br>
-        Modificar Cantidad de Números Permitidos: ".$datos_originales['m_cant_num']." <br>
-        Modificar Intentos de Inicio de Sesión: ".$datos_originales['intentos_inicio_sesion']." <br><br>
-
-        ****** Módulo Bitátora      ******<br>
-        Acceso al módulo la Bitácora: ".self::obtener_texto_de_acceso_modulos($permisos['v_bitacora'], 1)." <br>
-        Consultar Registros de la Bitácora: ".$datos_originales['v_bitacora']."";
-
-
-        return $text_mensaje_actual;
-
-    }
     
+    public static function option() {
+        
+        $permisos = modeloPrincipal::consultar("SELECT id_rol, nombre FROM rol WHERE estado = 1 AND id_rol != 1");
+        // $permisos = rol_model::texto_permisos_vista($permisos);
+
+        foreach ($permisos as $key ) {
+            echo '<option value="'.$key['id_rol'].'">'.$key['nombre'].'</option>';
+        }
+    }
 }
