@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 05-05-2025 a las 15:55:11
+-- Tiempo de generación: 18-05-2025 a las 23:26:21
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -445,7 +445,138 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (401, '2025-05-05 11:29:15', 'Modificación exitosa del acceso de un usuario.', 'Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br><br>\r\n        Cédula: <b>E-14257869</b><br>\r\n        Nombre: <b>JOSE</b><br>\r\n        Apellido: <b>PERALTA</b><br><br>\r\n         <b>****** Información original:   ******</b><br><br>\r\n        Estado: <b>Inactivo</b><br>\r\n        Permiso de inicio de sesión: <b>Denegado</b><br>\r\n        Rol asignado: <b>ADIMINISTRADOR</b><br>\r\n        Bloqueado: <b>No</b><br><br>\r\n         <b>****** Información Actual:   ******</b><br><br>\r\n        Estado:  <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>ADIMINISTRADOR</b><br>\r\n        Bloqueado: <b>No</b>\r\n        ', 2),
 (402, '2025-05-05 11:31:36', 'Modificación exitosa del acceso de un usuario.', 'Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br><br>\r\n        Cédula: <b>E-14257869</b><br>\r\n        Nombre: <b>JOSE</b><br>\r\n        Apellido: <b>PERALTA</b><br><br>\r\n         <b>****** Información original:   ******</b><br><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>PASANTE</b><br>\r\n        Bloqueado: <b>Sí</b><br><br>\r\n         <b>****** Información Actual:   ******</b><br><br>\r\n        Estado:  <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>PASANTE</b><br>\r\n        Bloqueado: <b>No</b>\r\n        ', 2),
 (403, '2025-05-05 11:52:47', 'Registro exitoso del nuevo usuario.', 'El usuario registro a un nuevo usuario con la siguiente informacón: <br><br>\r\n        <b>****** Información del usuario registrado:   ******</b><br><br>\r\n        Cédula: <b>V-12348465 </b><br>\r\n        Nombre: <b>CARLOS </b><br>\r\n        Apellido: <b>COLMENAREZ </b><br>\r\n        Correo: <b>ccolmena@gmail.com </b><br>\r\n        Teléfono: <b>04164567865 </b><br>\r\n        Dirección: <b>URB LA LAGUNA </b><br>\r\n        Rol asignado: <b>GERENTE </b>\r\n        ', 2),
-(404, '2025-05-05 11:54:43', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2);
+(404, '2025-05-05 11:54:43', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(405, '2025-05-05 19:59:33', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(406, '2025-05-05 20:01:45', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su(s) pregunta(s) de seguridad', 2),
+(407, '2025-05-05 21:07:44', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(408, '2025-05-05 21:09:03', 'Registro exitoso de un nuevo usuario.', 'Se registró un nuevo usuario con la siguiente informacón: <br><br>\r\n        <b>****** Información del usuario registrado:   ******</b><br><br>\r\n        Cédula: <b>V-34234234 </b><br>\r\n        Nombre: <b>MIGUEL </b><br>\r\n        Apellido: <b>SANCHEZ </b><br>\r\n        Correo: <b>sanchez@gmail.com </b><br>\r\n        Teléfono: <b>04144567545 </b><br>\r\n        Dirección: <b>URB LAS MARIAS </b><br>\r\n        Rol asignado: <b>PASANTE </b>\r\n        ', 2),
+(409, '2025-05-05 21:12:28', 'Modificación exitosa del acceso de un usuario.', 'Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br><br>\r\n        Cédula: <b>V-34234234</b><br>\r\n        Nombre: <b>MIGUEL</b><br>\r\n        Apellido: <b>SANCHEZ</b><br><br>\r\n         <b>****** Información original:   ******</b><br><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>PASANTE</b><br>\r\n        Bloqueado: <b>No</b><br><br>\r\n         <b>****** Información Actual:   ******</b><br><br>\r\n        Estado:  <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>PASANTE</b><br>\r\n        Bloqueado: <b>No</b>\r\n        ', 2),
+(410, '2025-05-05 21:17:36', 'Registro exitoso de un nuevo usuario.', 'Se registró un nuevo usuario con la siguiente informacón: <br><br>\r\n        <b>****** Información del usuario registrado:   ******</b><br><br>\r\n        Cédula: <b>V-33543345 </b><br>\r\n        Nombre: <b>FERNANDO </b><br>\r\n        Apellido: <b>ALMEIDA </b><br>\r\n        Correo: <b>feralme@gmail.com </b><br>\r\n        Teléfono: <b>04125463535 </b><br>\r\n        Dirección: <b>BARRIO LOS ACOSTADOS </b><br>\r\n        Rol asignado: <b>PASANTE </b>\r\n        ', 2),
+(411, '2025-05-06 07:48:24', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(412, '2025-05-06 07:52:45', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(413, '2025-05-06 07:59:12', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(414, '2025-05-06 07:59:45', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(415, '2025-05-06 08:03:09', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(416, '2025-05-06 08:03:56', 'Copia de seguridad creada exitosamente', 'El usuario a creado una copia de segurida de la base de datos del sistema.', 2),
+(417, '2025-05-06 10:02:57', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(418, '2025-05-06 12:07:12', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(419, '2025-05-06 13:55:03', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-29775798 </b><br>\r\n        Nombre: <b>LUISA </b><br>\r\n        Teléfono: <b>04123456789 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-29775798 </b><br>\r\n        Nombre: <b>LUISA SALAS </b><br>\r\n        Teléfono: <b>04123456789 </b><br>\r\n        ', 2),
+(420, '2025-05-06 14:06:52', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-30887827 </b><br>\r\n        Nombre: <b>KATTY RONDON </b><br>\r\n        Teléfono: <b>04242344312 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-30887827 </b><br>\r\n        Nombre: <b>KATTY DEL CARMEN RONDON </b><br>\r\n        Teléfono: <b>04242344312 </b><br>\r\n        ', 2),
+(421, '2025-05-06 15:03:41', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(422, '2025-05-06 15:04:09', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(423, '2025-05-06 16:01:32', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA JOSÉ GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br>\r\n        ', 2),
+(424, '2025-05-06 16:41:46', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(425, '2025-05-08 18:39:19', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(426, '2025-05-08 18:39:30', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(427, '2025-05-08 22:04:37', 'Modificación exitosa del perfil de usuario.', 'El usuario actualizó su contraseña.', 2),
+(428, '2025-05-08 22:40:15', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(429, '2025-05-10 10:09:21', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(430, '2025-05-10 10:09:34', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(431, '2025-05-10 11:53:40', 'Cambio exitoso del estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: <br><br>\r\n        <b>***** Información del rol original: *****</b><br><br>\r\n        Nombre del rol:  <b>PASANTE </b><br><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>***** Información del rol actualizada: *****</b><br><br>\r\n        Nombre del rol:  <b>PASANTE </b><br>\r\n        Estado: <b>Inactivo</b>', 2),
+(432, '2025-05-10 12:25:13', 'Modificación exitosa de un rol', 'El usuario modificó el rol con la siguiente información:<br> \r\n        Nombre del rol: <b>PROVEEDOR</b><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>************* Información original: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Sin Acceso</b><br>\r\n        Registrar Nuevos Proveedores: <b>Denegado</b> <br>\r\n        Modificar Información de Proveedores: <b>Denegado</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Denegado</b> <br>\r\n        Visualizar Historial de Compras: <b>Denegado</b> <br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Sin Acceso</b> <br>\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Denegado </b><br>\r\n        Registrar Nuevos Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Denegado </b><br>\r\n        Registrar Entrada de Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Denegado </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Denegado </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Clientes: <b>Denegado </b><br>\r\n        Modificar Información de Clientes: <b>Denegado </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Clientes: <b>Denegado </b><br>\r\n        Acceder a Facturas de Clientes: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Empleados: <b>Denegado </b><br>\r\n        Modificar Información de Empleados: <b>Denegado </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Roles: <b>Denegado </b><br>\r\n        Modificar Información de Roles: <b>Denegado </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Denegado </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Sin Acceso </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Denegado </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Denegado </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Denegado </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Sin Acceso </b><br>\r\n        Consultar Registros de la Bitácora: <b>Denegado </b><br><br><br>\r\n\r\n\r\n        <b>************* Información actualizada: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores:  <b>Sin Acceso</b><br>\r\n        Registrar Nuevos Proveedores: <b>Denegado </b><br>\r\n        Modificar Información de Proveedores: <b>Denegado </b><br>\r\n        Consultar Lista de Proveedores Registrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Compras: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Denegado </b><br>\r\n        Registrar Nuevos Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Denegado </b><br>\r\n        Registrar Entrada de Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Denegado </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b><br>\r\n        Generar Nuevas Ventas: <b>Denegado </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevos Servicios: <b>Denegado </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Clientes: <b>Denegado </b><br>\r\n        Modificar Información de Clientes: <b>Denegado </b><br>\r\n        Consultar Lista de Clientes Registrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Clientes: <b>Denegado </b><br>\r\n        Acceder a Facturas de Clientes: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Empleados: <b>Denegado </b><br>\r\n        Modificar Información de Empleados: <b>Denegado </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Roles: <b>Denegado </b><br>\r\n        Modificar Información de Roles: <b>Denegado </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Denegado </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Sin Acceso </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Denegado </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Denegado </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Denegado </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Sin Acceso </b><br>\r\n        Consultar Registros de la Bitácora: <b>Denegado</b>\r\n        ', 2),
+(433, '2025-05-10 12:31:07', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        Información original:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL<br>\r\n        Apellido: BARRUETA<br>\r\n        Correo: dbarrueta42@gmail.com<br>\r\n        Dirección: SECTOR E GUASDUAL CALLE 1<br>\r\n        Teléfono: 04125238909<br><br>\r\n        Información Actual:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Correo: dbarrueta42@gmail.com<br>\r\n        Dirección: SECTOR E GUASDUAL CALLE 1<br>\r\n        Teléfono: 04125238909\r\n        ', 2),
+(434, '2025-05-10 12:45:40', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        Información original:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Correo: dbarrueta42@gmail.com<br>\r\n        Dirección: SECTOR E GUASDUAL CALLE 1<br>\r\n        Teléfono: 04125238909<br><br>\r\n        Información Actual:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL<br>\r\n        Apellido: BARRUETA<br>\r\n        Correo: dbarrueta42@gmail.com<br>\r\n        Dirección: SECTOR E GUASDUAL CALLE 1<br>\r\n        Teléfono: 04125238909\r\n        ', 2),
+(435, '2025-05-10 12:46:17', 'Modificación exitosa del perfil de usuario.', 'El usuario actualizó su contraseña.', 2),
+(436, '2025-05-10 12:46:41', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su(s) pregunta(s) de seguridad', 2);
+INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) VALUES
+(437, '2025-05-10 12:53:21', 'Modificación exitosa de las características de acceso de un usuario', 'El usuario modificó las características de acceso de un usuario: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br>\r\n        Cédula: <b>V-30400015</b><br>\r\n        Nombre: <b>ANGEL ALIBARDI</b><br>\r\n        Teléfono: <b>04154785965</b><br><br>\r\n\r\n         <b>****** Información original:   ******</b><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>EMPLEADO</b><br><br>\r\n\r\n         <b>****** Información Actualizada:   ******</b><br>\r\n        Estado: <b>Inactivo</b><br>\r\n        Permiso de inicio de sesión: <b>Denegado</b><br>\r\n        Rol asignado: <b>EMPLEADO</b>\r\n        ', 2),
+(438, '2025-05-10 12:56:22', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA JOSÉ GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br>\r\n        ', 2),
+(439, '2025-05-10 12:59:14', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-30887827 </b><br>\r\n        Nombre: <b>KATTY DEL CARMEN RONDON </b><br>\r\n        Teléfono: <b>04242344312 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-30887827 </b><br>\r\n        Nombre: <b>KATTY RONDON </b><br>\r\n        Teléfono: <b>04242344312 </b><br>\r\n        ', 2),
+(440, '2025-05-10 13:00:16', 'Modificación exitosa del acceso de un usuario.', 'Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br><br>\r\n        Cédula: <b>V-30400015</b><br>\r\n        Nombre: <b>ANGEL</b><br>\r\n        Apellido: <b>ALIBARDI</b><br><br>\r\n         <b>****** Información original:   ******</b><br><br>\r\n        Estado: <b>Inactivo</b><br>\r\n        Permiso de inicio de sesión: <b>Denegado</b><br>\r\n        Rol asignado: <b>EMPLEADO</b><br>\r\n        Bloqueado: <b>No</b><br><br>\r\n         <b>****** Información Actual:   ******</b><br><br>\r\n        Estado:  <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>EMPLEADO</b><br>\r\n        Bloqueado: <b>No</b>\r\n        ', 2),
+(441, '2025-05-10 13:02:04', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOSÉ</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(442, '2025-05-10 13:16:50', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-14540481 </b><br>\r\n        Nombre: <b>MARÍA JOSÉ GIMENEZ </b><br>\r\n        Teléfono: <b>04245494211 </b><br>\r\n        ', 2),
+(443, '2025-05-10 14:40:57', 'Modificación exitosa de un rol', 'El usuario modificó el rol con la siguiente información:<br> \r\n        Nombre del rol: <b>ADIMINISTRADOR</b><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>************* Información original: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Total</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido</b> <br>\r\n        Modificar Información de Proveedores: <b>Permitido</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Permitido</b> <br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Acceso Total</b> <br>\r\n        Registrar Nuevas Categorías: <b>Permitido </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Total </b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido </b><br><br><br>\r\n\r\n\r\n        <b>************* Información actualizada: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores:  <b>Acceso Parcial</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido </b><br>\r\n        Modificar Información de Proveedores: <b>Denegado </b><br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Compras: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos:  <b>Acceso Total </b><br>\r\n        Registrar Nuevas Categorías: <b>Permitido </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b><br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Registrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Total </b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido</b>\r\n        ', 2),
+(444, '2025-05-10 14:41:35', 'Modificación exitosa de un rol', 'El usuario modificó el rol con la siguiente información:<br> \r\n        Nombre del rol: <b>ADIMINISTRADOR</b><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>************* Información original: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Parcial</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido</b> <br>\r\n        Modificar Información de Proveedores: <b>Denegado</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Permitido</b> <br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Acceso Total</b> <br>\r\n        Registrar Nuevas Categorías: <b>Permitido </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Total </b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido </b><br><br><br>\r\n\r\n\r\n        <b>************* Información actualizada: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido </b><br>\r\n        Modificar Información de Proveedores: <b>Permitido </b><br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Compras: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos:  <b>Acceso Total </b><br>\r\n        Registrar Nuevas Categorías: <b>Permitido </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b><br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Registrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Total </b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido</b>\r\n        ', 2),
+(445, '2025-05-10 15:23:01', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor modificado:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-10642121 </b><br>\r\n        Nombre: <b>EL PATRONCITO </b><br>\r\n        Correo: <b>patroncito@gmail.com </b><br>\r\n        Teléfono: <b>04123455434 </b><br>\r\n        Dirección: <b>BARQUISIMETO CALLE 33 </b><br><br>\r\n        <b>****** Información original del proveedor modificado:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-10642121 </b><br>\r\n        Nombre: <b>EL PATRON </b><br>\r\n        Correo: <b>patroncito@gmail.com </b><br>\r\n        Teléfono: <b>04123455434 </b><br>\r\n        Dirección: <b>BARQUISIMETO CALLE 33 </b><br>\r\n\r\n        ', 2),
+(446, '2025-05-10 16:50:32', 'Registro exitoso de un proveedor.', 'Se registro un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>J-11077810 </b><br>\r\n        Nombre: <b>MORTADELAS CARACAS </b><br>\r\n        Correo: <b>motadela_caracas@gmail.com </b><br>\r\n        Teléfono: <b>04124567898 </b><br>\r\n        Dirección: <b>ACARIGUA CITY </b><br><br>\r\n        ', 2),
+(447, '2025-05-10 19:40:30', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLES </b><br>\r\n        Estado: <b>1 </b>\r\n        ', 2),
+(448, '2025-05-10 20:01:24', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>CEREALES </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(449, '2025-05-10 20:03:03', 'Modificación exitosa de una categoría.', 'Se modificó una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Activo </b>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(450, '2025-05-10 20:03:58', 'Modificación exitosa de una categoría.', 'Se modificó una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(451, '2025-05-10 20:07:02', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(452, '2025-05-11 14:08:48', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(453, '2025-05-11 14:10:21', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>POLLOS </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(454, '2025-05-11 14:10:36', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>ENSALADAS </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(455, '2025-05-11 14:10:51', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>ADICIONALES </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(456, '2025-05-11 14:11:06', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>POSTRES </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(457, '2025-05-11 14:11:19', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>CEREALES </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>CEREALES </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(458, '2025-05-11 14:12:06', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>GOOBIE </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(459, '2025-05-11 14:12:15', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>FRITURAS </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>FRITURAS </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(460, '2025-05-11 14:12:26', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLES </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLES </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(461, '2025-05-11 14:12:35', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLE </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLE </b><br>\r\n        Estado: <b>Inactivo </b>\r\n        ', 2),
+(462, '2025-05-11 17:17:50', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información de la presentación:   ******</b><br><br>\r\n        Nombre: <b>1 KG </b><br>\r\n        Descripción: <b>UN KILOGRAMO </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(463, '2025-05-11 17:22:09', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(464, '2025-05-11 17:23:08', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(465, '2025-05-11 17:26:37', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Lata </b><br>\r\n        Descripción: <b>Envase de lata </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(466, '2025-05-11 18:42:44', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>0000007 </b><br>\r\n        Nombre: <b>CHINOTTO </b><br>\r\n        Presentación: <b>1 Litro </b><br>\r\n        Categoría: <b>BEBIDAS </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(467, '2025-05-11 19:05:25', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(468, '2025-05-12 16:40:41', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(469, '2025-05-12 16:40:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(470, '2025-05-12 17:43:15', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(471, '2025-05-12 17:43:26', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(472, '2025-05-12 18:41:41', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información de la presentación:   ******</b><br><br>\r\n        Nombre: <b>500 G </b><br>\r\n        Descripción: <b>MEDIO KILOGRAMO </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(473, '2025-05-12 18:49:45', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>00000004 </b><br>\r\n        Nombre: <b>POLLO </b><br>\r\n        Presentación: <b>Pollo entero </b><br>\r\n        Categoría: <b>POLLOS </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(474, '2025-05-12 18:53:42', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>00000005 </b><br>\r\n        Nombre: <b>7 UP </b><br>\r\n        Presentación: <b>1 Litro </b><br>\r\n        Categoría: <b>BEBIDAS </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(475, '2025-05-12 19:03:52', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>00000008 </b><br>\r\n        Nombre: <b>YUCA </b><br>\r\n        Presentación: <b>Unidad </b><br>\r\n        Categoría: <b>ADICIONALES </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(476, '2025-05-12 20:56:07', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(477, '2025-05-13 07:47:38', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(478, '2025-05-13 07:47:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(479, '2025-05-13 07:49:40', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALITO </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 6 </b><br><br>\r\n        <b>****** Información actual del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALITO </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 6 </b><br>\r\n\r\n        ', 2),
+(480, '2025-05-13 07:53:38', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLE </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>COMESTIBLE </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(481, '2025-05-13 08:17:51', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(482, '2025-05-13 08:20:00', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(483, '2025-05-13 08:30:01', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(484, '2025-05-13 08:31:03', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 7),
+(485, '2025-05-13 08:31:23', 'Modificación exitosa del acceso de un usuario.', 'Se restableció el acceso al sistema del usuario con la siguiente información: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOSÉ</b><br>\r\n        Apellido: <b>BARRUETA</b><br><br>\r\n         <b>****** Información original:   ******</b><br><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>ADIMINISTRADOR</b><br>\r\n        Bloqueado: <b>Sí</b><br><br>\r\n         <b>****** Información Actual:   ******</b><br><br>\r\n        Estado:  <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>ADIMINISTRADOR</b><br>\r\n        Bloqueado: <b>No</b>\r\n        ', 7),
+(486, '2025-05-13 08:31:34', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 7),
+(487, '2025-05-13 08:31:45', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(488, '2025-05-13 08:32:42', 'Modificación exitosa del perfil de usuario.', 'El usuario actualizó su contraseña.', 2),
+(489, '2025-05-13 08:33:56', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su(s) pregunta(s) de seguridad', 2),
+(490, '2025-05-13 08:36:58', 'Modificación exitosa de un rol', 'El usuario modificó el rol con la siguiente información:<br> \r\n        Nombre del rol: <b>EMPLEADO</b><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>************* Información original: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Parcial</b><br>\r\n        Registrar Nuevos Proveedores: <b>Denegado</b> <br>\r\n        Modificar Información de Proveedores: <b>Denegado</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Denegado</b> <br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Acceso Parcial</b> <br>\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Denegado </b><br>\r\n        Registrar Nuevos Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Denegado </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevos Clientes: <b>Denegado </b><br>\r\n        Modificar Información de Clientes: <b>Denegado </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Roles: <b>Denegado </b><br>\r\n        Modificar Información de Roles: <b>Denegado </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Denegado </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Sin Acceso </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Denegado </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Denegado </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Denegado </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Sin Acceso </b><br>\r\n        Consultar Registros de la Bitácora: <b>Denegado </b><br><br><br>\r\n\r\n\r\n        <b>************* Información actualizada: ************* </b><br><br>\r\n         <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores:  <b>Acceso Parcial</b><br>\r\n        Registrar Nuevos Proveedores: <b>Denegado </b><br>\r\n        Modificar Información de Proveedores: <b>Denegado </b><br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Compras: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Registrar Nuevas Presentaciones: <b>Denegado </b><br>\r\n        Registrar Nuevos Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br>\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Denegado </b><br><br>\r\n        \r\n         <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b><br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevos Clientes: <b>Denegado </b><br>\r\n        Modificar Información de Clientes: <b>Denegado </b><br>\r\n        Consultar Lista de Clientes Registrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n         <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Parcial </b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Denegado </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Denegado </b> <br><br>\r\n\r\n         <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Sin Acceso </b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Denegado </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Denegado </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Denegado </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Denegado </b><br><br>\r\n\r\n         <b>****** Módulo Bitátora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Sin Acceso </b><br>\r\n        Consultar Registros de la Bitácora: <b>Denegado</b>\r\n        ', 2),
+(491, '2025-05-13 08:37:14', 'Cambio exitoso del estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: <br><br>\r\n        <b>***** Información del rol original: *****</b><br><br>\r\n        Nombre del rol:  <b>ROL </b><br><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>***** Información del rol actualizada: *****</b><br><br>\r\n        Nombre del rol:  <b>ROL </b><br>\r\n        Estado: <b>Inactivo</b>', 2),
+(492, '2025-05-13 08:38:34', 'Copia de seguridad creada exitosamente', 'El usuario a creado una copia de segurida de la base de datos del sistema.', 2),
+(493, '2025-05-13 08:39:23', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 3<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(494, '2025-05-13 08:41:18', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 10<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(495, '2025-05-13 08:41:41', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 10<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 10<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(496, '2025-05-13 08:50:51', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 10<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 4<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(497, '2025-05-13 09:08:21', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(498, '2025-05-14 15:14:49', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(499, '2025-05-14 18:32:11', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 7),
+(500, '2025-05-14 18:33:18', 'Modificación exitosa del perfil de usuario.', 'El usuario actualizó su contraseña.', 7),
+(501, '2025-05-14 22:11:16', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(502, '2025-05-15 19:22:32', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(503, '2025-05-16 15:56:38', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(504, '2025-05-16 20:31:12', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n        <b>********* Información de la entrada:   *********</b><br><br>\r\n        <b>****** Información del proveedor:   ******</b><br>\r\n        Cédula / RIF: <b>J-11077810 </b><br>\r\n        Nombre: <b>MORTADELAS CARACAS </b><br>\r\n        Correo: <b>motadela_caracas@gmail.com </b><br>\r\n        Teléfono: <b>04124567898 </b><br>\r\n        Dirección: <b>ACARIGUA CITY </b><br><br><br>\r\n\r\n        <b>****** Información de la entrada:   ******</b><br>\r\n        Total de la compra en $: <b>8 </b><br>\r\n        Total de la compra en bs: <b>744 </b><br>\r\n        Fecha / hora: <b>16-05-2025 / 07:45:pm </b><br>\r\n        Tasa del dolar: <b>93 bs </b><br>\r\n        <b>****** para más detalles sobre la entrada ir a la lista de entradas ******</b><br>\r\n        ', 2);
+INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) VALUES
+(505, '2025-05-16 20:39:28', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br>\r\n        Cédula / RIF: <b>J-11077810 </b><br>\r\n        Nombre: <b>MORTADELAS CARACAS </b><br>\r\n        Correo: <b>motadela_caracas@gmail.com </b><br>\r\n        Teléfono: <b>04124567898 </b><br>\r\n        Dirección: <b>ACARIGUA CITY </b><br><br>\r\n\r\n        <b>****** Información de la entrada:   ******</b><br>\r\n        Total de la compra en $: <b>28 $ </b><br>\r\n        Total de la compra en bs: <b>2604 bs</b><br>\r\n        Fecha / hora: <b>16-05-2025 / 08:40:pm </b><br>\r\n        Tasa del dolar: <b>93 bs </b><br>\r\n        <b>** Para más detalles sobre la entrada ir a la lista de entradas **b><br>\r\n        ', 2),
+(506, '2025-05-16 20:50:02', 'Registro exitoso de un proveedor.', 'Se registro un proveedor con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br><br>\r\n            Cédula / RIF: <b>J-28587583 </b><br>\r\n            Nombre: <b>TODO CARNES </b><br>\r\n            Correo: <b>TodoCarnes@gmail.com </b><br>\r\n            Teléfono: <b>04124567823 </b><br>\r\n            Dirección: <b>BARQUISIMETO CITY </b><br><br>\r\n            ', 2),
+(507, '2025-05-16 21:12:44', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br>\r\n        Cédula / RIF: <b>J-28587583 </b><br>\r\n        Nombre: <b>TODO CARNES </b><br>\r\n        Correo: <b>TodoCarnes@gmail.com </b><br>\r\n        Teléfono: <b>04124567823 </b><br>\r\n        Dirección: <b>BARQUISIMETO CITY </b><br><br>\r\n\r\n        <b>****** Información de la entrada:   ******</b><br>\r\n        Total de la compra en $: <b>80 $ </b><br>\r\n        Total de la compra en bs: <b>7440 bs</b><br>\r\n        Fecha / hora: <b>16-05-2025 / 08:50:pm </b><br>\r\n        Tasa del dolar: <b>93 bs </b><br>\r\n        <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n        ', 2),
+(508, '2025-05-16 21:16:49', 'Registro exitoso de un proveedor.', 'Se registro un proveedor con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br><br>\r\n            Cédula / RIF: <b>J-21393076 </b><br>\r\n            Nombre: <b>TODO LOMO </b><br>\r\n            Correo: <b>lomo@gmail.com </b><br>\r\n            Teléfono: <b>04124895432 </b><br>\r\n            Dirección: <b>VALENCIA COUNTRY </b><br><br>\r\n            ', 2),
+(509, '2025-05-16 21:16:50', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br>\r\n        Cédula / RIF: <b>J-21393076 </b><br>\r\n        Nombre: <b>TODO LOMO </b><br>\r\n        Correo: <b>lomo@gmail.com </b><br>\r\n        Teléfono: <b>04124895432 </b><br>\r\n        Dirección: <b>VALENCIA COUNTRY </b><br><br>\r\n\r\n        <b>****** Información de la entrada:   ******</b><br>\r\n        Total de la compra en $: <b>20 $ </b><br>\r\n        Total de la compra en bs: <b>1860 bs</b><br>\r\n        Fecha / hora: <b>16-05-2025 / 09:17:pm </b><br>\r\n        Tasa del dolar: <b>93 bs </b><br>\r\n        <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n        ', 2),
+(510, '2025-05-16 21:20:29', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(511, '2025-05-18 10:53:52', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(512, '2025-05-18 12:43:21', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br><br>\r\n    Precio anterior: <b>40.4 </b><br>\r\n    Fecha anterior: <b>2024-09-17 09:00:00 </b><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br><br>\r\n    Precio actual: <b>94.76 </b><br>\r\n    Fecha actual: <b>2025-05-18 12:43:21 </b><br>\r\n    ', 2),
+(513, '2025-05-18 12:49:42', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera manual. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br><br>\r\n    Precio anterior: <b>94.76 </b><br>\r\n    Fecha anterior: <b>2025-05-18 12:43:21 </b><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br><br>\r\n    Precio actual: <b>93.89 </b><br>\r\n    Fecha actual: <b>2025-05-18 12:49:42 </b><br>\r\n    ', 2),
+(514, '2025-05-18 12:52:07', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br><br>\r\n    Precio anterior: <b>93.89 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:49:pm </b><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br><br>\r\n    Precio actual: <b>94.76 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 12:52:pm </b><br>\r\n    ', 2),
+(515, '2025-05-18 12:54:00', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera manual. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94.76 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:52:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>94 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 12:54:pm </b><br>\r\n    ', 2),
+(516, '2025-05-18 12:55:14', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:54:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>94 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 12:55:pm </b><br>\r\n    ', 2),
+(517, '2025-05-18 12:56:16', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:55:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>94.76 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 12:56:pm </b><br>\r\n    ', 2),
+(518, '2025-05-18 12:59:41', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera manual. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94.76 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:56:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>93.89 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 12:59:pm </b><br>\r\n    ', 2),
+(519, '2025-05-18 13:00:04', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>93.89 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 12:59:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>94.76 bs </b><br>\r\n    Fecha actual: <b>18-05-2025 / 01:00:pm </b><br>\r\n    ', 2),
+(520, '2025-05-18 13:22:00', 'Modificación exitosa de las características de acceso de un usuario', 'El usuario modificó las características de acceso de un usuario: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br>\r\n        Cédula: <b>V-30400015</b><br>\r\n        Nombre: <b>ANGEL ALIBARDI</b><br>\r\n        Teléfono: <b>04154785965</b><br><br>\r\n\r\n         <b>****** Información original:   ******</b><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>EMPLEADO</b><br><br>\r\n\r\n         <b>****** Información Actualizada:   ******</b><br>\r\n        Estado: <b>Inactivo</b><br>\r\n        Permiso de inicio de sesión: <b>Denegado</b><br>\r\n        Rol asignado: <b>EMPLEADO</b>\r\n        ', 2),
+(521, '2025-05-18 15:03:19', 'Registro de un servicio', 'El usuario registró un servicio con la siguiente información: \n\nNombre del platillo: SERVICE PRUBE \nPrecio en dolares: 5$ \nDescripción: SER VICIO TEST \nEstado: activo', 2),
+(522, '2025-05-18 15:03:19', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br><br>\r\n        Nombre: <b>500 G </b><br>\r\n        Descripción: <b>MEDIO KILOGRAMO </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(523, '2025-05-18 15:38:27', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b> </b><br>\r\n        Descripción: <b>TASTING </b><br>\r\n        Precio en $: <b>10 $</b><br>\r\n        Estado: <b>Activo </b><br><br><br>\r\n\r\n        <b>****** Detalles del servicio:   ******</b><br><br>\r\n        <b>Producto | Categoría | Cantidad</b><br>\r\n        <b>Pepsi 1.5 Litros</b> | BEBIDAS | 2<br><b>LIGHT 1.5 Litros</b> | BEBIDAS | 3<br><b>POLLO Pollo entero</b> | POLLOS | 2<br>\r\n        <br><br>\r\n        ', 2),
+(524, '2025-05-18 15:41:26', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b> </b><br>\r\n        Descripción: <b>DESCRIPCION </b><br>\r\n        Precio en $: <b>4 $</b><br>\r\n        Estado: <b>Activo </b><br><br><br>\r\n\r\n        <b>****** Detalles del servicio:   ******</b><br><br>\r\n        <b>Producto         |       Categoría         | Cantidad</b><br>\r\n        <b>LIGHT 1.5 Litros</b>         |       BEBIDAS         | 2<br>\r\n        <br><br>\r\n        ', 2),
+(525, '2025-05-18 15:44:50', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b> </b><br>\r\n        Descripción: <b>ASDASDA </b><br>\r\n        Precio en $: <b>20 $</b><br>\r\n        Estado: <b>Activo </b><br><br><br>\r\n\r\n        <b>****** Detalles del servicio:   ******</b><br><br>\r\n        <b>***** Producto  *****|*****   Categoría    *****|***** Cantidad *****</b><br>\r\n        <b>***** Pepsi 1.5 Litros</b>  *****|*****   BEBIDAS    *****|***** 3 *****<br><b>***** LIGHT 1.5 Litros</b>  *****|*****   BEBIDAS    *****|***** 4 *****<br><b>***** POLLO Pollo entero</b>  *****|*****   POLLOS    *****|***** 4 *****<br>\r\n        <br><br>\r\n        ', 2),
+(526, '2025-05-18 15:52:09', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b> </b><br>\r\n        Descripción: <b>POLLO ASADO COMPLETO CON ENSALADA Y YUCA </b><br>\r\n        Precio en $: <b>5 $</b><br>\r\n        Estado: <b>Activo </b><br><br><br>\r\n\r\n        <b>****** Detalles del servicio: ******</b><br><br>\r\n        <table class=\"table table-striped\">\r\n            <thead>\r\n            <tr>\r\n                <th class=\"col text-center\" scope=\"col\">PRODUCTO</th>\r\n                <th class=\"col text-center\" scope=\"col\">CATEGORÍA</th>\r\n                <th class=\"col text-center\" scope=\"col\">CANTIDAD</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                            <td class=\"text-center\">POLLO Pollo entero</td>\r\n                            <td class=\"text-center\">POLLOS</td>\r\n                            <td class=\"text-center\">2</td>\r\n                        </tr>\r\n            </tbody>\r\n        </table>\r\n        <br><br>\r\n        ', 2),
+(527, '2025-05-18 15:56:19', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b>POLLO CON FRESCO </b><br>\r\n        Descripción: <b>UN POLLO ENTERO CON UN REFRESCO </b><br>\r\n        Precio en $: <b>5 $</b><br>\r\n        Estado: <b>Activo </b><br><br><br>\r\n\r\n        <label><b>****** Detalles del servicio: ******</b></label><br><br>\r\n        <table class=\"table table-striped\">\r\n            <thead>\r\n            <tr>\r\n                <th class=\"col text-center\" scope=\"col\">PRODUCTO</th>\r\n                <th class=\"col text-center\" scope=\"col\">CATEGORÍA</th>\r\n                <th class=\"col text-center\" scope=\"col\">CANTIDAD</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                            <td class=\"text-center\">LIGHT 1.5 Litros</td>\r\n                            <td class=\"text-center\">BEBIDAS</td>\r\n                            <td class=\"text-center\">1</td>\r\n                        </tr><tr>\r\n                            <td class=\"text-center\">POLLO Entero</td>\r\n                            <td class=\"text-center\">POLLOS</td>\r\n                            <td class=\"text-center\">1</td>\r\n                        </tr>\r\n            </tbody>\r\n        </table>\r\n        <br><br>\r\n        ', 2),
+(528, '2025-05-18 17:09:01', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(529, '2025-05-18 18:23:48', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(530, '2025-05-18 18:54:10', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO CON FRESCO \nPrecio en dolares: 5$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: 7 \nPrecio en dolares: $ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
+(531, '2025-05-18 18:57:32', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: 7 \nPrecio en dolares: $ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
+(532, '2025-05-18 18:59:33', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
+(533, '2025-05-18 19:01:14', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: inactivo', 2);
 
 -- --------------------------------------------------------
 
@@ -466,8 +597,10 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 (1, 'COMESTIBLE', 1),
 (2, 'BEBIDAS', 1),
-(3, 'FRITURAS', 1),
-(7, 'GOOBIE', 1);
+(10, 'POLLOS', 1),
+(11, 'ENSALADAS', 1),
+(12, 'ADICIONALES', 1),
+(13, 'POSTRES', 1);
 
 -- --------------------------------------------------------
 
@@ -487,11 +620,11 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `telefono`) VALUES
-(1, 'V-15214817', 'Jhoan Torrez', '04128053290'),
-(2, 'V-28587583', 'daniel barrueta', '04125238909'),
-(7, 'V-14540481', 'maría gimenez', '04245494211'),
+(1, 'V-15214817', 'JHOAN TORREZ', '04128053290'),
+(2, 'V-28587583', 'DANIEL BARRUETA', '04125238909'),
+(7, 'V-14540481', 'MARÍA JOSÉ GIMENEZ', '04245494211'),
 (8, 'V-30887827', 'KATTY RONDON', '04242344312'),
-(9, 'V-29775798', 'LUISA', '04123456789');
+(9, 'V-29775798', 'LUISA SALAS', '04123456789');
 
 -- --------------------------------------------------------
 
@@ -519,6 +652,36 @@ INSERT INTO `configuracion` (`id`, `c_preguntas`, `c_caracteres`, `c_numeros`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalles_entrada`
+--
+
+CREATE TABLE `detalles_entrada` (
+  `id` int NOT NULL,
+  `id_entrada` int NOT NULL,
+  `id_producto` int NOT NULL,
+  `cantidad_comprada` int NOT NULL,
+  `precio_unitario_dolar` float NOT NULL,
+  `precio_unitario_bs` float NOT NULL,
+  `total_dolar` float NOT NULL,
+  `total_bs` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_entrada`
+--
+
+INSERT INTO `detalles_entrada` (`id`, `id_entrada`, `id_producto`, `cantidad_comprada`, `precio_unitario_dolar`, `precio_unitario_bs`, `total_dolar`, `total_bs`) VALUES
+(1, 10, 3, 2, 1, 93, 2, 186),
+(2, 17, 3, 2, 1, 93, 2, 186),
+(3, 17, 2, 2, 1, 93, 2, 186),
+(4, 18, 2, 2, 3, 279, 6, 558),
+(5, 18, 3, 2, 4, 372, 8, 744),
+(6, 19, 24, 20, 4, 372, 80, 7440),
+(7, 20, 24, 10, 2, 186, 20, 1860);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `detalles_menu`
 --
 
@@ -526,7 +689,6 @@ CREATE TABLE `detalles_menu` (
   `id_detalles_menu` int NOT NULL,
   `id_producto` int NOT NULL,
   `cantidad` int NOT NULL,
-  `numero_detalles_menu` int NOT NULL,
   `id_menu` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -534,17 +696,21 @@ CREATE TABLE `detalles_menu` (
 -- Volcado de datos para la tabla `detalles_menu`
 --
 
-INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `numero_detalles_menu`, `id_menu`) VALUES
-(1, 1, 2, 1, 1),
-(2, 4, 1, 1, 1),
-(5, 1, 5, 1, 4),
-(6, 1, 2, 1, 5),
-(7, 1, 1, 1, 6),
-(8, 4, 1, 2, 6),
-(9, 1, 3, 1, 7),
-(10, 4, 1, 2, 7),
-(11, 2, 1, 1, 9),
-(12, 4, 1, 2, 9);
+INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `id_menu`) VALUES
+(11, 2, 1, 9),
+(13, 2, 1, 11),
+(14, 3, 1, 11),
+(15, 24, 1, 11),
+(16, 2, 2, 12),
+(17, 3, 3, 12),
+(18, 24, 2, 12),
+(19, 3, 2, 13),
+(20, 2, 3, 14),
+(21, 3, 4, 14),
+(22, 24, 4, 14),
+(23, 24, 2, 15),
+(24, 3, 1, 16),
+(25, 24, 1, 16);
 
 -- --------------------------------------------------------
 
@@ -701,7 +867,20 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (8, 62.18, '2025-02-19 17:26:24'),
 (9, 63, '2025-02-19 17:33:15'),
 (10, 66.79, '2025-03-18 07:51:52'),
-(11, 70, '2025-03-30 18:36:41');
+(11, 70, '2025-03-30 18:36:41'),
+(12, 93, '2025-05-10 17:42:01'),
+(13, 94, '2025-05-18 12:02:59'),
+(14, 94.76, '2025-05-18 12:19:20'),
+(15, 94.76, '2025-05-18 12:21:27'),
+(16, 95, '2025-05-18 12:22:18'),
+(17, 94.76, '2025-05-18 12:43:21'),
+(18, 93.89, '2025-05-18 12:49:42'),
+(19, 94.76, '2025-05-18 12:52:07'),
+(20, 94, '2025-05-18 12:54:00'),
+(21, 94, '2025-05-18 12:55:13'),
+(22, 94.76, '2025-05-18 12:56:16'),
+(23, 93.89, '2025-05-18 12:59:41'),
+(24, 94.76, '2025-05-18 13:00:04');
 
 -- --------------------------------------------------------
 
@@ -711,11 +890,9 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 
 CREATE TABLE `entrada` (
   `id_entrada` int NOT NULL,
-  `id_producto` int NOT NULL,
   `id_proveedor` int NOT NULL,
-  `precio_compra_dolar` float NOT NULL,
-  `precio_compra_bs` float NOT NULL,
-  `stock_comprado` int NOT NULL,
+  `total_dolar` float NOT NULL,
+  `total_bs` float NOT NULL,
   `fecha_entrada` datetime NOT NULL,
   `id_dolar` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -724,11 +901,27 @@ CREATE TABLE `entrada` (
 -- Volcado de datos para la tabla `entrada`
 --
 
-INSERT INTO `entrada` (`id_entrada`, `id_producto`, `id_proveedor`, `precio_compra_dolar`, `precio_compra_bs`, `stock_comprado`, `fecha_entrada`, `id_dolar`) VALUES
-(1, 1, 1, 3, 0, 3, '2024-09-25 11:37:54', 1),
-(2, 2, 1, 4, 0, 4, '2024-09-25 11:37:54', 1),
-(13, 3, 1, 2, 95.76, 30, '2024-11-15 11:20:25', 1),
-(14, 4, 1, 4, 191.52, 20, '2024-11-15 11:48:18', 1);
+INSERT INTO `entrada` (`id_entrada`, `id_proveedor`, `total_dolar`, `total_bs`, `fecha_entrada`, `id_dolar`) VALUES
+(1, 3, 8, 744, '2025-05-16 19:13:00', 12),
+(2, 3, 8, 744, '2025-05-16 19:13:00', 12),
+(3, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(4, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(5, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(6, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(7, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(8, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(9, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(10, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(11, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(12, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(13, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(14, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(15, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(16, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(17, 3, 8, 744, '2025-05-16 19:45:00', 12),
+(18, 3, 28, 2604, '2025-05-16 20:40:00', 12),
+(19, 4, 80, 7440, '2025-05-16 20:50:00', 12),
+(20, 18, 20, 1860, '2025-05-16 21:17:00', 12);
 
 -- --------------------------------------------------------
 
@@ -755,7 +948,14 @@ INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`,
 (6, 'MEDIO POLLO CON FRESCO', '10', 'MEDIO POLLON ASADO CON GLUP', 1),
 (7, 'POLLO ESPECIAL', '15', 'POLLO + 3 GLUP', 1),
 (8, 'PABELLON', '7', 'ARROZ Y CARAOTA', 1),
-(9, 'SERVICIO PRUEBA', '10', 'POLLO Y REFRESCO', 1);
+(9, 'SERVICIO PRUEBA', '10', 'POLLO Y REFRESCO', 1),
+(10, 'SERVICE PRUBE', '5', 'SER VICIO TEST', 1),
+(11, 'SERVICE PRUBE', '5', 'SER VICIO TEST', 1),
+(12, 'TEST BITÁCORA', '10', 'TASTING', 1),
+(13, 'PRUBA', '4', 'DESCRIPCION', 1),
+(14, 'ASDASD', '20', 'ASDASDA', 1),
+(15, 'POLLO ENTERO ASADO', '5', 'POLLO ASADO COMPLETO CON ENSALADA Y YUCA', 1),
+(16, 'POLLO Y FRESCO', '7', 'UN POLLO ENTERO CON UN REFRESCO', 0);
 
 -- --------------------------------------------------------
 
@@ -777,9 +977,9 @@ CREATE TABLE `preguntas_secretas` (
 
 INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_pregunta`, `id_usuario`) VALUES
 (1, 1, 'd6KUjQ==', 1, 1),
-(2, 1, 'l7TCuai0oaM=', 1, 2),
-(3, 2, 'prjDwbG3', 2, 2),
-(4, 4, 'prjDsLK7', 3, 2),
+(2, 1, 'hqiWoZY=', 1, 2),
+(3, 2, 'hqiWoZY=', 2, 2),
+(4, 4, 'hqiWoZY=', 3, 2),
 (5, 1, 'ZoiEg3uBZ2g=', 1, 10),
 (6, 4, 'ZoiEg3uBZ2g=', 2, 10),
 (7, 2, 'ZoiEg3uBZ2g=', 3, 10),
@@ -797,7 +997,13 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 (19, 3, 'ioCDfnR8Z2dpaQ==', 3, 13),
 (20, 2, 'ioCDfXd9aGdnag==', 1, 14),
 (21, 3, 'ioCDfXd9aGdnag==', 2, 14),
-(22, 1, 'ioCDfXd9aGdnag==', 3, 14);
+(22, 1, 'ioCDfXd9aGdnag==', 3, 14),
+(23, 2, 'Z4eCf3d6ZWQ=', 1, 16),
+(24, 3, 'Z4eCf3d6ZWQ=', 2, 16),
+(25, 1, 'Z4eCf3d6ZWQ=', 3, 16),
+(26, 2, 'Z4aFgHZ7ZmU=', 1, 17),
+(27, 4, 'Z4aFgHZ7ZmU=', 2, 17),
+(28, 3, 'Z4aFgHZ7ZmU=', 3, 17);
 
 -- --------------------------------------------------------
 
@@ -807,22 +1013,30 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 
 CREATE TABLE `presentacion` (
   `id` int NOT NULL,
-  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
+  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `presentacion`
 --
 
-INSERT INTO `presentacion` (`id`, `nombre`) VALUES
-(1, '1 L'),
-(2, '1.5 L'),
-(3, '2 L'),
-(4, '3 L'),
-(5, '1/2 KG'),
-(6, '1 KG'),
-(7, '500ML'),
-(8, '200GR');
+INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
+(2, '1.5 Litros', 'Envase de un litro y medio', 1),
+(4, '3 Litros', 'Envase de tres litros', 1),
+(9, 'Entero', 'Pollo completo', 1),
+(10, 'Medio', 'Medio pollo', 1),
+(11, 'Cuarto', 'Un cuarto de pollo', 1),
+(12, 'Porción individual', 'Para una persona', 1),
+(13, 'Porción Familiar', 'Para compartir', 1),
+(14, '1 Litro', 'Envase de un litro', 1),
+(15, '2 Litros', 'Envase de dos litro', 1),
+(16, 'Lata', 'Envase de lata', 0),
+(17, 'Unidad', 'Artículo individual', 1),
+(18, 'Bandeja', 'Presentación en bandeja', 1),
+(24, '1 KG', 'UN KILOGRAMO', 1),
+(25, '500 G', 'MEDIO KILOGRAMO', 1);
 
 -- --------------------------------------------------------
 
@@ -836,8 +1050,7 @@ CREATE TABLE `producto` (
   `codigo` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `nombre_producto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_presentacion` int NOT NULL,
-  `precio_compra_dolar` float NOT NULL,
-  `precio_compra_bs` float NOT NULL,
+  `precio_venta_dolar` float NOT NULL,
   `stock` int NOT NULL,
   `estatus` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -846,14 +1059,15 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id_producto`, `id_categoria`, `codigo`, `nombre_producto`, `id_presentacion`, `precio_compra_dolar`, `precio_compra_bs`, `stock`, `estatus`) VALUES
-(1, 2, '00000001', 'GLUP', 1, 2, 95.76, -4, 1),
-(2, 2, '00000002', 'Pepsi 1.5 LT', 2, 5, 239.4, 0, 1),
-(3, 2, '00000003', 'LIGHT', 2, 2, 95.76, 2, 1),
-(4, 1, '00000004', 'POLLO', 6, 5, 239.4, 9, 1),
-(7, 2, '00000005', 'COCA COLA', 3, 3, 143.64, -1, 1),
-(15, 1, '00000006', 'ALITAS', 6, 0, 0, 0, 0),
-(19, 2, '00000007', 'PIÑA COLADA', 7, 0, 0, 0, 0);
+INSERT INTO `producto` (`id_producto`, `id_categoria`, `codigo`, `nombre_producto`, `id_presentacion`, `precio_venta_dolar`, `stock`, `estatus`) VALUES
+(2, 2, '00000002', 'Pepsi', 2, 4, 4, 1),
+(3, 2, '00000003', 'LIGHT', 2, 5, 6, 1),
+(20, 2, '00000001', 'COCA COLA', 15, 0, 0, 1),
+(21, 2, '00000006', 'GLUP', 14, 0, 0, 1),
+(23, 2, '0000007', 'CHINOTTO', 14, 0, 0, 0),
+(24, 10, '00000004', 'POLLO', 9, 4, 30, 1),
+(25, 2, '00000005', '7 UP', 14, 0, 0, 0),
+(26, 12, '00000008', 'YUCA', 17, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -875,7 +1089,11 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `direccion`, `telefono`) VALUES
-(1, 'V-16934956', 'EL CORRALITO', 'Corral@pollera.com', 'ACARIGUA CALLE 3 AVENIDA 5 Y 6', '04122343443');
+(1, 'V-16934956', 'EL CORRALITO', 'Corral@pollera.com', 'ACARIGUA CALLE 3 AVENIDA 5 Y 6', '04122343443'),
+(2, 'V-10642121', 'EL PATRON', 'patroncito@gmail.com', 'BARQUISIMETO CALLE 33', '04123455434'),
+(3, 'J-11077810', 'MORTADELAS CARACAS', 'motadela_caracas@gmail.com', 'ACARIGUA CITY', '04124567898'),
+(4, 'J-28587583', 'TODO CARNES', 'TodoCarnes@gmail.com', 'BARQUISIMETO CITY', '04124567823'),
+(18, 'J-21393076', 'TODO LOMO', 'lomo@gmail.com', 'VALENCIA COUNTRY', '04124895432');
 
 -- --------------------------------------------------------
 
@@ -892,7 +1110,11 @@ CREATE TABLE `rol` (
   `l_proveedores` tinyint NOT NULL,
   `h_proveedores` tinyint NOT NULL,
   `r_categoria` tinyint NOT NULL,
+  `m_categoria` tinyint(1) NOT NULL,
+  `l_categoria` tinyint(1) NOT NULL,
   `r_presentacion` tinyint(1) NOT NULL,
+  `m_presentacion` tinyint(1) NOT NULL,
+  `l_presentacion` tinyint(1) NOT NULL,
   `r_productos` tinyint NOT NULL,
   `l_productos` tinyint NOT NULL,
   `r_entrada` tinyint NOT NULL,
@@ -929,18 +1151,18 @@ CREATE TABLE `rol` (
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `r_presentacion`, `r_productos`, `l_productos`, `r_entrada`, `l_entrada`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `intentos_inicio_sesion`, `v_bitacora`) VALUES
-(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
-(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'SUSCRIPTOR', 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
-(7, 'PASANTE', 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 'FULL COUNTER', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(9, 'FULL COUNTE', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(10, 'ROL', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(11, 'GERENTE', 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `m_categoria`, `l_categoria`, `r_presentacion`, `m_presentacion`, `l_presentacion`, `r_productos`, `l_productos`, `r_entrada`, `l_entrada`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `intentos_inicio_sesion`, `v_bitacora`) VALUES
+(1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
+(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'EMPLEADO', 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'PROVEEDOR', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'SUSCRIPTOR', 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'FULL ACCESS', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
+(7, 'PASANTE', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'FULL COUNTER', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'FULL COUNTE', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 'ROL', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(11, 'GERENTE', 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -993,10 +1215,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', 'dbe9tbF5ZGM=', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-05-05 09:49:54', 0, 0, 0, 0, 2, 1),
-(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'eLS+tai0nGJi', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 0, 1, 3, 1),
+(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-05-18 18:23:48', 1, 0, 0, 0, 2, 1),
+(5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'Z4OEfHN4Y2U=', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 1, 3, 0),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGM=', '04123456548', 'ANDRES ELOY NEGRO', '2025-04-30 18:48:26', 0, 0, 0, 0, 2, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-05-14 18:32:11', 1, 0, 0, 0, 2, 1),
 (8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-11 16:13:43', 0, 0, 0, 1, 7, 1),
 (9, 'V-30774582', 'CARMEN', 'PEREZ', 'carmen@gmai.com', 'ioCDfHp/ZmVqZg==', '04145896325', 'BARRIO PAÉZ', NULL, 0, 0, 0, 1, 3, 1),
 (10, 'V-25478958', 'JULIO', 'BAEZ', 'jbaez@gmai.com', 'ZoiEg3uBZ2g=', '04165874523', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
@@ -1004,7 +1226,9 @@ INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `
 (12, 'V-12345679', 'PEPE', 'PEREZ', 'pepe@gmail.com', 'ZYWDgHh+aWk=', '04164569812', 'BARIIO YA NI', NULL, 0, 0, 1, 1, 7, 1),
 (13, 'V-32145775', 'DIEGO', 'FERNANDEZ', 'difer@gmail.com', 'Z4WBgHh/aWU=', '04127544589', 'BARRIO YANI', NULL, 0, 0, 1, 1, 7, 1),
 (14, 'V-31456756', 'PEPE', 'GUEDEZ', 'pegue@gmail.com', 'Z4SEgXl/Z2Y=', '04124567899', 'BARRIO YANI', NULL, 0, 0, 0, 1, 3, 1),
-(15, 'V-12348465', 'CARLOS', 'COLMENAREZ', 'ccolmena@gmail.com', 'ZYWDgHt8aGU=', '04164567865', 'URB LA LAGUNA', NULL, 0, 0, 0, 1, 11, 1);
+(15, 'V-12348465', 'CARLOS', 'COLMENAREZ', 'ccolmena@gmail.com', 'ZYWDgHt8aGU=', '04164567865', 'URB LA LAGUNA', NULL, 0, 0, 0, 1, 11, 1),
+(16, 'V-34234234', 'MIGUEL', 'SANCHEZ', 'sanchez@gmail.com', 'Z4eCf3d6ZWQ=', '04144567545', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
+(17, 'V-33543345', 'FERNANDO', 'ALMEIDA', 'feralme@gmail.com', 'Z4aFgHZ7ZmU=', '04125463535', 'BARRIO LOS ACOSTADOS', NULL, 0, 0, 0, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -1205,7 +1429,8 @@ ALTER TABLE `bitacora`
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id_categoria`);
+  ADD PRIMARY KEY (`id_categoria`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `cliente`
@@ -1218,6 +1443,14 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `configuracion`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalles_entrada`
+--
+ALTER TABLE `detalles_entrada`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_entrada` (`id_entrada`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `detalles_menu`
@@ -1254,7 +1487,6 @@ ALTER TABLE `dolar`
 --
 ALTER TABLE `entrada`
   ADD PRIMARY KEY (`id_entrada`),
-  ADD KEY `id_producto` (`id_producto`),
   ADD KEY `id_proveedor` (`id_proveedor`),
   ADD KEY `id_dolar` (`id_dolar`);
 
@@ -1276,13 +1508,16 @@ ALTER TABLE `preguntas_secretas`
 -- Indices de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`),
+  ADD UNIQUE KEY `codigo` (`codigo`),
+  ADD UNIQUE KEY `nombre_producto` (`nombre_producto`),
   ADD KEY `id_categoria` (`id_categoria`),
   ADD KEY `id_presentacion` (`id_presentacion`);
 
@@ -1290,7 +1525,10 @@ ALTER TABLE `producto`
 -- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`id_proveedor`);
+  ADD PRIMARY KEY (`id_proveedor`),
+  ADD UNIQUE KEY `cedula_rif` (`cedula_rif`),
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD UNIQUE KEY `telefono` (`telefono`);
 
 --
 -- Indices de la tabla `rol`
@@ -1327,13 +1565,13 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=405;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=534;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -1348,10 +1586,16 @@ ALTER TABLE `configuracion`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `detalles_entrada`
+--
+ALTER TABLE `detalles_entrada`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `detalles_menu`
 --
 ALTER TABLE `detalles_menu`
-  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_pago`
@@ -1369,43 +1613,43 @@ ALTER TABLE `detalles_venta`
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas_secretas`
 --
 ALTER TABLE `preguntas_secretas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -1423,7 +1667,7 @@ ALTER TABLE `seguridad`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
@@ -1440,6 +1684,13 @@ ALTER TABLE `venta`
 --
 ALTER TABLE `bitacora`
   ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `detalles_entrada`
+--
+ALTER TABLE `detalles_entrada`
+  ADD CONSTRAINT `detalles_entrada_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_entrada_ibfk_2` FOREIGN KEY (`id_entrada`) REFERENCES `entrada` (`id_entrada`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalles_menu`
@@ -1467,8 +1718,7 @@ ALTER TABLE `detalles_venta`
 --
 ALTER TABLE `entrada`
   ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_3` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preguntas_secretas`

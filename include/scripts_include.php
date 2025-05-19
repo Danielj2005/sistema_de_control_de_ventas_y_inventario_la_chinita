@@ -9,8 +9,6 @@
 
 <!-- Send Form -->
 <script src="./js/SendForm.js"></script>
-<!-- script para llamar la información de un producto -->
-<script src="./js/añadir_tr_a_tabla_con_select.js"></script>
 <!-- script para llamar la información de un proveedor -->
 <script src="./js/buscar_proveedor.js"></script>
 <!-- script para llamar la información de un cliente -->
@@ -32,12 +30,11 @@
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendor/chart.js/chart.umd.js"></script>
 <script src="assets/vendor/echarts/echarts.min.js"></script>
 <script src="assets/vendor/quill/quill.min.js"></script>
 <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
@@ -46,7 +43,6 @@
 <script src="./js/jquery.dataTables.min.js"></script>
 <script src="./js/datatables.min.js"></script>
 <script src="./js/dataTables.bootstrap5.min.js"></script>
-<script src="./js/send_data.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

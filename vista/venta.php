@@ -133,13 +133,13 @@ if ($rol >= 1 && $rol <= 3) { ?>
                               if($fecha1 == "" && $fecha2 == ""){
                                 $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
                                   V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                                  INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC");
+                                  INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC LIMIT 50");
                               
                               }else{
                                 $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
                                   V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
                                   INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
-                                  WHERE V.fecha_venta BETWEEN '$fecha1' AND '$fecha2' ORDER BY V.id_venta DESC");
+                                  WHERE V.fecha_venta BETWEEN '$fecha1' AND '$fecha2' ORDER BY V.id_venta DESC LIMIT 50");
                               }
 
                               if(mysqli_num_rows($ventas_realizadas) > 0){
@@ -187,7 +187,6 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
         config_model::verificar_actualizacion_configuracion(); ?>
 
-      <script src="./js/detalles_listas.js"></script>
       <script src="./js/rango_fechas.js"></script>
     </body>
   </html>

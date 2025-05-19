@@ -181,16 +181,15 @@ if($modulo == 'Modificar'){
     // $datos_actuales = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
     // $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-
-
-
+    
     // se registran los datos verificados
     if (modeloPrincipal::UpdateSQL( "menu","nombre_platillo = '$nombre_platillo',precio_dolar = '$precio_dolar',descripcion = '$descripcion',estatus = '$estado_menu'","id_menu = $id_servicio")) {
         $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
         $existe_platillo_estatus = ($existe_platillo_estatus == '1') ? 'activo' : 'inactivo' ;
 
         // modeloPrincipal::bitacora("Modificación de un servicio","El usuario actualizó la información de un servicio de: (nombre del platillo: $existe_platillo_nombre_platillo, precio en dolares: $existe_platillo_precio_dolar, descripción: $existe_platillo_descripcion, estado: $existe_platillo_estatus) a: (nombre del platillo: $nombre_platillo, precio en dolares: $precio_dolar, descripción: $descripcion, estado: $estado_menu).");
-        bitacora::bitacora("Modificación de un servicio","El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: $existe_platillo_estatus \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $nombre_platillo \nPrecio en dolares: $precio_dolar$ \nDescripción: $descripcion \nEstado: $estado_menu");
+        bitacora::bitacora("Modificación de un servicio","El usuario actualizó la información de un servicio: 
+            \n\nInformación del servicio:\n\nNombre del platillo: $existe_platillo_nombre_platillo \nPrecio en dolares: $existe_platillo_precio_dolar$ \nDescripción: $existe_platillo_descripcion. \nEstado: $existe_platillo_estatus \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: $nombre_platillo \nPrecio en dolares: $precio_dolar$ \nDescripción: $descripcion \nEstado: $estado_menu");
         
         echo '<script type="text/javascript">
             swal({
