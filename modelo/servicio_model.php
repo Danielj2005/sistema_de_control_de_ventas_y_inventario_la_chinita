@@ -79,10 +79,10 @@ class servicio_model extends modeloPrincipal {
 
 
     public static function options() {
-        $consulta = self::consultar_condicional("id_menu, nombre, descripcion","estado = 1");
+        $consulta = self::consultar_condicional("id_menu, nombre_platillo, descripcion","estatus = 1");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["id_menu"];?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
+            <option value="<?= $mostrar["id_menu"];?>"> <?= $mostrar["nombre_platillo"]; ?> ( <?= $mostrar["descripcion"]; ?> )</option>
         <?php  } 
     }
 

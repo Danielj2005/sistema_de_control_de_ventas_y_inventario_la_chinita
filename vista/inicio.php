@@ -7,6 +7,7 @@ include_once ("../include/modelos_include.php"); // se incluyen los modelos nece
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
+
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
@@ -109,7 +110,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                               <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                               <td class="text-center col"><?= $row['fecha_venta'] ?></td> 
                               <td class="text-center col">
-                                <button class="btn btn-info bi bi-eye detalles_generales" value="<?= $row['id_venta'] ?>" modal="detalles_venta_del_dia" modulo="detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                                <button class="btn_modal btn btn-info bi bi-eye" value="<?= $row['id_venta'] ?>" modal="detalles_venta_del_dia" modulo="detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
                               </td> 
                             </tr>
                           <?php } ?>
@@ -151,8 +152,5 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
       config_model::verificar_actualizacion_configuracion(); 
 
       ?>
-      
-    <script src="./js/detalles_listas.js"></script>
-    <script src="./js/priceDollar.js"></script>
   </body>
 </html>

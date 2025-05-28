@@ -95,13 +95,13 @@ if ($rol == 1) {  ?>
 
                       <label class="form-label">Productos <span style="color:#f00;">*</span></label>
                       <div class="col-12 col-sm-12 col-md-9 mb-3">
-                        <select name="producto_[]" id="producto_id" class="form-select selector_producto">
+                        <select name="producto" id="producto_id" class="form-select Select select selector_producto">
                           <option value="" selected>seleccione una opción</option>
                           <?php producto_model::options(); ?>
                         </select>
                       </div>
                       <div class="col-12 col-sm-12 col-md-3 mb-3">
-                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir producto</button>
+                        <button type="button" name="btn_producto" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
                       </div>
                     </div>
                     
@@ -122,7 +122,7 @@ if ($rol == 1) {  ?>
 
                               </tr>
                             </thead>
-                            <tbody id="lista_productos" >
+                            <tbody id="lista_producto">
                             </tbody>
                           </table>
                         </div>

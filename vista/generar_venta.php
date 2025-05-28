@@ -45,124 +45,114 @@ if ($rol == 1) {  ?>
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <form id="generar_venta" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $mostrarDolar['dolar']; ?>">
+                  <form id="generar_venta" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax p-3" autocomplete="off" data-type-form="save">
+                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
                     
-                    <fieldset class="p-3">
-                      <legend >Datos del Cliente</legend>
+                    <fieldset class="row mb-3">
+                      <h5 class="card-title col-12 mb-3" >Datos del Cliente</h5>
                       <div class="row mb-3" id="datos_cliente">
-                        <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
+
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+
+                          <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
+
                           <div class="col-md-4 input-group">
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <select class="input-group-text" name="nacionalidad" id="nacionalidad" required>
                               <option value="V-">V</option>
-                              <option value="R-">RIF</option>
                               <option value="E-">E</option>
                             </select>
-                            <input type="text" class="form-control"  placeholder="ingresa la cédula / RIF" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula_cliente" id="cedula" required>
+                            <input type="text" class="form-control"  placeholder="ingresa la cédula" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula_cliente" id="cedula" required>
                           </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="control-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
+
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="form-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
                           <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el nombre y apellido" class="form-control" id="nombre_cliente" name="nombre_cliente">
                         </div>
+
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
-                          <label class="control-label">Teléfono <span style="color:#f00;">*</span></label>
+                          <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>
                           <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el teléfono" class="form-control" id="telefono_cliente" name="telefono_cliente">
                         </div>
                       </div>
                     </fieldset>
 
-                    <fieldset class="row mb-3 border p-3"> 
-                      <div class="col-md-12 mb-4 row">
-                        <legend>Servicios Solicitados</legend>
-                        <label for="firstName" class="form-label">Selecciona un Servicio</label>
-                        <select multiple onchange="añadir_tr_a_tabla('servicios')" class=" Select mb-3 col-12" id="id_servicio" name="servicios[]">
-                          <option value="">Selecciona una opción</option>
-    
-                          <?php
-                            $consulta = modeloPrincipal::consultar("SELECT M.id_menu, M.nombre_platillo FROM producto AS P 
-                              INNER JOIN detalles_menu AS D ON D.id_producto = P.id_producto
-                              INNER JOIN menu AS M ON M.id_menu = D.id_menu 
-                              WHERE P.stock > 0 AND P.estatus = 1 AND M.estatus = 1 group by M.id_menu");
-                            
-                            while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-    
-                              <option value="<?= $mostrar['id_menu']; ?>" name="<?= $mostrar['nombre_platillo']; ?>"><?= $mostrar['nombre_platillo']; ?></option>
-    
-                          <?php } ?>
+                    <fieldset class="row mb-3"> 
+                      <h5 class="card-title">Servicios disponibles</h5>
+
+                      <label class="form-label">Selecciona un Servicio</label>
+
+                      <div class="col-12 col-sm-12 col-md-9 mb-4">
+                        <select class="form-select select Select" name="add_servicio" id="">
+                          <?php servicio_model::options(); ?>
                         </select>
                       </div>
 
-                      <div class="col-md-12">
-                        <h5 class="text-primary">Lista de Servicios Solicitados</h5>
-                        <div class="table-responsive mb-3"> 
-                          <table class="tableMetodo table table-striped border"  id="cart-list">
+                      <div class="col-12 col-sm-12 col-md-3 mb-3">
+                        <button type="button" name="btn_add_servicio" path="1" class="btn_add btn btn-success bi bi-plus">&nbsp; Añadir servicio</button>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-12 mb-3">
+                        <h5 class="card-title col-12 mb-2">Lista de servicios seleccionados</h5>
+                        
+                        <div class="col-12 table-responsive">
+                          <table class="table table-borderless table-striped" id="">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">#</th>
                                 <th class="col text-center" scope="col">NOMBRE</th>
                                 <th class="col text-center" scope="col">DESCRIPCIÓN</th>
                                 <th class="col text-center" scope="col">CANTIDAD</th>
                                 <th class="col text-center" scope="col">PRECIO EN $</th>
                                 <th class="col text-center" scope="col">PRECIO EN BS</th>
+                                <th class="col text-center" scope="col">ELIMINAR</th>
                               </tr>
                             </thead>
-                            <tbody id="lista_servicios"> </tbody>
+                            <tbody id="lista_add_servicio"> </tbody>
                           </table>
                         </div>
                       </div>
                     </fieldset>
 
-                    <fieldset class="row mb-4 border p-3 border"> 
-                      <div class="col-12 mb-4 row mb-3">
-                        <legend class="col-12 col-sm-12 col-md-8 mb-3">Productos Solicitados &nbsp; </legend>
-                        <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          <button type="button" class="btn btn-secondary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un producto</button>
+                    <fieldset class="row mb-3"> 
+                      <h5 class="card-title col-12 mb-3">Productos disponibles &nbsp; </h5>
 
-                        </div>
-                        
-                        <label class="form-label col-12">Selecciona un producto</label>
-                        <select multiple="on" onchange="añadir_tr_a_tabla('productos')" class="form-select Select" id="id_producto" name="producto[]">
-                        <option>Selecciona una o más opciones</option>
+                      <label class="form-label">Selecciona un Productos</label>
 
-                          <?php
-                            $consulta = modeloPrincipal::consultar("SELECT id_producto, codigo, nombre_producto 
-                              FROM producto WHERE stock > 0 AND estatus = 1");
-              
-                            while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-    
-                              <option value="<?= $mostrar['id_producto']; ?>" name="<?= $mostrar['nombre_producto']; ?>"><?= $mostrar['codigo'].' - '.$mostrar['nombre_producto']; ?></option>
-    
-                          <?php } ?>
+                      <div class="col-12 col-sm-12 col-md-9 mb-3">
+                        <select name="producto" id="producto_id" class="form-select Select select">
+                          <option value="" selected>seleccione una opción</option>
+                          <?php producto_model::options(); ?>
                         </select>
                       </div>
 
-                      <div class="d-non" id="container_comparacion"></div>                      <div class="col-12 col-md-12 mb-3">
-                        <h5 class="text-primary">Lista de productos</h5>
+                      <div class="col-12 col-sm-12 col-md-3 mb-3">
+                        <button type="button" name="btn_producto" path="2" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
+                      </div>
+
+                      <div class="col-12 col-md-12 mb-3">
+                        <h5 class="card-title">Lista de productos seleccionados</h5>
                         <div class="table-responsive mb-3"> 
-                          <table class="table table-striped">
+                          <table class="table table-striped table-borderless">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">#</th>
                                 <th class="col text-center" scope="col">PRODUCTO</th>
-                                <th class="col text-center" scope="col">PRESENTACIÓN</th>
-                                <th class="col text-center" scope="col">STOCK</th>
-                                <th class="col text-center" scope="col">CANTIDAD</th>
+                                <th class="col text-center" scope="col">DISPONIBLE(S)</th>
+                                <th class="col text-center" scope="col">CANTIDAD A VENDER</th>
                                 <th class="col text-center" scope="col">PRECIO EN $</th>
                                 <th class="col text-center" scope="col">PRECIO EN BS</th>
+                                <th class="col text-center" scope="col">ELIMINAR</th>
                               </tr>
                             </thead>
-                            <tbody id="lista_productos"> </tbody>
+                            <tbody id="lista_producto"> </tbody>
                           </table>
                         </div>
                       </div>
                     </fieldset>
 
-                    <fieldset class="mb-4 border p-3 row">
-                      <legend>Método de Pago</legend>
+                    <fieldset class="mb-5 row">
+                      <legend class="card-title ">Método de Pago</legend>
                       <div class="col-12 col-md-12 mb-3">
                         <div class="table-responsive mb-4 row mb-3"> 
                           <table class="tableMetodo table table-striped" id="metodos_pago">
@@ -184,7 +174,7 @@ if ($rol == 1) {  ?>
                     </fieldset>
 
                     <fieldset class="row p-3">
-                      <legend class="col-12 mb-3 text-primary">Cuenta</legend>
+                      <legend class="card-title col-12 mb-3 text-primary">Cuenta</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
                         <span>Sub Total (USD)</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar" name="sub_total_dolar" readonly value="0">
@@ -223,6 +213,27 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
+
+        
+      <div class="modal fade" id="registrar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Registro de Producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="body_modal">
+              
+            </div>
+            <div class="modal-footer">
+              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Registrar</button>
+              <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+			<script src="./js/añadir_elemento_lista.js"></script>
 
       <script type="text/javascript">
         // función para añadir un metodo de pago 
@@ -270,12 +281,12 @@ if ($rol == 1) {  ?>
         }
       
       </script>
-      <script src="./js/eliminar_tr_tabla.js"></script>
+
       <?php 
         // se incluye el footer / pie de pagina a la vista
-        include_once("../include/footer.php"); 
+        include_once "../include/footer.php"; 
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php");
+        include_once "../include/scripts_include.php";
       
         model_user::validar_sesion_activa($id_usuario);
 

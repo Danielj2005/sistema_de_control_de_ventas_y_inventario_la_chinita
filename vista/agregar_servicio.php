@@ -70,13 +70,13 @@ if ($rol == 1) {  ?>
                       <h5 class="card-title">Productos del servicio</h5>
                       <label class="form-label">Producto <span style="color:#f00;">*</span></label>
                       <div class="col-12 col-sm-12 col-md-9 mb-3">
-                        <select name="producto_[]" id="producto_id" class="form-select selector_producto">
+                        <select name="producto" id="producto_id" class="form-select select">
                           <option value="" selected>seleccione una opción</option>
                           <?php producto_model::options("agregar_servicio"); ?>
                         </select>
                       </div>
                       <div class="col-12 col-sm-12 col-md-3 mb-3">
-                        <button type="button" id="btn_add" class="btn btn-success bi bi-plus">&nbsp; Añadir producto</button>
+                        <button type="button" name="btn_producto" class="btn_add btn btn-success bi bi-plus">&nbsp; Añadir producto</button>
                       </div>
                     </div>
 
@@ -94,7 +94,7 @@ if ($rol == 1) {  ?>
                               <th class="col text-center" scope="col">ELIMINAR</th>
                             </tr>
                           </thead>
-                          <tbody id="lista_productos">
+                          <tbody id="lista_producto">
                             
                           </tbody>
                         </table>
