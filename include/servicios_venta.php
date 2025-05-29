@@ -20,15 +20,15 @@ while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
             <td class="col text-center" scope="col"><?= $mostrar["descripcion"] ?> </td>
 
             <td class="col text-center" scope="col">
-                <input type="text" class="form-control cantidad" name="cantidad_servicio[]" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
+                <input type="text" class="form-control cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
             </td>
             
-            <td class="col text-center tr_add_servicio_<?= $mostrar["id_menu"] ?>_precio_dolar" scope="col"> <?= $mostrar["precio_dolar"] ?> $</td>
+            <td class="col text-center precio_dolar" scope="col"> <?= $mostrar["precio_dolar"] ?> $</td>
             
-            <td class="col text-center tr_add_servicio_<?= $mostrar["id_menu"] ?>_precio_dolar" scope="col"> <?= $mostrar["precio_bs"] ?> bs</td>
+            <td class="col text-center precio_bs" scope="col"> <?= $mostrar["precio_bs"] ?> bs</td>
             
             <td class="text-center col" scope="col">
-                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= $mostrar['id_producto'] ?>')"></button>
+                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= $mostrar['id_menu'] ?>')"></button>
             </td>
         </tr>
 

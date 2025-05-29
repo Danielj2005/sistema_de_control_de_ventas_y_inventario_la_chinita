@@ -97,7 +97,7 @@ class producto_model extends modeloPrincipal {
 
 
     public static function options($estado = "") {
-        if ($estado == "agregar_servicio") {
+        if ($estado == "1") {
             $estado = "WHERE P.estatus = 1 AND P.stock > 0";
         }else {
             $estado = "";

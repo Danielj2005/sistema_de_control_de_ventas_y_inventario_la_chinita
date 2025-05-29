@@ -72,7 +72,7 @@ if ($rol == 1) {  ?>
                       <div class="col-12 col-sm-12 col-md-9 mb-3">
                         <select name="producto" id="producto_id" class="form-select select">
                           <option value="" selected>seleccione una opción</option>
-                          <?php producto_model::options("agregar_servicio"); ?>
+                          <?php producto_model::options("1"); ?>
                         </select>
                       </div>
                       <div class="col-12 col-sm-12 col-md-3 mb-3">

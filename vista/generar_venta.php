@@ -95,18 +95,18 @@ if ($rol == 1) {  ?>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-12 mb-3">
-                        <h5 class="card-title col-12 mb-2">Lista de servicios seleccionados</h5>
+                        <h5 class="col-12 mb-2">Lista de servicios seleccionados</h5>
                         
                         <div class="col-12 table-responsive">
                           <table class="table table-borderless table-striped" id="">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">NOMBRE</th>
-                                <th class="col text-center" scope="col">DESCRIPCIÓN</th>
-                                <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO EN $</th>
-                                <th class="col text-center" scope="col">PRECIO EN BS</th>
-                                <th class="col text-center" scope="col">ELIMINAR</th>
+                                <th class="col text-center" scope="col">Nombre</th>
+                                <th class="col text-center" scope="col">Descripción</th>
+                                <th class="col text-center" scope="col">Cantidad</th>
+                                <th class="col text-center" scope="col">Precio en $</th>
+                                <th class="col text-center" scope="col">Precio en BS</th>
+                                <th class="col text-center" scope="col">Eliminar</th>
                               </tr>
                             </thead>
                             <tbody id="lista_add_servicio"> </tbody>
@@ -123,7 +123,7 @@ if ($rol == 1) {  ?>
                       <div class="col-12 col-sm-12 col-md-9 mb-3">
                         <select name="producto" id="producto_id" class="form-select Select select">
                           <option value="" selected>seleccione una opción</option>
-                          <?php producto_model::options(); ?>
+                          <?php producto_model::options(1); ?>
                         </select>
                       </div>
 
@@ -132,17 +132,17 @@ if ($rol == 1) {  ?>
                       </div>
 
                       <div class="col-12 col-md-12 mb-3">
-                        <h5 class="card-title">Lista de productos seleccionados</h5>
+                        <h5 class="">Lista de productos seleccionados</h5>
                         <div class="table-responsive mb-3"> 
                           <table class="table table-striped table-borderless">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">PRODUCTO</th>
-                                <th class="col text-center" scope="col">DISPONIBLE(S)</th>
-                                <th class="col text-center" scope="col">CANTIDAD A VENDER</th>
-                                <th class="col text-center" scope="col">PRECIO EN $</th>
-                                <th class="col text-center" scope="col">PRECIO EN BS</th>
-                                <th class="col text-center" scope="col">ELIMINAR</th>
+                                <th class="col text-center" scope="col">Producto</th>
+                                <th class="col text-center" scope="col">Disponible(s)</th>
+                                <th class="col text-center" scope="col">Cantidad</th>
+                                <th class="col text-center" scope="col">Precio en $</th>
+                                <th class="col text-center" scope="col">Precio en BS</th>
+                                <th class="col text-center" scope="col">Eliminar</th>
                               </tr>
                             </thead>
                             <tbody id="lista_producto"> </tbody>
@@ -152,29 +152,29 @@ if ($rol == 1) {  ?>
                     </fieldset>
 
                     <fieldset class="mb-5 row">
-                      <legend class="card-title ">Método de Pago</legend>
+                      <legend class="col-12 col-md-8 mb-3 card-title">Método de Pago</legend>
+                      <div class="col-12 col-md-4 mb-3 text">
+                        <button type="button" class="btn btn-primary bi bi-plus-lg" onclick="añadir_metodo_pago()"> Añadir método</button>
+                      </div>
                       <div class="col-12 col-md-12 mb-3">
                         <div class="table-responsive mb-4 row mb-3"> 
                           <table class="tableMetodo table table-striped" id="metodos_pago">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">MÉTODO SELECCIONADO</th>
-                                <th class="col text-center" scope="col">CANTIDAD A PAGAR EN $</th>
-                                <th class="col text-center" scope="col">NÚMERO DE REFERENCIA</th>
-                                <th class="col text-center" scope="col">QUITAR</th>
+                                <th class="col text-center" scope="col">Método</th>
+                                <th class="col text-center" scope="col">Cantidad a pagar en $</th>
+                                <th class="col text-center" scope="col">Nº referencia</th>
+                                <th class="col text-center" scope="col">Eliminar</th>
                               </tr>
                             </thead>
                             <tbody id="tabla_metodo_pago"> </tbody>
                           </table>
                         </div>
                       </div>
-                      <div class="col-12 col-md-12 mb-3 text-start">
-                        <button type="button" class="btn btn-secondary bi bi-plus-circle-dotted bi-plus-lg" onclick="añadir_metodo_pago()"> Agregar Método de Pago</button>
-                      </div>
                     </fieldset>
 
                     <fieldset class="row p-3">
-                      <legend class="card-title col-12 mb-3 text-primary">Cuenta</legend>
+                      <legend class="card-title col-12 mb-3">Cuenta</legend>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
                         <span>Sub Total (USD)</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar" name="sub_total_dolar" readonly value="0">

@@ -34,10 +34,10 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
                 <span class="<?= $color_stock ?>"><?= $mostrar["stock"] ?></span>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" required>
+                <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
             </td>
-            <td class="col text-center" scope="col"> <?= $mostrar["precio_venta_dolar"] ?> $</td>
-            <td class="col text-center" scope="col"> <?= $mostrar["precio_bs"] ?> bs</td>
+            <td class="col text-center precio_dolar" scope="col"> <?= $mostrar["precio_venta_dolar"] ?> $</td>
+            <td class="col text-center precio_bs" scope="col"> <?= $mostrar["precio_bs"] ?> bs</td>
             
             <td class="text-center col" scope="col">
                 <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= $mostrar['id_producto'] ?>')"></button>

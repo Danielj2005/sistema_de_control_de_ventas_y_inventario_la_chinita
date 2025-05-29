@@ -14,7 +14,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 <html lang="en">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>INICIO</title>
+		<title>Inicio</title>
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css">
@@ -64,10 +64,10 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 								<h2>Inicio de Sesión </h2>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12 mb-2">
-								<label class="mb-2">Correo Electrónico</label>
+								<label class="mb-2">Correo electrónico</label>
 								<div class="input-group mb-3">
 									<span class="input-group-text" id="basic-addon1">@</span>
-									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tú correo" aria-label="email" aria-describedby="basic-addon1">
+									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tu correo" aria-label="email" aria-describedby="basic-addon1">
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12 mb-2">
