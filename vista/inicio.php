@@ -103,14 +103,14 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                           while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
                             <tr>
                               <td class="text-center col"><?= $i++ ?></td> 
-                              <td class="text-center col">#<?= $row['id_venta'] ?></td> 
+                              <td class="text-center col">#<?= venta_model::generar_numero($row['id_venta']) ?></td> 
                               <td class="text-center col"><?= $row['cedula'] ?></td> 
                               <td class="text-center col"><?= $row['nombre'] ?></td> 
                               <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
                               <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
-                              <td class="text-center col"><?= $row['fecha_venta'] ?></td> 
+                              <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                               <td class="text-center col">
-                                <button class="btn_modal btn btn-info bi bi-eye" value="<?= $row['id_venta'] ?>" modal="detalles_venta_del_dia" modulo="detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                                <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= $row['id_venta'] ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
                               </td> 
                             </tr>
                           <?php } ?>
@@ -127,23 +127,25 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
     
     <!-- Modal detalles de venta -->
     <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Detalles de Venta</h5>
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body" id="detalles_venta_del_dia">
-            
-          </div>
+          <div class="modal-body" id="body_modal"> </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
+							<button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+						</div>
         </div>
       </div>
     </div>
 
+    <!-- lógica de los modales -->
+    <script src="./js/modal.js"></script>
     <?php   
+      
       include_once("../include/footer.php");
       include_once("../include/scripts_include.php");
       

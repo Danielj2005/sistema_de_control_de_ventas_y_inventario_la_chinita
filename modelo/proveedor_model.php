@@ -22,8 +22,6 @@ class proveedor_model extends modeloPrincipal {
         return $consul;
     }
 
-    
-    
     // funcion para obtener el id de un proveedor
 
     public static function obtener_id_proveedor_recien_registrado(){

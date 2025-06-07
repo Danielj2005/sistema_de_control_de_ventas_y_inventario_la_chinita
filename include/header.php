@@ -15,41 +15,36 @@
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
   </div> -->
+
+  <?php
+    $id_usuario = $_SESSION['id_usuario'];
+    $precio_dolar_actual = modeloPrincipal::obtener_precio_dolar();
+    $_SESSION['dolar'] = $precio_dolar_actual;
+
+    $tiempo_config = modeloPrincipal::obtener_tiempo_inactividad();
+
+    echo '<script type="text/javascript"> const tiempo_config = '.$tiempo_config.' * 60 * 1000</script>';
+
+  ?>
+
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
 
       <li class="nav-item dropdown">
 
-        <a class="nav-link nav-icon" href="" data-bs-toggle="dropdown">
-          <i class="bi bi-currency-exchange"></i>
-        </a>
-
-        <?php
-        
-          $id_usuario = $_SESSION['id_usuario'];
-          
-          $id_precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id_dolar from dolar"));
-          $id_precio_dolar_actual = $id_precio_dolar_actual['id_dolar'];
-          $precio_dolar_actual = modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $id_precio_dolar_actual");
-          $precio_dolar_actual = mysqli_fetch_array($precio_dolar_actual);
-          $precio_dolar_actual = $precio_dolar_actual['dolar'];
-          $_SESSION['dolar'] = $precio_dolar_actual;
-        ?>
+        <button class="btn btn-light nav-icon bi bi-currency-exchange fst-italic fs-6" data-bs-toggle="dropdown">
+          &nbsp; La Tasa del Día: <span id="tasa_dolar"><?= $precio_dolar_actual ?></span>bs
+        </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-          <li class="dropdown-header row">
-            <p class="mb-2 col-12">
-              La Tasa del Día es: 
-              <span id="tasa_dolar"><?= $precio_dolar_actual ?></span>
-              bs<br>
-            </p>
+          <li class="dropdown-header row justify-content-center">
             <div class=" col-12 mb-2">
-              <button id="btn_update_dolar_auto" class="btn btn-success text-center">
+              <button id="btn_update_dolar_auto" class="w-100 btn btn-success text-center">
                 <span class="p-2 ms-2">Actualizar automáticamente</span>
               </button>
             </div>
             <div class=" col-12 mb-2">
-              <button class="btn btn-warning text-center" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">
+              <button class="btn btn-warning text-center w-100" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">
                 <span class="p-2 ms-2">Actualizar manualmente</span>
               </button>
             </div>

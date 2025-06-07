@@ -30,14 +30,22 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
                 <p class="text-primary"><?= $mostrar['nombre_producto'].' '.$mostrar['nombre'].' ('.$mostrar['nombre_categoria'] ?>) <br> </p>
                 <input type="hidden" name="id_producto[]" value="<?= $mostrar["id_producto"] ?>" required>
             </td>
+
             <td class="col text-center" scope="col">
                 <span class="<?= $color_stock ?>"><?= $mostrar["stock"] ?></span>
             </td>
+
             <td class="col text-center" scope="col">
                 <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
             </td>
-            <td class="col text-center precio_dolar" scope="col"> <?= $mostrar["precio_venta_dolar"] ?> $</td>
-            <td class="col text-center precio_bs" scope="col"> <?= $mostrar["precio_bs"] ?> bs</td>
+
+            <td class="col text-center" scope="col">
+                <input type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta_dolar"] ?>" required>
+            </td>
+
+            <td class="col text-center" scope="col">
+                <input type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
+            </td>
             
             <td class="text-center col" scope="col">
                 <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= $mostrar['id_producto'] ?>')"></button>

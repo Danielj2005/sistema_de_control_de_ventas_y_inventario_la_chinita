@@ -78,8 +78,6 @@ if ($rol >= 1 && $rol <= 6) {
 
                 </fieldset>
 
-                <hr>
-
                 <fieldset class="boder rounded-3 mb-4">
                   <legend class="h5 card-title">Parámetros de contraseña.</legend>
                   <div class="row m-0">

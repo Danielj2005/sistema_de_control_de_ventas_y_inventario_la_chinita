@@ -113,12 +113,12 @@ if ($rol == 1) {  ?>
                           <table class="table table-borderless table-striped" id="">
                             <thead>
                               <tr>
-                                <th class="col text-center" scope="col">PRODUCTO</th>
-                                <th class="col text-center" scope="col">CANTIDAD</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN $</th>
-                                <th class="col text-center" scope="col">PRECIO POR UNIDAD EN BS</th>
-                                <th class="col text-center" scope="col">PRECIO DE VENTA EN $</th>
-                                <th class="col text-center" scope="col">ELIMINAR</th>
+                                <th class="col text-center" scope="col">Producto</th>
+                                <th class="col text-center" scope="col">Cantidad</th>
+                                <th class="col text-center" scope="col">Precio por unidad e $</th>
+                                <th class="col text-center" scope="col">Precio por unidad en bs</th>
+                                <th class="col text-center" scope="col">Porcentaje de ganancia $</th>
+                                <th class="col text-center" scope="col">Eliminar</th>
 
                               </tr>
                             </thead>
@@ -147,21 +147,18 @@ if ($rol == 1) {  ?>
 
                     <div class="col-12 col-sm-12 col-md-12 my-3">
                       <h5 class="card-title col-12">Total de la inversión</h5>
-                      <div class="row my-4">
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-                          <div class="input-group mb-3 justify-content-center">
-                            <span class="input-group-text">Total $</span>
-                            <input class="bg-secondary-subtle form-control" id="totalDolar" readonly value="0" name="totalDolar">
-                          </div>
-                        </div>
+                        
+                      <input id="total_Dolar" type="hidden" class="totalDolar" name="totalDolar">
+                      <input id="total_Bolivar" type="hidden" class="totalBolivar" name="totalBolivar">
 
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-                          <div class="input-group mb-3 justify-content-center">
-                            <span class="input-group-text">Total BS</span>
-                            <input class="bg-secondary-subtle form-control" id="totalBolivar" readonly value="0" name="totalBolivar">
-                          </div>
-                        </div>
-                      </div>
+                      <table class="table table-striped table-borderless overflow-x-auto">
+                        <tbody>
+                          <tr>
+                            <td class="fs-4 text-success text-center col">Total en $: <strong> <span id="totalDolar">0 </span> $</strong></td> 
+                            <td class="fs-4 text-success text-center col">Total en bs: <strong> <span id="totalBolivar">0 </span> bs</strong></td> 
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                     
                     <div class="col-12 mb-1">

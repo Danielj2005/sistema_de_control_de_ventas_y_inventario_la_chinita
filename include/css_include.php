@@ -23,5 +23,29 @@
         border-bottom: 2px solid #012970;
         padding-bottom: 0.5rem;
     }
-    
+    .invalid {
+        border: var(--bs-red) 2px solid;
+    }
+    .valid {
+        border: var(--bs-green) 2px solid;
+    }
+</style>
+<style>
+    .invoice-modal {
+        max-width: 600px;
+    }
+    .invoice-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .invoice-header h2 {
+        margin: 0;
+    }
+    .invoice-details {
+        margin-bottom: 20px;
+    }
+    .invoice-footer {
+        text-align: right;
+        margin-top: 20px;
+    }
 </style>

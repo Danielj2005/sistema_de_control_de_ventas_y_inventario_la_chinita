@@ -51,6 +51,8 @@ class category_model extends modeloPrincipal {
 
     public static function lista(){
         $consulta = self::consultar("*");
+        
+    
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    

@@ -45,10 +45,12 @@ if ($rol == 1) {  ?>
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <form id="generar_venta" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax p-3" autocomplete="off" data-type-form="save">
+                  <form id="formulario" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax p-3" autocomplete="off" data-type-form="save">
                     <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
                     <input type="hidden" name="modulo" value="Guardar">
                     
+                    <!-- datos del cliente -->
+
                     <fieldset class="row mb-3">
                       <h5 class="card-title col-12 mb-3" >Datos del Cliente</h5>
                       <div class="row mb-3" id="datos_cliente">
@@ -57,27 +59,34 @@ if ($rol == 1) {  ?>
 
                           <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
 
-                          <div class="col-md-4 input-group">
+                          <div class="col-md-4 input-group mb-2">
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <select class="input-group-text" name="nacionalidad" id="nacionalidad" required>
                               <option value="V-">V</option>
                               <option value="E-">E</option>
                             </select>
-                            <input type="text" class="form-control"  placeholder="ingresa la cédula" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula_cliente" id="cedula" required>
+                            <input type="text" class="form-control" placeholder="ingresa la cédula" onblur="buscar_datos_cliente()"; maxlength="8" name="cedula" id="cedula" required>
+                            
                           </div>
+                          <p class="d-none w-auto alert alert-danger" id="mensaje_cedula"> La cédula debe ser de 7-8 dígitos</p>
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-6 mb-3">
                           <label class="form-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
-                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="Ingresa el nombre y apellido" class="form-control" id="nombre_cliente" name="nombre_cliente">
+                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,255}" required="" placeholder="Ingresa el nombre y apellido" class="form-control mb-2" id="nombre" name="nombre">
+                          <p class="d-none w-auto alert alert-danger" id="mensaje_nombre"> El nombre y apellido solo puede contener caracteres alfabeticos con una longitud máxima de 255 caracteres</p>
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-12 mb-3">
                           <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>
-                          <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el teléfono" class="form-control" id="telefono_cliente" name="telefono_cliente">
+                          <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el teléfono" class="form-control mb-2" id="telefono" name="telefono">
+                          <p class="d-none w-auto alert alert-danger" id="mensaje_telefono"> El número de teléfono debe ser de 11 dígitos</p>
                         </div>
+
                       </div>
                     </fieldset>
+
+                    <!-- Servicios disponibles -->
 
                     <fieldset class="row mb-3"> 
                       <h5 class="card-title">Servicios disponibles</h5>
@@ -86,6 +95,7 @@ if ($rol == 1) {  ?>
 
                       <div class="col-12 col-sm-12 col-md-9 mb-4">
                         <select class="form-select select Select" name="add_servicio" id="">
+                          <option value="" selected>seleccione una opción</option>
                           <?php servicio_model::options(); ?>
                         </select>
                       </div>
@@ -114,6 +124,8 @@ if ($rol == 1) {  ?>
                         </div>
                       </div>
                     </fieldset>
+
+                    <!-- productos disponibles -->
 
                     <fieldset class="row mb-3"> 
                       <h5 class="card-title col-12 mb-3">Productos disponibles &nbsp; </h5>
@@ -151,6 +163,8 @@ if ($rol == 1) {  ?>
                       </div>
                     </fieldset>
 
+                    <!-- métodos de pago -->
+
                     <fieldset class="mb-5 row">
                       <legend class="col-12 col-md-8 mb-3 card-title">Método de Pago</legend>
                       <div class="col-12 col-md-4 mb-3 text">
@@ -173,10 +187,36 @@ if ($rol == 1) {  ?>
                       </div>
                     </fieldset>
 
+                    <!-- total de la cuenta -->
+
                     <fieldset class="row p-3">
                       <legend class="card-title col-12 mb-3">Cuenta</legend>
+                      
+                      <table class="table table-striped table-borderless overflow-x-auto">
+                        <thead>
+                          <tr>
+                            <th class="col text-center" scope="col">Cuenta en $</th>
+                            <th class="col text-center" scope="col">Cuenta en bs</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="text-center col">Sub Total $:  <span> 10.08$ </span> </td> 
+                            <td class="text-center col">Sub Total bs:  <span> 980.88bs </span> </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-center col">IVA: <span> 1.92$ </span> </td> 
+                            <td class="text-center col">IVA: <span> 196.83$ </span> </td> 
+                          </tr>
+                          <tr>
+                            <td class="fs-4 text-success text-center col">Monto a pagar $:<strong> 12$ </strong></td> 
+                            <td class="fs-4 text-success text-center col">Monto a pagar bs:<strong> 1.167.72$ </strong></td> 
+                          </tr>
+                        </tbody>
+                      </table>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Sub Total (USD)</span>
+                        
+                        <span>Sub Total $</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar" name="sub_total_dolar" readonly value="0">
                         
                       </div>
@@ -186,12 +226,12 @@ if ($rol == 1) {  ?>
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Monto Total + IVA (16%)</span>
+                        <span>Monto a pagar</span>
                         <input class="form-control bg-dark-subtle" id="totalDolar_iva" name="total_dolar_venta_iva" readonly value="0">
                         
                       </div>
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Monto Total + IVA (16%)</span>
+                        <span>Monto a pagar</span>
                         <input class="form-control bg-dark-subtle" id="totalBolivar_iva" name="total_bolivares_venta_iva" readonly value="0">
                         
                       </div>
@@ -204,7 +244,7 @@ if ($rol == 1) {  ?>
                     </div>
                     
                     <div class="text-center">
-                      <button type="submit" form="generar_venta" class="btn btn-success">Generar Venta</button>
+                      <button type="submit" class="btn btn-success">Generar Venta</button>
                     </div>
                   </form>
                 </div>

@@ -17,7 +17,9 @@ if($modulo === 'Guardar'){
     $id_categoria = modeloPrincipal::limpiar_cadena( $_POST['id_categoria']);
     $id_presentacion = modeloPrincipal::limpiar_cadena($_POST['id_presentacion']);
     $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
+    $id_iva = modeloPrincipal::limpiar_cadena($_POST['id_iva']);
 
+    // se verifica que el id de la categoria sea un numero entero
     $vista = (!isset($_POST['vista'])) ? 0 : modeloPrincipal::limpiar_cadena($_POST['vista']);
 
     // Se verifica que no se hayan recibido campos vacíos.
@@ -47,6 +49,19 @@ if($modulo === 'Guardar'){
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar el producto debido a un error de consulta.", "error");
         exit();
     }
+    // se registran el IVA del producto
+    try {
+        $id_producto = producto_model::obtener_id_recien_registrada();
+        $registrar = modeloPrincipal::InsertSQL("producto_iva", "id_producto, id_iva" ,"$id_producto, $id_iva");
+
+        if (!$registrar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar el IVA de un producto.","error");
+        }
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar  el IVA de un producto debido a un error de consulta.", "error");
+        exit();
+    }
 
     // se realiza la bitácora con los datos del producto a registrar
     try {
@@ -64,6 +79,7 @@ if($modulo === 'Guardar'){
         Presentación: <b>".$datos_originales['nombre_presentacion']." </b><br>
         Categoría: <b>".$datos_originales['nombre']." </b><br>
         Precio de venta: <b>".$datos_originales['precio_venta_dolar']." $</b><br>
+        Porcentaje de IVA: <b>$id_iva %</b><br>
         Cantidad: <b>".$datos_originales['stock']." </b><br>
         Estado: <b>".$datos_originales['estatus']." </b><br>
         ");

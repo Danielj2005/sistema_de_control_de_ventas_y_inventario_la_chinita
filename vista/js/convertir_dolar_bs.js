@@ -26,26 +26,29 @@ function calcular_total () {
     const totalDolar = document.getElementById('totalDolar');
     const totalBolivar = document.getElementById('totalBolivar');
 
+    const input_dolar = document.querySelector("totalDolar");
+    const input_bolivar = document.querySelector("totalBolivar");
+
     let total_dolar = 0;
     let cantidad = 0;
-    
+
     cantidad_item.forEach(item => {
         if (item.value == '') {
             item.value = 0;
         }else {
             cantidad += parseInt(item.value);
         }
-    })
-
+    });
     precio_unidad_dolar.forEach(item => {
         if (item.value == '') {
             item.value = 0;
         }else {
-            total_dolar += parseInt(item.value);
+            total_dolar += parseFloat(item.value);
         }
-    })
+    });
     
-    totalDolar.value = total_dolar * cantidad;
-    totalBolivar.value = (total_dolar * cantidad) * tasa;
-    
+    totalDolar.textContent = total_dolar * cantidad;
+    totalBolivar.textContent = (total_dolar * cantidad) * tasa;
+    input_dolar.value = total_dolar * cantidad;
+    input_bolivar.value = (total_dolar * cantidad) * tasa;
 }

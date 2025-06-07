@@ -64,7 +64,7 @@ if ($rol == 1) {  ?>
                         <div class="col-12 col-sm-12 col-md-6 mb-3">
                           <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
                           <div class="col-sm-12">
-                            <select name="id_categoria" id="categoria" class="form-select">
+                            <select name="id_categoria" id="categoria" class="form-select Select">
                               <option value="">Selecciona una opción</option>
                               <?php category_model::options(); ?> 
                             </select>
@@ -74,9 +74,25 @@ if ($rol == 1) {  ?>
                         <div class="col-12 col-sm-12 col-md-6 mb-3">
                           <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
                           <div class="col-sm-12">
-                            <select name="id_presentacion" id="select_presentacion" class="form-select">
+                            <select name="id_presentacion" id="select_presentacion" class="form-select Select">
                               <option value="0">Selecciona una opción</option>
                               <?php presentacion_model::options(); ?>
+                            
+                            </select>
+                          </div>
+                        </div>
+                        <!-- selector de porcentaje iva -->
+                        <div class="col-12 col-sm-12 col-md-12 mb-3">
+                          <label class="col-form-label">Selecciona el porcentaje del IVA <span style="color:#f00;">*</span></label>
+                          <div class="col-sm-12">
+                            <select name="id_iva" id="select_iva" class="form-select Select">
+                              <option value="0">Selecciona una opción</option>
+                                <?php 
+                                  
+                                  for($i = 1; $i < 101; $i++){
+                                    echo '<option value="'.$i.'">'.$i.'%</option>';
+                                  }
+                                ?>
                             
                             </select>
                           </div>
@@ -91,6 +107,62 @@ if ($rol == 1) {  ?>
                           <button type="submit" form="añadir_producto" class="btn btn-success bi bi-plus"> Añadir</button>
                         </div>
                     </form>
+
+                    <!-- <div class="card shadow-lg rounded-4 p-4 col-12 col-md-6 row producto_" id="producto_" style="max-width: 400px; width: 100%;">
+                      <div class="col-12 mb-3">
+                        <label class="col-form-label">Código Del Producto <span style="color:#f00;">*</span></label>
+                        <input type="text" pattern="[0-9]{4,8}" maxlength="8" required="" placeholder="ingresa el código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
+                        
+                      </div>
+                      <div class="col-12 mb-3">
+                        <label class="col-form-label">Nombre Del Producto <span style="color:#f00;">*</span></label>
+                        <input form="añadir_producto" type="text" maxlength="30" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
+                      </div>
+                      
+                      selector de categoría  
+                      <div class="col-12 mb-3">
+                        <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
+                        <div class="col-sm-12">
+                          <select name="id_categoria" id="categoria" class="form-select Select">
+                            <option value="">Selecciona una opción</option>
+                            <?php //category_model::options(); ?> 
+                          </select>
+                        </div>
+                      </div>
+
+                      selector de presentacion 
+                      <div class="col-12 mb-3">
+                        <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
+                        <div class="col-sm-12">
+                          <select name="id_presentacion" id="select_presentacion" class="form-select Select">
+                            <option value="0">Selecciona una opción</option>
+                            <?php //presentacion_model::options(); ?>
+                          
+                          </select>
+                        </div>
+                      </div>
+
+                      selector de porcentaje iva --
+                      <div class="col-12 mb-3">
+                        <label class="col-form-label">Selecciona el porcentaje del IVA <span style="color:#f00;">*</span></label>
+                        <div class="col-sm-12">
+                          <select name="id_iva" id="select_iva" class="form-select Select">
+                            <option value="0">Selecciona una opción</option>
+                              <?php 
+                                
+                                // for($i = 1; $i < 101; $i++){
+                                //   echo '<option value="'.$i.'">'.$i.'%</option>';
+                                // }
+                              ?>
+                          
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="text-center">
+                          <button type="button" class="btn btn-danger bi bi-trash">&nbsp; Eliminar</button>
+                      </div>
+                    </div> -->
                   </div>
                 </div>
             </div>

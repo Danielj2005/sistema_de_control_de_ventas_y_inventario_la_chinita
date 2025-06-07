@@ -12,7 +12,8 @@ if (!isset($_POST["modulo"])) {
 }
 
 if($modulo === "Guardar"){
-    $nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre']);
+    $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre']);
+    $nombre = ucfirst(strtolower($nombre));
     
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$nombre]);

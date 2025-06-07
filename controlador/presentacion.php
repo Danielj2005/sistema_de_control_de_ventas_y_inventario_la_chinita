@@ -13,8 +13,11 @@ if (!isset($_POST["modulo"])) {
 
 if($modulo === "Guardar"){
     
-    $nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre']);
-    $descripcion = modeloPrincipal::limpiar_mayusculas($_POST['descripcion']);
+    $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre']);
+    $descripcion = modeloPrincipal::limpiar_cadena($_POST['descripcion']);
+
+    $nombre = ucfirst(strtolower($nombre)); // se le coloca la primera letra en mayúscula
+    $descripcion = ucfirst(strtolower($descripcion)); // se le coloca la primera letra en mayúscula
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$nombre,$descripcion]);

@@ -259,4 +259,18 @@ class modeloPrincipal {
         return $id;
     }
 
+    
+    public static function obtener_precio_dolar(){
+        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(dolar) AS dolar from dolar"));
+        $precio_dolar_actual = $precio_dolar_actual['dolar'];
+        return $precio_dolar_actual;
+    }
+
+    
+    public static function obtener_tiempo_inactividad(){
+        $obtener_tiempo_inactividad = mysqli_fetch_array(modeloPrincipal::consultar("SELECT tiempo_inactividad from configuracion"));
+        $tiempo_inactividad = $obtener_tiempo_inactividad['tiempo_inactividad'];
+        return $tiempo_inactividad;
+    }
+
 }

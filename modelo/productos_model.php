@@ -1,5 +1,4 @@
 <?php
-
 class producto_model extends modeloPrincipal {
 
     public static function consultar($fields) {

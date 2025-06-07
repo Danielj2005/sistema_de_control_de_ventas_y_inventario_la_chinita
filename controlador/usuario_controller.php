@@ -31,8 +31,7 @@ if($modulo === "Guardar"){
     $id_rol =  modeloprincipal::limpiar_cadena($_POST["id_tipo"]);
     
     // se comprueba que no exista un registro con los mismos datos
-    model_user::validar_usuario_existe("correo","$correo");
-    
+    model_user::validar_usuario_existe("correo","correo = '$correo'");
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol]);
 

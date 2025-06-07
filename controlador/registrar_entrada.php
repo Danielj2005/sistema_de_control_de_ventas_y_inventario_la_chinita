@@ -52,74 +52,11 @@ if($modulo == 'Guardar'){
         $direccion = modeloPrincipal::limpiar_mayusculas($_POST["direccion"]);
         $telefono = modeloPrincipal::limpiar_cadena($_POST["telefono"]);
 
-        modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $correo, $direccion, $telefono]);
-
-        // Se verifica que no el proveedor aha registrar no exista.    
-        if(mysqli_num_rows(modeloPrincipal::consultar("SELECT cedula_rif FROM proveedor WHERE cedula_rif = '$cedula'")) > 0){
-            alert_model::alert_register_exist();
-            exit(); 
-        }
-
-        if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,10}",$cedula)) {
-            alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido o fue alterado. Por favor verifique e intente de nuevo ", "error");
+        if (!proveedor_model::registrar ($cedula, $nombre, $correo, $telefono, $direccion)) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar el proveedor.","error");
             exit();
         }
         
-        if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}",$nombre)) {
-            alert_model::alert_of_format_wrong("'nombre'");
-            exit();
-        }
-        
-        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            alert_model::alert_of_format_wrong("correo");
-            exit();
-        }
-        
-
-        if (modeloPrincipal::verificar_datos("[0-9]{11}",$telefono)) {
-            alert_model::alert_of_format_wrong("'teléfono'");
-            exit();
-        }
-
-        if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9-, ]{10,50}",$direccion)) {
-            alert_model::alert_of_format_wrong("'dirección'");
-            exit();
-        }
-
-        // se registran los datos del proveedor
-        try {
-            $actualizar = proveedor_model::insertar_proveedor($cedula, $nombre, $correo, $telefono, $direccion);
-            
-            if (!$actualizar) {
-                alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un proveedor en la base de datos.","error");
-            }
-
-        } catch (Exception $e) {
-            alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar el proveedor en la base de datos debido a un error de consulta.", "error");
-            exit();
-        }
-        
-        // se realiza la bitácora con los datos del proveedor a registrar
-        try {
-            $id_proveedor = proveedor_model::obtener_id_proveedor_recien_registrado();
-
-            $datos_originales = proveedor_model::consultar_proveedor_por_id("*", $id_proveedor);
-            $datos_originales = mysqli_fetch_array($datos_originales);
-
-            bitacora::bitacora("Registro exitoso de un proveedor.","Se registro un proveedor con la siguiente informacón: <br><br>
-            <b>****** Información del proveedor:   ******</b><br><br>
-            Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
-            Nombre: <b>".$datos_originales['nombre']." </b><br>
-            Correo: <b>".$datos_originales['correo']." </b><br>
-            Teléfono: <b>".$datos_originales['telefono']." </b><br>
-            Dirección: <b>".$datos_originales['direccion']." </b><br><br>
-            ");
-
-        } catch (Exception $e) {
-            alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar el proveedor en la bitácora.", "error");
-            exit();
-        }
-
         // se obtiene el id del proveedor recien registrado
         $proveedor = mysqli_fetch_array(modeloprincipal::consultar("SELECT MAX(id_proveedor) AS id_proveedor FROM proveedor"));
         $id_proveedor = $proveedor['id_proveedor'];
@@ -130,7 +67,6 @@ if($modulo == 'Guardar'){
     }
 
     // se registran los datos de la entrada
-
     try {
 
         $registrar = modeloPrincipal::InsertSQL( "entrada","id_proveedor, total_dolar, total_bs, fecha_entrada, id_dolar","$id_proveedor, $total_dolar, $total_bolivar,'$fecha_entrada',$id_dolar");
