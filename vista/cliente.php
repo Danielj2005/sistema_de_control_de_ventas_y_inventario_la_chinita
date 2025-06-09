@@ -68,7 +68,6 @@ if ($rol >= 1 && $rol <= 3) {  ?>
         </section>
       </main>
       
-      
 			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-scrollable modal-lg">
 					<div class="modal-content">
@@ -85,8 +84,6 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 				</div>
 			</div>
 
-			<!-- lógica de los modales -->
-			<script src="./js/modal.js"></script>
       <?php 
         include_once("../include/footer.php"); 
         include_once("../include/scripts_include.php"); 

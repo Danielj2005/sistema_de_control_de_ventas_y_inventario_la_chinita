@@ -1,51 +1,56 @@
 
 function monto_total_productos() {
+    const subtotal_dolar = document.getElementById('totalDolar');
+    const subtotal_bs = document.getElementById('totalBolivar');
+
     let cantidad_total = document.querySelectorAll('.cantidad');
     let precio_dolar_total = document.querySelectorAll('.precio_dolar');
     let precio_bolivar_total = document.querySelectorAll('.precio_bs');
 
-    const tasa_dolar = parseFloat(document.getElementById('tasa_dolar').textContent);
-
     let total_dolar = 0;
     let total_bolivar = 0;
-    let total_cantidad = 0;
     
     for (let i = 0; i < cantidad_total.length; i++) {
-        
         // se evalua si el campo de la cantidad de los productos en la lista esta vacío o no, en caso de que si se le asigna el valor de cero
-        cantidad = (cantidad_total[i].value !== "")  ? cantidad_total[i].value : 0;
-        total_cantidad += parseFloat(cantidad);
+        let cantidad = (cantidad_total[i].value !== "")  ? cantidad_total[i].value : 0;
 
         // se evalua si el campo del precio del dolar de los productos en la lista esta vacío o no, en caso de que si se le asigna el valor de cero
-        dolar_total = (precio_dolar_total[i].value !== "")  ? precio_dolar_total[i].value : 0;
+        let dolar_total = (precio_dolar_total[i].value !== "")  ? precio_dolar_total[i].value : 0;
         total_dolar += parseFloat(dolar_total) * cantidad;
 
         // se evalua si el campo del precio del bolivar de los productos en la lista esta vacío o no, en caso de que si se le asigna el valor de cero
-        bolivar_total = (precio_bolivar_total[i].value !== "")  ? precio_bolivar_total[i].value : 0;
+        let bolivar_total = (precio_bolivar_total[i].value !== "")  ? precio_bolivar_total[i].value : 0;
         total_bolivar += parseFloat(bolivar_total) * cantidad;
 
-        // se imprime en la vista el total del precio en dolar de los productos a ingresar en el inventario
-        document.getElementById("totalDolar").value = total_dolar; 
-        // se imprime en la vista el total del precio en bolivar de los productos a ingresar en el inventario
-        document.getElementById("totalBolivar").value = total_bolivar.toFixed(2); 
+
+        subtotal_dolar.value = total_dolar;
+        subtotal_bs.value = total_bolivar.toFixed(2);
+        total_bolivar = total_bolivar.toFixed(2);
+
     }
 
-    add_iva(total_bolivar.toFixed(2),total_dolar);
+    add_iva(total_bolivar,total_dolar);
 }
 
 // funcion para agregar el iva a la venta
 function add_iva(sub_total_bs,sub_total_dolar){
     const iva = 0.16;
-    const input_bolivares = document.getElementById('totalBolivar_iva');
+
     const input_dolares = document.getElementById('totalDolar_iva');
+    const input_bolivares = document.getElementById('totalBolivar_iva');
 
-    let total_bolivares = parseFloat(sub_total_bs);
+    const strong_dolares = document.getElementById('strong_dolares');
+    const strong_bolivares = document.getElementById('strong_bolivares');
+
     let total_dolares = parseFloat(sub_total_dolar);
+    let total_bolivares = parseFloat(sub_total_bs);
 
-    total_bolivares = (total_bolivares * iva) + total_bolivares;
     total_dolares = (total_dolares * iva) + total_dolares;
+    total_bolivares = (total_bolivares * iva) + total_bolivares;
 
+    input_dolares.value = total_dolares.toFixed(2);
     input_bolivares.value = total_bolivares.toFixed(2);
-    input_dolares.value = total_dolares.toFixed(2)
 
+    strong_dolares.textContent = total_dolares.toFixed(2);
+    strong_bolivares.textContent = total_bolivares.toFixed(2);
 }

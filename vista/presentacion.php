@@ -31,10 +31,10 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 		</head>
 		<body>
 			<?php 
-					// se incluye el header / encabezado a la vista
-					include_once "../include/header.php";
-					// se incluye el menu lateral a la vista 
-					include_once "../include/sliderbar.php"; 
+				// se incluye el header / encabezado a la vista
+				include_once "../include/header.php";
+				// se incluye el menu lateral a la vista 
+				include_once "../include/sliderbar.php"; 
 			?>
 
 			<main id="main" class="main">

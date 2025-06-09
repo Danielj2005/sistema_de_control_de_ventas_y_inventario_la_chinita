@@ -21,7 +21,7 @@ $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS product
     <?= mysqli_fetch_array(modeloPrincipal::consultar("SELECT descripcion FROM menu WHERE id_menu = $id"))['descripcion']; ?>
 </p>
 <div class="table-responsive">
-    <label>Lista de productos seleccionados</label>
+    <label>Productos del servicio</label>
     <table class="table table-striped datatable">
         <thead>
             <tr>

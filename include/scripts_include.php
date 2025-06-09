@@ -1,3 +1,6 @@
+
+<!-- lógica de los modales -->
+<script src="./js/modal.js"></script>
 <!-- sweet alert -->
 <script src="./js/sweet-alert.min.js"></script>
 

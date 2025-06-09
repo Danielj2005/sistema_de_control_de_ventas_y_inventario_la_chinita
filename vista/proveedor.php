@@ -105,10 +105,6 @@ if ($rol >= 1 && $rol <= 4) {  ?>
           </div>
 				</div>
 			</div>
-
-
-			<!-- lógica de los modales -->
-			<script src="./js/modal.js"></script>
       
       <?php   
         include_once("../include/footer.php");  

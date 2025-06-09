@@ -169,13 +169,12 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
-      
-      <script type="text/javascript" src="./js/selector_dinamico.js"></script>
+
       <?php 
         // se incluye el footer / pie de pagina a la vista
-        include_once("../include/footer.php");
+        include_once "../include/footer.php";
         // se incluyen los script de javascript a la vista 
-        include_once("../include/scripts_include.php");
+        include_once "../include/scripts_include.php";
       
         model_user::validar_sesion_activa($id_usuario);
         config_model::verificar_actualizacion_configuracion(); 

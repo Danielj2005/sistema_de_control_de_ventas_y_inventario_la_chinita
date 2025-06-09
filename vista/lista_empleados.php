@@ -107,9 +107,6 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 				</div>
 			</div>
 
-			<!-- modal modificar -->
-			<script src="./js/modal.js"></script>
-
 			<?php 
 				// se incluye el footer / pie de pagina a la vista
 				include_once("../include/footer.php");

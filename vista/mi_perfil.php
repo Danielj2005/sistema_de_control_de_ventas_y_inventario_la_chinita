@@ -146,16 +146,15 @@ model_user::verificar_intento_de_acceso_al_sistema();
       </div>
     </div>
     
-    <script src="./js/modal.js"></script>
 
-    <?php include_once("../include/footer.php"); ?>
+    <?php include_once "../include/footer.php"; ?>
     <!-- ======= Scripts ======= -->
     <script>
       // función para alerta de configuración de preguntas secretas.
     </script>
 
     <?php 
-      include_once("../include/scripts_include.php");
+      include_once "../include/scripts_include.php";
     
       if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){
         echo "<script type='text/javascript'>

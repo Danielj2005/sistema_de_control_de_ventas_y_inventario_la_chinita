@@ -43,21 +43,13 @@ class venta_model extends modeloPrincipal {
         }
     }
 
-    public static function sell_only_product($id_detalles_venta = "", $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta) {
+    public static function sell_only_product($id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta) {
         // ****** se registra la venta de uno o más productos
         try {
             for ($i = 0; $i < count($id_productos); $i++) {
-
-                if (strlen($id_detalles_venta) > 0) {
-
-                    modeloPrincipal::UpdateSQL("detalles_venta", "id_producto = ".$id_productos[$i].", cantidad = ".$cantidad_productos[$i].", precio_unidad_dolares = ".$precios_dolar_productos[$i].", precio_unidad_bolivares = ".$precios_bolivares_productos[$i].", id_venta = $id_venta","id_detalles_venta = $id_detalles_venta");
-
-                } else {
-                    modeloPrincipal::InsertSQL( "detalles_venta","id_producto, cantidad, precio_unidad_dolares, precio_unidad_bolivares, id_venta","".intval($id_productos[$i]).",".intval($cantidad_productos[$i]).",".floatval($precios_dolar_productos[$i]).",".floatval($precios_bolivares_productos[$i]).",$id_venta");
-                }
+                modeloPrincipal::InsertSQL( "detalles_venta","id_producto, cantidad, precio_unidad_dolares, precio_unidad_bolivares, id_venta","".intval($id_productos[$i]).",".intval($cantidad_productos[$i]).",".floatval($precios_dolar_productos[$i]).",".floatval($precios_bolivares_productos[$i]).",$id_venta");
                 // Se descuenta del stock
                 modeloPrincipal::UpdateSQL("producto", "stock = stock - ".$cantidad_productos[$i]."","id_producto = ".$id_productos[$i]."");
-        
             }
         } catch (Exception $e) {
             return false;

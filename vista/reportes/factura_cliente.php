@@ -18,7 +18,7 @@ $pdf->SetTextColor(0,0,0);
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",strtoupper("BAR RESTAURANT Y LUNCHERIA 'LA CHINITA'")),0,'C',false);
 $pdf->SetFont('Arial','',8);
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","RIF: V-04608675-5"),0,'C',false);
-$pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Direccion:Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,'C',false);
+$pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Direccion: Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,'C',false);
 
 $pdf->Ln(1);
 $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');

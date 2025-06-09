@@ -130,9 +130,6 @@ if ($rol >= 1 && $rol <= 3) {
 
 			<!-- se incluye el script para seleccionar las casillas de verificacion -->
 			<script type="text/javascript" src="./js/funcion_seleccionar_casillas.js"></script>
-			
-			<!-- lógica de los modales -->
-			<script src="./js/modal.js"></script>
 
 			<?php 
 				// se incluye el footer / pie de pagina a la vista

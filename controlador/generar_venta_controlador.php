@@ -16,18 +16,18 @@ $id_cliente = modeloPrincipal::limpiar_cadena($_POST['id_cliente']);
 $cedula_cliente = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']); 
 
 // datos de los servicios
-$id_servicios = $_POST['id_menu'];
-$cantidad_servicios = $_POST['cantidad_servicio'];
-$precio_servicio_dolar = $_POST['precio_servicio_dolar'];
-$precio_servicio_bolivar = $_POST['precio_servicio_bolivar'];
+$id_servicios = (isset($_POST['id_menu'])) ? $_POST['id_menu'] : '';
+$cantidad_servicios = (isset($_POST['cantidad_servicio'])) ? $_POST['cantidad_servicio'] : '';
+$precio_servicio_dolar = (isset($_POST['precio_servicio_dolar'])) ? $_POST['precio_servicio_dolar'] : '';
+$precio_servicio_bolivar = (isset($_POST['precio_servicio_bolivar'])) ? $_POST['precio_servicio_bolivar'] : '';
 
 // datos  de los productos
-$id_productos = $_POST['id_producto'];
-$cantidad_productos = $_POST['cantidad'];
-$precios_dolar_productos = $_POST['precio_producto_dolar'];
-$precios_bolivares_productos = $_POST['precio_producto_bolivar'];
+$id_productos = (isset($_POST['id_producto'])) ? $_POST['id_producto'] : '';
+$cantidad_productos = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
+$precios_dolar_productos = (isset($_POST['precio_producto_dolar'])) ? $_POST['precio_producto_dolar'] : '';
+$precios_bolivares_productos = (isset($_POST['precio_producto_bolivar'])) ? $_POST['precio_producto_bolivar'] : '';
 
-// datos del metodo de pago
+// datos del metodo de pago--
 $id_metodo_pago = $_POST['metodo_pago'];
 $cantidad_pago = $_POST['monto_pagar'];
 $referencia_pago = $_POST['num_referencia'];
@@ -39,22 +39,15 @@ $fecha_venta = date('Y-m-d h:i:s');
 $sub_total_dolar = $_POST['sub_total_dolar'];
 $sub_total_bs = $_POST['sub_total_bs'];
 
-$total_venta_dolar = $_POST['total_dolar_venta_iva'];
-$total_venta_bolivares = $_POST['total_bolivares_venta_iva'];
+$total_venta_dolar = $_POST['totalDolar_iva'];
+$total_venta_bolivares = $_POST['totalBolivar_iva'];
 
 
 // Se verifica que no se hayan recibido campos vacíos.
 modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $id_cliente, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
 
 if($id_servicios[0] == "" && $id_productos[0] == "" ){
-    echo '<script type="text/javascript">
-            swal({
-                title: "¡Ocurrio un error!",
-                text: "Debes seleccionar un servicio o producto para generar una venta, verifique he intente de nuevo",
-                type: "error",
-                confirmBottonText: "Aceptar"
-            });
-        </script>';
+    alert_model::alerta_simple("¡Ocurrio un error!","Debes seleccionar un servicio o producto para generar una venta, verifique he intente de nuevo","error");
     exit();
 }
 
@@ -86,12 +79,12 @@ $id_cliente = $existe_cliente['id_cliente'];
 $id_usuario = $_SESSION["id_usuario"];
 
 // ************* se verifica que haya stock para los servicios *************
-if (count($id_servicios) > 0) {
+if ($id_servicios !== "") {
     venta_model::verify_stock_for_service($id_servicios, $cantidad_servicios);
 }
 
 // ************* se verifica que el stock sea igual o mayor a la cantidad solicitada *************
-if (count($id_productos) > 0) {
+if ($id_productos !== "") {
     venta_model::verify_stock_for_product($id_productos, $cantidad_productos);
 }
 
@@ -112,9 +105,25 @@ try {
 $id_venta = venta_model::obtener_id_venta_recien_registrada();
 
 
+//  ************** cuando la venta es de servicios y de productos ************** 
+if ($id_servicios !== "" && $id_productos !== "" ){
+    try {
+        $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
+        
+        $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
+            FROM detalles_venta"));
+
+        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la venta en la base de datos debido a un error de consulta.", "error");
+        exit();
+    }
+}
+
 // ********************** cuendo la venta es solo de servicios ********************** 
 
-if($id_servicios[0] !== "" && $id_productos[0] == "" ){
+if($id_servicios !== ""){
     try {
         
         $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
@@ -126,31 +135,13 @@ if($id_servicios[0] !== "" && $id_productos[0] == "" ){
 }
 
 //  ********************* cuando la venta es solo de productos ********************* 
-if ($id_servicios[0] == "" && $id_productos[0] !== "" ){ 
+if ($id_productos !== "" ){ 
     try {
         
-        $regitrar_detalles_venta_productos = venta_model::sell_only_product("", $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
+        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
         
     } catch (Exception $e) {
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la venta de productos en la base de datos debido a un error de consulta.", "error");
-        exit();
-    }
-}
-
-//  ************** cuando la venta es de servicios y de productos ************** 
-if ($id_servicios[0] !== "" && $id_productos[0] !== "" ){
-    try {
-        $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
-        
-        $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
-            FROM detalles_venta"));
-
-        $id_detalles_venta = $id_detalles_venta['id'];
-
-        $regitrar_detalles_venta_productos = venta_model::sell_only_product($id_detalles_venta, $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
-
-    } catch (Exception $e) {
-        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la venta en la base de datos debido a un error de consulta.", "error");
         exit();
     }
 }

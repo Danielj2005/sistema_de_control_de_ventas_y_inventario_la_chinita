@@ -97,7 +97,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                           $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre,
                             V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
                             INNER JOIN cliente as C ON C.id_cliente = V.id_cliente
-                            WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC");   
+                            WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC LIMIT 100");   
                           
                           $i = 1;
                           while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
@@ -127,7 +127,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
     
     <!-- Modal detalles de venta -->
     <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -142,8 +142,6 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
       </div>
     </div>
 
-    <!-- lógica de los modales -->
-    <script src="./js/modal.js"></script>
     <?php   
       
       include_once("../include/footer.php");

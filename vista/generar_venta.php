@@ -193,48 +193,25 @@ if ($rol == 1) {  ?>
                       <legend class="card-title col-12 mb-3">Cuenta</legend>
                       
                       <table class="table table-striped table-borderless overflow-x-auto">
-                        <thead>
-                          <tr>
-                            <th class="col text-center" scope="col">Cuenta en $</th>
-                            <th class="col text-center" scope="col">Cuenta en bs</th>
-                          </tr>
-                        </thead>
                         <tbody>
                           <tr>
-                            <td class="text-center col">Sub Total $:  <span> 10.08$ </span> </td> 
-                            <td class="text-center col">Sub Total bs:  <span> 980.88bs </span> </td> 
-                          </tr>
-                          <tr>
-                            <td class="text-center col">IVA: <span> 1.92$ </span> </td> 
-                            <td class="text-center col">IVA: <span> 196.83$ </span> </td> 
-                          </tr>
-                          <tr>
-                            <td class="fs-4 text-success text-center col">Monto a pagar $:<strong> 12$ </strong></td> 
-                            <td class="fs-4 text-success text-center col">Monto a pagar bs:<strong> 1.167.72$ </strong></td> 
+                            <input type="hidden" id="totalDolar" name="sub_total_dolar" value="0">
+                            <input type="hidden" id="totalBolivar" name="sub_total_bs" value="0">
+                            <td class="fs-4 text-success text-center col">
+                              Monto a pagar $: 
+                              <strong id="strong_dolares"></strong>
+                            </td> 
+                            <input type="hidden" id="totalDolar_iva" name="totalDolar_iva" value="0">
+                            
+                            <td class="fs-4 text-success text-center col">
+                              Monto a pagar bs: 
+                              <strong id="strong_bolivares"></strong>
+                            </td> 
+                            <input type="hidden" id="totalBolivar_iva" name="totalBolivar_iva" value="0">
                           </tr>
                         </tbody>
                       </table>
-                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        
-                        <span>Sub Total $</span>
-                        <input class="form-control bg-dark-subtle" id="totalDolar" name="sub_total_dolar" readonly value="0">
-                        
-                      </div>
-                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Sub Total (BS)</span>
-                        <input class="form-control bg-dark-subtle" id="totalBolivar" name="sub_total_bs" readonly value="0">
-                        
-                      </div>
-                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Monto a pagar</span>
-                        <input class="form-control bg-dark-subtle" id="totalDolar_iva" name="total_dolar_venta_iva" readonly value="0">
-                        
-                      </div>
-                      <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                        <span>Monto a pagar</span>
-                        <input class="form-control bg-dark-subtle" id="totalBolivar_iva" name="total_bolivares_venta_iva" readonly value="0">
-                        
-                      </div>
+
                     </fieldset>
 
                     <div class="col-12 mb-1">
