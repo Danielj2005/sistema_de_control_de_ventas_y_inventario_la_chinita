@@ -17,7 +17,8 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<title>Inicio</title>
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
-		<link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css">
+		<!-- <link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css"> -->
+		<link href="vista/css/sweetalert2.min.css" rel="stylesheet">
 		<link rel="shortcut icon" href="vista/img/logo.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
@@ -67,7 +68,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 								<label class="mb-2">Correo electrónico</label>
 								<div class="input-group mb-3">
 									<span class="input-group-text" id="basic-addon1">@</span>
-									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="ingresa tu correo" aria-label="email" aria-describedby="basic-addon1">
+									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="Ingresa tu correo" aria-label="email" aria-describedby="basic-addon1">
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12 mb-2">
@@ -98,7 +99,7 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 									<button type="submit" class="btn btn-primary btn-md mt-4 mx-4">iniciar sesión</button>
 								</div>
 								<div class="col-12 col-md-6 mb-3 text-center">
-									<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
+									<button type="button" class="btn btn-link text-light" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
 										¿Problemas para iniciar sesión?<br>
 										Recupera tu acceso
 									</button>
@@ -140,8 +141,8 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 		<script type="text/javascript" src="vista/js/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="vista/js/bootstrap.min.js"></script>
 		<script src="vista/js/SendForm.js"></script>
-		<script src="vista/js/sweet-alert.min.js"></script>
-		<!-- <script type="text/javascript" src="vista/js/recovery_access.js"></script> -->
+		<!-- <script src="vista/js/sweet-alert.min.js"></script> -->
+		<script src="vista/js/sweetalert2.min.js"></script>
 		<script src="vista/js/hiddeInput.js"></script>
 	</body>
 </html>

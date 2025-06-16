@@ -12,7 +12,7 @@
           <div class="row m-0">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
               <label> Precio del Dolar <span style="color: red; font-size: 20px;"> * </span></label>
-              <input type="number" step="any" min="1" max="100" class="modificar_proveedor form-control" id="priceDolar" name="priceDolar" placeholder="ingresa el precio del dolar">
+              <input type="number" step="any" min="1" max="1000" class="modificar_proveedor form-control" id="priceDolar" name="priceDolar" placeholder="ingresa el precio del dolar">
             </div>
             <div class="col-12 mb-3">
               <div class="form-group col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">

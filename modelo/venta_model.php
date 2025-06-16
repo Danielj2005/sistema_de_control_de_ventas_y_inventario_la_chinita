@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_PARSE);
+date_default_timezone_set('America/Caracas');
+
 class venta_model extends modeloPrincipal {
     
     public static function obtener_id_venta_recien_registrada(){
@@ -187,4 +190,102 @@ class venta_model extends modeloPrincipal {
         }
         return $num;
     }
+
+
+    public static function lista_ventas_realizadas($fecha_inicio, $fecha_fin){
+        
+        if($fecha_inicio == "" && $fecha_fin == ""){
+            $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
+                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta 
+                FROM venta as V 
+                INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
+                ORDER BY V.id_venta DESC LIMIT 500");
+            
+        }else{
+            $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
+                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta 
+                FROM venta as V 
+                INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
+                WHERE V.fecha_venta BETWEEN '$fecha_inicio' AND '$fecha_fin' 
+                ORDER BY V.id_venta DESC LIMIT 500");
+        }
+
+        if(mysqli_num_rows($ventas_realizadas) > 0){
+            $i = 1 ;
+
+            while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
+                <tr>
+                    <td class="text-center col"><?= $i++ ?></td> 
+                    <td class="text-center col">#<?= self::generar_numero($row['id_venta']) ?></td> 
+                    <td class="text-center col"><?= $row['cedula'] ?></td> 
+                    <td class="text-center col"><?= $row['nombre'] ?></td> 
+                    <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
+                    <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
+                    <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
+                    <td class="text-center col">
+                        <button class="btn_modal btn btn-info bi bi-eye" value="<?= $row['id_venta'] ?>" <?= rol_model::verificar_rol('d_venta') == 1 ? 'url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"' : 'disabled' ?>></button>
+                    </td> 
+                </tr>
+            <?php } 
+        } 
+            
+    }
+    public static function lista_ventas_diarias(){
+
+        $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, V.monto_total_bolivares, 
+            V.monto_total_dolares, V.fecha_venta 
+            FROM venta as V 
+            INNER JOIN cliente as C ON C.id_cliente = V.id_cliente 
+            WHERE DATE(V.fecha_venta) = DATE(NOW()) 
+            ORDER BY V.fecha_venta DESC 
+            LIMIT 100 ");   
+
+        while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
+            <tr>
+                <td class="text-center col"></td> 
+                <td class="text-center col">#<?= self::generar_numero($row['id_venta']) ?></td> 
+                <td class="text-center col"><?= $row['cedula'] ?></td> 
+                <td class="text-center col"><?= $row['nombre'] ?></td> 
+                <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
+                <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
+                <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
+                <td class="text-center col">
+                    <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= $row['id_venta'] ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                </td> 
+            </tr>
+        <?php }
+    }
+
+    public static function totales_ventas_del_dia () {
+        $monto_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
+            ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_dolares,
+            ROUND(sum(V.monto_total_bolivares),2) as total_de_ventas_bs
+            FROM venta as V 
+            WHERE DATE(V.fecha_venta) = DATE(NOW()) 
+            ORDER BY V.id_venta DESC"));
+
+        $total_del_dia_en_dolares = $monto_ventas_del_dia['total_de_ventas_dolares'];
+        $total_del_dia_en_bs = $monto_ventas_del_dia['total_de_ventas_bs'];
+
+        return [
+            'dolares' => $total_del_dia_en_dolares,
+            'bs' => $total_del_dia_en_bs
+        ];
+    }
+    public static function totales_ventas() {
+        $totales_ventas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
+            ROUND(sum(monto_total_dolares) , 2) AS total_de_ventas_dolares,
+            ROUND(sum(monto_total_bolivares) , 2) AS total_de_ventas_bs
+            FROM venta 
+            ORDER BY id_venta DESC"));
+
+        $total_de_ventas_dolares = $totales_ventas['total_de_ventas_dolares'];
+        $total_de_ventas_bs = $totales_ventas['total_de_ventas_bs'];
+
+        return [
+            'dolares' => $total_de_ventas_dolares,
+            'bs' => $total_de_ventas_bs
+        ];
+    }
+
 }

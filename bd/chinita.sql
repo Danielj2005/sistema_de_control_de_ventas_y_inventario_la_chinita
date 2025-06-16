@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-05-2025 a las 23:26:21
+-- Tiempo de generación: 09-06-2025 a las 00:01:10
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -576,7 +576,72 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (530, '2025-05-18 18:54:10', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO CON FRESCO \nPrecio en dolares: 5$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: 7 \nPrecio en dolares: $ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
 (531, '2025-05-18 18:57:32', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: 7 \nPrecio en dolares: $ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
 (532, '2025-05-18 18:59:33', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
-(533, '2025-05-18 19:01:14', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: inactivo', 2);
+(533, '2025-05-18 19:01:14', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: activo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: inactivo', 2),
+(534, '2025-05-18 19:49:31', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(535, '2025-05-18 19:58:36', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(536, '2025-05-20 08:10:34', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(537, '2025-05-20 09:08:50', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(538, '2025-05-25 16:37:30', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(539, '2025-05-25 17:48:24', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94.76 bs </b><br>\r\n    Fecha anterior: <b>18-05-2025 / 01:00:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 05:48:pm </b><br>\r\n    ', 2),
+(540, '2025-05-25 17:56:26', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 05:48:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 05:56:pm </b><br>\r\n    ', 2),
+(541, '2025-05-25 17:57:59', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 05:56:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 05:57:pm </b><br>\r\n    ', 2),
+(542, '2025-05-25 18:00:32', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 05:57:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:00:pm </b><br>\r\n    ', 2),
+(543, '2025-05-25 18:06:21', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera manual. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:00:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>94 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:06:pm </b><br>\r\n    ', 2),
+(544, '2025-05-25 18:06:36', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>94 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:06:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:06:pm </b><br>\r\n    ', 2),
+(545, '2025-05-25 18:08:09', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:06:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:08:pm </b><br>\r\n    ', 2),
+(546, '2025-05-25 18:12:03', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera manual. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:08:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>93 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:12:pm </b><br>\r\n    ', 2),
+(547, '2025-05-25 18:23:44', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>93 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:12:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>95.08 bs </b><br>\r\n    Fecha actual: <b>25-05-2025 / 06:23:pm </b><br>\r\n    ', 2),
+(548, '2025-05-25 19:16:18', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(549, '2025-05-27 13:25:15', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(550, '2025-05-27 21:48:51', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(551, '2025-05-29 16:54:55', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(552, '2025-05-29 19:51:53', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(553, '2025-05-31 19:19:56', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(554, '2025-05-31 19:27:31', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(555, '2025-06-01 15:42:55', 'Registro exitoso de un cliente.', 'Se registro un cliente con la siguiente informacón: <br><br>\r\n            <b>****** Información del cliente:   ******</b><br><br>\r\n            Cédula: <b>V-29775798 </b><br>\r\n            Nombre: <b>LUISA SALAS </b><br>\r\n            Teléfono: <b>04123456789 </b><br><br>\r\n            ', 2),
+(556, '2025-06-01 15:48:35', 'Registro exitoso de un cliente.', 'Se registro un cliente con la siguiente informacón: <br><br>\r\n            <b>****** Información del cliente:   ******</b><br><br>\r\n            Cédula: <b>V-28587506 </b><br>\r\n            Nombre: <b>ANTONIO </b><br>\r\n            Teléfono: <b>04125231254 </b><br><br>\r\n            ', 2),
+(557, '2025-06-02 21:33:57', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>95.08 bs </b><br>\r\n    Fecha anterior: <b>25-05-2025 / 06:23:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>97 bs </b><br>\r\n    Fecha actual: <b>02-06-2025 / 09:33:pm </b><br>\r\n    ', 2),
+(558, '2025-06-02 21:35:35', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>97 bs </b><br>\r\n    Fecha anterior: <b>02-06-2025 / 09:33:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>97.31 bs </b><br>\r\n    Fecha actual: <b>02-06-2025 / 09:35:pm </b><br>\r\n    ', 2),
+(559, '2025-06-02 21:37:08', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>32 $ </b><br>\r\n    Subtotal de la compra en bs: <b>3042.56 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>37.12 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>3529.37 bs</b><br>\r\n    Fecha / hora: <b>02-06-2025 / 09:37:am </b><br>\r\n    Tasa del dolar: <b>97.31 bs </b><br><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(560, '2025-06-02 22:35:40', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(561, '2025-06-03 08:00:48', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(562, '2025-06-03 08:01:03', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(563, '2025-06-03 08:28:25', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL BARRUETA </b><br>\r\n    Teléfono: <b>04125238909 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>19 $ </b><br>\r\n    Subtotal de la compra en bs: <b>1848.89 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>22.04 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>2144.71 bs</b><br>\r\n    Fecha / hora: <b>03-06-2025 / 08:28:am </b><br>\r\n    Tasa del dolar: <b>97.31 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL BARRUETA BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(564, '2025-06-03 17:25:59', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \r\n            \n\nInformación del servicio:\n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO. \nEstado: inactivo \n\n\nInformación del servicio actualizada: \n\nNombre del platillo: POLLO Y FRESCO \nPrecio en dolares: 7$ \nDescripción: UN POLLO ENTERO CON UN REFRESCO \nEstado: activo', 2),
+(565, '2025-06-03 18:47:19', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(566, '2025-06-04 13:05:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(567, '2025-06-04 13:06:03', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(568, '2025-06-04 13:20:45', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: \r\n            <b>****** Información del proveedor:   ******</b><br>\r\n            Nombre del platillo: <b> PRUBA </b><br> \r\n            Precio en dolares: <b> 4$ </b><br> \r\n            Descripción: <b> DESCRIPCION. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> PRUBAS </b><br> \r\n            Precio en dolares:  <b> 2$ </b><br> \r\n            Descripción:  <b> DESCRIPCION </b><br> \r\n            Estado:  <b> inactivo </b><br> \r\n            ', 2),
+(569, '2025-06-04 13:33:49', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> PRUBAS </b><br> \r\n            Precio en dolares: <b> 2$ </b><br> \r\n            Descripción: <b> DESCRIPCION. </b><br> \r\n            Estado: <b> inactivo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> PRUBAS </b><br> \r\n            Precio en dolares:  <b> 2$ </b><br> \r\n            Descripción:  <b> DESCRIPCION </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(570, '2025-06-04 16:36:21', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>00000011 </b><br>\r\n        Nombre: <b>PESCADO </b><br>\r\n        Presentación: <b>Porción individual </b><br>\r\n        Categoría: <b>COMESTIBLE </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(571, '2025-06-04 17:13:16', 'Registro exitoso de un producto.', 'Se registro un producto con la siguiente informacón: <br><br>\r\n        <b>****** Información del producto:   ******</b><br><br>\r\n        Código: <b>69720369 </b><br>\r\n        Nombre: <b>GOLDEN COLITA </b><br>\r\n        Presentación: <b>1.5 Litros </b><br>\r\n        Categoría: <b>BEBIDAS </b><br>\r\n        Precio de venta: <b>0 $</b><br>\r\n        Porcentaje de IVA: <b>16 %</b><br>\r\n        Cantidad: <b>0 </b><br>\r\n        Estado: <b>Inactivo </b><br>\r\n        ', 2),
+(572, '2025-06-04 17:24:10', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>Prueba categoría </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(573, '2025-06-04 18:11:59', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(574, '2025-06-06 12:04:46', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(575, '2025-06-06 17:11:27', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(576, '2025-06-06 18:13:43', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(577, '2025-06-06 20:06:26', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(578, '2025-06-07 10:09:50', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(579, '2025-06-07 12:23:49', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>97.31 bs </b><br>\r\n    Fecha anterior: <b>02-06-2025 / 09:35:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>99.09 bs </b><br>\r\n    Fecha actual: <b>07-06-2025 / 12:23:pm </b><br>\r\n    ', 2),
+(580, '2025-06-07 13:21:50', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 3<br>\r\n        Tiempo de inactividad de sesión: 4 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 3<br>\r\n        Tiempo de inactividad de sesión: 1 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(581, '2025-06-07 15:28:10', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(582, '2025-06-07 15:29:12', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(583, '2025-06-07 15:30:19', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(584, '2025-06-07 15:40:05', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(585, '2025-06-07 15:41:12', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(586, '2025-06-07 15:46:57', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(587, '2025-06-07 16:30:19', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(588, '2025-06-07 16:30:29', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(589, '2025-06-07 17:21:06', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n        Información del usuario que realizo la modificación:<br>\r\n        Cédula: V-28587583<br>\r\n        Nombre: DANIEL JOSÉ<br>\r\n        Apellido: BARRUETA<br>\r\n        Teléfono: 04125238909<br>\r\n        Rol asignado: ADIMINISTRADOR<br><br>\r\n        Información original:<br>\r\n        Cantidad de preguntas de seguridad: 3<br>\r\n        Tiempo de inactividad de sesión: 1 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3<br><br>\r\n        Información Actual:<br>\r\n        Cantidad de preguntas de seguridad: 3<br>\r\n        Tiempo de inactividad de sesión: 10 minutos<br>\r\n        Intentos de inicio de sesión para los usuarios: 3<br>\r\n        Cantidad de caracteres: 9<br>\r\n        Cantidad de símbolos: 1<br>\r\n        Cantidad de números: 3\r\n        ', 2),
+(590, '2025-06-07 19:58:59', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>18 $ </b><br>\r\n    Subtotal de la compra en bs: <b>1783.62 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>20.88 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>2069 bs</b><br>\r\n    Fecha / hora: <b>07-06-2025 / 07:58:am </b><br>\r\n    Tasa del dolar: <b>99.09 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(591, '2025-06-07 20:00:43', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(592, '2025-06-08 12:08:45', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(593, '2025-06-08 14:40:28', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(594, '2025-06-08 16:24:55', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(595, '2025-06-08 16:54:27', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>10 $ </b><br>\r\n    Subtotal de la compra en bs: <b>990.9 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>11.6 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>1149.44 bs</b><br>\r\n    Fecha / hora: <b>08-06-2025 / 04:54:am </b><br>\r\n    Tasa del dolar: <b>99.09 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(596, '2025-06-08 17:01:30', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>16 $ </b><br>\r\n    Subtotal de la compra en bs: <b>1585.44 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>18.56 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>1839.11 bs</b><br>\r\n    Fecha / hora: <b>08-06-2025 / 05:01:am </b><br>\r\n    Tasa del dolar: <b>99.09 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(597, '2025-06-08 17:56:44', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>8 $ </b><br>\r\n    Subtotal de la compra en bs: <b>792.72 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>9.28 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>919.56 bs</b><br>\r\n    Fecha / hora: <b>08-06-2025 / 05:56:am </b><br>\r\n    Tasa del dolar: <b>99.09 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(598, '2025-06-08 17:59:35', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>10 $ </b><br>\r\n    Subtotal de la compra en bs: <b>990.9 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>11.6 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>1149.44 bs</b><br>\r\n    Fecha / hora: <b>08-06-2025 / 05:59:am </b><br>\r\n    Tasa del dolar: <b>99.09 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2);
 
 -- --------------------------------------------------------
 
@@ -600,7 +665,8 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 (10, 'POLLOS', 1),
 (11, 'ENSALADAS', 1),
 (12, 'ADICIONALES', 1),
-(13, 'POSTRES', 1);
+(13, 'POSTRES', 1),
+(14, 'Prueba categoría', 1);
 
 -- --------------------------------------------------------
 
@@ -622,9 +688,11 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `telefono`) VALUES
 (1, 'V-15214817', 'JHOAN TORREZ', '04128053290'),
 (2, 'V-28587583', 'DANIEL BARRUETA', '04125238909'),
-(7, 'V-14540481', 'MARÍA JOSÉ GIMENEZ', '04245494211'),
-(8, 'V-30887827', 'KATTY RONDON', '04242344312'),
-(9, 'V-29775798', 'LUISA SALAS', '04123456789');
+(3, 'V-28587586', 'GABRIEL', '04125234587'),
+(4, 'V-14540481', 'MARÍA JOSÉ GIMENEZ', '04245494211'),
+(5, 'V-30887827', 'KATTY RONDON', '04242344312'),
+(6, 'V-29775798', 'LUISA SALAS', '04123456789'),
+(7, 'V-28587506', 'ANTONIO', '04125231254');
 
 -- --------------------------------------------------------
 
@@ -647,7 +715,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `c_preguntas`, `c_caracteres`, `c_numeros`, `c_simbolos`, `tiempo_inactividad`, `intentos_inicio_sesion`) VALUES
-(1, 3, 9, 3, 1, 4, 3);
+(1, 3, 9, 3, 1, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -697,17 +765,7 @@ CREATE TABLE `detalles_menu` (
 --
 
 INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `id_menu`) VALUES
-(11, 2, 1, 9),
-(13, 2, 1, 11),
-(14, 3, 1, 11),
-(15, 24, 1, 11),
-(16, 2, 2, 12),
-(17, 3, 3, 12),
-(18, 24, 2, 12),
 (19, 3, 2, 13),
-(20, 2, 3, 14),
-(21, 3, 4, 14),
-(22, 24, 4, 14),
 (23, 24, 2, 15),
 (24, 3, 1, 16),
 (25, 24, 1, 16);
@@ -755,7 +813,7 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (21, 84, 'Divisa', NULL, 1, 47.88),
 (22, 89, 'Transferencia / Pago movíl', '23232166', 1, 47.88),
 (23, 93, 'Divisa', '1233333333', 2, 95.76),
-(24, 93, 'Transferencia / Pago movíl', '1233333333', 3, 143.64),
+(24, 93, 'Transferencia / Pago movíl', '1233333344', 3, 143.64),
 (25, 97, 'Divisa', NULL, 1, 47.88),
 (26, 97, 'Transferencia / Pago movíl', '234534323', 1, 47.88),
 (27, 99, 'Divisa', NULL, 10, 478.8),
@@ -770,8 +828,8 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (36, 111, 'Divisa', NULL, 3, 143.64),
 (37, 112, 'Divisa', NULL, 3, 143.64),
 (38, 113, 'Divisa', NULL, 3, 143.64),
-(39, 115, '0', '0', 3, 143.64),
-(40, 116, '0', '0', 3, 143.64),
+(39, 115, '0', NULL, 3, 143.64),
+(40, 116, '0', NULL, 3, 143.64),
 (41, 118, 'Divisa', NULL, 3, 143.64),
 (42, 119, 'Divisa', NULL, 3, 143.64),
 (43, 120, 'Divisa', NULL, 3, 143.64),
@@ -819,7 +877,47 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (85, 159, 'Punto de Venta', NULL, 34.8, 1623.07),
 (86, 160, 'Transferencia / Pago movíl', '85746534253647564536', 34.8, 1623.07),
 (87, 161, 'Divisa', NULL, 40, 1865.6),
-(88, 161, 'Punto de Venta', NULL, 1.76, 82.0864);
+(88, 161, 'Punto de Venta', NULL, 1.76, 82.0864),
+(89, 164, 'Divisa', NULL, 30, 2852.4),
+(90, 164, 'Punto de Venta', NULL, 8.28, 787.262),
+(91, 165, 'Divisa', NULL, 30, 2852.4),
+(92, 165, 'Punto de Venta', NULL, 8.28, 787.262),
+(93, 166, 'Divisa', NULL, 30, 2852.4),
+(94, 166, 'Punto de Venta', NULL, 8.28, 787.262),
+(95, 167, 'Divisa', NULL, 30, 2852.4),
+(96, 167, 'Punto de Venta', NULL, 8.28, 787.262),
+(97, 168, 'Divisa', NULL, 30, 2852.4),
+(98, 168, 'Punto de Venta', NULL, 8.28, 787.262),
+(99, 169, 'Divisa', NULL, 30, 2852.4),
+(100, 169, 'Punto de Venta', NULL, 8.28, 787.262),
+(101, 170, 'Divisa', NULL, 30, 2852.4),
+(102, 170, 'Punto de Venta', NULL, 8.28, 787.262),
+(103, 171, 'Divisa', NULL, 30, 2852.4),
+(104, 171, 'Punto de Venta', NULL, 8.28, 787.262),
+(105, 172, 'Divisa', NULL, 30, 2852.4),
+(106, 172, 'Punto de Venta', NULL, 8.28, 787.262),
+(107, 173, 'Divisa', NULL, 32, 3042.56),
+(108, 174, 'Divisa', NULL, 32, 3042.56),
+(109, 175, 'Divisa', NULL, 32, 3042.56),
+(110, 176, 'Divisa', NULL, 32, 3042.56),
+(111, 177, 'Divisa', NULL, 37, 3517.96),
+(112, 177, 'Punto de Venta', NULL, 0.12, 11.4096),
+(113, 179, 'Divisa', NULL, 37, 3517.96),
+(114, 179, 'Punto de Venta', NULL, 0.12, 11.41),
+(115, 180, 'Divisa', NULL, 37, 3517.96),
+(116, 180, 'Punto de Venta', NULL, 0.12, 11.41),
+(117, 181, 'Divisa', NULL, 20, 1946.2),
+(118, 181, 'Punto de Venta', NULL, 2.04, 198.51),
+(119, 182, 'Divisa', NULL, 20, 1981.8),
+(120, 182, 'Punto de Venta', NULL, 0.88, 87.2),
+(121, 183, 'Divisa', NULL, 11, 1089.99),
+(122, 183, 'Punto de Venta', NULL, 0.6, 59.45),
+(123, 184, 'Punto de Venta', NULL, 0.56, 55.49),
+(124, 184, 'Divisa', NULL, 18, 1783.62),
+(125, 185, 'Divisa', NULL, 9, 891.81),
+(126, 185, 'Punto de Venta', NULL, 0.28, 27.75),
+(127, 186, 'Divisa', NULL, 11, 1089.99),
+(128, 186, 'Punto de Venta', NULL, 0.6, 59.45);
 
 -- --------------------------------------------------------
 
@@ -839,6 +937,22 @@ CREATE TABLE `detalles_venta` (
   `precio_unidad_bolivares` float DEFAULT NULL,
   `id_venta` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_venta`
+--
+
+INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
+(13, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 162),
+(14, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 163),
+(16, NULL, NULL, NULL, NULL, 3, 1, 5, 475.4, 171),
+(18, NULL, NULL, NULL, NULL, 3, 1, 5, 475.4, 171),
+(20, NULL, NULL, NULL, NULL, 3, 1, 5, 475.4, 171),
+(36, 15, 2, 5, 495.45, 24, 2, 4, 396.36, 182),
+(37, 15, 2, 5, 495.45, NULL, NULL, NULL, NULL, 183),
+(38, NULL, NULL, NULL, NULL, 24, 4, 4, 396.36, 184),
+(39, NULL, NULL, NULL, NULL, 24, 2, 4, 396.36, 185),
+(40, 15, 2, 5, 495.45, NULL, NULL, NULL, NULL, 186);
 
 -- --------------------------------------------------------
 
@@ -880,7 +994,19 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (21, 94, '2025-05-18 12:55:13'),
 (22, 94.76, '2025-05-18 12:56:16'),
 (23, 93.89, '2025-05-18 12:59:41'),
-(24, 94.76, '2025-05-18 13:00:04');
+(24, 94.76, '2025-05-18 13:00:04'),
+(25, 95.08, '2025-05-25 17:48:23'),
+(26, 95.08, '2025-05-25 17:56:26'),
+(27, 95.08, '2025-05-25 17:57:59'),
+(28, 95.08, '2025-05-25 18:00:32'),
+(29, 94, '2025-05-25 18:06:21'),
+(30, 95.08, '2025-05-25 18:06:36'),
+(31, 95.08, '2025-05-25 18:08:09'),
+(32, 93, '2025-05-25 18:12:03'),
+(33, 95.08, '2025-05-25 18:23:44'),
+(34, 97, '2025-06-02 21:33:56'),
+(35, 97.31, '2025-06-02 21:35:34'),
+(36, 99.09, '2025-06-07 12:23:49');
 
 -- --------------------------------------------------------
 
@@ -926,6 +1052,123 @@ INSERT INTO `entrada` (`id_entrada`, `id_proveedor`, `total_dolar`, `total_bs`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `iva`
+--
+
+CREATE TABLE `iva` (
+  `id` int NOT NULL,
+  `porcentaje` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `iva`
+--
+
+INSERT INTO `iva` (`id`, `porcentaje`) VALUES
+(1, 0.01),
+(2, 0.02),
+(3, 0.03),
+(4, 0.04),
+(5, 0.05),
+(6, 0.06),
+(7, 0.07),
+(8, 0.08),
+(9, 0.09),
+(10, 0.1),
+(11, 0.11),
+(12, 0.12),
+(13, 0.13),
+(14, 0.14),
+(15, 0.15),
+(16, 0.16),
+(17, 0.17),
+(18, 0.18),
+(19, 0.19),
+(20, 0.2),
+(21, 0.21),
+(22, 0.22),
+(23, 0.23),
+(24, 0.24),
+(25, 0.25),
+(26, 0.26),
+(27, 0.27),
+(28, 0.28),
+(29, 0.29),
+(30, 0.3),
+(31, 0.31),
+(32, 0.32),
+(33, 0.33),
+(34, 0.34),
+(35, 0.35),
+(36, 0.36),
+(37, 0.37),
+(38, 0.38),
+(39, 0.39),
+(40, 0.4),
+(41, 0.41),
+(42, 0.42),
+(43, 0.43),
+(44, 0.44),
+(45, 0.45),
+(46, 0.46),
+(47, 0.47),
+(48, 0.48),
+(49, 0.49),
+(50, 0.5),
+(51, 0.51),
+(52, 0.52),
+(53, 0.53),
+(54, 0.54),
+(55, 0.55),
+(56, 0.56),
+(57, 0.57),
+(58, 0.58),
+(59, 0.59),
+(60, 0.6),
+(61, 0.61),
+(62, 0.62),
+(63, 0.63),
+(64, 0.64),
+(65, 0.65),
+(66, 0.66),
+(67, 0.67),
+(68, 0.68),
+(69, 0.69),
+(70, 0.7),
+(71, 0.71),
+(72, 0.72),
+(73, 0.73),
+(74, 0.74),
+(75, 0.75),
+(76, 0.76),
+(77, 0.77),
+(78, 0.78),
+(79, 0.79),
+(80, 0.8),
+(81, 0.81),
+(82, 0.82),
+(83, 0.83),
+(84, 0.84),
+(85, 0.85),
+(86, 0.86),
+(87, 0.87),
+(88, 0.88),
+(89, 0.89),
+(90, 0.9),
+(91, 0.91),
+(92, 0.92),
+(93, 0.93),
+(94, 0.94),
+(95, 0.95),
+(96, 0.96),
+(97, 0.97),
+(98, 0.98),
+(99, 0.99),
+(100, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `menu`
 --
 
@@ -942,20 +1185,9 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
-(1, 'POLLO ASADO COMPLETO', '15', 'pollo asado completo con ensalada y yuca', 1),
-(4, 'GLUPS', '12', 'COMBO DE REFRESCOS', 1),
-(5, 'POLLO COREANO', '14', 'POLLO FRITO COREANO', 1),
-(6, 'MEDIO POLLO CON FRESCO', '10', 'MEDIO POLLON ASADO CON GLUP', 1),
-(7, 'POLLO ESPECIAL', '15', 'POLLO + 3 GLUP', 1),
-(8, 'PABELLON', '7', 'ARROZ Y CARAOTA', 1),
-(9, 'SERVICIO PRUEBA', '10', 'POLLO Y REFRESCO', 1),
-(10, 'SERVICE PRUBE', '5', 'SER VICIO TEST', 1),
-(11, 'SERVICE PRUBE', '5', 'SER VICIO TEST', 1),
-(12, 'TEST BITÁCORA', '10', 'TASTING', 1),
-(13, 'PRUBA', '4', 'DESCRIPCION', 1),
-(14, 'ASDASD', '20', 'ASDASDA', 1),
+(13, 'PRUBAS', '2', 'DESCRIPCION', 1),
 (15, 'POLLO ENTERO ASADO', '5', 'POLLO ASADO COMPLETO CON ENSALADA Y YUCA', 1),
-(16, 'POLLO Y FRESCO', '7', 'UN POLLO ENTERO CON UN REFRESCO', 0);
+(16, 'POLLO Y FRESCO', '7', 'UN POLLO ENTERO CON UN REFRESCO', 1);
 
 -- --------------------------------------------------------
 
@@ -1025,9 +1257,9 @@ CREATE TABLE `presentacion` (
 INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (2, '1.5 Litros', 'Envase de un litro y medio', 1),
 (4, '3 Litros', 'Envase de tres litros', 1),
-(9, 'Entero', 'Pollo completo', 1),
-(10, 'Medio', 'Medio pollo', 1),
-(11, 'Cuarto', 'Un cuarto de pollo', 1),
+(9, 'Entero', 'Entero', 1),
+(10, 'Medio', 'Medio (1/2)', 1),
+(11, 'Cuarto', 'Un cuarto (1/4)', 1),
 (12, 'Porción individual', 'Para una persona', 1),
 (13, 'Porción Familiar', 'Para compartir', 1),
 (14, '1 Litro', 'Envase de un litro', 1),
@@ -1035,8 +1267,8 @@ INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (16, 'Lata', 'Envase de lata', 0),
 (17, 'Unidad', 'Artículo individual', 1),
 (18, 'Bandeja', 'Presentación en bandeja', 1),
-(24, '1 KG', 'UN KILOGRAMO', 1),
-(25, '500 G', 'MEDIO KILOGRAMO', 1);
+(24, '1 KG', 'Un kilogramo', 1),
+(25, '500 G', 'Medio kilogramo', 1);
 
 -- --------------------------------------------------------
 
@@ -1060,14 +1292,36 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `id_categoria`, `codigo`, `nombre_producto`, `id_presentacion`, `precio_venta_dolar`, `stock`, `estatus`) VALUES
-(2, 2, '00000002', 'Pepsi', 2, 4, 4, 1),
-(3, 2, '00000003', 'LIGHT', 2, 5, 6, 1),
+(2, 2, '00000002', 'Pepsi', 2, 4, 0, 0),
+(3, 2, '00000003', 'LIGHT', 2, 5, 0, 0),
 (20, 2, '00000001', 'COCA COLA', 15, 0, 0, 1),
 (21, 2, '00000006', 'GLUP', 14, 0, 0, 1),
 (23, 2, '0000007', 'CHINOTTO', 14, 0, 0, 0),
-(24, 10, '00000004', 'POLLO', 9, 4, 30, 1),
+(24, 10, '00000004', 'POLLO', 9, 4, 5, 1),
 (25, 2, '00000005', '7 UP', 14, 0, 0, 0),
-(26, 12, '00000008', 'YUCA', 17, 0, 0, 0);
+(26, 12, '00000008', 'YUCA', 17, 0, 2, 1),
+(27, 1, '00000011', 'PESCADO', 12, 0, 5, 1),
+(28, 2, '69720369', 'GOLDEN COLITA', 2, 0, 8, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_iva`
+--
+
+CREATE TABLE `producto_iva` (
+  `id` int NOT NULL,
+  `id_producto` int NOT NULL,
+  `id_iva` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `producto_iva`
+--
+
+INSERT INTO `producto_iva` (`id`, `id_producto`, `id_iva`) VALUES
+(1, 27, 16),
+(2, 28, 16);
 
 -- --------------------------------------------------------
 
@@ -1215,10 +1469,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-05-18 18:23:48', 1, 0, 0, 0, 2, 1),
+(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-06-08 16:24:55', 1, 0, 0, 0, 2, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'Z4OEfHN4Y2U=', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 1, 3, 0),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-05-14 18:32:11', 1, 0, 0, 0, 2, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-05-14 18:32:11', 0, 0, 0, 0, 2, 1),
 (8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-11 16:13:43', 0, 0, 0, 1, 7, 1),
 (9, 'V-30774582', 'CARMEN', 'PEREZ', 'carmen@gmai.com', 'ioCDfHp/ZmVqZg==', '04145896325', 'BARRIO PAÉZ', NULL, 0, 0, 0, 1, 3, 1),
 (10, 'V-25478958', 'JULIO', 'BAEZ', 'jbaez@gmai.com', 'ZoiEg3uBZ2g=', '04165874523', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
@@ -1285,46 +1539,46 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 (31, '2024-10-21 09:01:56', 0, 0, 45, 2154.6, 2, 2),
 (32, '2024-10-22 09:05:28', 0, 0, 42, 2010.96, 2, 2),
 (33, '2024-10-24 11:21:52', 0, 0, 65, 3072.8, 2, 2),
-(34, '2024-10-24 11:25:16', 0, 0, 9, 360, 2, 7),
-(35, '2024-10-24 11:26:01', 0, 0, 36, 1440, 2, 7),
+(34, '2024-10-24 11:25:16', 0, 0, 9, 360, 2, 4),
+(35, '2024-10-24 11:26:01', 0, 0, 36, 1440, 2, 4),
 (36, '2024-10-25 10:58:11', 0, 0, 31, 1484.28, 2, 2),
 (37, '2024-10-25 11:23:48', 0, 0, 36, 1723.68, 2, 2),
-(38, '2024-10-28 03:44:24', 0, 0, 30, 1436.4, 2, 8),
-(39, '2024-10-28 03:54:34', 0, 0, 15, 718.2, 2, 8),
-(40, '2024-10-28 04:06:49', 0, 0, 15, 718.2, 2, 8),
-(41, '2024-10-28 04:11:36', 0, 0, 15, 718.2, 2, 8),
-(42, '2024-10-28 04:16:14', 0, 0, 15, 718.2, 2, 8),
-(43, '2024-10-28 04:17:27', 0, 0, 15, 718.2, 2, 8),
-(44, '2024-10-28 04:18:08', 0, 0, 15, 718.2, 2, 8),
-(45, '2024-10-28 04:18:30', 0, 0, 15, 718.2, 2, 8),
-(46, '2024-10-28 04:19:48', 0, 0, 15, 718.2, 2, 8),
-(47, '2024-10-28 04:20:00', 0, 0, 15, 718.2, 2, 8),
-(48, '2024-10-28 04:20:54', 0, 0, 15, 718.2, 2, 8),
-(49, '2024-10-28 04:21:08', 0, 0, 15, 718.2, 2, 8),
-(50, '2024-10-28 04:21:48', 0, 0, 15, 718.2, 2, 8),
-(51, '2024-10-28 04:23:42', 0, 0, 15, 718.2, 2, 8),
-(52, '2024-10-28 04:24:05', 0, 0, 15, 718.2, 2, 8),
-(53, '2024-10-28 04:34:52', 0, 0, 15, 718.2, 2, 8),
-(54, '2024-10-28 04:35:06', 0, 0, 15, 718.2, 2, 8),
-(55, '2024-10-28 04:35:17', 0, 0, 15, 718.2, 2, 8),
-(56, '2024-10-28 04:35:31', 0, 0, 15, 718.2, 2, 8),
-(57, '2024-10-28 04:39:22', 0, 0, 15, 718.2, 2, 8),
-(58, '2024-10-28 04:41:30', 0, 0, 15, 718.2, 2, 8),
-(59, '2024-10-28 04:41:51', 0, 0, 15, 718.2, 2, 8),
-(60, '2024-10-28 04:53:18', 0, 0, 15, 718.2, 2, 8),
-(61, '2024-10-28 04:54:09', 0, 0, 15, 718.2, 2, 8),
-(62, '2024-10-28 04:56:01', 0, 0, 15, 718.2, 2, 8),
-(63, '2024-10-28 04:56:23', 0, 0, 15, 718.2, 2, 8),
-(64, '2024-10-28 04:59:41', 0, 0, 15, 718.2, 2, 8),
-(65, '2024-10-28 05:00:34', 0, 0, 15, 718.2, 2, 8),
-(66, '2024-10-28 05:00:46', 0, 0, 15, 718.2, 2, 8),
-(67, '2024-10-28 05:01:06', 0, 0, 15, 718.2, 2, 8),
-(68, '2024-10-28 05:03:43', 0, 0, 30, 1436.4, 2, 8),
-(69, '2024-10-28 05:06:01', 0, 0, 30, 1436.4, 2, 8),
-(70, '2024-10-28 05:08:53', 0, 0, 30, 1436.4, 2, 8),
-(71, '2024-10-28 05:14:54', 0, 0, 30, 1436.4, 2, 8),
-(72, '2024-10-28 05:14:58', 0, 0, 30, 1436.4, 2, 8),
-(73, '2024-10-28 05:15:05', 0, 0, 30, 1436.4, 2, 8),
+(38, '2024-10-28 03:44:24', 0, 0, 30, 1436.4, 2, 5),
+(39, '2024-10-28 03:54:34', 0, 0, 15, 718.2, 2, 5),
+(40, '2024-10-28 04:06:49', 0, 0, 15, 718.2, 2, 5),
+(41, '2024-10-28 04:11:36', 0, 0, 15, 718.2, 2, 5),
+(42, '2024-10-28 04:16:14', 0, 0, 15, 718.2, 2, 5),
+(43, '2024-10-28 04:17:27', 0, 0, 15, 718.2, 2, 5),
+(44, '2024-10-28 04:18:08', 0, 0, 15, 718.2, 2, 5),
+(45, '2024-10-28 04:18:30', 0, 0, 15, 718.2, 2, 5),
+(46, '2024-10-28 04:19:48', 0, 0, 15, 718.2, 2, 5),
+(47, '2024-10-28 04:20:00', 0, 0, 15, 718.2, 2, 5),
+(48, '2024-10-28 04:20:54', 0, 0, 15, 718.2, 2, 5),
+(49, '2024-10-28 04:21:08', 0, 0, 15, 718.2, 2, 5),
+(50, '2024-10-28 04:21:48', 0, 0, 15, 718.2, 2, 5),
+(51, '2024-10-28 04:23:42', 0, 0, 15, 718.2, 2, 5),
+(52, '2024-10-28 04:24:05', 0, 0, 15, 718.2, 2, 5),
+(53, '2024-10-28 04:34:52', 0, 0, 15, 718.2, 2, 5),
+(54, '2024-10-28 04:35:06', 0, 0, 15, 718.2, 2, 5),
+(55, '2024-10-28 04:35:17', 0, 0, 15, 718.2, 2, 5),
+(56, '2024-10-28 04:35:31', 0, 0, 15, 718.2, 2, 5),
+(57, '2024-10-28 04:39:22', 0, 0, 15, 718.2, 2, 5),
+(58, '2024-10-28 04:41:30', 0, 0, 15, 718.2, 2, 5),
+(59, '2024-10-28 04:41:51', 0, 0, 15, 718.2, 2, 5),
+(60, '2024-10-28 04:53:18', 0, 0, 15, 718.2, 2, 5),
+(61, '2024-10-28 04:54:09', 0, 0, 15, 718.2, 2, 5),
+(62, '2024-10-28 04:56:01', 0, 0, 15, 718.2, 2, 5),
+(63, '2024-10-28 04:56:23', 0, 0, 15, 718.2, 2, 5),
+(64, '2024-10-28 04:59:41', 0, 0, 15, 718.2, 2, 5),
+(65, '2024-10-28 05:00:34', 0, 0, 15, 718.2, 2, 5),
+(66, '2024-10-28 05:00:46', 0, 0, 15, 718.2, 2, 5),
+(67, '2024-10-28 05:01:06', 0, 0, 15, 718.2, 2, 5),
+(68, '2024-10-28 05:03:43', 0, 0, 30, 1436.4, 2, 5),
+(69, '2024-10-28 05:06:01', 0, 0, 30, 1436.4, 2, 5),
+(70, '2024-10-28 05:08:53', 0, 0, 30, 1436.4, 2, 5),
+(71, '2024-10-28 05:14:54', 0, 0, 30, 1436.4, 2, 5),
+(72, '2024-10-28 05:14:58', 0, 0, 30, 1436.4, 2, 5),
+(73, '2024-10-28 05:15:05', 0, 0, 30, 1436.4, 2, 5),
 (74, '2024-10-28 05:16:44', 0, 0, 45, 2154.6, 2, 2),
 (75, '2024-10-28 05:18:27', 0, 0, 50, 2000, 2, 2),
 (76, '2024-10-28 05:19:27', 0, 0, 20, 800, 2, 2),
@@ -1341,78 +1595,103 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 (87, '2024-10-28 05:38:54', 0, 0, 1, 40, 2, 2),
 (88, '2024-10-28 05:39:24', 0, 0, 1, 40, 2, 2),
 (89, '2024-10-28 05:39:37', 0, 0, 1, 40, 2, 2),
-(90, '2024-10-28 05:46:25', 0, 0, 10, 400, 2, 8),
-(91, '2024-10-28 05:48:39', 0, 0, 10, 400, 2, 8),
+(90, '2024-10-28 05:46:25', 0, 0, 10, 400, 2, 5),
+(91, '2024-10-28 05:48:39', 0, 0, 10, 400, 2, 5),
 (92, '2024-10-28 06:32:53', 0, 0, 2, 80, 2, 2),
 (93, '2024-10-28 07:05:24', 0, 0, 5, 200, 2, 2),
 (94, '2024-10-28 07:13:32', 0, 0, 2, 80, 2, 2),
 (95, '2024-10-28 07:15:30', 0, 0, 2, 80, 2, 2),
 (96, '2024-10-28 07:15:49', 0, 0, 2, 80, 2, 2),
 (97, '2024-10-28 07:17:08', 0, 0, 2, 80, 2, 2),
-(98, '2024-10-28 07:18:46', 0, 0, 45, 2154.6, 2, 8),
-(99, '2024-10-28 07:19:01', 0, 0, 15, 718.2, 2, 8),
-(100, '2024-10-28 07:19:08', 0, 0, 15, 718.2, 2, 8),
-(101, '2024-10-28 07:20:45', 0, 0, 15, 718.2, 2, 8),
-(102, '2024-10-28 07:22:39', 0, 0, 15, 718.2, 2, 8),
-(103, '2024-10-28 07:23:02', 0, 0, 6, 240, 2, 8),
-(104, '2024-10-28 07:24:03', 0, 0, 6, 240, 2, 8),
-(105, '2024-10-28 07:24:28', 0, 0, 6, 240, 2, 8),
-(106, '2024-10-28 07:24:41', 0, 0, 6, 240, 2, 8),
-(107, '2024-10-28 07:25:18', 0, 0, 6, 240, 2, 8),
-(108, '2024-10-28 07:25:59', 0, 0, 6, 240, 2, 8),
-(109, '2024-10-28 07:26:52', 0, 0, 6, 240, 2, 8),
-(110, '2024-10-28 07:27:05', 0, 0, 6, 240, 2, 8),
-(111, '2024-10-28 07:30:51', 0, 0, 6, 240, 2, 8),
-(112, '2024-10-28 07:31:55', 0, 0, 6, 240, 2, 8),
-(113, '2024-10-28 07:32:20', 0, 0, 6, 240, 2, 8),
-(114, '2024-10-28 07:34:59', 0, 0, 6, 240, 2, 8),
-(115, '2024-10-28 07:36:09', 0, 0, 6, 240, 2, 8),
-(116, '2024-10-28 07:36:36', 0, 0, 6, 240, 2, 8),
-(117, '2024-10-28 07:37:06', 0, 0, 6, 240, 2, 8),
-(118, '2024-10-28 07:37:31', 0, 0, 6, 240, 2, 8),
-(119, '2024-10-28 07:38:15', 0, 0, 6, 240, 2, 8),
-(120, '2024-10-28 07:38:23', 0, 0, 6, 240, 2, 8),
-(121, '2024-10-28 07:38:48', 0, 0, 6, 240, 2, 8),
-(122, '2024-10-28 07:38:53', 0, 0, 6, 240, 2, 8),
-(123, '2024-10-28 07:40:47', 0, 0, 6, 240, 2, 8),
-(124, '2024-10-28 07:41:39', 0, 0, 6, 240, 2, 8),
-(125, '2024-10-28 07:42:35', 0, 0, 6, 240, 2, 8),
+(98, '2024-10-28 07:18:46', 0, 0, 45, 2154.6, 2, 5),
+(99, '2024-10-28 07:19:01', 0, 0, 15, 718.2, 2, 5),
+(100, '2024-10-28 07:19:08', 0, 0, 15, 718.2, 2, 5),
+(101, '2024-10-28 07:20:45', 0, 0, 15, 718.2, 2, 5),
+(102, '2024-10-28 07:22:39', 0, 0, 15, 718.2, 2, 5),
+(103, '2024-10-28 07:23:02', 0, 0, 6, 240, 2, 5),
+(104, '2024-10-28 07:24:03', 0, 0, 6, 240, 2, 5),
+(105, '2024-10-28 07:24:28', 0, 0, 6, 240, 2, 5),
+(106, '2024-10-28 07:24:41', 0, 0, 6, 240, 2, 5),
+(107, '2024-10-28 07:25:18', 0, 0, 6, 240, 2, 5),
+(108, '2024-10-28 07:25:59', 0, 0, 6, 240, 2, 5),
+(109, '2024-10-28 07:26:52', 0, 0, 6, 240, 2, 5),
+(110, '2024-10-28 07:27:05', 0, 0, 6, 240, 2, 5),
+(111, '2024-10-28 07:30:51', 0, 0, 6, 240, 2, 5),
+(112, '2024-10-28 07:31:55', 0, 0, 6, 240, 2, 5),
+(113, '2024-10-28 07:32:20', 0, 0, 6, 240, 2, 5),
+(114, '2024-10-28 07:34:59', 0, 0, 6, 240, 2, 5),
+(115, '2024-10-28 07:36:09', 0, 0, 6, 240, 2, 5),
+(116, '2024-10-28 07:36:36', 0, 0, 6, 240, 2, 5),
+(117, '2024-10-28 07:37:06', 0, 0, 6, 240, 2, 5),
+(118, '2024-10-28 07:37:31', 0, 0, 6, 240, 2, 5),
+(119, '2024-10-28 07:38:15', 0, 0, 6, 240, 2, 5),
+(120, '2024-10-28 07:38:23', 0, 0, 6, 240, 2, 5),
+(121, '2024-10-28 07:38:48', 0, 0, 6, 240, 2, 5),
+(122, '2024-10-28 07:38:53', 0, 0, 6, 240, 2, 5),
+(123, '2024-10-28 07:40:47', 0, 0, 6, 240, 2, 5),
+(124, '2024-10-28 07:41:39', 0, 0, 6, 240, 2, 5),
+(125, '2024-10-28 07:42:35', 0, 0, 6, 240, 2, 5),
 (126, '2024-10-30 05:28:59', 0, 0, 5, 200, 2, 2),
 (127, '2024-10-30 06:51:50', 0, 0, 5, 200, 2, 2),
 (128, '2024-10-30 06:56:08', 0, 0, 300, 14364, 2, 2),
 (129, '2024-10-30 07:07:42', 0, 0, 30, 1436.4, 2, 2),
 (130, '2024-10-30 07:07:55', 0, 0, 30, 1436.4, 2, 2),
 (131, '2024-10-30 07:27:56', 0, 0, 30, 1436.4, 2, 2),
-(132, '2024-10-30 07:30:49', 0, 0, 30, 1436.4, 2, 8),
+(132, '2024-10-30 07:30:49', 0, 0, 30, 1436.4, 2, 5),
 (133, '2024-10-30 07:35:32', 0, 0, 1, 40, 2, 2),
 (134, '2024-10-30 07:37:21', 0, 0, 4, 160, 2, 2),
 (135, '2024-10-30 07:37:42', 0, 0, 4, 160, 2, 2),
 (136, '2024-10-30 07:40:06', 0, 0, 4, 160, 2, 2),
 (137, '2024-10-30 07:40:11', 0, 0, 4, 160, 2, 2),
 (138, '2024-10-30 07:42:38', 0, 0, 4, 160, 2, 2),
-(139, '2024-10-30 07:43:25', 0, 0, 30, 1436.4, 2, 8),
-(140, '2024-10-30 07:44:39', 0, 0, 30, 1436.4, 2, 8),
+(139, '2024-10-30 07:43:25', 0, 0, 30, 1436.4, 2, 5),
+(140, '2024-10-30 07:44:39', 0, 0, 30, 1436.4, 2, 5),
 (141, '2024-10-30 07:45:29', 0, 0, 30, 1436.4, 2, 2),
 (142, '2024-10-30 07:46:11', 0, 0, 6, 240, 2, 2),
 (143, '2024-10-30 07:47:20', 0, 0, 34, 1596.4, 2, 2),
 (144, '2024-10-30 07:54:10', 0, 0, 40, 1836.4, 2, 2),
 (145, '2024-11-05 06:22:53', 0, 0, 12, 543.04, 2, 2),
 (146, '2024-11-06 04:51:09', 0, 0, 10, 463.04, 2, 2),
-(147, '2024-11-09 09:19:41', 0, 0, 10, 478.8, 2, 8),
+(147, '2024-11-09 09:19:41', 0, 0, 10, 478.8, 2, 5),
 (148, '2024-11-13 09:51:54', 0, 0, 2, 80, 2, 2),
-(149, '2024-11-14 09:29:26', 0, 0, 20, 957.6, 1, 9),
+(149, '2024-11-14 09:29:26', 0, 0, 20, 957.6, 1, 6),
 (150, '2024-11-14 10:45:50', 0, 0, 30, 1436.4, 1, 2),
-(151, '2024-11-15 12:10:27', 0, 0, 30, 1318.2, 2, 7),
-(152, '2024-11-15 12:18:59', 0, 0, 10, 478.8, 2, 7),
-(153, '2024-11-22 11:42:54', 0, 0, 108, 5171.04, 2, 8),
+(151, '2024-11-15 12:10:27', 0, 0, 30, 1318.2, 2, 4),
+(152, '2024-11-15 12:18:59', 0, 0, 10, 478.8, 2, 4),
+(153, '2024-11-22 11:42:54', 0, 0, 108, 5171.04, 2, 5),
 (154, '2024-11-26 09:44:21', 34, 1590.72, 39.44, 1845.24, 5, 2),
-(155, '2024-11-26 10:22:39', 0, 0, 23.2, 1110.82, 5, 8),
-(156, '2024-11-27 04:52:23', 0, 0, 16.24, 766.06, 2, 8),
-(157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 8),
-(158, '2024-11-28 03:09:53', 63, 2997.84, 73.08, 3477.49, 2, 8),
-(159, '2024-11-28 03:23:34', 30, 1399.2, 34.8, 1623.07, 2, 8),
-(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 8),
-(161, '2025-02-18 08:42:08', 36, 1686.48, 41.76, 1956.32, 2, 2);
+(155, '2024-11-26 10:22:39', 0, 0, 23.2, 1110.82, 5, 5),
+(156, '2024-11-27 04:52:23', 0, 0, 16.24, 766.06, 2, 5),
+(157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 5),
+(158, '2024-11-28 03:09:53', 63, 2997.84, 73.08, 3477.49, 2, 5),
+(159, '2024-11-28 03:23:34', 30, 1399.2, 34.8, 1623.07, 2, 5),
+(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 5),
+(161, '2025-02-18 08:42:08', 36, 1686.48, 41.76, 1956.32, 2, 2),
+(162, '2025-05-27 06:58:46', 0, 0, 0, 0, 2, 2),
+(163, '2025-05-27 07:02:50', 0, 0, 0, 0, 2, 2),
+(164, '2025-06-02 08:15:07', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(165, '2025-06-02 08:19:09', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(166, '2025-06-02 08:21:38', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(167, '2025-06-02 08:31:33', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(168, '2025-06-02 08:36:20', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(169, '2025-06-02 08:56:32', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(170, '2025-06-02 08:58:21', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(171, '2025-06-02 09:08:00', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(172, '2025-06-02 09:10:45', 33, 3137.64, 38.28, 3639.66, 2, 3),
+(173, '2025-06-02 09:21:18', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(174, '2025-06-02 09:21:27', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(175, '2025-06-02 09:21:58', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(176, '2025-06-02 09:22:27', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(177, '2025-06-02 09:25:24', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(178, '2025-06-02 09:27:05', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(179, '2025-06-02 09:32:10', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(180, '2025-06-02 09:37:08', 32, 3042.56, 37.12, 3529.37, 2, 3),
+(181, '2025-06-03 08:28:24', 19, 1848.89, 22.04, 2144.71, 2, 2),
+(182, '2025-06-07 07:58:57', 18, 1783.62, 20.88, 2069, 2, 3),
+(183, '2025-06-08 04:54:27', 10, 990.9, 11.6, 1149.44, 2, 3),
+(184, '2025-06-08 05:01:30', 16, 1585.44, 18.56, 1839.11, 2, 3),
+(185, '2025-06-08 05:56:43', 8, 792.72, 9.28, 919.56, 2, 3),
+(186, '2025-06-08 05:59:34', 10, 990.9, 11.6, 1149.44, 2, 3);
 
 --
 -- Índices para tablas volcadas
@@ -1465,6 +1744,7 @@ ALTER TABLE `detalles_menu`
 --
 ALTER TABLE `detalles_pago`
   ADD PRIMARY KEY (`id_detalle_pago`),
+  ADD UNIQUE KEY `referencia` (`referencia`),
   ADD KEY `id_venta` (`id_venta`);
 
 --
@@ -1491,10 +1771,18 @@ ALTER TABLE `entrada`
   ADD KEY `id_dolar` (`id_dolar`);
 
 --
+-- Indices de la tabla `iva`
+--
+ALTER TABLE `iva`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `porcentaje` (`porcentaje`);
+
+--
 -- Indices de la tabla `menu`
 --
 ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id_menu`);
+  ADD PRIMARY KEY (`id_menu`),
+  ADD UNIQUE KEY `nombre_platillo` (`nombre_platillo`);
 
 --
 -- Indices de la tabla `preguntas_secretas`
@@ -1520,6 +1808,14 @@ ALTER TABLE `producto`
   ADD UNIQUE KEY `nombre_producto` (`nombre_producto`),
   ADD KEY `id_categoria` (`id_categoria`),
   ADD KEY `id_presentacion` (`id_presentacion`);
+
+--
+-- Indices de la tabla `producto_iva`
+--
+ALTER TABLE `producto_iva`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_iva` (`id_iva`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `proveedor`
@@ -1565,19 +1861,19 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=534;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=599;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -1601,25 +1897,31 @@ ALTER TABLE `detalles_menu`
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
   MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `iva`
+--
+ALTER TABLE `iva`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -1643,7 +1945,13 @@ ALTER TABLE `presentacion`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de la tabla `producto_iva`
+--
+ALTER TABLE `producto_iva`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -1673,7 +1981,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- Restricciones para tablas volcadas
@@ -1733,6 +2041,13 @@ ALTER TABLE `preguntas_secretas`
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `producto_iva`
+--
+ALTER TABLE `producto_iva`
+  ADD CONSTRAINT `producto_iva_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_iva_ibfk_2` FOREIGN KEY (`id_iva`) REFERENCES `iva` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`

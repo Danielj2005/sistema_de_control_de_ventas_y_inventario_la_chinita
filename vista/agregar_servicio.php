@@ -107,11 +107,11 @@ if ($rol == 1) {  ?>
                       <div class="row mt-2">
                         <div class="col-12 col-sm-6 col-md-6 mb-3 text-start">
                           <label class="form-label">En Dolares ($)</label>
-                          <input class="form-control" onkeyup="transformar('precio_dolar_servicio','precio_bolivar_servcio')" id="precio_dolar_servicio" name="precio_dolar" placeholder="ingresa el precio en $">
+                          <input class="form-control" id="precio_dolar_servicio" name="precio_dolar" placeholder="ingresa el precio en $">
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 mb-3 text-center">
-                          <label class="form-label">En Bolivares (BSS)</label>
-                          <input class="form-control  bg-dark-subtle" readonly id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
+                          <label class="form-label">En Bolivares (BS)</label>
+                          <input class="form-control bg-dark-subtle" readonly id="precio_bolivar_servcio" name="precio_bolivar" placeholder="ingresa el precio en bs">
                         </div>
                       </div>
                     </div>
@@ -134,6 +134,16 @@ if ($rol == 1) {  ?>
       </main>
       
 			<script src="./js/añadir_elemento_lista.js"></script>
+			<script>
+        const input_dolar = document.getElementById('precio_dolar_servicio');
+        const input_bs = document.getElementById('precio_bolivar_servcio');
+        input_dolar.addEventListener('keyup',(e) => {
+          e.preventDefault();
+          let tasa = document.getElementById('tasa_dolar').textContent;
+          tasa = parseFloat(tasa);
+          input_bs.value = (input_dolar.value * tasa).toFixed(2);
+        });
+      </script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php"); 

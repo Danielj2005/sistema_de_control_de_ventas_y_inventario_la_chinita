@@ -54,7 +54,7 @@ class servicio_model extends modeloPrincipal {
                     <button value="<?= $mostrar["id_menu"]; ?>" modal="modificar_servicio" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
                 <td scope="row" class="text-center">
-                    <form action="<?= rol_model::verificar_rol('m_servicio') == '1' ? '../controlador/cambio_estado.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="updateEstado" >
+                    <form action="<?= rol_model::verificar_rol('m_servicio') == '1' ? '../controlador/menu_controlador.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                         
                         <?php if ($mostrar["estatus"] === "1") { ?>
 

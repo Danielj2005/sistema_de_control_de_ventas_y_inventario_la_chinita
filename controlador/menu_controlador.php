@@ -184,3 +184,99 @@ if($modulo == 'Modificar'){
         exit();
     }
 }
+
+if($modulo == 'activo'){
+    // estos datos se guardan en la tabla menu de la base de datos
+
+    $id_servicio = modeloprincipal::limpiar_mayusculas($_POST['id_menu']);
+
+    // Se verifica que no se hayan recibido campos vacíos.
+    modeloPrincipal::validar_campos_vacios([$id_servicio]);
+
+    $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio");
+
+    if(mysqli_num_rows($existe_platillo) < 0){
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!","Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.","error");
+        exit(); 
+    }
+
+    $existe_platillo = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio"));
+    $nombre_original = $existe_platillo['nombre_platillo'];
+    $precio_dolar_original = $existe_platillo['precio_dolar'];
+    $descripcion_original = $existe_platillo['descripcion'];
+    $estatus_original = $existe_platillo['estatus'];
+    
+    // se registran los datos verificados
+    if (modeloPrincipal::UpdateSQL( "menu","estatus = '0'","id_menu = $id_servicio")) {
+        
+        $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
+        $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
+
+        bitacora::bitacora("Modificación del estado de un servicio","El usuario actualizó el estado de un servicio: <br><br>
+            <b>****** Información original del servicio:   ******</b><br>
+            Nombre del platillo: <b> $nombre_original </b><br> 
+            Precio en dolares: <b> $precio_dolar_original$ </b><br> 
+            Descripción: <b> $descripcion_original. </b><br> 
+            Estado: <b> $estatus_original </b><br><br> 
+            
+            <b>****** Información del servicio actualizada:   ******</b><br> 
+            Nombre del platillo: <b> $nombre_platillo </b><br> 
+            Precio en dolares:  <b> $precio_dolar$ </b><br> 
+            Descripción:  <b> $descripcion </b><br> 
+            Estado:  <b> $estado_menu </b><br> 
+            ");
+        alert_model::alert_mod_success();
+        exit();
+    }else{ // mensaje de error "no se pudo registrar"
+        alert_model::alert_mod_error();
+        exit();
+    }
+}
+
+if($modulo == 'inactivo'){
+    // estos datos se guardan en la tabla menu de la base de datos
+
+    $id_servicio = modeloprincipal::limpiar_mayusculas($_POST['id_menu']);
+
+    // Se verifica que no se hayan recibido campos vacíos.
+    modeloPrincipal::validar_campos_vacios([$id_servicio]);
+
+    $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio");
+
+    if(mysqli_num_rows($existe_platillo) < 0){
+        alert_model::alerta_simple("¡Ocurrió un error inesperado!","Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.","error");
+        exit(); 
+    }
+
+    $existe_platillo = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio"));
+    $nombre_original = $existe_platillo['nombre_platillo'];
+    $precio_dolar_original = $existe_platillo['precio_dolar'];
+    $descripcion_original = $existe_platillo['descripcion'];
+    $estatus_original = $existe_platillo['estatus'];
+    
+    // se registran los datos verificados
+    if (modeloPrincipal::UpdateSQL( "menu","estatus = '1'","id_menu = $id_servicio")) {
+        
+        $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
+        $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
+
+        bitacora::bitacora("Modificación del estado de un servicio","El usuario actualizó el estado de un servicio: <br><br>
+            <b>****** Información original del servicio:   ******</b><br>
+            Nombre del platillo: <b> $nombre_original </b><br> 
+            Precio en dolares: <b> $precio_dolar_original$ </b><br> 
+            Descripción: <b> $descripcion_original. </b><br> 
+            Estado: <b> $estatus_original </b><br><br> 
+            
+            <b>****** Información del servicio actualizada:   ******</b><br> 
+            Nombre del platillo: <b> $nombre_platillo </b><br> 
+            Precio en dolares:  <b> $precio_dolar$ </b><br> 
+            Descripción:  <b> $descripcion </b><br> 
+            Estado:  <b> $estado_menu </b><br> 
+            ");
+        alert_model::alert_mod_success();
+        exit();
+    }else{ // mensaje de error "no se pudo registrar"
+        alert_model::alert_mod_error();
+        exit();
+    }
+}

@@ -4,18 +4,17 @@ $(document).ready(function(){
         e.preventDefault();
 
         // Llamar a un archivo PHP para destruir las variables de sesión
-        swal({
+        Swal.fire({
             title: 'Estas Seguro(a)?',
             text: "Se cerrará la sesión",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#03A9F4',
             cancelButtonColor: '#F44336',
             confirmButtonText: ' Sí, Salir!',
             cancelButtonText: ' No, Cancelar!'
-        },
-        function (isComfirm) {
-            if (isComfirm) {
+        }).then((result) => {
+            if (result.isConfirmed) {
                 window.location.href="../controlador/salir.php";
             }
         });

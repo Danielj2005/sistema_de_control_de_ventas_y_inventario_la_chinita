@@ -33,7 +33,7 @@ class config_model extends modeloPrincipal {
 
         try {
             // Obtener los parámetros de configuración actuales
-            $configuracion = modeloPrincipal::consultar("SELECT c_caracteres, c_preguntas FROM configuracion");
+            $configuracion = modeloPrincipal::consultar("SELECT * FROM configuracion");
     
             if (!$configuracion) {
                 alert_model::alerta_simple("¡Error!", "No se pudo obtener la configuración del sistema.", "error");
@@ -49,10 +49,8 @@ class config_model extends modeloPrincipal {
             exit();
         }
         
+        // Obtener la información del usuario
         try {
-            
-            
-            // Obtener la información del usuario
             $usuario = modeloPrincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'");
     
             if (!$usuario) {
@@ -68,10 +66,8 @@ class config_model extends modeloPrincipal {
             exit();
         }
 
+        // Obtener la cantidad de preguntas de seguridad del usuario
         try {
-            
-            
-            // Obtener la cantidad de preguntas de seguridad del usuario
             $preguntas_seguridad = modeloPrincipal::consultar("SELECT COUNT(*) AS cantidad FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
             if (!$preguntas_seguridad) {
                 alert_model::alerta_simple("¡Error!", "No se pudo obtener la cantidad de preguntas de seguridad del usuario.", "error");
@@ -97,7 +93,7 @@ class config_model extends modeloPrincipal {
                 );
                 return;
             }
-    
+            
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
             if ($cantidad_preguntas < $c_preguntas) {
                 alert_model::alert_redirect(
@@ -108,6 +104,8 @@ class config_model extends modeloPrincipal {
                 );
                 return;
             }
+             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
+        
         }
         
         if ($perfil == 1) {
@@ -130,6 +128,7 @@ class config_model extends modeloPrincipal {
                 );
                 return;
             }
+            
         }
     }
     

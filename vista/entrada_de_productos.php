@@ -175,21 +175,14 @@ if ($rol == 1 || $rol == 2) {
         </div>
       </div>
 
-      <!-- modal modificar -->
-      <script src="./js/modal.js"></script>
-      
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
         include_once("../include/scripts_include.php");
-      
         model_user::validar_sesion_activa($id_usuario);
-
-        config_model::verificar_actualizacion_configuracion(); 
-
-        ?>
-        
+        config_model::verificar_actualizacion_configuracion();
+      ?>
       <script src="./js/rango_fechas.js"></script>
     </body>
   </html>

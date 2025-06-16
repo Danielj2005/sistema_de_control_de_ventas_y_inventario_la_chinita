@@ -1,10 +1,11 @@
 
+const inputDateStart = document.getElementById('fecha_inicio').value;
+const inputDateEnd = document.getElementById('fecha_fin').value;
+const btn_enviar = document.getElementById('btn_fechas');
+
 function dateValidate(){
 
-    let inputDateStart = document.getElementById('fecha1').value;
-    let inputDateEnd = document.getElementById('fecha2').value;
     let msjDate = document.getElementById('mensaje_fecha_iguales');
-    const btn_enviar = document.getElementById('btn_fechas');
 
     if (inputDateStart != "" && inputDateEnd != "") {
         if (inputDateStart > inputDateEnd) {
@@ -29,8 +30,6 @@ function dateValidate(){
 
 function fechas_mayores(){
 
-    let inputDateStart = document.getElementById('fecha1').value;
-    let inputDateEnd = document.getElementById('fecha2').value;
     let msjDateOld = document.getElementById('mensaje_fechas_mayores');
     let dateToday = document.getElementById('fecha_actual').value;
     const btn_enviar = document.getElementById('btn_fechas');

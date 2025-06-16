@@ -20,49 +20,42 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
     <!-- titulo -->
     <title>Inicio</title>
     <!-- metadatos -->  
-    <?php include_once("../include/meta_include.php");
+    <?php include_once ("../include/meta_include.php");
       // estilos y librerias css
-      include_once("../include/css_include.php"); ?>
+      include_once ("../include/css_include.php"); ?>
   </head>
   <body>
     <?php   
-      include_once("../include/header.php"); 
-      include_once("../include/sliderbar.php");
+      include_once ("../include/header.php"); 
+      include_once ("../include/sliderbar.php");
 
-      $fecha_del_dia = date("Y-m-d");
-    
-      $monto_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
-        ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_en_dolares,
-        ROUND(sum(V.monto_total_bolivares),2) as total_de_ventas_en_bolivares
-        FROM venta as V WHERE DATE(V.fecha_venta) = '$fecha_del_dia' order by V.id_venta DESC"));
+      $total_ventas_del_dia = venta_model::totales_ventas_del_dia();
 
-      $monto_total_hoy_en_dolares = $monto_ventas_del_dia['total_de_ventas_en_dolares'];
-      $monto_total_hoy_en_bolivares = $monto_ventas_del_dia['total_de_ventas_en_bolivares'];
+      $total_hoy_dolar = $total_ventas_del_dia['dolares'];
+      $total_hoy_bs = $total_ventas_del_dia['bs'];
     ?>
     <main id="main" class="main">
       <div class="pagetitle"> <h1> Inicio </h1> </div> 
       <section class="section dashboard">
         <div class="row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-            <div class="col-lg-8">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Total generado en el Día</h5>
-                  <div class="row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
-                        <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
-                        <span class="input-group-text" id="basic-addon1">$</span>
-                      </div>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total generado en el Día</h5>
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">Monto Total en dolares($)</span>
+                      <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
+                      <span class="input-group-text" id="basic-addon1">$</span>
                     </div>
+                  </div>
 
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
-                        <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? '0' : $monto_total_hoy_en_bolivares ?>">
-                        <span class="input-group-text" id="basic-addon1">BS</span>
-                      </div>
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">Monto Total en boliveras (bs)</span>
+                      <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
+                      <span class="input-group-text" id="basic-addon1">BS</span>
                     </div>
                   </div>
                 </div>
@@ -74,11 +67,10 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
             <div class="row">
               <div class="col-12">
                 <div class="card top-selling overflow-auto">
-
+                  
                   <div class="card-body p-3 ">
                     <h5 class="card-title">Últimas Ventas Realizadas</h5>
-
-                    <table class="table table-striped  overflow-x-auto" id="example">
+                    <table class="table table-striped overflow-x-auto " id="example">
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
@@ -91,30 +83,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                           <th class="col text-center" scope="col">DETALLES DE VENTA</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <?php
-
-                          $ventas_del_dia = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre,
-                            V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                            INNER JOIN cliente as C ON C.id_cliente = V.id_cliente
-                            WHERE DATE(V.fecha_venta) = '$fecha_del_dia' ORDER BY V.fecha_venta DESC LIMIT 100");   
-                          
-                          $i = 1;
-                          while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
-                            <tr>
-                              <td class="text-center col"><?= $i++ ?></td> 
-                              <td class="text-center col">#<?= venta_model::generar_numero($row['id_venta']) ?></td> 
-                              <td class="text-center col"><?= $row['cedula'] ?></td> 
-                              <td class="text-center col"><?= $row['nombre'] ?></td> 
-                              <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
-                              <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
-                              <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
-                              <td class="text-center col">
-                                <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= $row['id_venta'] ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
-                              </td> 
-                            </tr>
-                          <?php } ?>
-                      </tbody>
+                      <tbody><?php venta_model::lista_ventas_diarias(); ?>  </tbody>
                     </table>
                   </div>
                 </div>
@@ -141,7 +110,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
         </div>
       </div>
     </div>
-
+    
     <?php   
       
       include_once("../include/footer.php");

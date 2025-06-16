@@ -1,6 +1,5 @@
 <?php
 
-require_once ('../../config/ConfigServer.php');
 require_once ('../../modelo/modeloPrincipal.php');
 
 date_default_timezone_set('America/caracas');

@@ -7,7 +7,7 @@ $id_producto = $_POST['id'];
 
 $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
     P.stock, C.nombre AS nombre_categoria
-    FROM `producto` AS P 
+    FROM producto AS P 
     INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
     INNER JOIN categoria AS C ON P.id_categoria = C.id_categoria
     WHERE P.id_producto = $id_producto");

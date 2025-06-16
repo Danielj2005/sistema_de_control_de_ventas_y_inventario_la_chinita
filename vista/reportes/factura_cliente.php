@@ -1,7 +1,7 @@
 <?php
 
-require_once ('../../config/ConfigServer.php');
 require_once ('../../modelo/modeloPrincipal.php');
+require_once ('../../modelo/venta_model.php');
 
 date_default_timezone_set('America/caracas');
 
@@ -122,7 +122,7 @@ if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POS
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","COD000001V0001"),0,'C',false);
     
     # Nombre del archivo PDF #
-    $pdf->Output("I","Ticket_Nro_".modeloPrincipal::generar_numero($id_venta).".pdf",true);
+    $pdf->Output("I","Ticket_Nro_".venta_model::generar_numero($id_venta).".pdf",true);
 }
 
 
@@ -139,7 +139,7 @@ $fecha_venta = mysqli_fetch_array(modeloPrincipal::consultar("SELECT fecha_venta
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Fecha: ".date("d/m/Y" ,strtotime($fecha_venta['fecha_venta']))." Hora: ".date("h:s A ",strtotime($fecha_venta['fecha_venta']))),0,'C',false);
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Cajero: ".$datos_usuario['nombre']." ".$datos_usuario['apellido']),0,'C',false);
 $pdf->SetFont('Arial','B',10);
-$pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",strtoupper("Ticket Nro: ".modeloPrincipal::generar_numero($id_venta))),0,'C',false);
+$pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",strtoupper("Ticket Nro: ".venta_model::generar_numero($id_venta))),0,'C',false);
 $pdf->SetFont('Arial','',9);
 
 $pdf->Ln(1);
@@ -266,10 +266,10 @@ $pdf->Ln(5);
     $pdf->Ln(9);
 
     # Codigo de barras #
-    $pdf->Code128(5,$pdf->GetY(),modeloPrincipal::generar_numero($id_venta),70,20);
+    $pdf->Code128(5,$pdf->GetY(),venta_model::generar_numero($id_venta),70,20);
     $pdf->SetXY(0,$pdf->GetY()+21);
     $pdf->SetFont('Arial','',14);
-    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",modeloPrincipal::generar_numero($id_venta)),0,'C',false);
+    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",venta_model::generar_numero($id_venta)),0,'C',false);
     
     # Nombre del archivo PDF #
-    $pdf->Output("I","Ticket_Nro_".modeloPrincipal::generar_numero($id_venta).".pdf",true);
+    $pdf->Output("I","Ticket_Nro_".venta_model::generar_numero($id_venta).".pdf",true);

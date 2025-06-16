@@ -22,29 +22,29 @@ if ($rol >= 1 && $rol <= 3) { ?>
       <title>Ventas</title>
       <?php 
         // se incluyen los meta datos 
-        include_once("../include/meta_include.php"); 
+        include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/css_include.php"; 
+        
+        include_once("../include/scripts_include.php"); ?>
+      <script src="./js/rango_fechas.js"></script>
     </head>
     <body>
       <?php 
         // se incluye el header / encabezado a la vista
-        include_once("../include/header.php");
+        include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); 
+        include_once "../include/sliderbar.php"; 
       
-        $montos_ventas_del_dia = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
-          ROUND(sum(V.monto_total_dolares),2) as total_de_ventas_en_dolares,
-          ROUND(sum(V.monto_total_bolivares),2) as total_de_ventas_en_bolivares
-          FROM venta as V ORDER BY V.id_venta DESC"));
+        $totales_ventas = venta_model::totales_ventas();
 
-        $monto_total_hoy_en_dolares = $montos_ventas_del_dia['total_de_ventas_en_dolares'];
-        $monto_total_hoy_en_bolivares = $montos_ventas_del_dia['total_de_ventas_en_bolivares'];
+        $total_hoy_en_dolares = $totales_ventas['dolares'];
+        $total_hoy_en_bolivares = $totales_ventas['bs'];
 
-        $fecha_actual = date('Y-m-d');
+        $fecha_actual = date('Y-m-d');  
 
-        $fecha1 = $_POST['fecha1'];
-        $fecha2 = $_POST['fecha2'];
+        $fecha_inicio = $_POST['fecha_inicio'];  
+        $fecha_fin = $_POST['fecha_fin'];
         
 
       ?>
@@ -64,7 +64,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
-                        <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($monto_total_hoy_en_dolares == "") ? 0 : $monto_total_hoy_en_dolares ?>">
+                        <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_en_dolares == "") ? 0 : $total_hoy_en_dolares ?>">
                         <span class="input-group-text" id="basic-addon1">$</span>
                       </div>
                     </div>
@@ -72,7 +72,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
-                        <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($monto_total_hoy_en_bolivares == "") ? 0 : $monto_total_hoy_en_bolivares ?>">
+                        <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_en_bolivares == "") ? 0 : $total_hoy_en_bolivares ?>">
                         <span class="input-group-text" id="basic-addon1">BS</span>
                       </div>
                     </div>
@@ -85,7 +85,8 @@ if ($rol >= 1 && $rol <= 3) { ?>
               <div class="card top-selling overflow-auto">
                 <div class="card-body pb-0">
                   <h5 class="card-title">Listado de Ventas</h5>
-                  <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
+                  <!-- este input se usa para la validacion de las fechas Nota: no borrar por favor! -->
+                  <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual; ?>">
                   <form method="post" class="row mb-3" id="rango_fechas">
                     
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
@@ -97,14 +98,14 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Desde</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha1" name="fecha1">
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Hasta</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha2" name="fecha2">
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_fin" name="fecha_fin">
                       </div>
                     </div>
 
@@ -136,37 +137,8 @@ if ($rol >= 1 && $rol <= 3) { ?>
                           <th class="col text-center" scope="col">Detalles</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <?php
-
-                          if($fecha1 == "" && $fecha2 == ""){
-                            $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
-                              V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                              INNER JOIN cliente as C ON V.id_cliente = C.id_cliente ORDER BY V.id_venta DESC LIMIT 50");
-                          
-                          }else{
-                            $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
-                              V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta FROM venta as V 
-                              INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
-                              WHERE V.fecha_venta BETWEEN '$fecha1' AND '$fecha2' ORDER BY V.id_venta DESC LIMIT 50");
-                          }
-
-                          if(mysqli_num_rows($ventas_realizadas) > 0){
-                            $i = 1 ;
-                            while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
-                              <tr>
-                                <td class="text-center col"><?= $i++ ?></td> 
-                                <td class="text-center col">#<?= venta_model::generar_numero($row['id_venta']) ?></td> 
-                                <td class="text-center col"><?= $row['cedula'] ?></td> 
-                                <td class="text-center col"><?= $row['nombre'] ?></td> 
-                                <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
-                                <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
-                                <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
-                                <td class="text-center col">
-                                    <button class="btn_modal btn btn-info bi bi-eye" value="<?= $row['id_venta'] ?>" <?= rol_model::verificar_rol('d_venta') == 1 ? 'url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"' : 'disabled' ?>></button>
-                                </td> 
-                              </tr>
-                          <?php } } ?>
+                      <tbody id="tbody">
+                        <?php venta_model::lista_ventas_realizadas($fecha_inicio, $fecha_fin); ?>
                       </tbody>
                     </table>
                   </div>
@@ -197,14 +169,10 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
       <?php 
         include_once("../include/footer.php"); 
-        include_once("../include/scripts_include.php"); 
-        
-      
+
         model_user::validar_sesion_activa($id_usuario);
 
         config_model::verificar_actualizacion_configuracion(); ?>
-
-      <script src="./js/rango_fechas.js"></script>
     </body>
   </html>
 <?php }else{

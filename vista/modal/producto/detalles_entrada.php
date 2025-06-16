@@ -3,22 +3,17 @@ session_start();
 
 require_once "../../../modelo/modeloPrincipal.php";
 
-// $id = modeloPrincipal::limpiar_cadena($_POST['id']);
-$id = 20;
+$id = modeloPrincipal::limpiar_cadena($_POST['id']);
 
-$detalles_entrada = modeloPrincipal::consultar("SELECT PV.nombre AS proveedor,
-    P.nombre_producto AS producto,
-    PS.nombre AS presentacion, 
-    C.nombre AS categoria, 
-    D.cantidad_comprada,
-    D.precio_unitario_dolar AS precio_dolar,
-    D.precio_unitario_bs AS precio_bs,
-    D.total_dolar, D.total_bs
-    FROM `detalles_entrada` AS D
-    INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada
-    INNER JOIN producto AS P ON P.id_producto = D.id_producto
-    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
+$detalles_entrada = modeloPrincipal::consultar("SELECT PV.nombre AS proveedor, P.nombre_producto AS producto, 
+    PS.nombre AS presentacion, C.nombre AS categoria,
+    D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, 
+    D.precio_unitario_bs AS precio_bs, D.total_dolar, D.total_bs 
+    FROM detalles_entrada AS D 
+    INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
+    INNER JOIN producto AS P ON P.id_producto = D.id_producto 
+    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
+    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
     INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor 
     WHERE D.id_entrada = $id");
 

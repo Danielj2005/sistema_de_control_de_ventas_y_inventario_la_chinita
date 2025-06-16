@@ -1,11 +1,67 @@
+<!-- jquery -->
+<script src="./js/jquery-3.6.0.min.js"></script>
+
+<!-- datatable js files -->
+<script src="./js/jquery.dataTables.min.js"></script>
+<script src="./js/dataTables.bootstrap5.min.js"></script>
+<script src="./js/datatables.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var t = $('#example').DataTable( { 
+            language: {
+				url: './js/dataTables-Español.json'
+			}
+        } );
+
+        t.on( 'order.dt search.dt', function () {
+            let i = 1;
+    
+            t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
+                this.data(i++);
+            } );
+        } ).draw();
+    } );
+    
+    function dataTable(){
+        $(document).ready(function() {
+            var t = $('.example').DataTable( { 
+                language: {
+                    url: './js/dataTables-Español.json'
+                }
+            } );
+    
+            t.on( 'order.dt search.dt', function () {
+                let i = 1;
+                t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
+                    this.data(i++);
+                } );
+            } ).draw();
+        } );
+    }
+        
+    document.addEventListener('DOMContentLoaded', () => {
+        // getList(); 
+    });
+</script>
+<!-- Vendor JS Files -->
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/chart.js/chart.umd.js"></script>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="assets/vendor/quill/quill.min.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
 
 <!-- lógica de los modales -->
 <script src="./js/modal.js"></script>
-<!-- sweet alert -->
-<script src="./js/sweet-alert.min.js"></script>
+<script src="./js/get_url.js"></script>
+<!-- <script src="./js/sweet-alert.min.js"></script> -->
+<script src="./js/sweetalert2.min.js"></script>
 
-<!-- jquery -->
-<script src="./js/jquery-3.6.0.min.js"></script>
 <script src="./js/tiempo_inactividad.js"></script>
 
 <script src="./js/hiddeInput.js"></script>
@@ -33,57 +89,3 @@
 <!-- cerrar sesion -->
 <script src="./js/cerrar_sesion.js"></script>
 
-<!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="./js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-
-<!-- datatable js files -->
-<script src="./js/jquery.dataTables.min.js"></script>
-<script src="./js/datatables.min.js"></script>
-<script src="./js/dataTables.bootstrap5.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        var t = $('#example').DataTable( { 
-            language: {
-				url: './js/dataTables-Español.json'
-			}
-        } );
-
-        t.on( 'order.dt search.dt', function () {
-            let i = 1;
-    
-            t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
-                this.data(i++);
-            } );
-        } ).draw();
-        
-    } );
-    
-    function dataTable(){
-
-        $(document).ready(function() {
-            var t = $('.example').DataTable( { 
-                language: {
-                    url: './js/dataTables-Español.json'
-                }
-            } );
-    
-            t.on( 'order.dt search.dt', function () {
-                let i = 1;
-        
-                t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
-                    this.data(i++);
-                } );
-            } ).draw();
-            
-        } );
-    }
-</script>

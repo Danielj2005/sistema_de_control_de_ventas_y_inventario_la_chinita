@@ -57,7 +57,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
                         </tr>
                       </thead>
                       <tbody>
-                        <?= cliente_model::lista_clientes_registrados (); ?>  
+                        <?= cliente_model::lista_clientes_registrados(); ?>  
                       </tbody>
                     </table>
                   </div>

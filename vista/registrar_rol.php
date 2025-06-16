@@ -118,10 +118,26 @@ if ($rol == 1) {  ?>
                                         <input name="r_categoria" class="productos" value="1" type="checkbox">
                                         <span>Registrar Nuevas Categorías</span>
                                       </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_categoria">
+                                        <span>Modificar Información de Categorías</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_categoria">
+                                        <span>Consultar Lista de Categorías Registradas</span>
+                                      </li>
                                       <br>
                                       <li>
                                         <input name="r_presentacion" class="productos" value="1" type="checkbox">
                                         <span>Registrar Nuevas Presentaciones</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_presentacion">
+                                        <span>Modificar Información de Presentaciones</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_presentacion">
+                                        <span>Consultar Lista de Presentaciones Registradas</span>
                                       </li>
                                       <br>
                                       <li>
@@ -458,6 +474,10 @@ if ($rol == 1) {  ?>
                                       <li>
                                         <input name="v_bitacora" class="bitacora" value="1" type="checkbox">
                                         <span>Consultar Registros de la Bitácora</span>
+                                      </li>
+                                      <li>
+                                        <input name="m_bitacora" class="bitacora" value="1" type="checkbox">
+                                        <span>Consultar Movimientos de un Usuario en la Bitácora</span>
                                       </li>
                                     </ul>
                                   </ul>

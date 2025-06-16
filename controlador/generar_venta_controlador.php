@@ -1,5 +1,7 @@
-<?php 
+<?php
+error_reporting(E_PARSE);
 session_start();
+date_default_timezone_set('America/Caracas');
 
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 

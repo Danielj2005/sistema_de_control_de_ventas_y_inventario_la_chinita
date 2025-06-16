@@ -125,6 +125,7 @@ class model_user extends modeloPrincipal {
         $cambio_estado = modeloPrincipal::UpdateSQL("usuario", "estado = '$estado'", "id_usuario = '$id_usuario'");
         return $cambio_estado;    
     }
+
     public static function modificar_usuario_bloqueado($id_usuario, $bloqueado) {
         $bloqueo = modeloPrincipal::UpdateSQL("usuario", "bloqueado = '$bloqueado'", "id_usuario = '$id_usuario'");
 
@@ -256,6 +257,7 @@ class model_user extends modeloPrincipal {
     }
 
     //  Funcion para pedir una lista de empleados del negocio 
+
     public static function lista_de_usuarios() {
         $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario que inicio sesion
 
@@ -270,27 +272,20 @@ class model_user extends modeloPrincipal {
             <tr>
                 <th></th>
                 <th><?= $mostrar["cedula"]; ?></th>
-                <th><?= $mostrar["nombre"]; ?></th>
-                <th><?= $mostrar["apellido"]; ?></th>
+                <th><?= $mostrar["nombre"]." ".$mostrar["apellido"]; ?></th>
                 <th><?= $mostrar["telefono"]; ?></th>
-                <th scope="col" class="col text-center">
-                    <buttom 
-                        modal="modificar_empleado" 
-                        <?= rol_model::verificar_rol('m_empleado') == '1' ? 'url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user"' : 'disabled' ?> 
-                        value="<?= $mostrar["id_usuario"]; ?>" 
-                        class="btn_modal btn btn-warning bi bi-gear">
-                    </buttom>
-                </th>
-                <th scope="col" class="col text-center">
-                        <button <?= rol_model::verificar_rol('m_empleado') == '1' ?  '' : 'disabled' ?> 
 
-                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success' : 'btn-danger' ?>" > 
-                                
-                                <i class="zmdi <?= ($mostrar["estado"] === "1") ? 'zmdi-check' : 'zmdi-close' ?>"></i> 
-
-                                <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
+                <?php if (rol_model::verificar_rol('m_empleado') == '1'): ?>
+                    <th scope="col" class="col text-center">
+                        <buttom modal="modificar_empleado" url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user" value="<?= $mostrar["id_usuario"]; ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
+                    </th>
+                    <th scope="col" class="col text-center">
+                        <button class="btn bi <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle' ?>" >&nbsp;
+                            <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
                         </button>
-                </th>
+                    </th>
+                <?php endif; ?>
+
             </tr>
         <?php }
     } 
@@ -304,8 +299,6 @@ class model_user extends modeloPrincipal {
         }
         mysqli_free_result($datos); 
     }
-
-    
 
     
     /********************************************************************/ 
@@ -426,7 +419,7 @@ class model_user extends modeloPrincipal {
 
     public static function validar_usuario_existe($campos,$condicion){
         // se comprueba que no exista un registro con los mismos datos
-        modeloPrincipal::validacion_registro_existente($campos,"usuario","id_usuario = $condicion");
+        modeloPrincipal::validacion_registro_existente($campos,"usuario","$condicion");
 
     }
 

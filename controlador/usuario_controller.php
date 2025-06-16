@@ -31,7 +31,7 @@ if($modulo === "Guardar"){
     $id_rol =  modeloprincipal::limpiar_cadena($_POST["id_tipo"]);
     
     // se comprueba que no exista un registro con los mismos datos
-    model_user::validar_usuario_existe("correo","correo = '$correo'");
+    model_user::validar_usuario_existe("cedula, correo","correo = '$correo' AND cedula = '$cedula'");
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol]);
 
@@ -51,7 +51,7 @@ if($modulo === "Guardar"){
         exit();
     } 
 
-    if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ@.0-9]{11,30}",$correo)) {
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         alert_model::alert_of_format_wrong("'correo'");
         exit();
     }
@@ -61,7 +61,7 @@ if($modulo === "Guardar"){
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9-, ]{10,50}",$direccion)) {
+    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9|-|, ]{5,50}",$direccion)) {
         alert_model::alert_of_format_wrong("'dirección'");
         exit();
     }
@@ -363,6 +363,11 @@ if ($modulo === "modificar_preguntas_seguridad") {
             $respuesta_encriptada = modeloPrincipal::limpiar_mayusculas_encriptar($respuestas[$i]);
             
             $actualizar = modeloPrincipal::UpdateSQL("preguntas_secretas", "id_pregunta = ".$id_seguridad[$i].", respuesta = '$respuesta_encriptada', numero_pregunta = $numero_pregunta", "id_usuario = '$id_usuario' AND id = '".$id_preguntas[$i]."'");
+            
+            if($i >= ($cantidad_preguntas - 1)){
+
+                $actualizar = modeloPrincipal::InsertSQL("preguntas_secretas", "id_pregunta, respuesta, numero_pregunta, id_usuario", "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
+            }
             
             $numero_pregunta++;
             

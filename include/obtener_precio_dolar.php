@@ -1,12 +1,47 @@
 <?php
-
+error_reporting(E_PARSE);
+date_default_timezone_set('America/Caracas');
 function getPrice() {
     try {
-        $url = 'https://magicloops.dev/api/loop/a9be03ee-872f-4b08-9890-040ffc4bd1b4/run?request=get_price';
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        
-        return $data;
+        // Inicializar cURL
+        $ch = curl_init();
+
+        // Configurar la URL y otras opciones de cURL
+        curl_setopt($ch, CURLOPT_URL, "https://www.bcv.org.ve/");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Desactivar verificación SSL (no recomendado en producción)
+
+        // Ejecutar la solicitud
+        $response = curl_exec($ch);
+
+        // Verificar si hubo un error
+        if (curl_errno($ch)) {
+            echo 'Error en la URL: ' . curl_error($ch);
+            exit;
+        }
+
+        // Cerrar cURL
+        curl_close($ch);
+
+        // Cargar el HTML en DOMDocument
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true); // Ignorar errores de HTML
+        $dom->loadHTML($response);
+        libxml_clear_errors();
+
+        // Buscar el precio del dólar en el HTML
+        $xpath = new DOMXPath($dom);
+        $precioDolar = $xpath->query("//div[@id='dolar']//strong"); // Ajusta el XPath según la estructura del HTML
+
+        if ($precioDolar->length > 0) {
+            $precioDolar = trim($precioDolar->item(0)->nodeValue);
+            $precioDolar = str_replace(",", ".", $precioDolar); // Reemplazar coma por punto
+            $precio_calculado = mb_substr($precioDolar, 0, 6);
+            $precio_calculado = floatval($precio_calculado);
+            return $precio_calculado;
+        } else {
+            echo "No se pudo encontrar el precio del dólar.";
+        }
     } catch (Exception $error) {
         error_log('Error fetching data: ' . $error->getMessage());
         throw $error;
@@ -17,26 +52,18 @@ function getPrice() {
 try {   
     $datos['existe'] = 0;
 
-    $data = getPrice();
-
-    $price = floatval($data['usd_price_bs']);
+    $price = getPrice();
     
     if (!is_float($price)) {
-        $datos['usd_price_bs'] = 0.98;
         $datos = json_encode($datos);
         echo $datos;
         exit();
     }else {
-
-        $usd_price_bs = round($price,2);
-        $usd_price_bs = floatval($usd_price_bs);
         $datos['existe'] = 1;
-        $datos['usd_price_bs'] = $usd_price_bs;
+        $datos['usd_price_bs'] = $price;
         $datos = json_encode($datos);
         echo $datos;
     }
-
-    
 } catch (Exception $error) {
-    error_log('Failed to get price: ' . $error->getMessage());
+    error_log('Ocurrio un error al obtener el precio del dolar: ' . $error->getMessage());
 }

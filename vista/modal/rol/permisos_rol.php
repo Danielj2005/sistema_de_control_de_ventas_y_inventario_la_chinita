@@ -11,7 +11,7 @@ $nombre = $permisos['nombre'];
 
 // cantidad de vistas de inventario 
 $proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['r_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
 
 // cantidad de vistas de venta
 $venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'];
@@ -23,7 +23,7 @@ $empleado = $permisos['r_empleado'] + $permisos['m_empleado'] + $permisos['l_emp
 $rol = $permisos['r_rol'] + $permisos['m_rol'] + $permisos['l_rol'];
 // cantidad de vistas de configuración
 $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion'] + $permisos['m_cant_caracteres'] + $permisos['m_cant_simbolos'] + $permisos['m_cant_num'] + $permisos['intentos_inicio_sesion'];
-$bitacora = $permisos['v_bitacora'];
+$bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
 ?>
 <div class="container-fluid row mb-3 p-3 justify-content-around">
@@ -113,7 +113,7 @@ $bitacora = $permisos['v_bitacora'];
                         </div>
                     <?php } 
 
-                        if ($producto <= 6 && $producto >= 1) { ?>
+                        if ($producto <= 10 && $producto >= 1) { ?>
 
                             <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
                                 <div class="accordion" id="acordeon_productos">
@@ -122,13 +122,13 @@ $bitacora = $permisos['v_bitacora'];
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
                                                 Módulo Productos 
                                                 &nbsp; <!-- este comando sirve para crear un espacio entre elementos -->
-                                                <i class="bi <?= obtenerIconoPermisos($producto, 6) ?>"></i>
+                                                <i class="bi <?= obtenerIconoPermisos($producto, 10) ?>"></i>
                                             </button>
                                         </h2>
                                         <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                             <div class="accordion-body">
                                                 <ul id="" class="nav-content"> 
-                                                    <?php if ($producto == 6 ) { ?>
+                                                    <?php if ($producto == 10 ) { ?>
                                                         <li class="">
                                                             <span>Acceso Total al Módulo de Productos</span>
                                                         </li>
@@ -138,11 +138,29 @@ $bitacora = $permisos['v_bitacora'];
                                                             <li>
                                                                 <span>Registrar Nuevas Categorías</span>
                                                             </li>
+                                                        <?php } if ($permisos['m_categoria'] == 1) { ?>
+                                                            <li>
+                                                                <span>Modificar Información de Categorías</span>
+                                                            </li>
+                                                        <?php } if ($permisos['l_categoria'] == 1) { ?>
+                                                            <li>
+                                                                <span>Consultar Lista de Categorías Registradas</span>
+                                                            </li><br>
                                                         <?php } 
                                                             if ($permisos['r_presentacion'] == 1) { ?>
                                                             <li>
+                                                                <span>Modificar Información de Presentaciones</span>
+                                                            </li>
+                                                        <?php } 
+                                                            if ($permisos['m_presentacion'] == 1) { ?>
+                                                            <li>
                                                                 <span>Registrar Nuevas Presentaciones</span>
                                                             </li>
+                                                        <?php } 
+                                                            if ($permisos['l_presentacion'] == 1) { ?>
+                                                            <li>
+                                                                <span>Consultar Lista de Presentaciones Registradas</span>
+                                                            </li><br>
                                                         <?php } 
                                                             if ($permisos['r_productos'] == 1) { ?>
                                                             <li>
@@ -152,7 +170,7 @@ $bitacora = $permisos['v_bitacora'];
                                                             if ($permisos['l_productos'] == 1) { ?>
                                                             <li>
                                                                 <span>Consultar Lista de Productos Registrados</span>
-                                                            </li>
+                                                            </li><br>
                                                         <?php } 
                                                             if ($permisos['r_entrada'] == 1) { ?>
                                                             <li>
@@ -525,7 +543,7 @@ $bitacora = $permisos['v_bitacora'];
                                 </div>
                             </div>
                         <?php } 
-                            if ($bitacora == 1) { ?>
+                            if ($bitacora == 2 || $bitacora == 1) { ?>
                                 <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
                                     
                                     <div class="accordion" id="acordeon_bitacora">
@@ -534,13 +552,13 @@ $bitacora = $permisos['v_bitacora'];
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="true" aria-controls="collapseOne">
                                                     Bitácora
                                                     &nbsp; <!-- este comando sirve para crear un espacio entre elementos -->
-                                                    <i class="bi <?= obtenerIconoPermisos($bitacora, 1) ?>"></i>
+                                                    <i class="bi <?= obtenerIconoPermisos($bitacora, 2) ?>"></i>
                                                 </button>
                                             </h2>
                                             <div id="bitacoraCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_bitacora">
                                                 <div class="accordion-body">
                                                     <ul id="" class="nav-content"> 
-                                                        <?php if ($bitacora == 1 ) { ?>
+                                                        <?php if ($bitacora == 2 ) { ?>
                                                             <li class="">
                                                                 <span>Acceso Total a la Bitácora</span>
                                                             </li>
@@ -549,6 +567,10 @@ $bitacora = $permisos['v_bitacora'];
                                                             <?php if ($permisos['v_bitacora'] == 1) { ?>
                                                                 <li>
                                                                     <span>Consultar Registros de la Bitácora</span>
+                                                                </li>
+                                                            <?php } if ($permisos['m_bitacora'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Movimientos de un Usuario en la Bitácora</span>
                                                                 </li>
                                                             <?php } ?>
                                                         </ul>

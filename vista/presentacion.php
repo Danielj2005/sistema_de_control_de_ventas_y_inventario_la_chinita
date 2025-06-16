@@ -88,7 +88,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 											<div class="col-12 mb-3">
 												<label class="col-form-label">Descripción</label>
 												<div class="col-sm-10">
-													<input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,250}" required="" placeholder="ingresa la descripción" class="form-control" id="id" name="descripcion">
+													<input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,250}" required="" placeholder="ingresa la descripción" class="form-control" id="id" name="descripcion">
 												</div>
 											</div>
 										</div>

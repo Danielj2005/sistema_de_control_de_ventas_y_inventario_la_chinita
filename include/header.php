@@ -18,7 +18,9 @@
 
   <?php
     $id_usuario = $_SESSION['id_usuario'];
+    
     $precio_dolar_actual = modeloPrincipal::obtener_precio_dolar();
+
     $_SESSION['dolar'] = $precio_dolar_actual;
 
     $tiempo_config = modeloPrincipal::obtener_tiempo_inactividad();

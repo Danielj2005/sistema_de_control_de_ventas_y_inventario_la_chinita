@@ -64,58 +64,54 @@ function SendFormAjax() {
                 data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
                 processData: false, // Evita que jQuery procese los datos
                 contentType: false, // Evita que jQuery establezca el tipo de contenido
-                beforeSend: function(){
-                    $('.msjFormSend').html(MsjSending);
-                },
                 error: function() {
                     $('.msjFormSend').html(MsjErrorSending);
-                },
+                }, 
                 success: function (data) {
                     $('.msjFormSend').html(data);
+                    $('.loader').removeClass('spinner-border');
                 }
             });
             return false;
         } else {
 
             if (title_alerta[`${type_form}`] == false && text_alerta[`${type_form}`] == false && type_alerta[`${type_form}`] == false) {
-                swal("¡Ocurrio un error inesperado", "No se reconoce el tipo de formulario: '"+ type_form +"'", "error");
+                Swal.fire("¡Ocurrio un error inesperado", "No se reconoce el tipo de formulario: '"+ type_form +"'", "error");
                 return;
             }
 
-            swal({
+            Swal.fire({
                 title: title_alerta[`${type_form}`],
                 text: text_alerta[`${type_form}`],
-                type: type_alerta[`${type_form}`],
+                icon: type_alerta[`${type_form}`],
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6", // Default SweetAlert2 blue
                 confirmButtonText: "Sí, continuar",
                 cancelButtonText: "No, cancelar",
                 animation: "slide-from-top"
-            },
-            function(isConfirm){
-                if (isConfirm) {
+            }).then((result) => {
+                if (result.isConfirmed) {
                     // el usuario confirme la acción
                     $.ajax({
-                    type: metodo,
-                    url: peticion,
-                    data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
-                    processData: false, // Evita que jQuery procese los datos
-                    contentType: false, // Evita que jQuery establezca el tipo de contenido
-                    error: function () {
-                        $('.msjFormSend').html(MsjErrorSending);
-                    },
-                    process: function (){
-                        $('.msjFormSend').html(MjProcesando);
-                    }, 
-                    success: function (data) {
-                        $('.msjFormSend').html(data);
-                    }
+                        type: metodo,
+                        url: peticion,
+                        data: formData, // Usa el objeto FormData en lugar de $(this).serialize(),
+                        processData: false, // Evita que jQuery procese los datos
+                        contentType: false, // Evita que jQuery establezca el tipo de contenido
+                        error: function () {
+                            $('.msjFormSend').html(MsjErrorSending);
+                        },
+                        process: function (){
+                            $('.msjFormSend').html(MjProcesando);
+                        }, 
+                        success: function (data) {
+                            $('.msjFormSend').html(data);
+                        }
                     });
                 }
             });
         }
     });
-
 }
 
 $(document).ready(function () {

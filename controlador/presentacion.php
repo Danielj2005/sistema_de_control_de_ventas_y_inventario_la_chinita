@@ -30,12 +30,12 @@ if($modulo === "Guardar"){
     }
 
     if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre)) {
-        alert_model::alert_of_format_wrong("'nombre'");
+        alert_model::alert_of_format_wrong("nombre");
         exit();
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,250}",$descripcion)) {
-        alert_model::alert_of_format_wrong("'descripción'");
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,250}",$descripcion)) {
+        alert_model::alert_of_format_wrong("descripción");
         exit();
     }
     // se registran los datos del presentación

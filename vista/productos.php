@@ -53,20 +53,30 @@ if ($rol == 1 || $rol == 2) {
                   </div>
                 </div>
                 <hr>
+                    
+                
                 <div class="card-body pb-0">
+                  <div  class="bg-seondary" style="width: fit-content;">
+                    <label class="">El significado del texto de color: </label>
+                    <ul id="" class="ps-3 nav-content list-unstyled">
+                      <li> <label> <span class=""> Negro: Cantidad buena de productos en inventario. </span> </label> </li>
+                      <li> <label> <span class="text-warning"> Amarillo: Cantidad media de productos en inventario. </span> </label> </li>
+                      <li> <label> <span class="text-danger"> Rojo: Cantidad baja de productos en inventario. </span> </label> </li>
+                    </ul>
+                  </div>
+
                   <h5 class="card-title">Lista de Productos</h5>
                   <div class="table table-responsive">
                     <table class="table table-borderless table-stripped" id="example">
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
-                          <th class="text-center col" scope="col">CÓDIGO</th>
-                          <th class="text-center col" scope="col">NOMBRE</th>
-                          <th class="text-center col" scope="col">PRESENTACIÓN</th>
-                          <th class="text-center col" scope="col">CATEGORÍA</th>
-                          <th class="col text-center" scope="col">PRECIO DE VENTA EN $</th>
-                          <th class="text-center col" scope="col">STOCK</th>
-                          <th class="text-center col" scope="col">ESTADO</th>
+                          <th class="text-center col" scope="col">Código</th>
+                          <th class="text-center col" scope="col">Producto</th>
+                          <th class="text-center col" scope="col">Presentación</th>
+                          <th class="text-center col" scope="col">Categoría</th>
+                          <th class="col text-center" scope="col">Precio de venta en $</th>
+                          <th class="text-center col" scope="col">Stock</th>
                         </tr>
                       </thead>
     

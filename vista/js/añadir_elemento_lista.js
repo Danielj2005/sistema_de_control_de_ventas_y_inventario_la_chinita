@@ -10,10 +10,9 @@ function quitar_elemento(id){
 }
 
 function validar_existencia(name_select,id_tr) {
-
     const rows = document.querySelectorAll(`#lista_${name_select} tr`);
     let existe = false;
-    
+
     rows.forEach(row => {
         if (row.id == `tr_${name_select}_${id_tr}`) {
             existe = true;
@@ -23,50 +22,34 @@ function validar_existencia(name_select,id_tr) {
     return existe;
 }
 
-
 btn_add.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
     
-        const get_url = () => {
-            let url = document.location.pathname.split("/");
-            url = url[3].split(".php");
-            url = url[0]
-            return url;
-        };
-
-        let path = btn.getAttribute('path');
-
-        // alert(path);
-
         let URL;
-
-        const URL_VENTA = {
-            '1' : '../include/servicios_venta.php',
-            '2' : '../include/productos_venta.php'
-        };
-
+        
         const URLS = {
             'registrar_entrada' : '../include/tabla_productos.php',
             'agregar_servicio' : '../include/productos_servicio.php'
         };
 
         if (get_url() == 'generar_venta') {
-            if (path == 1) {
-                URL = URL_VENTA[path];
-            } else if (path == 2) {
-                URL = URL_VENTA[path];
+            if (btn.name == 'btn_add_servicio') {
+
+                URL = '../include/servicios_venta.php';
+
+            } else if (btn.name == 'btn_producto') {
+
+                URL = '../include/productos_venta.php';
             }
         }else{
             URL = URLS[get_url()];
         }
 
-
         let id_option_selected;
         let name_select;
 
         selects.forEach(select => {
-
             if (e.target.name.includes(`${select.name}`)) {
                 id_option_selected = select.value
                 name_select = select.name;
@@ -80,18 +63,15 @@ btn_add.forEach(btn => {
             url:  URL,
             type:  'post',
             success:function(valores){
-
                 if (!validar_existencia(name_select,id_option_selected)) {
-
                     $(`#lista_${name_select}`).append(valores);
                 } else {
-                    swal("El producto ya existe en la lista", "Por favor, elija otro producto", "warning");
+                    Swal.fire("El producto ya existe en la lista", "Por favor, elija otro producto", "warning");
                 }
             },
             error: function(){
-                swal("ocurrio un error!","la solicitud no pudo ser procesada","error");
+                Swal.fire("ocurrio un error!","la solicitud no pudo ser procesada","error");
             }
         });
     });
-
 });

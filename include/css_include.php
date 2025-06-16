@@ -1,10 +1,11 @@
 
 <!-- Favicons -->
 <link href="img/logo.png" rel="icon">
-<!-- sweet-alert -->
-<link href="./css/sweet-alert.css" rel="stylesheet">
 <!-- bootstrap -->
 <link href="./css/bootstrap.min.css" rel="stylesheet">
+<!-- sweet-alert -->
+<!-- <link href="./css/sweet-alert.css" rel="stylesheet"> -->
+<link href="./css/sweetalert2.min.css" rel="stylesheet">
 
 <!-- estilos custom -->
 <link href="./css/main.css" rel="stylesheet">
@@ -29,23 +30,47 @@
     .valid {
         border: var(--bs-green) 2px solid;
     }
-</style>
-<style>
-    .invoice-modal {
-        max-width: 600px;
+    .glassmorph {
+        background-color: rgba(0, 0, 0, 0.50);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5);
+        -moz-backdrop-filter: blur(10px);
     }
-    .invoice-header {
-        text-align: center;
-        margin-bottom: 20px;
+
+    .container {
+        margin-top: 4em;
+        margin-bottom: 4em;
     }
-    .invoice-header h2 {
-        margin: 0;
+
+    @keyframes loading-skeleton {
+        from {
+            opacity: .4;
+        }
+        to {
+            opacity: 1;
+        }
     }
-    .invoice-details {
-        margin-bottom: 20px;
-    }
-    .invoice-footer {
-        text-align: right;
-        margin-top: 20px;
+    .loading-skeleton {
+        pointer-events: none;
+        animation: loading-skeleton 1s infinite alternate;
+        
+        img {
+            filter: grayscale(100) contrast(0%) brightness(1.8);
+        }
+        h1, h2, h3, h4, h5, h6,
+        p, li,
+        .btn,
+        label,
+        .form-control {
+            color: transparent;
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #eee;
+            border-color: #eee;
+
+            &::placeholder {
+                color: transparent;
+            }
+        }
     }
 </style>

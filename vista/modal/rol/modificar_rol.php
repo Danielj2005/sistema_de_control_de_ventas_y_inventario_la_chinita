@@ -10,7 +10,7 @@ $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM rol WHE
 $nombre = $permisos['nombre'];
 // cantidad de vistas de inventario
 $proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['r_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
 // cantidad de vistas de venta
 $venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'] + $permisos['est_venta'];
 // cantidad de vistas de menu
@@ -21,6 +21,7 @@ $empleado = $permisos['r_empleado'] + $permisos['m_empleado'] + $permisos['l_emp
 $rol = $permisos['r_rol'] + $permisos['m_rol'] + $permisos['l_rol'];
 // cantidad de vistas de configuración
 $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion'] + $permisos['m_cant_caracteres'] + $permisos['m_cant_simbolos'] + $permisos['m_cant_num'] + $permisos['intentos_inicio_sesion'];
+$modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
 ?>
 <form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update" id="SendForm">
@@ -53,7 +54,6 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
     
             <hr>
             <hr>
-            <!-- vistas de proveedores -->
             
             <div class="col-12 col-md-12 mb-3">
                 <h4 class="mb-3">Inventario</h4>
@@ -61,6 +61,8 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                 <hr>
     
                 <div class="row p-0 justify-content-around">
+                    <!-- vistas de proveedores -->
+                    
                     <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
                         <div class="accordion" id="acordeon_proveedores">
                             <div class="accordion-item">
@@ -109,14 +111,14 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Productos &nbsp;<i class="bi <?= obtenerIconoPermisos($producto, 6) ?>"></i>
+                                        Módulo Productos &nbsp;<i class="bi <?= obtenerIconoPermisos($producto, 10) ?>"></i>
                                     </button>
                                 </h2>
                                 <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                     <div class="accordion-body">
                                         <ul id="" class="nav-content list-unstyled">
                                             <li>
-                                                <input class="vista" type="checkbox" <?= $producto == 6 ? 'checked' : '' ?> value="productos">
+                                                <input class="vista" type="checkbox" <?= $producto == 10 ? 'checked' : '' ?> value="productos">
                                                 Acceso Total al Módulo de Productos
                                             </li>
     
@@ -125,10 +127,26 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                                                     <input name="r_categoria" class="productos" <?= $permisos['r_categoria'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                                                     <span>Registrar Nuevas Categorías</span>
                                                 </li>
+                                                <li>
+                                                    <input class="productos" type="checkbox" <?= $permisos['m_categoria'] == 1 ? 'checked' : '' ?> value="1" name="m_categoria">
+                                                    <span>Modificar Información de Categorías</span>
+                                                </li>
+                                                <li>
+                                                    <input class="productos" type="checkbox" <?= $permisos['l_categoria'] == 1 ? 'checked' : '' ?> value="1" name="l_categoria">
+                                                    <span>Consultar Lista de Categorías Registradas</span>
+                                                </li>
                                                 <br>
                                                 <li>
                                                     <input name="r_presentacion" class="productos" <?= $permisos['r_presentacion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
                                                     <span>Registrar Nuevas Presentaciones</span>
+                                                </li>
+                                                <li>
+                                                    <input class="productos" type="checkbox" <?= $permisos['m_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="m_presentacion">
+                                                    <span>Modificar Información de Presentaciones</span>
+                                                </li>
+                                                <li>
+                                                    <input class="productos" type="checkbox" <?= $permisos['l_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="l_presentacion">
+                                                    <span>Consultar Lista de Presentaciones Registradas</span>
                                                 </li>
                                                 <br>
                                                 <li>
@@ -327,7 +345,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                                 <div class="accordion-body">
                                     <ul id="" class="nav-content list-unstyled">
                                         <li>
-                                            <input class="vista" type="checkbox" <?= $empleado == 3 ? 'checked' : '' ?> value="empleados">
+                                            <input class="vista" type="checkbox" <?= $empleado == 3 ? 'checked' : '' ?> value="empleado">
                                             Acceso Total al Módulo de Empleados
                                         </li>  
                                         <ul id="" class="ps-3 nav-content list-unstyled">
@@ -351,7 +369,6 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                     </div>
     
                     <!-- módulo de roles -->
-                    
                     
                     <div class="col-12 col-sm-12 col-md-4 mb-3 p-2">
                         <div class="accordion" id="acordeon_roles">
@@ -458,7 +475,7 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Bitácora &nbsp;<i class="bi <?= obtenerIconoPermisos($permisos['v_bitacora'], 1) ?>"></i>
+                                        Módulo Bitácora &nbsp;<i class="bi <?= obtenerIconoPermisos($modulo_bitacora , 2) ?>"></i>
                                     </button>
                                 </h2>
                             </div>
@@ -466,13 +483,17 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
                                 <div class="accordion-body">
                                     <ul id="" class="nav-content list-unstyled">
                                         <li>
-                                            <input class="vista" type="checkbox" <?= $permisos['v_bitacora'] == 1 ? 'checked' : '' ?> value="bitacora">
+                                            <input class="vista" type="checkbox" <?= $modulo_bitacora == 2 ? 'checked' : '' ?> value="bitacora">
                                             Acceso Total al Módulo de Bitácora
                                         </li>  
                                         <ul id="" class="ps-3 nav-content list-unstyled">
                                             <li>
                                                 <input name="v_bitacora" class="bitacora" <?= $permisos['v_bitacora'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Ver bitácora</span>
+                                                <span>Consultar Registros de la Bitácora</span>
+                                            </li>
+                                            <li>
+                                                <input name="m_bitacora" class="bitacora" <?= $permisos['m_bitacora'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                                                <span>Consultar Movimientos de un Usuario en la Bitácora</span>
                                             </li>
                                         </ul>
                                     </ul>

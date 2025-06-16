@@ -48,7 +48,7 @@ if ($rol == 1) {  ?>
                 <div class="card-body pb-0">
                   <h5 class="card-title">Datos del proveedor</h5> 
                   <form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="id_dolar" id="dolar" value="<?= $id_precio_dolar_actual; ?>">
+                    <input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
                     <input type="hidden" name="modulo" value="Guardar">
                     <!-- datos del proveedor al que se le compró -->
                     <div class="col-12 col-sm-6 col-md-6 mb-3">
@@ -117,7 +117,7 @@ if ($rol == 1) {  ?>
                                 <th class="col text-center" scope="col">Cantidad</th>
                                 <th class="col text-center" scope="col">Precio por unidad e $</th>
                                 <th class="col text-center" scope="col">Precio por unidad en bs</th>
-                                <th class="col text-center" scope="col">Porcentaje de ganancia $</th>
+                                <th class="col text-center" scope="col">Precio de venta en $</th>
                                 <th class="col text-center" scope="col">Eliminar</th>
 
                               </tr>
@@ -154,8 +154,8 @@ if ($rol == 1) {  ?>
                       <table class="table table-striped table-borderless overflow-x-auto">
                         <tbody>
                           <tr>
-                            <td class="fs-4 text-success text-center col">Total en $: <strong> <span id="totalDolar">0 </span> $</strong></td> 
-                            <td class="fs-4 text-success text-center col">Total en bs: <strong> <span id="totalBolivar">0 </span> bs</strong></td> 
+                            <td class="fs-4 text-success text-center col">Total en $: <strong> <span id="totalDolar">0 </span> </strong></td> 
+                            <td class="fs-4 text-success text-center col">Total en bs: <strong> <span id="totalBolivar">0 </span> </strong></td> 
                           </tr>
                         </tbody>
                       </table>
@@ -195,8 +195,6 @@ if ($rol == 1) {  ?>
         </div>
       </div>
 
-			<!-- lógica de los modales -->
-			<script src="./js/modal.js"></script>
 			<script src="./js/añadir_elemento_lista.js"></script>
 			<script src="./js/convertir_dolar_bs.js"></script>
       <?php

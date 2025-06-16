@@ -4,8 +4,17 @@ function buscar_datos_cliente(){
     let nacionalidad = document.getElementById("nacionalidad").value;
     let cedula = document.getElementById("cedula").value;
     
+    let input_id_cliente = $("#id_cliente");
+    let input_cedula = $("#cedula");
+    let input_nombre = $("#nombre");
+    let input_telefono = $("#telefono");
+
+    let mensaje_cedula = $("#mensaje_cedula");
+    let mensaje_nombre = $("#mensaje_nombre");
+    let mensaje_telefono = $("#mensaje_telefono");
+
     if (cedula == "") {
-        swal("Atención!","El campo cédula se encuentra vacío, por favor asegurate de haber escrito una cédula válida antes de poder continuar","warning");
+        Swal.fire("Atención!","El campo cédula se encuentra vacío, por favor asegurate de haber escrito una cédula válida antes de poder continuar","warning");
     }else{
 
         let parametros = {
@@ -21,29 +30,25 @@ function buscar_datos_cliente(){
             success: function (datos) {
                 if (datos.existe == 1) {
                     
-                    let id_cliente = $("#id_cliente");
-                    let cedula = $("#cedula");
-                    let nombre = $("#nombre");
-                    let telefono = $("#telefono");
-                    let mensaje_cedula = $("#mensaje_cedula");
-                    let mensaje_nombre = $("#mensaje_nombre");
-                    let mensaje_telefono = $("#mensaje_telefono");
+                    input_id_cliente.val(datos.id_cliente);
+                    input_nombre.val(datos.nombre);
+                    input_telefono.val(datos.telefono);
 
-                    id_cliente.val(datos.id_cliente);
-                    nombre.val(datos.nombre);
-                    telefono.val(datos.telefono);
+                    mensaje_cedula.hasClass('d-none') ? '' : mensaje_cedula.addClass('d-none');
+                    mensaje_nombre.hasClass('d-none') ? '' : mensaje_nombre.addClass('d-none');
+                    mensaje_telefono.hasClass('d-none') ? '' : mensaje_telefono.addClass('d-none');
 
-                    mensaje_cedula.hasClass('d-none') ? '' : $("#mensaje_cedula").addClass('d-none');
-                    mensaje_nombre.hasClass('d-none') ? '' : $("#mensaje_nombre").addClass('d-none');
-                    mensaje_telefono.hasClass('d-none') ? '' : $("#mensaje_telefono").addClass('d-none');
-
-                    cedula.hasClass('invalid') ? cedula.removeClass('invalid') && cedula.addClass('valid') : cedula.addClass('valid');
-                    nombre.hasClass('invalid') ? nombre.removeClass('invalid') && nombre.addClass('valid') : nombre.addClass('valid');
-                    telefono.hasClass('invalid') ? telefono.removeClass('invalid') && telefono.addClass('valid') : telefono.addClass('valid');
-                    
-
+                    input_cedula.hasClass('invalid') ? input_cedula.removeClass('invalid') && input_cedula.addClass('valid') : input_cedula.addClass('valid');
+                    input_nombre.hasClass('invalid') ? input_nombre.removeClass('invalid') && input_nombre.addClass('valid') : input_nombre.addClass('valid');
+                    input_telefono.hasClass('invalid') ? input_telefono.removeClass('invalid') && input_telefono.addClass('valid') : input_telefono.addClass('valid');
                 }else{
-                    swal("Atención!","No se encontro un cliente registrado con esa cédula, por favor llenar todos los capos para poder continuar","warning");
+                    Swal.fire("Atención!","No se encontro un cliente registrado con esa cédula, por favor llenar todos los capos para poder continuar","warning");
+                    // se limpian los campos de la información del cliente
+                    document.querySelectorAll('#datos_cliente input').forEach((input) => {input.value = ''}); 
+                    // se cambian los colores de los campos de la información del cliente
+                    input_cedula.hasClass('invalid') ? input_cedula.removeClass('invalid') : input_cedula.removeClass('valid');
+                    input_nombre.hasClass('invalid') ? input_nombre.removeClass('invalid') : input_nombre.removeClass('valid');
+                    input_telefono.hasClass('invalid') ? input_telefono.removeClass('invalid') : input_telefono.removeClass('valid');
                 }
             }
         });

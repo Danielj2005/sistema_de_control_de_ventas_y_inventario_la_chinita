@@ -31,17 +31,17 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
                 <input type="hidden" name="id_producto[]" value="<?= $mostrar["id_producto"] ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" class="form-control cantidad" name="cantidad[]" onblur="calcular_total ();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= $mostrar["id_producto"] ?>" required>
+                <input type="number" min="0" max="2000" class="form-control cantidad" name="cantidad[]" onblur="calcular_total();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= $mostrar["id_producto"] ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" class="form-control precio_unidad_dolar" onblur="convertir_usd_a_bs(<?= $mostrar['id_producto'] ?>);calcular_total ();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= $mostrar['id_producto'] ?>" required>
+                <input type="text" maxlength="8" class="form-control precio_unidad_dolar" onblur="convertir_usd_a_bs(<?= $mostrar['id_producto'] ?>); calcular_total();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= $mostrar['id_producto'] ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" readonly class="bg-secondary-subtle form-control precio_unidad_bs" name="precio_unidad_bs[]" placeholder="ingresa el Precio por unidad en bs" id="precio_unidad_bs_<?= $mostrar["id_producto"] ?>" required>
+                <input type="number" min="0" max="10000" readonly class="bg-secondary-subtle form-control precio_unidad_bs" name="precio_unidad_bs[]" placeholder="ingresa el Precio por unidad en bs" id="precio_unidad_bs_<?= $mostrar["id_producto"] ?>" required>
             </td>
             <td class="col text-center" scope="col">
                 <div class="col-md-4 input-group">
-                    <select class="input-group-text" id="porcentaje_ganancia" name="porcentaje_ganancia" required>
+                    <!-- <select class="input-group-text" id="porcentaje_ganancia" name="porcentaje_ganancia" required>
                         <option value="V-">30%</option>
                         <option value="R-">35%</option>
                         <option value="J-">40%</option>
@@ -49,8 +49,8 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
                         <option value="E-">50%</option>
                         <option value="E-">55%</option>
                         <option value="E-">60%</option>
-                    </select>
-                    <input type="text" class="bg-dark-subtle input form-control" name="precio_venta_dolar[]" placeholder="ingresa el Precio de venta en $" id="precio_venta_dolar_<?= $mostrar["id_producto"] ?>" required>
+                    </select> -->
+                    <input type="number" min="0" max="10000" readonly class="bg-secondary-subtle input form-control" name="precio_venta_dolar[]" placeholder="ingresa el Precio de venta en $" id="precio_venta_dolar_<?= $mostrar["id_producto"] ?>" required>
                 </div>
             </td>
             

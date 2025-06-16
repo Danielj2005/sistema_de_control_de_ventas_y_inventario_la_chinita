@@ -89,7 +89,6 @@ class producto_model extends modeloPrincipal {
                 <td class="text-center"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
                 <td class="text-center"><?= $mostrar["stock"]; ?></td>
-                <td class="text-center <?= ($mostrar["estatus"] == '1') ? 'text-success':'text-danger'; ?>"><?= ($mostrar["estatus"] == '1') ? 'Activo':'Inactivo'; ?></td>
             </tr>
         <?php } 
     }
@@ -97,14 +96,16 @@ class producto_model extends modeloPrincipal {
 
     public static function options($estado = "") {
         if ($estado == "1") {
-            $estado = "WHERE P.estatus = 1 AND P.stock > 0";
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
+                P.stock
+                FROM producto AS P 
+                INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id WHERE P.estatus = 1 AND P.stock > 0");
         }else {
-            $estado = "";
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
+                P.stock
+                FROM producto AS P 
+                INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id");
         }
-        $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
-            P.stock
-            FROM `producto` AS P 
-            INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id $estado");
         // se guardan los datos en un array y se imprime
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
