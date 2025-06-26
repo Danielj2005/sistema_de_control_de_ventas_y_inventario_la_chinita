@@ -1,11 +1,11 @@
 **********************************************************************
 *************** faltante por hacerle al sistema **********************
 **********************************************************************
-- validar el estado del rol al iniciar sesion
+- validar el estado del rol al iniciar sesion (¡listo!)
 - verificar reportes en pdf  
 - crear reporte de bitacora por usuarios
-- rediseñar lña interfaz de configuración
-- 
+- rediseñar la interfaz de configuración
+- automatizar el scrapp del dolar
 - 
 
 

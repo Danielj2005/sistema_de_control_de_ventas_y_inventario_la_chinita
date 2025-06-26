@@ -31,7 +31,7 @@ if ($respuesta_captcha !== $captcha) {
 }
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario","U.correo = '$usuario'");
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
 
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
@@ -67,14 +67,14 @@ if ($contraseña !== $contraseña_usuario) {
 
 /** se verifica si el usuario esta activo **/
 if ($datos_usuario["estado"] == 0) {
-    alert_model::alert_reload('¡Cuenta inactiva!','Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.','warning');
+    alert_model::alerta_simple_reset_de_formularios('¡Cuenta inactiva!','Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.','warning');
     exit();
 }
 
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["bloqueado"] == 1) {
-    alert_model::alert_reload('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alerta_simple_reset_de_formularios('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
@@ -82,14 +82,21 @@ if ($datos_usuario["bloqueado"] == 1) {
 /** se verifica si el usuario esta suspendido: 
  * la cuenta es suspendida cuando se modifica su permiso para el inicio de sesión */
 if ($datos_usuario["suspender"] == 1) {
-    alert_model::alert_reload('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alerta_simple_reset_de_formularios('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    exit();
+}
+
+/** se verifica si el estado del rol del usuario esta inactivo: 
+ * la cuenta es suspendida cuando se modifica su permiso para el inicio de sesión */
+if ($datos_usuario["estado_rol"] == 0) {
+    alert_model::alerta_simple_reset_de_formularios('¡Rol Desactivado!','El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.','warning');
     exit();
 }
 
 /** se verifica si el usuario tiene una sesion activa **/
 if ($datos_usuario["sesion_activa"] == 1) {
-    alert_model::alert_reload('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
+    alert_model::alerta_simple_reset_de_formularios('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     session_unset(); // remueve o elimina las variables de sesion
     session_destroy(); // Destruye la sesión actual
     exit();
