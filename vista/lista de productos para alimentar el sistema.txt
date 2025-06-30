@@ -1,7 +1,6 @@
 **********************************************************************
 *************** faltante por hacerle al sistema **********************
 **********************************************************************
-
 - verificar reportes en pdf (listo!)
 - refactorizar reportes en pdf
 - crear reporte de bitacora por usuarios
@@ -13,4 +12,3 @@
 - crear y modificar la tabla en base de datos de productos para tener los nombre aparte
 - crear funciones para agregar dinamicamente los datos a los select de las cards
 - crear registro de productos inexistentes en la bd
-
