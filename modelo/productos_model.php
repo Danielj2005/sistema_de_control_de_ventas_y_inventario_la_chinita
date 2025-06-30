@@ -32,11 +32,13 @@ class producto_model extends modeloPrincipal {
     }
 
     public static function obtener_todos_los_datos(){
-        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar,
-            P.stock, P.estatus, C.nombre, PS.nombre as nombre_presentacion 
+        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
+            C.nombre, PS.nombre as nombre_presentacion,
+            M.nombre as marca
             FROM  producto AS P 
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN marca AS M ON M.id = P.id_marca
             ORDER BY P.id_producto ASC");
 
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
@@ -77,17 +79,20 @@ class producto_model extends modeloPrincipal {
     public static function lista(){
         $consulta = self::obtener_todos_los_datos();
         // se guardan los datos en un array y se imprime
-        
-        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
-            <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
+        // if($mostrar["stock"] == "0"){
+        //     echo 'text-danger';
+        // }else if ($mostrar["stock"] < "5") { 
+        //     echo 'text-warning';
+        // } 
+
+        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+            <tr>
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
-                <th class="text-center"><?= $mostrar["nombre_producto"]; ?></th>
+                <th class="text-center"><?= $mostrar["marca"]; ?></th>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre"]; ?></td>
-                <td class="text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>
-                <td class="text-center"><?= $mostrar["stock"]; ?></td>
             </tr>
         <?php } 
     }
@@ -95,13 +100,11 @@ class producto_model extends modeloPrincipal {
 
     public static function options($estado = "") {
         if ($estado == "1") {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
-                P.stock
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre
                 FROM producto AS P 
                 INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id WHERE P.estatus = 1 AND P.stock > 0");
         }else {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre,
-                P.stock
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, PS.nombre
                 FROM producto AS P 
                 INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id");
         }

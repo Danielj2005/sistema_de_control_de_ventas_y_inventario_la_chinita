@@ -128,7 +128,6 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 									<div class="col-12 mb-4">
 										<button form="form_respuestas" type="submit" class="btn btn-success">Verificar</button>
 									</div>
-						
 									<div class="col-12 mb-4">
 										<a href="../index.php" class="btn btn-link text-light" title="Volver">Volver</a>
 									</div>
@@ -180,7 +179,6 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 											<a href="../index.php" class="btn btn-link" title="Volver">Cancelar</a>
 										</div>
 									</div>
-
 								</form>
 							</div>
 						</div>
@@ -191,10 +189,7 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 		<div class="msjFormSend"></div>
 
 		<?php
-			
-			/** se verifica si el usuario esta bloqueado: 
-			 * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
-
+			/** se verifica si el usuario esta bloqueado: * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 			if ($datos_usuario["bloqueado"] == 1) {
 				alert_model::alert_redirect("¡Cuenta bloqueada!","Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, por favor contacte al administrador del sistema para restablecer el acceso.","warning","./vista/recuperar_contraseña.php");
 				exit();
