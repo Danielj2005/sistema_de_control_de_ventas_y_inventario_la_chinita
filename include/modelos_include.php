@@ -20,7 +20,7 @@ include_once "../modelo/cliente_model.php"; // se incluye el modelo cliente
 include_once "../modelo/servicio_model.php"; // se incluye el modelo servicio
 include_once "../modelo/venta_model.php"; // se incluye el modelo venta
 
-
+include_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 
 
 

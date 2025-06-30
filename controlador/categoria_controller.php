@@ -12,11 +12,15 @@ if (!isset($_POST["modulo"])) {
 }
 
 if($modulo === "Guardar"){
-    $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre']);
-    $nombre = ucfirst(strtolower($nombre));
+    /* 
+        Se recibe el nombre del categoría.
+        se limpia la cadena con la función limpiar_cadena().
+        se convierte a minúsculas con la función strtolower().
+        luego se pone la primera letra de cada palabra en mayúscula con la función ucwords().
+    */
+    $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre'])));
     
-    // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$nombre]);
+    modeloPrincipal::validar_campos_vacios([$nombre]); // Se verifica que no se hayan recibido campos vacíos.
 
     // se comprueba que no exista un registro con los mismos datos
     if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM categoria WHERE nombre = '$nombre'")) > 0){
@@ -29,7 +33,6 @@ if($modulo === "Guardar"){
         alert_model::alert_of_format_wrong("'nombre'");
         exit();
     }
-    
     
     // se registran los datos del categoría
     try {

@@ -1,15 +1,13 @@
 <?php
 session_start();
-include_once("../../config/ConfigServer.php");
-include_once("../../modelo/modeloPrincipal.php");
-require('fpdf/fpdf.php');
+include_once "../../modelo/modeloPrincipal.php";
+require 'fpdf/fpdf.php';
 
 date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
     function Header(){
         $this->Image('../img/logo.png',320,10,35,35,'PNG');
-        
         $this->setY(10);
         $this->setX(10);
         $this->SetFont('times', 'B', 13);
@@ -48,11 +46,8 @@ class PDF extends FPDF{
         $this->SetY(-15);
         $this->Line(5, 485,390,485);
         $this->SetY(-10);
-
-        $this->Cell(400,5,utf8_decode("© Todos los derechos reservados."),0,0,"C");
-            
+        $this->Cell(400,5,utf8_decode("© Todos los derechos reservados."),0,0,"C");       
     }
-
 }
 
 $pdf = new PDF();
@@ -63,16 +58,20 @@ $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-$consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_compra_dolar, 
-    P.precio_compra_bs, PROV.nombre, E.stock_comprado, E.fecha_entrada, C.nombre AS nombre_categoria,
-    ROUND(P.precio_compra_bs / P.precio_compra_dolar,2 ) AS tasa,
-    PS.nombre as nombre_presentacion
-    FROM entrada AS E 
-    INNER JOIN producto AS P ON P.id_producto = E.id_producto 
+$consulta = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, D.precio_unitario_dolar, 
+    D.precio_unitario_bs, E.fecha_entrada, C.nombre AS nombre_categoria,
+    ROUND(D.precio_unitario_bs / D.precio_unitario_dolar, 2 ) AS tasa,
+    PS.nombre as nombre_presentacion,
+    D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, 
+    D.precio_unitario_bs AS precio_bs, D.total_dolar, D.total_bs,
+    PROV.nombre AS nombre_proveedor
+    FROM detalles_entrada AS D 
+    INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
+    INNER JOIN producto AS P ON P.id_producto = D.id_producto 
     INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
-    ORDER BY E.fecha_entrada DESC");
+    ORDER BY E.fecha_entrada DESC;");
 
 // en caso de que no se encuentren proveedores registrados
 
@@ -117,7 +116,7 @@ $pdf->Cell(40, 5, utf8_decode('CATEGORÍA'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('CANTIDAD COMPRADA'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRECIO DE COMPRA $'),'B',0,'C',0);
 $pdf->Cell(50, 5, utf8_decode('PRECIO DE COMPRA BS'),'B',0,'C',0);
-$pdf->Cell(40, 5, utf8_decode('TASA DEL $'),'B',0,'C',0);
+$pdf->Cell(40, 5, utf8_decode('TASA DEL DOLAR'),'B',0,'C',0);
 $pdf->Cell( 25, 5, utf8_decode('FECHA / HORA'),'B',1,'C',0);
 
 $i = 1;
@@ -126,16 +125,17 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     
     $pdf->setX(5);
     $pdf->Cell( 10,10, utf8_decode($i++),'B',0,'C',0);
-    $pdf->Cell( 50,10, utf8_decode($mostrar["nombre"]),'B',0,'C',0);
+    $pdf->Cell( 50,10, utf8_decode($mostrar["nombre_proveedor"]),'B',0,'C',0);
     $pdf->Cell(30, 10, utf8_decode($mostrar["codigo"]),'B',0,'C',0);
     $pdf->Cell(30, 10, utf8_decode($mostrar["nombre_producto"]),'B',0,'C',0);
     $pdf->Cell(40, 10, utf8_decode($mostrar["nombre_presentacion"]),'B',0,'C',0);
     $pdf->Cell(40, 10, utf8_decode($mostrar["nombre_categoria"]),'B',0,'C',0);
-    $pdf->Cell(50, 10, utf8_decode($mostrar["stock_comprado"]),'B',0,'C',0);
-    $pdf->Cell(50, 10, utf8_decode($mostrar["precio_compra_dolar"].' $'),'B',0,'C',0);
-    $pdf->Cell(50, 10, utf8_decode($mostrar["precio_compra_bs"].' bs'),'B',0,'C',0);
+    $pdf->Cell(50, 10, utf8_decode($mostrar["cantidad_comprada"]).' unidad(es)','B',0,'C',0);
+    $pdf->Cell(50, 10, utf8_decode($mostrar["precio_unitario_dolar"].' $'),'B',0,'C',0);
+    $pdf->Cell(50, 10, utf8_decode($mostrar["precio_unitario_bs"].' bs'),'B',0,'C',0);
     $pdf->Cell(40, 10, utf8_decode(($mostrar["tasa"] == "" ) ? '0 bs' : $mostrar["tasa"].' bs'),'B',0,'C',0);
-    $pdf->Cell(25,10, utf8_decode($mostrar["fecha_entrada"]),'B',1,'C',0);
-    
-} 
+
+    $pdf->Cell(25,10, utf8_decode(date("d-m-Y", strtotime($mostrar["fecha_entrada"]))).' / '. date("h:i:a", strtotime($mostrar["fecha_entrada"])), 'B',1,'C',0);
+}
+
 $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);

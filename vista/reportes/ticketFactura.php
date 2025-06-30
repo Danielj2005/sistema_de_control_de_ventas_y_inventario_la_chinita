@@ -1,7 +1,6 @@
 <?php
 require "./code128.php";
 
-
 class PDF extends FPDF {
     function Header() {
         $this->SetFont('Arial', 'B', 12);

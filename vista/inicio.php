@@ -2,18 +2,14 @@
 session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
-
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
-
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,8 +22,8 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
   </head>
   <body>
     <?php   
-      include_once ("../include/header.php"); 
-      include_once ("../include/sliderbar.php");
+      include_once "../include/header.php"; 
+      include_once "../include/sliderbar.php";
 
       $total_ventas_del_dia = venta_model::totales_ventas_del_dia();
 
@@ -62,7 +58,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
               </div>
             </div>
           </div>
-
+          
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <div class="row">
               <div class="col-12">
@@ -110,16 +106,13 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
         </div>
       </div>
     </div>
-    
+
     <?php   
-      
-      include_once("../include/footer.php");
-      include_once("../include/scripts_include.php");
+      include_once "../include/footer.php";
+      include_once "../include/scripts_include.php";
       
       model_user::validar_sesion_activa($id_usuario);
-
       config_model::verificar_actualizacion_configuracion(); 
-
-      ?>
+    ?>
   </body>
 </html>

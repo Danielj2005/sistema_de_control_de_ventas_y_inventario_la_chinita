@@ -21,7 +21,7 @@ class producto_model extends modeloPrincipal {
 
     // funcion para obtener el id de un categoria
     public static function obtener_datos_recien_registrados($id_producto){
-        $consul = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_venta_dolar,
+        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar,
             P.stock, P.estatus, C.nombre, PS.nombre as nombre_presentacion 
             FROM  producto AS P 
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
@@ -32,7 +32,7 @@ class producto_model extends modeloPrincipal {
     }
 
     public static function obtener_todos_los_datos(){
-        $consul = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto, P.precio_venta_dolar,
+        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, P.precio_venta_dolar,
             P.stock, P.estatus, C.nombre, PS.nombre as nombre_presentacion 
             FROM  producto AS P 
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
@@ -43,7 +43,7 @@ class producto_model extends modeloPrincipal {
         return $consul;
     }
     public static function consulta_inner_join($fields, $inner_join) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM  producto AS P $inner_join");
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM producto AS P $inner_join");
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -55,9 +55,8 @@ class producto_model extends modeloPrincipal {
         return $id_producto;
     }
 
-    public static function registrar ($codigo, $id_categoria, $nombre_producto, $id_presentacion) {
-
-        $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, codigo, nombre_producto, id_presentacion, precio_venta_dolar, stock, estatus" ,"$id_categoria, '$codigo', '$nombre_producto', $id_presentacion, 0, 0, 0");
+    public static function registrar ($id_categoria, $nombre_producto, $id_presentacion) {
+        $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, precio_venta_dolar, stock, estatus" ,"$id_categoria, '$nombre_producto', $id_presentacion, 0, 0, 0");
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el producto debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
         }
@@ -83,8 +82,8 @@ class producto_model extends modeloPrincipal {
 
             <tr class="<?php if($mostrar["stock"] == "0"){echo 'text-danger';}else if ($mostrar["stock"] < "5") { echo 'text-warning';} ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["codigo"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
+                <th class="text-center"><?= $mostrar["nombre_producto"]; ?></th>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center"><?= $mostrar["precio_venta_dolar"].' $'; ?></td>

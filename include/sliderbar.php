@@ -26,14 +26,7 @@
           </a>
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <?php if ($entrada == 1 || $entrada == 2 ) {  ?>
-              <li>
-                <a href="../vista/entrada_de_productos.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Entrada de productos</span>
-                </a>
-              </li>
-            <?php } if ($categoria >= 1 && $categoria <= 3) {  ?>
+            <?php if ($categoria >= 1 && $categoria <= 3) {  ?>
               <li>
                 <a href="../vista/categoria_producto.php">
                   <i class="bi bi-circle"></i>
@@ -59,6 +52,13 @@
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>
                   <span>Proveedores</span>
+                </a>
+              </li>
+            <?php } if ($entrada == 1 || $entrada == 2 ) {  ?>
+              <li>
+                <a href="../vista/entrada_de_productos.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Entrada de productos</span>
                 </a>
               </li>
             <?php } ?>

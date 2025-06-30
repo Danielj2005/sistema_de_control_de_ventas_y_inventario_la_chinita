@@ -13,20 +13,18 @@ if (!isset($_POST["modulo"])) {
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
     
-    $codigo = modeloPrincipal::limpiar_cadena($_POST['codigo_producto']);
     $id_categoria = modeloPrincipal::limpiar_cadena( $_POST['id_categoria']);
     $id_presentacion = modeloPrincipal::limpiar_cadena($_POST['id_presentacion']);
     $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
-    $id_iva = modeloPrincipal::limpiar_cadena($_POST['id_iva']);
 
     // se verifica que el id de la categoria sea un numero entero
     $vista = (!isset($_POST['vista'])) ? 0 : modeloPrincipal::limpiar_cadena($_POST['vista']);
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$codigo, $id_categoria, $id_presentacion, $nombre_producto]);
+    modeloPrincipal::validar_campos_vacios([$id_categoria, $id_presentacion, $nombre_producto]);
     
     // se comprueba que no exista un registro con los mismos datos
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT codigo FROM producto WHERE codigo = '$codigo'")) > 0){
+    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre_producto FROM producto WHERE nombre_producto = ''")) > 0){
         /********** No se puede registrar un usuario si ya existe **********/
         alert_model::alerta_simple("¡Ocurrio un error!","El código que ingresaste ya se encuentra en uso.","error");
         exit();
@@ -39,7 +37,7 @@ if($modulo === 'Guardar'){
 
     // se registran los datos del producto
     try {
-        $registrar = producto_model::registrar($codigo, $id_categoria, $nombre_producto, $id_presentacion);
+        $registrar = producto_model::registrar($id_categoria, $nombre_producto, $id_presentacion);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");
@@ -49,19 +47,6 @@ if($modulo === 'Guardar'){
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar el producto debido a un error de consulta.", "error");
         exit();
     }
-    // // se registran el IVA del producto
-    // try {
-    //     $id_producto = producto_model::obtener_id_recien_registrada();
-    //     $registrar = modeloPrincipal::InsertSQL("producto_iva", "id_producto, id_iva" ,"$id_producto, 16");
-
-    //     if (!$registrar) {
-    //         alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar el IVA de un producto.","error");
-    //     }
-
-    // } catch (Exception $e) {
-    //     alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar  el IVA de un producto debido a un error de consulta.", "error");
-    //     exit();
-    // }
 
     // se realiza la bitácora con los datos del producto a registrar
     try {
@@ -74,7 +59,6 @@ if($modulo === 'Guardar'){
 
         bitacora::bitacora("Registro exitoso de un producto.","Se registro un producto con la siguiente informacón: <br><br>
         <b>****** Información del producto:   ******</b><br><br>
-        Código: <b>".$datos_originales['codigo']." </b><br>
         Nombre: <b>".$datos_originales['nombre_producto']." </b><br>
         Presentación: <b>".$datos_originales['nombre_presentacion']." </b><br>
         Categoría: <b>".$datos_originales['nombre']." </b><br>

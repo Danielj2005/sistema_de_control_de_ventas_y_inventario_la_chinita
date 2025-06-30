@@ -2,7 +2,7 @@
 session_start();
 // importacion de la conexion a la base de datos y al modelo de usuario
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -25,9 +25,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
         include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
         include_once "../include/css_include.php"; 
-        
-        include_once("../include/scripts_include.php"); ?>
-      <script src="./js/rango_fechas.js"></script>
+      ?>
     </head>
     <body>
       <?php 
@@ -45,8 +43,6 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
         $fecha_inicio = $_POST['fecha_inicio'];  
         $fecha_fin = $_POST['fecha_fin'];
-        
-
       ?>
       <main id="main" class="main">
         <div class="pagetitle">
@@ -117,13 +113,13 @@ if ($rol >= 1 && $rol <= 3) { ?>
                       <!-- mensajes -->
                       <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
                       <p class="alert alert-danger d-none" id="mensaje_fechas_mayores" style="width: fit-content;">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
-                      <p class="alert alert-secondary <?= ($fecha1 == "" && $fecha2 == "") ? 'd-none' : '' ?>" style="width: fit-content;">
-                        Fecha inicial: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b>   Fecha final: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
+                      <p class="alert alert-secondary <?= ($fecha_inicio == "" && $fecha_fin == "") ? 'd-none' : '' ?>" style="width: fit-content;">
+                        Fecha inicial: <b> <?php echo date ("d-m-Y",strtotime($fecha_inicio)); ?> </b>   Fecha final: <b><?php echo date ("d-m-Y",strtotime($fecha_fin)); ?> </b> 
                       </p>
                     </div>
                   </form>
 
-                  <div class="card-body p-3 table-responsive">
+                  <div class="p-3 table-responsive">
                     <table class="table table-striped " id="example">
                       <thead>
                         <tr>
@@ -167,9 +163,10 @@ if ($rol >= 1 && $rol <= 3) { ?>
         </div>
       </div>
 
+      <script src="./js/rango_fechas.js"></script>
       <?php 
-        include_once("../include/footer.php"); 
-
+        include_once "../include/footer.php"; 
+        include_once "../include/scripts_include.php";
         model_user::validar_sesion_activa($id_usuario);
 
         config_model::verificar_actualizacion_configuracion(); ?>

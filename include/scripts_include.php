@@ -1,12 +1,45 @@
 <!-- jquery -->
 <script src="./js/jquery-3.6.0.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
 
 <!-- datatable js files -->
 <script src="./js/jquery.dataTables.min.js"></script>
-<script src="./js/dataTables.bootstrap5.min.js"></script>
 <script src="./js/datatables.min.js"></script>
+<script src="./js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="assets/vendor/chart.js/chart.umd.js"></script>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="assets/vendor/quill/quill.min.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+<!-- lógica de los modales -->
+<script src="./js/modal.js"></script>
+<script src="./js/get_url.js"></script>
+
+<!-- <script src="./js/sweet-alert.min.js"></script> -->
+<script src="./js/sweetalert2.min.js"></script>
+<script src="./js/tiempo_inactividad.js"></script>
+<script src="./js/hiddeInput.js"></script>
+<script src="./js/dolar.js"></script>
+<script src="./js/validacion_formularios.js"></script>
+
+<script src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
+<script src="./js/buscar_proveedor.js"></script> <!--  script para llamar la información de un proveedor -->
+<script src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
+<script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
+<script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
+<script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
 
 <script type="text/javascript">
+    // inicializar la libreria Select2 
+    $('.Select').select2();
+
     $(document).ready(function() {
         var t = $('#example').DataTable( { 
             language: {
@@ -24,68 +57,17 @@
     } );
     
     function dataTable(){
-        $(document).ready(function() {
-            var t = $('.example').DataTable( { 
-                language: {
-                    url: './js/dataTables-Español.json'
-                }
-            } );
-    
-            t.on( 'order.dt search.dt', function () {
-                let i = 1;
-                t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
-                    this.data(i++);
-                } );
-            } ).draw();
+        var t = $('.example').DataTable( { 
+            language: {
+                url: './js/dataTables-Español.json'
+            }
         } );
-    }
-        
-    document.addEventListener('DOMContentLoaded', () => {
-        // getList(); 
-    });
-</script>
-<!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="./js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-
-
-<!-- lógica de los modales -->
-<script src="./js/modal.js"></script>
-<script src="./js/get_url.js"></script>
-<!-- <script src="./js/sweet-alert.min.js"></script> -->
-<script src="./js/sweetalert2.min.js"></script>
-
-<script src="./js/tiempo_inactividad.js"></script>
-
-<script src="./js/hiddeInput.js"></script>
-<script src="./js/dolar.js"></script>
-<script src="./js/validacion_formularios.js"></script>
-
-<!-- Send Form -->
-<script src="./js/SendForm.js"></script>
-<!-- script para llamar la información de un proveedor -->
-<script src="./js/buscar_proveedor.js"></script>
-<!-- script para llamar la información de un cliente -->
-<script src="./js/buscar_datos_cliente.js"></script>
-<!-- script para calcular los montos totales de un producto-->
-<script src="./js/procesamiento_de_dinero.js"></script>
-<!-- libreria selec2 -->
-<script type="text/javascript" src="./js/select2.min.js"></script>
-<script>
-    /*--------------------- inicializar la libreria Select2 ---------------------*/
-    $('.Select').select2();
-
-    function limpiar_sendform(){
-        $(".msjFormSend").html("");
+        t.on( 'order.dt search.dt', function () {
+            let i = 1;
+            t.cells(null, 0, {search:'applied', order:'applied'}).every( function (cell) {
+                this.data(i++);
+            } );
+        } ).draw();
     }
 </script>
-<!-- cerrar sesion -->
-<script src="./js/cerrar_sesion.js"></script>
-

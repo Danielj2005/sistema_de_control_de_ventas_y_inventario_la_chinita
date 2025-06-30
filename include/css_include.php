@@ -1,23 +1,21 @@
 
 <!-- Favicons -->
-<link href="img/logo.png" rel="icon">
-<!-- bootstrap -->
-<link href="./css/bootstrap.min.css" rel="stylesheet">
-<!-- sweet-alert -->
-<!-- <link href="./css/sweet-alert.css" rel="stylesheet"> -->
+<link href="img/logo.png" rel="shortcut icon">
+<!-- sweet-alert 2 -->
 <link href="./css/sweetalert2.min.css" rel="stylesheet">
 
 <!-- estilos custom -->
 <link href="./css/main.css" rel="stylesheet">
-<!-- <link href="./css/bootstrap-material-design.min.css" rel="stylesheet"> -->
-<link href="./css/material-design-iconic-font.min.css" rel="stylesheet">
-<link href="./css/bootstrap-icons.css" rel="stylesheet">
 
-<link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="./css/select2.min.css">
+
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/bootstrap-icons.css" rel="stylesheet">
+<link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="./css/select2.min.css">
+
 <style>
     .card-title {
         margin-bottom: 1.5rem;
@@ -36,7 +34,6 @@
         -webkit-backdrop-filter: blur(5);
         -moz-backdrop-filter: blur(10px);
     }
-
     .container {
         margin-top: 4em;
         margin-bottom: 4em;

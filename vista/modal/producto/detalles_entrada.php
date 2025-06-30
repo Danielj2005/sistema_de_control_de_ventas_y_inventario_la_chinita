@@ -18,7 +18,7 @@ $detalles_entrada = modeloPrincipal::consultar("SELECT PV.nombre AS proveedor, P
     WHERE D.id_entrada = $id");
 
 $proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT  PV.nombre AS proveedor
-    FROM `entrada` AS E
+    FROM entrada AS E
     INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor
     WHERE E.id_entrada = $id"));
 

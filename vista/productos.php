@@ -71,8 +71,8 @@ if ($rol == 1 || $rol == 2) {
                       <thead>
                         <tr>
                           <th class="text-center col" scope="col">#</th>
-                          <th class="text-center col" scope="col">Código</th>
                           <th class="text-center col" scope="col">Producto</th>
+                          <th class="text-center col" scope="col">Marca</th>
                           <th class="text-center col" scope="col">Presentación</th>
                           <th class="text-center col" scope="col">Categoría</th>
                           <th class="col text-center" scope="col">Precio de venta en $</th>

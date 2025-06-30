@@ -1,5 +1,3 @@
-// función para añadir un metodo de pago 
-
 const btn_add = document.querySelectorAll('.btn_add');
 const selects = document.querySelectorAll('.select');
 

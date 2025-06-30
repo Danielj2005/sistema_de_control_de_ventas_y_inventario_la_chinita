@@ -45,118 +45,89 @@ if ($rol == 1) {  ?>
             <div class="col-lg-12">
                 <div class="card">
                   <div class="card-body">
-                    <h2 class="card-title">Añadir Nuevo Producto</h2>
-                    <form id="añadir_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                      <input type="hidden" name="modulo" value="Guardar">
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Código Del Producto <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <input type="text" pattern="[0-9]{4,8}" maxlength="8" required="" placeholder="ingresa el código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
-                          </div>
-                        </div>
-
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Nombre Del Producto <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <input form="añadir_producto" type="text" maxlength="30" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
-                          </div>
-                        </div>
-
-                        <!-- selector de categoría  -->
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <select name="id_categoria" id="categoria" class="form-select Select">
-                              <option value="">Selecciona una opción</option>
-                              <?php category_model::options(); ?> 
-                            </select>
-                          </div>
-                        </div>
-                        
-                        <!-- selector de presentacion -->
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                          <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
-                          <div class="col-sm-12">
-                            <select name="id_presentacion" id="select_presentacion" class="form-select Select">
-                              <option value="0">Selecciona una opción</option>
-                              <?php presentacion_model::options(); ?>
-                            
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-12 mb-1">
-                          <div class="form-group">
-                              <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                          </div>
-                        </div>
-                        <div class="text-center">
-                          <button type="submit" form="añadir_producto" class="btn btn-success bi bi-plus"> Añadir</button>
-                        </div>
-                    </form>
-
-                    <!-- <div class="card shadow-lg rounded-4 p-4 col-12 col-md-6 row producto_" id="producto_" style="max-width: 400px; width: 100%;">
-                      <div class="col-12 mb-3">
-                        <label class="col-form-label">Código Del Producto <span style="color:#f00;">*</span></label>
-                        <input type="text" pattern="[0-9]{4,8}" maxlength="8" required="" placeholder="ingresa el código del producto" class="form-control" id="codigo_producto" name="codigo_producto">
-                        
-                      </div>
-                      <div class="col-12 mb-3">
-                        <label class="col-form-label">Nombre Del Producto <span style="color:#f00;">*</span></label>
-                        <input form="añadir_producto" type="text" maxlength="30" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,30}" required="" placeholder="ingresa el nombre del producto" class="form-control" id="nombre_producto" name="nombre_producto">
-                      </div>
-                      
-                      selector de categoría  
-                      <div class="col-12 mb-3">
-                        <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
-                        <div class="col-sm-12">
-                          <select name="id_categoria" id="categoria" class="form-select Select">
-                            <option value="">Selecciona una opción</option>
-                            <?php //category_model::options(); ?> 
-                          </select>
-                        </div>
-                      </div>
-
-                      selector de presentacion 
-                      <div class="col-12 mb-3">
-                        <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
-                        <div class="col-sm-12">
-                          <select name="id_presentacion" id="select_presentacion" class="form-select Select">
-                            <option value="0">Selecciona una opción</option>
-                            <?php //presentacion_model::options(); ?>
-                          
-                          </select>
-                        </div>
-                      </div>
-
-                      selector de porcentaje iva --
-                      <div class="col-12 mb-3">
-                        <label class="col-form-label">Selecciona el porcentaje del IVA <span style="color:#f00;">*</span></label>
-                        <div class="col-sm-12">
-                          <select name="id_iva" id="select_iva" class="form-select Select">
-                            <option value="0">Selecciona una opción</option>
-                              <?php 
-                                
-                                // for($i = 1; $i < 101; $i++){
-                                //   echo '<option value="'.$i.'">'.$i.'%</option>';
-                                // }
-                              ?>
-                          
-                          </select>
-                        </div>
-                      </div>
-
+                    <h2 class="card-title">Añadir Nuevo Producto 
                       <div class="text-center">
-                          <button type="button" class="btn btn-danger bi bi-trash">&nbsp; Eliminar</button>
+                        <button type="button" id="btn_add_card_product" class="btn btn-success bi bi-plus">&nbsp; Añadir otro producto</button>
                       </div>
-                    </div> -->
+                    </h2>
+
+                    <form id="registrar_producto" action="../controlador/producto_controller.php" method="post" class="SendFormAjax row justify-content-around" autocomplete="off" data-type-form="save">
+                      <input type="hidden" name="modulo" value="Guardar">
+                      <div class="col-12 mb-1">
+                        <div class="form-group">
+                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                        </div>
+                      </div>
+
+                      <div class="card shadow-lg rounded-4 p-4 col-12 col-md-6 row" id="producto_1" style="max-width: 400px; width: 100%;">
+                        <label class="col-form-label card-title">Datos del Producto: </label>
+
+                        <div class="col-12 col-sm-12 mb-3">
+                          <label class="col-form-label">Tipo de Producto <span style="color:#f00;">*</span></label>
+                          <div class="col-sm-12">
+                            <select name="nombre_producto" id="nombre_producto" class="form-select Select">
+                              <option value="">Selecciona una opción</option>
+                              <option value="">Refresco</option>
+                              <option value="">Arroz</option>
+                              <option value="">Harina</option>
+                              <option value="">Salsa</option>
+                              <option value="">Helado</option>
+                              <option value="">Yogurt</option>
+                              <option value="">Pollo</option>
+                              <option value="">Pescado</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- selector de Marca  -->
+                        <div class="col-12 col-sm-12 mb-3">
+                            <label class="col-form-label">Selecciona una Marca<span style="color:#f00;">*</span></label>
+                            <div class="col-sm-12">
+                                <select name="id_marca" id="id_marca" class="form-select Select<?= $rand ?>">
+                                    <option value="">Selecciona una opción</option>
+                                    <?php marca_model::options(); ?> 
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- selector de presentacion  -->
+                        <div class="col-12 mb-3">
+                            <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
+                            <div class="col-sm-12">
+                                <select name="id_presentacion" id="select_presentacion" class="form-select Select<?= $rand ?>">
+                                    <option value="0">Selecciona una opción</option>
+                                    <?php presentacion_model::options(); ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- selector de categoría   -->
+                        <div class="col-12 mb-3">
+                            <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
+                            <div class="col-sm-12">
+                                <select name="id_categoria" id="categoria" class="form-select Select<?= $rand ?>">
+                                    <option value="">Selecciona una opción</option>
+                                    <?php category_model::options(); ?> 
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button type="button" onclick="document.getElementById(`producto_1`).remove();" class="btn btn-danger bi bi-trash">&nbsp; Eliminar</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    <div class="text-center">
+                      <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Añadir</button>
+                    </div>
                   </div>
                 </div>
             </div>
           </div>
         </section>
       </main>
-
+      <script type="text/javascript" src="./js/añadir_producto.js"></script>
       <?php 
         // se incluye el footer / pie de pagina a la vista
         include_once "../include/footer.php";

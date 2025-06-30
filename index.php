@@ -1,5 +1,7 @@
 <?php 
 session_start();
+include_once "./modelo/modeloPrincipal.php"; // se incluye el modelo principal
+include_once "./modelo/configuracion_model.php"; // se incluye el modelo de configuracion
 
 $_SESSION["intentos_sesion"] = 1;
 
@@ -8,10 +10,18 @@ $_SESSION['numero_2'] = rand(1, 7);
 
 $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 
-?>
+// se obtiene la Cantidad de Preguntas de Seguridad que tiene el sistema
+$CPS = intval(mysqli_fetch_array(config_model::consultar("c_preguntas"))['c_preguntas']); 
+// $CPS = intval($CPS['c_preguntas']); 
+$CPS = rand(1, $CPS);
 
+$_SESSION['ARC'] = 'ecDAuKiplp8=';
+$_SESSION['CPS'] = $CPS;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Inicio</title>
@@ -118,7 +128,6 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form method="post" action="./vista/recuperar_contraseña.php">
-						<input type="hidden" name="acceso_recuperar_contraseña" value="ecDAuKiplp8=">
 						<div class="modal-header">
 							<h1 class="modal-title fs-3 text-black" id="exampleModalLabel"> Recuperar acceso</h1>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -130,8 +139,8 @@ $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
 							<button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
 						</div>
 					</form>
 				</div>

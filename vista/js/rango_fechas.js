@@ -1,9 +1,9 @@
 
-const inputDateStart = document.getElementById('fecha_inicio').value;
-const inputDateEnd = document.getElementById('fecha_fin').value;
-const btn_enviar = document.getElementById('btn_fechas');
 
 function dateValidate(){
+    const inputDateStart = document.getElementById('fecha_inicio').value;
+    const inputDateEnd = document.getElementById('fecha_fin').value;
+    const btn_enviar = document.getElementById('btn_fechas');
 
     let msjDate = document.getElementById('mensaje_fecha_iguales');
 
@@ -29,6 +29,8 @@ function dateValidate(){
 
 
 function fechas_mayores(){
+    const inputDateStart = document.getElementById('fecha_inicio').value;
+    const inputDateEnd = document.getElementById('fecha_fin').value;
 
     let msjDateOld = document.getElementById('mensaje_fechas_mayores');
     let dateToday = document.getElementById('fecha_actual').value;

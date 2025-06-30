@@ -71,46 +71,46 @@ if ($rol == 1 || $rol == 2) {
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Desde</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha1" name="fecha1">
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Hasta</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha2" name="fecha2">
+                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_fin" name="fecha_fin">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
                       <button type="submit" disabled class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
                     </div>
-                    
-                    <!-- mensajes -->
-                    <p class="alert alert-danger d-none" id="mensaje_fecha_iguales">La fecha de inicio no puede ser mayor a la fecha de fin y la fecha de fin no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
-                    <p class="alert alert-danger d-none" id="mensaje_fechas_mayores">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
-                    <p class="alert alert-secondary">Rango selecionado:<br> fecha inicial: <?= $fecha1 ?> <br>fecha final: <?= $fecha2 ?> </p>
 
+                    <div class="col-12 col-sm-12 col-md-12 mb-3">
+                      <!-- mensajes -->
+                      <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
+                      <p class="alert alert-danger d-none" id="mensaje_fechas_mayores" style="width: fit-content;">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
+                      <p class="alert alert-secondary <?= ($fecha1 == "" && $fecha2 == "") ? 'd-none' : '' ?>" style="width: fit-content;">
+                        Fecha inicial: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b>   Fecha final: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
+                      </p>
+                    </div>
                   </form>
+                  
                   <div class="table-responsive">
                     <table class="table table-borderless table-striped" id="example">
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
-                          <!-- <th class="col text-center" scope="col">PRODUCTO</th>
-                          <th class="col text-center" scope="col">PRESENTACIÓN</th> -->
-                          <th class="col text-center" scope="col">PROVEEDOR</th>
-                          <th class="col text-center" scope="col">TOTAL DE LA COMPRA EN $</th>
-                          <th class="col text-center" scope="col">TOTAL DE LA COMPRA EN BS</th>
-                          <th class="col text-center" scope="col">TASA</th>
-                          <th class="col text-center" scope="col">FECHA / HORA</th>
-                          <th class="col text-center" scope="col">DETALLES</th>
+                          <th class="col text-center" scope="col">Proveedor</th>
+                          <th class="col text-center" scope="col">Total de la compra en $</th>
+                          <th class="col text-center" scope="col">Total de la compra en BS</th>
+                          <th class="col text-center" scope="col">Tasa del dolar</th>
+                          <th class="col text-center" scope="col">Fecha / Hora</th>
+                          <th class="col text-center" scope="col">Detalles</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
-                          
-
                             if($fecha1 == "" && $fecha2 == ""){
                               $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
                                 E.fecha_entrada, E.id_entrada, D.dolar AS tasa
@@ -118,28 +118,25 @@ if ($rol == 1 || $rol == 2) {
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
                                 ORDER BY E.fecha_entrada DESC");
-                            
                             }else{
                               $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
                                 E.fecha_entrada, E.id_entrada, D.dolar AS tasa
                                 FROM entrada AS E 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-                                WHERE E.fecha_entrada BETWEEN '$fecha1' AND '$fecha2' 
+                                WHERE E.fecha_entrada 
+                                BETWEEN '$fecha1' AND '$fecha2' 
                                 ORDER BY E.fecha_entrada DESC");
                             }
-                            
-                            $i = 1;
                             // se guardan los datos en un array y se imprime
                             while ( $mostrar = mysqli_fetch_array($consulta)) { ;?>    
                               <tr>
-                                  <td class="col text-center"><?= $i++; ?></td>
+                                  <td class="col text-center"></td>
                                   <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
                                   <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
                                   <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
                                   <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
                                   <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
-
                                   <td class="text-center col" scope="col">
                                     <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= $mostrar["id_entrada"]; ?>"></button>
                                   </td>
