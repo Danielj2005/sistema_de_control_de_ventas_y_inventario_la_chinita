@@ -1,21 +1,15 @@
 **********************************************************************
 *************** faltante por hacerle al sistema **********************
 **********************************************************************
-- verificar reportes en pdf (listo!)
+
 - crear reporte de bitacora por usuarios
 - exportacion en pdf de venta individual estilo factura, y de todas las ventas realizadas y por fechas
 
 - rediseñar la interfaz de configuración
 
-- crear tabla de inventario base de datos (listo!)
-- crear y modificar la tabla en base de datos de productos para tener los nombre aparte (listo!)
 - crear funciones para agregar dinamicamente los datos a los select de las cards
-- crear registro de productos inexistentes en la bd
-
 
 - crear funcion para obtener datos de la bd para registrar varios productos 
-
-
 
 $boton_cambio_estado_original_categoria = '<form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
         <input type="hidden" name="modulo" value="<?= (mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          
