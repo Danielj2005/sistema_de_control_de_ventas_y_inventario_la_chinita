@@ -41,7 +41,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                 <div class="row">
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">Monto Total en dolares($)</span>
+                      <span class="input-group-text" id="basic-addon1">Total en dolares($)</span>
                       <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
                       <span class="input-group-text" id="basic-addon1">$</span>
                     </div>
@@ -49,7 +49,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
                   <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                     <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">Monto Total en boliveras (bs)</span>
+                      <span class="input-group-text" id="basic-addon1">Total en boliveras (bs)</span>
                       <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
                       <span class="input-group-text" id="basic-addon1">BS</span>
                     </div>

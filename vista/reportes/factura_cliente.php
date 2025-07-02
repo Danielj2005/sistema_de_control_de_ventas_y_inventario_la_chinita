@@ -1,10 +1,8 @@
 <?php
-
 require_once ('../../modelo/modeloPrincipal.php');
 require_once ('../../modelo/venta_model.php');
 
 date_default_timezone_set('America/caracas');
-
 # Incluyendo librerias necesarias #
 require "./code128.php";
 
@@ -24,14 +22,11 @@ $pdf->Ln(1);
 $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
 $pdf->Ln(5);
 
-
-
 if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POST['id_venta'])){
     
     $pdf->Ln(1);
     $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
     $pdf->Ln(5);
-
 
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Documento: "),0,'C',false);
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Cliente: "),0,'C',false);
@@ -51,8 +46,6 @@ if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POS
     $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
     $pdf->Ln(3);
 
-
-
     /*----------  Detalles de la tabla  ----------*/
     $pdf->MultiCell(0,4,iconv("UTF-8", "ISO-8859-1","Nombre de producto a vender"),0,'C',false);
     $pdf->Cell(10,4,iconv("UTF-8", "ISO-8859-1","7"),0,0,'C');
@@ -61,7 +54,6 @@ if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POS
     $pdf->Cell(28,4,iconv("UTF-8", "ISO-8859-1","$70.00 USD"),0,0,'C');
     $pdf->Ln(4);
     $pdf->Ln(7);
-    
     
     /*----------  Fin Detalles de la tabla  ----------*/
     $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
@@ -125,12 +117,10 @@ if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POS
     $pdf->Output("I","Ticket_Nro_".venta_model::generar_numero($id_venta).".pdf",true);
 }
 
-
 $id_usuario = $_POST['id_usuario'];
-
+// se consultan los datos del usuario
 $datos_usuario = mysqli_fetch_array(modeloPrincipal::consultar("SELECT cedula, nombre, apellido, telefono
     FROM usuario WHERE id_usuario = $id_usuario"));
-
 
 $id_venta = $_POST['id_venta'];
 
@@ -146,13 +136,10 @@ $pdf->Ln(1);
 $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
 $pdf->Ln(5);
 
-
-
 $id_cliente = $_POST['id_cliente'];
 
 $datos_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT cedula, nombre, telefono
     FROM cliente WHERE id_cliente = $id_cliente"));
-
 
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Documento: ".$datos_cliente['cedula'].""),0,'C',false);
 $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Cliente: ".$datos_cliente['nombre'].""),0,'C',false);

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -18,7 +18,7 @@ if($modulo === "Guardar"){
         se convierte a minúsculas con la función strtolower().
         luego se pone la primera letra de cada palabra en mayúscula con la función ucwords().
     */
-    $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre'])));
+    $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre_categoria'])));
     
     modeloPrincipal::validar_campos_vacios([$nombre]); // Se verifica que no se hayan recibido campos vacíos.
 
@@ -61,7 +61,7 @@ if($modulo === "Guardar"){
         Estado: <b>".$datos_originales['estado']." </b>
         ");
 
-        alert_model::alert_reg_success();
+        alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#añadir_categoria input').forEach((input) => {input.value = ''});");
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();

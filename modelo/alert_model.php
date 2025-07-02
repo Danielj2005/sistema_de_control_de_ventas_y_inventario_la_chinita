@@ -39,7 +39,7 @@ class alert_model {
                 });
             </script>';
     }
-    private static function alerta_reset_forms ($title, $text, $icon, $condition = "$('.SendFormAjax')[0].reset();"){
+    public static function alert_reset_forms ($title, $text, $icon, $condition = "$('.SendFormAjax')[0].reset();"){
         echo "<script>
                 Swal.fire({
                     title: '$title',
@@ -69,7 +69,7 @@ class alert_model {
     }
 
     public static function alerta_simple_reset_de_formularios($title, $text, $icon, $condition = "$('.SendFormAjax')[0].reset();"){
-        self::alerta_reset_forms($title, $text, $icon);
+        self::alert_reset_forms($title, $text, $icon);
     }
 
     public static function alert_reload ($title, $text, $icon) {

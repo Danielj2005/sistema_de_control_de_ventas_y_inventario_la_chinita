@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -15,6 +15,7 @@ if($modulo === 'Guardar'){
     
     $id_categoria = modeloPrincipal::limpiar_cadena( $_POST['id_categoria']);
     $id_presentacion = modeloPrincipal::limpiar_cadena($_POST['id_presentacion']);
+    $id_marca = modeloPrincipal::limpiar_cadena($_POST['id_marca']);
     $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
 
     // se verifica que el id de la categoria sea un numero entero
@@ -37,7 +38,7 @@ if($modulo === 'Guardar'){
 
     // se registran los datos del producto
     try {
-        $registrar = producto_model::registrar($id_categoria, $nombre_producto, $id_presentacion);
+        $registrar = producto_model::registrar($id_categoria, $nombre_producto, $id_presentacion, $id_marca);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");
@@ -55,17 +56,18 @@ if($modulo === 'Guardar'){
         $datos_originales = producto_model::obtener_datos_recien_registrados($id_producto);
 
         $datos_originales = mysqli_fetch_array($datos_originales);
-        $datos_originales['estatus'] = $datos_originales['estatus'] == 1 ? 'Activo' : 'Inactivo';
+        $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
         bitacora::bitacora("Registro exitoso de un producto.","Se registro un producto con la siguiente informacón: <br><br>
         <b>****** Información del producto:   ******</b><br><br>
         Nombre: <b>".$datos_originales['nombre_producto']." </b><br>
         Presentación: <b>".$datos_originales['nombre_presentacion']." </b><br>
         Categoría: <b>".$datos_originales['nombre']." </b><br>
-        Precio de venta: <b>".$datos_originales['precio_venta_dolar']." $</b><br>
+        Marca: <b>".$datos_originales['marca']." </b><br>
+        Precio de venta: <b>".$datos_originales['precio_venta']." $</b><br>
         Porcentaje de IVA: <b>16%</b><br>
-        Cantidad: <b>".$datos_originales['stock']." </b><br>
-        Estado: <b>".$datos_originales['estatus']." </b><br>
+        Cantidad: <b>".$datos_originales['stock_actual']." </b><br>
+        Estado: <b>".$datos_originales['estado']." </b><br>
         ");
         
         if ($vista == 1) {
@@ -77,35 +79,6 @@ if($modulo === 'Guardar'){
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();
-        exit();
-    }
-    // se registran los datos del presentación
-    if (modeloPrincipal::InsertSQL("producto", "id_categoria, codigo, nombre_producto, id_presentacion, precio_compra_dolar, precio_compra_bs, stock, estatus", "'$id_categoria', '$codigo', '$nombre_producto', '$id_presentacion', '0', '0', '0',1")) {
-        echo '<script type="text/javascript">
-            swal({
-                title:"¡Registro exitoso!",
-                text:"Los datos se registraron correctamente",
-                type: "success",
-                confirmButtonText: "Aceptar"
-            },
-            function(isConfirm){  
-                if (isConfirm) {
-                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
-                } else { 
-                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
-                } 
-            });
-        </script>';
-        exit();
-    } else {
-        echo'<script type="text/javascript">
-            swal({
-                title: "¡Ocurrio un error!",
-                text: "Los datos no se registraron, verifique he intente nuevamente",
-                type: "error",
-                confirmBottonText: "Aceptar"
-            });
-        </script>';
         exit();
     }
 }

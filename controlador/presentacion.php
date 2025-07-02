@@ -12,12 +12,8 @@ if (!isset($_POST["modulo"])) {
 }
 
 if($modulo === "Guardar"){
-    
-    $nombre = modeloPrincipal::limpiar_cadena($_POST['nombre']);
-    $descripcion = modeloPrincipal::limpiar_cadena($_POST['descripcion']);
-
-    $nombre = ucfirst(strtolower($nombre)); // se le coloca la primera letra en mayúscula
-    $descripcion = ucfirst(strtolower($descripcion)); // se le coloca la primera letra en mayúscula
+    $nombre = ucfirst(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre_presentacion']))); // se le coloca la primera letra en mayúscula
+    $descripcion = ucfirst(strtolower(modeloPrincipal::limpiar_cadena($_POST['descripcion_presentacion']))); // se le coloca la primera letra en mayúscula
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$nombre,$descripcion]);
@@ -66,7 +62,7 @@ if($modulo === "Guardar"){
         Estado: <b>".$datos_originales['estado']." </b><br>
         ");
 
-        alert_model::alert_reg_success();
+        alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#form_presentacion input').forEach((input) => {input.value = ''});");
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();

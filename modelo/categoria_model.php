@@ -2,7 +2,7 @@
 
 class category_model extends modeloPrincipal {
 
-    public static function consultar($fields) {
+    public static function consultar_categoria($fields) {
         $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria");
         modeloPrincipal::verificar_consulta($consul,'categoria'); // se verifica si la consulta fue exitosa
         return $consul;
@@ -50,9 +50,8 @@ class category_model extends modeloPrincipal {
     }
 
     public static function lista(){
-        $consulta = self::consultar("*");
+        $consulta = self::consultar_categoria("*");
         
-    
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
@@ -60,17 +59,13 @@ class category_model extends modeloPrincipal {
                 <td class="col text-center"><?= $i++ ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
                 <td scope="row" class="text-center">
-                    <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
-                        
-                        <input type="hidden" name="modulo" value="<?= ($mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          
-                        <input type="hidden" name="id" value="<?= $mostrar["id_categoria"]; ?>">
-                        <button 
-                            <?= (rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
-                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle'?>" 
-                            title="estado de la categoría">
-                                &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
-                        </button>
-                    </form>
+                    <button 
+                        <?= (rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
+                        class="btn <?= ($mostrar["estado"] === "1") ? 'btn-outline-success bi-check-circle' : 'btn-outline-danger bi-x-circle'?>" 
+                        title="estado de la categoría">
+                            &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
+                    </button>
+                    
                 </td>
             </tr>
         <?php  } 

@@ -67,14 +67,14 @@ if ($rol == 1) {  ?>
                           <div class="col-sm-12">
                             <select name="nombre_producto" id="nombre_producto" class="form-select Select">
                               <option value="">Selecciona una opción</option>
-                              <option value="">Refresco</option>
-                              <option value="">Arroz</option>
-                              <option value="">Harina</option>
-                              <option value="">Salsa</option>
-                              <option value="">Helado</option>
-                              <option value="">Yogurt</option>
-                              <option value="">Pollo</option>
-                              <option value="">Pescado</option>
+                              <option value="Refresco">Refresco</option>
+                              <option value="Arroz">Arroz</option>
+                              <option value="Harina">Harina</option>
+                              <option value="Salsa">Salsa</option>
+                              <option value="Helado">Helado</option>
+                              <option value="Yogurt">Yogurt</option>
+                              <option value="Pollo">Pollo</option>
+                              <option value="Pescado">Pescado</option>
                             </select>
                           </div>
                         </div>

@@ -62,6 +62,12 @@
                 </a>
               </li>
             <?php } ?>
+            <li>
+                <a href="../vista/productos_glogal.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Gestión de Inventario Principal</span>
+                </a>
+              </li>
           </ul>
         </li>
     <?php } 
@@ -231,6 +237,12 @@
               </a>
             </li>
           <?php } ?>
+          <li>
+            <a href="./configuracion_refac.php">
+              <i class="bi bi-circle"></i>
+              <span>Ajustes del sistema</span>
+            </a>
+          </li>
         </ul>
       </li>
     <?php } ?>

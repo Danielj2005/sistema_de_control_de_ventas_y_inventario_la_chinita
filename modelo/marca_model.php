@@ -57,7 +57,7 @@ class marca_model extends modeloPrincipal {
     }
 
     public static function lista(){
-        $consulta = self::consultar('*');
+        $consulta = self::consultar_marca();
         while ( $mostrar = mysqli_fetch_assoc($consulta)) { ?>
             <tr>
                 <td class="text-center"></td>

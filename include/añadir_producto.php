@@ -7,25 +7,19 @@ include_once "../modelo/presentacion_model.php"; // se incluye el modelo present
 include_once "../modelo/productos_model.php"; // se incluye el modelo producto
 include_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 
-$rand = rand(1,500);
+$rand = rand(0,5000);
 ?>
-<div class="card shadow-lg rounded-4 p-4 col-12 col-md-6 row" id="producto_<?= $rand ?>" style="max-width: 400px; width: 100%;">
+<div class="card shadow-lg rounded-4 p-2 col-12 col-md-6 row" id="producto_<?= $rand ?>" style="max-width: 400px; width: 100%;">
     <label class="col-form-label card-title">Datos del Producto: </label>
+    <div class="col-12 col-sm-12 mb-3 row">
 
-    <div class="col-12 col-sm-12 mb-3">
-        <label class="col-form-label">Tipo de Producto <span style="color:#f00;">*</span></label>
         <div class="col-sm-12">
-            <select name="nombre_producto" id="nombre_producto" class="form-select Select<?= $rand ?>">
-                <option value="">Selecciona una opción</option>
-                <option value="">Refresco</option>
-                <option value="">Arroz</option>
-                <option value="">Harina</option>
-                <option value="">Salsa</option>
-                <option value="">Helado</option>
-                <option value="">Yogurt</option>
-                <option value="">Pollo</option>
-                <option value="">Pescado</option>
-            </select>
+            <label class="col-form-label col-12 col-md-auto">Nombre del Producto <span style="color:#f00;"> *</span></label>
+            <input type="text" class="form-control mb-3" list="Nombre_dataList_<?= $rand ?>" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
+
+            <datalist id="Nombre_dataList_<?= $rand ?>">
+                <?php producto_model::options_nombres_productos(); ?> 
+            </datalist>
         </div>
     </div>
 
@@ -33,7 +27,7 @@ $rand = rand(1,500);
     <div class="col-12 col-sm-12 mb-3">
         <label class="col-form-label">Selecciona una Marca<span style="color:#f00;">*</span></label>
         <div class="col-sm-12">
-            <select name="id_marca" id="id_marca" class="form-select Select<?= $rand ?>">
+            <select name="id_marca[]" id="id_marca" class="form-select Select<?= $rand ?>">
                 <option value="">Selecciona una opción</option>
                 <?php marca_model::options(); ?> 
             </select>
@@ -44,10 +38,11 @@ $rand = rand(1,500);
     <div class="col-12 mb-3">
         <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
         <div class="col-sm-12">
-            <select name="id_presentacion" id="select_presentacion" class="form-select Select<?= $rand ?>">
-                <option value="0">Selecciona una opción</option>
+            <input type="text" class="form-control mb-3" list="presentacion_dataList" name="id_presentacion[]" id="select_presentacion" placeholder="Escribe el nombre del producto" autocomplete="off">
+            
+            <datalist id="presentacion_dataList">
                 <?php presentacion_model::options(); ?>
-            </select>
+            </datalist>
         </div>
     </div>
 
@@ -55,7 +50,7 @@ $rand = rand(1,500);
     <div class="col-12 mb-3">
         <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
         <div class="col-sm-12">
-            <select name="id_categoria" id="categoria" class="form-select Select<?= $rand ?>">
+            <select name="id_categoria[]" id="categoria" class="form-select Select<?= $rand ?>">
                 <option value="">Selecciona una opción</option>
                 <?php category_model::options(); ?> 
             </select>
@@ -65,5 +60,4 @@ $rand = rand(1,500);
     <div class="text-center">
         <button type="button" onclick="document.getElementById(`producto_<?= $rand ?>`).remove();" class="btn btn-danger bi bi-trash">&nbsp; Eliminar</button>
     </div>
-    
 </div>

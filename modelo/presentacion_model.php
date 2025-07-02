@@ -58,17 +58,12 @@ class presentacion_model extends modeloPrincipal {
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
                 <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
                 <td scope="row" class="text-center">
-                    <form action="<?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '../controlador/presentacion.php' : './presentacion.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
-                        
-                        <input type="hidden" name="modulo" value="<?= ($mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          
-                        <input type="hidden" name="id" value="<?= $mostrar["id"]; ?>">
-                        <button
-                            <?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '' : 'disabled' ?>
-                            class="btn <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle'?>"
-                            title="estado de la presentación">
-                                &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
-                        </button>
-                    </form>
+                    <button
+                        <?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '' : 'disabled' ?>
+                        class="btn <?= ($mostrar["estado"] === "1") ? 'btn-outline-success bi-check-circle' : 'btn-outline-danger bi-x-circle'?>"
+                        title="estado de la presentación">
+                            &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
+                    </button>
                 </td>
             </tr>
         <?php  } 
