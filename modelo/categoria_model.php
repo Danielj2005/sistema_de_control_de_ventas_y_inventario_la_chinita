@@ -38,15 +38,17 @@ class category_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function validar_categoria_existe($campos,$condicion){
+    public static function validar_categoria_existe($campos, $dato_a_buscar){
         // se comprueba que no exista un registro con los mismos datos
-        $consult = modeloPrincipal::validacion_registro_existente($campos,"categoria","id_categoria = $condicion");
-
-        if (!$consult) {
-            alert_model::alert_register_exist();
-            exit(); 
+        for ($i = 0; $i < count($dato_a_buscar); $i++) {
+            $nombre = strtolower($dato_a_buscar[$i]);
+            
+            $consult = modeloPrincipal::validacion_registro_existente($campos,"categoria","$campos = '$nombre'");
+            if (!$consult) {
+                alert_model::alert_register_exist();
+                exit(); 
+            }
         }
-
     }
 
     public static function lista(){
@@ -73,10 +75,10 @@ class category_model extends modeloPrincipal {
 
 
     public static function options() {
-        $consulta = self::consultar_condicional("id_categoria, nombre","estado = 1");
+        $consulta = self::consultar_condicional("nombre","estado = 1");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["id_categoria"];?>"> <?= $mostrar["nombre"]; ?></option>
+            <option value="<?= $mostrar["nombre"];?>"> <?= $mostrar["nombre"]; ?></option>
         <?php  } 
     }
 

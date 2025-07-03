@@ -37,15 +37,17 @@ class presentacion_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function validar_existe($campos,$condicion){
-        // se comprueba que no exista un registro con los mismos datos
-        $consult = modeloPrincipal::validacion_registro_existente($campos,"presentacion","id = $condicion");
+    public static function verificar_existe_presentacion ($campos, $dato_a_buscar){
 
-        if (!$consult) {
-            alert_model::alert_register_exist();
-            exit(); 
+        // se comprueba que no exista un registro con los mismos datos        
+        for ($i = 0; $i < count($dato_a_buscar); $i++) {
+            $nombre = strtolower($dato_a_buscar[$i]);
+            $consult = modeloPrincipal::validacion_registro_existente($campos,"presentacion","$campos = '$nombre'");
+            if (!$consult) {
+                alert_model::alert_register_exist();
+                exit(); 
+            }
         }
-
     }
 
     public static function lista(){
@@ -74,7 +76,7 @@ class presentacion_model extends modeloPrincipal {
         $consulta = self::consultar_condicional("id, nombre, descripcion","estado = 1");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["id"];?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
+            <option value="<?= $mostrar["nombre"];?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
         <?php  } 
     }
 

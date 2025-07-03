@@ -1,7 +1,18 @@
 <?php 
 session_start();
 // importacion de la conexion a la base de datos y al modelo principal
-include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
+// include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
+include_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+include_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+
+include_once "../modelo/modelo_usuario.php";  // se incluye el modelo de usuario
+include_once "../modelo/rol_model.php"; // se incluye el modelo rol
+
+include_once "../modelo/alert_model.php"; // se incluye el modelo producto
+include_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
+include_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
+include_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
+include_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -166,49 +177,41 @@ if ($rol == 1 || $rol == 2) {
 
                                     <div class="card shadow-lg rounded-4 p-2 col-12 col-md-6 row" id="producto_1" style="max-width: 400px; width: 100%;">
                                         <label class="col-form-label card-title">Datos del Producto: </label>
-                                        <div class="col-12 col-sm-12 mb-3 row">
 
-                                            <div class="col-sm-12">
-                                                <label class="col-form-label col-12 col-md-auto">Nombre del Producto <span style="color:#f00;"> *</span></label>
-                                                <input type="text" class="form-control mb-3" list="datalistOptions" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
-                                                
-                                                <datalist id="datalistOptions">
-                                                    <?php producto_model::options_nombres_productos(); ?> 
-                                                </datalist>
-                                            </div>
+                                        <div class="col-12 col-sm-12 mb-3 row">
+                                            <label class="col-form-label col-12 col-md-auto">Nombre del Producto <span style="color:#f00;"> *</span></label>
+                                            <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
+                                            
+                                            <datalist id="datalist_nombre_productos">
+                                                <?php producto_model2::options_nombres_productos(); ?> 
+                                            </datalist>
                                         </div>
 
                                         <!-- selector de Marca  -->
-                                        <div class="col-12 col-sm-12 mb-3">
-                                            <label class="col-form-label">Selecciona una Marca<span style="color:#f00;">*</span></label>
-                                            <div class="col-sm-12">
-                                                <select name="id_marca[]" id="id_marca" class="form-select Select<?= $rand ?>">
-                                                    <option value="">Selecciona una opción</option>
-                                                    <?php marca_model::options(); ?> 
-                                                </select>
-                                            </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="col-form-label">Seleccione una Marca <span style="color:#f00;"> * </span> </label>
+                                            <input type="text" class="form-control mb-3" list="datalist_marca" name="marcas[]" id="input_nombre_marca" placeholder="Seleccione una Marca" autocomplete="off">
+                                            <datalist id="datalist_marca">
+                                                <?php marca_model::options(); ?>
+                                            </datalist>
                                         </div>
 
                                         <!-- selector de presentacion  -->
                                         <div class="col-12 mb-3">
-                                            <label class="col-form-label">Selecciona una Presentación <span style="color:#f00;">*</span></label>
-                                            <div class="col-sm-12">
-                                                <select name="id_presentacion[]" id="select_presentacion" class="form-select Select<?= $rand ?>">
-                                                    <option value="0">Selecciona una opción</option>
-                                                    <?php presentacion_model::options(); ?>
-                                                </select>
-                                            </div>
+                                            <label class="col-form-label">Seleccione una Presentación <span style="color:#f00;"> * </span> </label>
+                                            <input type="text" class="form-control mb-3" list="datalist_nombre_presentacion" name="presentacion[]" id="input_nombre_presentacion" placeholder="Seleccione una Presentación" autocomplete="off">
+                                            <datalist id="datalist_nombre_presentacion">
+                                                <?php presentacion_model::options(); ?>
+                                            </datalist>
                                         </div>
 
                                         <!-- selector de categoría   -->
                                         <div class="col-12 mb-3">
-                                            <label class="col-form-label">Selecciona una Categoría <span style="color:#f00;">*</span></label>
-                                            <div class="col-sm-12">
-                                                <select name="id_categoria[]" id="categoria" class="form-select Select<?= $rand ?>">
-                                                    <option value="">Selecciona una opción</option>
-                                                    <?php category_model::options(); ?> 
-                                                </select>
-                                            </div>
+                                            <label class="col-form-label">Seleccione una Categoría <span style="color:#f00;"> * </span> </label>
+                                            <input type="text" class="form-control mb-3" list="datalist_nombre_categoria" name="categoria[]" id="input_nombre_categoria" placeholder="Seleccione una Categoría" autocomplete="off">
+                                            <datalist id="datalist_nombre_categoria">
+                                                <?php category_model::options(); ?>
+                                            </datalist>
                                         </div>
 
                                         <div class="text-center">
@@ -260,7 +263,7 @@ if ($rol == 1 || $rol == 2) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php producto_model::lista(); ?>  
+                                            <?php producto_model2::lista(); ?>  
                                         </tbody>
                                     </table>
                                 </div>

@@ -1,7 +1,8 @@
 <?php
+
 class producto_model extends modeloPrincipal {
 
-    public static function consultar_producto($fields) {
+    public static function consultar($fields) {
         $consul = modeloPrincipal::consultar("SELECT $fields FROM producto");
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
@@ -64,31 +65,10 @@ class producto_model extends modeloPrincipal {
         return $id_producto;
     }
 
-    public static function obtener_array_id_producto_recien_registrado($CP) {
-        $id_max = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_producto) AS id FROM producto"));
-        $id_max = $id_max['id'];
-
-        $idSearch = intval($id_max) - intval($CP);
-        
-        $dataFind = [];
-
-        $i = 0;
-        for ( $idSearch += 1;  $idSearch <= $id_max; $idSearch++ ) {
-            $dataFind[$i++] .= $idSearch;
-        }
-        return $dataFind;
-    }
-
-
     public static function registrar ($id_categoria, $nombre_producto, $id_presentacion, $id_marca) {
-        for ($i = 0; $i < count($nombre_producto); $i++) {
-            
-            $nombre = $nombre_producto[$i];
-
-            $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, id_marca" ,"".$id_categoria[$i].", '$nombre', ".$id_presentacion[$i].", ".$id_marca[$i]."");
-            if (!$registrar) {
-                alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el producto debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
-            }
+        $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, id_marca" ,"$id_categoria, '$nombre_producto', $id_presentacion, $id_marca");
+        if (!$registrar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el producto debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
         }
         return $registrar;
     }
@@ -156,16 +136,5 @@ class producto_model extends modeloPrincipal {
             return false;
         }
         return true;
-    }
-
-    public static function options_nombres_productos() {
-        $consulta = modeloPrincipal::consultar("SELECT lower(nombre_producto) AS nombre_producto FROM producto GROUP BY nombre_producto");
-        // se guardan los datos en un array y se imprime
-        
-        while ( $mostrar = mysqli_fetch_array($consulta)) {  ?>
-            <option value="<?= ucwords(strtolower($mostrar["nombre_producto"])); ?>">
-                <?= ucwords(strtolower($mostrar["nombre_producto"])); ?>
-            </option>
-        <?php }
     }
 }

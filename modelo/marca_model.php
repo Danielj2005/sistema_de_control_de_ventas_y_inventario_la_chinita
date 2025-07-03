@@ -47,12 +47,15 @@ class marca_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function validar_existe($nombre){
+    public static function verificar_existe_marca($nombres){
         // se comprueba que no exista un registro con los mismos datos
-        $consult = modeloPrincipal::validacion_registro_existente('nombre',"marca","nombre = $nombre");
-        if (!$consult) {
-            alert_model::alert_register_exist();
-            exit(); 
+        for ($i = 0; $i < count($nombres); $i++) {
+            $nombre = strtolower($nombres[$i]);
+            $consult = modeloPrincipal::validacion_registro_existente('nombre',"marca","nombre = '$nombre'");
+            if (!$consult) {
+                alert_model::alert_register_exist();
+                exit(); 
+            }
         }
     }
 
@@ -67,9 +70,9 @@ class marca_model extends modeloPrincipal {
     }
 
     public static function options() {
-        $consulta = modeloPrincipal::consultar("SELECT * FROM marca");
+        $consulta = modeloPrincipal::consultar("SELECT nombre FROM marca");
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-            <option value="<?= $mostrar["id"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
+            <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
         <?php }
     }
 }

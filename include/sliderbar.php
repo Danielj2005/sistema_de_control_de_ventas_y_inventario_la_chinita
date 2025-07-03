@@ -240,7 +240,7 @@
           <li>
             <a href="./configuracion_refac.php">
               <i class="bi bi-circle"></i>
-              <span>Ajustes del sistema</span>
+              <span>configuracion refacatorizada</span>
             </a>
           </li>
         </ul>

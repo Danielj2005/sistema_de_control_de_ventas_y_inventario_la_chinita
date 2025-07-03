@@ -1,7 +1,13 @@
 <?php 
 session_start();
 
-include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
+include_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+include_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+include_once "../modelo/alert_model.php"; // se incluye el modelo producto
+include_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
+include_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
+include_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
+include_once "../modelo/marcas_model.php"; // se incluye el modelo de marcass
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -10,49 +16,36 @@ if (!isset($_POST["modulo"])) {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
     exit();
 }
+
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
     
     // $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
-    
+
     $nombre_producto = $_POST['nombre_producto'];
-    $id_categoria = $_POST['id_categoria'];
-    $id_presentacion = $_POST['id_presentacion'];
-    $marca = $_POST['id_marca'];
+    $marcas = $_POST['marcas'];
+    $presentacion = $_POST['presentacion'];
+    $categoria = $_POST['categoria'];
     
     $vista = (!isset($_POST['vista'])) ? 0 : modeloPrincipal::limpiar_cadena($_POST['vista']);
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$id_categoria, $id_presentacion, $nombre_producto, $marca]);
+    modeloPrincipal::validar_campos_vacios([$categoria, $presentacion, $nombre_producto, $marcas]);
 
     // se comprueba que no exista un producto con los mismos datos
-    for ($i = 0; $i < count($nombre_producto); $i++) {
-    
-        $nombre = strtolower($nombre_producto[$i]);
-
-        if (mysqli_num_rows(modeloPrincipal::consultar("SELECT lower(nombre_producto) AS nombre_producto, id_marca, id_presentacion, id_categoria FROM producto WHERE nombre_producto = '$nombre' AND id_marca = ".$marca[$i]." AND id_presentacion = ".$id_presentacion[$i]." AND id_categoria = ".$id_categoria[$i]."")) > 0) {
-            /********** No se puede registrar un usuario si ya existe **********/
-            alert_model::alerta_simple("¡Ocurrio un error!","El producto ($nombre) que intentas registrar ya se encuentra en el sistema, verifica que la presentación no este ya registrada en la lista de productos.","error");
-            exit();
-        }
-        $nombre_producto[$i] = ucwords(strtolower($nombre_producto[$i]));
-    }
-
+    producto_model2::verificar_producto_existe($nombre_producto, $marcas, $presentacion, $categoria);
     // se valida el campo nombre del producto
-    for ($i = 0; $i < count($nombre_producto); $i++) {
-    
-        $nombre = $nombre_producto[$i];
-
-        if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre)) {
-            alert_model::alert_of_format_wrong("'nombre'");
-            exit();
-        }
-    }
-    
+    producto_model2::validar_nombre_producto($nombre_producto);
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    category_model::validar_categoria_existe("nombre", $categoria);
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    presentacion_model::verificar_existe_presentacion("nombre", $presentacion);
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    marca_model::verificar_existe_marca($marcas);
 
     // se registran los datos del producto
     try {
-        $registrar = producto_model::registrar($id_categoria, $nombre_producto, $id_presentacion, $id_marca);
+        $registrar = producto_model2::registrar($categoria, $nombre_producto, $presentacion, $id_marcas);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");
@@ -65,9 +58,9 @@ if($modulo === 'Guardar'){
 
     // se realiza la bitácora con los datos del producto a registrar
     try {
-        $id_productos = producto_model::obtener_array_id_producto_recien_registrado(count($nombre_producto));
+        $id_productos = producto_model2::obtener_array_id_producto_recien_registrado(count($nombre_producto));
 
-        $datos_originales = producto_model::obtener_datos_recien_registrados($id_producto);
+        $datos_originales = producto_model2::obtener_datos_recien_registrados($id_producto);
 
         $datos_originales = mysqli_fetch_array($datos_originales);
         $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
@@ -117,33 +110,5 @@ if($modulo === 'Guardar'){
         alert_model::alert_reg_error();
         exit();
     }
-    // se registran los datos del presentación
-    if (modeloPrincipal::InsertSQL("producto", "id_categoria, codigo, nombre_producto, id_presentacion, precio_compra_dolar, precio_compra_bs, stock, estatus", "'$id_categoria', '$codigo', '$nombre_producto', '$id_presentacion', '0', '0', '0',1")) {
-        echo '<script type="text/javascript">
-            swal({
-                title:"¡Registro exitoso!",
-                text:"Los datos se registraron correctamente",
-                type: "success",
-                confirmButtonText: "Aceptar"
-            },
-            function(isConfirm){  
-                if (isConfirm) {
-                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
-                } else { 
-                    '. $vista = ($vista == "añadir_producto") ? '"window.location="../vista/productos.php";' : 'location.reload();'.'
-                } 
-            });
-        </script>';
-        exit();
-    } else {
-        echo'<script type="text/javascript">
-            swal({
-                title: "¡Ocurrio un error!",
-                text: "Los datos no se registraron, verifique he intente nuevamente",
-                type: "error",
-                confirmBottonText: "Aceptar"
-            });
-        </script>';
-        exit();
-    }
+    
 }
