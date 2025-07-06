@@ -43,7 +43,9 @@
         var t = $('#example').DataTable( { 
             language: {
 				url: './js/dataTables-Español.json'
-			}
+			},
+            lengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todos"]],
+            responsive: true,
         } );
 
         t.on( 'order.dt search.dt', function () {
@@ -59,7 +61,9 @@
         var t = $('.example').DataTable( { 
             language: {
                 url: './js/dataTables-Español.json'
-            }
+            },
+            lengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todos"]],
+            responsive: true,
         } );
 
         t.on( 'order.dt search.dt', function () {
@@ -69,4 +73,13 @@
             } );
         } ).draw();
     }
+    
+    // funcion para eliminar un elemento del html
+    document.addEventListener('DOMContentLoaded', () => {
+        const delete_element = document.querySelectorAll('.eraser');
+
+        delete_element.forEach(element => {
+            document.getElementById(`${element.id}`).remove();
+        });
+    });
 </script>

@@ -52,15 +52,15 @@ if ($rol >= 1 && $rol <= 3) {
 								<a class="col-12 btn btn-success" 
 									href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
 										Registrar un nuevo rol
-							</a>
+								</a>
 							</div>
 
 							<div class="col-12 col-sm-12 col-md-6 mb-3">
 								<form action="./roles.php" method="post">
-										<input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
-										<button type="submit" class="col-12 btn btn-secondary">
-											<?= ($estado == '0') ? "Roles activos" : "Roles inactivos"?>
-										</button>
+									<input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
+									<button type="submit" class="col-12 btn btn-secondary">
+										<?= ($estado == '0') ? "Roles activos" : "Roles inactivos"?>
+									</button>
 								</form>
 							</div>
 						</div>
@@ -81,28 +81,26 @@ if ($rol >= 1 && $rol <= 3) {
 										<th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
 										</tr>
 									</thead>
-			
 									<tbody>
-
 										<?php
-										while($row = mysqli_fetch_assoc($consulta)) { ?>
-											<tr>
-												<th class="text-center col" scope="col"></th>
-												<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
-												<th class="text-center col" scope="col">
-													<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
-												</th>
-												<th class="text-center col" scope="col">
-													<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
-												</th>
-												<th class="text-center col" scope="col">
-												<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
-													<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
-													<input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
-													<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= rol_model::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
-												</form>
-												</th>
-											</tr>
+											while($row = mysqli_fetch_assoc($consulta)) { ?>
+												<tr>
+													<th class="text-center col" scope="col"></th>
+													<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
+													<th class="text-center col" scope="col">
+														<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+													</th>
+													<th class="text-center col" scope="col">
+														<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
+													</th>
+													<th class="text-center col" scope="col">
+													<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
+														<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
+														<input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
+														<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= rol_model::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
+													</form>
+													</th>
+												</tr>
 										<?php } ?>  
 									</tbody>
 								</table>

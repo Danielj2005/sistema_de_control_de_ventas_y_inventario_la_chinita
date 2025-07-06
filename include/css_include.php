@@ -13,6 +13,7 @@
 <link href="./css/bootstrap-icons.css" rel="stylesheet">
 <link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
+<link href="./css/animate.min.css" rel="stylesheet">
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 

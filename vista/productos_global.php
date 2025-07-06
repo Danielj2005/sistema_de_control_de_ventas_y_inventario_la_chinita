@@ -23,12 +23,22 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 $rol = rol_model::permisos_modulos('r_productos + l_productos');
 
 // permisos de las vistas y modulos del sistema 
+// la P significa premiso ej. categoriaP (categoria Permiso)
 $categoriaP = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria');
 $r_categoriaP = rol_model::permisos_modulos('r_categoria');
 $m_categoriaP = rol_model::permisos_modulos('m_categoria');
 $l_categoriaP = rol_model::permisos_modulos('l_categoria');
 
 $presentacionP = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
+$r_presentacionP = rol_model::permisos_modulos('r_presentacion');
+$m_presentacionP = rol_model::permisos_modulos('m_presentacion');
+$l_presentacionP = rol_model::permisos_modulos('l_presentacion');
+
+// $marcaP = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
+// $marcaP = rol_model::permisos_modulos('r_presentacion');
+// $marcaP = rol_model::permisos_modulos('m_presentacion');
+// $marcaP = rol_model::permisos_modulos('l_presentacion');
+
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1 || $rol == 2) {  
 ?>
@@ -58,14 +68,13 @@ if ($rol == 1 || $rol == 2) {
 
                     <!-- registro y listado de Categoría -->
                 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $categoriaP == 0 ? 'd-none' : ''?>">
+                    <div id="card_categorias" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $categoriaP == 0 ? 'd-none eraser' : ''?>">
                         <div class="card">
-                            <h1 class="my-3 col">Categoría</h1>
-
-                            <div class="card-body text-start">
-                                <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
-
-                                <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                            <h3 class="my-3 col">Categoría</h3>
+                            <div class="card-body text-start justify-content-center row">
+                                <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
+                                
+                                    <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
                                     <input type="hidden" name="modulo" value="Guardar">          
                                     <div class="row mb-3 justify-content-center">
                                         <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
@@ -76,28 +85,28 @@ if ($rol == 1 || $rol == 2) {
                                         <div class="col-12 mb-3">
                                             <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                                         </div>
-
-                                        <div class="text-center col-12 col-md-6 mb-3" id="ver_listas_categoria" >
-                                            <button type="button" <?= $l_categoriaP == 0 ? 'disabled' : 'modal="ver_categorias" url="./modal/producto/lista_categoria.php" data-bs-toggle="modal" data-bs-target="#modal"'?> class="btn btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
-                                        </div>
-
-                                        <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_categoria">
-                                            <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus <?= $r_categoriaP == 0 ? 'd-none' : ''?>">&nbsp; Añadir</button>
-                                        </div>
                                     </div>
                                 </form>
+
+                                <div class="text-center col-12 col-md-6 mb-3 <?= $l_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="ver_listas_categoria">
+                                    <button id="btn_ver_listas_categoria" modal="ver_categorias" url="./modal/producto/lista_categoria.php" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                </div>
+
+                                <div class="text-center col-12 col-md-6 mb-3 <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="btn_registrar_categoria">
+                                    <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- registro y listado de presentación -->
                 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center">
+                    <div id="card_presentacion" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $presentacionP == 0 ? 'd-none eraser' : ''?>" style="transition: all 0.4s ease-in-out;">
                         <div class="card">
-                            <h1 class="my-3 col">Presentación</h1>
-                            <div class="card-body text-start">
-                                <h5 class="card-title">Añadir una nueva presentación</h5>
+                            <h5 class="my-3 col">Presentación</h5>
+                            <div class="card-body text-start justify-content-center row">
                                 <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                                    <h5 class="card-title">Añadir una nueva presentación</h5>
                                     <input type="hidden" name="modulo" value="Guardar">          
                                     <div class="row mb-3">
                                         <div class="col-12 mb-3">
@@ -113,26 +122,26 @@ if ($rol == 1 || $rol == 2) {
                                         <div class="col-12 mb-3">
                                             <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                                         </div>
-
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="button" modal="ver_presentaciones" url="./modal/producto/lista_presentacion.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                        </div>
-
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                                        </div>
                                     </div>
                                 </form>
+
+                                <div class="text-center col-12 col-md-6 mb-3 <?= $l_presentacionP == 0 ? 'd-none eraser' : ''?>">
+                                    <button id="btn_ver_listas_presentacion" type="button" modal="ver_presentaciones" url="./modal/producto/lista_presentacion.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                </div>
+
+                                <div class="text-center col-12 col-md-6 mb-3 <?= $r_presentacionP == 0 ? 'd-none eraser' : ''?>" id="btn_registrar_presentacion">
+                                    <button type="submit" form="form_presentacion" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- registro y listado de Marca -->
 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center">
+                    <div id="card_marcas" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center ?= $marcasP == 0 ? 'd-none' : ''?>" style="transition: all 0.4s ease-in-out;">
                         <div class="card">
                             <h1 class="my-3 col">Marca</h1>
-                            <div class="card-body text-start">
+                            <div class="card-body text-start justify-content-center row">
                                 <h5 class="card-title">Añadir una nueva Marca</h5>
                                 <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
                                     <input type="hidden" name="modulo" value="Guardar">          
@@ -146,15 +155,15 @@ if ($rol == 1 || $rol == 2) {
                                             <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                                         </div>
 
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="button" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                        </div>
-
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="submit" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                                        </div>
                                     </div>
                                 </form>
+                                <div class="text-center col-12 col-md-6 mb-3">
+                                    <button id="btn_ver_listas_marca" type="button" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                </div>
+
+                                <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_marca">
+                                    <button type="submit" form="form_marca" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn-success bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Añadir</button>
+                                </div>
                             </div>
                         </div>
                     </div>
