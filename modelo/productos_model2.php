@@ -147,7 +147,7 @@ class producto_model2 extends modeloPrincipal {
         $consulta = self::obtener_todos_los_datos();
         // se guardan los datos en un array y se imprime
 
-        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+        while ($mostrar =  mysqli_fetch_assoc($consulta)) { ?>
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>

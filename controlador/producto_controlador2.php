@@ -31,17 +31,21 @@ if($modulo === 'Guardar'){
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$categoria, $presentacion, $nombre_producto, $marcas]);
-
     // se comprueba que no exista un producto con los mismos datos
     producto_model2::verificar_producto_existe($nombre_producto, $marcas, $presentacion, $categoria);
+    
     // se valida el campo nombre del producto
     producto_model2::validar_nombre_producto($nombre_producto);
-    // se verifica que la categoria recibida exista y no haya sido alterada
-    category_model::validar_categoria_existe("nombre", $categoria);
-    // se verifica que la categoria recibida exista y no haya sido alterada
-    presentacion_model::verificar_existe_presentacion("nombre", $presentacion);
+    
     // se verifica que la categoria recibida exista y no haya sido alterada
     marca_model::verificar_existe_marca($marcas);
+    
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    category_model::verificar_existe_categoria("nombre", $categoria);
+    
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    presentacion_model::verificar_existe_presentacion("nombre", $presentacion);
+
 
     // se registran los datos del producto
     try {

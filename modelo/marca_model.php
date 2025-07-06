@@ -47,16 +47,34 @@ class marca_model extends modeloPrincipal {
         return $registrar;
     }
 
+    public static function registrar_array_marcas ($nombres_marcas) {
+        for ($i = 0; $i < count($nombres_marcas); $i++) {
+            // se registra cada marca del array
+            $nombre_marca = $nombres_marcas[$i];
+            $registrar = modeloPrincipal::InsertSQL("marca", "nombre" ,"'$nombre_marca'");
+            if (!$registrar) {
+                alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el marca debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+            }
+        }
+        return $registrar;
+    }
+
+
     public static function verificar_existe_marca($nombres){
         // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($nombres); $i++) {
             $nombre = strtolower($nombres[$i]);
             $consult = modeloPrincipal::validacion_registro_existente('nombre',"marca","nombre = '$nombre'");
             if (!$consult) {
-                alert_model::alert_register_exist();
+                alert_model::alert_register_exist("La marca '$nombre'");
                 exit(); 
             }
         }
+    }
+
+    public static function verificar_existe_marca_unica($nombre){
+        // se comprueba que no exista un registro con los mismos datos
+        modeloPrincipal::validacion_registro_existente('nombre',"marca","nombre = '$nombre'");
     }
 
     public static function lista(){

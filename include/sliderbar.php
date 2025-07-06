@@ -12,8 +12,6 @@
     <?php 
       // vistas
       $entrada = rol_model::permisos_modulos('r_entrada + l_entrada');
-      $categoria = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria');
-      $presentacion = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
       $productos = rol_model::permisos_modulos('r_productos + l_productos');
       $proveedores = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
 
@@ -26,28 +24,13 @@
           </a>
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <?php if ($categoria >= 1 && $categoria <= 3) {  ?>
-              <li>
-                <a href="../vista/categoria_producto.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Categoría</span>
-                </a>
-              </li>
-            <?php }  if ($presentacion >= 1 && $presentacion <= 3) {  ?>
-              <li>
-                <a href="../vista/presentacion.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Presentación</span>
-                </a>
-              </li>
-            <?php }  if ($productos == 1 || $productos == 2 ) {  ?>
-              <li>
-                <a href="../vista/productos.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Productos</span>
-                </a>
-              </li>
-            <?php } if ($proveedores >= 1 && $proveedores <= 4) {  ?>
+            <li>
+              <a href="../vista/productos_global.php">
+                <i class="bi bi-circle"></i>
+                <span>Gestión de Productos</span>
+              </a>
+            </li>
+            <?php if ($proveedores >= 1 && $proveedores <= 4) {  ?>
               <li>
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>
@@ -62,12 +45,6 @@
                 </a>
               </li>
             <?php } ?>
-            <li>
-                <a href="../vista/productos_glogal.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Gestión de Inventario Principal</span>
-                </a>
-              </li>
           </ul>
         </li>
     <?php } 

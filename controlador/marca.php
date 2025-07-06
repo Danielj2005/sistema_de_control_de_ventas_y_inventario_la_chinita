@@ -19,16 +19,13 @@ if($modulo === "Guardar"){
     modeloPrincipal::validar_campos_vacios([$nombre]);
     
     // se comprueba que no exista un registro con los mismos datos
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT id FROM marca WHERE nombre = '$nombre'")) > 0){
-        /********** No se puede registrar un usuario si ya existe **********/
-        alert_model::alerta_simple("¡Ocurrio un error!","El nombre que ingresaste ya se encuentra en uso.","error");
-        exit(); 
-    }
+    marca_model::verificar_existe_marca_unica($nombre);
 
     if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre)) {
         alert_model::alert_of_format_wrong("nombre");
         exit();
     }
+    
     // se registran los datos del presentación
     try {
         $registrar = marca_model::registrar($nombre);

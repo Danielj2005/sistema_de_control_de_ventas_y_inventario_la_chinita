@@ -182,11 +182,13 @@ class alert_model {
         </script>';
     }
 
-    public static function alert_register_exist(){
+    public static function alert_register_exist($campo = "La información"){
+    // se verifica si el campo es un string o un array
+    
         echo '<script type="text/javascript">
                 Swal.fire({
                     title:"¡Ocurrió un error!",
-                    text:"La información ingresada ya se encuentra registrada en el sistema. le sugerimos revisar los datos o utilizar una información diferente",
+                    text:"'.$campo.' ingresada ya se encuentra registrada(o) en el sistema. le sugerimos revisar los datos o utilizar una información diferente",
                     icon: "error",
                     confirmButtonText: "Aceptar"
                 });

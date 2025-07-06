@@ -22,6 +22,13 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::permisos_modulos('r_productos + l_productos');
 
+// permisos de las vistas y modulos del sistema 
+$categoriaP = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria');
+$r_categoriaP = rol_model::permisos_modulos('r_categoria');
+$m_categoriaP = rol_model::permisos_modulos('m_categoria');
+$l_categoriaP = rol_model::permisos_modulos('l_categoria');
+
+$presentacionP = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1 || $rol == 2) {  
 ?>
@@ -51,16 +58,16 @@ if ($rol == 1 || $rol == 2) {
 
                     <!-- registro y listado de Categoría -->
                 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center">
+                    <div class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $categoriaP == 0 ? 'd-none' : ''?>">
                         <div class="card">
                             <h1 class="my-3 col">Categoría</h1>
 
                             <div class="card-body text-start">
-                                <h5 class="card-title">Añadir Nueva Categoría</h5>
+                                <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
 
                                 <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
                                     <input type="hidden" name="modulo" value="Guardar">          
-                                    <div class="row mb-3">
+                                    <div class="row mb-3 justify-content-center">
                                         <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
                                         <div class="col-12 mb-3">
                                             <input form="añadir_categoria" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="input_añadir_categoria" name="nombre_categoria">
@@ -70,12 +77,12 @@ if ($rol == 1 || $rol == 2) {
                                             <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                                         </div>
 
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="button" modal="ver_categorias" url="./modal/producto/lista_categoria.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                        <div class="text-center col-12 col-md-6 mb-3" id="ver_listas_categoria" >
+                                            <button type="button" <?= $l_categoriaP == 0 ? 'disabled' : 'modal="ver_categorias" url="./modal/producto/lista_categoria.php" data-bs-toggle="modal" data-bs-target="#modal"'?> class="btn btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
                                         </div>
 
-                                        <div class="text-center col-12 col-md-6 mb-3">
-                                            <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                                        <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_categoria">
+                                            <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus <?= $r_categoriaP == 0 ? 'd-none' : ''?>">&nbsp; Añadir</button>
                                         </div>
                                     </div>
                                 </form>
@@ -178,8 +185,8 @@ if ($rol == 1 || $rol == 2) {
                                     <div class="card shadow-lg rounded-4 p-2 col-12 col-md-6 row" id="producto_1" style="max-width: 400px; width: 100%;">
                                         <label class="col-form-label card-title">Datos del Producto: </label>
 
-                                        <div class="col-12 col-sm-12 mb-3 row">
-                                            <label class="col-form-label col-12 col-md-auto">Nombre del Producto <span style="color:#f00;"> *</span></label>
+                                        <div class="col-12 mb-3">
+                                            <label class="col-form-label">Nombre del Producto <span style="color:#f00;"> *</span></label>
                                             <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
                                             
                                             <datalist id="datalist_nombre_productos">
@@ -299,7 +306,8 @@ if ($rol == 1 || $rol == 2) {
         
             model_user::validar_sesion_activa($id_usuario);
     
-            config_model::verificar_actualizacion_configuracion(); ?>
+            config_model::verificar_actualizacion_configuracion(); 
+            ?>
     </body>
 </html>
 <?php }else{

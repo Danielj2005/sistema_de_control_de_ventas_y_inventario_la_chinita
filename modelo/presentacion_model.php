@@ -44,7 +44,7 @@ class presentacion_model extends modeloPrincipal {
             $nombre = strtolower($dato_a_buscar[$i]);
             $consult = modeloPrincipal::validacion_registro_existente($campos,"presentacion","$campos = '$nombre'");
             if (!$consult) {
-                alert_model::alert_register_exist();
+                alert_model::alert_register_exist("La presentacion");
                 exit(); 
             }
         }

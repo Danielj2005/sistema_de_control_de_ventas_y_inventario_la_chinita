@@ -142,7 +142,6 @@ class modeloPrincipal {
             exit(); 
         }
         return true;
-        
     }
 
     public static function validar_campos_vacios($campos){

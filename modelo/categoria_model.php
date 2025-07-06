@@ -38,18 +38,18 @@ class category_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function validar_categoria_existe($campos, $dato_a_buscar){
+    public static function verificar_existe_categoria($campos, $dato_a_buscar){
         // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($dato_a_buscar); $i++) {
             $nombre = strtolower($dato_a_buscar[$i]);
-            
-            $consult = modeloPrincipal::validacion_registro_existente($campos,"categoria","$campos = '$nombre'");
-            if (!$consult) {
-                alert_model::alert_register_exist();
+            if(mysqli_num_rows(Self::consultar("SELECT $campos FROM categoria WHERE $campos = '$nombre'")) > 0){
+                /********** No se puede registrar un usuario si ya existe **********/
+                alert_model::alert_register_exist("la categoría '$nombre'");
                 exit(); 
             }
         }
     }
+
 
     public static function lista(){
         $consulta = self::consultar_categoria("*");
