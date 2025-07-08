@@ -1,13 +1,13 @@
 <?php 
 session_start();
 
-include_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
-include_once "../modelo/productos_model2.php"; // se incluye el modelo producto
-include_once "../modelo/alert_model.php"; // se incluye el modelo producto
-include_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
-include_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
-include_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
-include_once "../modelo/marcas_model.php"; // se incluye el modelo de marcass
+require_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+require_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+require_once "../modelo/alert_model.php"; // se incluye el modelo producto
+require_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
+require_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
+require_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
+require_once "../modelo/marca_model.php"; // se incluye el modelo de marcass
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -38,15 +38,26 @@ if($modulo === 'Guardar'){
     producto_model2::validar_nombre_producto($nombre_producto);
     
     // se verifica que la categoria recibida exista y no haya sido alterada
-    marca_model::verificar_existe_marca($marcas);
-    
-    // se verifica que la categoria recibida exista y no haya sido alterada
-    category_model::verificar_existe_categoria("nombre", $categoria);
-    
-    // se verifica que la categoria recibida exista y no haya sido alterada
-    presentacion_model::verificar_existe_presentacion("nombre", $presentacion);
+    // marca_model::verificar_existe_marca($marcas);
 
+    if (!marca_model::verificar_existe_marca($marcas)) {
+        alert_model::alerta_simple("ocurried!","marca sin registrar","error");
+        exit();
+    }
 
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    if (!category_model::verificar_existe_categoria("nombre", $categoria)) {
+        alert_model::alerta_simple("ocurried!","categoria sin registrar","error");
+        exit();
+    }
+
+    // se verifica que la categoria recibida exista y no haya sido alterada
+    if (!presentacion_model::verificar_existe_presentacion("nombre", $presentacion)) {
+        alert_model::alerta_simple("ocurried!","presentacion sin registrar","error");
+        exit();
+    }
+
+    
     // se registran los datos del producto
     try {
         $registrar = producto_model2::registrar($categoria, $nombre_producto, $presentacion, $id_marcas);

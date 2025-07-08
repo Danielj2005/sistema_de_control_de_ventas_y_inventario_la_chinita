@@ -40,7 +40,7 @@ class marca_model extends modeloPrincipal {
     }
 
     public static function registrar ($nombre_marca) {
-        $registrar = modeloPrincipal::InsertSQL("marca", "nombre" ,"'$nombre_marca'");
+        $registrar = modeloPrincipal::InsertSQL("marca", "nombre, estado" ,"'$nombre_marca', 1");
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el marca debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
         }
@@ -64,12 +64,12 @@ class marca_model extends modeloPrincipal {
         // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($nombres); $i++) {
             $nombre = strtolower($nombres[$i]);
-            $consult = modeloPrincipal::validacion_registro_existente('nombre',"marca","nombre = '$nombre'");
-            if (!$consult) {
-                alert_model::alert_register_exist("La marca '$nombre'");
-                exit(); 
+            if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM marca WHERE nombre = '$nombre'")) < 1){
+                /********** No se puede registrar un usuario si ya existe **********/
+                return false;
             }
         }
+        return true;
     }
 
     public static function verificar_existe_marca_unica($nombre){

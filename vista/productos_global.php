@@ -34,10 +34,10 @@ $r_presentacionP = rol_model::permisos_modulos('r_presentacion');
 $m_presentacionP = rol_model::permisos_modulos('m_presentacion');
 $l_presentacionP = rol_model::permisos_modulos('l_presentacion');
 
-// $marcaP = rol_model::permisos_modulos('r_presentacion + m_presentacion + l_presentacion');
-// $marcaP = rol_model::permisos_modulos('r_presentacion');
-// $marcaP = rol_model::permisos_modulos('m_presentacion');
-// $marcaP = rol_model::permisos_modulos('l_presentacion');
+$marcaP = rol_model::permisos_modulos('r_marca + m_marca + l_marca');
+$r_marcaP = rol_model::permisos_modulos('r_marca');
+$m_marcaP = rol_model::permisos_modulos('m_marca');
+$l_marcaP = rol_model::permisos_modulos('l_marca');
 
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1 || $rol == 2) {  
@@ -46,7 +46,7 @@ if ($rol == 1 || $rol == 2) {
 <html lang="en">
     <head>
         <!-- titulo -->
-        <title>Gestión de Inventario Principal</title> 
+        <title>Gestión de Productos</title> 
         <?php 
             // se incluyen los meta datos 
             include_once "../include/meta_include.php"; 
@@ -62,38 +62,48 @@ if ($rol == 1 || $rol == 2) {
         <main id="main" class="main">
             <div class="pagetitle">
                 <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+                <h1 class="text-center titulosH">Gestión de Productos</h1>
             </div>
             <section class="section dashboard">
                 <div class="row">      
 
                     <!-- registro y listado de Categoría -->
                 
-                    <div id="card_categorias" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $categoriaP == 0 ? 'd-none eraser' : ''?>">
-                        <div class="card">
-                            <h3 class="my-3 col fs-4 titulosH">Categoría</h3>
-                            <div class="card-body text-start justify-content-center row">
-                                <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
-                                
-                                    <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
-                                    <input type="hidden" name="modulo" value="Guardar">          
-                                    <div class="row mb-3 justify-content-center">
-                                        <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                        <div class="col-12 mb-3">
-                                            <input form="añadir_categoria" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="input_añadir_categoria" name="nombre_categoria">
-                                        </div>
+                    <div id="card_categorias" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= $categoriaP == 0 ? 'd-none eraser' : ''?>">
+                        <div class="accordion" id="categorias_accordion">
+                            <div class="accordion-item text-center justify-content-center align-items-center row">
+                                <h3 class="accordion-header my-3 col fs-4 text-center">
+                                    <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#categoriasCard" aria-expanded="true" aria-controls="collapseOne">
+                                        Categorías
+                                    </button>
+                                </h3>
 
-                                        <div class="col-12 mb-3">
-                                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                                <div id="categoriasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body row">
+                                        <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
+                                        
+                                            <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
+                                            <input type="hidden" name="modulo" value="Guardar">          
+                                            <div class="row mb-3 justify-content-center text-start">
+                                                <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
+                                                <div class="col-12 mb-3">
+                                                    <input form="añadir_categoria" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="input_añadir_categoria" name="nombre_categoria">
+                                                </div>
+    
+                                                <div class="col-12 mb-3 text-start">
+                                                    <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                                                </div>
+                                            </div>
+                                        </form>
+    
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $l_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="ver_listas_categoria">
+                                            <button id="btn_ver_listas_categoria" modal="ver_categorias" url="./modal/producto/lista_categoria.php" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                        </div>
+    
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="btn_registrar_categoria">
+                                            <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                         </div>
                                     </div>
-                                </form>
-
-                                <div class="text-center col-12 col-md-6 mb-3 <?= $l_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="ver_listas_categoria">
-                                    <button id="btn_ver_listas_categoria" modal="ver_categorias" url="./modal/producto/lista_categoria.php" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                </div>
-
-                                <div class="text-center col-12 col-md-6 mb-3 <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" id="btn_registrar_categoria">
-                                    <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                 </div>
                             </div>
                         </div>
@@ -101,73 +111,95 @@ if ($rol == 1 || $rol == 2) {
 
                     <!-- registro y listado de presentación -->
                 
-                    <div id="card_presentacion" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $presentacionP == 0 ? 'd-none eraser' : ''?>" style="transition: all 0.4s ease-in-out;">
-                        <div class="card">
-                            <h3 class="my-3 col fs-4 titulosH">Presentación</h3>
-                            <div class="card-body text-start justify-content-center row">
-                                <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                                    <h5 class="card-title">Añadir una nueva presentación</h5>
-                                    <input type="hidden" name="modulo" value="Guardar">          
-                                    <div class="row mb-3">
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                            <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                    <div id="card_presentacion" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= $presentacionP == 0 ? 'd-none eraser' : ''?>">
+                        <div class="accordion" id="presentacion_accordion">
+                            <div class="accordion-item text-center justify-content-center align-items-center row">
+                                <h3 class="accordion-header my-3 col fs-4 text-center">
+                                    <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#presentacionCard" aria-expanded="true" aria-controls="collapseOne">
+                                        Presentación
+                                    </button>
+                                </h3>
+    
+                                <div id="presentacionCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body row">
+                                        <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                                            <h5 class="card-title">Añadir una nueva presentación</h5>
+                                            <input type="hidden" name="modulo" value="Guardar">          
+                                            <div class="row mb-3">
+                                                <div class="col-12 mb-3 text-start">
+                                                    <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
+                                                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                                                </div>
+
+                                                <div class="col-12 mb-3 text-start">
+                                                    <label class="col-form-label">Descripción <span style="color:#f00;">*</span> </label>
+                                                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,250}" required="" placeholder="ingresa la descripción" class="form-control" id="descripcion_presentacion" name="descripcion_presentacion">
+                                                </div>
+
+                                                <div class="col-12 mb-3 text-start">
+                                                    <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $l_presentacionP == 0 ? 'd-none eraser' : ''?>">
+                                            <button id="btn_ver_listas_presentacion" type="button" modal="ver_presentaciones" url="./modal/producto/lista_presentacion.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                         </div>
 
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Descripción <span style="color:#f00;">*</span> </label>
-                                            <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,250}" required="" placeholder="ingresa la descripción" class="form-control" id="descripcion_presentacion" name="descripcion_presentacion">
-                                        </div>
-
-                                        <div class="col-12 mb-3">
-                                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $r_presentacionP == 0 ? 'd-none eraser' : ''?>" id="btn_registrar_presentacion">
+                                            <button type="submit" form="form_presentacion" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                         </div>
                                     </div>
-                                </form>
-
-                                <div class="text-center col-12 col-md-6 mb-3 <?= $l_presentacionP == 0 ? 'd-none eraser' : ''?>">
-                                    <button id="btn_ver_listas_presentacion" type="button" modal="ver_presentaciones" url="./modal/producto/lista_presentacion.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                </div>
-
-                                <div class="text-center col-12 col-md-6 mb-3 <?= $r_presentacionP == 0 ? 'd-none eraser' : ''?>" id="btn_registrar_presentacion">
-                                    <button type="submit" form="form_presentacion" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- registro y listado de Marca -->
 
-                    <div id="card_marcas" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center ?= $marcasP == 0 ? 'd-none' : ''?>" style="transition: all 0.4s ease-in-out;">
-                        <div class="card">
-                            <h3 class="my-3 col fs-4 titulosH">Marca</h3>
-                            <div class="card-body text-start justify-content-center row">
-                                <h5 class="card-title">Añadir una nueva Marca</h5>
-                                <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                                    <input type="hidden" name="modulo" value="Guardar">          
-                                    <div class="row mb-3">
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                            <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="id" name="nombre_marca">
+                    <div id="card_marcas" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= $marcaP == 0 ? 'd-none eraser' : ''?>">
+                        <div class="accordion" id="marcas_accordion">
+                            <div class="accordion-item text-center justify-content-center align-items-center row">
+    
+                                <h3 class="accordion-header my-3 col fs-4 text-center">
+                                    <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#marcasCard" aria-expanded="true" aria-controls="collapseOne">
+                                        Marca
+                                    </button>
+                                </h3>
+    
+                                <div id="marcasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body row">
+                                        <h5 class="card-title">Añadir una nueva Marca</h5>
+    
+                                        <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                                            <input type="hidden" name="modulo" value="Guardar">          
+                                            <div class="row mb-3">
+                                                <div class="col-12 mb-3 text-start">
+                                                    <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
+                                                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="id" name="nombre_marca">
+                                                </div>
+    
+                                                <div class="col-12 mb-3 text-start">
+                                                    <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                                                </div>
+    
+                                            </div>
+                                        </form>
+    
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $l_marcaP == 0 ? 'd-none eraser' : ''?>">
+                                            <button id="btn_ver_listas_marca" type="button" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                         </div>
-
-                                        <div class="col-12 mb-3">
-                                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+    
+                                        <div class="text-center col-12 col-md-6 mb-3 <?= $r_marcaP == 0 ? 'd-none eraser' : ''?>" id="btn_registrar_marca">
+                                            <button type="submit" form="form_marca" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn-success bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Añadir</button>
                                         </div>
-
                                     </div>
-                                </form>
-                                <div class="text-center col-12 col-md-6 mb-3">
-                                    <button id="btn_ver_listas_marca" type="button" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                </div>
-
-                                <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_marca">
-                                    <button type="submit" form="form_marca" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn-success bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Añadir</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    
                     <!-- registro y listado de productos -->
 
                     <div class="col-12 mb-3 pagetitle text-center">

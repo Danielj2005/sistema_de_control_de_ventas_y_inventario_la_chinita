@@ -42,12 +42,12 @@ class category_model extends modeloPrincipal {
         // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($dato_a_buscar); $i++) {
             $nombre = strtolower($dato_a_buscar[$i]);
-            if(mysqli_num_rows(Self::consultar("SELECT $campos FROM categoria WHERE $campos = '$nombre'")) > 0){
+            if(mysqli_num_rows(Self::consultar("SELECT $campos FROM categoria WHERE $campos = '$nombre'")) < 1){
                 /********** No se puede registrar un usuario si ya existe **********/
-                alert_model::alert_register_exist("la categoría '$nombre'");
-                exit(); 
+                return false;
             }
         }
+        return true;
     }
 
 

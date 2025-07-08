@@ -2,7 +2,7 @@
 
 class presentacion_model extends modeloPrincipal {
 
-    public static function consultar($fields) {
+    public static function consultar_presentacion($fields) {
         $consul = modeloPrincipal::consultar("SELECT $fields FROM presentacion");
         modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
         return $consul;
@@ -38,16 +38,15 @@ class presentacion_model extends modeloPrincipal {
     }
 
     public static function verificar_existe_presentacion ($campos, $dato_a_buscar){
-
-        // se comprueba que no exista un registro con los mismos datos        
+        // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($dato_a_buscar); $i++) {
             $nombre = strtolower($dato_a_buscar[$i]);
-            $consult = modeloPrincipal::validacion_registro_existente($campos,"presentacion","$campos = '$nombre'");
-            if (!$consult) {
-                alert_model::alert_register_exist("La presentacion");
-                exit(); 
+            if(mysqli_num_rows(self::consultar_condicional($campos,"$campos = '$nombre'")) < 1){
+                /********** No se puede registrar un usuario si ya existe **********/
+                return false;
             }
         }
+        return true;
     }
 
     public static function lista(){

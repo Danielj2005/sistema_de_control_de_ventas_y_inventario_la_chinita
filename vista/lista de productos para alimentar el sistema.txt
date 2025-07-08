@@ -12,13 +12,9 @@
 - rediseñar la interfaz de configuración
 
 ****************  Importante de crear, agregar o modificar!!!!! ****************
-- agregar marcas a la tabla de roles
-- agregar marcas a las vistas de los roles
-- agregar marcas a los controladores que hagan uso de ella
 - 
 
 ****************  registro de productos ****************
-- crear funciones para agregar dinamicamente los datos a los select de las cards
 - crear y modificar funciones de registro en categorias, presentacion y marca de productos desde un array
 - crear modal de lista de prodctos o vista dinamica.
 - rediseñar y crear funciones para el registro y bitacora de categorias, presentacion y marca de productos en cada modelo respectivo.
