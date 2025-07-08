@@ -70,7 +70,7 @@ if ($rol == 1 || $rol == 2) {
                 
                     <div id="card_categorias" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $categoriaP == 0 ? 'd-none eraser' : ''?>">
                         <div class="card">
-                            <h3 class="my-3 col">Categoría</h3>
+                            <h3 class="my-3 col fs-4 titulosH">Categoría</h3>
                             <div class="card-body text-start justify-content-center row">
                                 <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
                                 
@@ -103,7 +103,7 @@ if ($rol == 1 || $rol == 2) {
                 
                     <div id="card_presentacion" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center <?= $presentacionP == 0 ? 'd-none eraser' : ''?>" style="transition: all 0.4s ease-in-out;">
                         <div class="card">
-                            <h5 class="my-3 col">Presentación</h5>
+                            <h3 class="my-3 col fs-4 titulosH">Presentación</h3>
                             <div class="card-body text-start justify-content-center row">
                                 <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
                                     <h5 class="card-title">Añadir una nueva presentación</h5>
@@ -140,7 +140,7 @@ if ($rol == 1 || $rol == 2) {
 
                     <div id="card_marcas" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center ?= $marcasP == 0 ? 'd-none' : ''?>" style="transition: all 0.4s ease-in-out;">
                         <div class="card">
-                            <h1 class="my-3 col">Marca</h1>
+                            <h3 class="my-3 col fs-4 titulosH">Marca</h3>
                             <div class="card-body text-start justify-content-center row">
                                 <h5 class="card-title">Añadir una nueva Marca</h5>
                                 <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
@@ -173,7 +173,7 @@ if ($rol == 1 || $rol == 2) {
                     <div class="col-12 mb-3 pagetitle text-center">
                         <div class="card">
                             <div class="card-body row">
-                                <h1 class="my-3 col-12">Productos</h1>
+                                <h3 class="my-3 col-12 fs-4 titulosH">Productos</h3>
                         
                                 <div class="text-center col-12 col-md-6 mb-3">
                                     <button type="button" modal="ver_categorias" url="./modal/producto/lista_categoria.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>

@@ -141,6 +141,19 @@ if ($rol == 1) {  ?>
                                       </li>
                                       <br>
                                       <li>
+                                        <input name="r_marca" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Nuevas Marcas</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_marca">
+                                        <span>Modificar Información de Marcas</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_marca">
+                                        <span>Consultar Lista de Marcas Registradas</span>
+                                      </li>
+                                      <br>
+                                      <li>
                                         <input name="r_productos" class="productos" value="1" type="checkbox">
                                         <span>Registrar Nuevos Productos</span>
                                       </li>

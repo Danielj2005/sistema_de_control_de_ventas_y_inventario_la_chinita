@@ -65,6 +65,17 @@ class rol_model extends model_user {
         }
     }
 
+    public static function registrar ($nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $m_categoria, $l_categoria, $r_presentacion, $m_presentacion, $l_presentacion, $r_marca, $m_marca, $l_marca, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora) {
+
+        $registrar = modeloPrincipal::InsertSQL("rol", "nombre, r_proveedores, m_proveedores, l_proveedores, h_proveedores, r_categoria, m_categoria, l_categoria, r_presentacion, m_presentacion, l_presentacion, r_productos, r_marca, m_marca, l_marca, l_productos, r_entrada, l_entrada, g_venta, d_venta, l_venta, f_venta, est_venta, r_servicio, m_servicio, l_servicio, r_cliente, m_cliente, l_cliente, h_cliente, f_cliente, r_empleado, m_empleado, l_empleado, r_rol, m_rol, l_rol, m_cant_pregunta_seguridad, m_tiempo_sesion, m_cant_caracteres, m_cant_simbolos, m_cant_num, intentos_inicio_sesion, v_bitacora, m_bitacora, estado", "'$nombre', $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $m_categoria, $l_categoria, $r_presentacion, $m_presentacion, $l_presentacion, $r_marca, $m_marca, $l_marca, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora, 1");
+
+        if (!$registrar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el rol debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+        }
+        return $registrar;
+    }
+
+
     // funcion para validar si se esta recibiendo datos por post
     public static function texto_permisos_vista($permisos) {
         $texto_permisos = [];

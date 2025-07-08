@@ -67,7 +67,6 @@ class category_model extends modeloPrincipal {
                         title="estado de la categoría">
                             &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
                     </button>
-                    
                 </td>
             </tr>
         <?php  } 

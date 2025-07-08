@@ -71,4 +71,8 @@
             }
         }
     }
+    .titulosH{
+        color:#012970;
+        font-weight: bold;
+    } 
 </style>

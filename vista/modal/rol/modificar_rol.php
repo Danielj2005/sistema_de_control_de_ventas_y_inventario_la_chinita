@@ -10,7 +10,8 @@ $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM rol WHE
 $nombre = $permisos['nombre'];
 // cantidad de vistas de inventario
 $proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] +  $permisos['r_marca'] + $permisos['m_marca'] + $permisos['l_marca'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+
 // cantidad de vistas de venta
 $venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'] + $permisos['est_venta'];
 // cantidad de vistas de menu
@@ -111,14 +112,14 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Productos &nbsp;<i class="bi <?= obtenerIconoPermisos($producto, 10) ?>"></i>
+                                        Módulo Productos &nbsp;<i class="bi <?= obtenerIconoPermisos($producto, 13) ?>"></i>
                                     </button>
                                 </h2>
                                 <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                     <div class="accordion-body">
                                         <ul id="" class="nav-content list-unstyled">
                                             <li>
-                                                <input class="vista" type="checkbox" <?= $producto == 10 ? 'checked' : '' ?> value="productos">
+                                                <input class="vista" type="checkbox" <?= $producto == 13 ? 'checked' : '' ?> value="productos">
                                                 Acceso Total al Módulo de Productos
                                             </li>
     
@@ -147,6 +148,19 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                                 <li>
                                                     <input class="productos" type="checkbox" <?= $permisos['l_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="l_presentacion">
                                                     <span>Consultar Lista de Presentaciones Registradas</span>
+                                                </li>
+                                                <br>
+                                                <li>
+                                                    <input name="r_marca" class="productos" <?= $permisos['r_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                                                    <span>Registrar Nuevas Marcas</span>
+                                                </li>
+                                                <li>
+                                                    <input name="m_marca" class="productos" <?= $permisos['m_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                                                    <span>Modificar Información de Marcas</span>
+                                                </li>
+                                                <li>
+                                                    <input name="l_marca" class="productos" <?= $permisos['l_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
+                                                    <span>Consultar Lista de Marcas Registradas</span>
                                                 </li>
                                                 <br>
                                                 <li>
@@ -468,7 +482,6 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                     </div>
     
                     <!-- módulo bitácora -->
-                    
                     
                     <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
                         <div class="accordion" id="acordeon_bitacora">

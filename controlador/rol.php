@@ -3,69 +3,6 @@ session_start();
 
 include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
-function info_actual_del_rol($id_rol) {
-    // se consulta base de datos para obtener la información actual del rol
-    $info_rol = modeloPrincipal::Consultar("SELECT * FROM rol WHERE id_rol = $id_rol");
-    $permisos_roles = mysqli_fetch_array($info_rol);
-    $nombre_rol = $permisos_roles['nombre'];
-    // Iterar sobre el array de permisos
-    foreach ($permisos_roles as $key => $value) {
-        if ($value == 1 && $permisos_roles[$key] !== "nombre") {
-            // Agregar al array de resultados si el valor es 1
-            $permisos_roles[$key] = 'Permitido';
-        }else{
-            $permisos_roles[$key] = 'Denegado';
-        }
-    }
-    
-
-    // se itera sobre el resultado de la consulta para imprimir un mensaje con la información actual del rol
-    
-    $mensaje = "El usuario modificó el rol con la siguiente información:\n
-        Nombre del rol:  <b>$nombre_rol\n
-        -- Modulo Inventario --\n
-        Vistas de Proveedores:
-        Registro de Proveedores: ".$permisos_roles['r_proveedores']."\n
-        Modificación de Proveedores: ".$permisos_roles['m_proveedores']."\n
-        Lista de Proveedores registrados: ".$permisos_roles['l_proveedores']."\n
-        Historial de compras a Proveedores: ".$permisos_roles['h_proveedores']."\n\n
-        Vistas de Productos:
-        Registro de Categorías: ".$permisos_roles['r_categoria']."\n
-        Registro de Presentación: ".$permisos_roles['r_presentacion']."\n
-        Registro de Productos: ".$permisos_roles['r_productos']."\n
-        Lista de Productos: ".$permisos_roles['l_productos']."\n
-        Registro de Entrada de Productos: ".$permisos_roles['r_entrada']."\n
-        Lista de Entradas registradas: ".$permisos_roles['l_entrada']."\n\n
-        Información del servicio actualizada:
-        \n\n
-        Nombre del rol:  <b>$nombre_rol\n
-        Estado: Activo.";
-
-    return $mensaje;
-    // Devolver el array de resultados
-    // mensaje_campos_actual($resultados,$resultados);
-}
-
-
-function mensaje_campos_actual($permiso_rol, $resultados) {
-
-    // Iterar sobre los campos recibidos
-
-    foreach ($resultados as $key => $value) {
-
-        // Verificar si la llave existe en el array de permisos y si su valor es igual a 1
-
-        if (array_key_exists($key, $permiso_rol) && $permiso_rol[$key] == 1) {
-
-            // Mostrar el mensaje
-
-            echo "$key = $value\n";
-
-        }
-
-    }
-}
-
 if (!isset($_POST["modulo"]) || $_POST['modulo'] == "") {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud, asegurese de no alterar la información del sistema","error");
     exit();
@@ -92,6 +29,10 @@ if($modulo === "Guardar"){
     $r_presentacion = rol_model::validar_post_roles("r_presentacion");
     $m_presentacion = rol_model::validar_post_roles("m_presentacion");
     $l_presentacion = rol_model::validar_post_roles("l_presentacion");
+
+    $r_marca = rol_model::validar_post_roles("r_marca");
+    $m_marca = rol_model::validar_post_roles("m_marca");
+    $l_marca = rol_model::validar_post_roles("l_marca");
 
     $r_productos = rol_model::validar_post_roles("r_productos");
     $l_productos = rol_model::validar_post_roles("l_productos");
@@ -146,8 +87,8 @@ if($modulo === "Guardar"){
     }
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $f_venta, $l_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $nombre, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora]);
-    
+    modeloPrincipal::validar_campos_vacios([$nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $m_categoria, $l_categoria, $r_presentacion, $m_presentacion, $l_presentacion, $r_marca, $m_marca, $l_marca, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $f_venta, $l_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $nombre, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora]);
+
     if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre)) {
         alert_model::alerta_simple( "¡Ocurrio un error!", "El campo NOMBRE debe contener entre 3 y 20 caracteres. Por favor, asegúrate de que cumple con este formato.", "error");
         exit();
@@ -155,7 +96,7 @@ if($modulo === "Guardar"){
 
     // datos verificados que se van a Registrar
     try {
-        $registrar = modeloPrincipal::InsertSQL("rol", "nombre, r_proveedores, m_proveedores, l_proveedores, h_proveedores, r_categoria, m_categoria, l_categoria, r_presentacion, m_presentacion, l_presentacion, r_productos, l_productos, r_entrada, l_entrada, g_venta, d_venta, l_venta, f_venta, est_venta, r_servicio, m_servicio, l_servicio, r_cliente, m_cliente, l_cliente, h_cliente, f_cliente, r_empleado, m_empleado, l_empleado, r_rol, m_rol, l_rol, m_cant_pregunta_seguridad, m_tiempo_sesion, m_cant_caracteres, m_cant_simbolos, m_cant_num, intentos_inicio_sesion, v_bitacora, m_bitacora, estado", "'$nombre', $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $m_categoria, $l_categoria, $r_presentacion, $m_presentacion, $l_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora, 1");
+        $registrar = rol_model::registrar($nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $m_categoria, $l_categoria, $r_presentacion, $m_presentacion, $l_presentacion, $r_marca, $m_marca, $l_marca, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $l_venta, $f_venta, $est_venta, $r_servicio, $m_servicio, $l_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora);
 
         if (!$registrar) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al registrar la información del rol.", "error");
@@ -166,6 +107,7 @@ if($modulo === "Guardar"){
         alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al registrar la información del rol.", "error");
         exit();
     }
+    
     try {
         $id_rol = modeloPrincipal::obtener_id_recien_registrado("id_rol","rol");
 

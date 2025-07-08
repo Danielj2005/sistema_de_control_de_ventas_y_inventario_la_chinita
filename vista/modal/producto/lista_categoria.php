@@ -11,8 +11,8 @@ require_once "../../../modelo/rol_model.php";
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>
-                <th class="col text-center" scope="col">NOMBRE</th>
-                <th class="col text-center" scope="col">ESTADO</th>
+                <th class="col text-center" scope="col">Nombre</th>
+                <th class="col text-center" scope="col">Estado</th>
             </tr>
         </thead>
         <tbody>

@@ -11,7 +11,7 @@ $nombre = $permisos['nombre'];
 
 // cantidad de vistas de inventario 
 $proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] +  $permisos['r_marca'] + $permisos['m_marca'] + $permisos['l_marca'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
 
 // cantidad de vistas de venta
 $venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'];
@@ -56,7 +56,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
         <?php if ($proveedor > 0 || $producto > 0 ) { ?>
         
             <div class="col-12 col-md-12 mb-3">
-                <h4 class="mb-3"> Módulo de Inventario </h4>
+                <h4 class="mb-3"> Módulo de Inventario</h4>
 
                 <hr>
 
@@ -113,7 +113,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                         </div>
                     <?php } 
 
-                        if ($producto <= 10 && $producto >= 1) { ?>
+                        if ($producto <= 13 && $producto >= 1) { ?>
 
                             <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
                                 <div class="accordion" id="acordeon_productos">
@@ -122,66 +122,101 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
                                                 Módulo Productos 
                                                 &nbsp; <!-- este comando sirve para crear un espacio entre elementos -->
-                                                <i class="bi <?= obtenerIconoPermisos($producto, 10) ?>"></i>
+                                                <i class="bi <?= obtenerIconoPermisos($producto, 13) ?>"></i>
                                             </button>
                                         </h2>
                                         <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                             <div class="accordion-body">
                                                 <ul id="" class="nav-content"> 
-                                                    <?php if ($producto == 10 ) { ?>
+                                                    <?php if ($producto == 13 ) { ?>
                                                         <li class="">
                                                             <span>Acceso Total al Módulo de Productos</span>
                                                         </li>
                                                     <?php } ?>
                                                     <ul id="" class="ps-3 nav-content">
-                                                        <?php if ($permisos['r_categoria'] == 1) { ?>
-                                                            <li>
-                                                                <span>Registrar Nuevas Categorías</span>
-                                                            </li>
-                                                        <?php } if ($permisos['m_categoria'] == 1) { ?>
-                                                            <li>
-                                                                <span>Modificar Información de Categorías</span>
-                                                            </li>
-                                                        <?php } if ($permisos['l_categoria'] == 1) { ?>
-                                                            <li>
-                                                                <span>Consultar Lista de Categorías Registradas</span>
-                                                            </li><br>
-                                                        <?php } 
-                                                            if ($permisos['r_presentacion'] == 1) { ?>
-                                                            <li>
-                                                                <span>Modificar Información de Presentaciones</span>
-                                                            </li>
-                                                        <?php } 
-                                                            if ($permisos['m_presentacion'] == 1) { ?>
-                                                            <li>
-                                                                <span>Registrar Nuevas Presentaciones</span>
-                                                            </li>
-                                                        <?php } 
-                                                            if ($permisos['l_presentacion'] == 1) { ?>
-                                                            <li>
-                                                                <span>Consultar Lista de Presentaciones Registradas</span>
-                                                            </li><br>
-                                                        <?php } 
-                                                            if ($permisos['r_productos'] == 1) { ?>
-                                                            <li>
-                                                                <span>Registrar Nuevos Productos</span>
-                                                            </li>
-                                                        <?php } 
-                                                            if ($permisos['l_productos'] == 1) { ?>
-                                                            <li>
-                                                                <span>Consultar Lista de Productos Registrados</span>
-                                                            </li><br>
-                                                        <?php } 
-                                                            if ($permisos['r_entrada'] == 1) { ?>
-                                                            <li>
-                                                                <span>Registrar Entrada de Productos</span>
-                                                            </li>
-                                                        <?php } 
-                                                            if ($permisos['l_entrada'] == 1) { ?>
-                                                            <li>
-                                                                <span>Consultar Lista de Entradas de Productos</span>
-                                                            </li>
-                                                        <?php } ?>
+                                                        
+                                                        <label class="form-label"><b>Categorías:</b></label>
+                                                        <ul id="" class="ps-3">
+                                                            <?php if ($permisos['r_categoria'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Registrar Nuevas Categorías</span>
+                                                                </li>
+                                                            <?php } if ($permisos['m_categoria'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Modificar Información de Categorías</span>
+                                                                </li>
+                                                            <?php } if ($permisos['l_categoria'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Lista de Categorías Registradas</span>
+                                                                </li><br>
+                                                        </ul>
+
+                                                        <label class="form-label"><b>Presentaciones:</b></label>
+                                                        <ul id="" class="ps-3">
+                                                            <?php } 
+                                                                if ($permisos['r_presentacion'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Registrar Nuevas Presentaciones</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['m_presentacion'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Modificar Información de  Presentaciones</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['l_presentacion'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Lista de Presentaciones Registradas</span>
+                                                                </li><br>
+                                                        </ul>
+
+                                                        <label class="form-label"><b>Marcas:</b></label>
+                                                        <ul id="" class="ps-3">
+                                                            <?php } 
+                                                                if ($permisos['r_marca'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Registrar Nuevas Marcas</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['m_marca'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Modificar Información de Marcas</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['l_marca'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Lista de Marcas Registradas</span>
+                                                                </li><br>
+                                                        </ul>
+
+                                                        <label class="form-label"><b>Productos:</b></label>
+                                                        <ul id="" class="ps-3">
+                                                            <?php } 
+                                                                if ($permisos['r_productos'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Registrar Nuevos Productos</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['l_productos'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Lista de Productos Registrados</span>
+                                                                </li><br>
+                                                        </ul>
+
+                                                        <label class="form-label"><b>Entrada de Productos:</b></label>
+                                                        <ul id="" class="ps-3">
+                                                            <?php } 
+                                                                if ($permisos['r_entrada'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Registrar Entrada de Productos</span>
+                                                                </li>
+                                                            <?php } 
+                                                                if ($permisos['l_entrada'] == 1) { ?>
+                                                                <li>
+                                                                    <span>Consultar Lista de Entradas de Productos</span>
+                                                                </li>
+                                                            <?php } ?>
+                                                        </ul>
                                                     </ul>
                                                 </ul>
                                             </div>
@@ -313,8 +348,8 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
             </div>
                 
 
-                <hr>
-                <hr>
+            <hr>
+            <hr>
         <?php }
             if ($cliente > 0 || $empleado > 0 || $roles > 0) { ?>
 
@@ -486,7 +521,6 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                         <?php if ($ajustes <= 6 && $ajustes >= 1) { ?> 
                         
                             <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
-                                
                                 <div class="accordion" id="acordeon_ajustes_del_sistema">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">

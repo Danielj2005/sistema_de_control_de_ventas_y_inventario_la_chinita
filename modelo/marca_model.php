@@ -81,8 +81,15 @@ class marca_model extends modeloPrincipal {
         $consulta = self::consultar_marca();
         while ( $mostrar = mysqli_fetch_assoc($consulta)) { ?>
             <tr>
-                <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center"></td>
+                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center">
+                    <button <?php //(rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
+                        class="btn <?= ($mostrar["estado"] === "1") ? 'btn-outline-success bi-check-circle' : 'btn-outline-danger bi-x-circle'?>" 
+                        title="estado de la categoría">
+                            &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
+                    </button>
+                </td>
             </tr>
         <?php } 
     }

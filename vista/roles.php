@@ -49,9 +49,8 @@ if ($rol >= 1 && $rol <= 3) {
 						<div class="row text-center p-2 align-items-center">
 							
 							<div class="col-12 col-sm-12 col-md-6 mb-3">
-								<a class="col-12 btn btn-success" 
-									href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
-										Registrar un nuevo rol
+								<a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
+									Registrar un nuevo rol
 								</a>
 							</div>
 

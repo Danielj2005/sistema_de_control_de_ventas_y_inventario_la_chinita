@@ -10,7 +10,8 @@ require_once "../../../modelo/marca_model.php";
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>
-                <th class="col text-center" scope="col">NOMBRE</th>
+                <th class="col text-center" scope="col">Nombre</th>
+                <th class="col text-center" scope="col">Estado</th>
             </tr>
         </thead>
         <tbody>
