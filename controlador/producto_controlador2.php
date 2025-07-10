@@ -38,11 +38,9 @@ if($modulo === 'Guardar'){
     producto_model2::validar_nombre_producto($nombre_producto);
     
     // se verifica que la categoria recibida exista y no haya sido alterada
-    // marca_model::verificar_existe_marca($marcas);
-
     if (!marca_model::verificar_existe_marca($marcas)) {
-        alert_model::alerta_simple("ocurried!","marca sin registrar","error");
-        exit();
+        marca_model::registrar_array_marcas($marcas);
+        marca_model::bitacora($marcas);
     }
 
     // se verifica que la categoria recibida exista y no haya sido alterada

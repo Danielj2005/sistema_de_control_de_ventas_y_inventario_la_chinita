@@ -48,19 +48,18 @@ class marca_model extends modeloPrincipal {
     }
 
     public static function registrar_array_marcas ($nombres_marcas) {
+        $nombres_marcas = modeloPrincipal::format_array_of_data_with_dublicated($nombres_marcas);
         for ($i = 0; $i < count($nombres_marcas); $i++) {
             // se registra cada marca del array
             $nombre_marca = $nombres_marcas[$i];
-            $registrar = modeloPrincipal::InsertSQL("marca", "nombre" ,"'$nombre_marca'");
-            if (!$registrar) {
-                alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el marca debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
-            }
+            $registrar = self::registrar($nombre_marca);
         }
         return $registrar;
     }
 
 
     public static function verificar_existe_marca($nombres){
+        $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
         // se comprueba que no exista un registro con los mismos datos
         for ($i = 0; $i < count($nombres); $i++) {
             $nombre = strtolower($nombres[$i]);
@@ -99,5 +98,29 @@ class marca_model extends modeloPrincipal {
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
             <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
         <?php }
+    }
+
+
+
+    public static function bitacora($CP) {
+        try {
+            $ids_marcas = modeloPrincipal::obtener_array_id_producto_recien_registrado(count($CP));
+
+            for ($i = 0; $i < count($ids_marcas); $i++) { 
+                $datos_originales = mysqli_fetch_array(marca_model::consultar_por_id($ids_marcas[$i]));
+                // $datos_originales = mysqli_fetch_array($datos_originales);
+                
+                $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
+
+                bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente informacón: <br><br>
+                <b>****** Información de la Marca:   ******</b><br><br>
+                Nombre: <b>".$datos_originales['nombre']." </b><br>
+                Estado: <b>".$datos_originales['estado']." </b><br>
+                ");
+            }
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la marca debido a un error interno.","error");
+            exit();
+        }
     }
 }

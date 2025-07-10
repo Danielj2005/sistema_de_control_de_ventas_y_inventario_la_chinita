@@ -65,22 +65,7 @@ class producto_model2 extends modeloPrincipal {
         return $id_producto;
     }
 
-    public static function obtener_array_id_producto_recien_registrado($CP) {
-        $id_max = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_producto) AS id FROM producto"));
-        $id_max = $id_max['id'];
-
-        $idSearch = intval($id_max) - intval($CP);
-        
-        $dataFind = [];
-
-        $i = 0;
-        for ( $idSearch += 1;  $idSearch <= $id_max; $idSearch++ ) {
-            $dataFind[$i++] .= $idSearch;
-        }
-        return $dataFind;
-    }
-
-
+    
     public static function registrar ($id_categoria, $nombre_producto, $id_presentacion, $id_marca) {
         for ($i = 0; $i < count($nombre_producto); $i++) {
             

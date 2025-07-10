@@ -277,5 +277,27 @@ class modeloPrincipal {
         $tiempo_inactividad = $obtener_tiempo_inactividad['tiempo_inactividad'];
         return $tiempo_inactividad;
     }
+    
+    // funcion para formatear una array y evitar duplicados en el mismo
+    public static function format_array_of_data_with_dublicated($array){
+        return $array = array_values(array_unique($array));
+    }
+
+
+    public static function obtener_array_id_producto_recien_registrado($CP) {
+        $id_max = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_producto) AS id FROM producto"))['id'];
+
+        $idSearch = intval($id_max) - intval($CP);
+        
+        $dataFind = [];
+
+        $i = 0;
+        for ( $idSearch += 1;  $idSearch <= $id_max; $idSearch++ ) {
+            $dataFind[$i++] .= $idSearch;
+        }
+        return $dataFind;
+    }
+
+
 
 }
