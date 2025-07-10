@@ -295,6 +295,8 @@ class modeloPrincipal {
         for ( $idSearch += 1;  $idSearch <= $id_max; $idSearch++ ) {
             $dataFind[$i++] .= $idSearch;
         }
+        $dataFind = array_values(array_unique($dataFind));
+
         return $dataFind;
     }
 

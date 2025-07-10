@@ -37,11 +37,9 @@ if($modulo === 'Guardar'){
     // se valida el campo nombre del producto
     producto_model2::validar_nombre_producto($nombre_producto);
     
-    // se verifica que la categoria recibida exista y no haya sido alterada
-    if (!marca_model::verificar_existe_marca($marcas)) {
-        marca_model::registrar_array_marcas($marcas);
-        marca_model::bitacora($marcas);
-    }
+    // se verifica que la marca recibida exista y no haya sido alterada, se registrara solo las que no existan y se creara su respectiva bitácora
+    $CM = marca_model::verificar_existe_marca($marcas);
+    marca_model::bitacora($CM);
 
     // se verifica que la categoria recibida exista y no haya sido alterada
     if (!category_model::verificar_existe_categoria("nombre", $categoria)) {
