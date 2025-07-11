@@ -66,12 +66,15 @@ class producto_model2 extends modeloPrincipal {
     }
 
     
-    public static function registrar ($id_categoria, $nombre_producto, $id_presentacion, $id_marca) {
+    public static function registrar ($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas) {
         for ($i = 0; $i < count($nombre_producto); $i++) {
             
             $nombre = $nombre_producto[$i];
+            $id_categoria = $id_categorias[$i];
+            $id_presentacion = $id_presentaciones[$i];
+            $id_marca = $id_marcas[$i];
 
-            $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, id_marca" ,"".$id_categoria[$i].", '$nombre', ".$id_presentacion[$i].", ".$id_marca[$i]."");
+            $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, id_marca" ,"$id_categoria, '$nombre', $id_presentacion, $id_marca");
             if (!$registrar) {
                 alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el producto debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
             }

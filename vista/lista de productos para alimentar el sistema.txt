@@ -15,12 +15,8 @@
 - 
 
 ****************  registro de productos ****************
-- crear y modificar funciones de registro en presentacion de productos desde un array
-- crear modal de lista de prodctos o vista dinamica.
-- rediseñar y crear funciones para el registro y bitacora de presentacion de productos en cada modelo respectivo.
 
-- crear funcion para obtener datos de la bd para registrar varios productos 'bitacora' ()
-- crear funcion para obtener datos de la bd para registrar bitacora de varios productos 'bitacora' ()
+- crear funcion para obtener datos de la bd de los productos recien registrados y crear una bitacora con ellos!
 
 $boton_cambio_estado_original_categoria = '<form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
         <input type="hidden" name="modulo" value="<?= (mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          

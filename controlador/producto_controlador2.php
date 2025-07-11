@@ -51,7 +51,7 @@ if($modulo === 'Guardar'){
 
     // se registran los datos del producto
     try {
-        $registrar = producto_model2::registrar($id_categorias, $nombre_producto, $presentacion, $id_marcas);
+        $registrar = producto_model2::registrar($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");

@@ -150,7 +150,7 @@ class category_model extends modeloPrincipal {
 
         for ( $i = 0;  $i < count($NC); $i++ ) {
 
-            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id FROM marca WHERE nombre = '".$NC[$i]."'"))['id'];
+            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_categoria FROM categoria WHERE nombre = '".$NC[$i]."'"))['id_categoria'];
         }
 
         $dataFind = array_values($dataFind);
