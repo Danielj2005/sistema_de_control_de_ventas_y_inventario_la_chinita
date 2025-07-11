@@ -51,17 +51,18 @@ class marca_model extends modeloPrincipal {
     public static function verificar_existe_marca($nombres){
         $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
         // se comprueba que no exista un registro con los mismos datos
+        $marcas_registrados = [];
+
         for ($i = 0; $i < count($nombres); $i++) {
-            
             $nombre = strtolower($nombres[$i]);
-            $registrados = 0;
+
             if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM marca WHERE lower(nombre) = '$nombre'")) < 1){
                 self::registrar($nombre);
-                
-                $registrados++;
+                $marcas_registrados[$i] = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombres[$i])));
             }
         }
-        marca_model::bitacora($registrados);
+        $marcas_registrados = array_values($marcas_registrados);
+        self::bitacora($marcas_registrados);
         // return $registrados;
     }
 
@@ -98,20 +99,22 @@ class marca_model extends modeloPrincipal {
 
     public static function bitacora($CM) {
         try {
-            $ids_marcas = self::obtener_array_id_marca_recien_registrado($CM);
-
-            for ($i = 0; $i < count($ids_marcas); $i++) { 
-                $datos_originales = self::consultar_por_id($ids_marcas[$i]);
+            // $ids_marcas = self::obtener_array_id_marca_recien_registrado($CM);
+            $mensaje = '';
+            
+            for ($i = 0; $i < count($CM); $i++) { 
+                // $datos_originales = self::consultar_por_id($ids_marcas[$i]);
+                $datos_originales = modeloPrincipal::consultar("SELECT * FROM marca WHERE nombre = '".$CM[$i]."'");
                 $datos_originales = mysqli_fetch_array($datos_originales);
                 
                 $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-                bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente información: <br><br>
-                <b>****** Información de la Marca:   ******</b><br><br>
-                Nombre: <b>".$datos_originales['nombre']." </b><br>
-                Estado: <b>".$datos_originales['estado']." </b><br>
-                ");
+                $mensaje .= "Nombre: <b>".$datos_originales['nombre']." </b><br>
+                Estado: <b>".$datos_originales['estado']." </b><br><br>";
             }
+            bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente información: <br><br>
+                <b>****** Información de la Marca:   ******</b><br><br>$mensaje");
+
         } catch (Exception $e) {
             alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la marca debido a un error interno.","error");
             exit();

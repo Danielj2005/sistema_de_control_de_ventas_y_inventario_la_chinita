@@ -29,6 +29,8 @@ class presentacion_model extends modeloPrincipal {
     }
 
     public static function registrar ($nombre, $descripcion) {
+        $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre)));
+        $descripcion = $descripcion !== "" ? ucwords(strtolower(modeloPrincipal::limpiar_cadena($descripcion))) : '';
 
         $registrar = modeloPrincipal::InsertSQL("presentacion", "nombre, descripcion, estado" ,"'$nombre', '$descripcion', 1");
         if (!$registrar) {
@@ -37,20 +39,81 @@ class presentacion_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function verificar_existe_presentacion ($campos, $dato_a_buscar){
+    public static function verificar_existe_presentacion ($nombres){
+        $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
+        // $descripciones = modeloPrincipal::format_array_of_data_with_dublicated($descripciones);
         // se comprueba que no exista un registro con los mismos datos
-        for ($i = 0; $i < count($dato_a_buscar); $i++) {
-            $nombre = strtolower($dato_a_buscar[$i]);
-            if(mysqli_num_rows(self::consultar_condicional($campos,"$campos = '$nombre'")) < 1){
-                /********** No se puede registrar un usuario si ya existe **********/
-                return false;
+        $nombres_registrados = [];
+        try {
+
+            for ($i = 0; $i < count($nombres); $i++) {
+                
+                $nombre = strtolower($nombres[$i]);
+                // $descripcion = strtolower($descripciones[$i]);
+
+                // if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM presentacion WHERE lower(nombre) = '$nombre' AND lower(descripcion) = '$descripcion'")) < 1){
+                if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM presentacion WHERE lower(nombre) = '$nombre'")) < 1){
+                    self::registrar($nombre,"");
+                    // $nombres_registrados[$i] = $nombres[$i];
+                    $nombres_registrados[$i] = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombres[$i])));
+                }
             }
+                
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la presentación debido a un error interno.","error");
+            exit();
         }
-        return true;
+        $nombres_registrados = array_values($nombres_registrados);
+        self::bitacora($nombres_registrados);
+        // return $registrados;
     }
 
+    public static function bitacora($presentacion) {
+        try {
+
+            $mensaje = '';
+            
+            for ($i = 0; $i < count($presentacion); $i++) { 
+                $datos_originales = modeloPrincipal::consultar("SELECT * FROM presentacion WHERE nombre = '".$presentacion[$i]."'");
+                $datos_originales = mysqli_fetch_array($datos_originales);
+                
+                $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activa' : 'Inactiva';
+                $datos_originales['descripcion'] = $datos_originales['descripcion'] == '' ? 'No definida!' : $datos_originales['descripcion'];
+
+                $mensaje .= "Nombre: <b>".$datos_originales['nombre']." </b><br>
+                Descripción: <b>".$datos_originales['descripcion']." </b><br>
+                Estado: <b>".$datos_originales['estado']." </b><br><br>";
+            }
+
+            bitacora::bitacora("Registro exitoso de una presentación.","Se registro una presentación con la siguiente informacón: <br><br>
+                <b>****** Información de la presentación:   ******</b><br><br>
+                $mensaje
+                ");
+                
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la presentación en bitácora debido a un error interno.","error");
+            exit();
+        }
+    }
+    
+    public static function obtener_array_id_presentacion($NP):array {
+        // $NC es un array con los Nombres de las presentaciones = NM
+        
+        $dataFind = [];
+
+        for ( $i = 0;  $i < count($NP); $i++ ) {
+
+            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE nombre = '".$NP[$i]."'"))['id'];
+        }
+
+        $dataFind = array_values($dataFind);
+
+        return $dataFind;
+    }
+
+
     public static function lista(){
-        $consulta = self::consultar("*");
+        $consulta = self::consultar_presentacion("*");
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    

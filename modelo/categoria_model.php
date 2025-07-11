@@ -30,6 +30,7 @@ class category_model extends modeloPrincipal {
 
     public static function registrar ($nombre) {
 
+        $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre)));
         $registrar = modeloPrincipal::InsertSQL("categoria", "nombre, estado" ,"'$nombre',1");
     
         if (!$registrar) {
@@ -41,17 +42,18 @@ class category_model extends modeloPrincipal {
     public static function verificar_existe_categoria($nombres){
         $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
         // se comprueba que no exista un registro con los mismos datos
+        $categorias_registradas = [];
         for ($i = 0; $i < count($nombres); $i++) {
             
             $nombre = strtolower($nombres[$i]);
             $registrados = 0;
             if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM categoria WHERE lower(nombre) = '$nombre'")) < 1){
                 self::registrar($nombre);
-                $registrados++;
+                $categorias_registradas[$i] = $nombre;
             }
         }
-        category_model::bitacora($registrados);
-        // return $registrados;
+        $categorias_registradas = array_values($categorias_registradas);
+        self::bitacora($categorias_registradas);
     }
 
 
@@ -98,11 +100,11 @@ class category_model extends modeloPrincipal {
 
     public static function bitacora($categorias) {
         try {
-            $ids_categorias = self::obtener_array_id_categorias_recien_registradas($categorias);
+            // $ids_categorias = self::obtener_array_id_categorias_recien_registradas($categorias);
             $mensaje = '';
             
-            for ($i = 0; $i < count($ids_categorias); $i++) { 
-                $datos_originales = modeloPrincipal::consultar("SELECT * FROM categoria WHERE id_categoria = '".$ids_categorias[$i]."'");
+            for ($i = 0; $i < count($categorias); $i++) { 
+                $datos_originales = modeloPrincipal::consultar("SELECT * FROM categoria WHERE nombre = '".$categorias[$i]."'");
                 $datos_originales = mysqli_fetch_array($datos_originales);
                 
                 $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activa' : 'Inactiva';

@@ -46,12 +46,9 @@ if($modulo === 'Guardar'){
     $id_categorias = category_model::obtener_array_id_categorias($categoria);
 
     // se verifica que la categoria recibida exista y no haya sido alterada
-    if (!presentacion_model::verificar_existe_presentacion("nombre", $presentacion)) {
-        alert_model::alerta_simple("ocurried!","presentacion sin registrar","error");
-        exit();
-    }
+    presentacion_model::verificar_existe_presentacion($presentacion);
+    $id_presentaciones = presentacion_model::obtener_array_id_presentacion($presentacion);
 
-    
     // se registran los datos del producto
     try {
         $registrar = producto_model2::registrar($id_categorias, $nombre_producto, $presentacion, $id_marcas);
