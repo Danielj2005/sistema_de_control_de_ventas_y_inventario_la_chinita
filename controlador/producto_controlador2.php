@@ -42,10 +42,8 @@ if($modulo === 'Guardar'){
     $id_marcas = marca_model::obtener_array_id_marcas($marcas);
 
     // se verifica que la categoria recibida exista y no haya sido alterada
-    if (!category_model::verificar_existe_categoria("nombre", $categoria)) {
-        alert_model::alerta_simple("ocurried!","categoria sin registrar","error");
-        exit();
-    }
+    category_model::verificar_existe_categoria($categoria);
+    $id_categorias = category_model::obtener_array_id_categorias($categoria);
 
     // se verifica que la categoria recibida exista y no haya sido alterada
     if (!presentacion_model::verificar_existe_presentacion("nombre", $presentacion)) {
@@ -56,7 +54,7 @@ if($modulo === 'Guardar'){
     
     // se registran los datos del producto
     try {
-        $registrar = producto_model2::registrar($categoria, $nombre_producto, $presentacion, $id_marcas);
+        $registrar = producto_model2::registrar($id_categorias, $nombre_producto, $presentacion, $id_marcas);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");

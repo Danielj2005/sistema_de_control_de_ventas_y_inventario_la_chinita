@@ -106,7 +106,7 @@ class marca_model extends modeloPrincipal {
                 
                 $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-                bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente informacón: <br><br>
+                bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente información: <br><br>
                 <b>****** Información de la Marca:   ******</b><br><br>
                 Nombre: <b>".$datos_originales['nombre']." </b><br>
                 Estado: <b>".$datos_originales['estado']." </b><br>

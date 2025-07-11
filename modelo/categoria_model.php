@@ -38,16 +38,20 @@ class category_model extends modeloPrincipal {
         return $registrar;
     }
 
-    public static function verificar_existe_categoria($campos, $dato_a_buscar){
+    public static function verificar_existe_categoria($nombres){
+        $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
         // se comprueba que no exista un registro con los mismos datos
-        for ($i = 0; $i < count($dato_a_buscar); $i++) {
-            $nombre = strtolower($dato_a_buscar[$i]);
-            if(mysqli_num_rows(Self::consultar("SELECT $campos FROM categoria WHERE $campos = '$nombre'")) < 1){
-                /********** No se puede registrar un usuario si ya existe **********/
-                return false;
+        for ($i = 0; $i < count($nombres); $i++) {
+            
+            $nombre = strtolower($nombres[$i]);
+            $registrados = 0;
+            if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM categoria WHERE lower(nombre) = '$nombre'")) < 1){
+                self::registrar($nombre);
+                $registrados++;
             }
         }
-        return true;
+        category_model::bitacora($registrados);
+        // return $registrados;
     }
 
 
@@ -89,4 +93,67 @@ class category_model extends modeloPrincipal {
         }
         return true;
     }
+
+
+
+    public static function bitacora($categorias) {
+        try {
+            $ids_categorias = self::obtener_array_id_categorias_recien_registradas($categorias);
+            $mensaje = '';
+            
+            for ($i = 0; $i < count($ids_categorias); $i++) { 
+                $datos_originales = modeloPrincipal::consultar("SELECT * FROM categoria WHERE id_categoria = '".$ids_categorias[$i]."'");
+                $datos_originales = mysqli_fetch_array($datos_originales);
+                
+                $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activa' : 'Inactiva';
+
+                $mensaje .= "Nombre: <b>".$datos_originales['nombre']." </b><br>
+                    Estado: <b>".$datos_originales['estado']." </b><br><br><br>";
+            }
+
+            bitacora::bitacora("Registro exitoso de una o más Categorías.","Se registraron una o más Categorías con la siguiente información: <br><br>
+                <b>****** Información de la Categoría:   ******</b><br><br>
+                $mensaje
+                ");
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la Categoría debido a un error interno.","error");
+            exit();
+        }
+    }
+
+
+    
+    public static function obtener_array_id_categorias_recien_registradas($categorias) {
+        $cant_ids = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_categoria) AS id FROM categoria"))['id'];
+
+        $id_registradas = intval($cant_ids) - intval($categorias);
+
+        $dataFind = [];
+        $i = 0;
+
+        for ( $id_registradas += 1;  $id_registradas <= $cant_ids; $id_registradas++ ) {
+            $dataFind[$i++] .= $id_registradas;
+        }
+        $dataFind = array_values(array_unique($dataFind));
+
+        return $dataFind;
+    }
+
+
+    
+    public static function obtener_array_id_categorias($NC):array {
+        // $NC es un array con los Nombres de las Categorías = NM
+        
+        $dataFind = [];
+
+        for ( $i = 0;  $i < count($NC); $i++ ) {
+
+            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id FROM marca WHERE nombre = '".$NC[$i]."'"))['id'];
+        }
+
+        $dataFind = array_values($dataFind);
+
+        return $dataFind;
+    }
+
 }
