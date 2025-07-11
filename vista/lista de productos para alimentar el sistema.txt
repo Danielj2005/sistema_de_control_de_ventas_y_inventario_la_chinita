@@ -15,7 +15,7 @@
 - 
 
 ****************  registro de productos ****************
-- crear y modificar funciones de registro en categorias, presentacion y marca de productos desde un array
+- crear y modificar funciones de registro en categorias, presentacion de productos desde un array
 - crear modal de lista de prodctos o vista dinamica.
 - rediseñar y crear funciones para el registro y bitacora de categorias, presentacion y marca de productos en cada modelo respectivo.
 

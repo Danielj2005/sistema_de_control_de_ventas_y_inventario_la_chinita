@@ -38,8 +38,8 @@ if($modulo === 'Guardar'){
     producto_model2::validar_nombre_producto($nombre_producto);
     
     // se verifica que la marca recibida exista y no haya sido alterada, se registrara solo las que no existan y se creara su respectiva bitácora
-    $CM = marca_model::verificar_existe_marca($marcas);
-    marca_model::bitacora($CM);
+    marca_model::verificar_existe_marca($marcas);
+    $id_marcas = marca_model::obtener_array_id_marcas($marcas);
 
     // se verifica que la categoria recibida exista y no haya sido alterada
     if (!category_model::verificar_existe_categoria("nombre", $categoria)) {

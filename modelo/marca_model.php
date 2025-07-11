@@ -57,10 +57,12 @@ class marca_model extends modeloPrincipal {
             $registrados = 0;
             if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM marca WHERE lower(nombre) = '$nombre'")) < 1){
                 self::registrar($nombre);
+                
                 $registrados++;
             }
         }
-        return $registrados;
+        marca_model::bitacora($registrados);
+        // return $registrados;
     }
 
     public static function verificar_existe_marca_unica($nombre){
@@ -129,6 +131,23 @@ class marca_model extends modeloPrincipal {
             $dataFind[$i++] .= $idSearch;
         }
         $dataFind = array_values(array_unique($dataFind));
+
+        return $dataFind;
+    }
+
+
+    
+    public static function obtener_array_id_marcas($NM):array {
+        // $NM es un array con los Nombres de las Marcas = NM
+        
+        $dataFind = [];
+
+        for ( $i = 0;  $i < count($NM); $i++ ) {
+
+            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id FROM marca WHERE nombre = '".$NM[$i]."'"))['id'];
+        }
+
+        $dataFind = array_values($dataFind);
 
         return $dataFind;
     }
