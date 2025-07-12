@@ -42,7 +42,7 @@ if($modulo == 'Guardar'){
     $existe_proveedor = modeloPrincipal::Consultar("SELECT id_proveedor FROM proveedor 
         WHERE cedula_rif = '$cedula_proveedor'");
         
-    $id_dolar = modeloPrincipal::limpiar_cadena($_POST['id_dolar']);
+    $id_dolar = modeloPrincipal::obtener_id_precio_dolar();
 
     if(mysqli_num_rows($existe_proveedor) < 1){
 
@@ -94,11 +94,26 @@ if($modulo == 'Guardar'){
             $total_producto_bs = $total_producto_dolar * $dolar;
             // Se registran los datos verificados
             $registrar = modeloPrincipal::InsertSQL(
-                "detalles_entrada",
-                "id_entrada, id_producto, cantidad_comprada, precio_unitario_dolar, precio_unitario_bs, total_dolar, total_bs",
-                "$id_entrada, " . $id_productos[$i] . ", " . $cantidad_productos[$i] . ", " . $precio_unidad_dolar[$i] . ", " . $precio_unidad_bs[$i] . ", $total_producto_dolar, $total_producto_bs"
+            "detalles_entrada",
+            "id_entrada, id_producto, cantidad_comprada, precio_unitario_dolar, precio_unitario_bs, total_dolar, total_bs",
+            "$id_entrada, " . $id_productos[$i] . ", " . $cantidad_productos[$i] . ", " . $precio_unidad_dolar[$i] . ", " . $precio_unidad_bs[$i] . ", $total_producto_dolar, $total_producto_bs"
             );
-            modeloPrincipal::UpdateSQL("producto","precio_venta_dolar = ".$precio_venta_dolar[$i].", stock = stock + ".$cantidad_productos[$i].", estatus = 1", "id_producto = ".$id_productos[$i]."");
+            
+            // se registra por primera vez el producto en inventario
+            if (mysqli_num_rows(modeloprincipal::consultar("SELECT id FROM inventario WHERE id_producto = ".$id_productos[$i]."")) < 1) {
+                
+                modeloPrincipal::InsertSQL(
+                "inventario",
+                "id_producto, stock_actual, precio_venta, fecha_ultima_actualizacion, estado",
+                "".$id_productos[$i].",".$cantidad_productos[$i].",".$precio_venta_dolar[$i].", '$fecha_entrada', 1");
+            }else {
+
+                modeloPrincipal::UpdateSQL(
+            "inventario",
+            "stock_actual = stock_actual + ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",
+                    "id_producto = ".$id_productos[$i]."");
+            }
+            
 
         }
     } catch (Exception $e) {
@@ -120,20 +135,20 @@ if($modulo == 'Guardar'){
         $datos_entrada = mysqli_fetch_array($datos_entrada);
 
         bitacora::bitacora("Registro exitoso de una entrada.","Se registro una entrada con la siguiente informacón: <br><br>
-        <b>****** Información del proveedor:   ******</b><br>
-        Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Correo: <b>".$datos_originales['correo']." </b><br>
-        Teléfono: <b>".$datos_originales['telefono']." </b><br>
-        Dirección: <b>".$datos_originales['direccion']." </b><br><br>
+            <b>****** Información del proveedor:   ******</b><br>
+            Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
+            Nombre: <b>".$datos_originales['nombre']." </b><br>
+            Correo: <b>".$datos_originales['correo']." </b><br>
+            Teléfono: <b>".$datos_originales['telefono']." </b><br>
+            Dirección: <b>".$datos_originales['direccion']." </b><br><br>
 
-        <b>****** Información de la entrada:   ******</b><br>
-        Total de la compra en $: <b>".$datos_entrada['total_dolar']." $ </b><br>
-        Total de la compra en bs: <b>".$datos_entrada['total_bs']." bs</b><br>
-        Fecha / hora: <b>".date("d-m-Y / h:i:a",strtotime($datos_entrada['fecha_entrada']))." </b><br>
-        Tasa del dolar: <b>$dolar bs </b><br>
-        <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>
-        ");
+            <b>****** Información de la entrada:   ******</b><br>
+            Total de la compra en $: <b>".$datos_entrada['total_dolar']." $ </b><br>
+            Total de la compra en bs: <b>".$datos_entrada['total_bs']." bs</b><br>
+            Fecha / hora: <b>".date("d-m-Y / h:i:a",strtotime($datos_entrada['fecha_entrada']))." </b><br>
+            Tasa del dolar: <b>$dolar bs </b><br>
+            <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>
+            ");
 
         alert_model::alert_reg_success();
         exit();

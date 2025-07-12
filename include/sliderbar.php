@@ -12,7 +12,7 @@
     <?php 
       // vistas
       $entrada = rol_model::permisos_modulos('r_entrada + l_entrada');
-      $productos = rol_model::permisos_modulos('r_productos + l_productos');
+      $productos = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria + r_presentacion + m_presentacion + l_presentacion + r_marca + m_marca + l_marca + r_productos + l_productos');
       $proveedores = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
 
       if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') {?>
@@ -24,13 +24,14 @@
           </a>
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <?php if ($productos >= 1 && $productos <= 11) {  ?>
             <li>
-              <a href="../vista/productos_global.php">
+              <a href="../vista/gestion_productos.php">
                 <i class="bi bi-circle"></i>
                 <span>Gestión de Productos</span>
               </a>
             </li>
-            <?php if ($proveedores >= 1 && $proveedores <= 4) {  ?>
+            <?php } if ($proveedores >= 1 && $proveedores <= 4) {  ?>
               <li>
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>

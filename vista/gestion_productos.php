@@ -1,22 +1,14 @@
 <?php 
 session_start();
-// importacion de la conexion a la base de datos y al modelo principal
-// include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
-include_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
-include_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+// importacion de la conexion a la base de datos y al modelo de usuario
 
-include_once "../modelo/modelo_usuario.php";  // se incluye el modelo de usuario
-include_once "../modelo/rol_model.php"; // se incluye el modelo rol
-
-include_once "../modelo/alert_model.php"; // se incluye el modelo producto
-include_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
-include_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
-include_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
-include_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
+
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
@@ -223,7 +215,7 @@ if ($rol == 1 || $rol == 2) {
                                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
                                 </div>
 
-                                <form id="registrar_producto" action="../controlador/producto_controlador2.php" method="post" class="text-start SendFormAjax row justify-content-around <?= $r_productoP == 0 ? 'd-none eraser' : ''?>" autocomplete="off" data-type-form="save">
+                                <form id="registrar_producto" action="../controlador/producto_controlador.php" method="post" class="text-start SendFormAjax row justify-content-around <?= $r_productoP == 0 ? 'd-none eraser' : ''?>" autocomplete="off" data-type-form="save">
                                     <input type="hidden" name="modulo" value="Guardar">
                                     <div class="col-12 mb-1">
                                         <div class="form-group">
@@ -239,7 +231,7 @@ if ($rol == 1 || $rol == 2) {
                                             <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
                                             
                                             <datalist id="datalist_nombre_productos">
-                                                <?php producto_model2::options_nombres_productos(); ?> 
+                                                <?php producto_model::options_nombres_productos(); ?> 
                                             </datalist>
                                         </div>
 

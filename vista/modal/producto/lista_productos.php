@@ -2,8 +2,7 @@
 session_start();
 
 require_once "../../../modelo/modeloPrincipal.php";
-require_once "../../../modelo/productos_model2.php";
-require_once "../../../modelo/rol_model.php";
+require_once "../../../modelo/productos_model.php";
 
 ?>
 
@@ -27,7 +26,7 @@ require_once "../../../modelo/rol_model.php";
             </tr>
         </thead>
         <tbody>
-            <?php producto_model2::lista(); ?>  
+            <?php producto_model::lista(); ?>  
         </tbody>
     </table>
 </div>

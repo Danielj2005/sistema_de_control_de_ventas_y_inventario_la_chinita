@@ -61,6 +61,83 @@ if ($rol >= 1 && $rol <= 6) {
 
                   <div class="row m-0">
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
+                      <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
+                                  Módulo Productos
+                                </button>
+                              </h2>
+                              <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <ul id="" class="nav-content list-unstyled"> 
+                                    <li>
+                                      <input class="vista" type="checkbox" value="productos">
+                                      Acceso Total al Módulo de Productos
+                                    </li>
+                                    <ul id="" class="ps-3 nav-content list-unstyled">
+                                      <li>
+                                        <input name="r_categoria" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Nuevas Categorías</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_categoria">
+                                        <span>Modificar Información de Categorías</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_categoria">
+                                        <span>Consultar Lista de Categorías Registradas</span>
+                                      </li>
+                                      <br>
+                                      <li>
+                                        <input name="r_presentacion" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Nuevas Presentaciones</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_presentacion">
+                                        <span>Modificar Información de Presentaciones</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_presentacion">
+                                        <span>Consultar Lista de Presentaciones Registradas</span>
+                                      </li>
+                                      <br>
+                                      <li>
+                                        <input name="r_marca" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Nuevas Marcas</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="m_marca">
+                                        <span>Modificar Información de Marcas</span>
+                                      </li>
+                                      <li>
+                                        <input class="productos" type="checkbox" value="1" name="l_marca">
+                                        <span>Consultar Lista de Marcas Registradas</span>
+                                      </li>
+                                      <br>
+                                      <li>
+                                        <input name="r_productos" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Nuevos Productos</span>
+                                      </li>
+                                      <li>
+                                        <input name="l_productos" class="productos" value="1" type="checkbox">
+                                        <span>Consultar Lista de Productos Registrados</span>
+                                      </li>
+                                      <br>
+                                      <li>
+                                        <input name="e_productos" class="productos" value="1" type="checkbox">
+                                        <span>Registrar Entrada de Productos</span>
+                                      </li>
+                                      <li>
+                                        <input name="e_productos" class="productos" value="1" type="checkbox">
+                                        <span>Consultar Lista de Entradas de Productos</span>
+                                      </li>
+                                    </ul>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                       <label class="mb-2">Cantidad de preguntas de seguridad <span style="color:#f00;">*</span></label>
                       <input class="form-control" type="number" name="c_preguntas" min="3" max="4" value="<?= config_model::obtener_dato('c_preguntas') ?>">
                     </div>
