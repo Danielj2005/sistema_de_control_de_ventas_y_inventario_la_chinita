@@ -39,6 +39,10 @@ $r_marcaP = rol_model::permisos_modulos('r_marca');
 $m_marcaP = rol_model::permisos_modulos('m_marca');
 $l_marcaP = rol_model::permisos_modulos('l_marca');
 
+$productoP = rol_model::permisos_modulos('r_productos + l_productos');
+$r_productoP = rol_model::permisos_modulos('r_productos');
+$l_productoP = rol_model::permisos_modulos('l_productos');
+
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1 || $rol == 2) {  
 ?>
@@ -202,20 +206,24 @@ if ($rol == 1 || $rol == 2) {
                     
                     <!-- registro y listado de productos -->
 
-                    <div class="col-12 mb-3 pagetitle text-center">
+                    <div class="col-12 mb-3 pagetitle text-center <?= $productoP == 0 ? 'd-none eraser' : ''?>">
                         <div class="card">
                             <div class="card-body row">
                                 <h3 class="my-3 col-12 fs-4 titulosH">Productos</h3>
                         
-                                <div class="text-center col-12 col-md-6 mb-3">
-                                    <button type="button" modal="ver_categorias" url="./modal/producto/lista_categoria.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                <div class="text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
+                                    <button type="button" modal="ver_productos" url="./modal/producto/lista_productos.php" class="btn_modal btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                 </div>
 
-                                <div class="text-center col-12 col-md-6 mb-3">
+                                <div class="text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
                                     <button type="button" id="btn_add_card_product" class="btn btn-success bi bi-plus">&nbsp; Añadir un producto a registrar</button>
                                 </div>
 
-                                <form id="registrar_producto" action="../controlador/producto_controlador2.php" method="post" class="text-start SendFormAjax row justify-content-around" autocomplete="off" data-type-form="save">
+                                <div class="text-center col-12 col-md-4 mb-3 row m-0">
+                                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
+                                </div>
+
+                                <form id="registrar_producto" action="../controlador/producto_controlador2.php" method="post" class="text-start SendFormAjax row justify-content-around <?= $r_productoP == 0 ? 'd-none eraser' : ''?>" autocomplete="off" data-type-form="save">
                                     <input type="hidden" name="modulo" value="Guardar">
                                     <div class="col-12 mb-1">
                                         <div class="form-group">
@@ -268,55 +276,12 @@ if ($rol == 1 || $rol == 2) {
                                     </div>
                                 </form>             
 
-                                <div class="text-center">
+                                <div class="text-center  <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
                                     <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Registrar producto(s)</button>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="card top-selling pb-3">
-                            <div class="row p-2 text-center">
-                                <div class="col-12 col-sm-12 col-md-6 mb-2 row m-0">
-                                    <a class="col-12 btn btn-success" <?= rol_model::verificar_rol('r_productos') == 1 ? 'href="./agregar_producto.php"' : 'href="./productos.php" disbled' ?>>Añadir Nuevo Producto</a>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-6 mb-2 row m-0">
-                                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
-                                </div>
-                            </div>
-                            
-                            <hr>
-                            
-                            <div class="card-body pb-0">
-                                <div class="bg-seondary" style="width: fit-content;">
-                                    <label class="">El significado del texto de color: </label>
-                                    <ul id="" class="ps-3 nav-content list-unstyled">
-                                        <li> <label> <span class=""> Negro: Cantidad buena de productos en inventario. </span> </label> </li>
-                                        <li> <label> <span class="text-warning"> Amarillo: Cantidad media de productos en inventario. </span> </label> </li>
-                                        <li> <label> <span class="text-danger"> Rojo: Cantidad baja de productos en inventario. </span> </label> </li>
-                                    </ul>
-                                </div>
-
-                                <h5 class="card-title">Lista de Productos</h5>
-                                <div class="table table-responsive">
-                                    <table class="table table-striped" id="example">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center col" scope="col">#</th>
-                                                <th class="text-center col" scope="col">Producto</th>
-                                                <th class="text-center col" scope="col">Marca</th>
-                                                <th class="text-center col" scope="col">Presentación</th>
-                                                <th class="text-center col" scope="col">Categoría</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php producto_model2::lista(); ?>  
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </section>

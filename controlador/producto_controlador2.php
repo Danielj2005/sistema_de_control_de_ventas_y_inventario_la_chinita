@@ -17,6 +17,7 @@ if (!isset($_POST["modulo"])) {
     exit();
 }
 
+$config['porcentaje_iva'] = 16;
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
     
@@ -64,46 +65,27 @@ if($modulo === 'Guardar'){
 
     // se realiza la bitácora con los datos del producto a registrar
     try {
-        $id_productos = producto_model2::obtener_array_id_producto_recien_registrado(count($nombre_producto));
+        $id_productos = modeloPrincipal::obtener_array_id_producto_recien_registrado(count($nombre_producto));
 
-        $datos_originales = producto_model2::obtener_datos_recien_registrados($id_producto);
+        $datos_productos_registrados = producto_model2::obtener_datos_recien_registrados($id_productos);
 
-        $datos_originales = mysqli_fetch_array($datos_originales);
-        $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
+        $bitacora = "";
 
-        $titulo_p = count($nombre_producto) > 1 ? "Registro exitoso de varios productos." : "Registro exitoso de un producto.";
-        $mensaje_p = count($nombre_producto) > 1 ? "Se registraron varios productos con la siguiente informacón:." : "Se registro un producto con la siguiente informacón:";
-        $subtitle = count($nombre_producto) > 1 ? "de los productos" : "del producto";
-        
-        $datos_originales['nombre_producto'] = ucwords(strtolower($datos_originales['nombre_producto']));
-        $datos_originales['nombre_presentacion'] = ucwords(strtolower($datos_originales['nombre_presentacion']));
-        $datos_originales['nombre'] = ucwords(strtolower($datos_originales['nombre']));
-        $datos_originales['precio_venta_dolar'] = number_format($datos_originales['precio_venta_dolar'], 2, '.', ',');
-        $datos_originales['stock_actual'] = number_format($datos_originales['stock_actual'], 0, '.', ',');
+        for ( $i = 0;  $i < count($id_productos); $i++) {
 
-        $content_bitacora = '';
+            $bitacora .= "Nombre: <b>".ucwords(strtolower($datos_productos_registrados['nombre'][$i]))." </b><br>
+                Presentación: <b>".ucwords(strtolower($datos_productos_registrados['presentacion'][$i]))." </b><br>
+                Categoría: <b>".ucwords(strtolower($datos_productos_registrados['categoria'][$i]))." </b><br>
+                Marca: <b>".ucwords(strtolower($datos_productos_registrados['marca'][$i]))." </b><br>
+                Porcentaje de IVA: <b>".$config['porcentaje_iva']."%</b><br><br>
+                <b>*********************************************</b><br><br>";
 
-        while (count($nombre_producto)-1 < count($nombre_producto)) {
-            $content_bitacora .= "
-            Nombre: <b>".$datos_originales['nombre_producto']." </b><br>
-            Presentación: <b>".$datos_originales['nombre_presentacion']." </b><br>
-            Categoría: <b>".$datos_originales['nombre']." </b><br>
-            Precio de venta: <b>".$datos_originales['precio_venta_dolar']." $</b><br>
-            Porcentaje de IVA: <b>16%</b><br>
-            Cantidad: <b>".$datos_originales['stock_actual']." </b><br>
-            Estado: <b>".$datos_originales['estado']." </b><br><br>";
         }
-
-        bitacora::bitacora("$titulo_p","$mensaje_p <br><br>
-            <b>****** Información $subtitle:   ******</b><br><br>
-            Nombre: <b>".$datos_originales['nombre_producto']." </b><br>
-            Presentación: <b>".$datos_originales['nombre_presentacion']." </b><br>
-            Categoría: <b>".$datos_originales['nombre']." </b><br>
-            Precio de venta: <b>".$datos_originales['precio_venta_dolar']." $</b><br>
-            Porcentaje de IVA: <b>16%</b><br>
-            Cantidad: <b>".$datos_originales['stock_actual']." </b><br>
-            Estado: <b>".$datos_originales['estado']." </b><br><br>
-        ");
+        
+        bitacora::bitacora("Registro exitoso de uno o más productos.","Se registraron uno o más productos con la siguiente informacón: <br><br>
+            <b>****** Información de los productos:   ******</b><br><br>
+            $bitacora
+            ");
         
         if ($vista == 1) {
             alert_model::alerta_condicional("¡Registro Exitoso!","Los Datos Se Registraron Correctamente", "success","document.getElementById('close_modal').click();");

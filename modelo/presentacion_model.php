@@ -59,12 +59,15 @@ class presentacion_model extends modeloPrincipal {
                 }
             }
                 
+            $nombres_registrados = array_values($nombres_registrados);
+            
+            if (count($nombres_registrados) > 0) {
+                self::bitacora($nombres_registrados);
+            }
         } catch (Exception $e) {
             alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la presentación debido a un error interno.","error");
             exit();
         }
-        $nombres_registrados = array_values($nombres_registrados);
-        self::bitacora($nombres_registrados);
         // return $registrados;
     }
 

@@ -21,34 +21,58 @@ class producto_model2 extends modeloPrincipal {
     }
 
     // funcion para obtener el id de un categoria
-    public static function obtener_datos_recien_registrados($id_producto){
-        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
-            C.nombre, 
-            PS.nombre AS nombre_presentacion,
-            M.nombre as marca
-            FROM  producto AS P
-            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
-            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
-            INNER JOIN marca AS M ON M.id = P.id_marca
-            WHERE id_producto = $id_producto");
+    public static function obtener_datos_recien_registrados($id_producto) {
+        $Json = [
+            'nombre' => [],
+            'categoria' => [],
+            'presentacion' => [],
+            'marca' => []
+        ];
 
-        modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
-        return $consul;
+        for ($i = 0; $i < count($id_producto); $i++) {
+            $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
+                C.nombre AS categoria, 
+                PS.nombre AS nombre_presentacion,
+                M.nombre AS marca
+                FROM producto AS P
+                INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+                INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
+                INNER JOIN marca AS M ON M.id = P.id_marca
+                WHERE P.id_producto = " . $id_producto[$i]);
+
+            if (mysqli_num_rows($consul) > 0) {
+                $resultado = mysqli_fetch_array($consul);
+                $Json['nombre'][] = $resultado['nombre_producto'];
+                $Json['categoria'][] = $resultado['categoria'];
+                $Json['presentacion'][] = $resultado['nombre_presentacion'];
+                $Json['marca'][] = $resultado['marca'];
+            }
+        }
+        return $Json;
     }
 
+
     public static function obtener_todos_los_datos(){
-        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, 
-            I.precio_venta, I.stock_actual, I.estado, 
+        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
             C.nombre, 
             PS.nombre as nombre_presentacion,
             M.nombre as marca
             FROM  producto AS P
-            INNER JOIN inventario AS I ON I.id_producto = P.id_producto
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
             INNER JOIN marca AS M ON M.id = P.id_marca
             ORDER BY P.id_producto ASC");
-
+        // $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, 
+        //     I.precio_venta, I.stock_actual, I.estado, 
+        //     C.nombre, 
+        //     PS.nombre as nombre_presentacion,
+        //     M.nombre as marca
+        //     FROM  producto AS P
+        //     INNER JOIN inventario AS I ON I.id_producto = P.id_producto
+        //     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+        //     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+        //     INNER JOIN marca AS M ON M.id = P.id_marca
+        //     ORDER BY P.id_producto ASC");
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -112,7 +136,7 @@ class producto_model2 extends modeloPrincipal {
                 
             if (mysqli_num_rows($sql) > 0) {
                 /********** No se puede registrar un usuario si ya existe **********/
-                alert_model::alerta_simple("¡Ocurrio un error!","El producto ($nombre) que intentas registrar ya se encuentra en el sistema, verifica que la presentación no este ya registrada en la lista de productos.","error");
+                alert_model::alerta_simple("¡Ocurrio un error!","El producto ($nombre - $marca - $presentacion - $categoria) ya se encuentra en el sistema, verifica he intenta nuevamente.","error");
                 exit();
             }
             $nombre_producto[$i] = ucwords(strtolower($nombre_producto[$i]));
@@ -134,16 +158,15 @@ class producto_model2 extends modeloPrincipal {
     public static function lista(){
         $consulta = self::obtener_todos_los_datos();
         // se guardan los datos en un array y se imprime
-
+        // <tr class="text-center <?= $mostrar["stock_actual"] == "0" ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') "> 
+        
         while ($mostrar =  mysqli_fetch_assoc($consulta)) { ?>
-            <tr class="text-center <?= $mostrar["stock_actual"] == "0" ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
+            <tr class="text-center ">
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
                 <th class="text-center"><?= $mostrar["marca"]; ?></th>
                 <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
                 <td class="text-center"><?= $mostrar["nombre"]; ?></td>
-                <td class="text-center"><?= $mostrar["precio_venta"]; ?></td>
-                <td class="text-center"><?= $mostrar["stock_actual"]; ?></td>
             </tr>
         <?php } 
     }

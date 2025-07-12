@@ -46,14 +46,16 @@ class category_model extends modeloPrincipal {
         for ($i = 0; $i < count($nombres); $i++) {
             
             $nombre = strtolower($nombres[$i]);
-            $registrados = 0;
             if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM categoria WHERE lower(nombre) = '$nombre'")) < 1){
                 self::registrar($nombre);
                 $categorias_registradas[$i] = $nombre;
             }
         }
         $categorias_registradas = array_values($categorias_registradas);
-        self::bitacora($categorias_registradas);
+
+        if (count($categorias_registradas) > 0) {
+            self::bitacora($categorias_registradas);
+        }
     }
 
 

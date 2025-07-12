@@ -2,7 +2,7 @@
 class marca_model extends modeloPrincipal {
 
     public static function consultar_marca() {
-        $consul = modeloPrincipal::consultar("SELECT * FROM marca");
+        $consul = modeloPrincipal::consultar("SELECT * FROM marca ORDER BY nombre ASC");
         modeloPrincipal::verificar_consulta($consul,'marca'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -62,7 +62,9 @@ class marca_model extends modeloPrincipal {
             }
         }
         $marcas_registrados = array_values($marcas_registrados);
-        self::bitacora($marcas_registrados);
+        if (count($marcas_registrados) > 0) {
+            self::bitacora($marcas_registrados);
+        }
         // return $registrados;
     }
 
@@ -95,12 +97,10 @@ class marca_model extends modeloPrincipal {
         <?php }
     }
 
-
-
     public static function bitacora($CM) {
         try {
             // $ids_marcas = self::obtener_array_id_marca_recien_registrado($CM);
-            $mensaje = '';
+            $mensaje = "";
             
             for ($i = 0; $i < count($CM); $i++) { 
                 // $datos_originales = self::consultar_por_id($ids_marcas[$i]);
@@ -110,10 +110,13 @@ class marca_model extends modeloPrincipal {
                 $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
                 $mensaje .= "Nombre: <b>".$datos_originales['nombre']." </b><br>
-                Estado: <b>".$datos_originales['estado']." </b><br><br>";
+                    Estado: <b>".$datos_originales['estado']." </b><br><br>
+                    <b>*********************************************</b><br><br>";
+                    
             }
             bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente información: <br><br>
-                <b>****** Información de la Marca:   ******</b><br><br>$mensaje");
+                <b>****** Información de la Marca:   ******</b><br><br>
+                $mensaje");
 
         } catch (Exception $e) {
             alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la marca debido a un error interno.","error");
