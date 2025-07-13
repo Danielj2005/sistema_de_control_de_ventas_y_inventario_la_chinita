@@ -93,7 +93,7 @@ if ($rol == 1) {  ?>
                         <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un nuevo producto</button>
                       </div>
 
-                      <label class="form-label">Productos <span style="color:#f00;">*</span></label>
+                      <label class="form-label">Selecciona uno o más Productos <span style="color:#f00;">*</span></label>
                       <div class="col-12 col-sm-12 col-md-9 mb-3">
                         <select name="producto" id="producto_id" class="form-select Select select selector_producto">
                           <option value="" selected>seleccione una opción</option>

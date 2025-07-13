@@ -181,7 +181,7 @@ class producto_model extends modeloPrincipal {
                 INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
                 INNER JOIN inventario AS I ON I.id_producto = P.id_producto 
                 INNER JOIN marca AS M ON M.id = P.id_marca
-                WHERE I.estado = 1 AND I.stock > 0");
+                WHERE I.estado = 1 AND I.stock_actual > 0");
         }else {
             $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
                 PS.nombre,

@@ -87,7 +87,6 @@ if ($rol == 1) {  ?>
                           <thead>
                             <tr>
                               <th class="col text-center" scope="col">PRODUCTO</th>
-                              <th class="col text-center" scope="col">PRESENTACIÓN</th>
                               <th class="col text-center" scope="col">CATEGORÍA</th>
                               <th class="col text-center" scope="col">STOCK DISPONIBLE(S)</th>
                               <th class="col text-center" scope="col">CANTIDAD</th>

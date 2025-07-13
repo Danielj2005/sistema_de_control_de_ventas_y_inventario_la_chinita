@@ -57,122 +57,92 @@ if ($rol >= 1 && $rol <= 6) {
                 <input type="hidden" name="modulo" value="Guardar">
 
                 <fieldset class="mb-4">
-                  <legend class="h5 card-title">Configuración estándar del sistema.</legend>
+                  <legend class="h5 card-title">Configuración de los Módulos del sistema.</legend>
 
                   <div class="row m-0">
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
+                    <div class="col-12 col-sm-12 col-md-6 mb-3">
                       <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                              <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
-                                  Módulo Productos
-                                </button>
-                              </h2>
-                              <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                  <ul id="" class="nav-content list-unstyled"> 
-                                    <li>
-                                      <input class="vista" type="checkbox" value="productos">
-                                      Acceso Total al Módulo de Productos
-                                    </li>
-                                    <ul id="" class="ps-3 nav-content list-unstyled">
-                                      <li>
-                                        <input name="r_categoria" class="productos" value="1" type="checkbox">
-                                        <span>Registrar Nuevas Categorías</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="m_categoria">
-                                        <span>Modificar Información de Categorías</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="l_categoria">
-                                        <span>Consultar Lista de Categorías Registradas</span>
-                                      </li>
-                                      <br>
-                                      <li>
-                                        <input name="r_presentacion" class="productos" value="1" type="checkbox">
-                                        <span>Registrar Nuevas Presentaciones</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="m_presentacion">
-                                        <span>Modificar Información de Presentaciones</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="l_presentacion">
-                                        <span>Consultar Lista de Presentaciones Registradas</span>
-                                      </li>
-                                      <br>
-                                      <li>
-                                        <input name="r_marca" class="productos" value="1" type="checkbox">
-                                        <span>Registrar Nuevas Marcas</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="m_marca">
-                                        <span>Modificar Información de Marcas</span>
-                                      </li>
-                                      <li>
-                                        <input class="productos" type="checkbox" value="1" name="l_marca">
-                                        <span>Consultar Lista de Marcas Registradas</span>
-                                      </li>
-                                      <br>
-                                      <li>
-                                        <input name="r_productos" class="productos" value="1" type="checkbox">
-                                        <span>Registrar Nuevos Productos</span>
-                                      </li>
-                                      <li>
-                                        <input name="l_productos" class="productos" value="1" type="checkbox">
-                                        <span>Consultar Lista de Productos Registrados</span>
-                                      </li>
-                                      <br>
-                                      <li>
-                                        <input name="e_productos" class="productos" value="1" type="checkbox">
-                                        <span>Registrar Entrada de Productos</span>
-                                      </li>
-                                      <li>
-                                        <input name="e_productos" class="productos" value="1" type="checkbox">
-                                        <span>Consultar Lista de Entradas de Productos</span>
-                                      </li>
-                                    </ul>
-                                  </ul>
-                                </div>
-                              </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
+                              Módulo Productos
+                            </button>
+                          </h2>
+                          <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <ul id="" class="nav-content list-unstyled"> 
+                                <li class="mb-3">
+                                  
+                                  <div class="input-group mb-3">
+                                    <label class="input-group-text">Porcentaje del IVA</label>
+
+                                    <input type="number" class="p-1 form-control" id="porcentaje_iva" name="porcentaje_iva" placeholder="Ingresa el porcentaje del IVA">
+                                    
+                                    <button class="input-group-text btn btn-secondary" id="" >
+                                      <i class="bi bi-percent"></i>
+                                    </button>
+                                  </div>
+                                </li>
+                                <li class="mb-3">
+                                  <span>Porcentaje de ganancia por producto</span>
+                                  <input name="r_categoria" class="productos form-control" value="1" type="number">
+                                </li>
+                              </ul>
                             </div>
                           </div>
-                      <label class="mb-2">Cantidad de preguntas de seguridad <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="c_preguntas" min="3" max="4" value="<?= config_model::obtener_dato('c_preguntas') ?>">
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <label class="mb-2">Tiempo de inactividad de sesión <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="tiempo_inactividad" min="1" max="60" value="<?= config_model::obtener_dato('tiempo_inactividad') ?>">
+                    <div class="col-12 col-sm-12 col-md-6 mb-3">
+                      <div class="accordion" id="accordionExample2">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usuariosCard" aria-expanded="true" aria-controls="collapseOne">
+                              Módulo Usuarios
+                            </button>
+                          </h2>
+
+                          <div id="usuariosCard" class="accordion-collapse collapse" data-bs-parent="#accordionExample2">
+                            <div class="accordion-body">
+                              <ul id="" class="nav-content list-unstyled"> 
+                                <label class="card-title mb-5">Configuración de Sesión</label>
+                                <li class="mb-3">
+                                  <label class="mb-2">Tiempo de inactividad de sesión <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="tiempo_inactividad" min="1" max="60" value="<?= config_model::obtener_dato('tiempo_inactividad') ?>">
+                                </li>
+                                <li class="mb-3">
+                                  <label class="mb-2">Cantidad de preguntas de seguridad <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="c_preguntas" min="3" max="4" value="<?= config_model::obtener_dato('c_preguntas') ?>">
+                                </li>
+                                <li class="mb-3">
+                                  <label class="mb-2">Intentos de inicio de sesión <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="intentos_inicio_sesion" min="1" max="5" value="<?= config_model::obtener_dato('intentos_inicio_sesion') ?>">
+                                </li>
+
+                                <label class="card-title mb-5">Configuración de Contraseña</label>
+
+                                <li class="mb-3">
+                                  <label class="mb-2">Longitud <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="c_caracteres" min="1" max="16" value="<?= config_model::obtener_dato('c_caracteres') ?>">
+                                </li>
+                                <li class="mb-3">
+                                  <label class="mb-2">Cantidad de símbolos <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="c_simbolos" min="1" max="3" value="<?= config_model::obtener_dato('c_simbolos') ?>">
+                                </li>
+                                <li class="mb-3">
+                                  <label class="mb-2">Cantidad de números <span style="color:#f00;">*</span></label>
+                                  <input class="form-control" type="number" name="c_numeros" min="1" max="3" value="<?= config_model::obtener_dato('c_numeros') ?>">
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <label class="mb-2">Intentos de inicio de sesión <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="intentos_inicio_sesion" min="1" max="5" value="<?= config_model::obtener_dato('intentos_inicio_sesion') ?>">
-                    </div>
                   </div>
 
-                </fieldset>
-
-                <fieldset class="boder rounded-3 mb-4">
-                  <legend class="h5 card-title">Parámetros de contraseña.</legend>
-                  <div class="row m-0">
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <label class="mb-2">Longitud <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="c_caracteres" min="1" max="16" value="<?= config_model::obtener_dato('c_caracteres') ?>">
-                    </div>
-                    
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <label class="mb-2">Cantidad de símbolos <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="c_simbolos" min="1" max="3" value="<?= config_model::obtener_dato('c_simbolos') ?>">
-                    </div>
-                    
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <label class="mb-2">Cantidad de números <span style="color:#f00;">*</span></label>
-                      <input class="form-control" type="number" name="c_numeros" min="1" max="3" value="<?= config_model::obtener_dato('c_numeros') ?>">
-                    </div>
-                  </div>
                 </fieldset>
 
                 <div class="col-12 mb-1">
@@ -180,6 +150,7 @@ if ($rol >= 1 && $rol <= 6) {
                       <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                   </div>
                 </div>
+                
                 <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
                   <button name="insertar" class="btn btn-success">Guardar</button>
                 </div>
