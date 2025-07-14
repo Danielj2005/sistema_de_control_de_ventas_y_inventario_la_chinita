@@ -215,12 +215,6 @@
               </a>
             </li>
           <?php } ?>
-          <li>
-            <a href="./configuracion_refac.php">
-              <i class="bi bi-circle"></i>
-              <span>configuracion refacatorizada</span>
-            </a>
-          </li>
         </ul>
       </li>
     <?php } ?>
