@@ -115,7 +115,7 @@ if ($id_servicios !== "" && $id_productos !== "" ){
         $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
             FROM detalles_venta"));
 
-        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
+        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta, $id_usuario);
 
     } catch (Exception $e) {
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la venta en la base de datos debido a un error de consulta.", "error");
@@ -140,7 +140,7 @@ if($id_servicios !== ""){
 if ($id_productos !== "" ){ 
     try {
         
-        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta);
+        $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta, $id_usuario);
         
     } catch (Exception $e) {
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la venta de productos en la base de datos debido a un error de consulta.", "error");

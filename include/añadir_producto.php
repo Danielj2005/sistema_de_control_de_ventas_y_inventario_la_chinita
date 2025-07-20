@@ -18,7 +18,7 @@ $rand = rand(0,5000);
         <input type="text" class="form-control mb-3" list="Nombre_dataList_<?= $rand ?>" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
 
         <datalist id="Nombre_dataList_<?= $rand ?>">
-            <?php producto_model2::options_nombres_productos(); ?> 
+            <?php producto_model::options_nombres_productos(); ?> 
         </datalist>
     </div>
 
