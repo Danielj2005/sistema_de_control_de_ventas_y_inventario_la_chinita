@@ -86,11 +86,10 @@ if ($rol == 1) {  ?>
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th class="col text-center" scope="col">PRODUCTO</th>
-                              <th class="col text-center" scope="col">CATEGORÍA</th>
-                              <th class="col text-center" scope="col">STOCK DISPONIBLE(S)</th>
-                              <th class="col text-center" scope="col">CANTIDAD</th>
-                              <th class="col text-center" scope="col">ELIMINAR</th>
+                              <th class="col text-center" scope="col">Producto</th>
+                              <th class="col text-center" scope="col">Cantidad disponible</th>
+                              <th class="col text-center" scope="col">Cantidad a agregar al servicio</th>
+                              <th class="col text-center" scope="col">Eliminar</th>
                             </tr>
                           </thead>
                           <tbody id="lista_producto">

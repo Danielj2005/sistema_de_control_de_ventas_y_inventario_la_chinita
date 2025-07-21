@@ -170,8 +170,8 @@ try {
     
     $datos_venta = modeloprincipal::consultar("SELECT V.fecha_venta, V.sub_total_dolares, V.sub_total_bs, 
         V.monto_total_dolares, V.monto_total_bolivares,
-        U.cedula, U.nombre, U.apellido, U.correo, U.telefono, 
-        C.cedula, C.nombre, C.telefono
+        U.cedula AS Ucedula, U.nombre AS Unombre, U.apellido AS Uapellido, U.correo, U.telefono, 
+        C.cedula AS Ccedula, C.nombre AS Cnombre, C.telefono AS Ctelefono
         FROM venta AS V 
         INNER JOIN cliente AS C ON C.id_cliente = V.id_cliente 
         INNER JOIN usuario AS U ON U.id_usuario = V.id_usuario 
@@ -181,9 +181,9 @@ try {
 
     bitacora::bitacora("Venta realizada exitosamente.","Se registro una venta con la siguiente informacón: <br><br>
     <b>****** Información del cliente:   ******</b><br>
-    Cédula: <b>".$datos_venta['cedula']." </b><br>
-    Nombre: <b>".$datos_venta['nombre']." </b><br>
-    Teléfono: <b>".$datos_venta['telefono']." </b><br><br>
+    Cédula: <b>".$datos_venta['Ccedula']." </b><br>
+    Nombre: <b>".$datos_venta['Cnombre']." </b><br>
+    Teléfono: <b>".$datos_venta['Ctelefono']." </b><br><br>
 
     <b>****** Información de la Venta:   ******</b><br>
     Subtotal de la compra en $: <b>".$datos_venta['sub_total_dolares']." $ </b><br>
@@ -194,13 +194,11 @@ try {
     Tasa del dolar: <b>$dolar bs </b><br><br>
 
     <b>****** Información del Usuario que realizó la venta:   ******</b><br>
-    Cédula: <b>".$datos_venta['cedula']." </b><br>
-    Nombre: <b>".$datos_venta['nombre']." ".$datos_venta['apellido']." </b><br>
+    Cédula: <b>".$datos_venta['Ucedula']." </b><br>
+    Nombre: <b>".$datos_venta['Unombre']." ".$datos_venta['Uapellido']." </b><br>
     Correo: <b>".$datos_venta['correo']." </b><br>
     Teléfono: <b>".$datos_venta['telefono']." </b><br>
     ");
-
-    
 
     alert_model::alert_reload ("Venta realizada!", "La venta se realizo correctamente", "success");
     exit();
