@@ -4,7 +4,6 @@ require_once "../../../modelo/bitacora_model.php";
 
 $id = modeloPrincipal::limpiar_cadena($_POST['id']);
 
-
 $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
     PS.nombre AS presentacion, C.nombre AS categoria, DM.cantidad
     FROM `detalles_menu` AS DM

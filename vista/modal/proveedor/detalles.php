@@ -13,23 +13,23 @@ if (!isset($_POST['id'])) {
 $datos_proveedor = mysqli_fetch_assoc(proveedor_model::consultar_proveedor_por_id("nombre, correo, direccion, telefono",$id_proveedor));
 
 ?>
-
 <div class="col-12 mb-3">
-    <legen>Nombre: <b>"<?= $datos_proveedor['nombre']; ?>"</b></legen>
+    <legend>Nombre: <b>"<?= $datos_proveedor['nombre']; ?>"</b></legend>
 </div>
 
 <div class="col-12 mb-3">
-    <label class="form-label">Correo <span style="color:#f00;">*</span></label>
+    <label class="form-label">Correo </label>
     <input type="text" class="bg-secondary-subtle form-control" value="<?= $datos_proveedor['correo']; ?>" name="correo" readonly="true" >
+
 </div>
 
 <div class="col-12 mb-3">
-    <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>
+    <label class="form-label">Teléfono </label>
     <input type="text" class="bg-secondary-subtle form-control" value="<?= $datos_proveedor['telefono']; ?>" name="telefono" readonly="true" >
 </div>
 
 <div class="col-12 mb-3">
-    <label class="form-label">Dirección <span style="color:#f00;">*</span></label>
+    <label class="form-label">Dirección </label>
     <input type="text" class="bg-secondary-subtle form-control" value="<?= $datos_proveedor['direccion']; ?>" name="direccion" readonly="true" >
 </div>
 

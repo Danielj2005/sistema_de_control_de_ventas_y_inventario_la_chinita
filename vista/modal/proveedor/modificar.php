@@ -48,9 +48,11 @@ $cedula = trim($cedula);
 
 <form id="SendForm" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
     <div class="row m-0">
+
         <input type="hidden" name="id" value="<?= $datos_proveedor['id_proveedor']; ?>">
         <input type="hidden" name="modulo" value="Modificar">
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3">
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
             <div class="input-group">
                 <select name="nacionalidad" class="form-select-sm col-sm-3 input-group-text" aria-label="Default select example">
@@ -63,17 +65,17 @@ $cedula = trim($cedula);
             </div>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <label> Nombre<span style="color: red; font-size: 20px;"> * </span></label>
             <input type="text" maxlength="30" value="<?= $datos_proveedor['nombre'] ?>" class=" form-control" id="nombre" name="nombre" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" placeholder="ingrese el nombre">
         </div>
 
-        <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <label> Teléfono <span style="color: red; font-size: 20px;"> * </span></label>
             <input type="text" maxlength="11" value="<?= $datos_proveedor['telefono'] ?>"  class=" form-control telefono" id="telefono" name="telefono" pattern="[0-9]{11}" placeholder="ingrese el teléfono" >
         </div>
 
-        <div class="col-12 col-sm-12 col-md-9 col-lg-9 mb-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <label> Correo <span style="color: red; font-size: 20px;"> * </span></label>
             <input type="email" maxlength="30" value="<?= $datos_proveedor['correo'] ?>"  class=" form-control correo" id="correo" name="correo" placeholder="ingrese el correo" >
         </div>

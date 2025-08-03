@@ -123,29 +123,36 @@ class proveedor_model extends modeloPrincipal {
         }
         return $actualizar;
     }
-    
+    public static function validar_existe_historial ($id) {
+        $consulta = modeloPrincipal::consultar("SELECT count(id_entrada) AS cantidad_entradas FROM entrada WHERE id_proveedor = $id");
+        $consulta = mysqli_fetch_array($consulta);
+        $consulta = $consulta['cantidad_entradas'];
+        return $consulta;
+    }
     
     public static function lista_proveedores_registrados () {
     
         $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
 
         // se guardan los datos en un array y se imprime
-        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+        while ( $mostrar = mysqli_fetch_array($consulta)) { 
+            $haveHistorial = self::validar_existe_historial ($mostrar["id_proveedor"]);
+            ?>    
             <tr>
                 <td class="col text-center"></td>
                 <td class="col text-center"><?= $mostrar["cedula_rif"]; ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
 
-                <td class="col text-center">
-                    <button modal="ver_detalles_proveedor" type="submit" value="<?= $mostrar["id_proveedor"]; ?>" <?= rol_model::verificar_rol('l_proveedores') == '1' ?  'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
+                <td class="col text-center <?= rol_model::verificar_rol('l_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
+                    <button modal="ver_detalles_proveedor" type="submit" value="<?= $mostrar["id_proveedor"]; ?>" <?= rol_model::verificar_rol('l_proveedores') == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
                 </td>
 
-                <td class="col text-center">
-                    <button modal="modificar_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ?  'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
+                <td class="col text-center <?= rol_model::verificar_rol('m_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
+                    <button modal="modificar_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
                 </td>
 
-                <td class="col text-center">
-                    <button modal="ver_historial_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" <?= rol_model::verificar_rol('h_proveedores') == '1' ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye "></button>
+                <td class="col text-center <?= rol_model::verificar_rol('h_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
+                    <button modal="ver_historial_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info" : "btn-dark alert-history bi-eye-slash" ?>"></button>
                 </td> 
             </tr>
         <?php } 

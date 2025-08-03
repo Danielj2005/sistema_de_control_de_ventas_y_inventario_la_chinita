@@ -15,3 +15,9 @@ $boton_cambio_estado_original_categoria = '<form action="<?= (rol_model::verific
     <input type="hidden" name="modulo" value="<?= (mostrar["estado"] === "1") ? 'activo' : 'inactivo' ?>">          
     <input type="hidden" name="id" value="<?= mostrar["id_categoria"]; ?>">
 </form>';
+
+
+<a class="col-12 btn btn-success" 
+    href="./<?= rol_model::verificar_rol('r_proveedores') == 1 ? 'registrar_proveedores.php' : 'proveedor.php' ?>">
+    Registrar Proveedor
+</a>

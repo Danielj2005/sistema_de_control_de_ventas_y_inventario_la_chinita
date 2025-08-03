@@ -34,6 +34,7 @@
 <script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
 <script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
 <script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
+<script src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
 
 <script type="text/javascript">
     // inicializar la libreria Select2 
@@ -80,6 +81,22 @@
 
         delete_element.forEach(element => {
             document.getElementById(`${element.id}`).remove();
+        });
+
+        const alertHistoryt = document.querySelectorAll('.alert-history');
+        alertHistoryt.forEach(alert => {
+            alert.addEventListener('click', () => {
+                // alert con toastify library
+                Toastify({
+                    text: ' Este proveedor se encuentra sin un historial de compras.',
+                    className: "bi bi-exclamation-triangle-fill fs-5",
+                    duration: 3000,
+                    style: {
+                        background: "#6c757d",
+                    }
+                }).showToast();
+    
+            });
         });
     });
 </script>

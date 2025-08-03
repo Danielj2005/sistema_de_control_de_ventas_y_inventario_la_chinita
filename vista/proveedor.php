@@ -5,6 +5,16 @@ session_start();
 
 include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
 
+// alert con toastify library
+// Toastify({
+//     text: ' Este proveedor se encuentra sin un historial de compras!.',
+//     className: "bi bi-exclamation-triangle-fill",
+//     style: {
+//         background: "#6c757d",
+//     }
+// }).showToast();
+
+
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
@@ -45,11 +55,8 @@ if ($rol >= 1 && $rol <= 4) {  ?>
               <div class="card top-selling">
                 <div class="row p-2 text-center">
                   
-                  <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <a class="col-12 btn btn-success" 
-                      href="./<?= rol_model::verificar_rol('r_proveedores') == 1 ? 'registrar_proveedores.php' : 'proveedor.php' ?>">
-                        Registrar Proveedor
-                    </a>
+                  <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
+                    <button modal="registrar" url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#registrarProveedor" class="btn_modal btn btn-success bi bi-truck">&nbsp; Registrar un Proveedor</button>
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-6 mb-3 row m-0">
@@ -73,9 +80,9 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                           <th class="col text-center" scope="col">#</th>
                           <th class="col text-center" scope="col">Cédula / Rif</th>
                           <th class="col text-center" scope="col">Nombre</th>
-                          <th class="col text-center" scope="col">Detalles</th>
-                          <th class="col text-center" scope="col" class="text-center">Modificar</th>
-                          <th class="col text-center" scope="col" class="text-center">Historial de compras</th>
+                          <th class="col text-center <?= rol_model::verificar_rol('l_proveedores') == '1' ?  '' : 'd-none eraser>' ?>" scope="col">Detalles</th>
+                          <th class="col text-center <?= rol_model::verificar_rol('m_proveedores') == '1' ?  '' : 'd-none eraser>' ?>" scope="col" class="text-center">Modificar</th>
+                          <th class="col text-center <?= rol_model::verificar_rol('h_proveedores') == '1' ?  '' : 'd-none eraser>' ?>" scope="col" class="text-center">Historial de compras</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -90,25 +97,15 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         </section>
       </main>
       
-      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-scrollable modal-xl">
-					<div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body row" id="body_modal">  </div>
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-          </div>
-				</div>
-			</div>
-      
-      <?php   
-        include_once("../include/footer.php");  
-        include_once("../include/scripts_include.php"); 
+      <?php 
+        include_once "./modal/plantillaModalCustom.php";  
+        include_once "./modal/plantillaModalRegistroCustom.php";  
+
+        renderModal("registrarProveedor", "registrarProveedor",  "", "bi bi-truck", "Registro de Proveedor", "Registrar", "Cancelar");
+
+
+        include_once "../include/footer.php";  
+        include_once "../include/scripts_include.php"; 
       
         model_user::validar_sesion_activa($id_usuario);
         
