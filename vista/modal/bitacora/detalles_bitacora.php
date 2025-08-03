@@ -1,10 +1,14 @@
 <?php
+
+session_start();
+
 require_once "../../../modelo/modeloPrincipal.php"; 
 require_once "../../../modelo/bitacora_model.php"; 
 
-$id = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id = modeloPrincipal::decryptionId($_POST["id"]);
+$id = modeloPrincipal::limpiar_cadena($id);
 
-$bitacora = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT mensaje FROM bitacora WHERE id = $id"));
+$bitacora = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT mensaje FROM bitacora WHERE id = $id"));
 
 $mensaje = $bitacora['mensaje'];
 

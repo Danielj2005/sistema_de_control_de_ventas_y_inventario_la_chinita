@@ -13,6 +13,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::verificar_rol('v_bitacora');
+
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
   <!DOCTYPE html>
@@ -68,7 +69,7 @@ if ($rol == 1) {  ?>
                                 <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
                                 <th class="col" scope="col"><?= date('d-m-Y / h:i a', strtotime($row['fecha_hora'])) ?></th>
                                 <th class="text-center col" scope="col">
-                                  <button modal="ver_detalles_bitacora" class="btn_modal btn bi bi-eye btn-info" url="./modal/bitacora/detalles_bitacora.php" value="<?= $row["id"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                  <button modal="ver_detalles_bitacora" class="btn_modal btn bi bi-eye btn-info" url="./modal/bitacora/detalles_bitacora.php" value="<?= modeloPrincipal::encryptionId($row["id"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                                 </th>
                               </tr>
                           <?php } ?>  
@@ -81,26 +82,10 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
-
-      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable ">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Detalles de la bitácora</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body" id="body_modal" > </div>
-
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button> 
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
       
       <?php 
+        include_once "./modal/plantillaModalCustom.php"; 
+        modalCustom ();
         // se incluye el footer / pie de pagina a la vista
         include_once("../include/footer.php");
         // se incluyen los script de javascript a la vista 
@@ -109,7 +94,6 @@ if ($rol == 1) {  ?>
         model_user::validar_sesion_activa($id_usuario);
         
         config_model::verificar_actualizacion_configuracion(); 
-
         ?>
     </body>
   </html>
