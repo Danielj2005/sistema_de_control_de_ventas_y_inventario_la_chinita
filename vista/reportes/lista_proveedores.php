@@ -1,6 +1,5 @@
 <?php
 session_start();
-include_once "../../config/ConfigServer.php";
 include_once "../../modelo/modeloPrincipal.php";
 require 'fpdf/fpdf.php';
 
