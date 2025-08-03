@@ -47,9 +47,23 @@ setTimeout(() => {
     
                 "ver_detalles_venta_del_dia": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la Venta',
             };
-            
-            modal.includes('ver_historial_proveedor') ? tamano_modal.classList.add('modal-xl') : tamano_modal.classList.remove('modal-xl');
-            
+            const modalXl = [
+                'ver_historial_proveedor',
+                'ver_historial_cliente',
+                'modificar_empleado',
+                'ver_detalles_rol',
+                'modificar_rol',
+                'ver_detalles_entrada',
+                'ver_marcas',
+                'ver_categorias',
+                'ver_presentaciones',
+                'ver_productos',
+                'ver_detalles_servicio',
+                'modificar_servicio',
+
+            ];
+
+            modalXl.includes(`${modal}`) ? tamano_modal.classList.add('modal-xl') : tamano_modal.classList.remove('modal-xl');
             $.ajax({
                 data:  parametros,
                 url:  url,

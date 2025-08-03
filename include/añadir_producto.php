@@ -4,7 +4,7 @@ session_start();
 include_once "../modelo/modeloPrincipal.php";
 include_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
 include_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
-include_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+include_once "../modelo/productos_model.php"; // se incluye el modelo producto
 // include_once "../modelo/productos_model.php"; // se incluye el modelo producto
 include_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 

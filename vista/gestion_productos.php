@@ -278,25 +278,11 @@ if ($rol == 1 || $rol == 2) {
                 </div>
             </section>
         </main>
-            
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="body_modal"> </div>
-                    <div class="modal-footer">
-                        <button id="btn_guardar_modal" type="submit" class="btn btn-success"></button>
-                        <button type="button" class="btn btn-secondary" id="close_modal" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <script type="text/javascript" src="./js/añadir_producto.js"></script>
         <?php 
+            include_once "./modal/plantillaModalCustom.php"; 
+            modalCustom ($width="modal-xl");
             // se incluye el footer / pie de pagina a la vista
             include_once "../include/footer.php";
             // se incluyen los script de javascript a la vista 

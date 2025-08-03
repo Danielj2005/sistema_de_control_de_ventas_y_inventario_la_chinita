@@ -3,17 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
-
-// alert con toastify library
-// Toastify({
-//     text: ' Este proveedor se encuentra sin un historial de compras!.',
-//     className: "bi bi-exclamation-triangle-fill",
-//     style: {
-//         background: "#6c757d",
-//     }
-// }).showToast();
-
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -39,9 +29,10 @@ if ($rol >= 1 && $rol <= 4) {  ?>
     <body>
       <?php 
         // se incluye el header / encabezado a la vista
-        include_once("../include/header.php");
+        include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once "../include/sliderbar.php"; ?>
+
       <main id="main" class="main">
         <div class="pagetitle row">
           <div class="col-12 col-sm-12 col-md-12 mb-4">
@@ -99,18 +90,17 @@ if ($rol >= 1 && $rol <= 4) {  ?>
       
       <?php 
         include_once "./modal/plantillaModalCustom.php";  
+        modalCustom ();
         include_once "./modal/plantillaModalRegistroCustom.php";  
 
         renderModal("registrarProveedor", "registrarProveedor",  "", "bi bi-truck", "Registro de Proveedor", "Registrar", "Cancelar");
-
-
+        
         include_once "../include/footer.php";  
         include_once "../include/scripts_include.php"; 
-      
+
         model_user::validar_sesion_activa($id_usuario);
         
         config_model::verificar_actualizacion_configuracion(); ?>
-        
     </body>
   </html>
 <?php }else{

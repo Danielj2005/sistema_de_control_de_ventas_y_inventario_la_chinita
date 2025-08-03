@@ -160,7 +160,7 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
         // <tr class="text-center <?= $mostrar["stock_actual"] == "0" ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') "> 
         
-        while ($mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+        while ($mostrar = mysqli_fetch_assoc($consulta)) { ?>
             <tr class="text-center ">
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
@@ -174,7 +174,7 @@ class producto_model extends modeloPrincipal {
 
     public static function options($estado = "") {
         if ($estado == "1") {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto,
                 PS.nombre AS presentacion,
                 M.nombre as marca
                 FROM producto AS P 
@@ -183,7 +183,7 @@ class producto_model extends modeloPrincipal {
                 INNER JOIN marca AS M ON M.id = P.id_marca
                 WHERE I.estado = 1 AND I.stock_actual > 0");
         }else {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto,
                 PS.nombre AS presentacion,
                 M.nombre as marca
                 FROM producto AS P 
