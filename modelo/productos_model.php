@@ -53,15 +53,14 @@ class producto_model extends modeloPrincipal {
 
 
     public static function obtener_todos_los_datos(){
-        $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
-            C.nombre, 
-            PS.nombre as nombre_presentacion,
-            M.nombre as marca
+        $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, PS.nombre as presentacion,
+            (SELECT stock_actual FROM inventario WHERE inventario.id_producto = P.id_producto) AS stock_actual,
+            (SELECT Round(precio_venta, 2) FROM inventario WHERE inventario.id_producto = P.id_producto) AS precio_venta
             FROM  producto AS P
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
             INNER JOIN marca AS M ON M.id = P.id_marca
-            ORDER BY P.id_producto ASC");
+            ORDER BY M.nombre ASC");
         // $consul = modeloPrincipal::consultar("SELECT P.nombre_producto, 
         //     I.precio_venta, I.stock_actual, I.estado, 
         //     C.nombre, 
@@ -160,13 +159,14 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
         // <tr class="text-center <?= $mostrar["stock_actual"] == "0" ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') "> 
         
-        while ($mostrar = mysqli_fetch_assoc($consulta)) { ?>
-            <tr class="text-center ">
+        while ($mostrar = mysqli_fetch_assoc($consulta)) {
+            
+            ?>
+            <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["nombre_producto"]; ?></td>
-                <th class="text-center"><?= $mostrar["marca"]; ?></th>
-                <td class="text-center"><?= $mostrar["nombre_presentacion"]; ?></td>
-                <td class="text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="text-center"><?= $mostrar["marca"].' '.$mostrar["presentacion"] ?></td>
+                <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
+                <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0.$' : $mostrar["precio_venta"].' $' ; ?></th>
             </tr>
         <?php } 
     }
