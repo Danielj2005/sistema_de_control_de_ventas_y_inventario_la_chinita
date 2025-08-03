@@ -58,3 +58,96 @@ if($modulo === "Guardar"){
         exit();
     }
 }
+
+
+$id_marca = modeloPrincipal::decryptionId($_POST["UID"]);
+$id_marca = modeloPrincipal::limpiar_cadena($id_marca);
+
+if ($modulo === "activo") {
+    
+    $datos_originales = marca_model::consultar_por_id($id_marca);
+    $datos_originales = mysqli_fetch_array($datos_originales);
+    $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
+
+    try {
+        $actualizar = marca_model::actualizar("0", "$id_marca");
+        
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
+        }
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el estado la categoría debido a un error de consulta.", "error");
+        exit();
+    }
+    
+
+    // se realiza la bitácora con los datos del categoría a registrar
+    try {
+
+        $datos_actuales = marca_model::consultar_por_id($id_marca);
+        $datos_actuales = mysqli_fetch_array($datos_actuales);
+        $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activa' : 'Inactiva';
+
+        bitacora::bitacora("Modificación automatica del estado de una marca.","Se modificó el estado de una Marca por inactividad relacionada al inventario desde hace un mes, la informacón es la siguiente: <br><br>
+            <b>****** Información original de la marca:   ******</b><br><br>
+            Nombre: <b>".$datos_originales['nombre']." </b><br>
+            Estado: <b>".$datos_originales['estado']." </b><br>       
+            Fecha: <b>".date("Y-m-d")." </b><br><br>
+            <b>****** Información actual de la marca:   ******</b><br><br>
+            Nombre: <b>".$datos_actuales['nombre']." </b><br>
+            Estado: <b>".$datos_actuales['estado']." </b><br>      
+            Fecha: <b>".date("Y-m-d")." </b>
+        ");
+
+        alert_model::alert_mod_success();
+        exit();
+    } catch (Exception $e) {
+        alert_model::alert_mod_error();
+        exit();
+    }
+}
+
+if ($modulo === "inactivo") {
+
+    $datos_originales = marca_model::consultar_por_id($id_marca);
+    $datos_originales = mysqli_fetch_array($datos_originales);
+    $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
+
+    try {
+        $actualizar = marca_model::actualizar("1", "$id_marca");
+        
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
+        }
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el estado la categoría debido a un error de consulta.", "error");
+        exit();
+    }
+    
+
+    // se realiza la bitácora con los datos del categoría a registrar
+    try {
+
+        $datos_actuales = marca_model::consultar_por_id($id_marca);
+        $datos_actuales = mysqli_fetch_array($datos_actuales);
+        $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activa' : 'Inactiva';
+
+        bitacora::bitacora("Modificación exitosa del estado de una marca.","Se modificó el estado de una Marca con la siguiente informacón: <br><br>
+            <b>****** Información original de la marca:   ******</b><br><br>
+            Nombre: <b>".$datos_originales['nombre']." </b><br>
+            Estado: <b>".$datos_originales['estado']." </b><br>       
+            Fecha: <b>".date("Y-m-d")." </b><br><br>
+            <b>****** Información actual de la marca:   ******</b><br><br>
+            Nombre: <b>".$datos_actuales['nombre']." </b><br>
+            Estado: <b>".$datos_actuales['estado']." </b><br>      
+            Fecha: <b>".date("Y-m-d")." </b>
+        ");
+
+        alert_model::alert_mod_success();
+        exit();
+    } catch (Exception $e) {
+        alert_model::alert_mod_error();
+        exit();
+    }
+}

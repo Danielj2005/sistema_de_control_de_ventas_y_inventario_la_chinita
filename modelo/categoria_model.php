@@ -88,8 +88,6 @@ class category_model extends modeloPrincipal {
                                         &nbsp; Inactivo
                                 </button>
                             </form>
-
-
                         <?php }
                     ?>
                 </td>

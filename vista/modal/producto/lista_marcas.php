@@ -2,6 +2,7 @@
 session_start();
 
 require_once "../../../modelo/modeloPrincipal.php";
+require_once "../../../modelo/rol_model.php";
 require_once "../../../modelo/marca_model.php";
 
 ?>

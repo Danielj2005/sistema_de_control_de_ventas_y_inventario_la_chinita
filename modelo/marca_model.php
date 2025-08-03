@@ -80,11 +80,27 @@ class marca_model extends modeloPrincipal {
                 <td class="col text-center"></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
                 <td class="col text-center">
-                    <button <?php //(rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
-                        class="btn <?= ($mostrar["estado"] === "1") ? 'btn-outline-success bi-check-circle' : 'btn-outline-danger bi-x-circle'?>" 
-                        title="estado de la categoría">
-                            &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
-                    </button>
+                    <?php 
+                        if ($mostrar["estado"] === "1") { ?>
+                            <button 
+                                class="btn btn-outline-success bi-check-circle" 
+                                title="estado de la Marca">
+                                    &nbsp; Activo 
+                            </button>
+                        <?php } else { ?>
+                            
+                            <form action="<?= (rol_model::verificar_rol('m_marca') == '1') ?  '../controlador/marca.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                                <input type="hidden" name="modulo" value="inactivo">          
+                                <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>">
+                                <button 
+                                    class="btn btn-outline-danger bi-x-circle <?= (rol_model::verificar_rol('m_marca') == '1') ?  '' : 'disabled eraser' ?>" 
+                                    title="estado de la Marca"
+                                    type="submit">
+                                        &nbsp; Inactivo
+                                </button>
+                            </form>
+                        <?php }
+                    ?>
                 </td>
             </tr>
         <?php } 
@@ -123,8 +139,6 @@ class marca_model extends modeloPrincipal {
             exit();
         }
     }
-
-    
     public static function obtener_array_id_marca_recien_registrado($CM) {
         $id_max = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id) AS id FROM marca"))['id'];
 
@@ -140,9 +154,6 @@ class marca_model extends modeloPrincipal {
 
         return $dataFind;
     }
-
-
-    
     public static function obtener_array_id_marcas($NM):array {
         // $NM es un array con los Nombres de las Marcas = NM
         
@@ -157,5 +168,16 @@ class marca_model extends modeloPrincipal {
 
         return $dataFind;
     }
+
+    
+    public static function actualizar($estado, $id_marca){
+        // se comprueba que no exista un registro con los mismos datos
+        
+        if (!modeloprincipal::UpdateSQL("marca", "estado = $estado", "id = $id_marca")) {
+            return false;
+        }
+        return true;
+    }
+
 
 }
