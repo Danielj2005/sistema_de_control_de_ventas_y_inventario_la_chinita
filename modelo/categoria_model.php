@@ -78,7 +78,7 @@ class category_model extends modeloPrincipal {
                             </button>
                         <?php } else { ?>
                             
-                            <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                            <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                                 <input type="hidden" name="modulo" value="inactivo">          
                                 <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id_categoria"]); ?>">
                                 <button 

@@ -72,8 +72,18 @@ setTimeout(() => {
                 'modificar',
                 'ver_categorias',
                 'registrar_producto',
+                'ver_presentaciones',
+                'ver_marcas',
+                'modificar_proveedor',
+                'modificar_info_personal_usuario',
+                'preguntas_seguridad',
+                'modificar_cliente',
+                'modificar_empleado',
+                'modificar_rol',
+                'modificar_servicio',
                 '',
             ];
+
             $.ajax({
                 data:  parametros,
                 url:  url,

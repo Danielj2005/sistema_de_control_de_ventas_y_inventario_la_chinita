@@ -71,7 +71,8 @@ if($modulo === "Guardar"){
 }
 
 
-$id_presentacion = modeloPrincipal::limpiar_cadena($_POST["id"]);
+$id_presentacion = modeloPrincipal::decryptionId($_POST["UID"]);
+$id_presentacion = modeloPrincipal::limpiar_cadena($id_presentacion);
 
 if ($modulo === "activo") {
     
