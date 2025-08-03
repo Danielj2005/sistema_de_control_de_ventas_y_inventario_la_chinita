@@ -1,9 +1,10 @@
 <?php 
 session_start();
-
+// Establecer encabezados CORS para permitir solicitudes desde cualquier origen
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // modulo a trabajar
+
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
 
 if (!isset($_POST["modulo"])) {
@@ -69,7 +70,8 @@ if($modulo === "Guardar"){
     }
 }
 
-$id_categoria = modeloPrincipal::limpiar_cadena($_POST["id"]);
+$id_categoria = modeloPrincipal::decryptionId($_POST["UID"]);
+$id_categoria = modeloPrincipal::limpiar_cadena($id_categoria);
 
 if ($modulo === "activo") {
     
@@ -113,20 +115,19 @@ if ($modulo === "activo") {
         exit();
     }
 }
+
 if ($modulo === "inactivo") {
-    
-    
+
     $datos_originales = category_model::consultar_categoria_por_id("*", $id_categoria);
     $datos_originales = mysqli_fetch_array($datos_originales);
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
     try {
-        $actualizar = category_model::actualizar("1", "$id_categoria");
+        $actualizar = category_model::actualizar("1", $id_categoria);
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
         }
-
     } catch (Exception $e) {
         alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el estado la categoría debido a un error de consulta.", "error");
         exit();

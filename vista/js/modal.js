@@ -4,7 +4,10 @@ const btn_modal = document.querySelectorAll('.btn_modal');
 const contenedor = document.getElementById('body_modal');
 const titulo_modal = document.getElementById('exampleModalLabel');
 const btn_guardar_modal = document.getElementById('btn_guardar_modal');
+
+// se limpia el contenido del modal antes de abrirlo
 contenedor.textContent  = '';
+
 setTimeout(() => {
     btn_modal.forEach((btn_update)=>{
         btn_update.addEventListener('click', (e) =>{
@@ -16,6 +19,7 @@ setTimeout(() => {
             let	parametros = {'id' : id  };
     
             const tamano_modal = document.getElementById('modal_tamano');
+
             const title_modal = {
                 "ver_detalles_bitacora": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del registro en bitácora',
                 
@@ -59,11 +63,17 @@ setTimeout(() => {
                 'ver_presentaciones',
                 'ver_productos',
                 'ver_detalles_servicio',
-                'modificar_servicio',
-
+                'modificar_servicio'
             ];
 
             modalXl.includes(`${modal}`) ? tamano_modal.classList.add('modal-xl') : tamano_modal.classList.remove('modal-xl');
+
+            const SendForm = [
+                'modificar',
+                'ver_categorias',
+                'registrar_producto',
+                '',
+            ];
             $.ajax({
                 data:  parametros,
                 url:  url,
@@ -75,21 +85,20 @@ setTimeout(() => {
                     contenedor.innerHTML = valores; // se inserta el resultado de la busqueda al modal
                     
                     // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
-                    modal.includes('ver') === true ? dataTable() : '';
+                    modal.includes('ver') ? dataTable() : '';
                     // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
-                    modal.includes('ver') === true ? btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
+                    modal.includes('ver') ? btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
                     // se ajusta el tamaño del modal en base a los datos a mostrar
                     
                     // se evalúa si el modal incluye 'modificar' para llamarr a la funcion 'SendFormAjax()' para el envio de formularios en el modal
-                    modal.includes('modificar') === true ? SendFormAjax() : '';
-                    modal.includes('registrar_producto') === true ? SendFormAjax() : '';
+                    SendForm.includes(`${modal}`) ? SendFormAjax() : '';
+
                     // se evalúa si el modal incluye 'modificar' para asignar el atributo 'form' al boton 'guardar' en el modal y asociarlo a su respectivo formulario
-                    modal.includes('modificar') === true ? btn_guardar_modal.setAttribute('form','SendForm') : '';
-                    modal.includes('registrar_producto') === true ? btn_guardar_modal.setAttribute('form','SendForm') : '';
+                    modal.includes('modificar') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
+                    modal.includes('registrar_producto') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
                     
                     // se evalúa si el modal incluye 'modificar_rol' para ejecutar la funcion 'evaluar_casillas()' para la seleccion de roles en el modal
                     modal === 'modificar_rol' ? evaluar_casillas() : '';
-    
                 },
                 error: function(){
                     $('.msjFormSend').html(valores); // se inserta el resultado de la busqueda al modal

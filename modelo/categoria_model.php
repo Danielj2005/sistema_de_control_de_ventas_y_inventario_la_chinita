@@ -69,12 +69,29 @@ class category_model extends modeloPrincipal {
                 <td class="col text-center"><?= $i++ ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
                 <td scope="row" class="text-center">
-                    <button 
-                        <?= (rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled' ?> 
-                        class="btn <?= ($mostrar["estado"] === "1") ? 'btn-outline-success bi-check-circle' : 'btn-outline-danger bi-x-circle'?>" 
-                        title="estado de la categoría">
-                            &nbsp; <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?> 
-                    </button>
+                    <?php 
+                        if ($mostrar["estado"] === "1") { ?>
+                            <button 
+                                class="btn btn-outline-success bi-check-circle" 
+                                title="estado de la categoría">
+                                    &nbsp; Activo 
+                            </button>
+                        <?php } else { ?>
+                            
+                            <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './categoria_producto.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                                <input type="hidden" name="modulo" value="inactivo">          
+                                <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id_categoria"]); ?>">
+                                <button 
+                                    class="btn btn-outline-danger bi-x-circle <?= (rol_model::verificar_rol('m_categoria') == '1') ?  '' : 'disabled eraser' ?>" 
+                                    title="estado de la categoría"
+                                    type="submit">
+                                        &nbsp; Inactivo
+                                </button>
+                            </form>
+
+
+                        <?php }
+                    ?>
                 </td>
             </tr>
         <?php  } 
