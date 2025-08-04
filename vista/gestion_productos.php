@@ -204,7 +204,7 @@ if ($rol == 1 || $rol == 2) {
                                 <h3 class="my-3 col-12 fs-4 titulosH">Productos</h3>
                         
                                 <div class="text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
-                                    <button type="button" modal="ver_productos" url="./modal/producto/lista_productos.php" class="btn_modal btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                    <button onclick="toggle()" type="button" class="btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
                                 </div>
 
                                 <div class="text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
@@ -223,48 +223,75 @@ if ($rol == 1 || $rol == 2) {
                                         </div>
                                     </div>
 
-                                    <div class="card shadow-lg rounded-4 p-2 col-12 col-md-6 row" id="producto_1" style="max-width: 400px; width: 100%;">
-                                        <label class="col-form-label card-title">Datos del Producto: </label>
+                                                                        
+                                    <div id="tableListProducts" class="table table-responsive">
+                                        <table class="table example mb-3" id="example">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col text-center" scope="col">#</th>
+                                                    <th class="col text-center" scope="col">Nombre</th>
+                                                    <th class="col text-center" scope="col">Cantidad</th>
+                                                    <th class="col text-center" scope="col">Precio de Venta</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php producto_model::lista(); ?>  
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Nombre del Producto <span style="color:#f00;"> *</span></label>
-                                            <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
-                                            
-                                            <datalist id="datalist_nombre_productos">
-                                                <?php producto_model::options_nombres_productos(); ?> 
-                                            </datalist>
-                                        </div>
-
-                                        <!-- selector de Marca  -->
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Seleccione una Marca <span style="color:#f00;"> * </span> </label>
-                                            <input type="text" class="form-control mb-3" list="datalist_marca" name="marcas[]" id="input_nombre_marca" placeholder="Seleccione una Marca" autocomplete="off">
-                                            <datalist id="datalist_marca">
-                                                <?php marca_model::options(); ?>
-                                            </datalist>
-                                        </div>
-
-                                        <!-- selector de presentacion  -->
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Seleccione una Presentación <span style="color:#f00;"> * </span> </label>
-                                            <input type="text" class="form-control mb-3" list="datalist_nombre_presentacion" name="presentacion[]" id="input_nombre_presentacion" placeholder="Seleccione una Presentación" autocomplete="off">
-                                            <datalist id="datalist_nombre_presentacion">
-                                                <?php presentacion_model::options(); ?>
-                                            </datalist>
-                                        </div>
-
-                                        <!-- selector de categoría   -->
-                                        <div class="col-12 mb-3">
-                                            <label class="col-form-label">Seleccione una Categoría <span style="color:#f00;"> * </span> </label>
-                                            <input type="text" class="form-control mb-3" list="datalist_nombre_categoria" name="categoria[]" id="input_nombre_categoria" placeholder="Seleccione una Categoría" autocomplete="off">
-                                            <datalist id="datalist_nombre_categoria">
-                                                <?php category_model::options(); ?>
-                                            </datalist>
-                                        </div>
-
-                                        <div class="text-center">
-                                            <button type="button" onclick="document.getElementById(`producto_1`).remove();" class="btn btn-danger bi bi-trash">&nbsp; Eliminar</button>
-                                        </div>
+                                    <div id="tableRegisterProducts" class="d-none table table-responsive">
+                                        <table class="table mb-3">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col text-center" scope="col">Nombre del Producto <span style="color:#f00;"> *</span></th>
+                                                    <th class="col text-center" scope="col">Seleccione una Marca <span style="color:#f00;"> * </span> </th>
+                                                    <th class="col text-center" scope="col">Seleccione una Presentación <span style="color:#f00;"> * </span> </th>
+                                                    <th class="col text-center" scope="col">Seleccione una Categoría <span style="color:#f00;"> * </span> </th>
+                                                    <th class="col text-center" scope="col">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableProduct">
+                                                <?php //producto_model::lista(); ?>
+                                                <tr id="producto_1">
+                                                    <td class="text-center">
+                                                        <div class="col-12 mb-3">
+                                                            <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
+                                                            <datalist id="datalist_nombre_productos">
+                                                                <?php producto_model::options_nombres_productos(); ?> 
+                                                            </datalist>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="col-12 mb-3">
+                                                            <input type="text" class="form-control mb-3" list="datalist_marca" name="marcas[]" id="input_nombre_marca" placeholder="Seleccione una Marca" autocomplete="off">
+                                                            <datalist id="datalist_marca">
+                                                                <?php marca_model::options(); ?>
+                                                            </datalist>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="col-12 mb-3">
+                                                            <input type="text" class="form-control mb-3" list="datalist_nombre_presentacion" name="presentacion[]" id="input_nombre_presentacion" placeholder="Seleccione una Presentación" autocomplete="off">
+                                                            <datalist id="datalist_nombre_presentacion">
+                                                                <?php presentacion_model::options(); ?>
+                                                            </datalist>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="col-12 mb-3">
+                                                            <input type="text" class="form-control mb-3" list="datalist_nombre_categoria" name="categoria[]" id="input_nombre_categoria" placeholder="Seleccione una Categoría" autocomplete="off">
+                                                            <datalist id="datalist_nombre_categoria">
+                                                                <?php category_model::options(); ?>
+                                                            </datalist>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button" onclick="document.getElementById(`producto_1`).remove();" class="btn btn-danger bi bi-trash"></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </form>             
 
@@ -279,6 +306,12 @@ if ($rol == 1 || $rol == 2) {
             </section>
         </main>
 
+        <script type="text/javascript">
+            const toggle = ()=> {
+                document.getElementById('tableRegisterProducts').classList.toggle('d-none');
+                document.getElementById('tableListProducts').classList.toggle('d-none')
+            };
+        </script>
         <script type="text/javascript" src="./js/añadir_producto.js"></script>
         <?php 
             include_once "./modal/plantillaModalCustom.php"; 

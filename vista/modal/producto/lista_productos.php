@@ -15,7 +15,7 @@ require_once "../../../modelo/productos_model.php";
     </ul>
 </div>
 <div class="table table-responsive">
-    <table class="table table-stripd example mb-3" id="example">
+    <table class="table example mb-3" id="example">
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>

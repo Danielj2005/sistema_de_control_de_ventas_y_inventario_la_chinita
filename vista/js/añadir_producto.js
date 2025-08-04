@@ -11,7 +11,7 @@ btn_add_card_product.addEventListener('click', (e) => {
         url:  "../include/añadir_producto.php",
         type:  'post',
         success:function(valores){
-            $(`#registrar_producto`).append(valores);
+            $(`#tableProduct`).append(valores);
         },
         error: function(){
             Swal.fire("ocurrio un error!","la solicitud no pudo ser procesada","error");

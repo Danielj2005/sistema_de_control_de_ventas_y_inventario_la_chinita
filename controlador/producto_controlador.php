@@ -2,12 +2,12 @@
 session_start();
 
 require_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
-require_once "../modelo/productos_model2.php"; // se incluye el modelo producto
+require_once "../modelo/productos_model.php"; // se incluye el modelo producto
 require_once "../modelo/alert_model.php"; // se incluye el modelo producto
 require_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
 require_once "../modelo/categoria_model.php"; // se incluye el modelo categoria
 require_once "../modelo/presentacion_model.php"; // se incluye el modelo presentacion
-require_once "../modelo/marca_model.php"; // se incluye el modelo de marcass
+require_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -33,10 +33,10 @@ if($modulo === 'Guardar'){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$categoria, $presentacion, $nombre_producto, $marcas]);
     // se comprueba que no exista un producto con los mismos datos
-    producto_model2::verificar_producto_existe($nombre_producto, $marcas, $presentacion, $categoria);
+    producto_model::verificar_producto_existe($nombre_producto, $marcas, $presentacion, $categoria);
     
     // se valida el campo nombre del producto
-    producto_model2::validar_nombre_producto($nombre_producto);
+    producto_model::validar_nombre_producto($nombre_producto);
     
     // se verifica que la marca recibida exista y no haya sido alterada, se registrara solo las que no existan y se creara su respectiva bitácora
     marca_model::verificar_existe_marca($marcas);
@@ -52,7 +52,7 @@ if($modulo === 'Guardar'){
 
     // se registran los datos del producto
     try {
-        $registrar = producto_model2::registrar($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas);
+        $registrar = producto_model::registrar($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas);
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");
@@ -67,7 +67,7 @@ if($modulo === 'Guardar'){
     try {
         $id_productos = modeloPrincipal::obtener_array_id_producto_recien_registrado(count($nombre_producto));
 
-        $datos_productos_registrados = producto_model2::obtener_datos_recien_registrados($id_productos);
+        $datos_productos_registrados = producto_model::obtener_datos_recien_registrados($id_productos);
 
         $bitacora = "";
 
