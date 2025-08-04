@@ -201,17 +201,17 @@ if ($rol == 1 || $rol == 2) {
                     <div class="col-12 mb-3 pagetitle text-center <?= $productoP == 0 ? 'd-none eraser' : ''?>">
                         <div class="card">
                             <div class="card-body row">
-                                <h3 class="my-3 col-12 fs-4 titulosH">Productos</h3>
+                                <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">Lista de Productos</h3>
                         
-                                <div class="text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
-                                    <button onclick="toggle()" type="button" class="btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
+                                <div class="setCol col-md-6 text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
+                                    <button onclick="toggle()" type="button" class="col-12 btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
                                 </div>
 
-                                <div class="text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
-                                    <button type="button" id="btn_add_card_product" class="btn btn-success bi bi-plus">&nbsp; Añadir un producto a registrar</button>
+                                <div class="tableRegisterProducts d-none text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
+                                    <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus">&nbsp; Añadir un producto a registrar</button>
                                 </div>
 
-                                <div class="text-center col-12 col-md-4 mb-3 row m-0">
+                                <div class="setCol col-md-6 text-center col-12 col-md-4 mb-3 row m-0">
                                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
                                 </div>
 
@@ -295,7 +295,7 @@ if ($rol == 1 || $rol == 2) {
                                     </div>
                                 </form>             
 
-                                <div class="text-center  <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
+                                <div class="tableRegisterProducts d-none text-center  <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
                                     <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Registrar producto(s)</button>
                                 </div>
                             </div>
@@ -309,7 +309,21 @@ if ($rol == 1 || $rol == 2) {
         <script type="text/javascript">
             const toggle = ()=> {
                 document.getElementById('tableRegisterProducts').classList.toggle('d-none');
-                document.getElementById('tableListProducts').classList.toggle('d-none')
+                document.getElementById('tableListProducts').classList.toggle('d-none');
+
+                const titleRegister = "Registro de Productos";
+                const titleList = "Lista de Productos";
+                const titleModule = document.getElementById('titleModuleProducts');
+                
+                titleModule.textContent == titleList ? titleModule.textContent = titleRegister : titleModule.textContent = titleList;
+
+                document.querySelectorAll('.tableRegisterProducts').forEach(element => {
+                    element.classList.toggle('d-none');
+                });
+                document.querySelectorAll('.setCol').forEach(element => {
+                    element.classList.toggle('col-md-6');
+                });
+
             };
         </script>
         <script type="text/javascript" src="./js/añadir_producto.js"></script>
