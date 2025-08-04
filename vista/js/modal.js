@@ -51,6 +51,7 @@ setTimeout(() => {
     
                 "ver_detalles_venta_del_dia": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la Venta',
             };
+            
             const modalXl = [
                 'ver_historial_proveedor',
                 'ver_historial_cliente',

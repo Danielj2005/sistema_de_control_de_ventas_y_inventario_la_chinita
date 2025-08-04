@@ -184,7 +184,7 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
-            echo '<option value="'.modeloPrincipal::encryption($mostrar["id_producto"]).'">
+            echo '<option value="'.modeloPrincipal::encryptionId($mostrar["id_producto"]).'">
                     '.$mostrar["marca"].' '.$mostrar["presentacion"].'
                 </option>';
         }

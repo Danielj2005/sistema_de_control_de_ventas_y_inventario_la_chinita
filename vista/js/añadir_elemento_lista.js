@@ -28,7 +28,8 @@ btn_add.forEach(btn => {
         
         const URLS = {
             'registrar_entrada' : '../include/tabla_productos.php',
-            'agregar_servicio' : '../include/productos_servicio.php'
+            'entrada_de_productos' : '../include/tabla_productos.php',
+            'agregar_servicio' : '../include/productos_servicio.php',
         };
 
         if (get_url() == 'generar_venta') {
