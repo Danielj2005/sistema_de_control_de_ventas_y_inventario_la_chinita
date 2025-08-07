@@ -204,7 +204,7 @@ if ($rol == 1 || $rol == 2) {
                                 <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">Lista de Productos</h3>
                         
                                 <div class="setCol col-md-6 text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
-                                    <button onclick="toggle()" type="button" class="col-12 btn btn-secondary bi bi-list-columns-reverse">&nbsp; Ver lista</button>
+                                    <button id="btn-toggle" onclick="toggle()" type="button" class="col-12 btn btn-success bi bi-plus"> Registrar Productos</button>
                                 </div>
 
                                 <div class="tableRegisterProducts d-none text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
@@ -308,6 +308,15 @@ if ($rol == 1 || $rol == 2) {
 
         <script type="text/javascript">
             const toggle = ()=> {
+                const btnToggle = document.getElementById('btn-toggle');
+                btnToggle.classList.toggle('btn-success');
+                btnToggle.classList.toggle('btn-secondary');
+                btnToggle.classList.toggle('bi-plus');
+                btnToggle.classList.toggle('bi-list-columns-reverse');
+
+                const titleBtn = [' Registrar Productos',' Ver lista'];
+                btnToggle.textContent = btnToggle.textContent == titleBtn[0] ? titleBtn[1] : titleBtn[0]  ;
+
                 document.getElementById('tableRegisterProducts').classList.toggle('d-none');
                 document.getElementById('tableListProducts').classList.toggle('d-none');
 

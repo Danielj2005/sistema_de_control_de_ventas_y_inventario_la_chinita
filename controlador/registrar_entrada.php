@@ -109,9 +109,9 @@ if($modulo == 'Guardar'){
             }else {
 
                 modeloPrincipal::UpdateSQL(
-            "inventario",
-            "stock_actual = stock_actual + ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",
-                    "id_producto = ".$id_productos[$i]."");
+                "inventario",
+                "stock_actual = stock_actual + ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",
+            "id_producto = ".$id_productos[$i]."");
             }
             
 
