@@ -144,16 +144,28 @@ class proveedor_model extends modeloPrincipal {
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
 
                 <td class="col text-center <?= rol_model::verificar_rol('l_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="ver_detalles_proveedor" type="submit" value="<?= $mostrar["id_proveedor"]; ?>" <?= rol_model::verificar_rol('l_proveedores') == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
+                    <button modal="ver_detalles_proveedor" type="submit" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" <?= rol_model::verificar_rol('l_proveedores') == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
                 </td>
 
                 <td class="col text-center <?= rol_model::verificar_rol('m_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="modificar_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
+                    <button modal="modificar_proveedor" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
                 </td>
 
                 <td class="col text-center <?= rol_model::verificar_rol('h_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="ver_historial_proveedor" value="<?= $mostrar["id_proveedor"]; ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info" : "btn-dark alert-history bi-eye-slash" ?>"></button>
-                </td> 
+                    <div class="row justify-content-center align-items-center">
+                        <button modal="ver_historial_proveedor" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"></button>
+                        <?php if ($haveHistorial > 0) { ?>
+                                <form class="col col-auto" target="_blank" action="./reportes/historial_proveedor.php" method="post">
+                                    <input type="hidden" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" name="id_proveedor">
+                                    <button type="submit" class="btn bi bi-file-text btn-primary"> PDF</button>
+                                </form>
+                        <?php }else{ ?>
+                            <div class="col col-auto">
+                                <button type="button" class="col col-auto btn bi bi-file-text btn-dark alert-history"> PDF</button>
+                            </div>
+                        <?php }?>
+                    </div>
+                </td>
             </tr>
         <?php } 
     }

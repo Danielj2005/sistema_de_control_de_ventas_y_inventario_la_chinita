@@ -10,7 +10,7 @@ class PDF extends FPDF{
     function Header(){
         $id_entrada = modeloPrincipal::decryptionId($_POST['UIDE']);
         $id_entrada = modeloPrincipal::limpiar_cadena($id_entrada);
-        $ids = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_proveedor, id_dolar, total_dolar FROM entrada WHERE id_entrada = 32"));
+        $ids = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_proveedor, id_dolar, total_dolar, fecha_entrada, id_usuario FROM entrada WHERE id_entrada = 32"));
         $id_proveedor = $ids['id_proveedor'];
         $dataProvider = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor"));
         
@@ -18,8 +18,13 @@ class PDF extends FPDF{
         $id_dolar = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar"))['dolar'];
 
         $total_dolar = $ids['total_dolar'];
+        $fecha_entrada = $ids['fecha_entrada'];
+        $fecha_entrada = date('d-m-Y | g:i:a', strtotime($fecha_entrada));
 
-        $this->Image('../img/logo.png',235,10,35,35,'PNG');
+        $userId = $ids['id_usuario'];
+        $userData = mysqli_fetch_array(modeloPrincipal::consultar("SELECT U.*, (SELECT nombre FROM rol WHERE id_rol = U.id_rol) AS rol FROM usuario AS U WHERE id_usuario = $userId"));
+
+        $this->Image('../img/logo.png',235,0,35,35,'PNG');
 
         $this->setY(10);
         $this->setX(10);
@@ -42,18 +47,47 @@ class PDF extends FPDF{
         $this->setX(10);
         $this->Cell(0,7,self::convert_codification("RIF: J-04608675-5"),0,1,'C');
         
-        $this->SetFont('Arial','B',10);
+        $this->SetFont('Arial','',10);
 
-        $this->setY(45);
+        $this->setY(40);
+        // datos del proveedor
+        $this->Cell(80, 5, self::convert_codification('Datos del Proveedor:'),'B',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Datos del usuario que realizó la entrada:'),'B',1,'L',0);
         $this->setX(10);
-        // datos del cliente
-        $this->Cell(80, 5, self::convert_codification('Cédula / RIF:'.$dataProvider['cedula_rif']),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Nombre: '.$dataProvider['nombre']),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Teléfono: '.$dataProvider['telefono']),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Correo: '.$dataProvider['correo']),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Dirección: '.$dataProvider['direccion']),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Cotización: '.$id_dolar.' bs'),'B',1,'L',0);
-        $this->Cell(80, 5, self::convert_codification('Total de la Compra: '.$total_dolar.' $ -- '.round(floatval($id_dolar * $total_dolar),2).' bs'),'B',1,'L',0);
+        // datos del proveedor
+        $this->Cell(80, 5, self::convert_codification('Cédula / RIF: '.$dataProvider['cedula_rif']),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Cédula: '.$userData['cedula']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Nombre: '.$dataProvider['nombre']),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Nombre y Apellido: '.$userData['nombre'].' '.$userData['apellido']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Teléfono: '.$dataProvider['telefono']),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Teléfono: '.$userData['telefono']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Correo: '.$dataProvider['correo']),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Correo: '.$userData['correo']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Dirección: '.$dataProvider['direccion']),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification('Dirección: '.$userData['direccion']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Cotización: '.$id_dolar.' bs'),'',0,'L',0);
+        $this->setX(170);
+        $this->Cell(100, 5, self::convert_codification("Rol: ".$userData['rol']),'',1,'L',0);
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Total de la Compra $: '.$total_dolar,),'',1,'L',0);
+        
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Total de la Compra bs: '.round(floatval($id_dolar * $total_dolar), 2)),'',1,'L',0);
+        
+        $this->setX(10);
+        $this->Cell(80, 5, self::convert_codification('Fecha / Hora: '.$fecha_entrada),'',1,'L',0);
+        
 
         $this->Ln(50);
     }
@@ -61,7 +95,7 @@ class PDF extends FPDF{
     function Footer(){
         $this->SetFont('helvetica', 'B', 10);
         $this->SetY(-20);
-        $this->Cell(190,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
+        $this->Cell(170,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
         $this->Cell(190,5,date('d/m/Y | g:i:a') ,00,1,'R');
         $this->SetY(-15);
         $this->Line(5, 485,390,485);
@@ -157,4 +191,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
 }
 
-$pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado detallado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);

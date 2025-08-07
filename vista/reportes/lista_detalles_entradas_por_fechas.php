@@ -142,4 +142,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
 }
 
-$pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado detallado de Entradas por fechas (".date('d/m/Y | g:i:a').").pdf",true);

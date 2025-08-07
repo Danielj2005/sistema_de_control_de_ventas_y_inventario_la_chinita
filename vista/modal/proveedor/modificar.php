@@ -12,7 +12,8 @@ if (!isset($_POST['id'])) {
     exit();
 }
 
-$id_proveedor = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id_proveedor = modeloPrincipal::decryptionId($_POST["id"]);
+$id_proveedor = modeloPrincipal::limpiar_cadena($id_proveedor);
 
 try{
     $datos_proveedor = modeloPrincipal::consultar("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor");

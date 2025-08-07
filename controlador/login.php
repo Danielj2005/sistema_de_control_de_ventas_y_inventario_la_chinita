@@ -96,7 +96,7 @@ if ($datos_usuario["estado_rol"] == 0) {
 /** se verifica si el usuario tiene una sesion activa **/
 if ($datos_usuario["sesion_activa"] == 1) {
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
-    alert_model::alerta_simple_reset_de_formularios('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
+    alert_model::alerta_condicional('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
     session_unset(); // remueve o elimina las variables de sesion
     session_destroy(); // Destruye la sesión actual
     exit();

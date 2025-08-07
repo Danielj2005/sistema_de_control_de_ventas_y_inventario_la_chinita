@@ -126,8 +126,8 @@ if ($rol == 1 || $rol == 2) {
                     </div>
                   </form>
                   
-                  <div class="show table-responsive">
-                    <table class="table table-borderless table-striped" id="example">
+                  <div class="show table-responsive p-3">
+                    <table class="table m-auto table-borderless table-striped" id="example">
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
@@ -137,7 +137,6 @@ if ($rol == 1 || $rol == 2) {
                           <th class="col text-center" scope="col">Cotización</th>
                           <th class="col text-center" scope="col">Fecha / Hora</th>
                           <th class="col text-center" scope="col">Detalles</th>
-                          <th class="col text-center" scope="col">Reporte de Compras</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -160,7 +159,7 @@ if ($rol == 1 || $rol == 2) {
                                 ORDER BY E.fecha_entrada DESC");
                             }
                             // se guardan los datos en un array y se imprime
-                            while ( $mostrar = mysqli_fetch_array($consulta)) { ;?>    
+                            while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
                               <tr>
                                   <td class="col text-center"></td>
                                   <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
@@ -168,14 +167,15 @@ if ($rol == 1 || $rol == 2) {
                                   <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
                                   <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
                                   <td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
-                                  <td class="text-center col" scope="col">
-                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
-                                  </td>
-                                  <td class="text-center col" scope="col">
-                                    <form action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
-                                      <input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
-                                      <button type="submit" class="btn bi bi-file-text btn-primary"></button>
-                                    </form>
+                                  <td class="text-center col <?= rol_model::verificar_rol('l_entrada') !== '1' ? 'd-none eraser' : '' ; ?> " scope="col">
+                                    <div class="row justify-content-center align-items-center">
+                                        <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class=" col col-auto btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
+                                        
+                                        <form class=" col col-auto" action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
+                                          <input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
+                                          <button type="submit" class="btn bi bi-file-text btn-primary"> PDF</button>
+                                        </form>
+                                    </div>
                                   </td>
                               </tr>
                             <?php } ?>
