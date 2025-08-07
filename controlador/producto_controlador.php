@@ -88,7 +88,7 @@ if($modulo === 'Guardar'){
             ");
         
         if ($vista == 1) {
-            alert_model::alerta_condicional("¡Registro Exitoso!","Los Datos Se Registraron Correctamente", "success","document.getElementById('close_modal').click();");
+            alert_model::alerta_condicional("¡Registro Exitoso!","Los Datos Se Registraron Correctamente", "success","document.querySelector('.btn-danger').click();");
             exit();
         }
 

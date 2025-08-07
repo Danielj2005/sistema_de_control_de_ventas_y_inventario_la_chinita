@@ -3,22 +3,22 @@ session_start();
 
 require_once "../../../modelo/modeloPrincipal.php";
 
-$id = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id = modeloPrincipal::decryptionId($_POST['id']);
+$id = modeloPrincipal::limpiar_cadena($id);
 
-$detalles_entrada = modeloPrincipal::consultar("SELECT PV.nombre AS proveedor, 
-    P.nombre_producto AS producto, 
+$detalles_entrada = modeloPrincipal::consultar("SELECT
     PS.nombre AS presentacion,
     D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
-    M.nombre AS marca
+    M.nombre AS marca, U.nombre AS usuario
     FROM detalles_entrada AS D 
     INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
     INNER JOIN producto AS P ON P.id_producto = D.id_producto 
+    INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN marca AS M ON M.id = P.id_marca
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-    INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor 
     WHERE D.id_entrada = $id");
 
-$proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT  PV.nombre AS proveedor
+$proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT PV.nombre AS proveedor
     FROM entrada AS E
     INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor
     WHERE E.id_entrada = $id"));
@@ -37,6 +37,7 @@ $proveedor = $proveedor['proveedor'];
                 <th class="col text-center" scope="col">Cantidad</th>
                 <th class="col text-center" scope="col">Precio por unidad en $</th>
                 <th class="col text-center" scope="col">Precio por unidad en BS</th>
+                <th class="col text-center" scope="col">Quién Realizó la entrada</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@ $proveedor = $proveedor['proveedor'];
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_dolar"].' $'; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_bs"].' bs'; ?></td>
+                    <td class="col text-center"><?= $mostrar["usuario"]; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

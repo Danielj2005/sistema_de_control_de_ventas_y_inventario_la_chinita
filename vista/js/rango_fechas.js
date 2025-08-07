@@ -58,3 +58,27 @@ function fechas_mayores(){
         }
     }
 }
+
+const reportDates = document.querySelectorAll('.reportDates');
+reportDates.forEach(input => {
+    input.addEventListener('change', () => {
+
+        const msjDate = document.querySelector('.showThis');
+
+        const dateToday = document.getElementById('fecha_actual').value;
+
+        const fechaReporteInicio = document.getElementById('fechaReporteInicio').value;
+        const fechaReporteFin = document.getElementById('fechaReporteFin').value;
+
+        const btnReportesFechas = document.getElementById('btnReportesFechas');
+
+        if (fechaReporteInicio != "" && fechaReporteFin != "") {
+
+            if (fechaReporteInicio > fechaReporteFin || fechaReporteInicio > dateToday || fechaReporteFin > dateToday) {
+                msjDate.classList.toggle('d-none');
+            }else{
+                btnReportesFechas.classList.toggle('d-none');
+            }
+        }
+    });
+});

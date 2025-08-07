@@ -35,8 +35,8 @@ if ($rol == 1 || $rol == 2) {
         include_once("../include/sliderbar.php"); 
         $fecha_actual = date('Y-m-d');
 
-        $fecha1 = $_POST['fecha1'];
-        $fecha2 = $_POST['fecha2']; ?>
+        $fecha1 = $_POST['fecha_inicio'];
+        $fecha2 = $_POST['fecha_fin']; ?>
         
       <main id="main" class="main">
         <div class="pagetitle row">
@@ -59,7 +59,36 @@ if ($rol == 1 || $rol == 2) {
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-6 mb-2">
-                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de Entradas</a>
+                    <div class="col-12 dropdown">
+                      <button class="col-12 btn btn-secondary dropdown-toggle bi bi-file-text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Exportar Entradas
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" target="_blank" href="./reportes/lista_entradas.php">Lista de todas las Entradas</a></li>
+                        <li>
+                          <label class="dropdown-item">Lista de Entradas Por Fecha</label>
+                          <form action="./reportes/lista_detalles_entradas_por_fechas.php" method="post" class="p-2 row mb-3" id="" target="_blank">
+                            <label class="control-label">Desde <span class="text-danger">*</span></label>
+
+                            <div class="input-group mb-3 justify-content-center">
+                              <input class="reportDates form-control" type="date" id="fechaReporteInicio" name="fechaReporteInicio">
+                            </div>
+                            <label class="control-label">Hasta <span class="text-danger">*</span></label>
+
+                            <div class="input-group mb-3 justify-content-center">
+                              <input class="reportDates form-control" type="date" id="fechaReporteFin" name="fechaReporteFin">
+                            </div>
+                            
+                            <div class="input-group mb-3 justify-content-center">
+                              <p class="showThis alert alert-danger d-none" id="mensajefechaReporteInicio" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
+                              <button type="submit" class="d-none btn btn-outline-success bi bi-file-text" id="btnReportesFechas">&nbsp; Generar Reporte</button>
+                            </div>
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
                 <hr>
@@ -108,6 +137,7 @@ if ($rol == 1 || $rol == 2) {
                           <th class="col text-center" scope="col">Cotización</th>
                           <th class="col text-center" scope="col">Fecha / Hora</th>
                           <th class="col text-center" scope="col">Detalles</th>
+                          <th class="col text-center" scope="col">Reporte de Compras</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -118,7 +148,7 @@ if ($rol == 1 || $rol == 2) {
                                 FROM entrada AS E 
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-                                ORDER BY E.fecha_entrada DESC");
+                                ORDER BY E.fecha_entrada DESC LIMIT 100");
                             }else{
                               $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
                                 E.fecha_entrada, E.id_entrada, D.dolar AS tasa
@@ -126,7 +156,7 @@ if ($rol == 1 || $rol == 2) {
                                 INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
                                 INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
                                 WHERE E.fecha_entrada 
-                                BETWEEN '$fecha1' AND '$fecha2' 
+                                BETWEEN DATE('$fecha1') AND DATE('$fecha2') 
                                 ORDER BY E.fecha_entrada DESC");
                             }
                             // se guardan los datos en un array y se imprime
@@ -137,9 +167,15 @@ if ($rol == 1 || $rol == 2) {
                                   <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
                                   <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
                                   <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
-                                  <td class="col text-center"><?= date('Y-m-d h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+                                  <td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
                                   <td class="text-center col" scope="col">
-                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= $mostrar["id_entrada"]; ?>"></button>
+                                    <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
+                                  </td>
+                                  <td class="text-center col" scope="col">
+                                    <form action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
+                                      <input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
+                                      <button type="submit" class="btn bi bi-file-text btn-primary"></button>
+                                    </form>
                                   </td>
                               </tr>
                             <?php } ?>
@@ -192,12 +228,12 @@ if ($rol == 1 || $rol == 2) {
                         <h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos a ingresar</h5>
 
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#registrar_producto">&nbsp; Registar un nuevo producto</button>
+                          <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Registar un nuevo producto</button>
                         </div>
 
                         <label class="form-label">Selecciona uno o más Productos <span style="color:#f00;">*</span></label>
                         <div class="col-12 col-sm-12 col-md-9 mb-3">
-                          <select name="producto" id="producto_id" class="form-select Select select selector_producto">
+                          <select name="producto" id="producto_id" class="form-select Select2 select selector_producto">
                             <option value="" selected>seleccione una opción</option>
                             <?php producto_model::options(); ?>
                           </select>
@@ -236,14 +272,14 @@ if ($rol == 1 || $rol == 2) {
                       <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
                         <div class="input-group mb-3 justify-content-center">
                           <label class="input-group-text">Fecha de la Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
-                          <input class="form-control" value="<?= $fecha = date("d/m/Y"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
+                          <input class="form-control" value="<?= date("Y-m-d"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
                         </div>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
                         <div class="input-group mb-3 justify-content-center">
                           <label class="input-group-text">Hora de la Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
-                          <input class="form-control" value="<?=  $fecha2 = date("h:i:a"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
+                          <input class="form-control" value="<?=  $fecha2 = date("H:i:s"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
                         </div>
                       </div>
 
@@ -308,7 +344,6 @@ if ($rol == 1 || $rol == 2) {
       <script src="./js/añadir_elemento_lista.js"></script>
       <script src="./js/convertir_dolar_bs.js"></script>
       <?php 
-      
         include_once "./modal/plantillaModalCustom.php";  
         modalCustom ("modal-xl");
         // se incluye el footer / pie de pagina a la vista
@@ -320,6 +355,7 @@ if ($rol == 1 || $rol == 2) {
         config_model::verificar_actualizacion_configuracion();
       ?>
       <script src="./js/rango_fechas.js"></script>
+      <script>$('.Select').select2();</script>
     </body>
   </html>
 <?php }else{
