@@ -187,7 +187,7 @@ if ($rol == 1 || $rol == 2) {
                                         </div>
     
                                         <div class="text-center col-12 col-md-6 mb-3 <?= $r_marcaP == 0 ? 'd-none eraser' : ''?>" id="btn_registrar_marca">
-                                            <button type="submit" form="form_marca" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn-success bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Añadir</button>
+                                            <button type="submit" form="form_marca" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                         </div>
                                     </div>
                                 </div>
