@@ -76,7 +76,7 @@ if ($rol == 1 || $rol == 2) {
                             <label class="control-label">Hasta <span class="text-danger">*</span></label>
 
                             <div class="input-group mb-3 justify-content-center">
-                              <input class="reportDates form-control" type="date" id="fechaReporteFin" name="fechaReporteFin">
+                              <input class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin" name="fechaReporteFin">
                             </div>
                             
                             <div class="input-group mb-3 justify-content-center">
@@ -96,19 +96,19 @@ if ($rol == 1 || $rol == 2) {
                   <h5 class="tituloDos card-title">Lista de Compras a un Proveedor</h5>
                   <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
                   <form method="post" class="show row mb-3" id="rango_fechas">
-                    <p class="alert alert-info">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
+                    <p class="alert alert-info" style="width: fit-content;">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
                     
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Desde</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
+                        <input class="form-control" onchange="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Hasta</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_fin" name="fecha_fin">
+                        <input class="form-control" onchange="dateValidate()" value="<?= date('Y-m-d') ?>" type="date" id="fecha_fin" name="fecha_fin">
                       </div>
                     </div>
 
@@ -119,9 +119,8 @@ if ($rol == 1 || $rol == 2) {
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
                       <!-- mensajes -->
                       <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
-                      <p class="alert alert-danger d-none" id="mensaje_fechas_mayores" style="width: fit-content;">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
                       <p class="alert alert-secondary <?= ($fecha1 == "" && $fecha2 == "") ? 'd-none' : '' ?>" style="width: fit-content;">
-                        Fecha inicial: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b>   Fecha final: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
+                        Lista de Entradas Registradas <br>Desde la Fecha: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b> <br> Hasta la Fecha: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
                       </p>
                     </div>
                   </form>
@@ -166,7 +165,7 @@ if ($rol == 1 || $rol == 2) {
                                   <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
                                   <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
                                   <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
-                                  <td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+                                  <td class="col text-center"><?= date('Y-m-d | g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
                                   <td class="text-center col <?= rol_model::verificar_rol('l_entrada') !== '1' ? 'd-none eraser' : '' ; ?> " scope="col">
                                     <div class="row justify-content-center align-items-center">
                                         <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class=" col col-auto btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
