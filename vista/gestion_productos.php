@@ -217,7 +217,7 @@ if ($rol >= 1 && $rol <= 11) {
                             <div class="card-body row">
                                 <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH"><?= $l_productoP == 0 ? 'Registro de Productos' : 'Lista de Productos'?> </h3>
                         
-                                <div class="setCol col-md-6 text-center col-12 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? 'd-none eraser' : ''?> ">
+                                <div class="setCol col-md-6 text-center col-md-4 col-12 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? 'd-none eraser' : ''?> ">
                                     <button id="btn-toggle" onclick="toggle()" type="button" class="col-12 btn btn-success bi bi-plus"> Registrar Productos</button>
                                 </div>
 
