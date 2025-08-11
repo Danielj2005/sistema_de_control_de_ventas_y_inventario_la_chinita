@@ -90,6 +90,8 @@ if ($rol >= 1 && $rol <= 3) { ?>
       </div>
       
       <?php 
+        include_once "./modal/plantillaModalCustom.php"; 
+        modalCustom ("modal-xl");
         // se incluye el footer / pie de pagina a la vista
         include_once ("../include/footer.php");
         // se incluyen los script de javascript a la vista 
