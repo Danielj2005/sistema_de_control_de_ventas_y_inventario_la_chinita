@@ -143,7 +143,8 @@ $consulta = modeloPrincipal::consultar("SELECT
     INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-    WHERE PROV.id_proveedor = $id");
+    WHERE PROV.id_proveedor = $id AND E.fecha_entrada 
+    BETWEEN DATE('$fechaReporteInicio') AND DATE('$fechaReporteFin')");
 
 
 // en caso de que no se encuentren proveedores registrados

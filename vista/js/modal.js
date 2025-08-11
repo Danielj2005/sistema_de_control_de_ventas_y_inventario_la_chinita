@@ -26,6 +26,7 @@ setTimeout(() => {
                 "ver_detalles_proveedor": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del proveedor',
                 "modificar_proveedor": '<i class="bi bi-person-plus"></i> &nbsp; Modificar información del proveedor',
                 "ver_historial_proveedor": '<i class="bi bi-cart-check"></i> &nbsp; Historial de compras al proveedor',
+                "ver_reportes": '<i class="bi bi-file-text "></i> &nbsp; Exportar reporte de compras',
                 
                 "datos_usuario": '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario',
                 "modificar_info_personal_usuario": '<i class="bi bi-person-plus"></i> &nbsp; Actualizar información personal',

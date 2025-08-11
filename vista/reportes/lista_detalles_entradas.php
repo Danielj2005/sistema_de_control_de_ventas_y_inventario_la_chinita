@@ -95,12 +95,12 @@ class PDF extends FPDF{
     function Footer(){
         $this->SetFont('helvetica', 'B', 10);
         $this->SetY(-20);
-        $this->Cell(170,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
-        $this->Cell(190,5,date('d/m/Y | g:i:a') ,00,1,'R');
+        $this->Cell(0,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
+        $this->Cell(0,5,date('d/m/Y | g:i:a') ,00,1,'R');
         $this->SetY(-15);
-        $this->Line(5, 485,390,485);
+        $this->Line(5, 427,390,427);
         $this->SetY(-10);
-        $this->Cell(400,5,self::convert_codification("© Todos los derechos reservados."),0,0,"C");       
+        $this->Cell(0,5,self::convert_codification("© Todos los derechos reservados."),0,0,"C");       
     }
 
     public static function convert_codification ($cadena):string {

@@ -2,7 +2,7 @@
 
 <?php 
     function renderModal($modulo, $idModal,  $widthModal, $iconTitleModal, $titleModal, $buttonSaveText, $buttonCancelText) {
-        $modulos = ["registrarProveedor",'registrar','registrar'];
+        $modulos = ["registrarProveedor",'reportesProveedor','registrar'];
         
         ?>
             <div class="modal fade" id="<?= $idModal ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -7,20 +7,13 @@ $id_proveedor = modeloPrincipal::decryptionId($_POST["id"]);
 $id_proveedor = modeloPrincipal::limpiar_cadena($id_proveedor);
 
 $consulta = modeloPrincipal::consultar("SELECT
-    M.nombre AS marca,
-    PS.nombre AS presentacion, DE.cantidad_comprada, 
-    DE.precio_unitario_dolar, 
-    ROUND(DE.precio_unitario_bs / DE.precio_unitario_dolar, 2 ) AS tasa,
-    ROUND(DE.precio_unitario_bs, 2 ) AS precio_compra_bs, 
-    E.fecha_entrada 
-    FROM detalles_entrada AS DE
-    INNER JOIN entrada AS E ON DE.id_entrada = E.id_entrada 
-    INNER JOIN producto AS P ON P.id_producto = DE.id_producto 
+    E.total_dolar, E.total_bs, D.dolar AS tasa,
+    E.fecha_entrada, U.nombre AS usuario
+    FROM entrada AS E
     INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-    INNER JOIN presentacion as PS ON PS.id = P.id_presentacion 
-    INNER JOIN marca as M ON M.id = P.id_marca
-    WHERE PROV.id_proveedor = $id_proveedor 
-    ORDER BY E.fecha_entrada DESC");
+    INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
+    INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+    WHERE PROV.id_proveedor = $id_proveedor");
 
 $datos_proveedor = mysqli_fetch_array( modeloPrincipal::consultar("SELECT nombre FROM proveedor WHERE id_proveedor = $id_proveedor"));
 $nombre_proveedor = $datos_proveedor['nombre'];
@@ -43,13 +36,11 @@ if (mysqli_num_rows($consulta) < 1) {
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>
-                <th class="col text-center" scope="col">Producto</th>
-                <th class="col text-center" scope="col">Presentación</th>
-                <th class="col text-center" scope="col">Cantidad</th>
-                <th class="col text-center" scope="col">Precio $</th>
-                <th class="col text-center" scope="col">Precio BS</th>
-                <th class="col text-center" scope="col">Tasa</th>
-                <th class="col text-center" scope="col">Fecha y hora</th>
+                <th class="col text-center" scope="col">Fecha y Hora</th>
+                <th class="col text-center" scope="col">Total en $</th>
+                <th class="col text-center" scope="col">Total en BS</th>
+                <th class="col text-center" scope="col">Cotización</th>
+                <th class="col text-center" scope="col">Quién realizó la entrada</th>
             </tr>
         </thead>
         <tbody>
@@ -57,13 +48,11 @@ if (mysqli_num_rows($consulta) < 1) {
                 while ($row = mysqli_fetch_array($consulta)) { ?>    
                     <tr>
                         <td class="col text-center"></td>
-                        <td class="col text-center"><?= $row["marca"]; ?></td>
-                        <td class="text-center col"><?= $row['presentacion']; ?></td> 
-                        <td class="col text-center"><?= $row["cantidad_comprada"]; ?></td>
-                        <td class="col text-center"><?= $row["precio_unitario_dolar"] == 0 ? '0.$' : $row["precio_unitario_dolar"].' $' ;  ?></td>
-                        <td class="col text-center"><?= $row["precio_compra_bs"].'bs'; ?></td>
+                        <td class="text-center col"><?= date('d-m-Y | g:i:a', strtotime($row["fecha_entrada"])); ?></td> 
+                        <td class="col text-center"><?= $row["total_dolar"] == 0 ? '0.$' : $row["total_dolar"].' $' ;  ?></td>
+                        <td class="col text-center"><?= $row["total_bs"].'bs'; ?></td>
                         <td class="col text-center"><?= $row["tasa"].'bs'; ?></td>
-                        <td class="col text-center"><?= date('d-m-Y - h:i:a',strtotime($row["fecha_entrada"])); ?></td>
+                        <td class="col text-center"><?= $row["usuario"]; ?></td>
                     </tr>
             <?php } ?>
         </tbody>

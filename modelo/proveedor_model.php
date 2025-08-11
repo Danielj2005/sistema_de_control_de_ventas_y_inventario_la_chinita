@@ -137,38 +137,69 @@ class proveedor_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
             $haveHistorial = self::validar_existe_historial ($mostrar["id_proveedor"]);
+            $encryptionId = modeloPrincipal::encryptionId($mostrar["id_proveedor"]);
+            $alterarId = modeloPrincipal::alterarId($mostrar['id_proveedor']);
+            $l_proveedores = rol_model::verificar_rol('l_proveedores');
+            $m_proveedores = rol_model::verificar_rol('m_proveedores');
+            $h_proveedores = rol_model::verificar_rol('h_proveedores');
+            $nameProvider = $mostrar["nombre"];
             ?>    
             <tr>
                 <td class="col text-center"></td>
                 <td class="col text-center"><?= $mostrar["cedula_rif"]; ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
 
-                <td class="col text-center <?= rol_model::verificar_rol('l_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="ver_detalles_proveedor" type="submit" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" <?= rol_model::verificar_rol('l_proveedores') == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
+                <td class="col text-center <?= $l_proveedores == '1' ?  '' : 'd-none eraser' ?>">
+                    <button modal="ver_detalles_proveedor" type="submit" value="<?= $encryptionId ; ?>" <?= $l_proveedores == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
                 </td>
 
-                <td class="col text-center <?= rol_model::verificar_rol('m_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="modificar_proveedor" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" type="submit" <?= rol_model::verificar_rol('m_proveedores') == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
+                <td class="col text-center <?= $m_proveedores == '1' ?  '' : 'd-none eraser' ?>">
+                    <button modal="modificar_proveedor" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
                 </td>
 
-                <td class="col text-center <?= rol_model::verificar_rol('h_proveedores') == '1' ?  '' : 'd-none eraser' ?>">
-                    <div class="row justify-content-center align-items-center">
-                        <button modal="ver_historial_proveedor" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"></button>
-                        <?php if ($haveHistorial > 0) { ?>
-                                <form class="col col-auto" target="_blank" action="./reportes/historial_proveedor.php" method="post">
-                                    <input type="hidden" value="<?= modeloPrincipal::encryptionId($mostrar["id_proveedor"]); ?>" name="id_proveedor">
-                                    <button type="submit" class="btn bi bi-file-text btn-primary"> PDF</button>
-                                </form>
-                        <?php }else{ ?>
-                            <div class="col col-auto">
-                                <button type="button" class="col col-auto btn bi bi-file-text btn-dark alert-history"> PDF</button>
-                            </div>
-                        <?php }?>
+                <td class="col text-center <?= $h_proveedores == '1' ?  '' : 'd-none eraser' ?>">
+                    <div class="m-0 row justify-content-center align-items-center">
+                        <button modal="ver_historial_proveedor" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
+                        <div class="dropstart col col-auto">
+                            <button class="<?= $haveHistorial > 0 ? " btn-secondary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >&nbsp; PDF</button>
+                            <ul class="dropdown-menu">
+                                <li class="p-3">
+                                    <?= $nameProvider ; ?>
+                                </li>
+                                <li class="p-3">
+                                    <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
+                                        <input type="hidden" value="<?= $encryptionId ; ?>" name="UID">
+                                        <button type="submit" class="btn bi bi-file-text btn-outline-success"> Exportar todas las compras</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <label class="dropdown-item bg-dark-light">Exportar Lista de las compras por Fecha</label>
+                                    <form action="./reportes/historial_por_fechas_proveedor.php" method="post" class="p-2 row mb-3" id="<?= $alterarId; ?>" target="_blank">
+                                        <input form="<?= $alterarId; ?>" type="hidden" value="<?= $encryptionId ; ?>" name="UID">
+
+                                        <label class="control-label">Desde <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3 justify-content-center">
+                                            <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" type="date" id="fechaReporteInicio_<?= $alterarId; ?>" name="fechaReporteInicio">
+                                        </div>
+                                        <label class="control-label">Hasta <span class="text-danger">*</span></label>
+
+                                        <div class="input-group mb-3 justify-content-center">
+                                            <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin_<?= $alterarId; ?>" name="fechaReporteFin">
+                                        </div>
+                                        
+                                        <div class="input-group mb-3 justify-content-center">
+                                            <p class="showThis_<?= $alterarId; ?> alert alert-danger d-none" id="mensajefechaReporteInicio" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
+                                            <button form="<?= $alterarId; ?>" type="submit" class="d-none btn btn-outline-success bi bi-file-text" id="btnReportesFechas_<?= $alterarId; ?>">&nbsp; Generar Reporte</button>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </td>
             </tr>
         <?php } 
     }
-    
-    
 }
