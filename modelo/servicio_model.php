@@ -39,7 +39,7 @@ class servicio_model extends modeloPrincipal {
 
 
     public static function lista(){
-        $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC ");
+        $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC");
 
         $l_servicio = rol_model::verificar_rol('l_servicio');
         $m_servicio = rol_model::verificar_rol('m_servicio');
@@ -50,29 +50,30 @@ class servicio_model extends modeloPrincipal {
                 <td class="col text-center"> </td>
                 <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
                 <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
-                <td class="col text-center">
+
+                <td class="col text-center <?= $l_servicio == '1' ? '' : 'd-none eraser' ?>">
                     <button value="<?= $idSecure; ?>" modal="ver_detalles_servicio" <?= $l_servicio == '1' ? 'url="./modal/servicio/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= $l_servicio == '1' ? 'btn_modal' : '' ?> btn bi bi-eye btn-info"></button>
                 </td>
-                <td class="col text-center">
+
+                <td class="col text-center <?= $m_servicio == '1' ? '' : 'd-none eraser' ?>">
                     <button value="<?= $idSecure; ?>" modal="modificar_servicio" <?= $m_servicio == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= $m_servicio == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
-                <td scope="row" class="text-center <?= $m_servicio == '1' ? '' : 'disabled eraser' ?> ">
-                    <form action="<?= $m_servicio == '1' ? '../controlador/menu_controlador.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
-                        
-                        <?php if ($mostrar["estatus"] === "1") { ?>
 
-                            <input type="hidden" name="modulo" value="activo">
-                            <input type="hidden" name="UIS" value="<?= $idSecure; ?>">
+                <td scope="row" class="text-center <?= $m_servicio == '1' ? '' : 'd-none eraser' ?> ">
+
+                    <?php if ($mostrar["estatus"] === "1") { ?>
+
                             <button class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
-                        
-                        <?php }else if ($mostrar["estatus"] === "0") { ?>
+
+                    <?php }else if ($mostrar["estatus"] === "0") { ?>
+                        <form action="<?= $m_servicio == '1' ? '../controlador/menu_controlador.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
 
                             <input type="hidden" name="modulo" value="inactivo">
                             <input type="hidden" name="UIS" value="<?= $idSecure; ?>">
                             <button class="btn btn-danger bi bi-x-circle" title="estado del servicio" type="submit">&nbsp; Inactivo </button>
                         
-                        <?php } ?>
-                    </form>
+                        </form>
+                    <?php } ?>
                 </td>
             </tr>
         <?php }

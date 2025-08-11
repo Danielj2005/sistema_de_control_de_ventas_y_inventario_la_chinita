@@ -56,9 +56,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
                         <th class="col text-center"scope="col">#</th>
                         <th class="col text-center"scope="col">NOMBRE</th>
                         <th class="col text-center"scope="col">PRECIO DE VENTA EN $</th>
-                        <th class="col text-center <?= rol_model::verificar_rol('l_servicio') == '1' ? '' : 'disabled eraser' ?>" scope="col">DETALLES</th>
-                        <th class="col text-center <?= rol_model::verificar_rol('m_servicio') == '1' ? '' : 'disabled eraser' ?>" scope="col">MODIFICAR</th>
-                        <th class="col text-center <?= rol_model::verificar_rol('m_servicio') == '1' ? '' : 'disabled eraser' ?>"scope="col">ESTADO</th>
+                        <th class="col text-center <?= rol_model::verificar_rol('l_servicio') == '1' ? '' : 'd-none disabled eraser' ?>" scope="col">DETALLES</th>
+                        <th class="col text-center <?= rol_model::verificar_rol('m_servicio') == '1' ? '' : 'd-none disabled eraser' ?>" scope="col">MODIFICAR</th>
+                        <th class="col text-center <?= rol_model::verificar_rol('m_servicio') == '1' ? '' : 'd-none disabled eraser' ?>"scope="col">ESTADO</th>
                       </tr>
                     </thead>
                     <tbody>

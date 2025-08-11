@@ -12,7 +12,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('r_productos + l_productos');
+$rol = rol_model::permisos_modulos('r_productos + l_productos + r_categoria + m_categoria + l_categoria + r_presentacion + m_presentacion + l_presentacion + r_marca + m_marca + l_marca');
 
 // permisos de las vistas y modulos del sistema 
 // la P significa premiso ej. categoriaP (categoria Permiso)
@@ -35,8 +35,33 @@ $productoP = rol_model::permisos_modulos('r_productos + l_productos');
 $r_productoP = rol_model::permisos_modulos('r_productos');
 $l_productoP = rol_model::permisos_modulos('l_productos');
 
+$tamanioCardPermiso = [
+    '111' => 'col-md-4',
+    '110' => 'col-md-6',
+    '101' => 'col-md-6',
+    '011' => 'col-md-6',
+
+    '100' => 'col-md-12',
+    '010' => 'col-md-12',
+    '001' => 'col-md-12'
+];
+
+function colapseCol ($categoriaP, $presentacionP, $marcaP) {
+
+    if ($categoriaP == 0 && $presentacionP >= 1 && $marcaP >= 1 || $categoriaP >= 1 && $presentacionP == 0 && $marcaP >= 1 || $categoriaP >= 1 && $presentacionP >= 1 && $marcaP == 0) {
+        return ' col-md-6';
+    }
+    if ($categoriaP >= 1 && $presentacionP >= 1 && $marcaP >= 1) {
+        return ' col-md-4';
+    }
+    
+    if ($categoriaP == 0 && $presentacionP == 0 && $marcaP >= 1 || $categoriaP >= 1 && $presentacionP == 0 && $marcaP == 0 || $categoriaP == 0 && $presentacionP >= 1 && $marcaP == 0) {
+        return ' col-md-12';
+    }
+}
+
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol == 1 || $rol == 2) {  
+if ($rol >= 1 && $rol <= 11) {  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +100,7 @@ if ($rol == 1 || $rol == 2) {
                                 </h3>
 
                                 <div id="categoriasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body row">
+                                    <div class="accordion-body row justify-content-center">
                                         <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax <?= $r_categoriaP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
                                         
                                             <h5 class="card-title <?= $r_categoriaP == 0 ? 'd-none' : ''?>">Añadir Nueva Categoría</h5>
@@ -107,7 +132,7 @@ if ($rol == 1 || $rol == 2) {
 
                     <!-- registro y listado de presentación -->
                 
-                    <div id="card_presentacion" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= $presentacionP == 0 ? 'd-none eraser' : ''?>">
+                    <div id="card_presentacion" class="col-12 col-sm-12 mb-3 pagetitle text-center card-body <?= $presentacionP == 0 ? 'd-none eraser' : ''?> <?= colapseCol($categoriaP, $presentacionP, $marcaP) ?>">
                         <div class="accordion" id="presentacion_accordion">
                             <div class="accordion-item text-center justify-content-center align-items-center row">
                                 <h3 class="accordion-header my-3 col fs-4 text-center">
@@ -117,8 +142,8 @@ if ($rol == 1 || $rol == 2) {
                                 </h3>
     
                                 <div id="presentacionCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body row">
-                                        <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                                    <div class="accordion-body row justify-content-center">
+                                        <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax <?= $r_presentacionP == 0 ? 'd-none eraser' : '' ?>" autocomplete="off" data-type-form="save">
                                             <h5 class="card-title">Añadir una nueva presentación</h5>
                                             <input type="hidden" name="modulo" value="Guardar">          
                                             <div class="row mb-3">
@@ -153,7 +178,7 @@ if ($rol == 1 || $rol == 2) {
                     
                     <!-- registro y listado de Marca -->
 
-                    <div id="card_marcas" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= $marcaP == 0 ? 'd-none eraser' : ''?>">
+                    <d id="card_marcas" class="col-12 col-sm-12 mb-3 pagetitle text-center card-body <?= $marcaP == 0 ? 'd-none eraser' : ''; ?> <?= colapseCol ($categoriaP, $presentacionP, $marcaP); ?>">
                         <div class="accordion" id="marcas_accordion">
                             <div class="accordion-item text-center justify-content-center align-items-center row">
     
@@ -164,10 +189,10 @@ if ($rol == 1 || $rol == 2) {
                                 </h3>
     
                                 <div id="marcasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body row">
-                                        <h5 class="card-title">Añadir una nueva Marca</h5>
-    
-                                        <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
+                                    <div class="accordion-body row justify-content-center">
+                                        
+                                        <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax <?= $r_marcaP == 0 ? 'd-none eraser' : ''?>" autocomplete="off" data-type-form="save">
+                                            <h5 class="card-title">Añadir una nueva Marca</h5>
                                             <input type="hidden" name="modulo" value="Guardar">          
                                             <div class="row mb-3">
                                                 <div class="col-12 mb-3 text-start">
@@ -223,7 +248,6 @@ if ($rol == 1 || $rol == 2) {
                                         </div>
                                     </div>
 
-                                                                        
                                     <div id="tableListProducts" class="table table-responsive">
                                         <table class="table example mb-3" id="example">
                                             <thead>

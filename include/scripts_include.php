@@ -80,9 +80,9 @@
         const delete_element = document.querySelectorAll('.eraser');
 
         delete_element.forEach(element => {
-            document.getElementById(`${element.id}`).remove();
+            element.remove();
         });
-
+        
         const alertHistoryt = document.querySelectorAll('.alert-history');
         alertHistoryt.forEach(alert => {
             alert.addEventListener('click', () => {

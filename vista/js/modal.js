@@ -23,6 +23,7 @@ setTimeout(() => {
                 'ver_marcas' : 'tableTrademarkOfProducts',
                 'ver_presentaciones' : 'tablePresentationOfProducts',
             }
+
             const tamano_modal = document.getElementById('modal_tamano');
 
             const title_modal = {

@@ -12,7 +12,9 @@ require_once "../../../modelo/rol_model.php";
             <tr>
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">Nombre</th>
-                <th class="col text-center" scope="col">Estado</th>
+                <?php if (rol_model::verificar_rol('m_categoria') == '1') { ?>
+                    <th class="col text-center" scope="col">Estado</th>
+                <?php } ?>
             </tr>
         </thead>
         <tbody>
