@@ -17,7 +17,12 @@ setTimeout(() => {
             let modal = btn_update.getAttribute('modal');
             let url = btn_update.getAttribute('url');
             let	parametros = {'id' : id  };
-    
+
+            const idTableForDataTable = {
+                'ver_categorias' : 'tableCategoryOfProducts',
+                'ver_marcas' : 'tableTrademarkOfProducts',
+                'ver_presentaciones' : 'tablePresentationOfProducts',
+            }
             const tamano_modal = document.getElementById('modal_tamano');
 
             const title_modal = {
@@ -97,7 +102,7 @@ setTimeout(() => {
                     contenedor.innerHTML = valores; // se inserta el resultado de la busqueda al modal
                     
                     // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
-                    modal.includes('ver') ? dataTable() : '';
+                    modal.includes('ver') ? dataTable(`${idTableForDataTable[modal]}`) : '';
                     // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
                     modal.includes('ver') ? btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
                     // se ajusta el tamaño del modal en base a los datos a mostrar

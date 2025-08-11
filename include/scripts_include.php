@@ -58,8 +58,8 @@
         } ).draw();
     } );
     
-    function dataTable(){
-        var t = $('.example').DataTable( { 
+    function dataTable(idTable = "example"){
+        var t = $(`.${idTable}`).DataTable( { 
             language: {
                 url: './js/dataTables-Español.json'
             },
