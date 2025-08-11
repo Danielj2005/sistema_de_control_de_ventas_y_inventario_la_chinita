@@ -39,36 +39,37 @@ class servicio_model extends modeloPrincipal {
 
 
     public static function lista(){
-        $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC LIMIT 50");
+        $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC ");
 
-        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
+        $l_servicio = rol_model::verificar_rol('l_servicio');
+        $m_servicio = rol_model::verificar_rol('m_servicio');
 
+        while ( $mostrar =  mysqli_fetch_assoc($consulta)) { 
+            $idSecure = modeloPrincipal::encryptionId($mostrar["id_menu"]); ?>
             <tr>
                 <td class="col text-center"> </td>
                 <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
                 <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
                 <td class="col text-center">
-                    <button value="<?= $mostrar["id_menu"]; ?>" modal="ver_detalles_servicio" <?= rol_model::verificar_rol('l_servicio') == '1' ? 'url="./modal/servicio/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('l_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-eye btn-info"></button>
+                    <button value="<?= $idSecure; ?>" modal="ver_detalles_servicio" <?= $l_servicio == '1' ? 'url="./modal/servicio/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= $l_servicio == '1' ? 'btn_modal' : '' ?> btn bi bi-eye btn-info"></button>
                 </td>
                 <td class="col text-center">
-                    <button value="<?= $mostrar["id_menu"]; ?>" modal="modificar_servicio" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= rol_model::verificar_rol('m_servicio') == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
+                    <button value="<?= $idSecure; ?>" modal="modificar_servicio" <?= $m_servicio == '1' ? 'url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="<?= $m_servicio == '1' ? 'btn_modal' : '' ?> btn bi bi-gear btn-warning"></button>
                 </td>
-                <td scope="row" class="text-center">
-                    <form action="<?= rol_model::verificar_rol('m_servicio') == '1' ? '../controlador/menu_controlador.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                <td scope="row" class="text-center <?= $m_servicio == '1' ? '' : 'disabled eraser' ?> ">
+                    <form action="<?= $m_servicio == '1' ? '../controlador/menu_controlador.php' : './menu.php'?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                         
                         <?php if ($mostrar["estatus"] === "1") { ?>
 
-                            <input type="hidden" name="modulo" value="activo">                            
-                            <input type="hidden" name="tabla" value="menu">
-                            <input type="hidden" name="id_menu" value="<?= $mostrar["id_menu"]; ?>">
-                            <button class="btn btn-success" title="estado del servicio" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'type="submit"' : 'disabled' ?> >Activo </button>
+                            <input type="hidden" name="modulo" value="activo">
+                            <input type="hidden" name="UIS" value="<?= $idSecure; ?>">
+                            <button class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
                         
                         <?php }else if ($mostrar["estatus"] === "0") { ?>
 
-                            <input type="hidden" name="modulo" value="inactivo">                            
-                            <input type="hidden" name="tabla" value="menu">
-                            <input type="hidden" name="id_menu" value="<?= $mostrar["id_menu"]; ?>">
-                            <button class="btn btn-danger" title="estado del servicio" <?= rol_model::verificar_rol('m_servicio') == '1' ? 'type="submit"' : 'disabled' ?> >Inactivo </button>
+                            <input type="hidden" name="modulo" value="inactivo">
+                            <input type="hidden" name="UIS" value="<?= $idSecure; ?>">
+                            <button class="btn btn-danger bi bi-x-circle" title="estado del servicio" type="submit">&nbsp; Inactivo </button>
                         
                         <?php } ?>
                     </form>

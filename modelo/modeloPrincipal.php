@@ -122,7 +122,7 @@ class modeloPrincipal {
 
     // funcion para encriptar id de bases de datos para evitar su rastreo
     public static function encryptionId($id) {
-        $idModificada = $id * 2;
+        $idModificada = $id * 10;
         $idModificada = self::encryption($idModificada);
         return $idModificada;
     }
@@ -141,7 +141,7 @@ class modeloPrincipal {
     // funcion para desencriptar id de bases de datos para evitar su rastreo
     public static function decryptionId($id) {
         $idOriginal = self::decryption($id);
-        $idOriginal = $idOriginal / 2;
+        $idOriginal = $idOriginal / 10;
         return $idOriginal;
     }
 

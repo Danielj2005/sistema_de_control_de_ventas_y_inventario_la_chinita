@@ -4,7 +4,8 @@ session_start();
 require_once("../../../modelo/modeloPrincipal.php"); 
 require_once("../../../modelo/proveedor_model.php"); 
 
-$id_menu = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id = modeloPrincipal::decryptionId($_POST['id']);
+$id_menu = modeloPrincipal::limpiar_cadena($id);
 
 if (!isset($_POST['id'])) {
     alert_model::alerta_simple("¡Ocurrio un error!","No se está recibiendo correctamente el identificador del proveedor","error");

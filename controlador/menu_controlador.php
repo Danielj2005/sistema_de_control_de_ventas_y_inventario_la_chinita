@@ -128,7 +128,8 @@ if($modulo == 'Guardar'){
 if($modulo == 'Modificar'){
     // estos datos se guardan en la tabla menu de la base de datos
 
-    $id_servicio = modeloprincipal::limpiar_mayusculas($_POST['id_menu']);
+    $id = modeloPrincipal::decryptionId($_POST['UIS']);
+    $id_servicio = modeloPrincipal::limpiar_cadena($id);
     $nombre_platillo = modeloprincipal::limpiar_mayusculas($_POST['nombre_platillo']);
     $estado_menu = modeloprincipal::limpiar_mayusculas($_POST['estado_menu']);
     $descripcion = modeloprincipal::limpiar_mayusculas($_POST['descripcion']);
@@ -188,7 +189,8 @@ if($modulo == 'Modificar'){
 if($modulo == 'activo'){
     // estos datos se guardan en la tabla menu de la base de datos
 
-    $id_servicio = modeloprincipal::limpiar_mayusculas($_POST['id_menu']);
+    $id = modeloPrincipal::decryptionId($_POST['UIS']);
+    $id_servicio = modeloPrincipal::limpiar_cadena($id);
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$id_servicio]);
@@ -236,7 +238,8 @@ if($modulo == 'activo'){
 if($modulo == 'inactivo'){
     // estos datos se guardan en la tabla menu de la base de datos
 
-    $id_servicio = modeloprincipal::limpiar_mayusculas($_POST['id_menu']);
+    $id = modeloPrincipal::decryptionId($_POST['UIS']);
+    $id_servicio = modeloPrincipal::limpiar_cadena($id);
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$id_servicio]);

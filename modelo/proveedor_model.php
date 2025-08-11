@@ -133,15 +133,16 @@ class proveedor_model extends modeloPrincipal {
     public static function lista_proveedores_registrados () {
     
         $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
+        
+        $l_proveedores = rol_model::verificar_rol('l_proveedores');
+        $m_proveedores = rol_model::verificar_rol('m_proveedores');
+        $h_proveedores = rol_model::verificar_rol('h_proveedores');
 
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
             $haveHistorial = self::validar_existe_historial ($mostrar["id_proveedor"]);
             $encryptionId = modeloPrincipal::encryptionId($mostrar["id_proveedor"]);
             $alterarId = modeloPrincipal::alterarId($mostrar['id_proveedor']);
-            $l_proveedores = rol_model::verificar_rol('l_proveedores');
-            $m_proveedores = rol_model::verificar_rol('m_proveedores');
-            $h_proveedores = rol_model::verificar_rol('h_proveedores');
             $nameProvider = $mostrar["nombre"];
             ?>    
             <tr>
