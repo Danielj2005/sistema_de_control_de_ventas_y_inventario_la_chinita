@@ -35,17 +35,6 @@ $productoP = rol_model::permisos_modulos('r_productos + l_productos');
 $r_productoP = rol_model::permisos_modulos('r_productos');
 $l_productoP = rol_model::permisos_modulos('l_productos');
 
-$tamanioCardPermiso = [
-    '111' => 'col-md-4',
-    '110' => 'col-md-6',
-    '101' => 'col-md-6',
-    '011' => 'col-md-6',
-
-    '100' => 'col-md-12',
-    '010' => 'col-md-12',
-    '001' => 'col-md-12'
-];
-
 function colapseCol ($categoriaP, $presentacionP, $marcaP) {
 
     if ($categoriaP == 0 && $presentacionP >= 1 && $marcaP >= 1 || $categoriaP >= 1 && $presentacionP == 0 && $marcaP >= 1 || $categoriaP >= 1 && $presentacionP >= 1 && $marcaP == 0) {
@@ -226,18 +215,34 @@ if ($rol >= 1 && $rol <= 11) {
                     <div class="col-12 mb-3 pagetitle text-center <?= $productoP == 0 ? 'd-none eraser' : ''?>">
                         <div class="card">
                             <div class="card-body row">
-                                <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">Lista de Productos</h3>
+                                <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH"><?= $l_productoP == 0 ? 'Registro de Productos' : 'Lista de Productos'?> </h3>
                         
-                                <div class="setCol col-md-6 text-center col-12 col-md-4 mb-3 <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
+                                <div class="setCol col-md-6 text-center col-12 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? 'd-none eraser' : ''?> ">
                                     <button id="btn-toggle" onclick="toggle()" type="button" class="col-12 btn btn-success bi bi-plus"> Registrar Productos</button>
                                 </div>
 
-                                <div class="tableRegisterProducts d-none text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
+                                <div class="tableRegisterProducts text-center col-12 col-md-4 mb-3 <?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? 'col-md-6' : 'd-none'?> ">
                                     <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus">&nbsp; Añadir un producto a registrar</button>
                                 </div>
 
-                                <div class="setCol col-md-6 text-center col-12 col-md-4 mb-3 row m-0">
+                                <div class="setCol text-center col-12 col-md-4 mb-3 row m-0 <?= $r_productoP == 0 ? 'col-md-12' : 'col-md-6'?>">
                                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
+                                </div>
+
+                                <div id="tableListProducts" class="table table-responsive <?= $l_productoP == 0 ? 'd-none eraser' : ''?>">
+                                    <table class="table example mb-3" id="example">
+                                        <thead>
+                                            <tr>
+                                                <th class="col text-center" scope="col">#</th>
+                                                <th class="col text-center" scope="col">Nombre</th>
+                                                <th class="col text-center" scope="col">Cantidad</th>
+                                                <th class="col text-center" scope="col">Precio de Venta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php producto_model::lista(); ?>  
+                                        </tbody>
+                                    </table>
                                 </div>
 
                                 <form id="registrar_producto" action="../controlador/producto_controlador.php" method="post" class="text-start SendFormAjax row justify-content-around <?= $r_productoP == 0 ? 'd-none eraser' : ''?>" autocomplete="off" data-type-form="save">
@@ -248,23 +253,8 @@ if ($rol >= 1 && $rol <= 11) {
                                         </div>
                                     </div>
 
-                                    <div id="tableListProducts" class="table table-responsive">
-                                        <table class="table example mb-3" id="example">
-                                            <thead>
-                                                <tr>
-                                                    <th class="col text-center" scope="col">#</th>
-                                                    <th class="col text-center" scope="col">Nombre</th>
-                                                    <th class="col text-center" scope="col">Cantidad</th>
-                                                    <th class="col text-center" scope="col">Precio de Venta</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php producto_model::lista(); ?>  
-                                            </tbody>
-                                        </table>
-                                    </div>
 
-                                    <div id="tableRegisterProducts" class="d-none table table-responsive">
+                                    <div id="tableRegisterProducts" class="<?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? '' : 'd-none'?> table table-responsive">
                                         <table class="table mb-3">
                                             <thead>
                                                 <tr>
@@ -319,7 +309,7 @@ if ($rol >= 1 && $rol <= 11) {
                                     </div>
                                 </form>             
 
-                                <div class="tableRegisterProducts d-none text-center  <?= $r_productoP == 0 ? 'd-none eraser' : ''?>">
+                                <div class="tableRegisterProducts text-center <?= $r_productoP == 0 ? 'd-none eraser' : ''?> <?= $l_productoP == 0 ? '' : 'd-none'?> ">
                                     <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Registrar producto(s)</button>
                                 </div>
                             </div>
