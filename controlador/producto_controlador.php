@@ -18,6 +18,7 @@ if (!isset($_POST["modulo"])) {
 }
 
 $config['porcentaje_iva'] = 16;
+
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
     

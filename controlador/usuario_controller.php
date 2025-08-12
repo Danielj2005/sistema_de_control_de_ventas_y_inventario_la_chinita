@@ -11,7 +11,7 @@ if (!isset($_POST["modulo"])) {
     exit();
 }
 
-$id_usuario = $_SESSION['id_usuario'];
+$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
 
 // modulo para Guardar un registro de un usuario
 
@@ -262,7 +262,7 @@ if($modulo === "modificar_contraseña_usuario"){
 
 if ($modulo === "modificar_preguntas_seguridad") {
 
-    $id_usuario = $_SESSION['id_usuario']; // ID del usuario actual
+    $id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']); // ID del usuario actual
     $id_usuario = modeloprincipal::limpiar_cadena($id_usuario); // Limpiar el ID del usuario
 
     // Obtener la cantidad de preguntas configuradas en el sistema

@@ -30,41 +30,42 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
 
             $id_pregunta = $preguntas_usuario['id_pregunta']; 
 
-            $preguntas = modeloPrincipal::consultar("SELECT * FROM seguridad");
-
+            $preguntas = modeloPrincipal::consultar("SELECT * FROM seguridad"); 
         ?>
-        <div class="col-12 col-md-12 mb-3">
-            <label for="" class="control-label h6" style="font-size: 1em;">
-                Pregunta Nº <?= $i + 1 ?>
-                <span style="color:#f00;">*</span>
-            </label>
-            <select name="pregunta[]" id="select_pregunta" class="form-select">
-                <option value="" disabled="">Selecciona una pregunta </option>
-                <?php
-                    while ($row = mysqli_fetch_array($preguntas)) { ?>
-                        <option <?= $selected = ($row['id_seguridad'] == $preguntas_usuario['id_pregunta']) ? 'selected' : ''; ?> value="<?= modeloPrincipal::decryption($row['pregunta']); ?>">
-                            <?= modeloPrincipal::decryption($row['pregunta']); ?>
-                        </option>
-                    
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-12 col-md-12 mb-3">
-            <div class="text-start col-12 col-sm-12 col-md-12 mb-3">
-                <label>
-                    Respuesta Nº <?= $i + 1 ?>
-                    <span style="color: red;">*</span>
-                </label>
 
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control ver respuesta input__field" name="respuesta[]" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$" value="<?= $respuesta ?>">
+            <div class="col-12 col-md-12 mb-3">
+                <label for="" class="control-label h6" style="font-size: 1em;">
+                    Pregunta Nº <?= $i + 1 ?>
+                    <span style="color:#f00;">*</span>
+                </label>
+                <select name="pregunta[]" id="select_pregunta" class="form-select">
+                    <option value="" disabled="">Selecciona una pregunta </option>
+                    <?php
+                        while ($row = mysqli_fetch_array($preguntas)) { ?>
+                            <option <?= $selected = ($row['id_seguridad'] == $preguntas_usuario['id_pregunta']) ? 'selected' : ''; ?> value="<?= modeloPrincipal::decryption($row['pregunta']); ?>">
+                                <?= modeloPrincipal::decryption($row['pregunta']); ?>
+                            </option>
                         
-                    <span class="input-group-text btn btn-secondary">
-                        <i class="bi bi-eye input__icon" id="eyeIcon"></i>
-                    </span>
+                    <?php } ?>
+                </select>
+            </div>
+            
+            <div class="col-12 col-md-12 mb-3">
+                <div class="text-start col-12 col-sm-12 col-md-12 mb-3">
+                    <label>
+                        Respuesta Nº <?= $i + 1 ?>
+                        <span style="color: red;">*</span>
+                    </label>
+
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control ver respuesta input__field" name="respuesta[]" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$" value="<?= $respuesta ?>">
+                            
+                        <span class="input-group-text btn btn-secondary">
+                            <i class="bi bi-eye input__icon" id="eyeIcon"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
     <?php } ?>
     <div class="col-12 mb-3">
         <div class="form-group">

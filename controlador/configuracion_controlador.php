@@ -11,7 +11,7 @@ if (!isset($_POST["modulo"]) || $_POST['modulo'] == "") {
 // modulo a trabajar
 $modulo = modeloPrincipal::limpiar_cadena($_POST["modulo"]);
 
-$id_usuario = $_SESSION['id_usuario'];
+$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
 
 // modulo para Modificar configuración del sistema
 if($modulo === "Guardar"){

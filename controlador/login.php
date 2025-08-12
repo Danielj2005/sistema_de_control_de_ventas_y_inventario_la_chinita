@@ -107,7 +107,7 @@ $_SESSION['logged_in'] = true; // variable de inicio de sesion
 $_SESSION['nombre'] = $datos_usuario["nombre"]; // variable con el nombre del usuario
 $_SESSION['apellido'] = $datos_usuario["apellido"]; // variable con el apellido del usuario
 
-$_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
+$_SESSION['id_usuario'] = modeloPrincipal::encryptionId($datos_usuario["id_usuario"]); // variable con el id_usuario del usuario
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
 
 $fecha_ultima_sesion = date('Y-m-d H:i:s');

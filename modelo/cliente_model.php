@@ -99,14 +99,9 @@ class cliente_model extends modeloPrincipal {
         }
     }
 
-
-
-
-
     /***************************************************************/
     /******* Componentes del módulo de Clientes ********/
     /***************************************************************/
-
 
     public static function lista_clientes_registrados () {
 
@@ -120,17 +115,17 @@ class cliente_model extends modeloPrincipal {
                 <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
                 <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
-
-                <td scope='col' class="text-center col">
-                    <button value="<?= $mostrar["id_cliente"]; ?>" modal="modificar_cliente" <?= rol_model::verificar_rol('m_cliente') == '1' ? 'url="./modal/cliente/modificar_cliente.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" ></button>
-                </td>
-                <td scope='col' class="text-center col">
-                    <button modal="ver_historial_cliente" class="btn_modal btn btn-info bi bi-eye detalles_generales" value="<?= $mostrar["id_cliente"]; ?>" <?= rol_model::verificar_rol('h_cliente') == '1' ?  'url="./modal/cliente/historial_clientes.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> ></button>
-                </td> 
+                <?php if (rol_model::verificar_rol('m_cliente') == '1') :?>
+                    <td scope='col' class="text-center col">
+                        <button value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" modal="modificar_cliente" url="./modal/cliente/modificar_cliente.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-gear btn-warning" ></button>
+                    </td>
+                <?php endif; ?>
+                <?php if (rol_model::verificar_rol('h_cliente') == '1') :?>
+                    <td scope='col' class="text-center col">
+                        <button modal="ver_historial_cliente" class="btn_modal btn btn-info bi bi-eye detalles_generales" value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" url="./modal/cliente/historial_clientes.php" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                    </td> 
+                <?php endif; ?>
             </tr>
         <?php }
-
     }
-
-    
 }

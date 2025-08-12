@@ -88,8 +88,7 @@ class marca_model extends modeloPrincipal {
                                     title="estado de la Marca">
                                         &nbsp; Activo 
                                 </button>
-                            <?php } else { ?>
-                                
+                        <?php } else { ?>
                                 <form action="<?= (rol_model::verificar_rol('m_marca') == '1') ?  '../controlador/marca.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                                     <input type="hidden" name="modulo" value="inactivo">          
                                     <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>">
@@ -100,8 +99,7 @@ class marca_model extends modeloPrincipal {
                                             &nbsp; Inactivo
                                     </button>
                                 </form>
-                            <?php }
-                        ?>
+                        <?php }?>
                     </td>
                 <?php } ?>
             </tr>
@@ -111,7 +109,7 @@ class marca_model extends modeloPrincipal {
     public static function options() {
         $consulta = modeloPrincipal::consultar("SELECT nombre FROM marca");
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-            <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
+            <option value="<?= modeloPrincipal::encryptionId($mostrar["nombre"]); ?>"> <?= $mostrar["nombre"]; ?> </option>
         <?php }
     }
 

@@ -86,18 +86,6 @@ class model_user extends modeloPrincipal {
     /*       funciones de modificación de datos de los usuarios   */
     /**************************************************************/ 
 
-    public static function actualizar_usuario_logeado ($campos) {
-        
-        $id_usuario = $_SESSION['id_usuario'];
-        
-        $actualizar = modeloPrincipal::UpdateSQL("usuario","$campos","id_usuario = $id_usuario");
-        if (!$actualizar) {
-            alert_model::alert_mod_error();
-            exit();
-        } 
-    
-    }
-
     public static function actualizar_usuario_por_su_id ($campos, $id_usuario) {
         
         $actualizar = modeloPrincipal::UpdateSQL("usuario",$campos,"id_usuario = $id_usuario");
@@ -107,52 +95,6 @@ class model_user extends modeloPrincipal {
         } 
         return $actualizar;
     
-    }
-
-    public static function modificar_usuario($id_usuario, $cedula, $nombre, $apellido, $correo, $telefono, $direccion, $id_rol) {
-        // se modifica el usuario
-        if (modeloPrincipal::UpdateSQL("usuario", "cedula = '$cedula', nombre = '$nombre', apellido = '$apellido', correo = '$correo', telefono = '$telefono', direccion = '$direccion', id_rol = '$id_rol'", "id_usuario = '$id_usuario'")) {
-            alert_model::alert_mod_success();
-        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
-            alert_model::alert_mod_error();
-            exit();
-        }
-    }
-
-    public static function modificar_estado_usuario($id_usuario, $estado) {
-        // se modifica el estado del usuario
-        
-        $cambio_estado = modeloPrincipal::UpdateSQL("usuario", "estado = '$estado'", "id_usuario = '$id_usuario'");
-        return $cambio_estado;    
-    }
-
-    public static function modificar_usuario_bloqueado($id_usuario, $bloqueado) {
-        $bloqueo = modeloPrincipal::UpdateSQL("usuario", "bloqueado = '$bloqueado'", "id_usuario = '$id_usuario'");
-
-        if (!$bloqueo) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo resetear el usuario asegúrese de que su información no haya sido alterada, por favor verifique e intente nuevamente","error");
-        }
-        return $bloqueo;
-
-    }
-    public static function modificar_contraseña($id_usuario, $contraseña) {
-        // se modifica la contraseña del usuario
-        if (modeloPrincipal::UpdateSQL("usuario", "contraseña = '$contraseña'", "id_usuario = '$id_usuario'")) {
-            alert_model::alert_mod_success();
-        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
-            alert_model::alert_mod_error();
-            exit();
-        }
-    }
-
-    public static function modificar_sesion_usuario($id_usuario, $sesion_activa) {
-        // se modifica el estado de la sesion activa/inactiva del usuario
-        if (modeloPrincipal::UpdateSQL("usuario", "sesion_activa = '$sesion_activa'", "id_usuario = '$id_usuario'")) {
-            alert_model::alert_mod_success();
-        } else { // se muestra un mensaje en caso de que no se pueda modificar los datos
-            alert_model::alert_mod_error();
-            exit();
-        }
     }
 
     public static function modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, $estado_sesion) {
@@ -237,24 +179,9 @@ class model_user extends modeloPrincipal {
         }
     }
 
-
-    
     /*************************************************************/ 
     /*       funciones de componentes de datos de los usuarios   */
     /*************************************************************/ 
-    
-    // funcion para crear una lista de los tipos de usuarios
-    
-    public static function select_tipo_usuario(){
-
-        $lista_tipo_usuarios = modeloPrincipal::consultar("SELECT * FROM tipo_usuario WHERE id_tipo != 1");
-
-        while($row = mysqli_fetch_array($lista_tipo_usuarios)) { 
-
-            echo '<option name="id_tipo" value="'.$row['id_tipo'].'" >'.$row['nombre'].'</option>';
-
-        }
-    }
 
     //  Funcion para pedir una lista de empleados del negocio 
 
@@ -270,14 +197,14 @@ class model_user extends modeloPrincipal {
         // se imprimen los resultados de la consulta
         while ( $mostrar = mysqli_fetch_array($lista_usuario)) { ?>    
             <tr>
-                <th></th>
-                <th><?= $mostrar["cedula"]; ?></th>
-                <th><?= $mostrar["nombre"]." ".$mostrar["apellido"]; ?></th>
-                <th><?= $mostrar["telefono"]; ?></th>
+                <th class="col text-center"></th>
+                <th class="col text-center"><?= $mostrar["cedula"]; ?></th>
+                <th class="col text-center"><?= $mostrar["nombre"]." ".$mostrar["apellido"]; ?></th>
+                <th class="col text-center"><?= $mostrar["telefono"]; ?></th>
 
                 <?php if (rol_model::verificar_rol('m_empleado') == '1'): ?>
                     <th scope="col" class="col text-center">
-                        <buttom modal="modificar_empleado" url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user" value="<?= $mostrar["id_usuario"]; ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
+                        <buttom modal="modificar_empleado" url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user" value="<?= modeloPrincipal::encryptionId($mostrar["id_usuario"]); ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
                     </th>
                     <th scope="col" class="col text-center">
                         <button class="btn bi <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle' ?>" >&nbsp;
@@ -285,22 +212,11 @@ class model_user extends modeloPrincipal {
                         </button>
                     </th>
                 <?php endif; ?>
-
             </tr>
         <?php }
     } 
 
-    public static function lista_preguntas_seguridad() {
-        $datos = modeloPrincipal::consultar("SELECT * FROM seguridad"); 
 
-        // se imprimen los datos de la consulta 
-        while($row = mysqli_fetch_assoc($datos)) {
-            echo '<option class="" name="select_pregunta" value="'.$row['id_seguridad'].'" selected >'.$row['pregunta'].'</option>';
-        }
-        mysqli_free_result($datos); 
-    }
-
-    
     /********************************************************************/ 
     /*       MODULO de verificar / validar datos del usuarios           */
     /********************************************************************/ 
@@ -469,66 +385,12 @@ class model_user extends modeloPrincipal {
         $id_usaurio = $id_usaurio['id'];
         return $id_usaurio;
     }
-
-    /***************************************************************/ 
-    /*       funcion para generar un token para un usuario         */
-    /***************************************************************/ 
-    public static function generateToken() {
-        do {
-
-            // Generar un token de 11 dígitos
-            $token = '';
-            for ($i = 0; $i < 11; $i++) {
-                $token .= mt_rand(0, 9); // Concatenar un número aleatorio entre 0 y 9
-            }
-            // Verificar si el token ya existe en la base de datos
-            $existToken = modeloPrincipal::consultar("SELECT token FROM usuario WHERE token = '$token'");
-        } while (mysqli_num_rows($existToken) > 0); // Repetir si el token ya existe
-        return $token;
-    }
-
-    /***************************************************************/ 
-    /*       funcion para obtener el token de un usuario           */
-    /***************************************************************/ 
-    public static function getToken($id_usuario) {
-        
-    }
-
-    /**********************************************************************************/
-    /********************** funciones para ocultar la contaseña de un usuario  ********************/
-    /**********************************************************************************/
-    public static function ocultar_contraseña_usuario ($id_usuario, $contraseña = "") {
-
-        if ($contraseña == "") {
-
-            $contraseña = self::obtener_info_personal_usuario('contraseña',$id_usuario); // se obtiene la contraseña del usuario
-            $cantidad_caracteres = strlen($contraseña); // obtiene la cantidad de caracteres de la cadena
-            $asteriscos = str_repeat("*", $cantidad_caracteres); // obtiene la cantidad de asteriscos a mostrar
-
-        } else {
-
-            $asteriscos = str_repeat("*", strlen($contraseña));
-
-        }
-
-        return $asteriscos; // retorna la cadena oculta
-    }
-
     
 
     /*********************************************************************************************************/
     /*********************** funciones para el CRUD de la bitácora de registro de información ****************/
     /********************************************************************************************************/
 
-    // funcion para Registra en la bitácora el registro exitoso de un nuevo usuario
-
-    public static function bitacora_registro_nuevo_usuario($nombre, $apellido) {
-        $consult = bitacora::nuevo_registro("un nuevo usuario","un nuevo usuario: $nombre $apellido.");
-        modeloPrincipal::verificar_consulta($consult,'bitacora');
-        return $consult;
-    }
-
-    
     public static function bitacora_info_personal_usuario_modificada($cedula_original, $nombre_original, $apellido_original, $correo_original, $direccion_original, $telefono_original, $id_usuario) {
         
         bitacora::bitacora("Modificación del perfil de usuario","El usuario actualizó su información personal\n
@@ -554,28 +416,4 @@ class model_user extends modeloPrincipal {
 
         bitacora::bitacora("Modificación exitosa del perfil de usuario.","El usuario actualizó su contraseña.");
     }
-
-    
-    public static function bitacora_cambio_estado($estado) {
-        
-        try {
-
-            if ($estado == 1) {
-                $nuevo_estado = 'Activado'; 
-                $estado = 'Inactivo';
-            } else if ($estado == 0) {
-                $nuevo_estado = 'Inactivo'; 
-                $estado = 'Activado';
-            }
-
-            $bitacora_cambio_estado = bitacora::bitacora("Cambio exitoso del estado.","El usuario modificó el estado de un usuario de: $estado a: $nuevo_estado.");
-            
-            return $bitacora_cambio_estado;
-        } catch (Exception $e) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo guardar la operación realizada en bitácora, por favor intente nuevamente","error");
-            exit();
-        }
-        
-    }
-    
 }

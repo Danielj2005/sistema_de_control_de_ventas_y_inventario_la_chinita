@@ -78,7 +78,7 @@ if(mysqli_num_rows($existe_cliente) < 1){
 
 $existe_cliente = mysqli_fetch_array($existe_cliente);
 $id_cliente = $existe_cliente['id_cliente'];
-$id_usuario = $_SESSION["id_usuario"];
+$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
 
 // ************* se verifica que haya stock para los servicios *************
 if ($id_servicios !== "") {

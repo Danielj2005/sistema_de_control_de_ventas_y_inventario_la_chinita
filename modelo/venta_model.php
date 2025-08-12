@@ -254,9 +254,11 @@ class venta_model extends modeloPrincipal {
                     <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
                     <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                     <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
-                    <td class="text-center col">
-                        <button class="btn_modal btn btn-info bi bi-eye" value="<?= $row['id_venta'] ?>" <?= rol_model::verificar_rol('d_venta') == 1 ? 'url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"' : 'disabled' ?>></button>
-                    </td> 
+                    <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
+                        <td class="text-center col">
+                            <button class="btn_modal btn btn-info bi bi-eye" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                        </td> 
+                    <?php endif; ?>
                 </tr>
             <?php } 
         } 

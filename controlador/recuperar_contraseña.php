@@ -14,8 +14,8 @@ if($modulo == 'verificar_preguntas'){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$_POST['respuesta_seguridad']]);
     
-    $id_usuario = $_POST['id_usuario'];
-    $_SESSION['id_usuario'] = $_POST['id_usuario'];
+    $id_usuario = modeloPrincipal::encryptionId($_POST['id_usuario']);
+    $_SESSION['id_usuario'] = modeloPrincipal::encryptionId($_POST['id_usuario']);
 
     $numero_pregunta = $_POST['numero_pregunta'];
     

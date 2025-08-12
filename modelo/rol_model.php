@@ -247,7 +247,7 @@ class rol_model extends model_user {
         // $permisos = rol_model::texto_permisos_vista($permisos);
 
         foreach ($permisos as $key ) {
-            echo '<option value="'.$key['id_rol'].'">'.$key['nombre'].'</option>';
+            echo '<option value="'.modeloPrincipal::encryptionId($key['id_rol']).'">'.$key['nombre'].'</option>';
         }
     }
 }
