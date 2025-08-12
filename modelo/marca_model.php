@@ -109,7 +109,7 @@ class marca_model extends modeloPrincipal {
     public static function options() {
         $consulta = modeloPrincipal::consultar("SELECT nombre FROM marca");
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
-            <option value="<?= modeloPrincipal::encryptionId($mostrar["nombre"]); ?>"> <?= $mostrar["nombre"]; ?> </option>
+            <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
         <?php }
     }
 

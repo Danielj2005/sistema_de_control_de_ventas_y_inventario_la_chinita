@@ -157,7 +157,7 @@ class presentacion_model extends modeloPrincipal {
         $consulta = self::consultar_condicional("id, nombre, descripcion","estado = 1");
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= modeloPrincipal::encryptionId($mostrar["nombre"]); ?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
+            <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
         <?php  } 
     }
 

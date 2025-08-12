@@ -46,8 +46,20 @@ if ($rol == 1 || $rol == 2) {
         <div class="pagetitle row">
           <div class="col-12 mb-4">
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-            <h1 class="tituloUno my-3">Lista Entradas de Productos</h1>
-            <p class="show alert alert-secondary">Las entradas de productos son por compras a un proveedor.</p>
+            <h1 class="tituloUno my-3">
+              <?php 
+                $titleCardHeaderList = 'Lista Entradas de Productos';
+                $titleCardHeaderRegister = 'Registro de Productos Comprados';
+
+                if ($r_entrada == 1 && $l_entrada == 1 || $r_entrada == 0 && $l_entrada == 1 ) {
+                  echo $titleCardHeaderList;
+                }
+                if ($r_entrada == 1 && $l_entrada == 0) {
+                  echo $titleCardHeaderRegister; 
+                }
+              ?>
+            </h1>
+            <p class="show alert alert-secondary <?= $l_entrada == 1 ? '' : 'd-none' ?> ">Las entradas de productos son por compras a un proveedor.</p>
           
           </div>
         </div>
@@ -58,26 +70,30 @@ if ($rol == 1 || $rol == 2) {
               <div class="card top-selling ">
                 <div class="row text-center p-2 align-items-center">
 							
-                  <div class="col-12 col-sm-12 col-md-6 mb-2 <?= $r_entrada == 1 ? '' : 'd-none eraser' ?>">
+                  <div class="col-12 col-sm-12 col-md-6 mb-2 <?= $r_entrada == 1 ? '' : 'd-none eraser' ?> <?= $l_entrada == 0 && $r_entrada == 1 ? 'd-none' : '' ?>">
                     <button class="col-12 btnHiddenElements btn btn-success bi bi-plus"> Registrar Nueva Entrada</button>
                   </div>
 
-                  <div class="col-12 col-sm-12 mb-2 <?= $r_entrada == 1 ? 'col-md-6 ' : 'col-md-12' ?>">
+                  <div class="col-12 col-sm-12 mb-2 <?= $l_entrada == 0 && $r_entrada == 1 ? 'col-md-12 ' : 'col-md-6' ?>">
                     <div class="col-12 dropdown">
                       <button class="col-12 btn btn-secondary dropdown-toggle bi bi-file-text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Exportar Entradas
                       </button>
                       <ul class="dropdown-menu">
-                        <li class="text-center"><a class="btn bi bi-file-text btn-outline-success" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de todas las Entradas</a></li>
-                        <li>
-                          <label class="dropdown-item border-bottom border-black">Exportar Lista de Entradas Por Fecha</label>
+                        <li> <hr class="dropdown-divider"> </li>
+                        <li class="p-2 text-center"><a class="btn bi bi-file-text btn-outline-success" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de todas las Entradas</a></li>
+                        <li> <hr class="dropdown-divider"> </li>
+                        <li> <hr class="dropdown-divider"> </li>
+                        
+                        <li class="p-2 text-center">
+                          <label class="dropdown-item">Exportar Lista de Entradas Por Fecha</label>
                           <form action="./reportes/lista_detalles_entradas_por_fechas.php" method="post" class="p-2 row mb-3" id="" target="_blank">
-                            <label class="control-label">Desde <span class="text-danger">*</span></label>
+                            <label class="text-start control-label">Desde <span class="text-danger">*</span></label>
 
                             <div class="input-group mb-3 justify-content-center">
                               <input class="reportDates form-control" type="date" id="fechaReporteInicio" name="fechaReporteInicio">
                             </div>
-                            <label class="control-label">Hasta <span class="text-danger">*</span></label>
+                            <label class="text-start control-label">Hasta <span class="text-danger">*</span></label>
 
                             <div class="input-group mb-3 justify-content-center">
                               <input class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin" name="fechaReporteFin">
@@ -97,97 +113,98 @@ if ($rol == 1 || $rol == 2) {
                 </div>
                 <hr>
                 <div class="card-body pb-3">
-                  <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
-                  <form method="post" class="show row mb-3" id="rango_fechas">
-                    <h5 class="card-title">Lista de Compras a un Proveedor</h5>
-                    <p class="alert alert-info" style="width: fit-content;">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
+                  <div class="show <?= $l_entrada == 1 ? '' : 'd-none eraser' ?>">
+                    <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
+                    <form method="post" class="show row mb-3" id="rango_fechas">
+                      <h5 class="card-title">Lista de Compras a un Proveedor</h5>
+                      <p class="alert alert-info" style="width: fit-content;">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
+                      
+                      <div class="col-12 col-sm-12 col-md-4 mb-3">
+                        <div class="input-group mb-3 justify-content-center">
+                          <span class="input-group-text">Desde</span>
+                          <input class="form-control" onchange="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-4 mb-3">
+                        <div class="input-group mb-3 justify-content-center">
+                          <span class="input-group-text">Hasta</span>
+                          <input class="form-control" onchange="dateValidate()" value="<?= date('Y-m-d') ?>" type="date" id="fecha_fin" name="fecha_fin">
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
+                        <button type="submit" disabled class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-12 mb-3">
+                        <!-- mensajes -->
+                        <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
+                        <p class="alert alert-secondary <?= ($fecha1 == "" && $fecha2 == "") ? 'd-none' : '' ?>" style="width: fit-content;">
+                          Lista de Entradas Registradas <br>Desde la Fecha: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b> <br> Hasta la Fecha: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
+                        </p>
+                      </div>
+                    </form>
                     
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text">Desde</span>
-                        <input class="form-control" onchange="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
-                      </div>
+                    <div class="table-responsive">
+                      <table class="table table-striped example" id="example">
+                        <thead>
+                          <tr>
+                            <th class="col text-center" scope="col">#</th>
+                            <th class="col text-center" scope="col">Proveedor</th>
+                            <th class="col text-center" scope="col">Total en $</th>
+                            <th class="col text-center" scope="col">Total en BS</th>
+                            <th class="col text-center" scope="col">Cotización</th>
+                            <th class="col text-center" scope="col">Fecha / Hora</th>
+                            <th class="col text-center" scope="col">Detalles</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                              if($fecha1 == "" && $fecha2 == ""){
+                                $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
+                                  E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+                                  FROM entrada AS E 
+                                  INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+                                  INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+                                  ORDER BY E.fecha_entrada DESC LIMIT 100");
+                              }else{
+                                $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
+                                  E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+                                  FROM entrada AS E 
+                                  INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+                                  INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+                                  WHERE E.fecha_entrada 
+                                  BETWEEN DATE('$fecha1') AND DATE('$fecha2') 
+                                  ORDER BY E.fecha_entrada DESC");
+                              }
+                              // se guardan los datos en un array y se imprime
+                              while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+                                <tr>
+                                    <td class="col text-center"></td>
+                                    <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                                    <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
+                                    <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
+                                    <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
+                                    <td class="col text-center"><?= date('Y-m-d | g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+                                    <td class="text-center col <?= rol_model::verificar_rol('l_entrada') !== '1' ? 'd-none eraser' : '' ; ?> " scope="col">
+                                      <div class="row justify-content-center align-items-center">
+                                          <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class=" col col-auto btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
+                                          
+                                          <form class=" col col-auto" action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
+                                            <input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
+                                            <button type="submit" class="btn bi bi-file-text btn-primary"> PDF</button>
+                                          </form>
+                                      </div>
+                                    </td>
+                                </tr>
+                              <?php } ?>
+                        </tbody>
+                      </table>
                     </div>
-
-                    <div class="col-12 col-sm-12 col-md-4 mb-3">
-                      <div class="input-group mb-3 justify-content-center">
-                        <span class="input-group-text">Hasta</span>
-                        <input class="form-control" onchange="dateValidate()" value="<?= date('Y-m-d') ?>" type="date" id="fecha_fin" name="fecha_fin">
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
-                      <button type="submit" disabled class="btn btn-outline-secondary bi bi-search" id="btn_fechas">&nbsp; Buscar Fecha</button>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-12 mb-3">
-                      <!-- mensajes -->
-                      <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
-                      <p class="alert alert-secondary <?= ($fecha1 == "" && $fecha2 == "") ? 'd-none' : '' ?>" style="width: fit-content;">
-                        Lista de Entradas Registradas <br>Desde la Fecha: <b> <?php echo date ("d-m-Y",strtotime($fecha1)); ?> </b> <br> Hasta la Fecha: <b><?php echo date ("d-m-Y",strtotime($fecha2)); ?> </b> 
-                      </p>
-                    </div>
-                  </form>
-                  
-                  <div class="show table-responsive p-3">
-                    <table class="table m-auto table-borderless table-striped" id="example">
-                      <thead>
-                        <tr>
-                          <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">Proveedor</th>
-                          <th class="col text-center" scope="col">Total en $</th>
-                          <th class="col text-center" scope="col">Total en BS</th>
-                          <th class="col text-center" scope="col">Cotización</th>
-                          <th class="col text-center" scope="col">Fecha / Hora</th>
-                          <th class="col text-center" scope="col">Detalles</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <?php
-                            if($fecha1 == "" && $fecha2 == ""){
-                              $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-                                E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-                                FROM entrada AS E 
-                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-                                INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-                                ORDER BY E.fecha_entrada DESC LIMIT 100");
-                            }else{
-                              $consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-                                E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-                                FROM entrada AS E 
-                                INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-                                INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-                                WHERE E.fecha_entrada 
-                                BETWEEN DATE('$fecha1') AND DATE('$fecha2') 
-                                ORDER BY E.fecha_entrada DESC");
-                            }
-                            // se guardan los datos en un array y se imprime
-                            while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-                              <tr>
-                                  <td class="col text-center"></td>
-                                  <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                                  <td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
-                                  <td class="col text-center"><?= $mostrar["total_bs"].' Bs'; ?></td>
-                                  <td class="col text-center"><?= $mostrar["tasa"].' Bs'; ?></td>
-                                  <td class="col text-center"><?= date('Y-m-d | g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
-                                  <td class="text-center col <?= rol_model::verificar_rol('l_entrada') !== '1' ? 'd-none eraser' : '' ; ?> " scope="col">
-                                    <div class="row justify-content-center align-items-center">
-                                        <button modal="ver_detalles_entrada" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'url="./modal/producto/detalles_entrada.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class=" col col-auto btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
-                                        
-                                        <form class=" col col-auto" action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
-                                          <input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
-                                          <button type="submit" class="btn bi bi-file-text btn-primary"> PDF</button>
-                                        </form>
-                                    </div>
-                                  </td>
-                              </tr>
-                            <?php } ?>
-                      </tbody>
-                    </table>
                   </div>
 
-                  <div class="show d-none  <?= $r_entrada == 1 ? '' : 'd-none eraser' ?>">
-                    <h5 class="card-title">Registro de Productos Comprados</h5>
+                  <div class="show <?= $r_entrada == 1 ? '' : 'd-none eraser' ?> <?= $l_entrada == 1 ? 'd-none' : '' ?>">
 
                     <h5 class="card-title">Datos del proveedor</h5> 
                     <form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
@@ -323,6 +340,9 @@ if ($rol == 1 || $rol == 2) {
 
       <script type="text/javascript">
         const btnHiddenElements = document.querySelector('.btnHiddenElements');
+        const titles = ['Lista Entradas de Productos','Registro de Productos Comprados'];
+        const titleHead = document.querySelector('.tituloUno');
+
         btnHiddenElements.addEventListener('click', () => {
 
           btnHiddenElements.classList.toggle('btn-success');
@@ -330,10 +350,14 @@ if ($rol == 1 || $rol == 2) {
           btnHiddenElements.classList.toggle('btn-secondary');
           btnHiddenElements.classList.toggle('bi-list-columns-reverse');
           btnHiddenElements.textContent == " Registrar Nueva Entrada" ? btnHiddenElements.textContent = " Ver Lista de Entradas" : btnHiddenElements.textContent = " Registrar Nueva Entrada";
+          
+          titleHead.textContent = titleHead.textContent == titles[0] ? titles[1] : titles[0];
 
           const Elements = document.querySelectorAll('.show');
           Elements.forEach(element => {
             element.classList.toggle('d-none');
+
+
           });
         });
       </script>

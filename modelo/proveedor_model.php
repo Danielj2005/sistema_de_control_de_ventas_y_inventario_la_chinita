@@ -169,22 +169,28 @@ class proveedor_model extends modeloPrincipal {
                                         <?= $nameProvider ; ?>
                                     </p>
                                 </li>
-                                <li class="text-center">
+
+                                <li> <hr class="dropdown-divider"> </li>
+
+                                <li class="p-2 text-center">
                                     <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
                                         <input type="hidden" value="<?= $encryptionId ; ?>" name="UID">
                                         <button type="submit" class="btn bi bi-file-text btn-outline-success"> Exportar todas las compras</button>
                                     </form>
                                 </li>
-                                <li>
-                                    <label class="dropdown-item border-bottom border-black">Exportar Lista de las compras por Fecha</label>
+                                <li> <hr class="dropdown-divider"> </li>
+                                <li> <hr class="dropdown-divider"> </li>
+
+                                <li class="p-2 text-center">
+                                    <label class="dropdown-item">Exportar Lista de las compras por Fecha</label>
                                     <form action="./reportes/historial_por_fechas_proveedor.php" method="post" class="p-2 row mb-3" id="<?= $alterarId; ?>" target="_blank">
                                         <input form="<?= $alterarId; ?>" type="hidden" value="<?= $encryptionId ; ?>" name="UID">
 
-                                        <label class="control-label">Desde <span class="text-danger">*</span></label>
+                                        <label class="text-start control-label">Desde <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3 justify-content-center">
                                             <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" type="date" id="fechaReporteInicio_<?= $alterarId; ?>" name="fechaReporteInicio">
                                         </div>
-                                        <label class="control-label">Hasta <span class="text-danger">*</span></label>
+                                        <label class="text-start control-label">Hasta <span class="text-danger">*</span></label>
 
                                         <div class="input-group mb-3 justify-content-center">
                                             <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin_<?= $alterarId; ?>" name="fechaReporteFin">
