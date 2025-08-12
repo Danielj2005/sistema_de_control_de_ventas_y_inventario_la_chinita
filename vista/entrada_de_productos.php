@@ -46,19 +46,17 @@ if ($rol == 1 || $rol == 2) {
         <div class="pagetitle row">
           <div class="col-12 mb-4">
             <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-            <h1 class="tituloUno my-3">
-              <?php 
+            <?php 
+              // se define y se decide condicionalmente el titulo de la vista
                 $titleCardHeaderList = 'Lista Entradas de Productos';
                 $titleCardHeaderRegister = 'Registro de Productos Comprados';
 
-                if ($r_entrada == 1 && $l_entrada == 1 || $r_entrada == 0 && $l_entrada == 1 ) {
-                  echo $titleCardHeaderList;
-                }
-                if ($r_entrada == 1 && $l_entrada == 0) {
-                  echo $titleCardHeaderRegister; 
-                }
-              ?>
-            </h1>
+                if ($r_entrada == 1 && $l_entrada == 1 || $r_entrada == 0 && $l_entrada == 1 ) { ?>
+                  <h1 class="tituloUno my-3"><?= $titleCardHeaderList; ?></h1>
+            <?php }
+                if ($r_entrada == 1 && $l_entrada == 0) { ?>
+                  <h1 class="tituloUno my-3"><?= $titleCardHeaderRegister;?></h1>
+            <?php } ?>
             <p class="show alert alert-secondary <?= $l_entrada == 1 ? '' : 'd-none' ?> ">Las entradas de productos son por compras a un proveedor.</p>
           
           </div>
@@ -351,13 +349,11 @@ if ($rol == 1 || $rol == 2) {
           btnHiddenElements.classList.toggle('bi-list-columns-reverse');
           btnHiddenElements.textContent == " Registrar Nueva Entrada" ? btnHiddenElements.textContent = " Ver Lista de Entradas" : btnHiddenElements.textContent = " Registrar Nueva Entrada";
           
-          titleHead.textContent = titleHead.textContent == titles[0] ? titles[1] : titles[0];
+          titleHead.textContent == titles[0] ? titleHead.textContent = titles[1] : titleHead.textContent = titles[0];
 
           const Elements = document.querySelectorAll('.show');
           Elements.forEach(element => {
             element.classList.toggle('d-none');
-
-
           });
         });
       </script>
