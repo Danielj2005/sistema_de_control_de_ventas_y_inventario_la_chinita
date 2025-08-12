@@ -164,17 +164,19 @@ class proveedor_model extends modeloPrincipal {
                         <div class="dropstart col col-auto">
                             <button class="<?= $haveHistorial > 0 ? " btn-secondary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >&nbsp; PDF</button>
                             <ul class="dropdown-menu">
-                                <li class="p-3">
-                                    <?= $nameProvider ; ?>
+                                <li class="p-2 text-center">
+                                    <p class="text-center border rounded-3 alert alert-primary">
+                                        <?= $nameProvider ; ?>
+                                    </p>
                                 </li>
-                                <li class="p-3">
+                                <li class="text-center">
                                     <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
                                         <input type="hidden" value="<?= $encryptionId ; ?>" name="UID">
                                         <button type="submit" class="btn bi bi-file-text btn-outline-success"> Exportar todas las compras</button>
                                     </form>
                                 </li>
                                 <li>
-                                    <label class="dropdown-item bg-dark-light">Exportar Lista de las compras por Fecha</label>
+                                    <label class="dropdown-item border-bottom border-black">Exportar Lista de las compras por Fecha</label>
                                     <form action="./reportes/historial_por_fechas_proveedor.php" method="post" class="p-2 row mb-3" id="<?= $alterarId; ?>" target="_blank">
                                         <input form="<?= $alterarId; ?>" type="hidden" value="<?= $encryptionId ; ?>" name="UID">
 

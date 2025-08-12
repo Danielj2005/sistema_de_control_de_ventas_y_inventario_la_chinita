@@ -11,6 +11,10 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
+// se guardan los permisos del rol del usuario que inició sesión
+$r_entrada = rol_model::permisos_modulos('r_entrada');
+$l_entrada = rol_model::permisos_modulos('l_entrada');
+
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::permisos_modulos('r_entrada + l_entrada');
 // se evalua que este rol tenga el acceso a esta vista
@@ -54,19 +58,19 @@ if ($rol == 1 || $rol == 2) {
               <div class="card top-selling ">
                 <div class="row text-center p-2 align-items-center">
 							
-                  <div class="col-12 col-sm-12 col-md-6 mb-2 <?= rol_model::verificar_rol('r_entrada') == 1 ? '' : 'd-none eraser' ?>">
+                  <div class="col-12 col-sm-12 col-md-6 mb-2 <?= $r_entrada == 1 ? '' : 'd-none eraser' ?>">
                     <button class="col-12 btnHiddenElements btn btn-success bi bi-plus"> Registrar Nueva Entrada</button>
                   </div>
 
-                  <div class="col-12 col-sm-12 col-md-6 mb-2">
+                  <div class="col-12 col-sm-12 mb-2 <?= $r_entrada == 1 ? 'col-md-6 ' : 'col-md-12' ?>">
                     <div class="col-12 dropdown">
                       <button class="col-12 btn btn-secondary dropdown-toggle bi bi-file-text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Exportar Entradas
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" target="_blank" href="./reportes/lista_entradas.php">Lista de todas las Entradas</a></li>
+                        <li class="text-center"><a class="btn bi bi-file-text btn-outline-success" target="_blank" href="./reportes/lista_entradas.php">Exportar Lista de todas las Entradas</a></li>
                         <li>
-                          <label class="dropdown-item">Lista de Entradas Por Fecha</label>
+                          <label class="dropdown-item border-bottom border-black">Exportar Lista de Entradas Por Fecha</label>
                           <form action="./reportes/lista_detalles_entradas_por_fechas.php" method="post" class="p-2 row mb-3" id="" target="_blank">
                             <label class="control-label">Desde <span class="text-danger">*</span></label>
 
@@ -93,9 +97,9 @@ if ($rol == 1 || $rol == 2) {
                 </div>
                 <hr>
                 <div class="card-body pb-3">
-                  <h5 class="tituloDos card-title">Lista de Compras a un Proveedor</h5>
                   <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
                   <form method="post" class="show row mb-3" id="rango_fechas">
+                    <h5 class="card-title">Lista de Compras a un Proveedor</h5>
                     <p class="alert alert-info" style="width: fit-content;">Seleciona un rango de fechas para ver el historial de entradas realizadas dentro de ese rango de fechas</p>
                     
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
@@ -182,7 +186,9 @@ if ($rol == 1 || $rol == 2) {
                     </table>
                   </div>
 
-                  <div class="show d-none">
+                  <div class="show d-none  <?= $r_entrada == 1 ? '' : 'd-none eraser' ?>">
+                    <h5 class="card-title">Registro de Productos Comprados</h5>
+
                     <h5 class="card-title">Datos del proveedor</h5> 
                     <form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
                       <input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
@@ -329,13 +335,6 @@ if ($rol == 1 || $rol == 2) {
           Elements.forEach(element => {
             element.classList.toggle('d-none');
           });
-
-          document.querySelector('.tituloDos').classList.toggle('d-none');
-          
-          const tituloUno = document.querySelector('.tituloUno');
-
-          tituloUno.textContent == "Lista Entradas de Productos" ? tituloUno.textContent = "Registro de Productos Comprados" : tituloUno.textContent = "Lista Entradas de Productos";
-          
         });
       </script>
 

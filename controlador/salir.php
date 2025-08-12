@@ -7,7 +7,7 @@ include_once("../modelo/modeloPrincipal.php");
 include_once("../modelo/modelo_usuario.php");
 include_once("../modelo/bitacora_model.php");
 
-$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
+$id_usuario = $_SESSION['id_usuario'];
 
 //registramos los movimientos en la bitacora
 bitacora::bitacora("Cierre de sesión exitoso","El usuario ha cerrado sesión correctamente en el sistema.");
