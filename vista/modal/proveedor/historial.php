@@ -32,7 +32,7 @@ if (mysqli_num_rows($consulta) < 1) {
 
 <legend class="mb-3 text-center"> Nombre del proveedor :  <b>"<?= $nombre_proveedor ?>"</b> </legend>
 <div class="table-responsive">
-    <table class="table table-striped table-borderless example pt-2">
+    <table class="table table-striped table-borderless tableProvider pt-2">
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>

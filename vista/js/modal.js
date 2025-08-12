@@ -22,6 +22,7 @@ setTimeout(() => {
                 'ver_categorias' : 'tableCategoryOfProducts',
                 'ver_marcas' : 'tableTrademarkOfProducts',
                 'ver_presentaciones' : 'tablePresentationOfProducts',
+                'ver_historial_proveedor' : 'tableProvider'
             }
 
             const tamano_modal = document.getElementById('modal_tamano');

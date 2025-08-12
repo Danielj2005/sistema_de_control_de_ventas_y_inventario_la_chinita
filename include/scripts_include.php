@@ -45,7 +45,7 @@
             language: {
 				url: './js/dataTables-Español.json'
 			},
-            lengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todos"]],
+            lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "Todos"]],
             responsive: true,
         } );
 
@@ -63,7 +63,7 @@
             language: {
                 url: './js/dataTables-Español.json'
             },
-            lengthMenu: [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Todos"]],
+            lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "Todos"]],
             responsive: true,
         } );
 

@@ -29,7 +29,7 @@ if($modulo === "Guardar" ){
         exit(); 
     }
 
-    if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,10}",$cedula)) {
+    if (modeloprincipal::verificar_datos("[V|E|R|G|J|P][0-9|-]{5,13}",$cedula)) {
         alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido o fue alterado. Por favor verifique e intente de nuevo ", "error");
         exit();
     }
@@ -107,7 +107,7 @@ if($modulo === "Modificar"){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $correo, $direccion, $telefono, $id_proveedor]);
 
-    if (modeloprincipal::verificar_datos("[V|E|J|P][0-9|-]{5,12}",$cedula)) {
+    if (modeloprincipal::verificar_datos("[V|E|R|G|J|P][0-9|-]{5,13}",$cedula)) {
         alert_model::alerta_simple("¡Ocurrio un error!","El campo cédula no cumple con el formato requerido o fue alterado. Por favor verifique e intente de nuevo ", "error");
         exit();
     }
@@ -127,7 +127,7 @@ if($modulo === "Modificar"){
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9-, ]{10,50}",$direccion)) {
+    if (modeloprincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ0-9-, ]{5,50}",$direccion)) {
         alert_model::alert_of_format_wrong("'dirección'");
         exit();
     }
