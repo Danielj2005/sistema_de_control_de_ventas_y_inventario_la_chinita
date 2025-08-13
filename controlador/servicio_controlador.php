@@ -131,20 +131,22 @@ if($modulo == 'Modificar'){
 
     $id = modeloPrincipal::decryptionId($_POST['UIS']);
     $id_servicio = modeloPrincipal::limpiar_cadena($id);
+
     $nombre_platillo = modeloprincipal::limpiar_mayusculas($_POST['nombre_platillo']);
     $estado_menu = modeloprincipal::limpiar_mayusculas($_POST['estado_menu']);
     $descripcion = modeloprincipal::limpiar_mayusculas($_POST['descripcion']);
+
+    $precio_dolar = $_POST['precio_dolar'];
+    $precio_bolivar = $_POST['precio_bolivar'];
 
     // crear la posibilidad de modificar los productos que componen un servicio....proximamente
     //  datos de los productos a ingresar en el platillo
     $id_productos = $_POST['producto']; // se recibe un array de las id de productos del servicio
     $cantidad_productos = $_POST['cantidad_producto']; // se recibe un array de la cantidad productos del servicio
-
-    $precio_dolar = $_POST['precio_dolar'];
-    $precio_bolivar = $_POST['precio_bolivar'];
+    
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$id_servicio, $nombre_platillo, $descripcion, $estado_menu]);
+    modeloPrincipal::validar_campos_vacios([$id_servicio, $nombre_platillo, $descripcion, $estado_menu, $id_productos, $cantidad_productos]);
 
     $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE nombre_platillo = '$nombre_platillo' AND id_menu != $id_servicio");
 
