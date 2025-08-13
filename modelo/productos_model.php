@@ -165,7 +165,7 @@ class producto_model extends modeloPrincipal {
 
     public static function options($estado = "") {
         if ($estado == "1") {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto,
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto,
                 PS.nombre AS presentacion,
                 M.nombre as marca
                 FROM producto AS P 
@@ -174,7 +174,7 @@ class producto_model extends modeloPrincipal {
                 INNER JOIN marca AS M ON M.id = P.id_marca
                 WHERE I.estado = 1 AND I.stock_actual > 0");
         }else {
-            $consulta = modeloPrincipal::consultar("SELECT P.id_producto,
+            $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto,
                 PS.nombre AS presentacion,
                 M.nombre as marca
                 FROM producto AS P 
@@ -185,7 +185,7 @@ class producto_model extends modeloPrincipal {
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
             echo '<option value="'.modeloPrincipal::encryptionId($mostrar["id_producto"]).'">
-                    '.$mostrar["marca"].' '.$mostrar["presentacion"].'
+                    '.$mostrar["nombre_producto"].' '.$mostrar["marca"].' '.$mostrar["presentacion"].'
                 </option>';
         }
     }

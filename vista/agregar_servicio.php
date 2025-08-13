@@ -59,6 +59,7 @@ if ($rol == 1) {  ?>
                             <input type="text" class="form-control" placeholder="ingresa el nombre del servicio" name="nombre_platillo" id="nombre_platillo" required>
                           </div>
                         </div>
+                        
                         <div class="col-md-6">
                           <label class="form-label">Descripción</label>
                           <input type="text" class="form-control" placeholder="ingresa la descripción" id="descripcion" name="descripcion" required>

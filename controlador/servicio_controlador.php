@@ -18,6 +18,7 @@ if($modulo == 'Guardar'){
 
     //  datos de los productos a ingresar en el platillo
     $id_productos = $_POST['id_producto'];
+
     $cantidad_productos = $_POST['cantidad'];
 
     $precio_dolar = $_POST['precio_dolar'];
@@ -61,7 +62,7 @@ if($modulo == 'Guardar'){
     try {
 
         for($i = 0; $i < count($cantidad_productos); $i++){
-            modeloPrincipal::InsertSQL("detalles_menu","id_producto, cantidad, id_menu","".$id_productos[$i].",".$cantidad_productos[$i].",'$id_servicio'");
+            modeloPrincipal::InsertSQL("detalles_menu","id_producto, cantidad, id_menu","".modeloprincipal::decryptionId($id_productos[$i]).",".$cantidad_productos[$i].",'$id_servicio'");
         }
 
     } catch (Exception $e) {

@@ -49,6 +49,20 @@
           </ul>
         </li>
     <?php } 
+    // <!-- apartado de menú de servicios -->
+      $registro_servicio = rol_model::permisos_modulos('r_servicio');
+      $modificar_servicio = rol_model::permisos_modulos('m_servicio');
+      $lista_servicio = rol_model::permisos_modulos('l_servicio');
+
+      if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) {?>
+      
+        <li class="nav-item">
+          <a href="gestion_servicios.php" class="nav-link collapsed">
+            <i class="bi bi-layout-text-window-reverse"></i>
+            <span> Gestión de Servicios</span>
+          </a>
+        </li>
+    <?php } 
 
     //  <!-- apartado de ventas  -->
 
@@ -86,39 +100,6 @@
                 <a href="./estadisticas_generales.php">
                   <i class="bi bi-circle"></i>
                   <span>Estadísticas de ventas</span>
-                </a>
-              </li>
-            <?php } ?>
-          </ul>
-        </li>
-    <?php } 
-    // <!-- apartado de manú de servicios -->
-      $registro_servicio = rol_model::permisos_modulos('r_servicio');
-      $modificar_servicio = rol_model::permisos_modulos('m_servicio');
-      $lista_servicio = rol_model::permisos_modulos('l_servicio');
-
-      if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) {?>
-      
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i>
-            <span> Menú</span>
-            <i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            
-            <?php if ($registro_servicio == 1 ) {  ?>
-              <li>
-                <a href="../vista/agregar_servicio.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Añadir nuevo servicio</span>
-                </a>
-              </li>
-            <?php } if ($lista_servicio == 1 || $modificar_servicio == 1) {  ?>
-              <li>
-                <a href="../vista/menu.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Servicios</span>
                 </a>
               </li>
             <?php } ?>

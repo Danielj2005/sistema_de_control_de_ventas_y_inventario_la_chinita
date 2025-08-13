@@ -3,8 +3,8 @@
 require_once "../modelo/modeloPrincipal.php";
 require_once "../modelo/productos_model.php";
 
-$id_producto = modeloPrincipal::limpiar_cadena($_POST['id']);
-$id_producto = modeloPrincipal::decryption($id_producto);
+$id_producto = modeloPrincipal::decryptionId($_POST['id']);
+$id_producto = modeloPrincipal::limpiar_cadena($id_producto);
 
 $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto AS producto, 
     PS.nombre AS presentacion, 
@@ -28,20 +28,18 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     }
     ?>
 
-        <tr id="tr_producto_<?= $mostrar["id_producto"] ?>" >
+        <tr id="tr_producto_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" >
             <td class="col text-center" scope="col">
-                <p class="text-primary fs-6"><?= $mostrar["marca"].'<br>'.$mostrar["presentacion"] ?>
-                <input type="hidden" name="id_producto[]" value="<?= $mostrar["id_producto"] ?>" required>
-            </td> 
-            <td class="col text-center" scope="col">
-                <span class="<?= $color_stock ?>"><?= $mostrar["stock"] ?></span>
+                <p class="text-primary fs-6"><?= $mostrar["producto"].' '.$mostrar["marca"].' '.$mostrar["presentacion"] ?></p>
+                <p class="<?= $color_stock ?>">Cantidad disponible: <?= $mostrar["stock"] ?></p>
+                <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= $mostrar["id_producto"] ?>" required>
+                <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             </td>
             
             <td class="text-center col" scope="col">
-                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= $mostrar['id_producto'] ?>')"></button>
+                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>')"></button>
             </td>
         </tr>
     <?php
