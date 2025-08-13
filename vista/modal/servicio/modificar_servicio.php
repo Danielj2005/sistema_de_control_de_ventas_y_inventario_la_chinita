@@ -82,7 +82,14 @@ $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS product
                     // se guardan los datos en un array y se imprime
                     while ( $mostrar = mysqli_fetch_array($detalles_menu)) { ;?>    
                         <tr>
-                            <td class="text-center"><?= $mostrar['producto']; ?></td>
+                            <td class="text-center">
+                                <div class="col-12 mb-3">
+                                    <input value="<?= $mostrar['producto']; ?>" type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']); ?>" placeholder="Escribe el nombre del producto" autocomplete="off">
+                                    <datalist id="datalist_nombre_productos">
+                                        <?php producto_model::options_nombres_productos(); ?> 
+                                    </datalist>
+                                </div>
+                            </td>
                             <td class="text-center"><?= $mostrar['presentacion']; ?></td>
                             <td class="text-center"><?= $mostrar['categoria']; ?></td>
                             <td class="text-center"><?= $mostrar['cantidad']; ?></td>

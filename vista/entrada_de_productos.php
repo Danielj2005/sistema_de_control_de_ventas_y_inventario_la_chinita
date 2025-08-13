@@ -111,6 +111,7 @@ if ($rol == 1 || $rol == 2) {
                 </div>
                 <hr>
                 <div class="card-body pb-3">
+
                   <div class="show <?= $l_entrada == 1 ? '' : 'd-none eraser' ?>">
                     <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
                     <form method="post" class="show row mb-3" id="rango_fechas">
@@ -247,17 +248,18 @@ if ($rol == 1 || $rol == 2) {
                       <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
                         <h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos a ingresar</h5>
 
-                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                        <div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
                           <button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Registar un nuevo producto</button>
                         </div>
 
                         <label class="form-label">Selecciona uno o más Productos <span style="color:#f00;">*</span></label>
-                        <div class="col-12 col-sm-12 col-md-9 mb-3">
-                          <select name="producto" id="producto_id" class="form-select Select2 select selector_producto">
+                        <div class="col-12 col-md-9 mb-3">
+                          <select name="producto" id="producto_id" class="form-select select">
                             <option value="" selected>seleccione una opción</option>
                             <?php producto_model::options(); ?>
                           </select>
                         </div>
+                        
                         <div class="col-12 col-sm-12 col-md-3 mb-3">
                           <button type="button" name="btn_producto" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
                         </div>
@@ -372,8 +374,8 @@ if ($rol == 1 || $rol == 2) {
         model_user::validar_sesion_activa($id_usuario);
         config_model::verificar_actualizacion_configuracion();
       ?>
+      <script>$('#producto_id').select2();</script>
       <script src="./js/rango_fechas.js"></script>
-      <script>$('.Select').select2();</script>
     </body>
   </html>
 <?php }else{

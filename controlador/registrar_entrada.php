@@ -12,15 +12,16 @@ if (!isset($_POST["modulo"])) {
 }
 
 
+$id_usuario = $_SESSION['id_usuario'];
+
 if($modulo == 'Guardar'){
     // datos de la entrada
     $total_dolar = $_POST['totalDolar'];
     $total_bolivar = $_POST['totalBolivar'];
-    $fecha_entrada = $_POST['fecha_entrada'];
-    $hora_entrada = $_POST['hora_entrada'];
-
+    $fecha_entrada_recibida = $_POST['fecha_entrada'];
+    $hora_entrada_recibida = $_POST['hora_entrada'];
     
-    $fecha_entrada = date('Y-m-d H:i:s', strtotime($fecha_entrada.' '.$hora_entrada));
+    $fecha_entrada = date('Y-m-d H:i:s', strtotime($fecha_entrada_recibida.' '.$hora_entrada_recibida));
     
     // detalles de la entrada
     $id_productos = $_POST['id_producto'];
@@ -37,7 +38,7 @@ if($modulo == 'Guardar'){
     $cedula_proveedor = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']);
     
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$id_productos, $cantidad_productos, $precio_unidad_dolar, $precio_unidad_bs, $precio_venta_dolar, $total_dolar, $total_bolivar, $fecha_entrada, $hora_entrada, $cedula_proveedor]);
+    modeloPrincipal::validar_campos_vacios([$id_productos, $cantidad_productos, $precio_unidad_dolar, $precio_unidad_bs, $precio_venta_dolar, $total_dolar, $total_bolivar, $fecha_entrada_recibida, $hora_entrada_recibida, $cedula_proveedor]);
 
     $existe_proveedor = modeloPrincipal::Consultar("SELECT id_proveedor FROM proveedor 
         WHERE cedula_rif = '$cedula_proveedor'");
@@ -69,7 +70,7 @@ if($modulo == 'Guardar'){
     // se registran los datos de la entrada
     try {
 
-        $registrar = modeloPrincipal::InsertSQL( "entrada","id_proveedor, total_dolar, total_bs, fecha_entrada, id_dolar","$id_proveedor, $total_dolar, $total_bolivar,'$fecha_entrada',$id_dolar");
+        $registrar = modeloPrincipal::InsertSQL( "entrada","id_proveedor, total_dolar, total_bs, fecha_entrada, id_dolar, id_usuario","$id_proveedor, $total_dolar, $total_bolivar,'$fecha_entrada',$id_dolar, $id_usuario");
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar la entrada en la base de datos.","error");
         }
@@ -96,22 +97,22 @@ if($modulo == 'Guardar'){
             $registrar = modeloPrincipal::InsertSQL(
             "detalles_entrada",
             "id_entrada, id_producto, cantidad_comprada, precio_unitario_dolar, precio_unitario_bs, total_dolar, total_bs",
-            "$id_entrada, " . $id_productos[$i] . ", " . $cantidad_productos[$i] . ", " . $precio_unidad_dolar[$i] . ", " . $precio_unidad_bs[$i] . ", $total_producto_dolar, $total_producto_bs"
+            "$id_entrada, " . modeloPrincipal::decryptionId($id_productos[$i]) . ", " . $cantidad_productos[$i] . ", " . $precio_unidad_dolar[$i] . ", " . $precio_unidad_bs[$i] . ", $total_producto_dolar, $total_producto_bs"
             );
             
             // se registra por primera vez el producto en inventario
-            if (mysqli_num_rows(modeloprincipal::consultar("SELECT id FROM inventario WHERE id_producto = ".$id_productos[$i]."")) < 1) {
+            if (mysqli_num_rows(modeloprincipal::consultar("SELECT id FROM inventario WHERE id_producto = ".modeloPrincipal::decryptionId($id_productos[$i])."")) < 1) {
                 
                 modeloPrincipal::InsertSQL(
                 "inventario",
                 "id_producto, stock_actual, precio_venta, fecha_ultima_actualizacion, estado",
-                "".$id_productos[$i].",".$cantidad_productos[$i].",".$precio_venta_dolar[$i].", '$fecha_entrada', 1");
+                "".modeloPrincipal::decryptionId($id_productos[$i]).",".$cantidad_productos[$i].",".$precio_venta_dolar[$i].", '$fecha_entrada', 1");
             }else {
 
                 modeloPrincipal::UpdateSQL(
                 "inventario",
                 "stock_actual = stock_actual + ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",
-            "id_producto = ".$id_productos[$i]."");
+            "id_producto = ".modeloPrincipal::decryptionId($id_productos[$i])."");
             }
             
 

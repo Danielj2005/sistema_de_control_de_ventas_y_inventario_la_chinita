@@ -14,7 +14,7 @@ function convertir_usd_a_bs (id_precio_dolar) {
     let margen_de_ganancia = precio_dolar * 0.3;
     let precio_venta = parseFloat(precio_dolar) + parseFloat(margen_de_ganancia);
 
-    precio_venta = parseFloat(precio_venta) + parseFloat(IVA);
+    precio_venta = (parseFloat(precio_venta) + parseFloat(IVA)).toFixed(2);
 
     precios_venta_dolar.value = precio_venta;
 }

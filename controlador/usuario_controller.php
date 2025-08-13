@@ -11,7 +11,7 @@ if (!isset($_POST["modulo"])) {
     exit();
 }
 
-$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
+$id_usuario = $_SESSION['id_usuario'];
 
 // modulo para Guardar un registro de un usuario
 
