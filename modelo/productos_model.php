@@ -67,11 +67,6 @@ class producto_model extends modeloPrincipal {
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
     }
-    public static function consulta_inner_join($fields, $inner_join) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM producto AS P $inner_join");
-        modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
-        return $consul;
-    }
     
     // funcion para obtener el id de un categoria
     public static function obtener_id_recien_registrada(){

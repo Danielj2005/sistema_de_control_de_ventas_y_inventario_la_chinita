@@ -2,6 +2,7 @@
 session_start();
 
 require_once("../../../modelo/modeloPrincipal.php"); 
+require_once("../../../modelo/alert_model.php"); 
 require_once("../../../modelo/proveedor_model.php"); 
 require_once("../../../modelo/productos_model.php"); 
 
@@ -30,14 +31,17 @@ $detalles_menu = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_prod
     INNER JOIN menu AS S ON S.id_menu = DM.id_menu
     WHERE DM.id_menu = $id_menu");
 
-$productos = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
+$productos = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto AS producto,
     PS.nombre AS presentacion, 
     C.nombre AS categoria,
     M.nombre AS marca
     FROM producto AS P 
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
-    INNER JOIN marca AS M ON M.id = P.id_marca");
+    INNER JOIN marca AS M ON M.id = P.id_marca
+    ORDER BY P.nombre_producto ASC");
+
+$id_select = modeloPrincipal::encryptionId($id_menu);
 ?>
 <form id="SendForm" action="../controlador/servicio_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
     <div class="card-body p-2">
@@ -101,13 +105,12 @@ $productos = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
                         <tr>
                             <td class="col-6 text-center">
                                 <div class="col-12 mb-3">
-                                    <input value="<?= $mostrar['producto'].' '.$mostrar['marca'].' '.$mostrar['presentacion']; ?>" type="text" class="form-control mb-3" list="datalist_nombre_productos" name="producto[]" id="input_nombre_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']); ?>" placeholder="Escribe el nombre del producto" autocomplete="off">
-                                    <datalist id="datalist_nombre_productos">
+                                    <select name="producto[]" class="form-select select2" id="select_productos_<?= modeloPrincipal::encryptionId($id_menu) ?>" required>
                                         <?php 
                                             while ($row = mysqli_fetch_array($productos)) { ?>
-                                                <option value="<?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?>"></option>
+                                                <option <?= $mostrar['id_producto'] == $row['id_producto'] ? 'selected' : ''; ?> value="<?= modeloPrincipal::encryptionId($row['id_producto']) ?>"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?></option>
                                         <?php } ?>
-                                    </datalist>
+                                    </select>
                                 </div>
                             </td>
                             <td class="col-3 text-center">
@@ -123,4 +126,3 @@ $productos = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
         </div>
     </div>
 </form>
-        

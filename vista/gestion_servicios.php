@@ -216,6 +216,14 @@ if ($rol >= 1 && $rol <= 3) { ?>
 				config_model::verificar_actualizacion_configuracion(); 
 			
 			?>
+			<script>
+			
+				const selectores = document.getElementById('body_modal');
+				selectores.addEventListener('change', ()=>{
+					console.log('canhaef');
+				});
+				
+			</script>
 		</body>
 	</html>
 <?php }else{

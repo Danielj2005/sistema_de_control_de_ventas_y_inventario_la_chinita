@@ -144,7 +144,6 @@ if($modulo == 'Modificar'){
     $id_productos = $_POST['producto']; // se recibe un array de las id de productos del servicio
     $cantidad_productos = $_POST['cantidad_producto']; // se recibe un array de la cantidad productos del servicio
     
-
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$id_servicio, $nombre_platillo, $descripcion, $estado_menu, $id_productos, $cantidad_productos]);
 
@@ -156,13 +155,43 @@ if($modulo == 'Modificar'){
     }
 
     $existe_platillo = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio"));
+
     $nombre_original = $existe_platillo['nombre_platillo'];
     $precio_dolar_original = $existe_platillo['precio_dolar'];
     $descripcion_original = $existe_platillo['descripcion'];
     $estatus_original = $existe_platillo['estatus'];
     
-    // se registran los datos verificados
-    if (modeloPrincipal::UpdateSQL( "menu","nombre_platillo = '$nombre_platillo', precio_dolar = '$precio_dolar', descripcion = '$descripcion',estatus = '$estado_menu'","id_menu = $id_servicio")) {
+    // se registran los datos del producto
+    try {
+        $actualizar = modeloPrincipal::UpdateSQL("menu","nombre_platillo = '$nombre_platillo', precio_dolar = '$precio_dolar', descripcion = '$descripcion',estatus = '$estado_menu'","id_menu = $id_servicio");
+
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar un producto.","error");
+        }
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar el producto debido a un error de consulta.", "error");
+        exit();
+    }
+
+    if (count($id_productos) == 1) {
+
+        try {
+
+            $actualizar = modeloPrincipal::UpdateSQL("detalles_menu","id_producto = ".modeloPrincipal::decryptionId($id_productos[0]).", cantidad = ".$cantidad_productos[0]."","id_menu = $id_servicio");
+
+            if (!$actualizar) {
+                alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el/los producto(s) de un servicio.","error");
+            }
+
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el/los producto(s) de un servicio debido a un error de consulta.", "error");
+            exit();
+        }
+    }
+
+    // se realiza la bitácora con los datos del producto a registrar
+    try {
         
         $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
         $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
@@ -177,13 +206,15 @@ if($modulo == 'Modificar'){
             
             <b>****** Información del servicio actualizada:   ******</b><br> 
             Nombre del platillo: <b> $nombre_platillo </b><br> 
-            Precio en dolares:  <b> $precio_dolar$ </b><br> 
+            Precio en dolares:  <b> $precio_dolar $ </b><br> 
             Descripción:  <b> $descripcion </b><br> 
             Estado:  <b> $estado_menu </b><br> 
             ");
+
         alert_model::alert_mod_success();
         exit();
-    }else{ // mensaje de error "no se pudo registrar"
+
+    } catch (Exception $e) { // mensaje de error "no se pudo registrar"
         alert_model::alert_mod_error();
         exit();
     }
