@@ -169,6 +169,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
 						type:  'post',
 						success:function(valores){
 							$(`#tableModifyService`).append(valores);
+							btn_selectores_in_modal();
 						},
 						error: function(){
 							Swal.fire("ocurrio un error!","la solicitud no pudo ser procesada","error");
@@ -217,12 +218,12 @@ if ($rol >= 1 && $rol <= 3) { ?>
 			
 			?>
 			<script>
-			
-				const selectores = document.getElementById('body_modal');
-				selectores.addEventListener('change', ()=>{
-					console.log('canhaef');
-				});
-				
+				const btn_selectores_in_modal = () => {
+					const selectores = document.querySelectorAll('.select2');
+					selectores.forEach(element => {
+						$('.select2').select2();
+					});
+				} ;
 			</script>
 		</body>
 	</html>

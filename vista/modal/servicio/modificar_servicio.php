@@ -31,16 +31,6 @@ $detalles_menu = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_prod
     INNER JOIN menu AS S ON S.id_menu = DM.id_menu
     WHERE DM.id_menu = $id_menu");
 
-$productos = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto AS producto,
-    PS.nombre AS presentacion, 
-    C.nombre AS categoria,
-    M.nombre AS marca
-    FROM producto AS P 
-    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
-    INNER JOIN marca AS M ON M.id = P.id_marca
-    ORDER BY P.nombre_producto ASC");
-
 $id_select = modeloPrincipal::encryptionId($id_menu);
 ?>
 <form id="SendForm" action="../controlador/servicio_controlador.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
@@ -101,17 +91,27 @@ $id_select = modeloPrincipal::encryptionId($id_menu);
                         echo '<tr><td colspan="4" class="text-center">No se encontraron los detalles de este servicio</td></tr>';
                     }
                     // se guardan los datos en un array y se imprime
-                    while ( $mostrar = mysqli_fetch_array($detalles_menu)) { ;?>    
+                    while ($mostrar = mysqli_fetch_array($detalles_menu)) { ;
+                                            
+                        $productos = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto AS producto,
+                            PS.nombre AS presentacion, 
+                            C.nombre AS categoria,
+                            M.nombre AS marca
+                            FROM producto AS P 
+                            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+                            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
+                            INNER JOIN marca AS M ON M.id = P.id_marca
+                            ORDER BY P.nombre_producto ASC");
+
+                    ?>    
                         <tr>
-                            <td class="col-6 text-center">
-                                <div class="col-12 mb-3">
-                                    <select name="producto[]" class="form-select select2" id="select_productos_<?= modeloPrincipal::encryptionId($id_menu) ?>" required>
-                                        <?php 
-                                            while ($row = mysqli_fetch_array($productos)) { ?>
-                                                <option <?= $mostrar['id_producto'] == $row['id_producto'] ? 'selected' : ''; ?> value="<?= modeloPrincipal::encryptionId($row['id_producto']) ?>"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
+                            <td class="col-6 text-start">
+                                <select name="producto[]" class="form-select select2" id="select_productos_<?= modeloPrincipal::encryptionId($id_menu) ?>" required>
+                                    <?php 
+                                        while ($row = mysqli_fetch_array($productos)) { ?>
+                                            <option <?= $mostrar['id_producto'] == $row['id_producto'] ? 'selected' : ''; ?> value="<?= modeloPrincipal::encryptionId($row['id_producto']) ?>"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?></option>
+                                    <?php } ?>
+                                </select>
                             </td>
                             <td class="col-3 text-center">
                                 <input value="<?= $mostrar['cantidad']; ?>" type="number" min="0" class="form-control" name="cantidad_producto[]" placeholder="Escribe la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>

@@ -174,22 +174,15 @@ if($modulo == 'Modificar'){
         exit();
     }
 
-    if (count($id_productos) == 1) {
+    // registro / actualizacion del producto de un servicio 
+    try {
+        servicio_model::registrar_y_actualizar_detalles_servicio($id_productos, $cantidad_productos, $id_servicio);
 
-        try {
-
-            $actualizar = modeloPrincipal::UpdateSQL("detalles_menu","id_producto = ".modeloPrincipal::decryptionId($id_productos[0]).", cantidad = ".$cantidad_productos[0]."","id_menu = $id_servicio");
-
-            if (!$actualizar) {
-                alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el/los producto(s) de un servicio.","error");
-            }
-
-        } catch (Exception $e) {
-            alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el/los producto(s) de un servicio debido a un error de consulta.", "error");
-            exit();
-        }
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el/los producto(s) de un servicio debido a un error de modificación.", "error");
+        exit();
     }
-
+    
     // se realiza la bitácora con los datos del producto a registrar
     try {
         

@@ -16,15 +16,15 @@ $productos = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto
 $numrand = mysqli_fetch_array($productos)['id_producto'];
 ?>
 <tr id="tr_producto_<?= modeloPrincipal::encryptionId($numrand ) ?>">
-    <td class="text-center">
+    <td class="text-start">
         <div class="col-12 mb-3">
-            <input type="text" class="form-control mb-3" list="datalist_nombre_productos<?= $numrand ?>" name="nombre_producto[]" id="input_nombre_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']); ?>" placeholder="Escribe el nombre del producto" autocomplete="off">
-            <datalist id="datalist_nombre_productos<?= $numrand ?>">
+            <select name="producto[]" class="form-select select2" id="select_productos_<?= modeloPrincipal::encryptionId($id_menu) ?>" required>                  
+                <option>Selecciona una opción</option>
                 <?php 
                     while ($row = mysqli_fetch_array($productos)) { ?>
-                        <option value="<?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?>"></option>
+                        <option value="<?= modeloPrincipal::encryptionId($row['id_producto']); ?>"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion']; ?></option>
                 <?php } ?>
-            </datalist>
+            </select>
         </div>
     </td>
     <td class="text-center">

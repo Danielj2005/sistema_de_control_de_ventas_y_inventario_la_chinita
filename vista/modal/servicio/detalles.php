@@ -6,13 +6,18 @@ $id = modeloPrincipal::decryptionId($_POST['id']);
 $id_servicio = modeloPrincipal::limpiar_cadena($id);
 
 $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
-    PS.nombre AS presentacion, C.nombre AS categoria, DM.cantidad
+    PS.nombre AS presentacion, 
+    C.nombre AS categoria, 
+    DM.cantidad,
+    MA.nombre AS marca
     FROM detalles_menu AS DM
     INNER JOIN producto AS P ON P.id_producto = DM.id_producto
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
+    INNER JOIN marca AS MA ON MA.id = P.id_marca
     INNER JOIN menu AS M ON M.id_menu = DM.id_menu 
     WHERE DM.id_menu = $id");
+
 $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM menu WHERE id_menu = $id"));
 ?>
 
@@ -38,7 +43,6 @@ $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM me
         <thead>
             <tr>
                 <th class="col text-center" scope="col">Producto</th>
-                <th class="col text-center" scope="col">Presentación</th>
                 <th class="col text-center" scope="col">Categoría</th>
                 <th class="col text-center" scope="col">Cantidad</th>
             </tr>
@@ -51,8 +55,7 @@ $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM me
             // se guardan los datos en un array y se imprime
             while ( $mostrar = mysqli_fetch_array($detalles_menu)) { ;?>    
                 <tr>
-                    <td class="text-center"><?= $mostrar['producto']; ?></td>
-                    <td class="text-center"><?= $mostrar['presentacion']; ?></td>
+                    <td class="text-center"><?= $mostrar['producto'].' '.$mostrar['marca'].' '.$mostrar['presentacion']; ?></td>
                     <td class="text-center"><?= $mostrar['categoria']; ?></td>
                     <td class="text-center"><?= $mostrar['cantidad']; ?></td>
                 </tr>
