@@ -102,10 +102,10 @@ class servicio_model extends modeloPrincipal {
 
     // funcion para actualizar solo un producto dentro de un servicio
     
-    public static function actualizar_detalles_servicio($id_productos, $cantidad_productos, $id_servicio){
+    public static function actualizar_detalles_servicio($id_productos, $cantidad_productos, $id_detalles_menu){
         try {
 
-            $actualizar = modeloPrincipal::UpdateSQL("detalles_menu","id_producto = ".modeloPrincipal::decryptionId($id_productos).", cantidad = ".$cantidad_productos."","id_menu = $id_servicio");
+            $actualizar = modeloPrincipal::UpdateSQL("detalles_menu","id_producto = $id_productos, cantidad = $cantidad_productos","id_detalles_menu = $id_detalles_menu");
 
             if (!$actualizar) {
                 alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el/los producto(s) de un servicio.","error");
@@ -119,25 +119,19 @@ class servicio_model extends modeloPrincipal {
 
     // funcion para registrar varios productos dentro de un servicio
     
-    public static function registrar_y_actualizar_detalles_servicio($id_productos, $cantidad_productos, $id_servicio){
-    
-        for ($i = 0; $i < count($id_productos); $i++) {
+    public static function registrar_detalles_servicio($id_productos, $cantidad_productos, $id_servicio){
+        try {
 
-            
-            if (count($id_productos) == 1 || count($id_productos) > 1 && $i == 0) {
-                if (self::no_existe_detalles_servicio(modeloPrincipal::decryptionId($id_productos[$i]), $id_servicio)) {
+            $registrar = modeloPrincipal::InsertSQL("detalles_menu","id_producto, cantidad, id_menu","".modeloPrincipal::decryptionId($id_productos).", $cantidad_productos, $id_servicio");
 
-                    self::actualizar_detalles_servicio($id_productos[$i], $cantidad_productos[$i], $id_servicio);
-                }
+            if (!$registrar) {
+                alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el/los producto(s) de un servicio.","error");
             }
-            if (count($id_productos) > 1 && $i > 0) {
-                if (self::no_existe_detalles_servicio(modeloPrincipal::decryptionId($id_productos[$i]), $id_servicio)) {
 
-                    modeloPrincipal::InsertSQL("detalles_menu", "id_producto, cantidad, id_menu" ,"".modeloPrincipal::decryptionId($id_productos[$i]).", ".$cantidad_productos[$i].", $id_servicio");
-                }
-            }
-        }   
-
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar los productos de un servicio debido a un error con la base de datos.", "error");
+            exit();
+        }
     }
 
     // funcion para si ya existe un producto dentro de un servicio
@@ -146,7 +140,8 @@ class servicio_model extends modeloPrincipal {
         $consulta = modeloPrincipal::consultar("SELECT id_producto FROM detalles_menu WHERE id_producto = $id_producto AND id_menu = $id_servicio");
         if(mysqli_num_rows($consulta) > 0){
             return false;
+        }else{
+            return true;
         }
-        return true;
     }
 }

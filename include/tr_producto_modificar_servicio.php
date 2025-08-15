@@ -1,6 +1,12 @@
 <?php 
 session_start();
 
+
+$classifcated = `<td class="text-center col" scope="col">
+        <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId(numrand ) ?>')"></button>
+    </td>`;
+
+
 require_once "../modelo/modeloPrincipal.php";
 require_once "../modelo/alert_model.php";
 
@@ -29,8 +35,5 @@ $numrand = mysqli_fetch_array($productos)['id_producto'];
     </td>
     <td class="text-center">
         <input type="number" class="form-control" name="cantidad_producto[]" id="input_cantidad_<?= modeloPrincipal::encryptionId($numrand); ?>" placeholder="Cantidad" required>
-    </td>
-    <td class="text-center col" scope="col">
-        <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId($numrand ) ?>')"></button>
     </td>
 </tr>

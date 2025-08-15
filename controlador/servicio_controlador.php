@@ -174,13 +174,44 @@ if($modulo == 'Modificar'){
         exit();
     }
 
-    // registro / actualizacion del producto de un servicio 
-    try {
-        servicio_model::registrar_y_actualizar_detalles_servicio($id_productos, $cantidad_productos, $id_servicio);
+    // registro / actualizacion de los productos de un servicio 
+    if (count($id_productos) > 0) {
+        try {
 
-    } catch (Exception $e) {
-        alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar el/los producto(s) de un servicio debido a un error de modificación.", "error");
-        exit();
+            $existe_detalles_servicio = modeloPrincipal::consultar("SELECT id_detalles_menu, id_producto, cantidad
+                FROM detalles_menu 
+                WHERE id_menu = $id_servicio");
+
+            // se compara si la cantidad de productos a registrar es igual a la cantidad actual de productos en el servicio
+            if (mysqli_num_rows($existe_detalles_servicio) > 0) {
+                
+                $i = 0;
+                
+                // recorremos el array con las id de los productos del servicio a modificar
+                while ($mostrar = mysqli_fetch_array($existe_detalles_servicio)) {
+
+                    // si solo se recibe un producto, se actualiza el producto del servicio
+                    $id_producto = modeloPrincipal::decryptionId($id_productos[$i]);
+                    
+                    $cantidad_producto = $cantidad_productos[$i];
+
+                    $i++;
+
+                    $detalle_id = $mostrar['id_detalles_menu'];
+                    $detalle_id_producto = $mostrar['id_producto'];
+                    $detalle_cantidad_producto = $mostrar['cantidad'];                        
+                    
+                    $actualizar = modeloPrincipal::UpdateSQL("detalles_menu","id_producto = $id_producto, cantidad = $cantidad_producto","id_detalles_menu = $detalle_id");
+
+                    if (!$actualizar) {
+                        alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el/los producto(s) de un servicio.","error");
+                    }
+                } 
+            }
+        } catch (Exception $e) {
+            alert_model::alerta_simple("Ocurrido un error!", "No se pudo modificar los productos de un servicio debido a un error en la solicitud a la base de datos.", "error");
+            exit();
+        }
     }
     
     // se realiza la bitácora con los datos del producto a registrar
@@ -196,15 +227,22 @@ if($modulo == 'Modificar'){
             Precio en dolares: <b> $precio_dolar_original$ </b><br> 
             Descripción: <b> $descripcion_original. </b><br> 
             Estado: <b> $estatus_original </b><br><br> 
-            
-            <b>****** Información del servicio actualizada:   ******</b><br> 
+
+            <b>*****************************************************</b><br> <br> 
+            <b>********** Productos del servicio original: *********</b><br> 
+
+            <b>*****************************************************</b><br> <br> 
+            <b>****** Información del servicio actualizado:   ******</b><br> 
             Nombre del platillo: <b> $nombre_platillo </b><br> 
             Precio en dolares:  <b> $precio_dolar $ </b><br> 
             Descripción:  <b> $descripcion </b><br> 
-            Estado:  <b> $estado_menu </b><br> 
+            Estado:  <b> $estado_menu </b><br> <br> 
+
+            <b>*****************************************************</b><br> <br> 
+            <b>********** Productos del servicio actualizado: *********</b><br> 
             ");
 
-        alert_model::alert_mod_success();
+        alert_model::alert_reset_forms('¡Modificacion exitosa!','Los datos se modificaron correctamente','success',"document.querySelector('.btn-danger').click();");
         exit();
 
     } catch (Exception $e) { // mensaje de error "no se pudo registrar"

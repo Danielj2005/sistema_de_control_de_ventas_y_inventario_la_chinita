@@ -16,7 +16,7 @@ $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS product
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
     INNER JOIN marca AS MA ON MA.id = P.id_marca
     INNER JOIN menu AS M ON M.id_menu = DM.id_menu 
-    WHERE DM.id_menu = $id");
+    WHERE DM.id_menu = $id ORDER BY P.nombre_producto");
 
 $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM menu WHERE id_menu = $id"));
 ?>

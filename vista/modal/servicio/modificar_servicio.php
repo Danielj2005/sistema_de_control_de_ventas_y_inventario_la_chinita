@@ -73,7 +73,7 @@ $id_select = modeloPrincipal::encryptionId($id_menu);
         <div class="table-responsive">
             <h5 class="card-title">Productos del servicio</h5>
 
-            <div class="col-12 mb-3 text-center">
+            <div class="col-12 mb-3 text-center d-none">
                 <button type="button" onclick="addProductOnService()" class="btn btn-primary bi bi-plus">&nbsp;Agregar otro Producto</button>
             </div>
 
@@ -82,7 +82,7 @@ $id_select = modeloPrincipal::encryptionId($id_menu);
                     <tr>
                         <th class="col-6 text-center" scope="col">Producto</th>
                         <th class="col-3 text-center" scope="col">Cantidad</th>
-                        <th class="col-3 text-center" scope="col">Eliminar</th>
+                        <!-- <th class="col-3 text-center" scope="col">Eliminar</th> -->
                     </tr>
                 </thead>
                 <tbody id="tableModifyService">
@@ -116,9 +116,9 @@ $id_select = modeloPrincipal::encryptionId($id_menu);
                             <td class="col-3 text-center">
                                 <input value="<?= $mostrar['cantidad']; ?>" type="number" min="0" class="form-control" name="cantidad_producto[]" placeholder="Escribe la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                             </td>
-                            <td class="col-3 text-center col" scope="col">
+                            <!-- <td class="col-3 text-center col" scope="col">
                                 <button disabled type="button" class="btn btn-danger bi bi-trash"></button>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php } ?>
                 </tbody>

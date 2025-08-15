@@ -79,7 +79,7 @@ class producto_model extends modeloPrincipal {
     public static function registrar ($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas) {
         for ($i = 0; $i < count($nombre_producto); $i++) {
             
-            $nombre = $nombre_producto[$i];
+            $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre_producto[$i])));
             $id_categoria = $id_categorias[$i];
             $id_presentacion = $id_presentaciones[$i];
             $id_marca = $id_marcas[$i];
