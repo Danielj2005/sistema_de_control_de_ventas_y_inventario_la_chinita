@@ -94,14 +94,14 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Desde</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
+                        <input class="form-control" onchange="dateValidate()" type="date" id="fecha_inicio" name="fecha_inicio">
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-4 mb-3">
                       <div class="input-group mb-3 justify-content-center">
                         <span class="input-group-text">Hasta</span>
-                        <input class="form-control" onblur="dateValidate()" type="date" id="fecha_fin" name="fecha_fin">
+                        <input class="form-control" onchange="dateValidate()" value="<?= date('Y-m-d') ?>" type="date" id="fecha_fin" name="fecha_fin">
                       </div>
                     </div>
 
@@ -112,7 +112,6 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <div class="col-12 col-sm-12 col-md-12 mb-3">
                       <!-- mensajes -->
                       <p class="alert alert-danger d-none" id="mensaje_fecha_iguales" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
-                      <p class="alert alert-danger d-none" id="mensaje_fechas_mayores" style="width: fit-content;">El rango de fechas no puede ser mayor a la fecha actual, verifique y intente nuevamente.</p>
                       <p class="alert alert-secondary <?= ($fecha_inicio == "" && $fecha_fin == "") ? 'd-none' : '' ?>" style="width: fit-content;">
                         Fecha inicial: <b> <?php echo date ("d-m-Y",strtotime($fecha_inicio)); ?> </b>   Fecha final: <b><?php echo date ("d-m-Y",strtotime($fecha_fin)); ?> </b> 
                       </p>
@@ -120,7 +119,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
                   </form>
 
                   <div class="p-3 table-responsive">
-                    <table class="table table-striped " id="example">
+                    <table class="table table-striped example" id="example">
                       <thead>
                         <tr>
                           <th class="col text-center" scope="col">#</th>
@@ -146,25 +145,11 @@ if ($rol >= 1 && $rol <= 3) { ?>
         </section>
       </main>
       
-      <!-- Modal detalles de venta -->
-      <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="body_modal"> </div>
-            <div class="modal-footer">
-                <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-              </div>
-          </div>
-        </div>
-      </div>
-
       <script src="./js/rango_fechas.js"></script>
       <?php 
+        include_once "./modal/plantillaModalCustom.php";  
+        modalCustom ();
+
         include_once "../include/footer.php"; 
         include_once "../include/scripts_include.php";
         model_user::validar_sesion_activa($id_usuario);

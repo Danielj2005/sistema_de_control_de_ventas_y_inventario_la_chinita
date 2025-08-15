@@ -231,7 +231,7 @@ class venta_model extends modeloPrincipal {
                 V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta 
                 FROM venta as V 
                 INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
-                ORDER BY V.id_venta DESC LIMIT 500");
+                ORDER BY V.id_venta DESC LIMIT 100");
             
         }else{
             $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
@@ -239,7 +239,7 @@ class venta_model extends modeloPrincipal {
                 FROM venta as V 
                 INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
                 WHERE V.fecha_venta BETWEEN '$fecha_inicio' AND '$fecha_fin' 
-                ORDER BY V.id_venta DESC LIMIT 500");
+                ORDER BY V.id_venta DESC LIMIT 100");
         }
 
         if(mysqli_num_rows($ventas_realizadas) > 0){
@@ -256,13 +256,12 @@ class venta_model extends modeloPrincipal {
                     <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                     <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
                         <td class="text-center col">
-                            <button class="btn_modal btn btn-info bi bi-eye" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                            <button class="btn_modal btn btn-info bi bi-eye" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#modal"></button>
                         </td> 
                     <?php endif; ?>
                 </tr>
             <?php } 
-        } 
-            
+        }
     }
     public static function lista_ventas_diarias(){
 

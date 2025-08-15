@@ -34,6 +34,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
       <div class="pagetitle"> <h1> Inicio </h1> </div> 
       <section class="section dashboard">
         <div class="row">
+
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <div class="card">
               <div class="card-body">

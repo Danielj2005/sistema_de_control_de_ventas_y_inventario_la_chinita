@@ -29,11 +29,12 @@ function dateValidate(){
 
 // Esta funcionalidad se encarga de mostrar un boton [const btnReportesFechas = document.getElementById('btnReportesFechas');]
 // para generar un reporte por fechas de las entradas registradas en el sistema
-const btnReportesFechas = document.getElementById('btnReportesFechas');
 const reportDates = document.querySelectorAll('.reportDates');
 
 reportDates.forEach(input => {
     input.addEventListener('change', () => {
+        const btnReportesFechas = document.getElementById('btnReportesFechas');
+
         const msjDate = document.querySelector('.showThis');
         const dateToday = document.getElementById('fecha_actual').value;
         const fechaReporteInicio = document.getElementById('fechaReporteInicio').value;
@@ -48,15 +49,20 @@ reportDates.forEach(input => {
                 msjDate.classList.contains('d-none') ? '' : msjDate.classList.add('d-none');
                 btnReportesFechas.classList.contains('d-none') ? btnReportesFechas.classList.remove('d-none') : btnReportesFechas.classList.add('d-none');
             }
+            limpiar_boton_reportes_por_fecha();
         }
     });
 });
 
 // Esta funcionalidad se encarga de resetear el input de las fechas seleccionadas para el reporte de entradas
 // y también se encarga de ocultar nuevamente el boton de generar reporte.
-btnReportesFechas.addEventListener('click', ()=>{
-    setTimeout(() => {
-        document.getElementById('fechaReporteInicio').value = '';
-        btnReportesFechas.classList.add('d-none');
-    }, 2000);
-})
+const limpiar_boton_reportes_por_fecha = () => {
+    const btnReportesFechas = document.getElementById('btnReportesFechas');
+
+    btnReportesFechas.addEventListener('click', ()=>{
+        setTimeout(() => {
+            document.getElementById('fechaReporteInicio').value = '';
+            btnReportesFechas.classList.add('d-none');
+        }, 2000);
+    })
+};

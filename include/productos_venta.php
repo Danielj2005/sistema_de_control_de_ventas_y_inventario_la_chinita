@@ -3,8 +3,8 @@
 require_once "../modelo/modeloPrincipal.php";
 require_once "../modelo/productos_model.php";
 
-$id_producto = modeloPrincipal::limpiar_cadena($_POST['id']);
-$id_producto = modeloPrincipal::decryption($id_producto);
+$id_producto = modeloPrincipal::decryptionId($_POST['id']);
+$id_producto = modeloPrincipal::limpiar_cadena($id_producto);
 
 $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
     PS.nombre AS presentacion, 
