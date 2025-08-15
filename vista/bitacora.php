@@ -35,7 +35,7 @@ if ($rol == 1) {  ?>
         include_once("../include/sliderbar.php"); 
 
         $consulta = modeloPrincipal::consultar("SELECT B.*, U.nombre, U.apellido FROM bitacora AS B
-          INNER JOIN usuario AS U ON B.id_usuario = U.id_usuario ORDER BY id DESC");
+          INNER JOIN usuario AS U ON B.id_usuario = U.id_usuario ORDER BY id DESC LIMIT 100");
         ?>
       <main id="main" class="main">
         <div class="pagetitle">
