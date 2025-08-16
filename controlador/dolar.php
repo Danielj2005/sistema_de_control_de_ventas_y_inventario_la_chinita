@@ -59,7 +59,7 @@ try {
     Fecha actual: <b>".date("d-m-Y / h:i:a", strtotime($datos_actual['fecha_precio']))." </b><br>
     ");
 
-    alert_model::alert_reload("¡Actualización de la Tasa Exitosa!","La tasa se actualizó y se registró exitosamente","success");
+    alert_model::alerta_simple("¡Actualización de la Tasa Exitosa!","La tasa se actualizó y se registró exitosamente","success");
     exit();
 } catch (Exception $e) {
     alert_model::alert_mod_error();

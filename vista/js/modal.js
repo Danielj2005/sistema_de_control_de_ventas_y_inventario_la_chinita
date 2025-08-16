@@ -114,7 +114,7 @@ setTimeout(() => {
 
                     // se evalúa si el modal incluye 'modificar' para asignar el atributo 'form' al boton 'guardar' en el modal y asociarlo a su respectivo formulario
                     modal.includes('modificar') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
-                    modal.includes('modificar') ? btn_selectores_in_modal() : '';
+                    modal.includes('modificar_servicio') ? btn_selectores_in_modal() : '';
                     modal.includes('registrar_producto') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
                     
                     // se evalúa si el modal incluye 'modificar_rol' para ejecutar la funcion 'evaluar_casillas()' para la seleccion de roles en el modal

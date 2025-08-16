@@ -3,7 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -22,13 +22,13 @@ if ($rol >= 1 && $rol <= 3) {  ?>
     <head>
       <title>Clientes</title>
       <?php
-        include_once("../include/meta_include.php"); 
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/meta_include.php"; 
+        include_once "../include/css_include.php"; ?>
     </head>
     <body>
       <?php 
-        include_once("../include/header.php"); 
-        include_once("../include/sliderbar.php"); ?>
+        include_once "../include/header.php"; 
+        include_once "../include/sliderbar.php"; ?>
       <main id="main" class="main">
         <div class="pagetitle">
           <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
@@ -49,11 +49,12 @@ if ($rol >= 1 && $rol <= 3) {  ?>
                       <thead>
                         <tr>
                           <th class="col" scope="col">#</th>
-                          <th class="text-center col" scope="col">CÉDULA</th>
-                          <th class="text-center col" scope="col">NOMBRE</th>
-                          <th class="text-center col" scope="col">TELÉFONO</th>
-                          <th class="text-center col" scope="col">MODIFICAR</th>
-                          <th class="text-center col" scope="col">VER HISTORAL</th>
+                          <th class="text-center col" scope="col">Cédula</th>
+                          <th class="text-center col" scope="col">Nombre y Apellido</th>
+                          <th class="text-center col" scope="col">Teléfono</th>
+                          
+                          <th class="text-center col <?= rol_model::verificar_rol('m_cliente') == '1' ? '' : 'd-none eraser'; ?>" scope="col">Modificar</th>
+                          <th class="text-center col <?= rol_model::verificar_rol('h_cliente') == '1' ? '' : 'd-none eraser'; ?>" scope="col">Ver Historial</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -68,25 +69,12 @@ if ($rol >= 1 && $rol <= 3) {  ?>
         </section>
       </main>
       
-			<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-scrollable modal-lg">
-					<div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body row" id="body_modal">  </div>
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-          </div>
-				</div>
-			</div>
-
       <?php 
-        include_once("../include/footer.php"); 
-        include_once("../include/scripts_include.php"); 
+        include_once "./modal/plantillaModalCustom.php";  
+        modalCustom ();
+
+        include_once "../include/footer.php"; 
+        include_once "../include/scripts_include.php"; 
       
         model_user::validar_sesion_activa($id_usuario);
         config_model::verificar_actualizacion_configuracion(); 

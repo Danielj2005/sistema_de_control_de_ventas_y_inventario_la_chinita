@@ -3,7 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -12,7 +12,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::verificar_rol('e_venta');
+$rol = rol_model::verificar_rol('est_venta');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
   <!DOCTYPE html>
@@ -21,17 +21,17 @@ if ($rol == 1) {  ?>
       <!-- titulo -->
       <title>ESTADISTICAS</title>
       <?php
-        include_once("../include/meta_include.php"); 
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/meta_include.php"; 
+        include_once "../include/css_include.php"; ?>
     </head>
     <body>
       <!-- ======= Header ======= -->
       <?php  
-        include_once("../include/header.php");
-        include_once("../include/sliderbar.php"); ?>
+        include_once "../include/header.php";
+        include_once "../include/sliderbar.php"; ?>
 
       <main id="main" class="main">
-        <div class="pagetitle"><h1> ESTADISTICAS DE PRODUCTOS VENDIDOS </h1></div>
+        <div class="pagetitle"><h1> ESTADÍSTICAS DE PRODUCTOS VENDIDOS </h1></div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
@@ -40,7 +40,7 @@ if ($rol == 1) {  ?>
                 <h5 class="card-title">Graficas de productos vendidos unitariamente</h5>
                   <!-- Default Tabs -->
 
-                  <?php include("../include/listas_estadisticas_include.php"); consultar_registros('estadistica_producto'); ?>  
+                  <?php include "../include/listas_estadisticas_include.php"; consultar_registros('estadistica_producto'); ?>
 
 
                   <div class="tab-content pt-2" id="myTabContent">
@@ -51,11 +51,17 @@ if ($rol == 1) {  ?>
                         a = 1;
                         var cantidad = [];
                         var array =[];
-                        while (c = document.getElementById('producto'+a).value) {
-                          k = document.getElementById('cantidad'+a).value;
-                          array.push(c);
-                          cantidad.push(k);
-                          a += 1;
+
+                        while (input_producto = document.getElementById('producto'+a).value) {
+
+                          cantidad_producto = document.getElementById('cantidad'+a).value;
+
+                          array.push(input_producto);
+
+                          cantidad.push(cantidad_producto);
+
+                          a ++;
+                          
                           document.addEventListener("DOMContentLoaded", () => {
                             echarts.init(document.querySelector("#barChart")).setOption({
                               xAxis: {
@@ -83,6 +89,9 @@ if ($rol == 1) {  ?>
       </main>
 
       <?php 
+        include_once "./modal/plantillaModalCustom.php";  
+        modalCustom ();
+
         include_once("../include/footer.php");
         include_once("../include/scripts_include.php");
       

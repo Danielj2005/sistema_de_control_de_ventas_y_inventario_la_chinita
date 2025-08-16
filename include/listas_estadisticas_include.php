@@ -1,7 +1,7 @@
 <?php 
 // importacion de la conexion a la base de datos y al modelo principal
-include_once ("../config/ConfigServer.php");
-include_once("../modelo/modeloPrincipal.php");
+
+include_once "../modelo/modeloPrincipal.php";
 /*------- función para mostrar los registros de una tabla -------*/
 function consultar_registros($tabla){
         
@@ -10,26 +10,39 @@ function consultar_registros($tabla){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
 
-        $consulta = modeloPrincipal::consultar("SELECT producto.nombre_producto, SUM(detalles_venta.cantidad) 
-            FROM detalles_venta, producto
-            WHERE detalles_venta.id_producto = producto.id_producto
-            GROUP BY detalles_venta.id_producto");
+        $consulta = modeloPrincipal::consultar("SELECT P.nombre_producto, SUM(DV.cantidad) AS cantidad_vendida,
+            PS.nombre AS presentacion,
+            M.nombre AS marca
+            FROM detalles_venta AS DV
+            INNER JOIN producto AS P ON DV.id_producto = P.id_producto
+            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
+            INNER JOIN marca AS M ON M.id = P.id_marca
+            GROUP BY DV.id_producto");
         $a=1;
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
             <tr>
-                <td class="text-center"><input type="hidden" value="<?php echo $mostrar['nombre_producto']; ?>" id="<?php echo 'producto',$a; ?>"></td>
-                <td class="text-center"><input type="hidden" value="<?php echo $mostrar['SUM(detalles_venta.cantidad)']; ?>" id="<?php echo 'cantidad',$a; ?>"></td>
+                <td class="text-center">
+                    <input type="hidden" value="<?php echo $mostrar['nombre_producto']." ".$mostrar['marca'].' '.$mostrar['presentacion']; ?>" id="<?php echo 'producto',$a; ?>">
+                </td>
+                <td class="text-center">
+                    <input type="hidden" value="<?php echo $mostrar['cantidad_vendida']; ?>" id="<?php echo 'cantidad',$a; ?>">
+                </td>
             </tr>
             
-        <?php $a+=1;  }
+        <?php $a++;  }
     }
     if($tabla === 'estadistica_servicios'){
         // script para crear una lista de productos disponibles
         // consulta de los productos registrados
 
-        $consulta = modeloPrincipal::consultar("SELECT menu.nombre_platillo, SUM(detalles_venta.cantidad_servicio) FROM detalles_venta, menu WHERE detalles_venta.id_servicio = menu.id_menu GROUP BY detalles_venta.id_servicio");
-                $a=1;
+        $consulta = modeloPrincipal::consultar("SELECT M.nombre_platillo, SUM(DV.cantidad_servicio) 
+            FROM detalles_venta AS DV
+            INNER JOIN menu AS M ON M.id_menu = DV.id_servicio
+            GROUP BY DV.id_servicio");
+
+        $a=1;
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { ?>
 
             <tr>
@@ -37,7 +50,7 @@ function consultar_registros($tabla){
                 <td class="text-center"><input type="hidden" value="<?php echo $mostrar['SUM(detalles_venta.cantidad_servicio)']; ?>" id="<?php echo 'cantidad',$a; ?>"></td>
             </tr>
             
-        <?php $a+=1;  }
+        <?php $a++;  }
     }
 }; 
 

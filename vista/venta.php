@@ -130,6 +130,8 @@ if ($rol >= 1 && $rol <= 3) { ?>
                           <th class="col text-center" scope="col">Monto total en bs</th>
                           <th class="col text-center" scope="col">Fecha y Hora</th>
                           <th class="col text-center" scope="col">Detalles</th>
+                          <th class="col text-center" scope="col">Ver Factura</th>
+
                         </tr>
                       </thead>
                       <tbody id="tbody">

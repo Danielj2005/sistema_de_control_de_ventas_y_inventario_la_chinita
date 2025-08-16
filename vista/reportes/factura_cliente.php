@@ -6,6 +6,14 @@ date_default_timezone_set('America/caracas');
 # Incluyendo librerias necesarias #
 require "./code128.php";
 
+
+
+function convert_codification ($cadena):string {
+    return mb_convert_encoding("$cadena", 'ISO-8859-1', 'UTF-8');
+}
+
+
+
 $pdf = new PDF_Code128('P','mm',array(80,258));
 $pdf->SetMargins(4,10,4);
 $pdf->AddPage();
@@ -22,7 +30,7 @@ $pdf->Ln(1);
 $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
 $pdf->Ln(5);
 
-if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POST['id_venta'])){
+if (!isset($_POST['UIDC']) || !isset($_POST['UIDV']) || !isset($_POST['UIDU'])){
     
     $pdf->Ln(1);
     $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
@@ -117,12 +125,12 @@ if (!isset($_POST['id_cliente']) || !isset($_POST['id_usuario']) || !isset($_POS
     $pdf->Output("I","Ticket_Nro_".venta_model::generar_numero($id_venta).".pdf",true);
 }
 
-$id_usuario = $_POST['id_usuario'];
+$id_usuario = modeloPrincipal::decryptionId($_POST['UIDU']);
 // se consultan los datos del usuario
 $datos_usuario = mysqli_fetch_array(modeloPrincipal::consultar("SELECT cedula, nombre, apellido, telefono
     FROM usuario WHERE id_usuario = $id_usuario"));
 
-$id_venta = $_POST['id_venta'];
+$id_venta = modeloPrincipal::decryptionId($_POST['UIDV']);
 
 $fecha_venta = mysqli_fetch_array(modeloPrincipal::consultar("SELECT fecha_venta FROM venta WHERE id_venta = $id_venta"));
 
@@ -136,7 +144,7 @@ $pdf->Ln(1);
 $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","------------------------------------------------------"),0,0,'C');
 $pdf->Ln(5);
 
-$id_cliente = $_POST['id_cliente'];
+$id_cliente = modeloPrincipal::decryptionId($_POST['UIDC']);
 
 $datos_cliente = mysqli_fetch_array(modeloPrincipal::consultar("SELECT cedula, nombre, telefono
     FROM cliente WHERE id_cliente = $id_cliente"));

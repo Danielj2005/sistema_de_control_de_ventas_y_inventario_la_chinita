@@ -1,14 +1,15 @@
 <?php 
 session_start();
 
-include_once ("../../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
-include_once ("../../../modelo/cliente_model.php"); // se incluye el modelo principal
-include_once ("../../../modelo/rol_model.php"); // se incluye el modelo principal
-include_once ("../../../modelo/venta_model.php"); // se incluye el modelo principal
+include_once "../../../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+include_once "../../../modelo/cliente_model.php"; // se incluye el modelo principal
+include_once "../../../modelo/rol_model.php"; // se incluye el modelo principal
+include_once "../../../modelo/venta_model.php"; // se incluye el modelo principal
 
 $id_usuario = $_SESSION['id_usuario'];
 
-$id_cliente = modeloPrincipal::limpiar_cadena($_POST['id']);
+$id_cliente = modeloPrincipal::decryptionId($_POST['id']);
+$id_cliente = modeloPrincipal::limpiar_cadena($id_cliente);
 
         
 $historial_cliente = modeloPrincipal::consultar("SELECT V.id_venta, V.fecha_venta, V.monto_total_dolares, V.monto_total_bolivares,

@@ -228,14 +228,14 @@ class venta_model extends modeloPrincipal {
         
         if($fecha_inicio == "" && $fecha_fin == ""){
             $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
-                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta 
+                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta, V.id_usuario, C.id_cliente
                 FROM venta as V 
                 INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
                 ORDER BY V.id_venta DESC LIMIT 100");
             
         }else{
             $ventas_realizadas = modeloPrincipal::consultar("SELECT V.id_venta, C.cedula, C.nombre, 
-                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta 
+                V.monto_total_bolivares, V.monto_total_dolares, V.fecha_venta, V.id_usuario, C.id_cliente
                 FROM venta as V 
                 INNER JOIN cliente as C ON V.id_cliente = C.id_cliente 
                 WHERE V.fecha_venta BETWEEN '$fecha_inicio' AND '$fecha_fin' 
@@ -257,6 +257,19 @@ class venta_model extends modeloPrincipal {
                     <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
                         <td class="text-center col">
                             <button class="btn_modal btn btn-info bi bi-eye" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                        </td> 
+                    <?php endif; ?>
+                    <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
+                        <td class="text-center col">
+                            <form action="<?= (rol_model::verificar_rol('f_venta') == '1') ?  './reportes/factura_cliente.php' : '!#' ?>" method="post" target="_blank">
+                                
+                                <input type="hidden" name="UIDC" value="<?= modeloPrincipal::encryptionId($row["id_cliente"]); ?>">
+                                <input type="hidden" name="UIDV" value="<?= modeloPrincipal::encryptionId($row["id_venta"]); ?>">
+                                <input type="hidden" name="UIDU" value="<?= modeloPrincipal::encryptionId($row["id_usuario"]); ?>">
+                                
+                                <button class="btn btn-primary bi bi-file-text"></button>
+                        
+                            </form>
                         </td> 
                     <?php endif; ?>
                 </tr>

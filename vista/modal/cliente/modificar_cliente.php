@@ -7,11 +7,11 @@ include_once ("../../../modelo/rol_model.php"); // se incluye el modelo principa
 
 $id_usuario = $_SESSION['id_usuario'];
 
-$id_cliente = $_POST['id'];
+$id_cliente = modeloPrincipal::decryptionId($_POST['id']);
+$id_cliente = modeloPrincipal::limpiar_cadena($id_cliente);
 
 $consulta = modeloPrincipal::consultar("SELECT * FROM cliente where id_cliente ='$id_cliente'");
 $mostrar = mysqli_fetch_array($consulta);
-
 
 $cedula = $mostrar['cedula'];
 
@@ -28,7 +28,7 @@ $cedula = trim($cedula);
 
 ?>
 <form id="SendForm" action="../controlador/cliente_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
-	<input type="hidden" name="id" value="<?= $id_cliente; ?>">
+	<input type="hidden" name="UIC" value="<?= modeloPrincipal::encryptionId($id_cliente); ?>">
     <input type="hidden" name="modulo" value="modificar">
     
     <div class="row mb-3">

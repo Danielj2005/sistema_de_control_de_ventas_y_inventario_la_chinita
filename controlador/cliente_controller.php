@@ -12,7 +12,9 @@ if (!isset($_POST["modulo"])) {
 
 if($modulo === 'modificar'){
     
-    $id = modeloPrincipal::limpiar_cadena($_POST['id']);
+    $id = modeloPrincipal::decryptionId($_POST['UIC']);
+    $id = modeloPrincipal::limpiar_cadena($id);
+
     $cedula = modeloPrincipal::limpiar_mayusculas($_POST["nacionalidad"].$_POST['cedula']);
     $nombre = modeloPrincipal::limpiar_mayusculas($_POST['nombre']);
     $telefono = modeloPrincipal::limpiar_cadena($_POST['telefono']);
