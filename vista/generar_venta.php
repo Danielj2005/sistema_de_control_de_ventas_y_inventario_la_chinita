@@ -94,7 +94,7 @@ if ($rol == 1) {  ?>
                       <label class="form-label">Selecciona un Servicio</label>
 
                       <div class="col-12 col-sm-12 col-md-9 mb-4">
-                        <select class="form-select select Select" name="add_servicio" id="">
+                        <select class="form-select select select2" name="add_servicio" id="">
                           <option value="" selected>seleccione una opción</option>
                           <?php servicio_model::options(); ?>
                         </select>

@@ -2,19 +2,20 @@
 
 require_once "../modelo/modeloPrincipal.php";
 
-$id_servicio = $_POST['id'];
+$id_servicio = modeloPrincipal::decryptionId($_POST['id']);
 
-$consulta = modeloPrincipal::consultar("SELECT M.id_menu, M.nombre_platillo, M.descripcion, M.precio_dolar,
-    ROUND(MAX(D.dolar) * M.precio_dolar,2 ) AS precio_bs 
-    FROM `menu` AS M, dolar AS D
+$con = modeloPrincipal::consultar("SELECT M.*, 
+    (SELECT ROUND(MAX(dolar) * M.precio_dolar, 2 ) FROM dolar) AS precio_bs 
+    FROM menu AS M
     WHERE M.id_menu = $id_servicio");
+
 // se guardan los datos en un array y se imprime
 
-while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
+while ($mostrar = mysqli_fetch_array($con)) { ?>
     <tr id="tr_add_servicio_<?= $mostrar["id_menu"] ?>" >
         <td class="col text-center" scope="col">
-            <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"] ?></p>
-            <input type="hidden" name="id_menu[]" value="<?= $mostrar["id_menu"] ?>" required>
+            <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"].' '. $mostrar["id_menu"]; ?></p>
+            <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryption($mostrar["id_menu"]) ?>" required>
         </td> 
 
         <td class="col text-center" scope="col"><?= $mostrar["descripcion"] ?> </td>
