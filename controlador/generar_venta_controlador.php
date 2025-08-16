@@ -18,7 +18,7 @@ $id_cliente = modeloPrincipal::limpiar_cadena($_POST['id_cliente']);
 $cedula_cliente = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']); 
 
 // datos de los servicios
-$id_servicios = (isset($_POST['id_menu'])) ? $_POST['id_menu'] : '';
+$id_servicios = (isset($_POST['UIDS'])) ? $_POST['UIDS'] : '';
 $cantidad_servicios = (isset($_POST['cantidad_servicio'])) ? $_POST['cantidad_servicio'] : '';
 $precio_servicio_dolar = (isset($_POST['precio_servicio_dolar'])) ? $_POST['precio_servicio_dolar'] : '';
 $precio_servicio_bolivar = (isset($_POST['precio_servicio_bolivar'])) ? $_POST['precio_servicio_bolivar'] : '';
@@ -78,7 +78,7 @@ if(mysqli_num_rows($existe_cliente) < 1){
 
 $existe_cliente = mysqli_fetch_array($existe_cliente);
 $id_cliente = $existe_cliente['id_cliente'];
-$id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']);
+$id_usuario = $_SESSION['id_usuario'];
 
 // ************* se verifica que haya stock para los servicios *************
 if ($id_servicios !== "") {
@@ -106,14 +106,13 @@ try {
 
 $id_venta = venta_model::obtener_id_venta_recien_registrada();
 
-
 //  ************** cuando la venta es de servicios y de productos ************** 
 if ($id_servicios !== "" && $id_productos !== "" ){
     try {
         $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
         
-        $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
-            FROM detalles_venta"));
+        // $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
+        //     FROM detalles_venta"))['id'];
 
         $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta, $id_usuario);
 

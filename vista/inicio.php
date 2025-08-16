@@ -91,24 +91,10 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
       </section>
     </main>
     
-    <!-- Modal detalles de venta -->
-    <div class="modal fade" id="detalles_venta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="body_modal"> </div>
-          <div class="modal-footer">
-							<button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-						</div>
-        </div>
-      </div>
-    </div>
-
     <?php   
+      include_once "./modal/plantillaModalCustom.php";  
+      modalCustom ();
+
       include_once "../include/footer.php";
       include_once "../include/scripts_include.php";
       

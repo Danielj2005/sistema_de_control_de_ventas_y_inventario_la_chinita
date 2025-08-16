@@ -26,8 +26,8 @@ class venta_model extends modeloPrincipal {
 
             // ****** se regitra la venta de uno o más servicios
             for ($i = 0; $i < count($id_servicios); $i++) {
-    
-                modeloPrincipal::InsertSQL("detalles_venta", "id_servicio, cantidad_servicio, precio_servicio_dolares, precio_servicio_bolivares, id_venta","".$id_servicios[$i].",".$cantidad_servicios[$i].",".$precio_servicio_dolar[$i].",".$precio_servicio_bolivar[$i].",$id_venta");
+                $id_service = modeloPrincipal::decryptionId($id_servicios[$i]);
+                modeloPrincipal::InsertSQL("detalles_venta", "id_servicio, cantidad_servicio, precio_servicio_dolares, precio_servicio_bolivares, id_venta","$id_service, ".$cantidad_servicios[$i].",".$precio_servicio_dolar[$i].",".$precio_servicio_bolivar[$i].",$id_venta");
     
                 // Se insertan los detalles de una venta con solo servicios
                 $id_usuario = $_SESSION["id_usuario"];
@@ -38,14 +38,13 @@ class venta_model extends modeloPrincipal {
                     FROM detalles_menu AS D 
                     INNER JOIN producto AS P ON D.id_producto = P.id_producto
                     INNER JOIN inventario AS I ON P.id_producto = I.id_producto
-                    WHERE id_menu = ".$id_servicios[$i]."");
-    
+                    WHERE id_menu = $id_service");
+
                 while ($mostrar = mysqli_fetch_array($datos_producto)) {
                     
                     // Se descuenta del stock
                     modeloPrincipal::UpdateSQL("inventario", "stock_actual = stock_actual - ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])), "id_producto = " . intval($mostrar['id_producto']));
-                    modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","".$mostrar['id_producto'].", 'Salida de producto(s) por Venta de Servicio', ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])).", '$fecha', $id_venta, $id_usuario");
-                    
+                    modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","".$mostrar['id_producto'].", 'Salida de producto(s) por Venta de Servicio', ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])).", '$fecha', ".self::generar_numero($id_venta).", $id_usuario");
                 }
             }
         } catch (Exception $e) {
@@ -59,7 +58,7 @@ class venta_model extends modeloPrincipal {
         try {
             for ($i = 0; $i < count($id_productos); $i++) {
                     
-                $id_producto = modeloPrincipal::decryption($id_productos[$i]);
+                $id_producto = modeloPrincipal::decryptionId($id_productos[$i]);
                 $id_producto = intval($id_producto);
                 $id_producto = modeloPrincipal::limpiar_cadena($id_producto);
 
@@ -68,7 +67,7 @@ class venta_model extends modeloPrincipal {
                 
                 // Se descuenta del stock
                 modeloPrincipal::UpdateSQL("inventario", "stock_actual = stock_actual - ".$cantidad_productos[$i]."","id_producto = $id_producto");
-                modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","$id_producto, 'Salida por Venta de producto(s) ', ".$cantidad_productos[$i].", '$fecha', $id_venta, $id_usuario");
+                modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","$id_producto, 'Salida por Venta de producto(s) ', ".$cantidad_productos[$i].", '$fecha', ".self::generar_numero($id_venta).", $id_usuario");
 
             }
         } catch (Exception $e) {
@@ -296,7 +295,7 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                 <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
-                    <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= $row['id_venta'] ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#detalles_venta"></button>
+                    <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#modal"></button>
                 </td> 
             </tr>
         <?php }
