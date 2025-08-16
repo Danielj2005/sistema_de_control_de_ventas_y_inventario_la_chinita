@@ -109,7 +109,7 @@
 
     <!-- apartado de gestión de usuarios  -->
     <?php 
-      $cliente = rol_model::permisos_modulos('r_cliente + m_cliente + l_cliente + h_cliente + f_cliente');
+      $cliente = rol_model::permisos_modulos('m_cliente + l_cliente + h_cliente + f_cliente');
       $usuario = rol_model::permisos_modulos('r_empleado + m_empleado + l_empleado');
       $rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol');
 
@@ -124,7 +124,7 @@
 
           <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             
-            <?php if ($cliente >= 1 && $cliente <= 5) {  ?>
+            <?php if ($cliente >= 1 && $cliente <= 4) {  ?>
 
                 <!-- modulo de clientes -->
                 <li class="nav-item">

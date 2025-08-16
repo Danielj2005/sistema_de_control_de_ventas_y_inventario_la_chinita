@@ -7,15 +7,16 @@ include_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
+
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('r_cliente + m_cliente + l_cliente');
+$rol = rol_model::permisos_modulos('m_cliente + l_cliente + h_cliente + f_cliente');
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 3) {  ?>
+if ($rol >= 1 && $rol <= 4) {  ?>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -53,8 +54,13 @@ if ($rol >= 1 && $rol <= 3) {  ?>
                           <th class="text-center col" scope="col">Nombre y Apellido</th>
                           <th class="text-center col" scope="col">Teléfono</th>
                           
-                          <th class="text-center col <?= rol_model::verificar_rol('m_cliente') == '1' ? '' : 'd-none eraser'; ?>" scope="col">Modificar</th>
-                          <th class="text-center col <?= rol_model::verificar_rol('h_cliente') == '1' ? '' : 'd-none eraser'; ?>" scope="col">Ver Historial</th>
+                          <?php if (rol_model::verificar_rol('m_cliente') == '1') { ?>
+                            <th class="text-center col" scope="col">Modificar</th>
+                          <?php } 
+                            if (rol_model::verificar_rol('h_cliente') == '1') { ?>
+                            <th class="text-center col" scope="col">Ver Historial</th>
+
+                          <?php } ?>
                         </tr>
                       </thead>
                       <tbody>

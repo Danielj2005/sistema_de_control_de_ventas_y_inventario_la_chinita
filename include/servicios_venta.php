@@ -14,8 +14,8 @@ $con = modeloPrincipal::consultar("SELECT M.*,
 while ($mostrar = mysqli_fetch_array($con)) { ?>
     <tr id="tr_add_servicio_<?= $mostrar["id_menu"] ?>" >
         <td class="col text-center" scope="col">
-            <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"].' '. $mostrar["id_menu"]; ?></p>
-            <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryption($mostrar["id_menu"]) ?>" required>
+            <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"]; ?></p>
+            <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" required>
         </td> 
 
         <td class="col text-center" scope="col"><?= $mostrar["descripcion"] ?> </td>

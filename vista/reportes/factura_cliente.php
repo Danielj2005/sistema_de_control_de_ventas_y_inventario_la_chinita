@@ -182,10 +182,10 @@ if(mysqli_num_rows($detalles_venta_productos) > 0){
     while($row =  mysqli_fetch_array($detalles_venta_productos)){
 
         /*----------  Detalles de la tabla  ----------*/
-        $pdf->MultiCell(0,4,utf8_decode($row['nombre_producto']),0,'C',false);
-        $pdf->Cell(26.66,4,utf8_decode($row['cantidad']),0,0,'C');
-        $pdf->Cell(26.66,4,utf8_decode($row['precio_unidad_dolares']." $"),0,0,'C');
-        $pdf->Cell(26.66,4,utf8_decode($row['precio_unidad_bolivares']." bs"),0,1,'C');
+        $pdf->MultiCell(0,4,convert_codification($row['nombre_producto']),0,'C',false);
+        $pdf->Cell(26.66,4,convert_codification($row['cantidad']),0,0,'C');
+        $pdf->Cell(26.66,4,convert_codification($row['precio_unidad_dolares']." $"),0,0,'C');
+        $pdf->Cell(26.66,4,convert_codification($row['precio_unidad_bolivares']." bs"),0,1,'C');
 
     }
 }
@@ -200,10 +200,10 @@ if(mysqli_num_rows($detalles_venta_servicios) > 0){
     while($row =  mysqli_fetch_array($detalles_venta_servicios)){
 
         /*----------  Detalles de la tabla  ----------*/
-        $pdf->MultiCell(0,4,utf8_decode($row['nombre_platillo']),0,'C',false);
-        $pdf->Cell( 26.66,4,utf8_decode($row['cantidad_servicio']),0,0,'C');
-        $pdf->Cell(26.66,4,utf8_decode($row['precio_servicio_dolares']." $"),0,0,'C');
-        $pdf->Cell(26.66,4,utf8_decode($row['precio_servicio_bolivares']." bs"),0,1,'C');
+        $pdf->MultiCell(0,4,convert_codification($row['nombre_platillo']),0,'C',false);
+        $pdf->Cell( 26.66,4,convert_codification($row['cantidad_servicio']),0,0,'C');
+        $pdf->Cell(26.66,4,convert_codification($row['precio_servicio_dolares']." $"),0,0,'C');
+        $pdf->Cell(26.66,4,convert_codification($row['precio_servicio_bolivares']." bs"),0,1,'C');
 
     }
 }

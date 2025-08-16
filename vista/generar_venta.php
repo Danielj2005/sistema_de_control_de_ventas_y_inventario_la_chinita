@@ -150,11 +150,11 @@ if ($rol == 1) {  ?>
                             <thead>
                               <tr>
                                 <th class="col text-center" scope="col">Producto</th>
-                                <th class="col text-center" scope="col">Disponible(s)</th>
-                                <th class="col text-center" scope="col">Cantidad</th>
-                                <th class="col text-center" scope="col">Precio en $</th>
-                                <th class="col text-center" scope="col">Precio en BS</th>
-                                <th class="col text-center" scope="col">Eliminar</th>
+                                <th class="col text-center col-md-2" scope="col">Disponible(s)</th>
+                                <th class="col text-center col-md-2" scope="col">Cantidad</th>
+                                <th class="col text-center col-md-2" scope="col">Precio en $</th>
+                                <th class="col text-center col-md-2" scope="col">Precio en BS</th>
+                                <th class="col text-center col-md-2" scope="col">Eliminar</th>
                               </tr>
                             </thead>
                             <tbody id="lista_producto"> </tbody>

@@ -26,7 +26,9 @@ class venta_model extends modeloPrincipal {
 
             // ****** se regitra la venta de uno o más servicios
             for ($i = 0; $i < count($id_servicios); $i++) {
+
                 $id_service = modeloPrincipal::decryptionId($id_servicios[$i]);
+
                 modeloPrincipal::InsertSQL("detalles_venta", "id_servicio, cantidad_servicio, precio_servicio_dolares, precio_servicio_bolivares, id_venta","$id_service, ".$cantidad_servicios[$i].",".$precio_servicio_dolar[$i].",".$precio_servicio_bolivar[$i].",$id_venta");
     
                 // Se insertan los detalles de una venta con solo servicios
@@ -41,10 +43,11 @@ class venta_model extends modeloPrincipal {
                     WHERE id_menu = $id_service");
 
                 while ($mostrar = mysqli_fetch_array($datos_producto)) {
-                    
+                    $cantidad_necesaria = intval($mostrar['cantidad']) * intval($cantidad_servicios[$i]);
+                    $id_producto = intval($mostrar['id_producto']);
                     // Se descuenta del stock
-                    modeloPrincipal::UpdateSQL("inventario", "stock_actual = stock_actual - ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])), "id_producto = " . intval($mostrar['id_producto']));
-                    modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","".$mostrar['id_producto'].", 'Salida de producto(s) por Venta de Servicio', ".(intval($mostrar['cantidad']) * intval($cantidad_servicios[$i])).", '$fecha', ".self::generar_numero($id_venta).", $id_usuario");
+                    modeloPrincipal::UpdateSQL("inventario", "stock_actual = stock_actual - $cantidad_necesaria", "id_producto = $id_producto");
+                    modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","$id_producto, 'Salida de producto(s) por Venta de Servicio', $cantidad_necesaria, '$fecha', ".intval(self::generar_numero($id_venta)).", $id_usuario");
                 }
             }
         } catch (Exception $e) {
@@ -67,7 +70,7 @@ class venta_model extends modeloPrincipal {
                 
                 // Se descuenta del stock
                 modeloPrincipal::UpdateSQL("inventario", "stock_actual = stock_actual - ".$cantidad_productos[$i]."","id_producto = $id_producto");
-                modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","$id_producto, 'Salida por Venta de producto(s) ', ".$cantidad_productos[$i].", '$fecha', ".self::generar_numero($id_venta).", $id_usuario");
+                modeloPrincipal::InsertSQL("movimientos_inventario", "id_producto, tipo, cantidad, fecha, referencia_documento, id_usuario","$id_producto, 'Salida por Venta de producto(s) ', ".$cantidad_productos[$i].", '$fecha', ".intval(self::generar_numero($id_venta)).", $id_usuario");
 
             }
         } catch (Exception $e) {
@@ -114,12 +117,15 @@ class venta_model extends modeloPrincipal {
     public static function verify_stock_for_service($id_servicios, $cantidad_servicios) {
 
         for ($i = 0; $i < count($id_servicios); $i++) {
+
             // Obtener la cantidad de productos necesarios para el servicio
+            $id_servicio = modeloPrincipal::decryptionId($id_servicios[$i]);
+            $id_servicio = intval($id_servicio);
 
             $datos_producto_servicio = modeloPrincipal::consultar("SELECT D.id_producto, D.cantidad, M.nombre_platillo
                 FROM detalles_menu AS D
                 INNER JOIN menu AS M ON D.id_menu = M.id_menu
-                WHERE M.id_menu = ". intval($id_servicios[$i]));
+                WHERE M.id_menu = $id_servicio");
             
             // Iterar sobre los productos necesarios
             while ($row = mysqli_fetch_array($datos_producto_servicio)) {
@@ -129,9 +135,9 @@ class venta_model extends modeloPrincipal {
                 $cantidad_necesaria = intval($row['cantidad']) * intval($cantidad_servicios[$i]);
 
                 $datos_producto = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
-                    M.nombre as marca,
-                    PS.nombre AS presentacion, 
-                    I.stock_actual as stock
+                    M.nombre AS marca,
+                    PS.nombre AS presentacion,
+                    I.stock_actual
                     FROM producto AS P
                     INNER JOIN inventario AS I ON I.id_producto = P.id_producto 
                     INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
@@ -140,16 +146,14 @@ class venta_model extends modeloPrincipal {
 
                 $datos_producto = mysqli_fetch_array($datos_producto);
 
-                if ($datos_producto['stock'] < 0) {
-                    modeloPrincipal::UpdateSQL("inventario", "stock_actual = 0, estado = 0", "id_producto = ".intval($id_producto));
+                if (intval($datos_producto['stock_actual']) < 1) {
+                    modeloPrincipal::UpdateSQL("inventario", "stock_actual = 0, estado = 0", "id_producto = ".intval($id_producto)."");
                 }
-
                 // Verificar si el stock es suficiente
-                if ($datos_producto['stock'] < $cantidad_necesaria) {
-                    alert_model::alerta_simple("¡Ocurrió un error!","El stock del producto ".$datos_producto['producto']. "  ".$datos_producto['marca']. " ".$datos_producto['presentacion']. " se encuentra por debajo de la cantidad necesaria para dar un servicio de ".$row['nombre_platillo'].", el stock actual es de (".intval($datos_producto['stock']).")","error");
+                if (intval($datos_producto['stock_actual']) < $cantidad_necesaria) {
+                    alert_model::alerta_simple("¡Ocurrió un error!","El stock del producto ".$datos_producto['producto']. " ".$datos_producto['marca']. " ".$datos_producto['presentacion']. " se encuentra por debajo de la cantidad necesaria para dar un servicio de ".$row['nombre_platillo'].", el stock actual es de (".intval($datos_producto['stock_actual']).")","error");
                     exit();
                 }
-                
             }
         }
     }
@@ -158,29 +162,37 @@ class venta_model extends modeloPrincipal {
 
         for ($i = 0; $i < count($id_productos); $i++) {
 
-            $id_producto = modeloPrincipal::decryption($id_productos[$i]);
-            $id_producto = intval($id_producto);
+            $id_producto = modeloPrincipal::decryptionId($id_productos[$i]);
             $id_producto = modeloPrincipal::limpiar_cadena($id_producto);
+            $id_producto = intval($id_producto);
             
             $stock_producto = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
                 M.nombre as marca,
+                PS.nombre AS presentacion,
                 I.stock_actual as stock
                 FROM producto AS P
                 INNER JOIN inventario AS I ON I.id_producto = P.id_producto 
+                INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
                 INNER JOIN marca AS M ON M.id = P.id_marca
                 WHERE P.id_producto = $id_producto");
 
-            $stock_producto = mysqli_fetch_array($stock_producto);
-            
-            if ($stock_producto['stock'] < 1) {
-                modeloPrincipal::UpdateSQL("inventario", "stock_actual = 0, estado = 0", "id_producto = $id_producto");
-            }
-            
-            if ($stock_producto['stock'] < $cantidad_productos[$i]) {
-                alert_model::alerta_simple("¡Ocurrio un error!","El stock del producto `".$stock_producto['producto'] . "` se encuentra por debajo de la cantidad seleccionada, el stock actual es de (".intval($stock_producto['stock']).")","error");
-                exit();
+            if (mysqli_num_rows($stock_producto) > 0) {
 
+                $stock_producto = mysqli_fetch_array($stock_producto);
+                
+                if ($stock_producto['stock'] < 1) {
+                    modeloPrincipal::UpdateSQL("inventario", "stock_actual = 0, estado = 0", "id_producto = $id_producto");
+                }
+                
+                if ($stock_producto['stock'] < $cantidad_productos[$i]) {
+                    alert_model::alerta_simple("¡Ocurrio un error!","El stock del producto `".$stock_producto['producto'] . " ".$stock_producto['marca'] . " ".$stock_producto['presentacion'] . "` se encuentra por debajo de la cantidad seleccionada, el stock actual es de (".intval($stock_producto['stock']).")","error");
+                    exit();
+                }
+            }else{
+                alert_model::alerta_simple("¡Ocurrio un error!", "El producto no existe en el inventario","error");
+                exit();
             }
+            
         } 
     }
 
