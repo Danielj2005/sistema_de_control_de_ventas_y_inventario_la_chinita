@@ -125,35 +125,11 @@ model_user::verificar_intento_de_acceso_al_sistema();
         </div>
       </section>
     </main>
-    
-    <!-- Modal actualizar informacion general del usuario -->
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <form id="SendForm" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"> </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="body_modal">
-            </div>
-            <div class="modal-footer">
-              <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar cambios</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    
 
     <?php include_once "../include/footer.php"; ?>
-    <!-- ======= Scripts ======= -->
-    <script>
-      // función para alerta de configuración de preguntas secretas.
-    </script>
-
     <?php 
+        include_once "./modal/plantillaModalCustom.php"; 
+        modalCustom ("modal-xl");
       include_once "../include/scripts_include.php";
     
       if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){

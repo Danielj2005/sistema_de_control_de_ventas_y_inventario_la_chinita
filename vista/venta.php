@@ -149,9 +149,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
       
       <script src="./js/rango_fechas.js"></script>
       <?php 
-        include_once "./modal/plantillaModalCustom.php";  
-        modalCustom ();
-
+        include_once "./modal/plantillaModalCustom.php"; 
+        modalCustom ("modal-xl");
+        
         include_once "../include/footer.php"; 
         include_once "../include/scripts_include.php";
         model_user::validar_sesion_activa($id_usuario);

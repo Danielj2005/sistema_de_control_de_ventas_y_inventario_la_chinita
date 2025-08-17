@@ -2,7 +2,7 @@
 // se importan los archivos de configuracion de la base de datos y modelo principal
 include_once("../../../modelo/modeloPrincipal.php");
 
-$id_usuario = $_POST['id'];
+$id_usuario = modeloPrincipal::decryptionId($_POST['id']);
 
 $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.id_usuario, U.cedula, U.nombre,
     U.apellido, U.telefono, U.estado, R.id_rol, R.nombre AS nombre_rol, suspender 

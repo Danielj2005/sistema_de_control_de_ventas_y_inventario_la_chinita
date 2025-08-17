@@ -85,7 +85,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 			<?php if (rol_model::verificar_rol('m_empleado') == '1'): ?>
 
 				<div class="modal fade" id="update_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-scrollable modal-xl">
+					<div id="modal_tamano" class="modal-dialog modal-dialog-scrollable modal-xl">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLabel">Modificar o actualizar acceso al sistema del empleado</h5>
@@ -104,7 +104,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 			<?php endif;  if (rol_model::verificar_rol('r_empleado') == '1'): ?>
 
 				<div class="modal fade" id="registrar_usuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-scrollable modal-xl">
+					<div id="modal_tamano" class="modal-dialog modal-dialog-scrollable modal-xl">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-person-cirle-plus fs-4"></i>Registrar un nuevo Empleado</h5>
@@ -176,6 +176,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 					</div>
 				</div>
 			<?php endif; 
+			
 				// se incluye el footer / pie de pagina a la vista
 				include_once("../include/footer.php");
 				// se incluyen los script de javascript a la vista 
