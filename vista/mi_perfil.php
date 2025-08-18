@@ -128,8 +128,8 @@ model_user::verificar_intento_de_acceso_al_sistema();
 
     <?php include_once "../include/footer.php"; ?>
     <?php 
-        include_once "./modal/plantillaModalCustom.php"; 
-        modalCustom ("modal-xl");
+      include_once "./modal/plantillaModalCustom.php"; 
+      modalCustom ();
       include_once "../include/scripts_include.php";
     
       if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){

@@ -13,6 +13,10 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::verificar_rol('r_rol');
+
+$m_rol = rol_model::permisos_modulos('m_rol');
+$l_rol = rol_model::permisos_modulos('l_rol');
+
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
 
@@ -37,7 +41,7 @@ if ($rol == 1) {  ?>
         <main id="main" class="main">
           <div class="pagetitle">
             <h1>
-              <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./roles.php">&nbsp; Volver</a>
+              <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="<?= $m_rol == 0 && $l_rol == 0 ? './inicio.php' : './roles.php'; ?>">&nbsp; <?= $m_rol == 0 && $l_rol == 0 ? 'Volver al inicio' : 'Volver a la lista de roles'; ?></a>
               Registro de rol
             </h1> 
           </div>
@@ -523,7 +527,10 @@ if ($rol == 1) {  ?>
             evaluar_casillas();
           }, 300);
         </script>
+
         <?php 
+          include_once "./modal/plantillaModalCustom.php"; 
+          modalCustom ();
           // se incluye el footer / pie de pagina a la vista
           include_once("../include/footer.php");
           // se incluyen los script de javascript a la vista 

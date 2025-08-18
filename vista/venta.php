@@ -129,8 +129,14 @@ if ($rol >= 1 && $rol <= 3) { ?>
                           <th class="col text-center" scope="col">Monto total en $</th>
                           <th class="col text-center" scope="col">Monto total en bs</th>
                           <th class="col text-center" scope="col">Fecha y Hora</th>
-                          <th class="col text-center" scope="col">Detalles</th>
-                          <th class="col text-center" scope="col">Ver Factura</th>
+
+                          <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
+                            <th class="col text-center" scope="col">Detalles</th>
+                          <?php endif; ?>
+                          
+                          <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
+                            <th class="col text-center" scope="col">Ver Factura</th>
+                          <?php endif; ?>
 
                         </tr>
                       </thead>

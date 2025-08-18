@@ -2,7 +2,7 @@
 session_start();
 // importacion de la conexion a la base de datos y al modelo de usuario
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -11,9 +11,14 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
+// se guardan los permisos del rol del usuario que inició sesión
+$r_rol = rol_model::permisos_modulos('r_rol');
+$m_rol = rol_model::permisos_modulos('m_rol');
+$l_rol = rol_model::permisos_modulos('l_rol');
+
 $rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol'); // esta funcion retorna si el rol tiene permiso a las vista
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 3) {  
+if ($m_rol == 1 || $l_rol == 1) {  
 
 	$estado = (!isset($_POST['estado_rol'])) ? '1' : $_POST['estado_rol'];
 
@@ -27,17 +32,17 @@ if ($rol >= 1 && $rol <= 3) {
 			<title>Roles</title> 
 			<?php 
 				// se incluyen los meta datos 
-				include_once("../include/meta_include.php"); 
+				include_once "../include/meta_include.php"; 
 				// se incluyen los estilos css y sus librerias a la vista
-				include_once("../include/css_include.php"); ?>
+				include_once "../include/css_include.php"; ?>
 		</head>
 		<body>
 	
 			<?php 
 				// se incluye el header / encabezado a la vista
-				include_once("../include/header.php");
+				include_once "../include/header.php";
 				// se incluye el menu lateral a la vista 
-				include_once("../include/sliderbar.php"); ?>
+				include_once "../include/sliderbar.php"; ?>
 
 			<main id="main" class="main">
 				<div class="pagetitle">
@@ -47,13 +52,15 @@ if ($rol >= 1 && $rol <= 3) {
 				<section class="section dashboard">
 					<div class="card">
 						<div class="row text-center p-2 align-items-center">
-							<div class="col-12 col-sm-12 col-md-6 mb-3">
-								<a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
-									Registrar un nuevo rol
-								</a>
-							</div>
+							<?php if ($r_rol == '1' && $l_rol == '1'): ?>
+								<div class="col-12 col-sm-12 col-md-6 mb-3">
+									<a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
+										Registrar un nuevo rol
+									</a>
+								</div>
+							<?php endif; ?>
 
-							<div class="col-12 col-sm-12 col-md-6 mb-3">
+							<div class="col-12 mb-3 <?= $r_rol == 1 && $l_rol == 0 ? 'col-md-12' : 'col-md-6'; ?>">
 								<form action="./roles.php" method="post">
 									<input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
 									<button type="submit" class="col-12 btn btn-secondary">
@@ -71,11 +78,13 @@ if ($rol >= 1 && $rol <= 3) {
 								<table class="table datatable table-striped" id="example">
 									<thead>
 										<tr>
-										<th class="text-center col" scope="col">#</th>
-										<th class="text-center col" scope="col">NOMBRE</th>
-										<th class="text-center col" scope="col">VER PERMISOS</th>
-										<th class="text-center col" scope="col">MODIFICAR</th>
-										<th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
+											<th class="text-center col" scope="col">#</th>
+											<th class="text-center col" scope="col">NOMBRE</th>
+											<th class="text-center col" scope="col">VER PERMISOS</th>
+											<?php if ($m_rol == '1'): ?>
+												<th class="text-center col" scope="col">MODIFICAR</th>
+												<th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
+											<?php endif; ?>
 										</tr>
 									</thead>
 									<tbody>
@@ -116,17 +125,19 @@ if ($rol >= 1 && $rol <= 3) {
 				include_once "./modal/plantillaModalCustom.php"; 
 				modalCustom ("modal-xl");
 				// se incluye el footer / pie de pagina a la vista
-				include_once("../include/footer.php");
+				include_once "../include/footer.php";
 
 				// se incluyen los script de javascript a la vista 
-				include_once("../include/scripts_include.php"); 
+				include_once "../include/scripts_include.php"; 
 				
 				model_user::validar_sesion_activa($id_usuario);
 				
 				config_model::verificar_actualizacion_configuracion(); ?>
 		</body>
 	</html>
-<?php }else{
+<?php }else if ($r_rol == 1 && $m_rol == 0 && $l_rol == 0 ) { 
+	header('Location: ./registrar_rol.php');
+}else{
 	// se registran las acciones del usuario en la bitacora y es redirijido al inicio
 	bitacora::intento_de_acceso_a_vista_sin_permisos('lista de roles');
 }

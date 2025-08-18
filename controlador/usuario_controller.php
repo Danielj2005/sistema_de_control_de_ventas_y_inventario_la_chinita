@@ -28,7 +28,8 @@ if($modulo === "Guardar"){
     $correo =  modeloprincipal::limpiar_cadena($_POST["correo"]);
     $contraseña = modeloprincipal::limpiar_encriptar($_POST["cedula"]);
     
-    $id_rol =  modeloprincipal::limpiar_cadena($_POST["id_tipo"]);
+    $id_rol =  modeloprincipal::decryptionId($_POST["id_tipo"]);
+    $id_rol =  modeloprincipal::limpiar_cadena($id_rol);
     
     // se comprueba que no exista un registro con los mismos datos
     model_user::validar_usuario_existe("cedula, correo","correo = '$correo' AND cedula = '$cedula'");

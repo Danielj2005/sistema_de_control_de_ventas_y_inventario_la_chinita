@@ -113,7 +113,7 @@
       $usuario = rol_model::permisos_modulos('r_empleado + m_empleado + l_empleado');
       $rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol');
 
-      if ($_SESSION["id_rol"] < "3" && $cliente > '0' || $usuario > '0' || $rol > '0' ) {?>
+      if ($cliente > '0' || $usuario > '0' || $rol > '0' ) {?>
       
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
@@ -139,7 +139,7 @@
 
                 <!-- modulo de empleados (usuario) -->
                 <li class="nav-item">
-                  <a class="nav-link collapsed" href="../vista/lista_empleados.php">
+                  <a class="nav-link collapsed" href="../vista/empleados.php">
                     <i class="bi bi-circle"></i>
                     <span>Empleados</span>
                   </a>

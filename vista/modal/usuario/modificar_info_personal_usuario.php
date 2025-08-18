@@ -27,7 +27,7 @@ $cedula = trim($cedula);
 <fieldset class="row mb-3">
     <input type="hidden" name="modulo" value="modificar_info_personal_usuario">
 
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label">Cédula  <span style="color:#f00;">*</span></label>
             <div class="input-group">
@@ -39,36 +39,42 @@ $cedula = trim($cedula);
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label">Nombres  <span style="color:#f00;">*</span></label>
             <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="form-control" value="<?= $nombre; ?>" id="nombres" name="nombres" maxlength="50">
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label text-black">Apellidos  <span style="color:#f00;">*</span></label>
             <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="form-control" value="<?= $apellido; ?>" id="apellido" name="apellido" maxlength="50">
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label">Correo  <span style="color:#f00;">*</span></label>
             <input type="email" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="form-control" value="<?= $correo; ?>" id="email" name="email" maxlength="150">
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label text-black">Teléfono <span style="color:#f00;">*</span></label>
             <input type="text" pattern="[0-9]{11}" class="form-control" value="<?= $telefono; ?>" id="telefono" name="telefono" maxlength="11">
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-3">
         <div class="form-group">
             <label class="control-label">Dirección <span style="color:#f00;">*</span></label>
             <input type="text" maxlength="250" required="" placeholder="Ingrese la Dirección" value="<?= $direccion; ?>" class="form-control" id="direccion" name="direccion">
         </div>
     </div>
+
     <div class="col-12 mb-3">
         <div class="form-group">
             <p class="form-p">Los Campos Con <span style="color:#f00;">*</span> Son Obligatorios</p>

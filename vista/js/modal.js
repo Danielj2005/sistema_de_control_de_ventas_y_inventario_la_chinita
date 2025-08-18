@@ -64,15 +64,11 @@ setTimeout(() => {
                 'ver_historial_proveedor',
                 'ver_historial_cliente',
                 'modificar_empleado',
-                'ver_detalles_rol',
-                'modificar_rol',
+                'ver_detalles_rol', 'modificar_rol',
                 'ver_detalles_entrada',
-                'ver_marcas',
-                'ver_categorias',
-                'ver_presentaciones',
-                'ver_productos',
-                'ver_detalles_servicio',
-                'modificar_servicio'
+                'ver_marcas', 'ver_categorias', 'ver_presentaciones', 'ver_productos', 
+                'ver_detalles_servicio','modificar_servicio',
+                'datos_usuario','modificar_info_personal_usuario','preguntas_seguridad'
             ];
 
             modalXl.includes(`${modal}`) ? tamano_modal.classList.add('modal-xl') : tamano_modal.classList.remove('modal-xl');
