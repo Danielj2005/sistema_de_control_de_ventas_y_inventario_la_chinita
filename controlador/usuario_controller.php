@@ -396,7 +396,9 @@ if ($modulo === "modificar_preguntas_seguridad") {
 
 if ($modulo === 'caracteristicas_de_acceso'){
     // caracteristicas a actualizar del usuario
-    $id_usuario = modeloPrincipal::LimpiarCadenaTexto($_POST["id_usuario_a_modificar"]);
+    $id_usuario = modeloPrincipal::decryptionId($_POST['UIDTM']);
+    $id_usuario = modeloPrincipal::LimpiarCadenaTexto($id_usuario);
+
     $nuevo_estado = modeloPrincipal::LimpiarCadenaTexto($_POST['cambiar_estado']);
     $suspender = modeloPrincipal::LimpiarCadenaTexto($_POST['permitir_acceso']);
     $rol_asignado = modeloPrincipal::LimpiarCadenaTexto($_POST['asignar_rol']);

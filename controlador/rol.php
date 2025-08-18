@@ -134,7 +134,9 @@ if($modulo === "Guardar"){
 // modulo para modificar un rol registrado
 if($modulo === "Modificar"){
 
-    $id_rol = modeloPrincipal::limpiar_cadena($_POST["id_rol"]);
+    $id_rol = modeloPrincipal::decryptionId($_POST['UIDR']);
+
+    $id_rol = modeloPrincipal::limpiar_cadena($id_rol);
     $nombre = modeloPrincipal::limpiar_mayusculas($_POST["nombre_rol"]);
     $estado = modeloPrincipal::limpiar_cadena($_POST["estado_rol"]);
     // vistas del modulo proveedores
@@ -246,7 +248,8 @@ if($modulo === "Modificar"){
 }
 
 /* ----------------- modulo para cambiar el estado de un rol ------------------ */
-$id_rol = modeloPrincipal::limpiar_cadena($_POST["id_rol"]);
+$id_rol = modeloPrincipal::decryptionId($_POST['UIDR']);
+$id_rol = modeloPrincipal::limpiar_cadena($id_rol);
 $rol_info = mysqli_fetch_array(modeloPrincipal::consultar("SELECT nombre FROM rol WHERE id_rol = $id_rol"));
 $rol_info = $rol_info['nombre'];
 

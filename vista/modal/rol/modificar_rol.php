@@ -1,9 +1,9 @@
 <?php
 
-include_once("../../../modelo/modeloPrincipal.php"); 
-include_once("../../../include/obtener_icono_permisos_include.php"); 
+include_once "../../../modelo/modeloPrincipal.php"; 
+include_once "../../../include/obtener_icono_permisos_include.php"; 
 
-$id_rol = $_POST['id'];
+$id_rol = modeloPrincipal::decryptionId($_POST['id']);
 
 $permisos = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT * FROM rol WHERE id_rol = $id_rol"));
 

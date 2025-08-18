@@ -47,7 +47,6 @@ if ($rol >= 1 && $rol <= 3) {
 				<section class="section dashboard">
 					<div class="card">
 						<div class="row text-center p-2 align-items-center">
-							
 							<div class="col-12 col-sm-12 col-md-6 mb-3">
 								<a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
 									Registrar un nuevo rol
@@ -67,7 +66,6 @@ if ($rol >= 1 && $rol <= 3) {
 						<hr>
 
 						<div class="card-body pb-1">
-
 							<h5 class="card-title">Lista de Roles <?= ($estado == '1') ? "Activos" : "Inactivos"?></h5>
 							<div class="table table-responsive">
 								<table class="table datatable table-striped" id="example">
@@ -87,18 +85,20 @@ if ($rol >= 1 && $rol <= 3) {
 													<th class="text-center col" scope="col"></th>
 													<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
 													<th class="text-center col" scope="col">
-														<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= $row["id_rol"]; ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+														<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
 													</th>
-													<th class="text-center col" scope="col">
-														<button modal="modificar_rol" <?= rol_model::verificar_rol('m_rol') == '1' ? 'url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-gear btn-warning" value="<?= $row["id_rol"]; ?>"></button>
-													</th>
-													<th class="text-center col" scope="col">
-													<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
-														<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
-														<input name="id_rol" type="hidden" value="<?= $row['id_rol']; ?>">
-														<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>"  <?= rol_model::verificar_rol('m_rol') == '1' ? '' : 'disabled' ?>></button>
-													</form>
-													</th>
+													<?php if (rol_model::verificar_rol('m_rol') == '1') { ?>
+														<th class="text-center col" scope="col">
+															<button modal="modificar_rol" url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-gear btn-warning" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>"></button>
+														</th>
+														<th class="text-center col" scope="col">
+															<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
+																<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
+																<input name="UIDR" type="hidden" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>">
+																<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>" ></button>
+															</form>
+														</th>
+													<?php } ?>
 												</tr>
 										<?php } ?>  
 									</tbody>
