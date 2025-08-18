@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 08-07-2025 a las 17:14:07
+-- Tiempo de generación: 18-08-2025 a las 22:08:06
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -994,7 +994,280 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (942, '2025-07-06 16:05:39', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
 (943, '2025-07-06 18:59:33', 'Modificación exitosa de un rol', 'El usuario modificó el rol con la siguiente información:<br> \r\n        Nombre del rol: <b>ADIMINISTRADOR</b><br>\r\n        Estado: <b></b> <br><br>\r\n        <b>************* Información original: ************* </b><br><br>\r\n        <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Total</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido</b> <br>\r\n        Modificar Información de Proveedores: <b>Permitido</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Permitido</b> <br><br>\r\n\r\n        <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Acceso Parcial</b> <br> <br>\r\n\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Modificar Información de Categorías: <b>Permitido</b> <br>\r\n        Consultar Lista de Categorías Registradas: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Modificar Información de Presentaciones: <b>Permitido</b> <br>\r\n        Consultar Lista de Presentaciones Registradas: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n        <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n        <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total</b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Bitácora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Parcial</b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido </b><br>\r\n        Consultar Movimientos de un Usuario en la Bitácora: <b>Denegado </b><br><br><br>\r\n        \r\n        <b>************* Información actualizada: ************* </b><br><br>\r\n        <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Total</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido</b> <br>\r\n        Modificar Información de Proveedores: <b>Permitido</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Permitido</b> <br><br>\r\n\r\n        <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Acceso Total</b> <br> <br>\r\n\r\n        Registrar Nuevas Categorías: <b>Permitido </b><br>\r\n        Modificar Información de Categorías: <b>Permitido</b> <br>\r\n        Consultar Lista de Categorías Registradas: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Nuevas Presentaciones: <b>Permitido </b><br>\r\n        Modificar Información de Presentaciones: <b>Permitido</b> <br>\r\n        Consultar Lista de Presentaciones Registradas: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Nuevos Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Permitido </b><br> <br>\r\n\r\n        Registrar Entrada de Productos: <b>Permitido </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Permitido </b><br><br>\r\n        \r\n        <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Acceso Parcial </b> <br>\r\n        Generar Nuevas Ventas: <b>Permitido </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Permitido </b><br>\r\n        Visualizar Detalles de Ventas: <b>Permitido </b><br>\r\n        Acceder a Facturas de Ventas: <b>Permitido </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Acceso Total </b><br>\r\n        Registrar Nuevos Servicios: <b>Permitido </b><br>\r\n        Modificar Información de Servicios: <b>Permitido </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Clientes: <b>Permitido </b><br>\r\n        Modificar Información de Clientes: <b>Permitido </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Permitido </b><br>\r\n        Visualizar Historial de Clientes: <b>Permitido </b><br>\r\n        Acceder a Facturas de Clientes: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Empleados: <b>Permitido </b><br>\r\n        Modificar Información de Empleados: <b>Permitido </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Acceso Total</b><br>\r\n        Registrar Nuevos Roles: <b>Permitido </b><br>\r\n        Modificar Información de Roles: <b>Permitido </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Permitido </b> <br><br>\r\n\r\n        <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Acceso Total</b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Permitido </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Permitido </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Permitido </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Permitido </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Permitido </b><br><br>\r\n\r\n        <b>****** Módulo Bitácora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Acceso Parcial</b><br>\r\n        Consultar Registros de la Bitácora: <b>Permitido </b><br>\r\n        Consultar Movimientos de un Usuario en la Bitácora: <b>Denegado </b><br><br><br>\r\n        \r\n        ', 2),
 (944, '2025-07-06 19:04:59', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
-(945, '2025-07-08 11:39:46', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2);
+(945, '2025-07-08 11:39:46', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(946, '2025-07-08 13:36:20', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(947, '2025-07-08 15:15:13', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(948, '2025-07-08 16:32:16', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(949, '2025-07-10 12:58:45', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(950, '2025-07-10 13:32:07', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(951, '2025-07-10 13:32:07', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(952, '2025-07-10 13:32:07', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(953, '2025-07-10 13:37:52', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(954, '2025-07-10 13:37:52', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(955, '2025-07-10 13:37:52', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(956, '2025-07-10 13:43:18', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(957, '2025-07-10 13:43:18', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(958, '2025-07-10 13:43:19', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(959, '2025-07-10 14:45:50', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(960, '2025-07-10 15:29:10', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(961, '2025-07-10 15:35:55', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(962, '2025-07-10 15:35:55', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(963, '2025-07-10 15:35:55', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b> </b><br>\r\n                Estado: <b>Inactivo </b><br>\r\n                ', 2),
+(964, '2025-07-10 15:48:50', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>puma </b><br>\r\n                Estado: <b>Activo </b><br>\r\n                ', 2),
+(965, '2025-07-10 15:48:50', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>air </b><br>\r\n                Estado: <b>Activo </b><br>\r\n                ', 2),
+(966, '2025-07-10 15:48:50', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>jordan </b><br>\r\n                Estado: <b>Activo </b><br>\r\n                ', 2),
+(967, '2025-07-10 16:16:57', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(968, '2025-07-11 17:25:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(969, '2025-07-11 17:26:41', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>108.97 bs </b><br>\r\n    Fecha anterior: <b>01-07-2025 / 04:35:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>115.32 bs </b><br>\r\n    Fecha actual: <b>11-07-2025 / 05:26:pm </b><br>\r\n    ', 2),
+(970, '2025-07-11 17:41:37', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>Nombre: <b>Nike </b><br>\r\n                Estado: <b>Activo </b><br><br>Nombre: <b>Adidas </b><br>\r\n                Estado: <b>Activo </b><br><br>', 2),
+(971, '2025-07-11 17:41:37', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                Nombre: <b>Bebidas Azucaradas </b><br>\r\n                    Estado: <b>Activa </b><br><br><br>Nombre: <b>Refresco </b><br>\r\n                    Estado: <b>Activa </b><br><br><br>\r\n                ', 2),
+(972, '2025-07-11 17:41:37', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                Nombre: <b>1 Litro </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>Nombre: <b>1.5 Litros </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>\r\n                ', 2),
+(973, '2025-07-11 17:47:51', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(974, '2025-07-11 17:47:51', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(975, '2025-07-11 17:47:52', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(976, '2025-07-11 17:56:01', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(977, '2025-07-11 17:56:01', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(978, '2025-07-11 17:56:01', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(979, '2025-07-11 17:56:23', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(980, '2025-07-11 17:56:23', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(981, '2025-07-11 17:56:23', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(982, '2025-07-11 17:58:10', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(983, '2025-07-11 17:58:10', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(984, '2025-07-11 17:58:10', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(985, '2025-07-11 18:00:47', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(986, '2025-07-11 18:00:47', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(987, '2025-07-11 18:00:47', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(988, '2025-07-11 18:01:56', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>', 2),
+(989, '2025-07-11 18:01:56', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(990, '2025-07-11 18:01:56', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(991, '2025-07-11 18:12:57', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(992, '2025-07-12 13:11:11', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(993, '2025-07-12 13:15:08', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                ', 2),
+(994, '2025-07-12 13:15:08', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(995, '2025-07-12 13:15:08', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(996, '2025-07-12 13:15:09', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1 Litro </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Pepsi </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1.5 Litros </b><br>\r\n                Categoría: <b>Refresco </b><br>\r\n                Marca: <b>Coca-cola </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n            ', 2),
+(997, '2025-07-12 13:17:53', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                ', 2),
+(998, '2025-07-12 13:17:53', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(999, '2025-07-12 13:17:53', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(1000, '2025-07-12 13:17:53', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1 Litro </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Coca-cola </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1.5 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Pepsi </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1001, '2025-07-12 13:22:52', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                ', 2),
+(1002, '2025-07-12 13:22:52', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(1003, '2025-07-12 13:22:52', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                Nombre: <b>2 Litros </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>\r\n                ', 2),
+(1004, '2025-07-12 13:22:52', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>2 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Coca-cola </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>2 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Pepsi </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1005, '2025-07-12 13:51:29', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                \r\n                ', 2),
+(1006, '2025-07-12 13:51:29', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                \r\n                ', 2),
+(1007, '2025-07-12 13:51:29', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1 Litro </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Glup </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>2 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Glup </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1008, '2025-07-12 14:07:49', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1 Litro </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Chinotto </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>2 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Chinotto </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1009, '2025-07-12 14:13:50', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Fanta </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1010, '2025-07-12 14:13:51', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                Nombre: <b>Bebidas Gaseosas </b><br>\r\n                    Estado: <b>Activa </b><br><br><br>\r\n                ', 2),
+(1011, '2025-07-12 14:13:51', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                Nombre: <b>400 Ml </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>\r\n                ', 2),
+(1012, '2025-07-12 14:13:51', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>400 Ml </b><br>\r\n                Categoría: <b>Bebidas Gaseosas </b><br>\r\n                Marca: <b>Fanta </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1013, '2025-07-12 15:31:51', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1014, '2025-07-12 16:03:21', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1015, '2025-07-12 17:09:36', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br>\r\n            Cédula / RIF: <b>J-28587583 </b><br>\r\n            Nombre: <b>TODO CARNES </b><br>\r\n            Correo: <b>TodoCarnes@gmail.com </b><br>\r\n            Teléfono: <b>04124567823 </b><br>\r\n            Dirección: <b>BARQUISIMETO CITY </b><br><br>\r\n\r\n            <b>****** Información de la entrada:   ******</b><br>\r\n            Total de la compra en $: <b>10 $ </b><br>\r\n            Total de la compra en bs: <b>1153.2 bs</b><br>\r\n            Fecha / hora: <b>12-07-2025 / 05:10:pm </b><br>\r\n            Tasa del dolar: <b>115.32 bs </b><br>\r\n            <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n            ', 2),
+(1016, '2025-07-12 17:11:21', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br>\r\n            Cédula / RIF: <b>J-28587583 </b><br>\r\n            Nombre: <b>TODO CARNES </b><br>\r\n            Correo: <b>TodoCarnes@gmail.com </b><br>\r\n            Teléfono: <b>04124567823 </b><br>\r\n            Dirección: <b>BARQUISIMETO CITY </b><br><br>\r\n\r\n            <b>****** Información de la entrada:   ******</b><br>\r\n            Total de la compra en $: <b>10 $ </b><br>\r\n            Total de la compra en bs: <b>1153.2 bs</b><br>\r\n            Fecha / hora: <b>12-07-2025 / 05:11:pm </b><br>\r\n            Tasa del dolar: <b>115.32 bs </b><br>\r\n            <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n            ', 2),
+(1017, '2025-07-12 17:47:06', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2);
+INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) VALUES
+(1018, '2025-07-13 13:31:57', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1019, '2025-07-13 15:16:17', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1020, '2025-07-14 11:27:11', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1021, '2025-07-14 14:06:58', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1022, '2025-07-14 14:23:33', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1023, '2025-07-14 14:38:16', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1024, '2025-07-20 12:44:38', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1025, '2025-07-20 13:04:29', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>115.32 bs </b><br>\r\n    Fecha anterior: <b>11-07-2025 / 05:26:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>119.14 bs </b><br>\r\n    Fecha actual: <b>20-07-2025 / 01:04:pm </b><br>\r\n    ', 2),
+(1026, '2025-07-20 14:02:34', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>2.92 $ </b><br>\r\n    Subtotal de la compra en bs: <b>347.88 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>3.39 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>403.54 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 02:02:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1027, '2025-07-20 14:06:11', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>2.92 $ </b><br>\r\n    Subtotal de la compra en bs: <b>347.88 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>3.39 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>403.54 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 02:06:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1028, '2025-07-20 14:10:03', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>2.92 $ </b><br>\r\n    Subtotal de la compra en bs: <b>347.88 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>3.39 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>403.54 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 02:10:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1029, '2025-07-20 14:13:30', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1030, '2025-07-20 19:45:55', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1031, '2025-07-20 19:48:47', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>1.46 $ </b><br>\r\n    Subtotal de la compra en bs: <b>173.94 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>1.69 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>201.77 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 07:48:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1032, '2025-07-20 19:54:27', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>1.46 $ </b><br>\r\n    Subtotal de la compra en bs: <b>173.94 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>1.69 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>201.77 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 07:54:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1033, '2025-07-20 20:13:25', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b>TEST OF SERVICE </b><br>\r\n        Descripción: <b>TEST CONTROLLER </b><br>\r\n        Precio en $: <b>5 $</b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n\r\n        <label><b>****** Detalles del servicio: ******</b></label><br><br>\r\n        <table class=\"table table-striped\">\r\n            <thead>\r\n            <tr>\r\n                <th class=\"col text-center\" scope=\"col\">PRODUCTO</th>\r\n                <th class=\"col text-center\" scope=\"col\">CATEGORÍA</th>\r\n                <th class=\"col text-center\" scope=\"col\">CANTIDAD</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                            <td class=\"text-center\">Refresco 1 Litro</td>\r\n                            <td class=\"text-center\">Bebidas Azucaradas</td>\r\n                            <td class=\"text-center\">4</td>\r\n                        </tr>\r\n            </tbody>\r\n        </table>\r\n        <br><br>\r\n        ', 2),
+(1034, '2025-07-20 20:21:10', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>595.7 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>691.01 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 08:21:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125234587 </b><br>\r\n    ', 2),
+(1035, '2025-07-20 20:29:58', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL PICHARDO </b><br>\r\n    Teléfono: <b>04125238909 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>595.7 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>691.01 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 08:29:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1036, '2025-07-20 20:34:29', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234587 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>10 $ </b><br>\r\n    Subtotal de la compra en bs: <b>1191.4 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>11.6 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>1382.02 bs</b><br>\r\n    Fecha / hora: <b>20-07-2025 / 08:34:am </b><br>\r\n    Tasa del dolar: <b>119.14 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1037, '2025-07-20 20:40:59', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1038, '2025-07-27 12:58:49', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1039, '2025-07-27 12:59:14', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1040, '2025-07-27 12:59:35', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1041, '2025-07-27 13:05:29', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1042, '2025-08-02 14:06:36', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1043, '2025-08-02 14:08:02', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1044, '2025-08-02 16:05:00', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1045, '2025-08-02 17:59:56', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1046, '2025-08-02 20:34:05', 'Registro exitoso de un proveedor.', 'Se registro un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>J-23123123 </b><br>\r\n        Nombre: <b>FILO E LOMO </b><br>\r\n        Correo: <b>alFilo@gmail.com </b><br>\r\n        Teléfono: <b>04125488754 </b><br>\r\n        Dirección: <b>AVENIDA X ENTRE CALLES Y Y Z </b><br><br>\r\n        ', 2),
+(1047, '2025-08-02 20:35:14', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1048, '2025-08-03 10:14:32', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1049, '2025-08-03 10:17:54', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1050, '2025-08-03 11:01:08', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1051, '2025-08-03 12:08:23', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1052, '2025-08-03 12:53:42', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1053, '2025-08-03 14:09:43', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\n        <b>****** Información original de la categoría:   ******</b><br><br>\n        Nombre: <b>Bebidas Azucaradas </b><br>\n        Estado: <b>Inactivo </b><br><br>\n        <b>****** Información actual de la categoría:   ******</b><br><br>\n        Nombre: <b>Bebidas Azucaradas </b><br>\n        Estado: <b>Activo </b>\n        ', 2),
+(1054, '2025-08-03 15:10:55', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1055, '2025-08-03 15:39:11', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1056, '2025-08-03 15:45:55', 'Modificación exitosa del estado de una categoría.', 'Se modificó el estado de una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la categoría:   ******</b><br><br>\r\n        Nombre: <b>Bebidas Azucaradas </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la categoría:   ******</b><br><br>\r\n        Nombre: <b>Bebidas Azucaradas </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(1057, '2025-08-03 16:03:20', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>1.5 Litros </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>1.5 Litros </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(1058, '2025-08-03 16:09:27', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>1 Litro </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>1 Litro </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(1059, '2025-08-03 16:13:40', 'Modificación exitosa del estado de una presentación.', 'Se modificó el estado de una presentación con la siguiente informacón: <br><br>\r\n        <b>****** Información original de la presentación:   ******</b><br><br>\r\n        Nombre: <b>2 Litros </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Inactivo </b><br><br>\r\n        <b>****** Información actual de la presentación:   ******</b><br><br>\r\n        Nombre: <b>2 Litros </b><br>\r\n        Descripción: <b> </b><br>\r\n        Estado: <b>Activo </b><br>\r\n        ', 2),
+(1060, '2025-08-03 16:45:20', 'Modificación exitosa del estado de una marca.', 'Se modificó el estado de una Marca con la siguiente informacón: <br><br>\r\n            <b>****** Información original de la marca:   ******</b><br><br>\r\n            Nombre: <b>Coca-Cola </b><br>\r\n            Estado: <b>Inactivo </b><br>       \r\n            Fecha: <b>2025-08-03 </b><br><br>\r\n            <b>****** Información actual de la marca:   ******</b><br><br>\r\n            Nombre: <b>Coca-Cola </b><br>\r\n            Estado: <b>Activa </b><br>      \r\n            Fecha: <b>2025-08-03 </b>\r\n        ', 2),
+(1061, '2025-08-03 17:41:25', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1062, '2025-08-04 13:24:55', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1063, '2025-08-04 14:07:24', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>119.14 bs </b><br>\r\n    Fecha anterior: <b>20-07-2025 / 01:04:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>126.28 bs </b><br>\r\n    Fecha actual: <b>04-08-2025 / 02:07:pm </b><br>\r\n    ', 2),
+(1064, '2025-08-04 14:19:48', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Hit </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1065, '2025-08-04 14:19:48', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>2 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Hit </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1066, '2025-08-04 15:44:21', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1067, '2025-08-04 15:56:20', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1068, '2025-08-04 19:43:45', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br>\r\n            Cédula / RIF: <b>J-28587583 </b><br>\r\n            Nombre: <b>TODO CARNES </b><br>\r\n            Correo: <b>TodoCarnes@gmail.com </b><br>\r\n            Teléfono: <b>04124567823 </b><br>\r\n            Dirección: <b>BARQUISIMETO CITY </b><br><br>\r\n\r\n            <b>****** Información de la entrada:   ******</b><br>\r\n            Total de la compra en $: <b>10 $ </b><br>\r\n            Total de la compra en bs: <b>1262.8 bs</b><br>\r\n            Fecha / hora: <b>04-08-2025 / 07:43:pm </b><br>\r\n            Tasa del dolar: <b>126.28 bs </b><br>\r\n            <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n            ', 2),
+(1069, '2025-08-04 19:45:58', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1070, '2025-08-05 12:09:45', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1071, '2025-08-05 14:17:34', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1072, '2025-08-06 11:27:57', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1073, '2025-08-06 12:29:28', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Kolita </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1074, '2025-08-06 12:29:28', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1.5 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Kolita </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1075, '2025-08-06 14:06:33', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1076, '2025-08-06 18:15:04', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1077, '2025-08-07 11:37:50', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1078, '2025-08-07 11:38:24', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1079, '2025-08-07 11:53:13', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>J-23123123 </b><br>\r\n        Nombre: <b>FILO E LOMO </b><br>\r\n        Correo: <b>alFilo@gmail.com </b><br>\r\n        Teléfono: <b>04125488754 </b><br>\r\n        Dirección: <b>AVENIDA X ENTRE CALLES Y Y Z </b><br><br>\r\n        <b>****** Información actual del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>J-23123123 </b><br>\r\n        Nombre: <b>FILO E LOMO </b><br>\r\n        Correo: <b>alFilo@gmail.com </b><br>\r\n        Teléfono: <b>04125488754 </b><br>\r\n        Dirección: <b>AVENIDA X ENTRE CALLES Z </b><br>\r\n\r\n        ', 2),
+(1080, '2025-08-07 15:03:36', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1081, '2025-08-07 15:05:00', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1082, '2025-08-07 15:06:16', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>126.28 bs </b><br>\r\n    Fecha anterior: <b>04-08-2025 / 02:07:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>129.05 bs </b><br>\r\n    Fecha actual: <b>07-08-2025 / 03:06:pm </b><br>\r\n    ', 2),
+(1083, '2025-08-07 15:23:37', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1084, '2025-08-07 15:24:01', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1085, '2025-08-07 15:24:08', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1086, '2025-08-07 15:24:19', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1087, '2025-08-07 15:24:28', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1088, '2025-08-07 16:17:13', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1089, '2025-08-08 17:04:27', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1090, '2025-08-08 18:21:37', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1091, '2025-08-09 14:48:32', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1092, '2025-08-09 15:25:12', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Golden </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1093, '2025-08-09 15:25:12', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>1.5 Litros </b><br>\r\n                Categoría: <b>Bebidas Azucaradas </b><br>\r\n                Marca: <b>Golden </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1094, '2025-08-09 15:29:06', 'Registro exitoso de una categoría.', 'Se registro una categoría con la siguiente informacón: <br><br>\r\n        <b>****** Información de la categoría:   ******</b><br><br>\r\n        Nombre: <b>Generico </b><br>\r\n        Estado: <b>Activo </b>\r\n        ', 2),
+(1095, '2025-08-09 15:31:29', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente informacón: <br><br>\r\n        <b>****** Información de la presentación:   ******</b><br><br>\r\n        Nombre: <b>Sin Marca </b><br>\r\n        ', 2),
+(1096, '2025-08-09 15:35:12', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1097, '2025-08-10 12:15:50', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1098, '2025-08-10 12:27:56', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1099, '2025-08-10 12:50:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1100, '2025-08-10 16:37:20', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1101, '2025-08-11 09:57:21', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1102, '2025-08-11 13:49:19', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1103, '2025-08-11 15:02:32', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1104, '2025-08-11 15:53:10', 'Modificación del estado de un servicio', 'El usuario actualizó el estado de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b>  </b><br> \r\n            Precio en dolares:  <b> $ </b><br> \r\n            Descripción:  <b>  </b><br> \r\n            Estado:  <b> inactivo </b><br> \r\n            ', 2),
+(1105, '2025-08-11 16:27:19', 'Modificación del estado de un servicio', 'El usuario actualizó el estado de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> inactivo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b>  </b><br> \r\n            Precio en dolares:  <b> $ </b><br> \r\n            Descripción:  <b>  </b><br> \r\n            Estado:  <b> inactivo </b><br> \r\n            ', 2),
+(1106, '2025-08-11 18:48:39', 'Intento de acceso no autorizado a la pantalla lista de productos.', 'Se ha registrado un intento de acceso incorrecto a la pantalla lista de productos por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1107, '2025-08-11 19:10:32', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Bom Bum </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>Nombre: <b>Nestle </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1108, '2025-08-11 19:10:32', 'Registro exitoso de una o más Categorías.', 'Se registraron una o más Categorías con la siguiente información: <br><br>\r\n                <b>****** Información de la Categoría:   ******</b><br><br>\r\n                Nombre: <b>Golocinas </b><br>\r\n                    Estado: <b>Activa </b><br><br><br>\r\n                ', 2),
+(1109, '2025-08-11 19:10:32', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                Nombre: <b>25g </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>Nombre: <b>125g </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>\r\n                ', 2),
+(1110, '2025-08-11 19:10:33', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Chupeta </b><br>\r\n                Presentación: <b>25g </b><br>\r\n                Categoría: <b>Golocinas </b><br>\r\n                Marca: <b>Bom Bum </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Pirulin </b><br>\r\n                Presentación: <b>125g </b><br>\r\n                Categoría: <b>Golocinas </b><br>\r\n                Marca: <b>Nestle </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1111, '2025-08-11 19:48:37', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1112, '2025-08-12 09:37:46', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1113, '2025-08-12 10:06:05', 'Intento de acceso no autorizado a la pantalla lista de proveedores.', 'Se ha registrado un intento de acceso incorrecto a la pantalla lista de proveedores por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1114, '2025-08-12 11:47:11', 'Registro exitoso de un proveedor.', 'Se registro un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>R-48946525 </b><br>\r\n        Nombre: <b>TEST PROVIDER </b><br>\r\n        Correo: <b>provider@test.com </b><br>\r\n        Teléfono: <b>04123456798 </b><br>\r\n        Dirección: <b>PROVIDER CITY </b><br><br>\r\n        ', 2),
+(1115, '2025-08-12 11:54:01', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>R-48946525 </b><br>\r\n        Nombre: <b>TEST PROVIDER </b><br>\r\n        Correo: <b>provider@test.com </b><br>\r\n        Teléfono: <b>04123456798 </b><br>\r\n        Dirección: <b>PROVIDER CITY </b><br><br>\r\n        <b>****** Información actual del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>R-48946525 </b><br>\r\n        Nombre: <b>TEST PROVIDER </b><br>\r\n        Correo: <b>provider@test.com </b><br>\r\n        Teléfono: <b>04123456798 </b><br>\r\n        Dirección: <b>PROVIDE </b><br>\r\n\r\n        ', 2),
+(1116, '2025-08-12 13:13:41', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1117, '2025-08-12 14:17:43', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1118, '2025-08-12 14:21:09', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1119, '2025-08-12 14:21:43', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>129.05 bs </b><br>\r\n    Fecha anterior: <b>07-08-2025 / 03:06:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>132.3 bs </b><br>\r\n    Fecha actual: <b>12-08-2025 / 02:21:pm </b><br>\r\n    ', 2),
+(1120, '2025-08-12 14:22:04', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>132.3 bs </b><br>\r\n    Fecha anterior: <b>12-08-2025 / 02:21:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>132.3 bs </b><br>\r\n    Fecha actual: <b>12-08-2025 / 02:22:pm </b><br>\r\n    ', 2),
+(1121, '2025-08-12 14:39:07', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1122, '2025-08-12 15:56:13', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1123, '2025-08-12 18:36:37', 'Registro exitoso de una Marca.', 'Se registro una Marca con la siguiente información: <br><br>\r\n                <b>****** Información de la Marca:   ******</b><br><br>\r\n                Nombre: <b>Bom Bom Bum </b><br>\r\n                    Estado: <b>Activo </b><br><br>\r\n                    <b>*********************************************</b><br><br>', 2),
+(1124, '2025-08-12 18:36:37', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Bubaloo </b><br>\r\n                Presentación: <b>25g </b><br>\r\n                Categoría: <b>Golocinas </b><br>\r\n                Marca: <b>Bom Bom Bum </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1125, '2025-08-12 19:01:05', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1126, '2025-08-13 10:14:46', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1127, '2025-08-13 11:23:47', 'Intento de acceso no autorizado a la pantalla lista de servicios.', 'Se ha registrado un intento de acceso incorrecto a la pantalla lista de servicios por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1128, '2025-08-13 12:07:02', 'Registro exitoso de un nuevo servicio.', 'Se registro un servicio con la siguiente informacón: <br><br>\r\n        <b>****** Información del servicio:   ******</b><br>\r\n        Nombre: <b>TEXTO </b><br>\r\n        Descripción: <b>DESKI </b><br>\r\n        Precio en $: <b>5 $</b><br>\r\n        Estado: <b>Activo </b><br><br>\r\n\r\n        <label><b>****** Detalles del servicio: ******</b></label><br><br>\r\n        <table class=\"table table-striped\">\r\n            <thead>\r\n            <tr>\r\n                <th class=\"col text-center\" scope=\"col\">PRODUCTO</th>\r\n                <th class=\"col text-center\" scope=\"col\">CATEGORÍA</th>\r\n                <th class=\"col text-center\" scope=\"col\">CANTIDAD</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                            <td class=\"text-center\">Refresco 1 Litro</td>\r\n                            <td class=\"text-center\">Bebidas Azucaradas</td>\r\n                            <td class=\"text-center\">4</td>\r\n                        </tr>\r\n            </tbody>\r\n        </table>\r\n        <br><br>\r\n        ', 2),
+(1129, '2025-08-13 13:54:01', 'Registro exitoso de una entrada.', 'Se registro una entrada con la siguiente informacón: <br><br>\r\n            <b>****** Información del proveedor:   ******</b><br>\r\n            Cédula / RIF: <b>J-11077810 </b><br>\r\n            Nombre: <b>MORTADELAS CARACAS </b><br>\r\n            Correo: <b>motadela_caracas@gmail.com </b><br>\r\n            Teléfono: <b>04124567898 </b><br>\r\n            Dirección: <b>ACARIGUA CITY </b><br><br>\r\n\r\n            <b>****** Información de la entrada:   ******</b><br>\r\n            Total de la compra en $: <b>109 $ </b><br>\r\n            Total de la compra en bs: <b>14420.7 bs</b><br>\r\n            Fecha / hora: <b>13-08-2025 / 01:32:pm </b><br>\r\n            Tasa del dolar: <b>132.3 bs </b><br>\r\n            <b>Para más detalles sobre la entrada, ve a la lista de entradas </b><br>\r\n            ', 2),
+(1130, '2025-08-13 14:00:21', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1131, '2025-08-13 15:55:54', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1132, '2025-08-13 16:44:48', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5$ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1133, '2025-08-13 16:52:48', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1134, '2025-08-14 11:20:47', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1135, '2025-08-14 13:00:13', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1136, '2025-08-14 13:05:19', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1137, '2025-08-14 14:35:43', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1138, '2025-08-14 16:26:08', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1139, '2025-08-14 16:27:01', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1140, '2025-08-14 16:37:06', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1141, '2025-08-14 17:14:07', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1142, '2025-08-14 17:14:47', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1143, '2025-08-14 17:23:11', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1144, '2025-08-14 17:34:40', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1145, '2025-08-14 17:35:08', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1146, '2025-08-14 17:37:52', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1147, '2025-08-14 17:43:14', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1148, '2025-08-14 17:46:26', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1149, '2025-08-14 17:47:53', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1150, '2025-08-14 17:50:40', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1151, '2025-08-14 17:51:12', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1152, '2025-08-15 10:57:51', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2);
+INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) VALUES
+(1153, '2025-08-15 11:33:17', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1154, '2025-08-15 11:56:42', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1155, '2025-08-15 11:57:08', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1156, '2025-08-15 11:59:24', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1157, '2025-08-15 12:00:41', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1158, '2025-08-15 12:01:56', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1159, '2025-08-15 12:02:42', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1160, '2025-08-15 13:08:07', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1161, '2025-08-15 13:19:33', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1162, '2025-08-15 13:27:19', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1163, '2025-08-15 13:29:02', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1164, '2025-08-15 13:31:49', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1165, '2025-08-15 13:36:59', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1166, '2025-08-15 13:37:47', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1167, '2025-08-15 13:38:01', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1168, '2025-08-15 13:38:35', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1169, '2025-08-15 13:41:27', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1170, '2025-08-15 13:42:57', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1171, '2025-08-15 13:45:45', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n            \r\n            <b>****** Información del servicio actualizada:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 15 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> \r\n            ', 2),
+(1172, '2025-08-15 14:46:59', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1173, '2025-08-15 15:35:53', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1174, '2025-08-15 15:38:22', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio original: *********</b><br> \r\n            Nombre: <b>Chupeta Bom Bum 25g </b><br>\r\n            Cantidad: <b>15</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n\r\n            <b>****** Información del servicio actualizado:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> <br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio actualizado: *********</b><br> \r\n            Nombre: <b>Pirulin Nestle 125g </b><br>\r\n                Cantidad: <b>2</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1175, '2025-08-15 15:39:27', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 15$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio original: *********</b><br> \r\n            Nombre: <b>Refresco Pepsi 2 Litros </b><br>\r\n            Cantidad: <b>3</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>Nombre: <b>Refresco Coca-cola 1 Litro </b><br>\r\n            Cantidad: <b>2</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>Nombre: <b>Pirulin Nestle 125g </b><br>\r\n            Cantidad: <b>1</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n\r\n            <b>****** Información del servicio actualizado:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 15 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> <br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio actualizado: *********</b><br> \r\n            Nombre: <b>Chupeta Bom Bum 25g </b><br>\r\n                Cantidad: <b>1</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Bubaloo Bom Bom Bum 25g </b><br>\r\n                Cantidad: <b>8</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco Pepsi 1 Litro </b><br>\r\n                Cantidad: <b>3</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1176, '2025-08-15 17:59:37', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1177, '2025-08-16 11:25:42', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1178, '2025-08-16 11:27:16', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>132.3 bs </b><br>\r\n    Fecha anterior: <b>12-08-2025 / 02:22:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>136.89 bs </b><br>\r\n    Fecha actual: <b>16-08-2025 / 11:27:am </b><br>\r\n    ', 2),
+(1179, '2025-08-16 11:28:25', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>136.89 bs </b><br>\r\n    Fecha anterior: <b>16-08-2025 / 11:27:am </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>136.89 bs </b><br>\r\n    Fecha actual: <b>16-08-2025 / 11:28:am </b><br>\r\n    ', 2),
+(1180, '2025-08-16 11:52:13', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-28587586 </b><br>\r\n        Nombre: <b>GABRIEL SUAREZ </b><br>\r\n        Teléfono: <b>04125234587 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-28587586 </b><br>\r\n        Nombre: <b>GABRIEL SUAREZ </b><br>\r\n        Teléfono: <b>04125234586 </b><br>\r\n        ', 2),
+(1181, '2025-08-16 11:54:13', 'Modificación exitosa de un cliente.', 'Se modificó un cliente con la siguiente informacón: <br><br>\r\n        <b>****** Información original del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-28587586 </b><br>\r\n        Nombre: <b>GABRIEL SUAREZ </b><br>\r\n        Teléfono: <b>04125234586 </b><br><br>\r\n        <b>****** Información actualizada del cliente modificado:   ******</b><br><br>\r\n        Cédula: <b>V-28587586 </b><br>\r\n        Nombre: <b>GABRIEL SUAREZ </b><br>\r\n        Teléfono: <b>04125234599 </b><br>\r\n        ', 2),
+(1182, '2025-08-16 13:08:53', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares: <b> 15$ </b><br> \r\n            Descripción: <b> DESKI. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio original: *********</b><br> \r\n            Nombre: <b>Chupeta Bom Bum 25g </b><br>\r\n            Cantidad: <b>1</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>Nombre: <b>Bubaloo Bom Bom Bum 25g </b><br>\r\n            Cantidad: <b>8</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>Nombre: <b>Refresco Pepsi 1 Litro </b><br>\r\n            Cantidad: <b>3</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n\r\n            <b>****** Información del servicio actualizado:   ******</b><br> \r\n            Nombre del platillo: <b> TEXTO </b><br> \r\n            Precio en dolares:  <b> 15 $ </b><br> \r\n            Descripción:  <b> DESKI </b><br> \r\n            Estado:  <b> activo </b><br> <br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio actualizado: *********</b><br> \r\n            Nombre: <b>Chupeta Bom Bum 25g </b><br>\r\n                Cantidad: <b>3</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Bubaloo Bom Bom Bum 25g </b><br>\r\n                Cantidad: <b>8</b><br><br>\r\n                <b>*********************************************</b><br><br>Nombre: <b>Refresco Pepsi 1 Litro </b><br>\r\n                Cantidad: <b>3</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1183, '2025-08-16 13:46:50', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>27.62 $ </b><br>\r\n    Subtotal de la compra en bs: <b>3780.91 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>32.04 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>4385.86 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 01:46:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1184, '2025-08-16 14:03:01', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1185, '2025-08-16 15:20:17', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1186, '2025-08-16 15:22:04', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>684.45 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>793.96 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 03:22:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1187, '2025-08-16 15:30:28', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>15.72 $ </b><br>\r\n    Subtotal de la compra en bs: <b>2151.96 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>18.24 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>2496.27 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 03:30:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1188, '2025-08-16 16:02:40', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>684.45 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>793.96 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 04:02:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1189, '2025-08-16 16:16:02', 'Modificación de un servicio', 'El usuario actualizó la información de un servicio: <br><br>\r\n            <b>****** Información original del servicio:   ******</b><br>\r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares: <b> 5$ </b><br> \r\n            Descripción: <b> TEST CONTROLLER. </b><br> \r\n            Estado: <b> activo </b><br><br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio original: *********</b><br> \r\n            Nombre: <b>Pirulin Nestle 125g </b><br>\r\n            Cantidad: <b>2</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n\r\n            <b>****** Información del servicio actualizado:   ******</b><br> \r\n            Nombre del platillo: <b> TEST OF SERVICE </b><br> \r\n            Precio en dolares:  <b> 5 $ </b><br> \r\n            Descripción:  <b> TEST CONTROLLER </b><br> \r\n            Estado:  <b> activo </b><br> <br> \r\n\r\n            <b>*****************************************************</b><br> <br> \r\n            <b>********** Productos del servicio actualizado: *********</b><br> \r\n            Nombre: <b>Refresco Coca-cola 1 Litro </b><br>\r\n                Cantidad: <b>2</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1190, '2025-08-16 16:17:26', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>684.45 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>793.96 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 04:17:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1191, '2025-08-16 16:37:15', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>2.62 $ </b><br>\r\n    Subtotal de la compra en bs: <b>358.66 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>3.04 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>416.05 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 04:37:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1192, '2025-08-16 16:39:43', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>25 $ </b><br>\r\n    Subtotal de la compra en bs: <b>3422.25 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>29 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>3969.81 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 04:39:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1193, '2025-08-16 16:57:45', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>25 $ </b><br>\r\n    Subtotal de la compra en bs: <b>3422.25 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>29 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>3969.81 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 04:57:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1194, '2025-08-16 17:14:09', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>250 $ </b><br>\r\n    Subtotal de la compra en bs: <b>34222.5 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>290 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>39698.1 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 05:14:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1195, '2025-08-16 17:27:03', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>275 $ </b><br>\r\n    Subtotal de la compra en bs: <b>37644.8 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>319 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>43667.9 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 05:27:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1196, '2025-08-16 17:32:19', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>300 $ </b><br>\r\n    Subtotal de la compra en bs: <b>41067 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>348 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>47637.7 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 05:32:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1197, '2025-08-16 17:37:26', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>500 $ </b><br>\r\n    Subtotal de la compra en bs: <b>68445 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>580 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>79396.2 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 05:37:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1198, '2025-08-16 17:40:56', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>250 $ </b><br>\r\n    Subtotal de la compra en bs: <b>34222.5 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>290 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>39698.1 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 05:40:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1199, '2025-08-16 17:57:27', 'Intento de acceso no autorizado a la pantalla lista de clientes.', 'Se ha registrado un intento de acceso incorrecto a la pantalla lista de clientes por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1200, '2025-08-16 18:02:15', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587586 </b><br>\r\n    Nombre: <b>GABRIEL SUAREZ </b><br>\r\n    Teléfono: <b>04125234599 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>25 $ </b><br>\r\n    Subtotal de la compra en bs: <b>3422.25 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>29 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>3969.81 bs</b><br>\r\n    Fecha / hora: <b>16-08-2025 / 06:02:am </b><br>\r\n    Tasa del dolar: <b>136.89 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSÉ BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1201, '2025-08-16 18:05:28', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1202, '2025-08-17 10:18:07', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1203, '2025-08-17 13:20:01', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1204, '2025-08-18 12:09:32', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1205, '2025-08-18 12:19:44', 'Modificación exitosa de las características de acceso de un usuario', 'El usuario modificó las características de acceso de un usuario: <br><br>\r\n         <b>****** Información del usuario modificado:   ******</b><br>\r\n        Cédula: <b>V-12345678</b><br>\r\n        Nombre: <b>ADMIN PRUEBA</b><br>\r\n        Teléfono: <b>04154785965</b><br><br>\r\n\r\n         <b>****** Información original:   ******</b><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Permitido</b><br>\r\n        Rol asignado: <b>EMPLEADO</b><br><br>\r\n\r\n         <b>****** Información Actualizada:   ******</b><br>\r\n        Estado: <b>Activo</b><br>\r\n        Permiso de inicio de sesión: <b>Denegado</b><br>\r\n        Rol asignado: <b>ADIMINISTRADOR</b>\r\n        ', 2),
+(1206, '2025-08-18 12:56:52', 'Cambio exitoso del estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: <br><br>\r\n        <b>***** Información del rol original: *****</b><br><br>\r\n        Nombre del rol:  <b>ROL PRUEBA </b><br><br>\r\n        Estado: <b>Activo</b> <br><br>\r\n        <b>***** Información del rol actualizada: *****</b><br><br>\r\n        Nombre del rol:  <b>ROL PRUEBA </b><br>\r\n        Estado: <b>Inactivo</b>', 2),
+(1207, '2025-08-18 12:58:59', 'Cambio exitoso del estado de un rol', 'El usuario cambió el estado del rol con la siguiente información: <br><br>\r\n        <b>***** Información del rol original: *****</b><br><br>\r\n        Nombre del rol:  <b>EMPLEADO </b><br><br>\r\n        Estado: <b>Inactivo</b> <br><br>\r\n        <b>***** Información del rol actualizada: *****</b><br><br>\r\n        Nombre del rol:  <b>EMPLEADO </b><br>\r\n        Estado: <b>Activo</b>', 2),
+(1208, '2025-08-18 13:05:01', 'Registro exitoso de un rol', 'El usuario Registró un rol con la siguiente infromación: <br>\r\n        Nombre del rol: <b>PASDASU</b><br>\r\n        Estado: <b>Activo</b><br><br>\r\n        <b>************* Información rol: ************* </b><br><br>\r\n        <b>****** Módulo Proveedores   ******</b><br>\r\n        Acceso al módulo de Proveedores: <b>Acceso Total</b><br>\r\n        Registrar Nuevos Proveedores: <b>Permitido</b> <br>\r\n        Modificar Información de Proveedores: <b>Permitido</b> <br>\r\n        Consultar Lista de Proveedores Registrados: <b>Permitido</b> <br>\r\n        Visualizar Historial de Compras: <b>Permitido</b> <br><br>\r\n\r\n        <b>****** Módulo Productos     ******</b><br>\r\n        Acceso al módulo de Productos: <b>Sin Acceso</b> <br> <br>\r\n\r\n        Registrar Nuevas Categorías: <b>Denegado </b><br>\r\n        Modificar Información de Categorías: <b>Denegado</b> <br>\r\n        Consultar Lista de Categorías Registradas: <b>Denegado </b><br> <br>\r\n\r\n        Registrar Nuevas Presentaciones: <b>Denegado </b><br>\r\n        Modificar Información de Presentaciones: <b>Denegado</b> <br>\r\n        Consultar Lista de Presentaciones Registradas: <b>Denegado </b><br> <br>\r\n\r\n        Registrar Nuevos Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Productos Registrados: <b>Denegado </b><br> <br>\r\n\r\n        Registrar Entrada de Productos: <b>Denegado </b><br>\r\n        Consultar Lista de Entradas de Productos: <b>Denegado </b><br><br>\r\n        \r\n        <b>****** Módulo Ventas        ******</b><br>\r\n        Acceso al módulo de Ventas:  <b>Sin Acceso </b> <br>\r\n        Generar Nuevas Ventas: <b>Denegado </b><br>\r\n        Consultar Lista de Ventas Realizadas: <b>Denegado </b><br>\r\n        Visualizar Detalles de Ventas: <b>Denegado </b><br>\r\n        Acceder a Facturas de Ventas: <b>Denegado </b><br>\r\n        Consultar Estadísticas de Ventas: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Menú          ******</b><br>\r\n        Acceso al módulo de Servicios:  <b>Sin Acceso </b><br>\r\n        Registrar Nuevos Servicios: <b>Denegado </b><br>\r\n        Modificar Información de Servicios: <b>Denegado </b><br>\r\n        Consultar Lista de Servicios Registrados: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Clientes      ******</b><br>\r\n        Acceso al módulo de Clientes:  <b>Sin Acceso</b><br>\r\n        Registrar Nuevos Clientes: <b>Denegado </b><br>\r\n        Modificar Información de Clientes: <b>Denegado </b><br>\r\n        Consultar Lista de Clientes Regitrados: <b>Denegado </b><br>\r\n        Visualizar Historial de Clientes: <b>Denegado </b><br>\r\n        Acceder a Facturas de Clientes: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Empleados          ******</b><br>\r\n        Acceso al módulo de Empleados:  <b>Sin Acceso</b><br>\r\n        Registrar Nuevos Empleados: <b>Denegado </b><br>\r\n        Modificar Información de Empleados: <b>Denegado </b><br>\r\n        Consultar Lista de Empleados Registrados: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Roles  ******</b><br>\r\n        Acceso al módulo de Roles:  <b>Sin Acceso</b><br>\r\n        Registrar Nuevos Roles: <b>Denegado </b><br>\r\n        Modificar Información de Roles: <b>Denegado </b><br>\r\n        Consultar Lista de Roles Registrados: <b>Denegado </b> <br><br>\r\n\r\n        <b>****** Módulo Configuración del sistema  ******</b><br>\r\n        Acceso al módulo los Ajustes del Sistema:  <b>Sin Acceso</b><br>\r\n        Modificar Cantidad de Preguntas de Seguridad: <b>Denegado </b><br>\r\n        Modificar Tiempo de Inactividad de Sesión: <b>Denegado </b><br>\r\n        Modificar Cantidad de Caracteres Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Símbolos Permitidos: <b>Denegado </b><br>\r\n        Modificar Cantidad de Números Permitidos: <b>Denegado </b><br>\r\n        Modificar Intentos de Inicio de Sesión: <b>Denegado </b><br><br>\r\n\r\n        <b>****** Módulo Bitácora      ******</b><br>\r\n        Acceso al módulo la Bitácora: <b>Sin Acceso</b><br>\r\n        Consultar Registros de la Bitácora: <b>Denegado </b><br>\r\n        Consultar Movimientos de un Usuario en la Bitácora: <b>Denegado </b><br><br><br>\r\n        ', 2),
+(1209, '2025-08-18 13:12:02', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1210, '2025-08-18 14:55:38', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1211, '2025-08-18 15:50:50', 'Intento de acceso no autorizado a la pantalla lista de ventas realizadas.', 'Se ha registrado un intento de acceso incorrecto a la pantalla lista de ventas realizadas por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1212, '2025-08-18 15:51:55', 'Intento de acceso no autorizado a la pantalla estadísticas de servicios.', 'Se ha registrado un intento de acceso incorrecto a la pantalla estadísticas de servicios por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1213, '2025-08-18 15:52:56', 'Intento de acceso no autorizado a la pantalla generar venta.', 'Se ha registrado un intento de acceso incorrecto a la pantalla generar venta por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.', 2),
+(1214, '2025-08-18 17:17:15', 'Registro exitoso de un nuevo usuario.', 'Se registró un nuevo usuario con la siguiente informacón: <br><br>\r\n        <b>****** Información del usuario registrado:   ******</b><br><br>\r\n        Cédula: <b>V-46546565 </b><br>\r\n        Nombre: <b>PUEBASS </b><br>\r\n        Apellido: <b>BASS </b><br>\r\n        Correo: <b>bass@text.com </b><br>\r\n        Teléfono: <b>04123456798 </b><br>\r\n        Dirección: <b>BARRIO BASS </b><br>\r\n        Rol asignado: <b>EMPLEADO </b>\r\n        ', 2),
+(1215, '2025-08-18 17:48:39', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>136.89 bs </b><br>\r\n    Fecha anterior: <b>16-08-2025 / 11:28:am </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>136.89 bs </b><br>\r\n    Fecha actual: <b>18-08-2025 / 05:48:pm </b><br>\r\n    ', 2),
+(1216, '2025-08-18 18:04:41', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -1013,16 +1286,11 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
-(1, 'COMESTIBLE', 0),
-(2, 'Bebidas Azucaradas', 1),
-(12, 'Adicionales', 1),
-(26, 'Bebidas Alcohólicas', 1),
-(28, 'POSTRES', 1),
-(29, 'Pollo', 1),
-(30, 'Lactéos', 1),
-(31, 'Carnes Frías', 1),
-(32, 'Huevos', 1),
-(33, 'Chuchería', 1);
+(1, 'Bebidas Azucaradas', 1),
+(2, 'Refresco', 1),
+(3, 'Bebidas Gaseosas', 1),
+(4, 'Generico', 1),
+(5, 'Golocinas', 1);
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1312,7 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`id_cliente`, `cedula`, `nombre`, `telefono`) VALUES
 (1, 'V-15214817', 'JHOAN TORREZ', '04128053290'),
 (2, 'V-28587583', 'DANIEL PICHARDO', '04125238909'),
-(3, 'V-28587586', 'GABRIEL SUAREZ', '04125234587'),
+(3, 'V-28587586', 'GABRIEL SUAREZ', '04125234599'),
 (4, 'V-14540481', 'MARÍA JOSÉ GIMENEZ', '04245494211'),
 (5, 'V-30887827', 'KATTY RONDON', '04242344312'),
 (6, 'V-29775798', 'LUISA SALAS', '04123456789'),
@@ -1097,7 +1365,15 @@ CREATE TABLE `detalles_entrada` (
 INSERT INTO `detalles_entrada` (`id`, `id_entrada`, `id_producto`, `cantidad_comprada`, `precio_unitario_dolar`, `precio_unitario_bs`, `total_dolar`, `total_bs`) VALUES
 (3, 17, 2, 2, 1, 93, 2, 186),
 (4, 18, 2, 2, 3, 279, 6, 558),
-(14, 27, 32, 10, 2, 204.3, 20, 2043);
+(15, 28, 6, 10, 1, 115.32, 10, 1153.2),
+(16, 29, 6, 10, 1, 115.32, 10, 1153.2),
+(17, 30, 6, 10, 1, 115.32, 10, 1153.2),
+(18, 31, 6, 10, 1, 115.32, 10, 1153.2),
+(19, 32, 6, 5, 2, 252.56, 10, 1262.8),
+(20, 33, 5, 20, 2, 264.6, 40, 5292),
+(21, 34, 5, 20, 2, 264.6, 40, 5292),
+(22, 34, 6, 35, 0.9, 119.07, 31.5, 4167.45),
+(23, 34, 8, 15, 2.5, 330.75, 37.5, 4961.25);
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1393,10 @@ CREATE TABLE `detalles_menu` (
 --
 
 INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `id_menu`) VALUES
-(28, 32, 2, 19);
+(29, 6, 2, 20),
+(35, 18, 3, 22),
+(36, 20, 8, 22),
+(58, 4, 3, 22);
 
 -- --------------------------------------------------------
 
@@ -1139,145 +1418,19 @@ CREATE TABLE `detalles_pago` (
 --
 
 INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `referencia`, `cantidad_abonada_dolares`, `cantidad_abonada_bolivares`) VALUES
-(1, 4, 'Divisa', NULL, 24, 0),
-(2, 6, 'Transferencia / Pago movíl', '1234567890', 21, 1005.48),
-(3, 26, 'Divisa', NULL, 5, 239.4),
-(4, 28, 'Divisa', NULL, 25, 1197),
-(5, 30, 'Punto de Venta', NULL, 33, 1580.04),
-(6, 31, 'Divisa', NULL, 45, 2154.6),
-(7, 32, 'Divisa', NULL, 42, 2010.96),
-(8, 33, 'Divisa', NULL, 30, 1436.4),
-(9, 33, 'Punto de Venta', NULL, 35, 1675.8),
-(10, 34, 'Divisa', NULL, 9, 430.92),
-(11, 35, 'Punto de Venta', NULL, 36, 1723.68),
-(12, 36, 'Divisa', NULL, 30, 1436.4),
-(13, 36, 'Punto de Venta', NULL, 1, 47.88),
-(14, 37, 'Divisa', NULL, 30, 1436.4),
-(15, 37, 'Punto de Venta', NULL, 6, 287.28),
-(16, 38, 'Divisa', NULL, 30, 1436.4),
-(17, 39, 'Divisa', NULL, 15, 718.2),
-(18, 67, 'Divisa', NULL, 15, 718.2),
-(19, 73, 'Punto de Venta', NULL, 30, 1436.4),
-(20, 74, 'Transferencia / Pago movíl', '875647382', 45, 2154.6),
-(21, 84, 'Divisa', NULL, 1, 47.88),
-(22, 89, 'Transferencia / Pago movíl', '23232166', 1, 47.88),
-(23, 93, 'Divisa', '1233333333', 2, 95.76),
-(24, 93, 'Transferencia / Pago movíl', '1233333344', 3, 143.64),
-(25, 97, 'Divisa', NULL, 1, 47.88),
-(26, 97, 'Transferencia / Pago movíl', '234534323', 1, 47.88),
-(27, 99, 'Divisa', NULL, 10, 478.8),
-(28, 101, 'Divisa', NULL, 10, 478.8),
-(29, 102, 'Divisa', NULL, 10, 478.8),
-(30, 103, 'Divisa', NULL, 3, 143.64),
-(31, 104, 'Divisa', NULL, 3, 143.64),
-(32, 107, 'Divisa', NULL, 3, 143.64),
-(33, 108, 'Divisa', NULL, 3, 143.64),
-(34, 109, 'Divisa', NULL, 3, 143.64),
-(35, 110, 'Divisa', NULL, 3, 143.64),
-(36, 111, 'Divisa', NULL, 3, 143.64),
-(37, 112, 'Divisa', NULL, 3, 143.64),
-(38, 113, 'Divisa', NULL, 3, 143.64),
-(39, 115, '0', NULL, 3, 143.64),
-(40, 116, '0', NULL, 3, 143.64),
-(41, 118, 'Divisa', NULL, 3, 143.64),
-(42, 119, 'Divisa', NULL, 3, 143.64),
-(43, 120, 'Divisa', NULL, 3, 143.64),
-(44, 121, 'Divisa', NULL, 3, 143.64),
-(45, 122, 'Divisa', NULL, 3, 143.64),
-(46, 124, 'Divisa', NULL, 3, 143.64),
-(47, 132, 'Divisa', NULL, 15, 718.2),
-(48, 132, 'Transferencia / Pago movíl', '1233442342', 15, 718.2),
-(49, 133, 'Divisa', NULL, 1, 47.88),
-(50, 134, 'Divisa', NULL, 4, 191.52),
-(51, 135, 'Divisa', NULL, 4, 191.52),
-(52, 136, 'Divisa', NULL, 2, 95.76),
-(53, 137, 'Divisa', NULL, 2, 95.76),
-(54, 138, 'Divisa', NULL, 2, 95.76),
-(55, 139, 'Divisa', NULL, 15, 718.2),
-(56, 140, 'Divisa', NULL, 15, 718.2),
-(57, 140, 'Transferencia / Pago movíl', '6564467835', 15, 718.2),
-(58, 141, 'Divisa', NULL, 15, 718.2),
-(59, 141, 'Transferencia / Pago movíl', '587463874655', 15, 718.2),
-(60, 142, 'Divisa', NULL, 3, 143.64),
-(61, 142, 'Transferencia / Pago movíl', '235346765445', 3, 143.64),
-(62, 143, 'Divisa', NULL, 30, 1436.4),
-(63, 143, 'Transferencia / Pago movíl', '9477563738475', 4, 191.52),
-(64, 144, 'Divisa', NULL, 25, 1197),
-(65, 144, 'Transferencia / Pago movíl', '7676454334588', 15, 718.2),
-(66, 145, 'Divisa', NULL, 6, 287.28),
-(67, 145, 'Transferencia / Pago movíl', '5463425785', 6, 287.28),
-(68, 146, 'Divisa', NULL, 5, 239.4),
-(69, 146, 'Transferencia / Pago movíl', '3456634764', 5, 239.4),
-(70, 147, 'Divisa', NULL, 10, 478.8),
-(71, 148, 'Divisa', NULL, 1, 47.88),
-(72, 149, 'Divisa', NULL, 20, 957.6),
-(73, 150, 'Divisa', NULL, 30, 1436.4),
-(74, 151, 'Punto de Venta', NULL, 15, 718.2),
-(75, 151, 'Transferencia / Pago movíl', '73651236653', 19.8, 948.024),
-(76, 152, 'Punto de Venta', NULL, 11.6, 555.408),
-(77, 153, 'Divisa', NULL, 108, 5171.04),
-(78, 154, 'Punto de Venta', NULL, 39.44, 1839.48),
-(79, 155, 'Punto de Venta', NULL, 23.2, 1082.05),
-(80, 156, 'Divisa', NULL, 15, 699.6),
-(81, 156, 'Punto de Venta', NULL, 1.24, 57.8336),
-(82, 157, 'Punto de Venta', NULL, 19.72, 919.741),
-(83, 158, 'Divisa', NULL, 50, 2332),
-(84, 158, 'Punto de Venta', NULL, 5.68, 264.915),
-(85, 159, 'Punto de Venta', NULL, 34.8, 1623.07),
-(86, 160, 'Transferencia / Pago movíl', '85746534253647564536', 34.8, 1623.07),
-(87, 161, 'Divisa', NULL, 40, 1865.6),
-(88, 161, 'Punto de Venta', NULL, 1.76, 82.0864),
-(89, 164, 'Divisa', NULL, 30, 2852.4),
-(90, 164, 'Punto de Venta', NULL, 8.28, 787.262),
-(91, 165, 'Divisa', NULL, 30, 2852.4),
-(92, 165, 'Punto de Venta', NULL, 8.28, 787.262),
-(93, 166, 'Divisa', NULL, 30, 2852.4),
-(94, 166, 'Punto de Venta', NULL, 8.28, 787.262),
-(95, 167, 'Divisa', NULL, 30, 2852.4),
-(96, 167, 'Punto de Venta', NULL, 8.28, 787.262),
-(97, 168, 'Divisa', NULL, 30, 2852.4),
-(98, 168, 'Punto de Venta', NULL, 8.28, 787.262),
-(99, 169, 'Divisa', NULL, 30, 2852.4),
-(100, 169, 'Punto de Venta', NULL, 8.28, 787.262),
-(101, 170, 'Divisa', NULL, 30, 2852.4),
-(102, 170, 'Punto de Venta', NULL, 8.28, 787.262),
-(103, 171, 'Divisa', NULL, 30, 2852.4),
-(104, 171, 'Punto de Venta', NULL, 8.28, 787.262),
-(105, 172, 'Divisa', NULL, 30, 2852.4),
-(106, 172, 'Punto de Venta', NULL, 8.28, 787.262),
-(107, 173, 'Divisa', NULL, 32, 3042.56),
-(108, 174, 'Divisa', NULL, 32, 3042.56),
-(109, 175, 'Divisa', NULL, 32, 3042.56),
-(110, 176, 'Divisa', NULL, 32, 3042.56),
-(111, 177, 'Divisa', NULL, 37, 3517.96),
-(112, 177, 'Punto de Venta', NULL, 0.12, 11.4096),
-(113, 179, 'Divisa', NULL, 37, 3517.96),
-(114, 179, 'Punto de Venta', NULL, 0.12, 11.41),
-(115, 180, 'Divisa', NULL, 37, 3517.96),
-(116, 180, 'Punto de Venta', NULL, 0.12, 11.41),
-(117, 181, 'Divisa', NULL, 20, 1946.2),
-(118, 181, 'Punto de Venta', NULL, 2.04, 198.51),
-(119, 182, 'Divisa', NULL, 20, 1981.8),
-(120, 182, 'Punto de Venta', NULL, 0.88, 87.2),
-(121, 183, 'Divisa', NULL, 11, 1089.99),
-(122, 183, 'Punto de Venta', NULL, 0.6, 59.45),
-(123, 184, 'Punto de Venta', NULL, 0.56, 55.49),
-(124, 184, 'Divisa', NULL, 18, 1783.62),
-(125, 185, 'Divisa', NULL, 9, 891.81),
-(126, 185, 'Punto de Venta', NULL, 0.28, 27.75),
-(127, 186, 'Divisa', NULL, 11, 1089.99),
-(128, 186, 'Punto de Venta', NULL, 0.6, 59.45),
-(129, 187, 'Divisa', NULL, 11, 1090.32),
-(130, 187, 'Punto de Venta', NULL, 0.6, 59.47),
-(131, 188, 'Divisa', NULL, 4, 408.6),
-(132, 188, 'Punto de Venta', NULL, 0.64, 65.38),
-(133, 189, 'Divisa', NULL, 50, 5107.5),
-(134, 189, 'Punto de Venta', NULL, 0.81, 82.74),
-(135, 190, 'Divisa', NULL, 50, 5107.5),
-(136, 190, 'Punto de Venta', NULL, 0.81, 82.74),
-(137, 191, 'Divisa', NULL, 6, 612.9),
-(138, 191, 'Punto de Venta', NULL, 0.77, 78.66),
-(139, 192, 'Punto de Venta', NULL, 4.64, 473.98);
+(150, 203, 'Punto de Venta', NULL, 2496.27, 341714),
+(151, 204, 'Punto de Venta', NULL, 793.96, 108685),
+(152, 205, 'Punto de Venta', NULL, 5.8, 793.96),
+(153, 206, 'Punto de Venta', NULL, 3.04, 416.15),
+(154, 207, 'Punto de Venta', NULL, 29, 3969.81),
+(155, 208, 'Punto de Venta', NULL, 29, 3969.81),
+(156, 209, 'Divisa', NULL, 290, 39698.1),
+(157, 210, 'Divisa', NULL, 319, 43667.9),
+(158, 211, 'Divisa', NULL, 345, 47227.1),
+(159, 211, 'Transferencia / Pago movíl', '4874789543453', 3, 410.67),
+(160, 212, 'Divisa', NULL, 580, 79396.2),
+(161, 213, 'Divisa', NULL, 290, 39698.1),
+(162, 214, 'Divisa', NULL, 29, 3969.81);
 
 -- --------------------------------------------------------
 
@@ -1303,13 +1456,8 @@ CREATE TABLE `detalles_venta` (
 --
 
 INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
-(13, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 162),
-(14, NULL, NULL, NULL, NULL, 2, 0, 0, 0, 163),
-(42, NULL, NULL, NULL, NULL, 2, 2, 2, 204.3, 188),
-(43, NULL, NULL, NULL, NULL, 32, 10, 4.38, 447.42, 189),
-(44, NULL, NULL, NULL, NULL, 32, 10, 4.38, 447.42, 190),
-(45, NULL, NULL, NULL, NULL, 32, 2, 2.92, 298.28, 191),
-(46, NULL, NULL, NULL, NULL, 2, 2, 2, 204.3, 192);
+(63, NULL, NULL, NULL, NULL, 6, 2, 1.31, 179.33, 206),
+(71, 20, 5, 5, 684.45, NULL, NULL, NULL, NULL, 214);
 
 -- --------------------------------------------------------
 
@@ -1401,7 +1549,16 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (71, 106.16, '2025-06-26 13:56:02'),
 (72, 106.16, '2025-06-26 13:56:20'),
 (73, 108.18, '2025-07-01 10:50:39'),
-(74, 108.97, '2025-07-01 16:35:31');
+(74, 108.97, '2025-07-01 16:35:31'),
+(75, 115.32, '2025-07-11 17:26:40'),
+(76, 119.14, '2025-07-20 13:04:28'),
+(77, 126.28, '2025-08-04 14:07:24'),
+(78, 129.05, '2025-08-07 15:06:16'),
+(79, 132.3, '2025-08-12 14:21:43'),
+(80, 132.3, '2025-08-12 14:22:04'),
+(81, 136.89, '2025-08-16 11:27:16'),
+(82, 136.89, '2025-08-16 11:28:25'),
+(83, 136.89, '2025-08-18 17:48:39');
 
 -- --------------------------------------------------------
 
@@ -1415,35 +1572,40 @@ CREATE TABLE `entrada` (
   `total_dolar` float NOT NULL,
   `total_bs` float NOT NULL,
   `fecha_entrada` datetime NOT NULL,
-  `id_dolar` int DEFAULT NULL
+  `id_dolar` int DEFAULT NULL,
+  `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `entrada`
 --
 
-INSERT INTO `entrada` (`id_entrada`, `id_proveedor`, `total_dolar`, `total_bs`, `fecha_entrada`, `id_dolar`) VALUES
-(1, 3, 8, 744, '2025-05-16 19:13:00', 12),
-(2, 3, 8, 744, '2025-05-16 19:13:00', 12),
-(3, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(4, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(5, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(6, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(7, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(8, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(9, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(10, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(11, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(12, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(13, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(14, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(15, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(16, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(17, 3, 8, 744, '2025-05-16 19:45:00', 12),
-(18, 3, 28, 2604, '2025-05-16 20:40:00', 12),
-(19, 4, 80, 7440, '2025-05-16 20:50:00', 12),
-(20, 18, 20, 1860, '2025-05-16 21:17:00', 12),
-(27, 25, 20, 2043, '2025-06-14 22:06:00', 65);
+INSERT INTO `entrada` (`id_entrada`, `id_proveedor`, `total_dolar`, `total_bs`, `fecha_entrada`, `id_dolar`, `id_usuario`) VALUES
+(1, 3, 8, 744, '2025-05-16 19:13:00', 12, 2),
+(2, 3, 8, 744, '2025-05-16 19:13:00', 12, 2),
+(3, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(4, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(5, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(6, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(7, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(8, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(9, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(10, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(11, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(12, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(13, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(14, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(15, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(16, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(17, 3, 8, 744, '2025-05-16 19:45:00', 12, 2),
+(18, 3, 28, 2604, '2025-05-16 20:40:00', 12, 2),
+(28, 4, 10, 1153.2, '2025-07-12 16:36:00', 75, 2),
+(29, 4, 10, 1153.2, '2025-07-12 16:36:00', 75, 2),
+(30, 4, 10, 1153.2, '2025-07-12 17:10:00', 75, 2),
+(31, 4, 10, 1153.2, '2025-07-12 17:11:00', 75, 2),
+(32, 4, 10, 1262.8, '2025-08-04 19:43:00', 77, 2),
+(33, 3, 109, 14420.7, '2025-08-13 13:32:45', 80, 2),
+(34, 3, 109, 14420.7, '2025-08-13 13:32:45', 80, 2);
 
 -- --------------------------------------------------------
 
@@ -1459,6 +1621,15 @@ CREATE TABLE `inventario` (
   `fecha_ultima_actualizacion` datetime NOT NULL,
   `estado` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `inventario`
+--
+
+INSERT INTO `inventario` (`id`, `id_producto`, `stock_actual`, `precio_venta`, `fecha_ultima_actualizacion`, `estado`) VALUES
+(1, 6, 30, 1.31, '2025-08-13 13:32:45', 1),
+(2, 5, 20, 2.92, '2025-08-13 13:32:45', 1),
+(3, 8, 15, 3.65, '2025-08-13 13:32:45', 1);
 
 -- --------------------------------------------------------
 
@@ -1502,7 +1673,17 @@ INSERT INTO `marca` (`id`, `nombre`, `estado`) VALUES
 (23, 'Pollo Don Pollo', 1),
 (24, 'Pollos Tuti', 1),
 (25, 'Polar', 1),
-(26, 'Frito Lay', 1);
+(26, 'Frito Lay', 1),
+(27, 'Nike', 1),
+(28, 'Adidas', 1),
+(29, 'Fanta', 1),
+(30, 'Hit', 1),
+(31, 'Kolita', 1),
+(32, 'Golden', 1),
+(33, 'Sin Marca', 1),
+(34, 'Bom Bum', 1),
+(35, 'Nestle', 1),
+(36, 'Bom Bom Bum', 1);
 
 -- --------------------------------------------------------
 
@@ -1523,7 +1704,8 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
-(19, 'SERVICIO DE PRUEBA', '6', 'DESCRIPCIÓN', 0);
+(20, 'TEST OF SERVICE', '5', 'TEST CONTROLLER', 1),
+(22, 'TEXTO', '15', 'DESKI', 1);
 
 -- --------------------------------------------------------
 
@@ -1534,12 +1716,23 @@ INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`,
 CREATE TABLE `movimientos_inventario` (
   `id` int NOT NULL,
   `id_producto` int NOT NULL,
-  `tipo` varchar(60) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `tipo` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `cantidad` int NOT NULL,
   `fecha` datetime NOT NULL,
   `referencia_documento` int NOT NULL,
   `id_usuario` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `movimientos_inventario`
+--
+
+INSERT INTO `movimientos_inventario` (`id`, `id_producto`, `tipo`, `cantidad`, `fecha`, `referencia_documento`, `id_usuario`) VALUES
+(1, 6, 'Salida de 1 unidades de producto por Venta', 1, '2025-07-20 07:54:27', 197, 2),
+(2, 6, 'Salida de producto(s) por Venta de Servicio', 4, '2025-07-20 08:29:57', 199, 2),
+(3, 6, 'Salida de producto(s) por Venta de Servicio', 4, '2025-07-20 08:34:28', 200, 2),
+(4, 6, 'Salida por Venta de producto(s) ', 2, '2025-08-16 04:37:15', 206, 2),
+(5, 6, 'Salida de producto(s) por Venta de Servicio', 10, '2025-08-16 06:02:15', 214, 2);
 
 -- --------------------------------------------------------
 
@@ -1598,7 +1791,11 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 (36, 3, 'ZoiEgnh8amk=', 1, 19),
 (37, 4, 'ZoiEgnh8amk=', 2, 19),
 (38, 2, 'ZoiEgnh8amk=', 3, 19),
-(39, 1, 'ZoiEgnh8amk=', 4, 19);
+(39, 1, 'ZoiEgnh8amk=', 4, 19),
+(40, 3, 'aImFgHl9aGU=', 1, 20),
+(41, 1, 'aImFgHl9aGU=', 2, 20),
+(42, 4, 'aImFgHl9aGU=', 3, 20),
+(43, 2, 'aImFgHl9aGU=', 4, 20);
 
 -- --------------------------------------------------------
 
@@ -1609,7 +1806,7 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 CREATE TABLE `presentacion` (
   `id` int NOT NULL,
   `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `descripcion` varchar(250) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `descripcion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -1618,22 +1815,12 @@ CREATE TABLE `presentacion` (
 --
 
 INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
-(2, '1.5 Litros', 'Envase de un litro y medio', 1),
-(4, '3 Litros', 'Envase de tres litros', 1),
-(9, 'Entero', 'Entero', 1),
-(10, 'Medio', 'Medio (1/2)', 1),
-(11, 'Cuarto', 'Un cuarto (1/4)', 1),
-(12, 'Porción individual', 'Para una persona', 1),
-(13, 'Porción Familiar', 'Para compartir', 1),
-(14, '1 Litro', 'Envase de un litro', 1),
-(15, '2 Litros', 'Envase de dos litro', 1),
-(16, 'Lata', 'Envase de lata', 1),
-(17, 'Unidad', 'Artículo individual', 1),
-(18, 'Bandeja', 'Presentación en bandeja', 1),
-(24, '1 KG', 'Un kilogramo', 1),
-(25, '500 G', 'Quinientos gramos', 1),
-(33, '900g', 'Novecientos gramos', 1),
-(34, '300g', 'Trecientos gramos', 1);
+(1, '1 Litro', '', 1),
+(2, '1.5 Litros', '', 1),
+(3, '2 Litros', '', 1),
+(4, '400 Ml', '', 1),
+(5, '25g', '', 1),
+(6, '125g', '', 1);
 
 -- --------------------------------------------------------
 
@@ -1654,19 +1841,26 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre_producto`, `id_marca`, `id_presentacion`, `id_categoria`) VALUES
-(2, 'Refresco', 2, 2, 2),
-(20, 'Refresco', 1, 15, 2),
-(21, 'Refresco', 17, 14, 2),
-(23, 'Refresco', 18, 14, 2),
-(25, 'Refresco', 19, 14, 2),
-(32, 'POLLO', 22, 24, 1),
-(37, 'ARROZ', 20, 33, 1),
-(38, 'REFRESCO', 1, 2, 2),
-(39, 'REFRESCO', 2, 14, 2),
-(40, 'REFRESCO', 17, 14, 2),
-(41, 'REFRESCO', 18, 14, 2),
-(42, 'REFRESCO', 17, 15, 2),
-(43, 'REFRESCO', 18, 2, 2);
+(1, 'Refresco', 27, 1, 1),
+(2, 'Refresco', 27, 1, 2),
+(3, 'zapatos', 28, 2, 2),
+(4, 'Refresco', 2, 1, 1),
+(5, 'Refresco', 1, 2, 2),
+(6, 'Refresco', 1, 1, 1),
+(7, 'Refresco', 2, 2, 1),
+(8, 'Refresco', 1, 3, 1),
+(9, 'Refresco', 2, 3, 1),
+(10, 'Refresco', 17, 1, 1),
+(11, 'Refresco', 17, 3, 1),
+(12, 'Refresco', 18, 1, 1),
+(13, 'Refresco', 18, 3, 1),
+(14, 'Refresco', 29, 4, 3),
+(15, 'Refresco', 30, 3, 1),
+(16, 'Refresco', 31, 2, 1),
+(17, 'Refresco', 32, 2, 1),
+(18, 'chupeta', 34, 5, 5),
+(19, 'pirulin', 35, 6, 5),
+(20, 'bubaloo', 36, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -1692,7 +1886,9 @@ INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `dire
 (3, 'J-11077810', 'MORTADELAS CARACAS', 'motadela_caracas@gmail.com', 'ACARIGUA CITY', '04124567898'),
 (4, 'J-28587583', 'TODO CARNES', 'TodoCarnes@gmail.com', 'BARQUISIMETO CITY', '04124567823'),
 (18, 'J-21393076', 'TODO LOMO', 'lomo@gmail.com', 'VALENCIA COUNTRY', '04124895432'),
-(25, 'J-21065945', 'PROVEEDOR DE PRUEBA', 'proveedor@gmail.com', 'PROVEEDOR AVENIDA 45', '04123456789');
+(25, 'J-21065945', 'PROVEEDOR DE PRUEBA', 'proveedor@gmail.com', 'PROVEEDOR AVENIDA 45', '04123456789'),
+(26, 'J-23123123', 'FILO E LOMO', 'alFilo@gmail.com', 'AVENIDA X ENTRE CALLES Z', '04125488754'),
+(27, 'R-48946525', 'TEST PROVIDER', 'provider@test.com', 'PROVIDE', '04123456798');
 
 -- --------------------------------------------------------
 
@@ -1756,11 +1952,12 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`id_rol`, `nombre`, `estado`, `r_proveedores`, `m_proveedores`, `l_proveedores`, `h_proveedores`, `r_categoria`, `m_categoria`, `l_categoria`, `r_presentacion`, `m_presentacion`, `l_presentacion`, `r_marca`, `m_marca`, `l_marca`, `r_productos`, `l_productos`, `r_entrada`, `l_entrada`, `g_venta`, `d_venta`, `l_venta`, `f_venta`, `est_venta`, `r_servicio`, `m_servicio`, `l_servicio`, `r_cliente`, `m_cliente`, `l_cliente`, `h_cliente`, `f_cliente`, `r_empleado`, `m_empleado`, `l_empleado`, `r_rol`, `m_rol`, `l_rol`, `m_cant_pregunta_seguridad`, `m_tiempo_sesion`, `m_cant_caracteres`, `m_cant_simbolos`, `m_cant_num`, `intentos_inicio_sesion`, `v_bitacora`, `m_bitacora`) VALUES
 (1, 'DESARROLLADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(3, 'EMPLEADO', 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'ADIMINISTRADOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'EMPLEADO', 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (4, 'PROVEEDOR', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (7, 'PASANTE', 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(15, 'ROL PRUEBA', 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(15, 'ROL PRUEBA', 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(16, 'PASDASU', 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1813,10 +2010,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-07-08 11:39:46', 1, 0, 0, 0, 2, 1),
+(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-08-18 14:55:38', 0, 0, 0, 0, 2, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'Z4OEfHN4Y2U=', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 1, 3, 1),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-06-26 11:43:34', 1, 0, 0, 0, 3, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-06-26 11:43:34', 1, 0, 1, 0, 2, 1),
 (8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-11 16:13:43', 0, 0, 0, 1, 7, 1),
 (9, 'V-30774582', 'CARMEN', 'PEREZ', 'carmen@gmai.com', 'ioCDfHp/ZmVqZg==', '04145896325', 'BARRIO PAÉZ', NULL, 0, 0, 0, 1, 3, 1),
 (10, 'V-25478958', 'JULIO', 'BAEZ', 'jbaez@gmai.com', 'ZoiEg3uBZ2g=', '04165874523', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
@@ -1827,7 +2024,8 @@ INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `
 (16, 'V-34234234', 'MIGUEL', 'SANCHEZ', 'sanchez@gmail.com', 'Z4eCf3d6ZWQ=', '04144567545', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
 (17, 'V-33543345', 'FERNANDO', 'ALMEIDA', 'feralme@gmail.com', 'Z4aFgHZ7ZmU=', '04125463535', 'BARRIO LOS ACOSTADOS', NULL, 0, 0, 0, 1, 7, 1),
 (18, 'V-64684684', 'PRUEBA', 'MODAL', 'pm@gmail.com', 'aoeGhHd+amQ=', '04123456789', 'LOCALHOST', NULL, 0, 0, 0, 1, 3, 1),
-(19, 'V-25465489', 'PUEBA USUARIO', 'ALMEIDA', 'prueba@gmail.com', 'ZoiEgnh8amk=', '04124564987', 'BARRIO EL ANDRES ELOY SECTOR CENTRO', NULL, 0, 0, 0, 1, 3, 1);
+(19, 'V-25465489', 'PUEBA USUARIO', 'ALMEIDA', 'prueba@gmail.com', 'ZoiEgnh8amk=', '04124564987', 'BARRIO EL ANDRES ELOY SECTOR CENTRO', NULL, 0, 0, 0, 1, 3, 1),
+(20, 'V-46546565', 'PUEBASS', 'BASS', 'bass@text.com', 'aImFgHl9aGU=', '04123456798', 'BARRIO BASS', NULL, 0, 0, 0, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -1851,198 +2049,18 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_bs`, `monto_total_dolares`, `monto_total_bolivares`, `id_usuario`, `id_cliente`) VALUES
-(1, '2024-10-17 08:34:03', 0, 0, 30, 1436.4, 2, 2),
-(2, '2024-10-17 08:52:41', 0, 0, 24, 1125.48, 2, 2),
-(3, '2024-10-17 08:53:40', 0, 0, 24, 1125.48, 2, 2),
-(4, '2024-10-17 09:03:02', 0, 0, 24, 1125.48, 2, 2),
-(5, '2024-10-17 09:06:34', 0, 0, 5, 200, 2, 2),
-(6, '2024-10-17 09:09:49', 0, 0, 21, 1005.48, 2, 2),
-(7, '2024-10-17 09:11:00', 0, 0, 5, 200, 2, 2),
-(8, '2024-10-17 09:11:34', 0, 0, 5, 200, 2, 2),
-(9, '2024-10-17 09:13:15', 0, 0, 5, 200, 2, 2),
-(10, '2024-10-17 09:55:19', 0, 0, 5, 200, 2, 2),
-(11, '2024-10-17 09:56:12', 0, 0, 5, 200, 2, 2),
-(12, '2024-10-17 10:00:25', 0, 0, 5, 200, 2, 2),
-(13, '2024-10-17 10:01:24', 0, 0, 5, 200, 2, 2),
-(14, '2024-10-17 10:01:41', 0, 0, 5, 200, 2, 2),
-(15, '2024-10-17 10:02:30', 0, 0, 5, 200, 2, 2),
-(16, '2024-10-17 10:02:42', 0, 0, 5, 200, 2, 2),
-(17, '2024-10-17 10:02:51', 0, 0, 5, 200, 2, 2),
-(18, '2024-10-17 10:04:04', 0, 0, 15, 600, 2, 2),
-(19, '2024-10-17 10:07:03', 0, 0, 15, 600, 2, 2),
-(20, '2024-10-17 10:07:11', 0, 0, 15, 600, 2, 2),
-(21, '2024-10-17 10:14:51', 0, 0, 15, 600, 2, 2),
-(22, '2024-10-17 10:14:56', 0, 0, 15, 600, 2, 2),
-(23, '2024-10-17 10:15:19', 0, 0, 5, 200, 2, 2),
-(24, '2024-10-17 10:26:07', 0, 0, 5, 200, 2, 2),
-(25, '2024-10-17 10:29:27', 0, 0, 5, 200, 2, 2),
-(26, '2024-10-17 10:35:34', 0, 0, 5, 200, 2, 2),
-(27, '2024-10-17 10:37:25', 0, 0, 25, 1165.48, 2, 2),
-(28, '2024-10-17 10:38:57', 0, 0, 25, 1165.48, 2, 2),
-(29, '2024-10-17 10:40:50', 0, 0, 33, 1556.4, 2, 2),
-(30, '2024-10-17 10:41:10', 0, 0, 36, 1676.4, 2, 2),
-(31, '2024-10-21 09:01:56', 0, 0, 45, 2154.6, 2, 2),
-(32, '2024-10-22 09:05:28', 0, 0, 42, 2010.96, 2, 2),
-(33, '2024-10-24 11:21:52', 0, 0, 65, 3072.8, 2, 2),
-(34, '2024-10-24 11:25:16', 0, 0, 9, 360, 2, 4),
-(35, '2024-10-24 11:26:01', 0, 0, 36, 1440, 2, 4),
-(36, '2024-10-25 10:58:11', 0, 0, 31, 1484.28, 2, 2),
-(37, '2024-10-25 11:23:48', 0, 0, 36, 1723.68, 2, 2),
-(38, '2024-10-28 03:44:24', 0, 0, 30, 1436.4, 2, 5),
-(39, '2024-10-28 03:54:34', 0, 0, 15, 718.2, 2, 5),
-(40, '2024-10-28 04:06:49', 0, 0, 15, 718.2, 2, 5),
-(41, '2024-10-28 04:11:36', 0, 0, 15, 718.2, 2, 5),
-(42, '2024-10-28 04:16:14', 0, 0, 15, 718.2, 2, 5),
-(43, '2024-10-28 04:17:27', 0, 0, 15, 718.2, 2, 5),
-(44, '2024-10-28 04:18:08', 0, 0, 15, 718.2, 2, 5),
-(45, '2024-10-28 04:18:30', 0, 0, 15, 718.2, 2, 5),
-(46, '2024-10-28 04:19:48', 0, 0, 15, 718.2, 2, 5),
-(47, '2024-10-28 04:20:00', 0, 0, 15, 718.2, 2, 5),
-(48, '2024-10-28 04:20:54', 0, 0, 15, 718.2, 2, 5),
-(49, '2024-10-28 04:21:08', 0, 0, 15, 718.2, 2, 5),
-(50, '2024-10-28 04:21:48', 0, 0, 15, 718.2, 2, 5),
-(51, '2024-10-28 04:23:42', 0, 0, 15, 718.2, 2, 5),
-(52, '2024-10-28 04:24:05', 0, 0, 15, 718.2, 2, 5),
-(53, '2024-10-28 04:34:52', 0, 0, 15, 718.2, 2, 5),
-(54, '2024-10-28 04:35:06', 0, 0, 15, 718.2, 2, 5),
-(55, '2024-10-28 04:35:17', 0, 0, 15, 718.2, 2, 5),
-(56, '2024-10-28 04:35:31', 0, 0, 15, 718.2, 2, 5),
-(57, '2024-10-28 04:39:22', 0, 0, 15, 718.2, 2, 5),
-(58, '2024-10-28 04:41:30', 0, 0, 15, 718.2, 2, 5),
-(59, '2024-10-28 04:41:51', 0, 0, 15, 718.2, 2, 5),
-(60, '2024-10-28 04:53:18', 0, 0, 15, 718.2, 2, 5),
-(61, '2024-10-28 04:54:09', 0, 0, 15, 718.2, 2, 5),
-(62, '2024-10-28 04:56:01', 0, 0, 15, 718.2, 2, 5),
-(63, '2024-10-28 04:56:23', 0, 0, 15, 718.2, 2, 5),
-(64, '2024-10-28 04:59:41', 0, 0, 15, 718.2, 2, 5),
-(65, '2024-10-28 05:00:34', 0, 0, 15, 718.2, 2, 5),
-(66, '2024-10-28 05:00:46', 0, 0, 15, 718.2, 2, 5),
-(67, '2024-10-28 05:01:06', 0, 0, 15, 718.2, 2, 5),
-(68, '2024-10-28 05:03:43', 0, 0, 30, 1436.4, 2, 5),
-(69, '2024-10-28 05:06:01', 0, 0, 30, 1436.4, 2, 5),
-(70, '2024-10-28 05:08:53', 0, 0, 30, 1436.4, 2, 5),
-(71, '2024-10-28 05:14:54', 0, 0, 30, 1436.4, 2, 5),
-(72, '2024-10-28 05:14:58', 0, 0, 30, 1436.4, 2, 5),
-(73, '2024-10-28 05:15:05', 0, 0, 30, 1436.4, 2, 5),
-(74, '2024-10-28 05:16:44', 0, 0, 45, 2154.6, 2, 2),
-(75, '2024-10-28 05:18:27', 0, 0, 50, 2000, 2, 2),
-(76, '2024-10-28 05:19:27', 0, 0, 20, 800, 2, 2),
-(77, '2024-10-28 05:22:00', 0, 0, 20, 800, 2, 2),
-(78, '2024-10-28 05:29:38', 0, 0, 20, 800, 2, 2),
-(79, '2024-10-28 05:29:43', 0, 0, 20, 800, 2, 2),
-(80, '2024-10-28 05:30:00', 0, 0, 5, 200, 2, 2),
-(81, '2024-10-28 05:31:09', 0, 0, 5, 200, 2, 2),
-(82, '2024-10-28 05:33:13', 0, 0, 5, 200, 2, 2),
-(83, '2024-10-28 05:33:29', 0, 0, 1, 40, 2, 2),
-(84, '2024-10-28 05:33:36', 0, 0, 1, 40, 2, 2),
-(85, '2024-10-28 05:36:25', 0, 0, 1, 40, 2, 2),
-(86, '2024-10-28 05:37:48', 0, 0, 1, 40, 2, 2),
-(87, '2024-10-28 05:38:54', 0, 0, 1, 40, 2, 2),
-(88, '2024-10-28 05:39:24', 0, 0, 1, 40, 2, 2),
-(89, '2024-10-28 05:39:37', 0, 0, 1, 40, 2, 2),
-(90, '2024-10-28 05:46:25', 0, 0, 10, 400, 2, 5),
-(91, '2024-10-28 05:48:39', 0, 0, 10, 400, 2, 5),
-(92, '2024-10-28 06:32:53', 0, 0, 2, 80, 2, 2),
-(93, '2024-10-28 07:05:24', 0, 0, 5, 200, 2, 2),
-(94, '2024-10-28 07:13:32', 0, 0, 2, 80, 2, 2),
-(95, '2024-10-28 07:15:30', 0, 0, 2, 80, 2, 2),
-(96, '2024-10-28 07:15:49', 0, 0, 2, 80, 2, 2),
-(97, '2024-10-28 07:17:08', 0, 0, 2, 80, 2, 2),
-(98, '2024-10-28 07:18:46', 0, 0, 45, 2154.6, 2, 5),
-(99, '2024-10-28 07:19:01', 0, 0, 15, 718.2, 2, 5),
-(100, '2024-10-28 07:19:08', 0, 0, 15, 718.2, 2, 5),
-(101, '2024-10-28 07:20:45', 0, 0, 15, 718.2, 2, 5),
-(102, '2024-10-28 07:22:39', 0, 0, 15, 718.2, 2, 5),
-(103, '2024-10-28 07:23:02', 0, 0, 6, 240, 2, 5),
-(104, '2024-10-28 07:24:03', 0, 0, 6, 240, 2, 5),
-(105, '2024-10-28 07:24:28', 0, 0, 6, 240, 2, 5),
-(106, '2024-10-28 07:24:41', 0, 0, 6, 240, 2, 5),
-(107, '2024-10-28 07:25:18', 0, 0, 6, 240, 2, 5),
-(108, '2024-10-28 07:25:59', 0, 0, 6, 240, 2, 5),
-(109, '2024-10-28 07:26:52', 0, 0, 6, 240, 2, 5),
-(110, '2024-10-28 07:27:05', 0, 0, 6, 240, 2, 5),
-(111, '2024-10-28 07:30:51', 0, 0, 6, 240, 2, 5),
-(112, '2024-10-28 07:31:55', 0, 0, 6, 240, 2, 5),
-(113, '2024-10-28 07:32:20', 0, 0, 6, 240, 2, 5),
-(114, '2024-10-28 07:34:59', 0, 0, 6, 240, 2, 5),
-(115, '2024-10-28 07:36:09', 0, 0, 6, 240, 2, 5),
-(116, '2024-10-28 07:36:36', 0, 0, 6, 240, 2, 5),
-(117, '2024-10-28 07:37:06', 0, 0, 6, 240, 2, 5),
-(118, '2024-10-28 07:37:31', 0, 0, 6, 240, 2, 5),
-(119, '2024-10-28 07:38:15', 0, 0, 6, 240, 2, 5),
-(120, '2024-10-28 07:38:23', 0, 0, 6, 240, 2, 5),
-(121, '2024-10-28 07:38:48', 0, 0, 6, 240, 2, 5),
-(122, '2024-10-28 07:38:53', 0, 0, 6, 240, 2, 5),
-(123, '2024-10-28 07:40:47', 0, 0, 6, 240, 2, 5),
-(124, '2024-10-28 07:41:39', 0, 0, 6, 240, 2, 5),
-(125, '2024-10-28 07:42:35', 0, 0, 6, 240, 2, 5),
-(126, '2024-10-30 05:28:59', 0, 0, 5, 200, 2, 2),
-(127, '2024-10-30 06:51:50', 0, 0, 5, 200, 2, 2),
-(128, '2024-10-30 06:56:08', 0, 0, 300, 14364, 2, 2),
-(129, '2024-10-30 07:07:42', 0, 0, 30, 1436.4, 2, 2),
-(130, '2024-10-30 07:07:55', 0, 0, 30, 1436.4, 2, 2),
-(131, '2024-10-30 07:27:56', 0, 0, 30, 1436.4, 2, 2),
-(132, '2024-10-30 07:30:49', 0, 0, 30, 1436.4, 2, 5),
-(133, '2024-10-30 07:35:32', 0, 0, 1, 40, 2, 2),
-(134, '2024-10-30 07:37:21', 0, 0, 4, 160, 2, 2),
-(135, '2024-10-30 07:37:42', 0, 0, 4, 160, 2, 2),
-(136, '2024-10-30 07:40:06', 0, 0, 4, 160, 2, 2),
-(137, '2024-10-30 07:40:11', 0, 0, 4, 160, 2, 2),
-(138, '2024-10-30 07:42:38', 0, 0, 4, 160, 2, 2),
-(139, '2024-10-30 07:43:25', 0, 0, 30, 1436.4, 2, 5),
-(140, '2024-10-30 07:44:39', 0, 0, 30, 1436.4, 2, 5),
-(141, '2024-10-30 07:45:29', 0, 0, 30, 1436.4, 2, 2),
-(142, '2024-10-30 07:46:11', 0, 0, 6, 240, 2, 2),
-(143, '2024-10-30 07:47:20', 0, 0, 34, 1596.4, 2, 2),
-(144, '2024-10-30 07:54:10', 0, 0, 40, 1836.4, 2, 2),
-(145, '2024-11-05 06:22:53', 0, 0, 12, 543.04, 2, 2),
-(146, '2024-11-06 04:51:09', 0, 0, 10, 463.04, 2, 2),
-(147, '2024-11-09 09:19:41', 0, 0, 10, 478.8, 2, 5),
-(148, '2024-11-13 09:51:54', 0, 0, 2, 80, 2, 2),
-(149, '2024-11-14 09:29:26', 0, 0, 20, 957.6, 1, 6),
-(150, '2024-11-14 10:45:50', 0, 0, 30, 1436.4, 1, 2),
-(151, '2024-11-15 12:10:27', 0, 0, 30, 1318.2, 2, 4),
-(152, '2024-11-15 12:18:59', 0, 0, 10, 478.8, 2, 4),
-(153, '2024-11-22 11:42:54', 0, 0, 108, 5171.04, 2, 5),
-(154, '2024-11-26 09:44:21', 34, 1590.72, 39.44, 1845.24, 5, 2),
-(155, '2024-11-26 10:22:39', 0, 0, 23.2, 1110.82, 5, 5),
-(156, '2024-11-27 04:52:23', 0, 0, 16.24, 766.06, 2, 5),
-(157, '2024-11-28 12:54:02', 17, 804.04, 19.72, 932.69, 5, 5),
-(158, '2024-11-28 03:09:53', 63, 2997.84, 73.08, 3477.49, 2, 5),
-(159, '2024-11-28 03:23:34', 30, 1399.2, 34.8, 1623.07, 2, 5),
-(160, '2024-11-28 03:30:05', 30, 1399.2, 34.8, 1623.07, 2, 5),
-(161, '2025-02-18 08:42:08', 36, 1686.48, 41.76, 1956.32, 2, 2),
-(162, '2025-05-27 06:58:46', 0, 0, 0, 0, 2, 2),
-(163, '2025-05-27 07:02:50', 0, 0, 0, 0, 2, 2),
-(164, '2025-06-02 08:15:07', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(165, '2025-06-02 08:19:09', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(166, '2025-06-02 08:21:38', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(167, '2025-06-02 08:31:33', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(168, '2025-06-02 08:36:20', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(169, '2025-06-02 08:56:32', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(170, '2025-06-02 08:58:21', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(171, '2025-06-02 09:08:00', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(172, '2025-06-02 09:10:45', 33, 3137.64, 38.28, 3639.66, 2, 3),
-(173, '2025-06-02 09:21:18', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(174, '2025-06-02 09:21:27', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(175, '2025-06-02 09:21:58', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(176, '2025-06-02 09:22:27', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(177, '2025-06-02 09:25:24', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(178, '2025-06-02 09:27:05', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(179, '2025-06-02 09:32:10', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(180, '2025-06-02 09:37:08', 32, 3042.56, 37.12, 3529.37, 2, 3),
-(181, '2025-06-03 08:28:24', 19, 1848.89, 22.04, 2144.71, 2, 2),
-(182, '2025-06-07 07:58:57', 18, 1783.62, 20.88, 2069, 2, 3),
-(183, '2025-06-08 04:54:27', 10, 990.9, 11.6, 1149.44, 2, 3),
-(184, '2025-06-08 05:01:30', 16, 1585.44, 18.56, 1839.11, 2, 3),
-(185, '2025-06-08 05:56:43', 8, 792.72, 9.28, 919.56, 2, 3),
-(186, '2025-06-08 05:59:34', 10, 990.9, 11.6, 1149.44, 2, 3),
-(187, '2025-06-09 09:03:54', 10, 991.2, 11.6, 1149.79, 2, 3),
-(188, '2025-06-14 01:04:08', 4, 408.6, 4.64, 473.98, 2, 3),
-(189, '2025-06-14 05:46:49', 43.8, 4474.2, 50.81, 5190.07, 2, 3),
-(190, '2025-06-14 09:34:48', 43.8, 4474.2, 50.81, 5190.07, 2, 3),
-(191, '2025-06-14 10:08:54', 5.84, 596.56, 6.77, 692.01, 2, 3),
-(192, '2025-06-16 12:48:53', 4, 408.6, 4.64, 473.98, 2, 3);
+(203, '2025-08-16 03:30:28', 15.72, 2151.96, 18.24, 2496.27, 2, 3),
+(204, '2025-08-16 04:02:40', 5, 684.45, 5.8, 793.96, 2, 3),
+(205, '2025-08-16 04:17:25', 5, 684.45, 5.8, 793.96, 2, 3),
+(206, '2025-08-16 04:37:14', 2.62, 358.66, 3.04, 416.05, 2, 3),
+(207, '2025-08-16 04:39:42', 25, 3422.25, 29, 3969.81, 2, 3),
+(208, '2025-08-16 04:57:45', 25, 3422.25, 29, 3969.81, 2, 3),
+(209, '2025-08-16 05:14:08', 250, 34222.5, 290, 39698.1, 2, 3),
+(210, '2025-08-16 05:27:02', 275, 37644.8, 319, 43667.9, 2, 3),
+(211, '2025-08-16 05:32:19', 300, 41067, 348, 47637.7, 2, 3),
+(212, '2025-08-16 05:37:26', 500, 68445, 580, 79396.2, 2, 3),
+(213, '2025-08-16 05:40:55', 250, 34222.5, 290, 39698.1, 2, 3),
+(214, '2025-08-16 06:02:14', 25, 3422.25, 29, 3969.81, 2, 3);
 
 --
 -- Índices para tablas volcadas
@@ -2119,7 +2137,8 @@ ALTER TABLE `dolar`
 ALTER TABLE `entrada`
   ADD PRIMARY KEY (`id_entrada`),
   ADD KEY `id_proveedor` (`id_proveedor`),
-  ADD KEY `id_dolar` (`id_dolar`);
+  ADD KEY `id_dolar` (`id_dolar`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `inventario`
@@ -2221,13 +2240,13 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=946;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1217;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -2245,91 +2264,91 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `detalles_entrada`
 --
 ALTER TABLE `detalles_entrada`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_menu`
 --
 ALTER TABLE `detalles_menu`
-  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_entrada` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos_inventario`
 --
 ALTER TABLE `movimientos_inventario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas_secretas`
 --
 ALTER TABLE `preguntas_secretas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `seguridad`
@@ -2341,13 +2360,13 @@ ALTER TABLE `seguridad`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
 
 --
 -- Restricciones para tablas volcadas
@@ -2392,7 +2411,8 @@ ALTER TABLE `detalles_venta`
 --
 ALTER TABLE `entrada`
   ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_dolar`) REFERENCES `dolar` (`id_dolar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `inventario`
