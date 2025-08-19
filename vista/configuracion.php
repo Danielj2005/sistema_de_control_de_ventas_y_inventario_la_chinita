@@ -67,131 +67,128 @@ if ($rol >= 1 && $rol <= 6) {
                   <button id="btn_config_pass" type="button" name="config_pass" class="press_change_view btn btn-outline-primary">Configuración de Contraseña</button>
                 </div>
               </div>
-              <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                <input type="hidden" name="modulo" value="Guardar">
 
-                <fieldset class="mb-4">
-                  <div class="row m-0">
-                    <div id="config_product" class="col-12 col-sm-12 col-md-12 mb-3">
-                      <h4 class="card-title"> Configuración de Productos </h4>
-                      <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                        <input type="hidden" name="modulo" value="Guardar">
+              <fieldset class="mb-4">
+                <div class="row m-0">
+                  <div id="config_product" class="col-12 col-sm-12 col-md-12 mb-3">
+                    <h4 class="card-title"> Configuración de Productos </h4>
+                    <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                      <input type="hidden" name="modulo" value="producto">
 
-                        <div class="row mb-3">
-                          <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label class="form-label control-label">Porcentaje del IVA <span style="color:#f00;">*</span> </label>
+                      <div class="row mb-3">
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="form-label control-label">Porcentaje del IVA <span style="color:#f00;">*</span> </label>
 
-                            <div class="input-group mb-3">
-                              <input type="number" class="p-1 form-control" id="porcentaje_iva" name="porcentaje_iva" placeholder="Ingresa el porcentaje del IVA">
-                              <span class="input-group-text bi bi-percent"></span>
-                            </div>
-                            
-                          </div>
-
-                          <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label class="form-label control-label">Porcentaje de ganancia por producto <span style="color:#f00;">*</span> </label>
-                            
-                            <div class="input-group mb-3">
-                              <input type="number" class="p-1 form-control" id="porcentaje_ganancia" name="porcentaje_ganancia" placeholder="Ingresa el porcentaje de ganancia">
-                              <span class="input-group-text bi bi-percent"></span>
-                            </div>
-
+                          <div class="input-group mb-3">
+                            <input min="1" max="100" value="<?= config_model::obtener_dato('porcentaje_iva') ?>" type="number" class="p-1 form-control" id="porcentaje_iva" name="porcentaje_iva" placeholder="Ingresa el porcentaje del IVA">
+                            <span class="input-group-text bi bi-percent"></span>
                           </div>
                           
                         </div>
-                        
 
-                        <div class="col-12 mb-1">
-                          <div class="form-group">
-                              <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                        <div class="col-12 col-sm-12 col-md-6 mb-3">
+                          <label class="form-label control-label">Porcentaje de ganancia por producto <span style="color:#f00;">*</span> </label>
+                          
+                          <div class="input-group mb-3">
+                            <input min="1" max="100" value="<?= config_model::obtener_dato('porcentaje_ganancia') ?>" type="number" class="p-1 form-control" id="porcentaje_ganancia" name="porcentaje_ganancia" placeholder="Ingresa el porcentaje de ganancia">
+                            <span class="input-group-text bi bi-percent"></span>
                           </div>
+
                         </div>
                         
-                        <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
-                          <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
+                      </div>
+                      
+
+                      <div class="col-12 mb-1">
+                        <div class="form-group">
+                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                         </div>
-                      </form>
-                    </div>
-
-                    <div id="config_session" class="d-none col-12 col-sm-12 col-md-12 mb-3">
-                      <h4 class="card-title"> Configuración de Sesión</h4>
-                      <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                        <input type="hidden" name="modulo" value="Guardar">
-
-                        <div class="row mb-3  justify-content-center">
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Tiempo de inactividad de sesión <span style="color:#f00;">*</span> </label>
-
-                            <div class="input-group mb-3">
-                              <span class="input-group-text bi bi-clock"></span>
-                              <input class="form-control" type="number" name="tiempo_inactividad" min="1" max="60" value="<?= config_model::obtener_dato('tiempo_inactividad') ?>">
-                              <span class="input-group-text">Minutos</span>
-                            </div>
-                            
-                          </div>
-
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Cantidad de preguntas de seguridad <span style="color:#f00;">*</span> </label>
-                            <input class="form-control" type="number" name="c_preguntas" min="3" max="4" value="<?= config_model::obtener_dato('c_preguntas') ?>">
-                          </div>
-
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Intentos de inicio de sesión <span style="color:#f00;">*</span> </label>
-                            <input class="form-control" type="number" name="intentos_inicio_sesion" min="1" max="5" value="<?= config_model::obtener_dato('intentos_inicio_sesion') ?>">
-                          </div>
-                        </div>
-                        
-                        
-
-                        <div class="col-12 mb-1">
-                          <div class="form-group">
-                              <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                          </div>
-                        </div>
-                        
-                        <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
-                          <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
-                        </div>
-                      </form>
-                    </div>
-
-                    <div id="config_pass" class="d-none col-12 col-sm-12 col-md-12 mb-3">
-                      <h4 class="card-title"> Configuración de Contraseña</h4>
-                      <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                        <input type="hidden" name="modulo" value="Guardar">
-
-                        <div class="row mb-3 justify-content-center">
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Longitud <span style="font-size:1rem; color:#f00;">*</span> </label>
-                            <input class="form-control" type="number" name="c_caracteres" min="1" max="16" value="<?= config_model::obtener_dato('c_caracteres') ?>">
-                          </div>
-
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Cantidad de símbolos <span style="font-size:1rem; color:#f00;">*</span> </label>
-                            <input class="form-control" type="number" name="c_simbolos" min="1" max="3" value="<?= config_model::obtener_dato('c_simbolos') ?>">
-                          </div>
-
-                          <div class="col-12 col-sm-12 col-md-4 mb-3">
-                            <label class="form-label control-label">Cantidad de números <span style="font-size:1rem; color:#f00;">*</span> </label>
-                            <input class="form-control" type="number" name="c_numeros" min="1" max="3" value="<?= config_model::obtener_dato('c_numeros') ?>">
-                          </div>
-                        </div>
-                        
-
-                        <div class="col-12 mb-1">
-                          <div class="form-group">
-                              <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                          </div>
-                        </div>
-                        
-                        <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
-                          <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
-                        </div>
-                      </form>
-                    </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+                        <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
+                      </div>
+                    </form>
                   </div>
-                </fieldset>
-              </form>
+
+                  <div id="config_session" class="d-none col-12 col-sm-12 col-md-12 mb-3">
+                    <h4 class="card-title"> Configuración de Sesión</h4>
+                    <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                      <input type="hidden" name="modulo" value="sesion">
+
+                      <div class="row mb-3  justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Tiempo de inactividad de sesión <span style="color:#f00;">*</span> </label>
+
+                          <div class="input-group mb-3">
+                            <span class="input-group-text bi bi-clock"></span>
+                            <input class="form-control" type="number" name="tiempo_inactividad" min="1" max="60" value="<?= config_model::obtener_dato('tiempo_inactividad') ?>">
+                            <span class="input-group-text">Minutos</span>
+                          </div>
+                          
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Cantidad de preguntas de seguridad <span style="color:#f00;">*</span> </label>
+                          <input class="form-control" type="number" name="c_preguntas" min="3" max="4" value="<?= config_model::obtener_dato('c_preguntas') ?>">
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Intentos de inicio de sesión <span style="color:#f00;">*</span> </label>
+                          <input class="form-control" type="number" name="intentos_inicio_sesion" min="1" max="5" value="<?= config_model::obtener_dato('intentos_inicio_sesion') ?>">
+                        </div>
+                      </div>
+                      
+                      
+
+                      <div class="col-12 mb-1">
+                        <div class="form-group">
+                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+                        <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div id="config_pass" class="d-none col-12 col-sm-12 col-md-12 mb-3">
+                    <h4 class="card-title"> Configuración de Contraseña</h4>
+                    <form action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                      <input type="hidden" name="modulo" value="Contraseña">
+
+                      <div class="row mb-3 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Longitud <span style="font-size:1rem; color:#f00;">*</span> </label>
+                          <input class="form-control" type="number" name="c_caracteres" min="1" max="16" value="<?= config_model::obtener_dato('c_caracteres') ?>">
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Cantidad de símbolos <span style="font-size:1rem; color:#f00;">*</span> </label>
+                          <input class="form-control" type="number" name="c_simbolos" min="1" max="3" value="<?= config_model::obtener_dato('c_simbolos') ?>">
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-4 mb-3">
+                          <label class="form-label control-label">Cantidad de números <span style="font-size:1rem; color:#f00;">*</span> </label>
+                          <input class="form-control" type="number" name="c_numeros" min="1" max="3" value="<?= config_model::obtener_dato('c_numeros') ?>">
+                        </div>
+                      </div>
+                      
+
+                      <div class="col-12 mb-1">
+                        <div class="form-group">
+                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+                        <button type="submit" name="insertar" class="btn btn-success">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </div>
         </section>
