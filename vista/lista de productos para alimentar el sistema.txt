@@ -1,9 +1,0 @@
-***************************************************************
-*************** faltante por hacerle al sistema ***************
-***************************************************************
-
-****************  bitacora ****************
-- crear reporte de bitacora por usuarios
-
-****************  venta ****************
-- exportacion en pdf de venta individual estilo factura, y de todas las ventas realizadas y por fechas

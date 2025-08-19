@@ -216,6 +216,16 @@ class model_user extends modeloPrincipal {
         <?php }
     } 
 
+    public static function options_usuarios() {
+        $lista_usuario = modeloPrincipal::consultar("SELECT * FROM usuario WHERE id_rol != 1 ORDER BY nombre ASC");
+
+        while($row = mysqli_fetch_array($lista_usuario)) { ?>
+
+            <option value="<?= modeloPrincipal::encryption($row['id_usuario'] * 10); ?>"> <?= $row["cedula"]." - ".$row["nombre"]." ".$row["apellido"]; ?></option>
+
+        <?php }
+    }
+
 
     /********************************************************************/ 
     /*       MODULO de verificar / validar datos del usuarios           */
