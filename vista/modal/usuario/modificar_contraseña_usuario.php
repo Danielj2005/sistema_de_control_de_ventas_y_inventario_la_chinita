@@ -59,7 +59,7 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
 
             <p class="form-p alert-danger mb-2">los requisitos de seguridad para la  <span style="color:#f00;">contraseña</span> son:</p>
             <ul>
-                <li>Puede contener menos 1 número y 1 letra.</li>
+                <li>Puede contener al menos 1 número y 1 letra.</li>
                 <li>Puede contener al menos <?= $configuracion['simbolos'] ?> de estos caracteres: !@#$%.</li>
                 <li>Debe tener entre <?= $configuracion['caracteres'] ?> y 60 caracteres.</li>
             </ul>

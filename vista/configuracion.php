@@ -165,7 +165,7 @@ if ($rol >= 1 && $rol <= 6) {
                         </div>
 
                         <div class="col-12 col-sm-12 col-md-4 mb-3">
-                          <label class="form-label control-label">Cantidad de símbolos <span style="font-size:1rem; color:#f00;">*</span> </label>
+                          <label class="form-label control-label">Cantidad de símbolos <span style="font-size:1rem; color:#f00;">*</span> (! @ # $ %)</label>
                           <input class="form-control" type="number" name="c_simbolos" min="1" max="3" value="<?= config_model::obtener_dato('c_simbolos') ?>">
                         </div>
 

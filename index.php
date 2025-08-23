@@ -87,7 +87,7 @@ $_SESSION['CPS'] = $CPS;
 								<div class="input-group mb-3">
 									<span class="input-group-text bi bi-lock"></span>
 									<input type="password" class="p-1 passw form-control" id="pswd" name="contraseña" placeholder="Ingresa tu contraseña">
-									<button id="eyeIcon" class="input-group-text btn btn-secondary bi bi-eye" onclick="show_password('eyeIcon', 'pswd')"> </button>
+									<button id="eyeIcon" type="button" class="input-group-text btn btn-secondary bi bi-eye" onclick="show_password('eyeIcon', 'pswd')"> </button>
 								</div>
 							</div>
 							<!-- Captcha de seguridad -->

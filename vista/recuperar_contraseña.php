@@ -23,6 +23,11 @@ $correo = modeloprincipal::limpiar_cadena($_POST['correo_recuperar_contraseña']
 
 $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado","correo = '$correo'");
 
+
+// se obtiene la configuracion de la base de datos
+$configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
+	'simbolos' => config_model::obtener_dato('c_simbolos'),
+	'numeros' => config_model::obtener_dato('c_numeros')];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,9 +117,9 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 						<div id="verificar_respuestas" class="w-100 text-center">
 							<form id="form_respuestas" method="post" action="../controlador/recuperar_contraseña.php" class="SendFormAjax" data-type-form="load">
 								<p style="font-size: 1em;">Por favor complete el siguiente formulario para cambiar su contraseña</p>
-								<input form="form_respuestas" type="hidden" id="id_usuario" name="id_usuario" value="<?= $id_usuario; ?>">
+								<input form="form_respuestas" type="hidden" id="UUID" name="UUID" value="<?= modeloPrincipal::encryptionId($id_usuario); ?>">
 								<input form="form_respuestas" type="hidden" name="modulo" value="verificar_preguntas">
-								<input form="form_respuestas" type="hidden" id="numero_pregunta" name="numero_pregunta" value="<?= $numero_pregunta_random; ?>">
+								<input form="form_respuestas" type="hidden" id="NPU" name="NPU" value="<?= modeloPrincipal::encryptionId($NP); ?>">
 								<!-- pregunta de seguridad para cambiar contraseña -->
 								<div class="mb-4 text-center">
 									<h6>Su pregunta de seguridad es :<span style="color:#f00;">*</span></h6>
@@ -143,16 +148,14 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 										<label class="mb-2">Nueva contraseña <span style="color: #f00;">*</span> </label>
 										
 										<input type="hidden" name="modulo" value="cambiar_contraseña">
-										<input type="hidden" name="id_usuario" value="<?= $id_usuario; ?>">
+										<input type="hidden" name="UUID" value="<?= modeloPrincipal::encryptionId($id_usuario); ?>">
 
 										<div class="input-group mb-3">
-											<span class="input-group-text"><i class="bi bi-lock"></i></span>
+											<span class="input-group-text bi bi-lock"></span>
 
-											<input class="p-1 input__field passw form-control" required="" placeholder="ingresa la nueva contraseña" autocomplete="off" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9]{3,16}" type="password" name="nueva_contraseña" id="nueva_contraseña">
+											<input class="p-1 passw form-control" required="" placeholder="ingresa la nueva contraseña" autocomplete="off" pattern="[!@#$%A-Za-zñÑÁÉÍÚÓáéíóú0-9]{3,16}" type="password" name="nueva_contraseña" id="nueva_contraseña">
 											
-											<button class="input-group-text btn btn-secondary" id="eyeIcon" >
-												<i class="bi bi-eye input__icon"></i>
-											</button>
+											<button type="button" onclick="show_password('eyeIconPassword', 'nueva_contraseña')" id="eyeIconPassword" class="input-group-text btn btn-secondary bi bi-eye"> </button>
 										</div>
 									</div>
 									<p class="text-danger d-none input_error formulario__input-error__nueva_contraseña" style="width: 19em;">La contraseña debe tener entre 7 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.</p>
@@ -160,19 +163,27 @@ $datos_usuario = model_user::consulta_usuario_condicion("id_usuario, bloqueado",
 									<div class="text-start mb-4 position-relative" id="grupo__repite_nueva_contraseña2">
 										<label class="mb-2">Repita la contraseña <span style="color:#f00;">*</span></label>
 										<div class="input-group mb-3">
-											<span class="input-group-text"><i class="bi bi-lock"></i></span>
+											<span class="input-group-text bi bi-lock"></span>
 
-											<input class="p-1 input__field passw form-control" required="" placeholder="repite la contraseña" autocomplete="off" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9]{3,16}" type="password" name="repite_nueva_contraseña2" id="repite_nueva_contraseña2">
+											<input class="p-1 passw form-control" required="" placeholder="repite la contraseña" autocomplete="off" pattern="[!@#$%A-Za-zñÑÁÉÍÚÓáéíóú0-9]{3,16}" type="password" name="repite_nueva_contraseña2" id="repite_nueva_contraseña2">
 											
-											<button class="input-group-text btn btn-secondary" id="eyeIcon" >
-												<i class="bi bi-eye input__icon"></i>
-											</button>
+											<button type="button" onclick="show_password('eyeIcon', 'repite_nueva_contraseña2')" id="eyeIcon" class="input-group-text btn btn-secondary bi bi-eye"> </button>
 										</div>
 									</div>
 									<p class="text-danger d-none input_error formulario__input-error__repite_nueva_contraseña2" style="width: 19em;">Las contraseñas no coinciden.</p>
 									
+									<div class="form-group label-floating text-start">
+							
+										<p class="form-p alert-danger mb-2">los requisitos de seguridad para la  <span style="color:#f00;">contraseña</span> son:</p>
+										<ul>
+											<li>Puede contener al menos 1 número y 1 letra.</li>
+											<li>Puede contener al menos <?= $configuracion['simbolos'] ?> de estos caracteres: !@#$%</li>
+											<li>Debe tener entre <?= $configuracion['caracteres'] ?> y 60 caracteres.</li>
+										</ul>
+									</div>
 									<div class="text-center mb-3">
 										<p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+										
 											
 										<button type="submit" class="btn btn-success text-black-hover text-white">Cambiar contraseña</button>
 										<div class="my-3">

@@ -57,14 +57,14 @@ class alert_model {
                     text: '$text',
                     icon: '$icon',
                     confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $condition
-                }else {                       
-                    $condition
-                } 
-            });
-            $reset_forms
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $condition
+                    }else {                       
+                        $condition
+                    } 
+                });
+                $reset_forms
             </script>";
     }
 

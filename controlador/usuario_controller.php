@@ -233,6 +233,10 @@ if($modulo === "modificar_contraseña_usuario"){
         exit();
     }
     
+    if(strlen($contraseña_nueva) < $configuracion['caracteres'] || strlen($contraseña_nueva) > $configuracion['caracteres']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la logitud establecida que es ".$configuracion['caracteres'].", verifique e intente nuevamente.","error");
+        exit();
+    }
     $consulta_pass = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"));
 
     if($contraseña_actual !== modeloprincipal::decryption($consulta_pass['contraseña'])){

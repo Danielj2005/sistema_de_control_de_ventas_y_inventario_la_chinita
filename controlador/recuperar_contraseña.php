@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 /* se recibe el modulo a trabajar */
 $modulo = modeloPrincipal::LimpiarCadenaTexto($_POST['modulo']);
@@ -14,10 +14,10 @@ if($modulo == 'verificar_preguntas'){
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$_POST['respuesta_seguridad']]);
     
-    $id_usuario = modeloPrincipal::encryptionId($_POST['id_usuario']);
-    $_SESSION['id_usuario'] = modeloPrincipal::encryptionId($_POST['id_usuario']);
+    $id_usuario = modeloPrincipal::decryptionId($_POST['UUID']);
+    $_SESSION['UUID'] = modeloPrincipal::decryptionId($_POST['UUID']);
 
-    $numero_pregunta = $_POST['numero_pregunta'];
+    $numero_pregunta = modeloPrincipal::decryptionId($_POST['NPU']);
     
     $respuesta_pregunta = modeloPrincipal::Limpiar_mayusculas($_POST['respuesta_seguridad']); 
     
@@ -36,7 +36,6 @@ if($modulo == 'verificar_preguntas'){
 }
 
 
-
 /*******************************************************************/ 
 /*          modulo para Cambiar Contraseña del usuario             */
 /*******************************************************************/ 
@@ -44,12 +43,54 @@ if($modulo === "cambiar_contraseña"){
 
     $contraseña = modeloPrincipal::LimpiarCadenaTexto($_POST['nueva_contraseña']);
     $contraseña2 = modeloPrincipal::LimpiarCadenaTexto($_POST['repite_nueva_contraseña2']);
-    $id_usuario =  modeloPrincipal::LimpiarCadenaTexto($_SESSION['id_usuario']);
+    $id_usuario =  modeloPrincipal::decryptionId($_POST['UUID']);
+    $id_usuario =  modeloPrincipal::LimpiarCadenaTexto($id_usuario);
 
+    modeloprincipal::validar_campos_vacios([$_POST["nueva_contraseña"], $_POST['repite_nueva_contraseña2'], $_POST['UUID']]); // se verifica si se recibieron campos vacios
 
-    $configuracion = mysqli_fetch_array(config_model::consultar('c_caracteres'));
+    // se obtiene la configuracion de la base de datos
+    $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
+        'simbolos' => config_model::obtener_dato('c_simbolos'),
+        'numeros' => config_model::obtener_dato('c_numeros')];
+    
+    if (isset($_POST['nueva_contraseña']) && isset($_POST['repite_nueva_contraseña2'])) {
+        $contraseña = modeloprincipal::limpiar_cadena($_POST["nueva_contraseña"]);
+        $contraseña2 = modeloprincipal::limpiar_cadena($_POST['repite_nueva_contraseña2']);
+    }
+    
+    if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',200}$/', $contraseña)) {
+        alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    // Contar símbolos (no alfanuméricos)
+    $simbolosContraseña = preg_match_all("/\W/", $contraseña);
+    if($simbolosContraseña < $configuracion['simbolos']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de la contraseña no cumple con el mínimo establecido que es ".$configuracion['simbolos']." de estos caracteres: !@#$% , verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    // Contar símbolos (no alfanuméricos)
+    $simbolosContraseña2 = preg_match_all("/\W/", $contraseña2);
+    if($simbolosContraseña2 < $configuracion['simbolos']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de el campo repetir contraseña no cumple con el mínimo establecido que es ".$configuracion['simbolos']." de estos caracteres: !@#$% ,  verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    // Contar números
+    // echo $numeros = preg_match_all("/[0-9]/", $contraseña); // no creo que debas dejarle el echo
+    $numeros = preg_match_all("/[0-9]/", $contraseña);
 
-    $cant_caracteres = intval($configuracion['c_caracteres']);
+    if($numeros < $configuracion['numeros']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con el mínimo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        exit();
+    }
+    $numerosContraseña2 = preg_match_all("/[0-9]/", $contraseña2);
+
+    if($numerosContraseña2 < $configuracion['numeros']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con el mínimo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        exit();
+    }
 
     if($contraseña !== $contraseña2){
         alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
@@ -57,20 +98,17 @@ if($modulo === "cambiar_contraseña"){
     }
 
     // verificar datos
-    if (modeloPrincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\*\.]{3,16}",$contraseña)) {
+    if (modeloPrincipal::verificar_datos("[!@#$%A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\*\.]{3,200}",$contraseña)) {
         alert_model::alerta_simple("¡Ocurrió un error!","La contraseña no cumple con el formato establecido. ","error");
         exit();
     }
 
     // Verificar si la contraseña cumple con la nueva longitud mínima
-    if (strlen($contraseña) < $cant_caracteres) {
-        alert_model::alerta_simple(
-            "¡Advertencia!",
-            "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
-            "warning"
-        );
+    if(strlen($contraseña) < $configuracion['caracteres']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la logitud mínima establecida que es ".$configuracion['caracteres'].", verifique e intente nuevamente.","error");
+        exit();
     }
-
+    
     $contraseña = modeloPrincipal::encryption($contraseña);
 
     // actualizar contraseña
