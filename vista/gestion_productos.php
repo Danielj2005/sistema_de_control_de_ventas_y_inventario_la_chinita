@@ -62,6 +62,7 @@ if ($rol >= 1 && $rol <= 11) {
             include_once "../include/meta_include.php"; 
             // se incluyen los estilos css y sus librerias a la vista
             include_once "../include/css_include.php"; ?>
+            
     </head>
     <body>
         <?php 

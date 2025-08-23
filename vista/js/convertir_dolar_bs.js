@@ -10,11 +10,11 @@ function convertir_usd_a_bs (id_precio_dolar) {
     const precio = precio_dolar * tasa;
     precio_bs.value = parseFloat(precio).toFixed(2);
     // console.log('<br> precio_bs es: ' + precio_bs);
-    let IVA = precio_dolar * 0.16;
-    let margen_de_ganancia = precio_dolar * 0.3;
+    let porcentaje_iva = precio_dolar * IVA;
+    let margen_de_ganancia = precio_dolar * PORCENTAJE_GANANCIA;
     let precio_venta = parseFloat(precio_dolar) + parseFloat(margen_de_ganancia);
 
-    precio_venta = (parseFloat(precio_venta) + parseFloat(IVA)).toFixed(2);
+    precio_venta = (parseFloat(precio_venta) + parseFloat(porcentaje_iva)).toFixed(2);
 
     precios_venta_dolar.value = precio_venta;
 }
