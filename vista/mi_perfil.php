@@ -3,7 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
@@ -19,14 +19,14 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <title>Mi Perfil</title>
     <!-- metadatos -->  
     <?php 
-      include_once("../include/meta_include.php");
+      include_once "../include/meta_include.php";
       // ======= estilos y librerias css ======= 
-      include_once("../include/css_include.php"); ?>    
+      include_once "../include/css_include.php"; ?>    
   </head>
   <body>
     <?php
-      include_once("../include/header.php"); 
-      include_once("../include/sliderbar.php"); ?>
+      include_once "../include/header.php"; 
+      include_once "../include/sliderbar.php"; ?>
     <main id="main" class="main">
       <div class="pagetitle">
         <h1> Mi Perfil </h1>
@@ -77,9 +77,9 @@ model_user::verificar_intento_de_acceso_al_sistema();
                                   <input type="text" maxlength="250" required="" placeholder="Ingrese la Dirección" value="<?= model_user::obtener_info_personal_usuario('direccion', $id_usuario) ?>" class="bg-secondary-subtle form-control" readOnly="true" id="direccion" name="direccion">
                               </div>
                           </div>
-
+                          
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="submit" modal='modificar_info_personal_usuario' class="btn_modal btn btn-success text-white" value="" url="./modal/usuario/modificar_info_personal_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
+                              <button type="button" modal='modificar_info_personal_usuario' class="btn_modal btn btn-success text-white"  url="./modal/usuario/modificar_info_personal_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
                                 <i class='zmdi zmdi-refresh'></i> Actualizar
                               </button>
                           </div>
@@ -130,19 +130,19 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <?php 
       include_once "./modal/plantillaModalCustom.php"; 
       modalCustom ();
+
       include_once "../include/scripts_include.php";
     
       if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){
         echo "<script type='text/javascript'>
                 setTimeout(() => {
-                  swal({
+                  Swal.fire({
                       title: '¡Atención!',
                       text: 'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
-                      type: 'warning',
+                      icon: 'warning',
                       confirmButtonColor: '#10478e',
                       confirmButtonText: 'Aceptar'
                   });
-                  
                 }, 300);
             </script>";
       }

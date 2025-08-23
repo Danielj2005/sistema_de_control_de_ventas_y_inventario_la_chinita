@@ -1,7 +1,13 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
+
+// se obtiene la configuracion de la base de datos
+$configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
+    'simbolos' => config_model::obtener_dato('c_simbolos'),
+    'numeros' => config_model::obtener_dato('c_numeros')];
+
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -213,29 +219,65 @@ if($modulo === "modificar_info_personal_usuario"){
 
 if($modulo === "modificar_contraseña_usuario"){
     
-    $contraseña_actual = modeloprincipal::limpiar_encriptar($_POST["current_password"]);
+    $contraseña_actual = modeloprincipal::limpiar_cadena($_POST["current_password"]);
 
     modeloprincipal::validar_campos_vacios([$_POST["current_password"], $_POST['password2'], $_POST['password']]); // se verifica si se recibieron campos vacios
 
     if (isset($_POST['password']) && isset($_POST['password2'])) {
-        $contraseña_nueva = modeloprincipal::limpiar_encriptar($_POST["password"]);
-        $contraseña_nueva2 = modeloprincipal::limpiar_encriptar($_POST['password2']);
+        $contraseña_nueva = modeloprincipal::limpiar_cadena($_POST["password"]);
+        $contraseña_nueva2 = modeloprincipal::limpiar_cadena($_POST['password2']);
     }
-
-    $consulta_pass = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"));
     
-    if($contraseña_actual !== $consulta_pass['contraseña']){
+    if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',200}$/', $contraseña_nueva)) {
+        alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    $consulta_pass = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"));
+
+    if($contraseña_actual !== modeloprincipal::decryption($consulta_pass['contraseña'])){
         alert_model::alerta_simple("¡Ocurrio un error!", "La contraseña actual que ingresaste es incorrecta, verifique e intente nuevamente.","error");
         exit();
     }
+    
+    // Contar símbolos (no alfanuméricos)
+    $simbolosContraseña = preg_match_all("/\W/", $contraseña_nueva);
+    if($simbolosContraseña < $configuracion['simbolos'] || $simbolosContraseña > $configuracion['simbolos'] ){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de la contraseña no cumple con lo establecido que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    // Contar símbolos (no alfanuméricos)
+    $simbolosContraseña2 = preg_match_all("/\W/", $contraseña_nueva2);
+    if($simbolosContraseña2 < $configuracion['simbolos'] || $simbolosContraseña2 > $configuracion['simbolos'] ){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de el campo repetir contraseña no cumple con lo establecido que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
+        exit();
+    }
+    
+    // Contar números
+    // echo $numeros = preg_match_all("/[0-9]/", $contraseña); // no creo que debas dejarle el echo
+    $numeros = preg_match_all("/[0-9]/", $contraseña_nueva);
+
+    if($numeros < $configuracion['numeros']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con lo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        exit();
+    }
+    $numerosContraseña2 = preg_match_all("/[0-9]/", $contraseña_nueva2);
+
+    if($numerosContraseña2 < $configuracion['numeros']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con lo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        exit();
+    }
+
     model_user::verificar_coincidencia_de_contraseña($contraseña_nueva,$contraseña_nueva2);
     
-    if (modeloprincipal::verificar_datos("[A-Za-z0-9\-]{8,16}", modeloPrincipal::decryption($contraseña_nueva))) {
+    if (modeloprincipal::verificar_datos("[!@#$%A-Za-z0-9\-]{".$configuracion['caracteres'].",60}", $contraseña_nueva)) {
         alert_model::alert_of_format_wrong("'contraseña nueva'");
         exit();
     }
 
     try {
+        $contraseña_nueva = modeloPrincipal::encryption($contraseña_nueva);
         $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_nueva'","id_usuario = $id_usuario");
 
         if (!$actualizar) {

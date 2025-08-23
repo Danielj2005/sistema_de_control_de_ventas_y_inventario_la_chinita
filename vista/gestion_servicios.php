@@ -214,17 +214,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
 			
 				model_user::validar_sesion_activa($id_usuario);
 
-				config_model::verificar_actualizacion_configuracion(); 
-			
-			?>
-			<script>
-				const btn_selectores_in_modal = () => {
-					const selectores = document.querySelectorAll('.select2');
-					selectores.forEach(element => {
-						$('.select2').select2();
-					});
-				} ;
-			</script>
+				config_model::verificar_actualizacion_configuracion(); ?>
 		</body>
 	</html>
 <?php }else{
