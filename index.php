@@ -65,7 +65,7 @@ $_SESSION['CPS'] = $CPS;
 			</div>
 
 			<!-- fomulario de inicio de sesión -->
-
+			 
 			<div class="col-12 position-absolute row justify-content-center align-items-center">
 				<div class="col-12 col-sm-6 col-md-6 glassmorph p-3 pt-2 rounded-4">
 					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">

@@ -12,10 +12,10 @@ $con = modeloPrincipal::consultar("SELECT M.*,
 // se guardan los datos en un array y se imprime
 
 while ($mostrar = mysqli_fetch_array($con)) { ?>
-    <tr id="tr_add_servicio_<?= $mostrar["id_menu"] ?>" >
+    <tr id="tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" >
+        <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" required>
         <td class="col text-center" scope="col">
             <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"]; ?></p>
-            <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" required>
         </td> 
 
         <td class="col text-center" scope="col"><?= $mostrar["descripcion"] ?> </td>
@@ -33,7 +33,7 @@ while ($mostrar = mysqli_fetch_array($con)) { ?>
         </td>
         
         <td class="text-center col" scope="col">
-            <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= $mostrar['id_menu'] ?>')"></button>
+            <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar['id_menu']) ?>')"></button>
         </td>
     </tr>
 <?php

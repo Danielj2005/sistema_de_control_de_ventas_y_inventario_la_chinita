@@ -9,7 +9,7 @@ function convertir_usd_a_bs (id_precio_dolar) {
 
     const precio = precio_dolar * tasa;
     precio_bs.value = parseFloat(precio).toFixed(2);
-    // console.log('<br> precio_bs es: ' + precio_bs);
+    
     let porcentaje_iva = precio_dolar * IVA;
     let margen_de_ganancia = precio_dolar * PORCENTAJE_GANANCIA;
     let precio_venta = parseFloat(precio_dolar) + parseFloat(margen_de_ganancia);

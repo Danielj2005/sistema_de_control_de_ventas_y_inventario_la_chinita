@@ -31,10 +31,10 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     }
 
     ?>
-        <tr id="tr_producto_<?= $mostrar['id_producto'] ?>" >
+        <tr id="tr_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" >
+            <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             <td class="col text-center col-md-2" scope="col">
                 <p class="text-primary"><?= $mostrar['nombre_producto'].' '.$mostrar['marca'].' <br> '.$mostrar['presentacion'] ?> <br> </p>
-                <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             </td>
 
             <td class="col text-center col-md-2" scope="col">
@@ -54,7 +54,7 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
             </td>
             
             <td class="text-center col" scope="col">
-                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= $mostrar['id_producto'] ?>')"></button>
+                <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>')"></button>
             </td>
         </tr>
 

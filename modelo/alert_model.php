@@ -117,7 +117,7 @@ class alert_model {
     public static function alert_mod_success(){
         echo '<script type="text/javascript">
             Swal.fire({
-                title: "¡Modificacion exitosa!",
+                title: "¡Modificación exitosa!",
                 text: "Los datos se modificaron correctamente",
                 icon: "success",
                 confirmButtonText: "Aceptar"
@@ -143,23 +143,7 @@ class alert_model {
         </script>';
     }
 
-    public static function alert_error($title,$text){
-        echo '<script type="text/javascript">
-            Swal.fire({
-                title:"¡Registro Exitoso!",
-                text:"Los Datos Se Registraron Correctamente",
-                icon: "success",
-                confirmButtonText: "Aceptar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.reload();
-                } else {
-                    location.reload();
-                }
-            });
-            $(".SendFormAjax")[0].reset();
-        </script>';
-    }
+    
     public static function alert_fields_empty(){
         echo '<script type="text/javascript">
                 Swal.fire({ 

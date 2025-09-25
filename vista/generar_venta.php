@@ -230,10 +230,37 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
+      <!-- jquery -->
+      <script src="./js/jquery-3.6.0.min.js"></script>
+      <script src="./js/bootstrap.bundle.min.js"></script>
 
+      <!-- datatable js files -->
+      <script src="./js/jquery.dataTables.min.js"></script>
+      <script src="./js/datatables.min.js"></script>
+      <script src="./js/dataTables.bootstrap5.min.js"></script>
+    
+      <!-- Template Main JS File -->
+      <script src="assets/js/main.js"></script>
+
+      <script src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
+      
+      <script src="./js/get_url.js"></script>
+      <script src="./js/sweetalert2.min.js"></script>
+      <script src="./js/tiempo_inactividad.js"></script>
+
+      <script src="./js/dolar.js"></script>
       <script src="./js/añadir_elemento_lista.js"></script>
 
+      <script src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
+      <script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
+      <script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
+      <script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
+
       <script type="text/javascript">
+            
+        // inicializar la libreria Select2 
+        $('.Select').select2();
+
         // función para añadir un metodo de pago 
         let i = 1;
         function añadir_metodo_pago(){
@@ -287,7 +314,6 @@ if ($rol == 1) {  ?>
         // se incluye el footer / pie de pagina a la vista
         include_once "../include/footer.php"; 
         // se incluyen los script de javascript a la vista 
-        include_once "../include/scripts_include.php";
       
         model_user::validar_sesion_activa($id_usuario);
 

@@ -22,7 +22,6 @@ function monto_total_productos() {
         let bolivar_total = (precio_bolivar_total[i].value !== "")  ? precio_bolivar_total[i].value : 0;
         total_bolivar += parseFloat(bolivar_total) * cantidad;
 
-
         subtotal_dolar.value = total_dolar;
         subtotal_bs.value = total_bolivar.toFixed(2);
         total_bolivar = total_bolivar;
@@ -32,7 +31,7 @@ function monto_total_productos() {
 
 // funcion para agregar el iva a la venta
 function add_iva(sub_total_bs,sub_total_dolar){
-    
+
     const input_dolares = document.getElementById('totalDolar_iva');
     const input_bolivares = document.getElementById('totalBolivar_iva');
 
@@ -42,12 +41,14 @@ function add_iva(sub_total_bs,sub_total_dolar){
     let total_dolares = parseFloat(sub_total_dolar);
     let total_bolivares = parseFloat(sub_total_bs);
 
-    total_dolares = (total_dolares * IVA) + total_dolares;
-    total_bolivares = (total_bolivares * IVA) + total_dolares;
+    total_dolares = total_dolares + (total_dolares * IVA);
+    total_bolivares = total_bolivares + (total_bolivares * IVA);
 
     input_dolares.value = total_dolares.toFixed(2);
     input_bolivares.value = total_bolivares.toFixed(2);
 
     strong_dolares.textContent = total_dolares.toFixed(2);
     strong_bolivares.textContent = total_bolivares.toFixed(2);
+    
+
 }
