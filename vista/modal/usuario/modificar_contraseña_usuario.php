@@ -56,15 +56,14 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
         </div>
     
         <div class="form-group label-floating">
-
             <p class="form-p alert-danger mb-2">los requisitos de seguridad para la  <span style="color:#f00;">contraseña</span> son:</p>
             <ul>
-                <li>Puede contener al menos 1 número y 1 letra.</li>
+                <li>Puede contener al menos <?= $configuracion['numeros'] ?> número(s).</li>
                 <li>Puede contener al menos <?= $configuracion['simbolos'] ?> de estos caracteres: !@#$%.</li>
                 <li>Debe tener entre <?= $configuracion['caracteres'] ?> y 60 caracteres.</li>
             </ul>
-            <p class="form-p alert-danger mb-2" style="color:#f00;">Para actualizar la 'contraseña' debes ingresar la contraseña actual.</p>
-            <p class="form-p">Los Campos Con <span style="color:#f00;">*</span> Son Obligatorios</p>
+            <strong class="form-p alert-danger mb-2">Para actualizar la <span style="color:#f00;">Contraseña</span> debes ingresar la contraseña actual.</strong>
+            <p class="form-p">Todos los Campos Con <span style="color:#f00;">*</span> Son Obligatorios.</p>
         </div>
     </div>
 </form>

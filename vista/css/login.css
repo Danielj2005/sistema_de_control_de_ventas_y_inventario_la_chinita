@@ -36,8 +36,6 @@ body{
 
 }
 
-
-
 .icon{
     position: absolute;
     height: 60%;
@@ -56,6 +54,7 @@ body{
 .carousel-item img {
 
 	height: 720px !important;
+	/* height: 100vh !important; */
 	width: 100%; 
 	max-width: 100%;
 	background: cover !important;

@@ -263,7 +263,7 @@ if ($rol >= 1 && $rol <= 11) {
                                                     <th class="col text-center" scope="col">Seleccione una Marca <span style="color:#f00;"> * </span> </th>
                                                     <th class="col text-center" scope="col">Seleccione una Presentación <span style="color:#f00;"> * </span> </th>
                                                     <th class="col text-center" scope="col">Seleccione una Categoría <span style="color:#f00;"> * </span> </th>
-                                                    <th class="col text-center" scope="col">Eliminar</th>
+                                                    <th class="col text-center" scope="col">Quitar</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tableProduct">
