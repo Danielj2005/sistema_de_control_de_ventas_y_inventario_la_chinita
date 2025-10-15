@@ -1,6 +1,5 @@
-
 <!-- Favicons -->
-<link href="img/logo.png" rel="shortcut icon">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 <!-- sweet-alert 2 -->
 <link href="./css/sweetalert2.min.css" rel="stylesheet">
 <link href="./css/toastify.css" rel="stylesheet">

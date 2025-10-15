@@ -27,9 +27,8 @@ $_SESSION['CPS'] = $CPS;
 		<title>Inicio</title>
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
-		<!-- <link rel="stylesheet" type="text/css" href="vista/css/sweet-alert.css"> -->
-		<link href="vista/css/sweetalert2.min.css" rel="stylesheet">
-		<link rel="shortcut icon" href="vista/img/logo.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="vista/css/sweetalert2.min.css">
+		<link rel="shortcut icon" href="vista/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
 	<body>
@@ -65,23 +64,26 @@ $_SESSION['CPS'] = $CPS;
 			</div>
 
 			<!-- fomulario de inicio de sesión -->
-			 
+			
 			<div class="col-12 position-absolute row justify-content-center align-items-center">
-				<div class="col-12 col-sm-6 col-md-6 glassmorph p-3 pt-2 rounded-4">
+				<div class="col-12 col-sm-6 col-md-6 glassmorph rounded-4 mt-3 p-4 ">
 					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
 						<div class="row justify-content-center">
-							<div class="col-12 avatar text-center mb-3">
-								<img src="vista/img/logo.png">
-								<h2>Inicio de Sesión </h2>
+
+							<div class="col-12 avatar text-center mb-2">
+								<img src="vista/img/favicon.ico">
+								<h2 class="my-3">Inicio de Sesión </h2>
 							</div>
-							<div class="col-12 col-sm-12 col-md-12 mb-2">
+
+							<div class="col-12 col-sm-12 col-md-12 mb-1">
 								<label class="mb-2">Correo electrónico</label>
 								<div class="input-group mb-3">
 									<span class="input-group-text" id="basic-addon1">@</span>
 									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="Ingresa tu correo" aria-label="email" aria-describedby="basic-addon1">
 								</div>
 							</div>
-							<div class="col-12 col-sm-12 col-md-12 mb-2">
+
+							<div class="col-12 col-sm-12 col-md-12">
 								<label class="mb-2">Contraseña</label>
 								
 								<div class="input-group mb-3">
@@ -90,23 +92,21 @@ $_SESSION['CPS'] = $CPS;
 									<button id="eyeIcon" type="button" class="input-group-text btn btn-secondary bi bi-eye" onclick="show_password('eyeIcon', 'pswd')"> </button>
 								</div>
 							</div>
-							<!-- Captcha de seguridad -->
-							<div class="card text-center p-0 border-dark col-12 col-md-6">
-								<div class="card-header">
-									<p class="card-title">Ingresa el captcha: </p>
-									<p class="card-title"><?= $_SESSION['numero_1']." + ".$_SESSION['numero_2'] ?></p>
-								</div>
-								<div class="card-footer">
-									<input type="text" id="respuesta_captcha" name="respuesta_captcha" autocomplete="off" min="1" pattern="[0-9]{1,20}" required class="d-block text-center w-100 border border-2 border-dark rounded-3">
+
+							<div class="card text-center border border-1 border-white p-0 m-0 col-10 col-md-6 col-lg-6 bg-transparent text-white">
+								<div class="card-body">
+									<p class="card-title">Resuelve el captcha: <?= $_SESSION['numero_1']." + ".$_SESSION['numero_2'] ?></p>
+									<input placeholder="ingresa la respuesta del captcha" type="text" id="respuesta_captcha" name="respuesta_captcha" autocomplete="off" min="1" pattern="[0-9]{1,20}" required class="form-control d-block border-2 border text-center w-100 rounded-3">
 								</div>
 							</div>
-							<div class="row col-12 mb-4 m-0 text-center justify-content-center">
-								<div class="col-12 mb-3 text-center">
-									<button type="submit" class="btn btn-primary btn-md mt-4 mx-4">iniciar sesión</button>
+
+							<div class="row col-12 mb-1 text-center justify-content-center">
+								<div class="col-12 mb-1 text-center">
+									<button type="submit" class="btn btn-primary mt-2">iniciar sesión</button>
 								</div>
-								<div class="col-12 col-md-6 mb-3 text-center">
+								<div class="col-12 col-md-6 text-center">
 									<button type="button" class="btn btn-link text-light" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
-										¿Problemas para iniciar sesión?<br>
+										¿Problemas para iniciar sesión? <br>
 										Recupera tu acceso
 									</button>
 								</div>
