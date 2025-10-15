@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                         // Aquí puedes comprobar si el nodo coincide con lo que buscas, por ejemplo un modal con una clase o id específico
 
-                        if (node.matches('#update_user_info') || node.querySelector('#update_user_info')) {
+                        if (node.matches('#root') || node.querySelector('#root')) {
 
                             console.log('¡Se detectó un modal insertado en el DOM!', node);
 

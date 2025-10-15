@@ -27,10 +27,10 @@ if($modulo == 'verificar_preguntas'){
 
     // si las respuestas coinciden se envia una alerta de validacion exitosa
     if ($existe_respuesta == $respuesta_pregunta) {
-        alert_model::alerta_condicional('¡Verificación Exitosa!','La respuesta a la pregunta de seguridad se ha verificado correctamente.','success',"show_form_password();");
+        alert_model::alerta_condicional('¡Verificación Exitosa!','','success',"show_form_password();");
         exit();
     }else{
-        alert_model::alerta_simple("¡Ocurrió un error!","La Respuesta no coincide con la que esta registrada en nuestro sistema, verifique he intente nuevamente.","error");
+        alert_model::alerta_simple("¡Ocurrió un error!","La respuesta ingresada es incorrecta, verifique he intente nuevamente.","error");
         exit();
     }
 }
@@ -66,14 +66,14 @@ if($modulo === "cambiar_contraseña"){
     // Contar símbolos (no alfanuméricos)
     $simbolosContraseña = preg_match_all("/\W/", $contraseña);
     if($simbolosContraseña < $configuracion['simbolos']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de la contraseña no cumple con el mínimo establecido que es ".$configuracion['simbolos']." de estos caracteres: !@#$% , verifique e intente nuevamente.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de caracteres mínima que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
         exit();
     }
     
     // Contar símbolos (no alfanuméricos)
     $simbolosContraseña2 = preg_match_all("/\W/", $contraseña2);
     if($simbolosContraseña2 < $configuracion['simbolos']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de el campo repetir contraseña no cumple con el mínimo establecido que es ".$configuracion['simbolos']." de estos caracteres: !@#$% ,  verifique e intente nuevamente.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!", "El campo repetir contraseña no cumple con la cantidad de caracteres mínima que es ".$configuracion['simbolos'].",  verifique e intente nuevamente.","error");
         exit();
     }
     
@@ -82,13 +82,13 @@ if($modulo === "cambiar_contraseña"){
     $numeros = preg_match_all("/[0-9]/", $contraseña);
 
     if($numeros < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con el mínimo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
         exit();
     }
     $numerosContraseña2 = preg_match_all("/[0-9]/", $contraseña2);
 
     if($numerosContraseña2 < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con el mínimo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!", "El campo repetir contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
         exit();
     }
 
@@ -113,7 +113,7 @@ if($modulo === "cambiar_contraseña"){
 
     // actualizar contraseña
     if(modeloPrincipal::UpdateSQL("usuario","contraseña = '$contraseña'","id_usuario = '$id_usuario'")){
-        alert_model::alert_redirect('¡Modificación exitosa!','Los datos se modificaron correctamente.','success',"../");
+        alert_model::alert_redirect('Modificación exitosa!','La contraseña se modificó correctamente.','success',"../");
         session_unset();
         session_destroy();
         exit();

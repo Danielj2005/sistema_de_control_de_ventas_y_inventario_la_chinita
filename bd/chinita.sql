@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-08-2025 a las 22:49:13
+-- Tiempo de generación: 29-09-2025 a las 12:27:19
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -1277,7 +1277,45 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (1222, '2025-08-19 14:51:20', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSÉ</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            <b>****** Configuración original de Sesión:  ******</b><br>\r\n                Cantidad de preguntas de seguridad: <b>4</b> <br>\r\n                Tiempo de inactividad de sesión: <b>60 minutos</b> <br>\r\n                Intentos de inicio de sesión para los usuarios: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n            \r\n            \r\n\r\n            <b>*********************************************</b><br>\r\n            <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Sesión:  ******</b><br>\r\n                Cantidad de preguntas de seguridad: <b>4</b> <br>\r\n                Tiempo de inactividad de sesión: <b>60 minutos</b> <br>\r\n                Intentos de inicio de sesión para los usuarios: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n        ', 2),
 (1223, '2025-08-19 14:53:06', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSÉ</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración original de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>1</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n        ', 2),
 (1224, '2025-08-19 15:00:23', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
-(1225, '2025-08-19 15:19:00', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2);
+(1225, '2025-08-19 15:19:00', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1226, '2025-08-19 18:50:39', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1227, '2025-08-22 11:48:26', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1228, '2025-08-22 14:30:19', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1229, '2025-08-22 15:15:33', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1230, '2025-08-22 17:01:34', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOSÉ</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1231, '2025-08-22 17:49:16', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOS</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1232, '2025-08-22 17:51:16', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOS</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1233, '2025-08-22 18:18:48', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JO</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1234, '2025-08-22 18:24:53', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JO</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1235, '2025-08-22 19:58:15', 'Modificación exitosa del perfil de usuario.', 'El usuario actualizó su contraseña.', 2),
+(1236, '2025-08-22 20:10:16', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1237, '2025-08-23 12:37:50', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1238, '2025-08-23 12:39:05', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            <b>****** Configuración original de Sesión:  ******</b><br>\r\n                Cantidad de preguntas de seguridad: <b>4</b> <br>\r\n                Tiempo de inactividad de sesión: <b>60 minutos</b> <br>\r\n                Intentos de inicio de sesión para los usuarios: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Sesión:  ******</b><br>\r\n                Cantidad de preguntas de seguridad: <b>4</b> <br>\r\n                Tiempo de inactividad de sesión: <b>60 minutos</b> <br>\r\n                Intentos de inicio de sesión para los usuarios: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n        ', 2),
+(1239, '2025-08-23 13:31:49', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            <b>****** Configuración original del módulo de Gestión de productos:  ******</b><br>\r\n                Porcentaje de IVA: <b>20% </b><br>\r\n                Porcentaje de Ganancia: <b>30% </b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual del módulo de Gestión de productos:  ******</b><br>\r\n                Porcentaje de IVA: <b>16% </b><br>\r\n                Porcentaje de Ganancia: <b>30% </b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n        ', 2),
+(1240, '2025-08-23 13:38:24', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1241, '2025-09-23 08:02:17', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1242, '2025-09-23 08:05:46', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>136.89 bs </b><br>\r\n    Fecha anterior: <b>18-08-2025 / 05:48:pm </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>168.41 bs </b><br>\r\n    Fecha actual: <b>23-09-2025 / 08:05:am </b><br>\r\n    ', 2),
+(1243, '2025-09-23 08:06:29', 'Modificación exitosa del perfil de usuario', 'El usuario actualizó su información personal <br><br>\r\n        <b>****** Información original del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b><br><br>\r\n        <b>****** Información Actual del usuario:   ******</b><br><br>\r\n        Cédula: <b>V-28587583</b><br>\r\n        Nombre: <b>DANIEL JOSE</b><br>\r\n        Apellido: <b>BARRUETA</b><br>\r\n        Correo: <b>dbarrueta42@gmail.com</b><br>\r\n        Dirección: <b>SECTOR E GUASDUAL CALLE 1</b><br>\r\n        Teléfono: <b>04125238909</b>\r\n        ', 2),
+(1244, '2025-09-23 08:23:30', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSE</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración original de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n        ', 2),
+(1245, '2025-09-23 08:36:59', 'Registro exitoso de una presentación.', 'Se registro una presentación con la siguiente informacón: <br><br>\r\n                <b>****** Información de la presentación:   ******</b><br><br>\r\n                Nombre: <b>600ml </b><br>\r\n                Descripción: <b>No definida! </b><br>\r\n                Estado: <b>Activa </b><br><br>\r\n                ', 2),
+(1246, '2025-09-23 08:36:59', 'Registro exitoso de uno o más productos.', 'Se registraron uno o más productos con la siguiente informacón: <br><br>\r\n            <b>****** Información de los productos:   ******</b><br><br>\r\n            Nombre: <b>Refresco </b><br>\r\n                Presentación: <b>600ml </b><br>\r\n                Categoría: <b>Refresco </b><br>\r\n                Marca: <b>Coca-cola </b><br>\r\n                Porcentaje de IVA: <b>16%</b><br><br>\r\n                <b>*********************************************</b><br><br>\r\n            ', 2),
+(1247, '2025-09-23 08:42:43', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALITO </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 7 </b><br><br>\r\n        <b>****** Información actual del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALIT </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 7 </b><br>\r\n\r\n        ', 2),
+(1248, '2025-09-23 08:43:07', 'Modificación exitosa de un proveedor.', 'Se modificó un proveedor con la siguiente informacón: <br><br>\r\n        <b>****** Información original del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALIT </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 7 </b><br><br>\r\n        <b>****** Información actual del proveedor:   ******</b><br><br>\r\n        Cédula / RIF: <b>V-16934956 </b><br>\r\n        Nombre: <b>EL CORRALITO </b><br>\r\n        Correo: <b>Corral@pollera.com </b><br>\r\n        Teléfono: <b>04122343443 </b><br>\r\n        Dirección: <b>ACARIGUA CALLE 3 AVENIDA 5 Y 7 </b><br>\r\n\r\n        ', 2),
+(1249, '2025-09-23 08:52:44', 'Venta realizada exitosamente.', 'Se registro una venta con la siguiente informacón: <br><br>\r\n    <b>****** Información del cliente:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL PICHARDO </b><br>\r\n    Teléfono: <b>04125238909 </b><br><br>\r\n\r\n    <b>****** Información de la Venta:   ******</b><br>\r\n    Subtotal de la compra en $: <b>5 $ </b><br>\r\n    Subtotal de la compra en bs: <b>842.05 bs</b><br>\r\n    Total de la compra en $ + IVA (16%): <b>5.8 $ </b><br>\r\n    Total de la compra en bs + IVA (16%): <b>140.53 bs</b><br>\r\n    Fecha / hora: <b>23-09-2025 / 08:52:am </b><br>\r\n    Tasa del dolar: <b>168.41 bs </b><br><br>\r\n\r\n    <b>****** Información del Usuario que realizó la venta:   ******</b><br>\r\n    Cédula: <b>V-28587583 </b><br>\r\n    Nombre: <b>DANIEL JOSE BARRUETA </b><br>\r\n    Correo: <b>dbarrueta42@gmail.com </b><br>\r\n    Teléfono: <b>04125238909 </b><br>\r\n    ', 2),
+(1250, '2025-09-23 08:55:36', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>168.41 bs </b><br>\r\n    Fecha anterior: <b>23-09-2025 / 08:05:am </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>168.41 bs </b><br>\r\n    Fecha actual: <b>23-09-2025 / 08:55:am </b><br>\r\n    ', 2),
+(1251, '2025-09-23 09:00:53', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSE</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración original de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n        ', 2),
+(1252, '2025-09-23 09:01:05', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSE</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            \r\n\r\n            \r\n\r\n            \r\n\r\n            \r\n\r\n        ', 2),
+(1253, '2025-09-23 09:05:29', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1254, '2025-09-23 09:08:01', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1255, '2025-09-23 09:18:34', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1256, '2025-09-25 11:46:36', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1257, '2025-09-25 12:34:40', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1258, '2025-09-25 12:34:54', 'Actualización exitosa de la tasa del dolar.', 'Se actualizó la tasa del dolar de manera automática. <br><br>\r\n    <b>****** Información de la tasa del dolar:   ******</b><br>\r\n    Precio anterior: <b>168.41 bs </b><br>\r\n    Fecha anterior: <b>23-09-2025 / 08:55:am </b><br><br>\r\n\r\n    <b>****** Información de la tasa del dolar actual:   ******</b><br>\r\n    Precio actual: <b>171.84 bs </b><br>\r\n    Fecha actual: <b>25-09-2025 / 12:34:pm </b><br>\r\n    ', 2),
+(1259, '2025-09-25 12:36:58', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1260, '2025-09-25 12:37:17', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1261, '2025-09-25 12:46:08', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1262, '2025-09-25 13:40:25', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSE</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración original de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n        ', 2),
+(1263, '2025-09-25 13:49:03', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -1351,7 +1389,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `c_preguntas`, `c_caracteres`, `c_numeros`, `c_simbolos`, `tiempo_inactividad`, `intentos_inicio_sesion`, `porcentaje_iva`, `porcentaje_ganancia`) VALUES
-(1, 4, 9, 3, 2, 60, 2, 20, 30);
+(1, 4, 9, 2, 2, 60, 3, 16, 30);
 
 -- --------------------------------------------------------
 
@@ -1442,7 +1480,8 @@ INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `refe
 (159, 211, 'Transferencia / Pago movíl', '4874789543453', 3, 410.67),
 (160, 212, 'Divisa', NULL, 580, 79396.2),
 (161, 213, 'Divisa', NULL, 290, 39698.1),
-(162, 214, 'Divisa', NULL, 29, 3969.81);
+(162, 214, 'Divisa', NULL, 29, 3969.81),
+(163, 215, 'Punto de Venta', NULL, 5.8, 976.78);
 
 -- --------------------------------------------------------
 
@@ -1469,7 +1508,8 @@ CREATE TABLE `detalles_venta` (
 
 INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
 (63, NULL, NULL, NULL, NULL, 6, 2, 1.31, 179.33, 206),
-(71, 20, 5, 5, 684.45, NULL, NULL, NULL, NULL, 214);
+(71, 20, 5, 5, 684.45, NULL, NULL, NULL, NULL, 214),
+(72, 20, 1, 5, 842.05, NULL, NULL, NULL, NULL, 215);
 
 -- --------------------------------------------------------
 
@@ -1570,7 +1610,10 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (80, 132.3, '2025-08-12 14:22:04'),
 (81, 136.89, '2025-08-16 11:27:16'),
 (82, 136.89, '2025-08-16 11:28:25'),
-(83, 136.89, '2025-08-18 17:48:39');
+(83, 136.89, '2025-08-18 17:48:39'),
+(84, 168.41, '2025-09-23 08:05:45'),
+(85, 168.41, '2025-09-23 08:55:36'),
+(86, 171.84, '2025-09-25 12:34:54');
 
 -- --------------------------------------------------------
 
@@ -1639,7 +1682,7 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`id`, `id_producto`, `stock_actual`, `precio_venta`, `fecha_ultima_actualizacion`, `estado`) VALUES
-(1, 6, 30, 1.31, '2025-08-13 13:32:45', 1),
+(1, 6, 28, 1.31, '2025-08-13 13:32:45', 1),
 (2, 5, 20, 2.92, '2025-08-13 13:32:45', 1),
 (3, 8, 15, 3.65, '2025-08-13 13:32:45', 1);
 
@@ -1744,7 +1787,8 @@ INSERT INTO `movimientos_inventario` (`id`, `id_producto`, `tipo`, `cantidad`, `
 (2, 6, 'Salida de producto(s) por Venta de Servicio', 4, '2025-07-20 08:29:57', 199, 2),
 (3, 6, 'Salida de producto(s) por Venta de Servicio', 4, '2025-07-20 08:34:28', 200, 2),
 (4, 6, 'Salida por Venta de producto(s) ', 2, '2025-08-16 04:37:15', 206, 2),
-(5, 6, 'Salida de producto(s) por Venta de Servicio', 10, '2025-08-16 06:02:15', 214, 2);
+(5, 6, 'Salida de producto(s) por Venta de Servicio', 10, '2025-08-16 06:02:15', 214, 2),
+(6, 6, 'Salida de producto(s) por Venta de Servicio', 2, '2025-09-23 08:52:44', 215, 2);
 
 -- --------------------------------------------------------
 
@@ -1832,7 +1876,8 @@ INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
 (3, '2 Litros', '', 1),
 (4, '400 Ml', '', 1),
 (5, '25g', '', 1),
-(6, '125g', '', 1);
+(6, '125g', '', 1),
+(7, '600ml', '', 1);
 
 -- --------------------------------------------------------
 
@@ -1872,7 +1917,8 @@ INSERT INTO `producto` (`id_producto`, `nombre_producto`, `id_marca`, `id_presen
 (17, 'Refresco', 32, 2, 1),
 (18, 'chupeta', 34, 5, 5),
 (19, 'pirulin', 35, 6, 5),
-(20, 'bubaloo', 36, 5, 5);
+(20, 'bubaloo', 36, 5, 5),
+(21, 'Refresco', 1, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -2004,7 +2050,7 @@ CREATE TABLE `usuario` (
   `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `apellido` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `correo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `contraseña` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `contraseña` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `telefono` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `direccion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `ultima_sesion` datetime DEFAULT NULL,
@@ -2022,10 +2068,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL JOSÉ', 'BARRUETA', 'dbarrueta42@gmail.com', 'eLS+tai0nGJi', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-08-19 15:19:00', 1, 0, 0, 0, 2, 1),
+(2, 'V-28587583', 'DANIEL JOSE', 'BARRUETA', 'dbarrueta42@gmail.com', 'f7TEwLx6YmJmZYyAgGSI', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-09-25 12:46:08', 0, 0, 0, 0, 2, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'Z4OEfHN4Y2U=', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 1, 3, 1),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-06-26 11:43:34', 1, 0, 1, 0, 2, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-06-26 11:43:34', 0, 0, 0, 0, 2, 1),
 (8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-11 16:13:43', 0, 0, 0, 1, 7, 1),
 (9, 'V-30774582', 'CARMEN', 'PEREZ', 'carmen@gmai.com', 'ioCDfHp/ZmVqZg==', '04145896325', 'BARRIO PAÉZ', NULL, 0, 0, 0, 1, 3, 1),
 (10, 'V-25478958', 'JULIO', 'BAEZ', 'jbaez@gmai.com', 'ZoiEg3uBZ2g=', '04165874523', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
@@ -2072,7 +2118,8 @@ INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_
 (211, '2025-08-16 05:32:19', 300, 41067, 348, 47637.7, 2, 3),
 (212, '2025-08-16 05:37:26', 500, 68445, 580, 79396.2, 2, 3),
 (213, '2025-08-16 05:40:55', 250, 34222.5, 290, 39698.1, 2, 3),
-(214, '2025-08-16 06:02:14', 25, 3422.25, 29, 3969.81, 2, 3);
+(214, '2025-08-16 06:02:14', 25, 3422.25, 29, 3969.81, 2, 3),
+(215, '2025-09-23 08:52:44', 5, 842.05, 5.8, 140.53, 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -2252,7 +2299,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1226;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1264;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -2288,19 +2335,19 @@ ALTER TABLE `detalles_menu`
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
@@ -2330,7 +2377,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de la tabla `movimientos_inventario`
 --
 ALTER TABLE `movimientos_inventario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas_secretas`
@@ -2342,13 +2389,13 @@ ALTER TABLE `preguntas_secretas`
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -2378,7 +2425,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- Restricciones para tablas volcadas
