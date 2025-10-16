@@ -2,18 +2,6 @@
 
 class presentacion_model extends modeloPrincipal {
 
-    public static function consultar_presentacion($fields) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM presentacion");
-        modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
-        return $consul;
-    }
-
-    public static function consultar_condicional($fields, $condicion) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM presentacion WHERE $condicion");
-        modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
-        return $consul;
-    }
-
     public static function consultar_por_id($fields, $id_presentacion) {
         $consul = modeloPrincipal::consultar("SELECT $fields FROM presentacion WHERE id = $id_presentacion");
         modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
@@ -116,13 +104,21 @@ class presentacion_model extends modeloPrincipal {
 
 
     public static function lista(){
-        $consulta = self::consultar_presentacion("*");
+        $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
+            R.nombre AS representacion, R.descripcion, P.estado
+            FROM presentacion AS P 
+            INNER JOIN representacion AS R ON R.id = P.id_representacion
+            WHERE P.estado = 1
+        ");
+        
+
+
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
                 <td class="col text-center"><?= $i++ ?></td>
-                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
                 <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
                 <?php if (rol_model::verificar_rol('m_presentacion') == '1') { ?>
                     <td scope="row" class="text-center">
@@ -154,10 +150,16 @@ class presentacion_model extends modeloPrincipal {
 
 
     public static function options() {
-        $consulta = self::consultar_condicional("id, nombre, descripcion","estado = 1");
+
+        $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion, R.nombre AS representacion
+            FROM presentacion AS P 
+            INNER JOIN representacion AS R ON R.id = P.id_representacion
+            WHERE P.estado = 1
+        ");
+
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-            <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> - <?= $mostrar["descripcion"]; ?></option>
+            <option value="<?= $mostrar["presentacion"]; ?>"> <?= $mostrar["presentacion"]; ?> - <?= $mostrar["representacion"]; ?></option>
         <?php  } 
     }
 

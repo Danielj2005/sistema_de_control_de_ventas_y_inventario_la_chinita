@@ -54,15 +54,17 @@ class producto_model extends modeloPrincipal {
 
     public static function obtener_todos_los_datos(){
         $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, 
-            PS.nombre as presentacion,
+            PS.cantidad AS presentacion, R.nombre AS representacion,
             (SELECT stock_actual FROM inventario WHERE inventario.id_producto = P.id_producto) AS stock_actual,
             (SELECT Round(precio_venta, 2) FROM inventario WHERE inventario.id_producto = P.id_producto) AS precio_venta,
             (SELECT MAX(dolar) from dolar) AS tasa
-            FROM  producto AS P
+            FROM producto AS P
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
             INNER JOIN marca AS M ON M.id = P.id_marca
-            ORDER BY M.nombre ASC");
+            ORDER BY M.nombre ASC
+        ");
 
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
@@ -132,6 +134,7 @@ class producto_model extends modeloPrincipal {
 
 
     // se valida el campo nombre del producto
+    
     public static function validar_nombre_producto($nombre_producto) {
         for ($i = 0; $i < count($nombre_producto); $i++) {
             if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre_producto[$i])) {
@@ -150,7 +153,7 @@ class producto_model extends modeloPrincipal {
             ?>
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["marca"].' '.$mostrar["presentacion"] ?></td>
+                <td class="text-center"><?= $mostrar["marca"].' '.$mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
                 <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0.$' : $mostrar["precio_venta"].' $' ; ?></th>
             </tr>
