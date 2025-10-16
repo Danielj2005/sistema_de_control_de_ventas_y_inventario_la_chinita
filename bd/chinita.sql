@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 29-09-2025 a las 12:27:19
+-- Tiempo de generación: 16-10-2025 a las 01:07:46
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -1315,7 +1315,22 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (1260, '2025-09-25 12:37:17', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
 (1261, '2025-09-25 12:46:08', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
 (1262, '2025-09-25 13:40:25', 'Modificación exitosa de la configuración del sistema.', 'El usuario actualizó la configuración del sistema <br><br>\r\n            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>\r\n            Cédula: <b>V-28587583</b><br>\r\n            Nombre: <b>DANIEL JOSE</b><br>\r\n            Apellido: <b>BARRUETA</b><br>\r\n            Teléfono: <b>04125238909</b><br>\r\n            Rol asignado: <b>ADIMINISTRADOR</b><br><br>\r\n\r\n            <b>*********************************************</b><br><br>\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración original de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>3</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n            \r\n\r\n            \r\n\r\n            <b>****** Configuración Actual de Contraseña:  ******</b><br>\r\n                Cantidad de caracteres: <b>9</b><br>\r\n                Cantidad de símbolos: <b>2</b> <br>\r\n                Cantidad de números: <b>2</b> <br><br>\r\n                <b>*********************************************</b><br><br>\r\n\r\n        ', 2),
-(1263, '2025-09-25 13:49:03', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2);
+(1263, '2025-09-25 13:49:03', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1264, '2025-09-29 08:52:40', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 7),
+(1265, '2025-09-30 14:38:53', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 7),
+(1266, '2025-09-30 17:59:26', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1267, '2025-09-30 18:03:43', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1268, '2025-10-02 15:36:52', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1269, '2025-10-02 15:47:51', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1270, '2025-10-02 17:53:44', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1271, '2025-10-02 17:54:51', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1272, '2025-10-07 16:14:14', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1273, '2025-10-07 16:56:25', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1274, '2025-10-14 15:28:38', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1275, '2025-10-14 16:09:50', 'Cierre de sesión exitoso', 'El usuario ha cerrado sesión correctamente en el sistema.', 2),
+(1276, '2025-10-14 16:21:47', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2),
+(1277, '2025-10-14 17:46:15', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
+(1278, '2025-10-15 17:24:09', 'Inicio de sesión exitoso', 'El usuario ha iniciado sesión correctamente en el sistema.', 2);
 
 -- --------------------------------------------------------
 
@@ -1326,6 +1341,7 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 CREATE TABLE `categoria` (
   `id_categoria` int NOT NULL,
   `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -1333,12 +1349,21 @@ CREATE TABLE `categoria` (
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
-(1, 'Bebidas Azucaradas', 1),
-(2, 'Refresco', 1),
-(3, 'Bebidas Gaseosas', 1),
-(4, 'Generico', 1),
-(5, 'Golocinas', 1);
+INSERT INTO `categoria` (`id_categoria`, `nombre`, `descripcion`, `estado`) VALUES
+(1, 'Bebidas Azucaradas', '', 1),
+(2, 'Refresco', '', 1),
+(3, 'Bebidas Gaseosas', '', 1),
+(4, 'Generico', '', 1),
+(5, 'Golocinas', '', 1),
+(6, 'Abarrotes y Despensa', 'Arroz, azúcar, café, enlatados, aceites, pastas.', 1),
+(7, 'Lácteos y Refrigerados', 'Leche, yogur, queso, mantequilla, huevos, postres fríos.', 1),
+(8, 'Carnes, Pescados y Aves', 'Pollo (fresco o congelado), res, cerdo, pescado (fileteado, entero).', 1),
+(9, 'Frutas, Verduras y Hortalizas', 'Productos frescos, perecederos.', 1),
+(10, 'Bebidas y Refrescos', 'Gaseosas, jugos, agua embotellada, cervezas, licores.', 1),
+(11, 'Panadería y Repostería', 'Pan fresco, galletas, pasteles, bollería.', 1),
+(12, 'Golosinas y Snacks', 'Caramelos, chicles, chocolates, papas fritas, helados.', 1),
+(13, 'Alimentos Preparados/Servicios', 'Menús a la carta, delivery, comidas listas para llevar (ej. pollo asado).', 1),
+(14, 'Congelados', 'Vegetales congelados, helados, pizzas, precocidos.', 1);
 
 -- --------------------------------------------------------
 
@@ -1861,8 +1886,8 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 
 CREATE TABLE `presentacion` (
   `id` int NOT NULL,
-  `nombre` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `descripcion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
+  `cantidad` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `id_representacion` int NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
@@ -1870,14 +1895,14 @@ CREATE TABLE `presentacion` (
 -- Volcado de datos para la tabla `presentacion`
 --
 
-INSERT INTO `presentacion` (`id`, `nombre`, `descripcion`, `estado`) VALUES
-(1, '1 Litro', '', 1),
-(2, '1.5 Litros', '', 1),
-(3, '2 Litros', '', 1),
-(4, '400 Ml', '', 1),
-(5, '25g', '', 1),
-(6, '125g', '', 1),
-(7, '600ml', '', 1);
+INSERT INTO `presentacion` (`id`, `cantidad`, `id_representacion`, `estado`) VALUES
+(1, '1', 5, 1),
+(2, '1.5', 5, 1),
+(3, '2', 5, 1),
+(4, '400', 4, 1),
+(5, '25', 2, 1),
+(6, '125', 2, 1),
+(7, '600', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -1947,6 +1972,35 @@ INSERT INTO `proveedor` (`id_proveedor`, `cedula_rif`, `nombre`, `correo`, `dire
 (25, 'J-21065945', 'PROVEEDOR DE PRUEBA', 'proveedor@gmail.com', 'PROVEEDOR AVENIDA 45', '04123456789'),
 (26, 'J-23123123', 'FILO E LOMO', 'alFilo@gmail.com', 'AVENIDA X ENTRE CALLES Z', '04125488754'),
 (27, 'R-48946525', 'TEST PROVIDER', 'provider@test.com', 'PROVIDE', '04123456798');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `representacion`
+--
+
+CREATE TABLE `representacion` (
+  `id` int NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8mb4_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `representacion`
+--
+
+INSERT INTO `representacion` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'Unidad (Und.)', 'Producto individual (ej. una lata de atún, un yogur).'),
+(2, 'Gramo (gr)', 'Productos a granel, carnes, quesos, embutidos.'),
+(3, 'Kilogramo (Kg)', 'Productos a granel, carnes, quesos, embutidos.'),
+(4, 'Mililitro (ml)', 'Refrescos, jugos, leche, aceite, salsas.'),
+(5, 'Litro (Lt)', 'Refrescos, jugos, leche, aceite, salsas.'),
+(6, 'Empaque/Bolsa', 'Papas fritas, galletas, granos, café molido.'),
+(7, 'Six-pack / Multi-pack', 'Cervezas, gaseosas pequeñas, yogures bebibles.'),
+(8, 'Porción / Ración', 'Venta de comidas preparadas (ej. porción de pollo asado).'),
+(9, 'Caja', 'Contenedor de varias unidades (ej. caja de 12 latas).'),
+(10, 'Bote / Lata', 'Atún, conservas, gaseosas individuales.'),
+(11, 'Bandeja', 'Carnes pre-empacadas, huevos.');
 
 -- --------------------------------------------------------
 
@@ -2068,10 +2122,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `suspender`, `primer_inicio`, `id_rol`, `estado`) VALUES
 (1, 'V-30270578', 'MANUEL', 'TORREZ', 'SHAUDITONUEL@GMAIL.COM', 'h7uxwaexpp9jZoY=', '04128053240', 'TURÉN LINDA', NULL, 0, 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL JOSE', 'BARRUETA', 'dbarrueta42@gmail.com', 'f7TEwLx6YmJmZYyAgGSI', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-09-25 12:46:08', 0, 0, 0, 0, 2, 1),
+(2, 'V-28587583', 'DANIEL JOSE', 'BARRUETA', 'dbarrueta42@gmail.com', 'f7TEwLx6YnBT', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2025-10-15 17:24:09', 1, 0, 0, 0, 2, 1),
 (5, 'V-30400015', 'ANGEL', 'ALIBARDI', 'angeldaniel231041@gmail.com', 'Z4OEfHN4Y2U=', '04122343434', 'BARRIO EL PAEZ', NULL, 0, 0, 1, 1, 3, 1),
 (6, 'E-10642121', 'DANNY JOSÉ', 'BARRUETA', 'danny@gmail.com', 'eLS+tai0nGJi', '04145196488', 'CALLE 1 VARRIO EL GUASDUAL', NULL, 0, 0, 0, 1, 3, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-06-26 11:43:34', 0, 0, 0, 0, 2, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', 'dbe9tbF5ZGNm', '04123456548', 'ANDRES ELOY NEGRO', '2025-09-29 08:52:40', 0, 0, 0, 0, 2, 1),
 (8, 'V-11077810', 'ROSIRIS', 'PICHARDO', 'rosiris@gmail.com', 'ZYWDgHh+aWg=', '04124567898', 'BARRIO EL ANDRES ELOY BLANCO', '2025-04-11 16:13:43', 0, 0, 0, 1, 7, 1),
 (9, 'V-30774582', 'CARMEN', 'PEREZ', 'carmen@gmai.com', 'ioCDfHp/ZmVqZg==', '04145896325', 'BARRIO PAÉZ', NULL, 0, 0, 0, 1, 3, 1),
 (10, 'V-25478958', 'JULIO', 'BAEZ', 'jbaez@gmai.com', 'ZoiEg3uBZ2g=', '04165874523', 'URB LAS MARIAS', NULL, 0, 0, 0, 1, 7, 1),
@@ -2241,7 +2295,8 @@ ALTER TABLE `preguntas_secretas`
 --
 ALTER TABLE `presentacion`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
+  ADD UNIQUE KEY `nombre` (`cantidad`),
+  ADD KEY `id_representacion` (`id_representacion`);
 
 --
 -- Indices de la tabla `producto`
@@ -2260,6 +2315,13 @@ ALTER TABLE `proveedor`
   ADD UNIQUE KEY `cedula_rif` (`cedula_rif`),
   ADD UNIQUE KEY `correo` (`correo`),
   ADD UNIQUE KEY `telefono` (`telefono`);
+
+--
+-- Indices de la tabla `representacion`
+--
+ALTER TABLE `representacion`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indices de la tabla `rol`
@@ -2299,13 +2361,13 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1264;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1279;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -2389,7 +2451,7 @@ ALTER TABLE `preguntas_secretas`
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -2402,6 +2464,12 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `proveedor`
   MODIFY `id_proveedor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de la tabla `representacion`
+--
+ALTER TABLE `representacion`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -2492,6 +2560,12 @@ ALTER TABLE `movimientos_inventario`
 ALTER TABLE `preguntas_secretas`
   ADD CONSTRAINT `preguntas_secretas_ibfk_1` FOREIGN KEY (`id_pregunta`) REFERENCES `seguridad` (`id_seguridad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `preguntas_secretas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `presentacion`
+--
+ALTER TABLE `presentacion`
+  ADD CONSTRAINT `presentacion_ibfk_1` FOREIGN KEY (`id_representacion`) REFERENCES `representacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
