@@ -16,11 +16,10 @@ class presentacion_model extends modeloPrincipal {
         return $id_presentacion;
     }
 
-    public static function registrar ($nombre, $descripcion) {
-        $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre)));
-        $descripcion = $descripcion !== "" ? ucwords(strtolower(modeloPrincipal::limpiar_cadena($descripcion))) : '';
+    public static function registrar ($cantidad, $representacion) {
+        $cantidadLimpia = modeloPrincipal::limpiar_cadena($cantidad);
 
-        $registrar = modeloPrincipal::InsertSQL("presentacion", "nombre, descripcion, estado" ,"'$nombre', '$descripcion', 1");
+        $registrar = modeloPrincipal::InsertSQL("presentacion", "cantidad, id_representacion, estado" ,"'$cantidadLimpia', $representacion, 1");
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar la presentación debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
         }
@@ -154,6 +153,16 @@ class presentacion_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <option value="<?= $mostrar["presentacion"]; ?>"> <?= $mostrar["presentacion"]; ?> - <?= $mostrar["representacion"]; ?></option>
+        <?php  } 
+    }
+
+    public static function selectOptions() {
+
+        $consulta = modeloPrincipal::consultar("SELECT id, nombre AS representacion FROM representacion");
+
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <option value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>"> <?= $mostrar["representacion"]; ?></option>
         <?php  } 
     }
 

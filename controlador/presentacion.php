@@ -12,32 +12,28 @@ if (!isset($_POST["modulo"])) {
 }
 
 if($modulo === "Guardar"){
-    $nombre = ucfirst(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre_presentacion']))); // se le coloca la primera letra en mayúscula
-    $descripcion = ucfirst(strtolower(modeloPrincipal::limpiar_cadena($_POST['descripcion_presentacion']))); // se le coloca la primera letra en mayúscula
+    $cantidad = modeloPrincipal::limpiar_cadena($_POST['cantidad_presentacion']); // se le coloca la primera letra en mayúscula
+    $representacion = modeloPrincipal::decryptionId($_POST['representacion']);
 
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$nombre,$descripcion]);
-    
+    modeloPrincipal::validar_campos_vacios([$cantidad, $representacion]);
+
     // se comprueba que no exista un registro con los mismos datos
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE nombre = '$nombre'")) > 0){
+    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE cantidad = '$cantidad'")) > 0){
         /********** No se puede registrar un usuario si ya existe **********/
-        alert_model::alerta_simple("¡Ocurrio un error!","El nombre que ingresaste ya se encuentra en uso.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!","La cantidad que ingresaste ya se encuentra en uso.","error");
         exit(); 
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre)) {
-        alert_model::alert_of_format_wrong("nombre");
+    if (modeloPrincipal::verificar_datos("[0-9\.]{1,5}",$cantidad)) {
+        alert_model::alert_of_format_wrong("Cantidad");
         exit();
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,250}",$descripcion)) {
-        alert_model::alert_of_format_wrong("descripción");
-        exit();
-    }
     // se registran los datos del presentación
     try {
-        $registrar = presentacion_model::registrar($nombre, $descripcion);
-        
+        $registrar = presentacion_model::registrar($cantidad, $representacion);
+
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar una presentación.","error");
         }

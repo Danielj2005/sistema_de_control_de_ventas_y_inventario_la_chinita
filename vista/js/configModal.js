@@ -1,11 +1,18 @@
 const dataModal = {
-    presentacion : {
+    listaPresentacion : {
         modalUrl : "./modal/producto/lista_presentacion.php",
         modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tablePresentationOfProducts"
+    },
+    registrarPresentacion : {
+        modalUrl : "./modal/producto/registrarPresentacion.php",
+        modalModule : "list",
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
+        modalSize : 'modal-lg',
+        modalSendForm : true,
     },
     categoria : {
         modalUrl : "./modal/producto/lista_categoria.php",
@@ -15,13 +22,18 @@ const dataModal = {
         modalDataTable : true,
         modalClassTable : "tableCategoryOfProducts"
     },
-    marca : {
+    listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
         modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de marcas registradas',
         modalSize : '',
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"
+    },
+    registrarMarca : {
+        modalUrl : "./modal/producto/registrarMarca.php",
+        modalTitle : '<i class="bi bi-person-plus"></i>&nbsp;Registrar nueva marca',
+        modalSendForm : true,
     },
     proveedorDetalles : {
         modalUrl : "./modal/proveedor/detalles.php",

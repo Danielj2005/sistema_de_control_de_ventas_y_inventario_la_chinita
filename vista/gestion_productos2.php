@@ -15,10 +15,9 @@ $rol = rol_model::permisos_modulos('r_productos + l_productos + r_categoria + m_
 
 // permisos del usuario al módulo categoría
 $categoria = [
-    "r_categoria" => rol_model::permisos_modulos("r_categoria"),
     "m_categoria" => rol_model::permisos_modulos("m_categoria"),
     "l_categoria" => rol_model::permisos_modulos("l_categoria"),
-    'total' => rol_model::permisos_modulos("r_categoria + m_categoria + l_categoria")
+    'total' => rol_model::permisos_modulos("m_categoria + l_categoria")
 ];
 
 // permisos del usuario al módulo presentacion
@@ -87,179 +86,67 @@ if ($rol >= 1 && $rol <= 11) {
                 <h1 class="text-center titulosH">Gestión de Productos</h1>
             </div>
             <section class="section dashboard">
-                <div class="row">      
+                <div class="row m-0"> 
 
-                    
-                    <?php if ($categoria['total'] > 0 ): ?>
-                        <!-- registro y listado de Categoría -->
+                    <?php if ($categoria['l_categoria'] == 1 || $presentacion['total'] > 0 || $marca['total'] > 0): ?>
+                        <!-- listado de Categoría -->
 
-                        <div id="card_categorias" class="col-12 col-sm-12 col-md-4 mb-3 pagetitle text-center card-body <?= colapseCol($categoria['total'], $presentacion['total'], $marca['total']) ?>">
-                            <div class="accordion" id="categorias_accordion">
-                                <div class="accordion-item text-center justify-content-center align-items-center row">
-                                    <h3 class="accordion-header my-3 col fs-4 text-center">
-                                        <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#categoriasCard" aria-expanded="true" aria-controls="collapseOne">
-                                            Categorías
-                                        </button>
-                                    </h3>
+                        <div id="card_gestion_productos" class="col-12 col-sm-12 col-md-12 mb-3 pagetitle text-center row m-0 p-0 justify-content-between">
 
-                                    <div id="categoriasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body row justify-content-center p-0">
-                                            <?php if ($categoria['r_categoria'] == 1 ): ?>
-                                                <form id="añadir_categoria" action="../controlador/categoria_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                                                
-                                                    <h5 class="card-title">Registrar Categoría</h5>
-                                                    <input type="hidden" name="modulo" value="Guardar">          
-                                                    <div class="row mb-3 justify-content-center text-start">
-                                                        <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                                        <div class="col-12 mb-3">
-                                                            <input form="añadir_categoria" type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,30}" required="" placeholder="ingresa el nombre" class="form-control" id="input_añadir_categoria" name="nombre_categoria">
-                                                        </div>
-            
-                                                        <div class="col-12 mb-3 text-start">
-                                                            <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                            <?php if ($categoria['l_categoria'] == 1 ): ?>
 
-                                                <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_categoria">
-                                                    <button type="submit" form="añadir_categoria" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                                                </div>
+                                <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 border card">
+                                    <h3 class="text-center mt-2 titulosH">Categoría</h3>
+                                        
+                                    <div class="d-flex justify-content-around text-center">
+                                        <?php if ($categoria['l_categoria'] == 1 ): ?>
+                                                <button onclick="btn_show_modal('btn_modal', 'categoria')" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>   
+                            <?php endif; 
+                                if ($presentacion['r_presentacion'] == 1 || $presentacion['l_presentacion'] == 1 ): ?>
+
+                                    <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 border card">
+                                        <h3 class=" text-center mt-2 titulosH">Presentación</h3>
+
+                                        <div class="d-flex justify-content-around text-center mb-3">
+                                            <?php if ($presentacion['r_presentacion'] == 1): ?>
+                                                    <button onclick="btn_show_modal('btn_modal', 'registrarPresentacion')" data-bs-toggle="modal" data-bs-target="#modal" type="button" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                             <?php endif; 
-                                                if ($categoria['l_categoria'] == 1 ): ?>
-                                                    <div class="text-center col-12 col-md-6 mb-3" id="ver_listas_categoria">
-                                                        <button onclick="btn_show_modal('btn_modal', 'categoria')" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                                    </div>
+                                                if ($presentacion['l_presentacion'] == 1 ): ?>
+                                                    <button onclick="btn_show_modal('btn_modal', 'listaPresentacion')" id="btn_ver_listas_presentacion" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                             <?php endif; ?>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </div>   
+                            <?php endif; 
+                                if ($marca['r_marca'] == 1 || $marca['l_marca'] == 1 ): ?>
+
+                                    <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 card border">
+                                        <h3 class="text-center mt-2 titulosH">Marca</h3>
+                                        
+                                        <div class="d-flex justify-content-around text-center">
+                                            <?php if ($marca['r_marca'] == 1): ?>
+                                                    <button onclick="btn_show_modal('btn_modal', 'registrarMarca')" type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-success bi bi-plus">&nbsp; Añadir</button>
+                                            <?php endif; 
+                                                if ($marca['l_marca'] == 1 ): ?>
+                                                    <button onclick="btn_show_modal('btn_modal', 'listaMarca')" id="btn_ver_listas_marca" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>  
+                            <?php endif; ?>              
                         </div>
                         
-                    <?php endif;
-                        if ($presentacion['total'] > 0 ): ?>
-                            <!-- registro y listado de presentación -->
-
-                            <div id="card_presentacion" class="col-12 col-sm-12 mb-3 pagetitle text-center card-body <?= colapseCol($categoria['total'], $presentacion['total'], $marca['total']) ?>">
-                                <div class="accordion" id="presentacion_accordion">
-                                    <div class="accordion-item text-center justify-content-center align-items-center row">
-                                        <h3 class="accordion-header my-3 col fs-4 text-center">
-                                            <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#presentacionCard" aria-expanded="true" aria-controls="collapseOne">
-                                                Presentación
-                                            </button>
-                                        </h3>
-            
-                                        <div id="presentacionCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body row justify-content-center p-0">
-                                                
-                                                <?php if ($presentacion['r_presentacion'] == 1 ): ?>
-                                                    <form id="form_presentacion" action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                                                        <h5 class="card-title">Registrar presentación</h5>
-                                                        <input type="hidden" name="modulo" value="Guardar">          
-                                                        <div class="row mb-3">
-
-                                                            <div class="col-12 mb-3 text-start">
-                                                                <label class="col-form-label">Definir Presentación <span style="color:#f00;">*</span> </label>
-                                                                <div class="col-12 mb-2">
-                                                                    <input 
-                                                                        type="text" 
-                                                                        pattern="[0-9.]+" 
-                                                                        required="" 
-                                                                        placeholder="Ejemplo: 1, 500, 1.5, etc." 
-                                                                        class="form-control" 
-                                                                        id="nombre_presentacion" 
-                                                                        name="cantidad_presentacion" 
-                                                                    />
-                                                                </div>
-                                                                <div class="col-12 mb-2"> 
-                                                                    <select name="representacion" id="representacion" class="form-select">
-                                                                        <option selected disabled>Seleccione la Unidad (ej: Kg)</option>
-                                                                        <?php presentacion_model::options(); ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-12 mb-3 text-start">
-                                                                <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                    
-                                                    <div class="text-center col-12 col-md-6 mb-3" id="btn_registrar_presentacion">
-                                                        <button type="submit" form="form_presentacion" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                                                    </div>
-
-                                                <?php endif; 
-                                                    if ($presentacion['l_presentacion'] == 1 ): ?>
-
-                                                        <div class="text-center col-12 col-md-6 mb-3">
-                                                            <button onclick="btn_show_modal('btn_modal', 'presentacion')" type="button" id="btn_ver_listas_presentacion" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                                        </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    <?php endif; 
-                        if ($marca['total'] > 0 ): ?>
-                            <!-- registro y listado de Marca -->
-
-                            <div id="card_marcas" class="col-12 col-sm-12 mb-3 pagetitle text-center card-body <?= colapseCol ($categoria['total'], $presentacion['total'], $marca['total']); ?>">
-                                <div class="accordion" id="marcas_accordion">
-                                    <div class="accordion-item text-center justify-content-center align-items-center row">
-            
-                                        <h3 class="accordion-header my-3 col fs-4 text-center">
-                                            <button class="accordion-button collapsed titulosH" type="button" data-bs-toggle="collapse" data-bs-target="#marcasCard" aria-expanded="true" aria-controls="collapseOne">
-                                                Marca
-                                            </button>
-                                        </h3>
-            
-                                        <div id="marcasCard" aria-expanded="true" aria-controls="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body row justify-content-center p-0">
-                                                <?php if ($marca['r_marca'] == 1 ): ?>
-                                                    
-                                                    <form id="form_marca" action="../controlador/marca.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
-                                                        <h5 class="card-title">Registrar Marca</h5>
-                                                        <input type="hidden" name="modulo" value="Guardar">          
-                                                        <div class="row mb-3">
-                                                            <div class="col-12 mb-3 text-start">
-                                                                <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                                                <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_marca" name="nombre_marca">
-                                                            </div>
-                
-                                                            <div class="col-12 mb-3 text-start">
-                                                                <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                                                            </div>
-                
-                                                        </div>
-                                                    </form>
-
-                                                    <div class="text-center col-12 col-md-6 mb-3 " id="btn_registrar_marca">
-                                                        <button type="submit" form="form_marca" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
-                                                    </div>
-                                                <?php endif; 
-                                                    if ($marca['l_marca'] == 1 ): ?>
-                                                        <div class="text-center col-12 col-md-6 mb-3 ">
-                                                            <button onclick="btn_show_modal('btn_modal', 'marca')" id="btn_ver_listas_marca" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
-                                                        </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    <?php endif;  ?>
+                    <?php endif; ?>
 
                     <!-- registro y listado de productos -->
 
                     <div class="col-12 mb-3 pagetitle text-center">
                         <div class="card">
-                            <div class="card-body row">
+                            <div class="card-body row m-0 p-0">
+
                                 <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">
-                                    <?= $producto['l_productos'] == 1 ? 'Lista de Productos' : 'Registro de Productos'?>
+                                    <?= $producto['l_productos'] == 1 ? 'Inventario de Productos' : 'Registro de Productos'?>
                                 </h3>
 
                                 
