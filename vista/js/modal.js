@@ -41,9 +41,11 @@ const btn_show_modal = (btnModalId, nameModule) =>{
         success:function(valores){
             body.innerHTML = valores; // se inserta el resultado de la busqueda al modal
             
-            SendForm ? SendFormAjax() && btn_guardar_modal.setAttribute('form','modalSendForm') : '';
+            SendForm ? SendFormAjax() : '';
+            SendForm ? btn_guardar_modal.setAttribute('form','modalSendForm') : '';
 
-            DataTable ? dataTable(`${ClassTable}`) && btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
+            DataTable ? dataTable(`${ClassTable}`) : btn_guardar_modal.classList.remove('d-none');
+            DataTable ? btn_guardar_modal.classList.add('d-none') : '';
             
             Module.includes('modify-rol') ? evaluar_casillas() : '';
         },

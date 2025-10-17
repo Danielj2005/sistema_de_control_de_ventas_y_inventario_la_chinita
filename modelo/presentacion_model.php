@@ -124,11 +124,7 @@ class presentacion_model extends modeloPrincipal {
                     <td scope="row" class="text-center">
                         <?php 
                             if ($mostrar["estado"] === "1") { ?>
-                                <button 
-                                    class="btn btn-outline-success bi-check-circle" 
-                                    title="estado de la presentación">
-                                        &nbsp; Activo 
-                                </button>
+                                <button class="btn btn-outline-success bi-check-circle" title="estado de la presentación"></button>
                             <?php } else { ?>
                                 <form action="<?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '../controlador/presentacion.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                                     <input type="hidden" name="modulo" value="inactivo">          
@@ -136,9 +132,7 @@ class presentacion_model extends modeloPrincipal {
                                     <button 
                                         class="btn btn-outline-danger bi-x-circle <?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '' : 'disabled eraser' ?>" 
                                         title="estado de la presentación"
-                                        type="submit">
-                                            &nbsp; Inactivo
-                                    </button>
+                                        type="submit"></button>
                                 </form>
                             <?php }
                         ?>

@@ -6,7 +6,7 @@ require_once "../../../modelo/rol_model.php";
 require_once "../../../modelo/marca_model.php";
 
 ?>
-<div class="table table-responsive">
+<div class="table">
     <table class="table table-striped datatable mb-3 tableTrademarkOfProducts" id="tableTrademarkOfProducts">
         <thead>
             <tr>

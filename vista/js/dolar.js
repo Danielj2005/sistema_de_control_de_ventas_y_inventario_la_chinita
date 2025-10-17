@@ -16,6 +16,7 @@ function obtener_precio_dolar_auto() {
     });
 }
 
+
 function guardar_precio_dolar_auto(datos) {
 	$.ajax({
         data:  {'priceDolar': datos, 'manera': "automática"},

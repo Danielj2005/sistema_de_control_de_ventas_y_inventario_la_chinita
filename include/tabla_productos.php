@@ -28,17 +28,17 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
                 <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]); ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="number" min="0" max="2000" class="form-control cantidad" name="cantidad[]" onblur="calcular_total();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                <input type="text" minlength="1" maxlength="200" class="form-control cantidad" name="cantidad[]" onchange="calcular_total();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="text" maxlength="8" class="form-control precio_unidad_dolar" onblur="convertir_usd_a_bs('<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>'); calcular_total();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" required>
+                <input type="text" maxlength="8" class="form-control precio_unidad_dolar" onchange="convertir_usd_a_bs('<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>'); calcular_total();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" required>
             </td>
             <td class="col text-center" scope="col">
-                <input type="number" min="0" max="10000" readonly class="bg-secondary-subtle form-control precio_unidad_bs" name="precio_unidad_bs[]" placeholder="ingresa el Precio por unidad en bs" id="precio_unidad_bs_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                <input type="text" minlength="1" maxlength="100" readonly class="bg-secondary-subtle form-control precio_unidad_bs" name="precio_unidad_bs[]" placeholder="ingresa el costo unitario (Bs.)" id="precio_unidad_bs_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
             </td>
             <td class="col text-center" scope="col">
                 <div class="col-md-4 input-group">
-                    <input type="number" min="0" max="10000" readonly class="bg-secondary-subtle input form-control" name="precio_venta_dolar[]" placeholder="ingresa el Precio de venta en $" id="precio_venta_dolar_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                    <input type="text" minlength="1" maxlength="100" readonly class="bg-secondary-subtle input form-control" name="precio_venta_dolar[]" placeholder="ingresa el Precio de venta ($)" id="precio_venta_dolar_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                 </div>
             </td>
             <td class="text-center col" scope="col">

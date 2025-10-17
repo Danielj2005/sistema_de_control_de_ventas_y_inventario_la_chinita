@@ -266,57 +266,58 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 											<label class="form-label">Tipo de Compra <span style="color:#f00;">*</span></label>
 											<div class="col-12 col-md-12 mb-3">
-												<select name="tipo_compra" id="tipo_compra_id" class="form-select select select2">
+												<select onchange="dataBuyEntries()" name="tipo_compra" id="tipo_compra_id" class="form-select">
 													<option selected disabled>Seleccione una opción</option>
 													<option value="adquisicion_propia">Compra Directa (Personal)</option>
 													<option value="compra_proveedor">Compra a Proveedor</option>
 												</select>
 											</div>
 
-											<h5 class="card-title">Información del Proveedor</h5> 
-
+											
 											<form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
 												<input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
 												<input type="hidden" name="modulo" value="Guardar">
 
-												
-												<!-- datos del proveedor al que se le compró -->
-												<div class="col-12 col-sm-6 col-md-6 mb-3">
-													<label class="form-label">Cédula o RIF <span style="color:#f00;">*</span></label>
-													<div class="col-md-4 input-group">
-														<select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
-															<option value="V-">V</option>
-															<option value="R-">RIF</option>
-															<option value="J-">J</option>
-															<option value="E-">E</option>
-														</select>
-														<input type="text" class="form-control" minlength="7" maxlength="8" placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula" required>
+												<fieldset id="datProvider" class="row m-0 p-0 d-none">
+													<h5 class="card-title">Información del Proveedor</h5> 
+													<!-- datos del proveedor al que se le compró -->
+													<div class="col-12 col-sm-6 col-md-6 mb-3">
+														<label class="form-label">Cédula o RIF <span style="color:#f00;">*</span></label>
+														<div class="col-md-4 input-group">
+															<select class="input-group-text" id="nacionalidad" name="nacionalidad">
+																<option value="V-">V</option>
+																<option value="R-">RIF</option>
+																<option value="J-">J</option>
+																<option value="E-">E</option>
+															</select>
+															<input type="text" class="form-control" minlength="7" maxlength="8" placeholder="ingresa la cédula / RIF" onblur="buscar_proveedor()"; name="cedula" id="cedula">
+														</div>
 													</div>
-												</div>
-
-												<div class="col-12 col-sm-6 col-md-6 mb-3">
-													<label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
-													<input type="text" class="form-control" minlength="3" maxlength="80" placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
-												</div>
-
-												<div class="col-12 col-sm-6 col-md-6 mb-3">
-													<label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
-													<input type="text" class="form-control"  minlength="10" maxlength="150" placeholder ="ingresa el correo" id="correo" name="correo" required>
-												</div>
-
-												<div class="col-12 col-sm-6 col-md-6 mb-3">
-													<label   class="form-label">Teléfono <span style="color:#f00;">*</span></label>
-													<input type="text" class="form-control" minlength="11" maxlength="11"  name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
-												</div>
-
-												<div class="col-12 col-sm-12 col-md-12 mb-3">
-													<label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
-													<input type="text" class="form-control" minlength="3" maxlength="250" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
-												</div>
+	
+													<div class="col-12 col-sm-6 col-md-6 mb-3">
+														<label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
+														<input type="text" class="form-control" minlength="3" maxlength="80" placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor">
+													</div>
+	
+													<div class="col-12 col-sm-6 col-md-6 mb-3">
+														<label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
+														<input type="text" class="form-control"  minlength="10" maxlength="150" placeholder ="ingresa el correo" id="correo" name="correo">
+													</div>
+	
+													<div class="col-12 col-sm-6 col-md-6 mb-3">
+														<label   class="form-label">Teléfono <span style="color:#f00;">*</span></label>
+														<input type="text" class="form-control" minlength="11" maxlength="11"  name="telefono" placeholder="ingresa el teléfono" id="telefono">
+													</div>
+	
+													<div class="col-12 col-sm-12 col-md-12 mb-3">
+														<label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
+														<input type="text" class="form-control" minlength="3" maxlength="250" name="direccion" placeholder="ingresa la dirección" id="direccion">
+													</div>
+												</fieldset>
 
 												<!-- datos de el (los) producto(s) comprados al proveedor -->
 
-												<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
+												<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-1 row m-0">
 													<h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos de la Entrada</h5>
 
 													<div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
@@ -325,49 +326,49 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 													<label class="form-label">Producto <span style="color:#f00;">*</span></label>
 													<div class="col-12 col-md-9 mb-3">
-														<select name="producto" id="producto_id" class="form-select select select2">
-															<option selected disabled>Seleccione un producto</option>
+														<select name="producto" id="producto_id" class="select form-select SelectTwo">
+															<option selected>Seleccione un producto</option>
 															<?php producto_model::options(); ?>
 														</select>
 													</div>
 													
 													<div class="col-12 col-sm-12 col-md-3 mb-3">
-														<button type="button" name="btn_add_producto" class="btn btn-success bi bi-plus btn_add">Añadir a la Entrada</button>
+														<button type="button" name="btn_producto" class="btn btn-success bi bi-plus btn_add">Añadir a la Entrada</button>
 													</div>
 												</div>
 												
-												<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 row m-0">
-													<div class="row p-2 justify-content-around">
-													<h5 class="card-title col-12 mb-2">Lista de productos</h5>
+												<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-1 row m-0">
+													<div class="row justify-content-around">
+														<h5 class="card-title col-12 mb-2">Lista de productos</h5>
 
-													<div class="col-12 table-responsive">
-														<table class="table table-borderless table-striped" id="">
-															<thead>
-																<tr>
-																	<th class="col text-center" scope="col">Producto</th>
-																	<th class="col text-center" scope="col">Cantidad</th>
-																	<th class="col text-center" scope="col">Costo Unitario ($)</th>
-																	<th class="col text-center" scope="col">Costo Unitario (Bs.)</th>
-																	<th class="col text-center" scope="col">Precio Venta ($)</th>
-																	<th class="col text-center" scope="col">Acción</th>
-																</tr>
-															</thead>
-															<tbody id="lista_producto"></tbody>
-														</table>
-													</div>
+														<div class="col-12 table-responsive m-0 p-0">
+															<table class="table table-borderless table-striped" id="">
+																<thead>
+																	<tr>
+																		<th class="col text-center" scope="col">Producto</th>
+																		<th class="col text-center" scope="col">Cantidad</th>
+																		<th class="col text-center" scope="col">Costo Unitario ($)</th>
+																		<th class="col text-center" scope="col">Costo Unitario (Bs.)</th>
+																		<th class="col text-center" scope="col">Precio Venta ($)</th>
+																		<th class="col text-center" scope="col">Acción</th>
+																	</tr>
+																</thead>
+																<tbody id="lista_producto"></tbody>
+															</table>
+														</div>
 													</div>
 												</div>
 
 												<hr class="divider">
 
-												<div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
+												<div class="col-12 col-sm-12 col-md-6 mt-1 mb-1">
 													<div class="input-group mb-3 justify-content-center">
 														<label class="input-group-text">Fecha de Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
 														<input class="form-control" value="<?= date("Y-m-d"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
 													</div>
 												</div>
 
-												<div class="col-12 col-sm-12 col-md-6 mt-5 mb-4">
+												<div class="col-12 col-sm-12 col-md-6 mt-1 mb-1">
 													<div class="input-group mb-3 justify-content-center">
 														<label class="input-group-text">Hora de Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
 														<input class="form-control" value="<?=  $fecha2 = date("H:i:s"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
@@ -392,10 +393,11 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 												
 												<div class="col-12 mb-1">
 													<div class="form-group">
-														<p class="form-p fs-5">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
+														<p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
 													</div>
 												</div>
-												<div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
+
+												<div class="col-12 col-sm-12 col-md-12 mt-1 text-center">
 													<button name="insertar" class="btn btn-success">&nbsp;Registrar entrada</button>
 												</div>
 											</form>
@@ -409,6 +411,18 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 		</main>
 
 		<script type="text/javascript">
+			// mostrar u ocultar el campo de datos del proveedor segun el tipo de compra seleccionado
+			const dataBuyEntries = () => {
+				const tipoCompra = document.querySelector('#tipo_compra_id').value;
+				const datProvider = document.querySelector('#datProvider');
+
+				if (tipoCompra === 'compra_proveedor' && datProvider.classList.contains('d-none')) {
+					datProvider.classList.remove('d-none');
+				}else{
+					datProvider.classList.add('d-none');
+				}
+			};
+
 			const btnHiddenElements = document.querySelector('.btnHiddenElements');
 			const titles = ['Lista de Entradas de Productos','Registro de Productos Comprados'];
 			const titleHead = document.querySelector('.tituloUno');
@@ -419,7 +433,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 				btnHiddenElements.classList.toggle('bi-plus');
 				btnHiddenElements.classList.toggle('btn-secondary');
 				btnHiddenElements.classList.toggle('bi-list-columns-reverse');
-				btnHiddenElements.textContent == " Registrar Entrada" ? btnHiddenElements.textContent = " Ver Lista de Entradas" : btnHiddenElements.textContent = " Registrar Nueva Entrada";
+				btnHiddenElements.textContent == " Registrar Entrada" ? btnHiddenElements.textContent = " Lista de Entradas" : btnHiddenElements.textContent = " Registrar Entrada";
 				
 				titleHead.textContent == titles[0] ? titleHead.textContent = titles[1] : titleHead.textContent = titles[0];
 
@@ -429,7 +443,6 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 				});
 			});
 		</script>
-
 
 		<script src="./js/añadir_elemento_lista.js"></script>
 		<script src="./js/convertir_dolar_bs.js"></script>
@@ -445,7 +458,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 			model_user::validar_sesion_activa($id_usuario);
 			config_model::verificar_actualizacion_configuracion();
 		?>
-		<script>$('#producto_id').select2();</script>
+
 		<script src="./js/rango_fechas.js"></script>
 	</body>
 </html>

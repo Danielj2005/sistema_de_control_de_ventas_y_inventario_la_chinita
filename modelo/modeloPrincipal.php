@@ -291,9 +291,14 @@ class modeloPrincipal {
     }
     
     public static function obtener_id_precio_dolar(){
-        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id from dolar"));
-        $precio_dolar_actual = $precio_dolar_actual['id'];
-        return $precio_dolar_actual;
+        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id FROM dolar"));
+
+        if($precio_dolar_actual['id'] !==  1) {
+            return '1';
+        }else{
+            $precio_dolar_actual = $precio_dolar_actual['id'];
+            return $precio_dolar_actual;
+        }
     }
     
     public static function obtener_tiempo_inactividad(){

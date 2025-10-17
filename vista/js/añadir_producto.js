@@ -4,6 +4,7 @@
 - al darle click agregará una card para registrar otro producto
 */
 const btn_add_card_product = document.getElementById('btn_add_card_product');
+
 btn_add_card_product.addEventListener('click', (e) => {
     e.preventDefault();
     $.ajax({

@@ -19,7 +19,7 @@ const dataModal = {
         modalUrl : "./modal/producto/lista_marcas.php",
         modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de marcas registradas',
-        modalSize : 'modal-lg',
+        modalSize : '',
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"
     },
@@ -52,14 +52,19 @@ const dataModal = {
         modalDataTable : true,
         modalClassTable : "tableDetailsEntry"
     },
+    bitacora : {
+        modalUrl : "./modal/bitacora/detalles_bitacora.php",
+        modalModule : "list",
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i>&nbsp;Detalle de la Bitácora',
+        modalSize : '',
+        modalDataTable : true,
+        modalClassTable : "tableDetailsBitacora"
+    },
 };
 
 // const title_per_module = {
 //     "ver_detalles_bitacora": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del registro en bitácora',
     
-//     "ver_detalles_proveedor": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del proveedor',
-//     "modificar_proveedor": '<i class="bi bi-person-plus"></i> &nbsp; Modificar información del proveedor',
-//     "ver_historial_proveedor": '<i class="bi bi-cart-check"></i> &nbsp; Historial de compras al proveedor',
 //     "ver_reportes": '<i class="bi bi-file-text "></i> &nbsp; Exportar reporte de compras',
     
 //     "datos_usuario": '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario',

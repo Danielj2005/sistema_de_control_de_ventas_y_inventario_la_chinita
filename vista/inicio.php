@@ -31,30 +31,31 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
       $total_hoy_bs = $total_ventas_del_dia['bs'];
     ?>
     <main id="main" class="main">
-      <div class="pagetitle"> <h1> Inicio </h1> </div> 
+      <div class="pagetitle"><h1>Panel de Control</h1> </div> 
       <section class="section dashboard">
         <div class="row">
 
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Total generado en el Día</h5>
-                <div class="row">
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">Total en dolares($)</span>
-                      <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
-                      <span class="input-group-text" id="basic-addon1">$</span>
-                    </div>
-                  </div>
+                <h5 class="card-title">Total de Ventas del Día</h5>
 
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">Total en boliveras (bs)</span>
-                      <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
-                      <span class="input-group-text" id="basic-addon1">BS</span>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text" id="basic-addon1">Total en Dólares (USD)</span>
+                            <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
+                            <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
                     </div>
-                  </div>
+
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text" id="basic-addon1">Total en Bolívares (Bs.)</span>
+                            <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
+                            <span class="input-group-text" id="basic-addon1">Bs.</span> 
+                            </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -70,14 +71,14 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                     <table class="table table-striped overflow-x-auto " id="example">
                       <thead>
                         <tr>
-                          <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">Nº DE FACTURA</th>
-                          <th class="col text-center" scope="col">CÉDULA DEL CLIENTE</th>
-                          <th class="col text-center" scope="col">NOMBRE DEL CLIENTE</th>
-                          <th class="col text-center" scope="col">MONTO TOTAL EN $</th>
-                          <th class="col text-center" scope="col">MONTO TOTAL EN BS</th>
-                          <th class="col text-center" scope="col">FECHA</th>
-                          <th class="col text-center" scope="col">DETALLES DE VENTA</th>
+                          <th class="col text-center" scope="col">N.°</th>
+                          <th class="col text-center" scope="col">N.° de Factura</th>
+                          <th class="col text-center" scope="col">Cédula/RIF Cliente</th>
+                          <th class="col text-center" scope="col">Cliente</th>
+                          <th class="col text-center" scope="col">Total (USD)</th>
+                          <th class="col text-center" scope="col">Total (Bs.)</th>
+                          <th class="col text-center" scope="col">Fecha</th>
+                          <th class="col text-center" scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody><?php venta_model::lista_ventas_diarias(); ?>  </tbody>

@@ -74,7 +74,7 @@ if ($rol >= 1 && $rol <= 11) {
             include_once "../include/css_include.php"; ?>
             
     </head>
-    <body>
+    <body class="toggle-sidebar">
         <?php 
             // se incluye el header / encabezado a la vista
             include_once "../include/header.php";
@@ -83,7 +83,7 @@ if ($rol >= 1 && $rol <= 11) {
         ?>
         <main id="main" class="main">
             <div class="pagetitle">
-                <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+                <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp;Volver al Panel</a>
                 <h1 class="text-center titulosH">Gestión de Productos</h1>
             </div>
             <section class="section dashboard">
@@ -157,16 +157,19 @@ if ($rol >= 1 && $rol <= 11) {
                                                         <h5 class="card-title">Registrar presentación</h5>
                                                         <input type="hidden" name="modulo" value="Guardar">          
                                                         <div class="row mb-3">
+
                                                             <div class="col-12 mb-3 text-start">
-                                                                <label class="col-form-label">Nombre <span style="color:#f00;">*</span> </label>
-                                                                <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ingresa el nombre" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                                                                <label class="col-form-label">Cantidad de la Presentación <span style="color:#f00;">*</span> </label>
+                                                                <div class="input-group">
+                                                                    <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{3,50}" required="" placeholder="ej. 1 kg" class="form-control" id="nombre_presentacion" name="nombre_presentacion">
+                                                                    
+                                                                    <select name="representacion" id="representacion" class="form-select">
+                                                                        <option selected disabled>Seleccione una opción</option>
+                                                                        <?php presentacion_model::options(); ?>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                    
-                                                            <div class="col-12 mb-3 text-start">
-                                                                <label class="col-form-label">Descripción <span style="color:#f00;">*</span> </label>
-                                                                <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú0-9 ]{4,250}" required="" placeholder="ingresa la descripción" class="form-control" id="descripcion_presentacion" name="descripcion_presentacion">
-                                                            </div>
-                                                    
+
                                                             <div class="col-12 mb-3 text-start">
                                                                 <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                                                             </div>
@@ -259,12 +262,12 @@ if ($rol >= 1 && $rol <= 11) {
 
                                     if ($producto['r_productos'] == 1 ): ?>
                                         <div class="tableRegisterProducts text-center col-12 col-md-4 mb-3 <?= $producto['l_productos'] == 0 ? 'col-md-6' : 'd-none'?> ">
-                                            <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus">&nbsp; Añadir un producto a la lista</button>
+                                            <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus">&nbsp;Añadir Producto a la Lista</button>
                                         </div>
                                 <?php endif; ?>
 
                                 <div class="setCol text-center col-12 col-md-4 mb-3 row m-0 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">
-                                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Lista de Productos</a>
+                                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Productos</a>
                                 </div>
 
                                 <?php if ($producto['l_productos'] == 1 ): ?>
@@ -273,10 +276,16 @@ if ($rol >= 1 && $rol <= 11) {
                                         <table class="table example mb-3" id="example">
                                             <thead>
                                                 <tr>
-                                                    <th class="col text-center" scope="col">#</th>
+                                                    <th class="col text-center" scope="col">N.º</th>
+                                                    <th class="col text-center" scope="col">Código</th>
                                                     <th class="col text-center" scope="col">Nombre</th>
-                                                    <th class="col text-center" scope="col">Cantidad</th>
+                                                    <th class="col text-center" scope="col">Presentación</th>
+                                                    <th class="col text-center" scope="col">Marca</th>
+                                                    <th class="col text-center" scope="col">Categoría</th>
+                                                    <th class="col text-center" scope="col">Stock</th>
                                                     <th class="col text-center" scope="col">Precio de Venta</th>
+                                                    <th class="col text-center" scope="col">Última Entrada</th>
+                                                    <th class="col text-center" scope="col">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -300,15 +309,22 @@ if ($rol >= 1 && $rol <= 11) {
                                                 <table class="table mb-3">
                                                     <thead>
                                                         <tr>
+                                                            <th class="col text-center" scope="col">Código<span style="color:#f00;"> *</span></th>
                                                             <th class="col text-center" scope="col">Nombre del Producto <span style="color:#f00;"> *</span></th>
-                                                            <th class="col text-center" scope="col">Selecciona una Marca <span style="color:#f00;"> * </span> </th>
-                                                            <th class="col text-center" scope="col">Selecciona una Presentación <span style="color:#f00;"> * </span> </th>
-                                                            <th class="col text-center" scope="col">Selecciona una Categoría <span style="color:#f00;"> * </span> </th>
+                                                            <th class="col text-center" scope="col">Marca <span style="color:#f00;"> * </span> </th>
+                                                            <th class="col text-center" scope="col">Presentación <span style="color:#f00;"> * </span> </th>
+                                                            <th class="col text-center" scope="col">Categoría <span style="color:#f00;"> * </span> </th>
                                                             <th class="col text-center" scope="col">Quitar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tableProduct">
                                                         <tr id="producto_1">
+                                                            <td class="text-center">
+                                                                <div class="col-12 mb-3">
+                                                                    <input type="text" class="form-control mb-3" name="code[]" id="code" placeholder="Escribe el código del producto" autocomplete="off">
+                                                                </div>
+                                                            </td>
+
                                                             <td class="text-center">
                                                                 <div class="col-12 mb-3">
                                                                     <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
@@ -354,7 +370,7 @@ if ($rol >= 1 && $rol <= 11) {
                                         </form>
 
                                         <div class="tableRegisterProducts text-center <?= $producto['l_productos'] == 0 ? '' : 'd-none'?> ">
-                                            <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Registrar producto(s)</button>
+                                            <button type="submit" form="registrar_producto" class="btn btn-success bi bi-plus"> Registrar Producto(s)</button>
                                         </div>
                                 <?php endif; ?>  
                             </div>
@@ -399,7 +415,7 @@ if ($rol >= 1 && $rol <= 11) {
         <?php 
             include_once "./modal/plantillaModalCustom.php"; 
 
-            modalCustom ("modal-lg");
+            modalCustom ();
 
             // se incluye el footer / pie de pagina a la vista
             include_once "../include/footer.php";
@@ -410,6 +426,8 @@ if ($rol >= 1 && $rol <= 11) {
     
             config_model::verificar_actualizacion_configuracion(); 
         ?>
+        <script src="./js/añadir_producto.js"></script>
+
     </body>
 </html>
 <?php }else{

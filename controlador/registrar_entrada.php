@@ -15,6 +15,15 @@ if (!isset($_POST["modulo"])) {
 $id_usuario = $_SESSION['id_usuario'];
 
 if($modulo == 'Guardar'){
+
+    $tipo_compra = modeloPrincipal::limpiar_cadena($_POST['tipo_compra']);
+
+    if ($tipo_compra != "adquisicion_propia" && $tipo_compra != "compra_proveedor") {
+        alert_model::alerta_simple("¡Ocurrió un error!","El tipo de compra no es válido.","error");
+        exit();
+    }
+    $tipo_compra = $tipo_compra === 'adquisicion_propia' ? 1 : 0;
+
     // datos de la entrada
     $total_dolar = $_POST['totalDolar'];
     $total_bolivar = $_POST['totalBolivar'];
@@ -31,14 +40,12 @@ if($modulo == 'Guardar'){
 
     // actualizacion para stock de productos
     $precio_venta_dolar = $_POST['precio_venta_dolar'];
-        
-    // $fecha_entrada_auto = date('Y-m-d h:i:s');
     
     // cedula_rif del proveedor
     $cedula_proveedor = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']);
     
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$id_productos, $cantidad_productos, $precio_unidad_dolar, $precio_unidad_bs, $precio_venta_dolar, $total_dolar, $total_bolivar, $fecha_entrada_recibida, $hora_entrada_recibida, $cedula_proveedor]);
+    modeloPrincipal::validar_campos_vacios([$id_productos, $cantidad_productos, $precio_unidad_dolar, $precio_unidad_bs, $precio_venta_dolar, $total_dolar, $total_bolivar, $fecha_entrada_recibida, $hora_entrada_recibida, $cedula_proveedor, $tipo_compra]);
 
     $existe_proveedor = modeloPrincipal::Consultar("SELECT id_proveedor FROM proveedor 
         WHERE cedula_rif = '$cedula_proveedor'");
@@ -70,7 +77,7 @@ if($modulo == 'Guardar'){
     // se registran los datos de la entrada
     try {
 
-        $registrar = modeloPrincipal::InsertSQL( "entrada","id_proveedor, total_dolar, total_bs, fecha_entrada, id_dolar, id_usuario","$id_proveedor, $total_dolar, $total_bolivar,'$fecha_entrada',$id_dolar, $id_usuario");
+        $registrar = modeloPrincipal::InsertSQL( "entrada","tipo_compra, id_proveedor, total_dolar, total_bs, fecha_entrada, id_dolar, id_usuario","$tipo_compra, $id_proveedor, $total_dolar, $total_bolivar,'$fecha_entrada',$id_dolar, $id_usuario");
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar la entrada en la base de datos.","error");
         }

@@ -54,9 +54,7 @@ class producto_model extends modeloPrincipal {
 
     public static function obtener_todos_los_datos(){
         $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, 
-            PS.cantidad AS presentacion, R.nombre AS representacion,
-            (SELECT stock_actual FROM inventario WHERE inventario.id_producto = P.id_producto) AS stock_actual,
-            (SELECT Round(precio_venta, 2) FROM inventario WHERE inventario.id_producto = P.id_producto) AS precio_venta,
+            PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
             (SELECT MAX(dolar) from dolar) AS tasa
             FROM producto AS P
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
@@ -153,9 +151,16 @@ class producto_model extends modeloPrincipal {
             ?>
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["marca"].' '.$mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
+                <td class="text-center"><?= $mostrar["marca"] ?></td>
+                <td class="text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
+                <td class="text-center"><?= $mostrar["marca"] ?></td>
+                <td class="text-center"><?= $mostrar["categoria"] ?></td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
                 <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0.$' : $mostrar["precio_venta"].' $' ; ?></th>
+                <th class="text-center"><?= date("d-m-Y H:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])) ; ?></th>
+                <th class="text-center">
+                    <button onclick="btn_show_modal('btn_modal', 'producto')" value="<?= $mostrar["id_producto"] ; ?>" data-bs-toggle="modal" data-bs-target="#modal" class="btn bi btn_modal bi-list btn-outline-info col col-auto"> </button>
+                </th>
             </tr>
         <?php } 
     }
@@ -169,9 +174,8 @@ class producto_model extends modeloPrincipal {
                 FROM producto AS P 
                 INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
                 INNER JOIN representacion AS R ON R.id = PS.id_representacion
-                INNER JOIN inventario AS I ON I.id_producto = P.id_producto 
                 INNER JOIN marca AS M ON M.id = P.id_marca
-                WHERE I.estado = 1 AND I.stock_actual > 0 
+                WHERE P.estado = 1 AND P.stock_actual > 0 
                 ORDER BY P.nombre_producto
             ");
         }else {

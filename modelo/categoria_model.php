@@ -68,27 +68,19 @@ class category_model extends modeloPrincipal {
             <tr>
                 <td class="col text-center"><?= $i++ ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
                 
                 <?php if (rol_model::verificar_rol('m_categoria') == '1') { ?>
                     <td scope="row" class="text-center">
                         <?php 
                             if ($mostrar["estado"] === "1") { ?>
-                                <button 
-                                    class="btn btn-outline-success bi-check-circle" 
-                                    title="estado de la categoría">
-                                        &nbsp; Activo 
-                                </button>
+                                <button class="btn btn-outline-success bi-check-circle" title="estado de la categoría"></button>
                             <?php } else { ?>
                                 
                                 <form action="<?= (rol_model::verificar_rol('m_categoria') == '1') ?  '../controlador/categoria_controller.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
                                     <input type="hidden" name="modulo" value="inactivo">          
                                     <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id_categoria"]); ?>">
-                                    <button 
-                                        class="btn btn-outline-danger bi-x-circle" 
-                                        title="estado de la categoría"
-                                        type="submit">
-                                            &nbsp; Inactivo
-                                    </button>
+                                    <button class="btn btn-outline-danger bi-x-circle" title="estado de la categoría" type="submit"></button>
                                 </form>
                             <?php }
                         ?>

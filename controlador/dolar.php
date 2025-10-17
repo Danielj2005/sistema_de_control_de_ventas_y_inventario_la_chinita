@@ -22,11 +22,26 @@ if (modeloPrincipal::verificar_datos("[0-9\.]{2,8}", $priceUpdate)) {
     alert_model::alerta_simple("¡Ocurrio un error!","El campo precio no cumple con el formato establecido, en este solo se debe ingresar números enteros o decimales con un . por ejemplo(98.6)","error");
     exit();
 }
+$verificarExistencias = modeloPrincipal::consultar("SELECT * FROM dolar");
 
-$id_dolar_original = modeloPrincipal::obtener_id_recien_registrado( "id_dolar","dolar");
+if (mysqli_num_rows($verificarExistencias) > 1) {
+    $datos_dolar = mysqli_fetch_array($verificarExistencias);
 
-$datos_originales = modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar_original");
-$datos_originales = mysqli_fetch_array($datos_originales);
+    if ($priceUpdate == $datos_dolar['dolar']) {
+        alert_model::alerta_simple("¡Ocurrio un error!","El precio ingresado es igual al precio actual, por favor ingrese un precio diferente para actualizar la tasa del dolar.","error");
+        exit();
+    }
+
+    $id_dolar_original = modeloPrincipal::obtener_id_recien_registrado( "id_dolar","dolar");
+    $datos_originales = modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar_original");
+    $datos_originales = mysqli_fetch_array($datos_originales);
+}else{
+    $datos_originales = [
+        'dolar' => 'N/A',
+        'fecha_precio' => 'N/A'
+    ];
+}
+
 
 // se registran los datos de la tasa del dolar
 try {

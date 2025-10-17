@@ -22,8 +22,6 @@ $config['porcentaje_iva'] = 16;
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
     
-    // $nombre_producto = modeloPrincipal::limpiar_mayusculas($_POST['nombre_producto']);
-
     $nombre_producto = $_POST['nombre_producto'];
     $marcas = $_POST['marcas'];
     $presentacion = $_POST['presentacion'];
