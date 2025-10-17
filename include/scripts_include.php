@@ -18,6 +18,7 @@
 <script src="assets/js/main.js"></script>
 
 <!-- lógica de los modales -->
+<script src="./js/configModal.js"></script>
 <script src="./js/modal.js"></script>
 <script src="./js/get_url.js"></script>
 

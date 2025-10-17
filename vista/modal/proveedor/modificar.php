@@ -47,7 +47,7 @@ $cedula = trim($cedula);
 
 ?>
 
-<form id="SendForm" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
+<form id="modalSendForm" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
     <div class="row m-0">
 
         <input type="hidden" name="id" value="<?= $datos_proveedor['id_proveedor']; ?>">

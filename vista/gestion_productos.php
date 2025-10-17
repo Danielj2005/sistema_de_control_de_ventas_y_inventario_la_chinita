@@ -127,7 +127,7 @@ if ($rol >= 1 && $rol <= 11) {
                                             <?php endif; 
                                                 if ($categoria['l_categoria'] == 1 ): ?>
                                                     <div class="text-center col-12 col-md-6 mb-3" id="ver_listas_categoria">
-                                                        <button id="btn_ver_listas_categoria" modal="ver_categorias" url="./modal/producto/lista_categoria.php" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                                        <button onclick="btn_show_modal('btn_modal', 'categoria')" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                                     </div>
                                             <?php endif; ?>
                                         </div>
@@ -181,7 +181,7 @@ if ($rol >= 1 && $rol <= 11) {
                                                     if ($presentacion['l_presentacion'] == 1 ): ?>
 
                                                         <div class="text-center col-12 col-md-6 mb-3">
-                                                            <button type="button" id="btn_ver_listas_presentacion" modal="ver_presentaciones" url="./modal/producto/lista_presentacion.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                                            <button onclick="btn_show_modal('btn_modal', 'presentacion')" type="button" id="btn_ver_listas_presentacion" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                                         </div>
                                                 <?php endif; ?>
                                             </div>
@@ -230,7 +230,7 @@ if ($rol >= 1 && $rol <= 11) {
                                                 <?php endif; 
                                                     if ($marca['l_marca'] == 1 ): ?>
                                                         <div class="text-center col-12 col-md-6 mb-3 ">
-                                                            <button id="btn_ver_listas_marca" type="button" modal="ver_marcas" url="./modal/producto/lista_marcas.php" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
+                                                            <button onclick="btn_show_modal('btn_modal', 'marca')" id="btn_ver_listas_marca" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                                         </div>
                                                 <?php endif; ?>
                                             </div>
@@ -268,6 +268,7 @@ if ($rol >= 1 && $rol <= 11) {
                                 </div>
 
                                 <?php if ($producto['l_productos'] == 1 ): ?>
+
                                     <div id="tableListProducts" class="justify-content-between align-items-center table table-responsive">
                                         <table class="table example mb-3" id="example">
                                             <thead>
@@ -394,8 +395,6 @@ if ($rol >= 1 && $rol <= 11) {
             };
         
         </script>
-
-        <script type="text/javascript" src="./js/añadir_producto.js"></script>
 
         <?php 
             include_once "./modal/plantillaModalCustom.php"; 

@@ -1,128 +1,56 @@
-
 /*-------  Funcion para Mostrar ventana Modal en modulos del sistema ------- */
-const btn_modal = document.querySelectorAll('.btn_modal'); // boton que activa la funcionalidad del modal
-const contenedor = document.getElementById('body_modal'); // cuerpo del modal donde se insertaran los datos
-const titulo_modal = document.getElementById('exampleModalLabel'); // titulo del modal
-const btn_guardar_modal = document.getElementById('btn_guardar_modal'); // boton de guardar/registrar en modales
 
-// se limpia el contenido del modal antes de abrirlo
-contenedor.textContent  = '';
+const btn_show_modal = (btnModalId, nameModule) =>{
 
-setTimeout(() => {
-    btn_modal.forEach((btn_update)=>{
-        btn_update.addEventListener('click', (e) =>{
-            e.preventDefault();
+    // se recibe el objeto con la configuracion del modal
+    const TitleId = dataModal[nameModule]?.modalTitleId ?? "exampleModalLabel";
+    const BodyId = dataModal[nameModule]?.modalBodyId ?? "body_modal";
+    const btnGuardarModal = dataModal[nameModule]?.modalBtnGuardar ?? "btn_guardar_modal";
+    const URL = dataModal[nameModule]?.modalUrl ?? "";
+    const Module = dataModal[nameModule]?.modalModule ?? "";
+    const Title = dataModal[nameModule]?.modalTitle ?? "";
+    const DiaglogId = dataModal[nameModule]?.modalDialogId ?? 'modal_tamano';
+    const Size = dataModal[nameModule]?.modalSize ?? "";
+    const SendForm = dataModal[nameModule]?.modalSendForm ?? false;
+    const DataTable = dataModal[nameModule]?.modalDataTable ?? false;
+    const ClassTable = dataModal[nameModule]?.modalClassTable ?? "";
+    
+    const btn_modal = document.querySelector(`.${btnModalId}`); 
+
+    const titleId = document.getElementById(`${TitleId}`); 
+    const body = document.getElementById(`${BodyId}`); 
+
+    body.innerHTML = ""; // se inserta el resultado de la busqueda al modal
+
+    const btn_guardar_modal = document.getElementById(`${btnGuardarModal}`);
+
+    const elementId = (btn_modal.getAttribute('value') !== "") ? btn_modal.getAttribute('value') : ''; // id del registro para consultar informacion en la bd
+    
+    const modalDiaglog = document.getElementById(`${DiaglogId}`); // se elije dinamicamente el tamaño del modal dependiendo del modulo
+
+    Size !== "" ? modalDiaglog.classList.add(`${Size}`) : '';
+
+    titleId.innerHTML = Title; // titulo del modal a mostrar
+
+    // se evalúa si el modal tendra un formulario para llamar a la funcion 'SendFormAjax()' para el envio de formularios en el modal
+    
+    $.ajax({
+        data:  {'id' : elementId },
+        url:  URL,
+        type:  'post',
+        success:function(valores){
+            body.innerHTML = valores; // se inserta el resultado de la busqueda al modal
             
-            let id = (btn_update.getAttribute('value') !== "") ? btn_update.getAttribute('value') : '';
-            let modal = btn_update.getAttribute('modal');
-            let url = btn_update.getAttribute('url');
-            let	parametros = {'id' : id  };
+            SendForm ? SendFormAjax() && btn_guardar_modal.setAttribute('form','modalSendForm') : '';
 
-            // se almacenan los id de las tabla a aplicarles dataTable para paginacion en tablas de datos
-            const idTableForDataTable = {
-                'ver_categorias' : 'tableCategoryOfProducts',
-                'ver_marcas' : 'tableTrademarkOfProducts',
-                'ver_presentaciones' : 'tablePresentationOfProducts',
-                'ver_historial_proveedor' : 'tableProvider'
-            }
-
-            // se elije dinamicamente el titulo del modal dependiendo del modulo
-            const title_per_module = {
-                "ver_detalles_bitacora": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del registro en bitácora',
-                
-                "ver_detalles_proveedor": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del proveedor',
-                "modificar_proveedor": '<i class="bi bi-person-plus"></i> &nbsp; Modificar información del proveedor',
-                "ver_historial_proveedor": '<i class="bi bi-cart-check"></i> &nbsp; Historial de compras al proveedor',
-                "ver_reportes": '<i class="bi bi-file-text "></i> &nbsp; Exportar reporte de compras',
-                
-                "datos_usuario": '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario',
-                "modificar_info_personal_usuario": '<i class="bi bi-person-plus"></i> &nbsp; Actualizar información personal',
-                "preguntas_seguridad": '<i class="bi bi-shield-plus"></i> &nbsp; Actualizar preguntas de seguridad del usuario',
-                
-                "modificar_cliente": '<i class="bi bi-person-plus"></i> &nbsp; Modificar cliente',
-                "ver_historial_cliente": '<i class="bi bi-cart-check"></i> &nbsp; Historial de compras del cliente',
-                
-                "modificar_empleado": '<i class="bi bi-person-plus"></i> &nbsp; Modificar características de acceso del usuario',
-    
-                "ver_detalles_rol" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de permisos de acceso de un rol',
-                "modificar_rol" : '<i class="bi bi-person-lines-fill"></i> &nbsp; Modificar permisos de acceso de un rol',
-    
-                "registrar_producto" : '<i class="bi bi-box-seam"></i> &nbsp; Añadir Nuevo Producto',
-                "ver_detalles_entrada" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
-                "ver_marcas" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de marcas registradas',
-                "ver_categorias" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de categorías registradas',
-                "ver_presentaciones" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
-                "ver_productos" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Productos registrados',
-                
-                "ver_detalles_servicio" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del servicio',
-                "modificar_servicio": '<i class="bi bi-person-plus"></i> &nbsp; Modificar servicio',
-    
-                "ver_detalles_venta_del_dia": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la Venta',
-            };
-
-            titulo_modal.innerHTML = title_per_module[`${modal}`]; // se inserta el titulo del modal
-
-            // se decide el tamaño del modal dependiendo de la informacion a mostrar
-            const tamano_modal = document.getElementById('modal_tamano');
-            const modalXl = [
-                'ver_historial_proveedor',
-                'ver_historial_cliente',
-                'modificar_empleado',
-                'ver_detalles_rol', 'modificar_rol',
-                'ver_detalles_entrada',
-                'ver_marcas', 'ver_categorias', 'ver_presentaciones', 'ver_productos', 
-                'ver_detalles_servicio','modificar_servicio',
-                'datos_usuario','modificar_info_personal_usuario','preguntas_seguridad'
-            ];
-            modalXl.includes(`${modal}`) ? tamano_modal.classList.add('modal-xl') : tamano_modal.classList.remove('modal-xl');
-
-            const SendForm = [
-                'modificar',
-                'ver_categorias',
-                'registrar_producto',
-                'ver_presentaciones',
-                'ver_marcas',
-                'modificar_proveedor',
-                'datos_usuario',
-                'modificar_info_personal_usuario',
-                'preguntas_seguridad',
-                'modificar_cliente',
-                'modificar_empleado',
-                'modificar_rol',
-                'modificar_servicio',
-                '',
-            ];
+            DataTable ? dataTable(`${ClassTable}`) && btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
             
-            $.ajax({
-                data:  parametros,
-                url:  url,
-                type:  'post',
-                success:function(valores){
-
-                    contenedor.innerHTML = valores; // se inserta el resultado de la busqueda al modal
-                    
-                    // se evalúa si el modal incluye 'modificar' para llamarr a la funcion 'SendFormAjax()' para el envio de formularios en el modal
-                    SendForm.includes(`${modal}`) ? SendFormAjax() : '';
-                    SendForm.includes(`${modal}`) ? btn_guardar_modal.setAttribute('form','SendForm') : '';
-                    
-                    // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
-                    modal.includes('ver') ? dataTable(`${idTableForDataTable[modal]}`) : '';
-                    // se evalúa si el modal incluye 'ver' para quitar el boton 'guardar en el modal
-                    modal.includes('ver') ? btn_guardar_modal.classList.add('d-none') : btn_guardar_modal.classList.remove('d-none');
-                    
-
-                    // se evalúa si el modal incluye 'modificar' para asignar el atributo 'form' al boton 'guardar' en el modal y asociarlo a su respectivo formulario
-                    modal.includes('modificar') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
-                    
-                    modal.includes('registrar_producto') ? btn_guardar_modal.setAttribute('form','SendForm') : '';
-                    
-                    // se evalúa si el modal incluye 'modificar_rol' para ejecutar la funcion 'evaluar_casillas()' para la seleccion de roles en el modal
-                    modal === 'modificar_rol' ? evaluar_casillas() : '';
-                },
-                error: function(){
-                    $('.msjFormSend').html(valores); // se inserta el resultado de la busqueda al modal
-                }
-            });
-        });
+            Module.includes('modify-rol') ? evaluar_casillas() : '';
+        },
+        error: function(){
+            $('.msjFormSend').html(valores); // se inserta el resultado de la busqueda al modal
+        }
     });
-}, 2000);
+};
+
+

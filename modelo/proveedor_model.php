@@ -151,16 +151,18 @@ class proveedor_model extends modeloPrincipal {
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
 
                 <td class="col text-center <?= $l_proveedores == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="ver_detalles_proveedor" type="submit" value="<?= $encryptionId ; ?>" <?= $l_proveedores == '1' ? 'url="./modal/proveedor/detalles.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
+                    <button onclick="btn_show_modal('btn_modal', 'proveedor')" type="submit" value="<?= $encryptionId ; ?>" <?= $l_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
                 </td>
 
                 <td class="col text-center <?= $m_proveedores == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="modificar_proveedor" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'url="./modal/proveedor/modificar.php" data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
+                    <button onclick="btn_show_modal('btn_modal', 'proveedor')" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-gear"></button>
                 </td>
 
                 <td class="col text-center <?= $h_proveedores == '1' ?  '' : 'd-none eraser' ?>">
                     <div class="m-0 row justify-content-center align-items-center">
-                        <button modal="ver_historial_proveedor" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'url="./modal/proveedor/historial.php" data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
+
+                        <button onclick="btn_show_modal('btn_modal', 'proveedor')" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
+                        
                         <div class="dropstart col col-auto">
                             <button class="<?= $haveHistorial > 0 ? " btn-secondary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >&nbsp; PDF</button>
                             <ul class="dropdown-menu">
