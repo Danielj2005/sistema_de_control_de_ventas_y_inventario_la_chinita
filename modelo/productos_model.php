@@ -164,26 +164,32 @@ class producto_model extends modeloPrincipal {
     public static function options($estado = "") {
         if ($estado == "1") {
             $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto,
-                PS.nombre AS presentacion,
+                PS.cantidad AS presentacion, R.nombre AS representacion,
                 M.nombre as marca
                 FROM producto AS P 
-                INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
+                INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+                INNER JOIN representacion AS R ON R.id = PS.id_representacion
                 INNER JOIN inventario AS I ON I.id_producto = P.id_producto 
                 INNER JOIN marca AS M ON M.id = P.id_marca
-                WHERE I.estado = 1 AND I.stock_actual > 0 ORDER BY P.nombre_producto");
+                WHERE I.estado = 1 AND I.stock_actual > 0 
+                ORDER BY P.nombre_producto
+            ");
         }else {
             $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto,
-                PS.nombre AS presentacion,
+                PS.cantidad AS presentacion, R.nombre AS representacion,
                 M.nombre as marca
                 FROM producto AS P 
-                INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id
-                INNER JOIN marca AS M ON M.id = P.id_marca ORDER BY P.nombre_producto");
+                INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+                INNER JOIN representacion AS R ON R.id = PS.id_representacion
+                INNER JOIN marca AS M ON M.id = P.id_marca 
+                ORDER BY P.nombre_producto
+            ");
         }
         // se guardan los datos en un array y se imprime
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
             echo '<option value="'.modeloPrincipal::encryptionId($mostrar["id_producto"]).'">
-                    '.$mostrar["nombre_producto"].' '.$mostrar["marca"].' '.$mostrar["presentacion"].'
+                    '.$mostrar["nombre_producto"].' '.$mostrar["marca"].' '.$mostrar["presentacion"].' '.$mostrar["representacion"].'
                 </option>';
         }
     }

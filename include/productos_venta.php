@@ -7,13 +7,14 @@ $id_producto = modeloPrincipal::decryptionId($_POST['id']);
 $id_producto = modeloPrincipal::limpiar_cadena($id_producto);
 
 $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
-    PS.nombre AS presentacion, 
+    PS.cantidad AS presentacion, R.nombre AS representacion,
     I.stock_actual, I.precio_venta, 
     C.nombre AS nombre_categoria, 
     M.nombre as marca,
     round((SELECT MAX(dolar) FROM dolar) * I.precio_venta, 2) AS precio_bs
     FROM producto AS P 
     INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
+    INNER JOIN representacion AS R ON R.id = PS.id_representacion
     INNER JOIN inventario AS I ON I.id_producto = P.id_producto
     INNER JOIN marca AS M ON M.id = P.id_marca
     INNER JOIN categoria AS C ON P.id_categoria = C.id_categoria 

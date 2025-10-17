@@ -43,7 +43,15 @@ const dataModal = {
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableProvider"
-    }
+    },
+    detallesEntrada : {
+        modalUrl : "./modal/producto/detalles_entrada.php",
+        modalModule : "list",
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
+        modalSize : 'modal-lg',
+        modalDataTable : true,
+        modalClassTable : "tableDetailsEntry"
+    },
 };
 
 // const title_per_module = {

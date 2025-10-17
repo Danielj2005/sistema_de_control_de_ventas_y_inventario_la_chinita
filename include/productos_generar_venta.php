@@ -10,9 +10,11 @@ if (isset($_POST['producto'])) {
     for($i = 0; $i < COUNT($id_producto); $i++){
 
         $datos_producto = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT P.codigo, P.nombre_producto, 
-            P.id_producto, P.precio_compra_dolar, P.precio_compra_bs,stock, PS.nombre
+            P.id_producto, P.precio_compra_dolar, P.precio_compra_bs,stock,
+            PS.cantidad AS presentacion, R.nombre AS representacion
             FROM producto AS P
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
             WHERE P.id_producto = ".$id_producto[$i]."")); ?>
         
         <tr id="producto_<?= $id_producto[$i] ?>">
@@ -22,7 +24,7 @@ if (isset($_POST['producto'])) {
                 <input type="text" class="send_data form-control" name="nombre_producto[]" disabled value="<?= $datos_producto["nombre_producto"] ?>" required>
             </td>
             <td class="col text-center" id="presentacion_<?= $id_producto[$i] ?>">
-                <input type="text" class="send_data form-control" name="presentacion_[]" disabled value="<?= $datos_producto['nombre'] ?>" required>
+                <input type="text" class="send_data form-control" name="presentacion_[]" disabled value="<?= $datos_producto['presentacion'].' '.$datos_producto['representacion'] ?>" required>
             </td>
             <td class="col text-center" id="stock_<?= $id_producto[$i] ?>">
                 <input type="text" class="send_data form-control" name="stock_producto[]" disabled value="<?= $datos_producto['stock'] ?>" required>

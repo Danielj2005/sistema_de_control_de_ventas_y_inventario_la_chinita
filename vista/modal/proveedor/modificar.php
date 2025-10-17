@@ -1,10 +1,8 @@
 <?php
 
-require_once ("../../../modelo/modeloPrincipal.php"); 
-require_once ("../../../modelo/proveedor_model.php"); 
-require_once ("../../../modelo/modelo_usuario.php"); 
-require_once ("../../../modelo/rol_model.php"); 
-require_once ("../../../modelo/alert_model.php"); 
+require_once "../../../modelo/modeloPrincipal.php"; 
+require_once "../../../modelo/proveedor_model.php";
+require_once "../../../modelo/alert_model.php"; 
 
 # realizar revision para saber esta donde llega o implementar try catch
 if (!isset($_POST['id'])) {

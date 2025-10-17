@@ -36,8 +36,7 @@ btn_add.forEach(btn => {
             URL = btn.name == 'btn_add_servicio' ? '../include/servicios_venta.php' : '../include/productos_venta.php';
             
         }else{
-            URL = btn.name == 'entrada_de_productos' ? '../include/tabla_productos.php' : '../include/productos_servicio.php';
-            
+            URL = btn.name == 'btn_add_producto' ? '../include/tabla_productos.php' : '../include/productos_servicio.php';
         }
 
         //  se inicializan las variables de los selectores de producto o servicio
