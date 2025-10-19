@@ -30,11 +30,6 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
 	'numeros' => config_model::obtener_dato('c_numeros')];
 
 
-if (mysqli_num_rows($datos_usuario) < 1) {
-	alert_model::alert_redirect("Usuario no encontrado!","El Correo que haz ingresado no existe en nuestro sistema. Por favor, verifique que ha escrito correctamente su correo. Si aún tiene problemas, Por favor contacte al administrador del sistema para obtener ayuda.","error","../");
-	exit();
-}
-
 // se obtiene el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($datos_usuario); 
 
