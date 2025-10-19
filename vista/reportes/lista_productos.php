@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once "../../modelo/modeloPrincipal.php";
-include_once "../../modelo/productos_model.php";
 require 'fpdf/fpdf.php';
 
 date_default_timezone_set('America/caracas');
@@ -55,22 +54,11 @@ class PDF extends FPDF{
         return mb_convert_encoding("$cadena", 'ISO-8859-1', 'UTF-8');
     }
 
-
 }
 
-function tableHead ($pdf) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell(50, 5, $pdf->convert_codification('Producto'),'LTRB',0,'C',0);
-    $pdf->Cell(65, 5, $pdf->convert_codification('Presentación'),'LTRB',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification('Cantidad'),'LTRB',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification('Precio bs'),'LTRB',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification('Precio $'),'LTRB',0,'C',0);
-    $pdf->Cell(25, 5, $pdf->convert_codification('Tasa'),'LTRB',1,'C',0);
-    
+function convert_codification ($cadena):string {
+    return mb_convert_encoding("$cadena", 'ISO-8859-1', 'UTF-8');
 }
-
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
@@ -80,46 +68,57 @@ $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-$consulta = producto_model::obtener_todos_los_datos();
+// En esta parte estan los encabezados de la tabla 
+$pdf->SetFont('Arial','B',10);
+$pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
+$pdf->Cell(50, 5, $pdf->convert_codification('Producto'),'LTRB',0,'C',0);
+$pdf->Cell(65, 5, $pdf->convert_codification('Presentación'),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification('Cantidad'),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification('Precio bs'),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification('Precio $'),'LTRB',0,'C',0);
+$pdf->Cell(25, 5, $pdf->convert_codification('Tasa'),'LTRB',1,'C',0);
 
-// en caso de que no se encuentren proveedores registrados
 
-if (mysqli_num_rows($consulta) < 1 ){
-    $pdf->Ln();
+// $consulta = modeloPrincipal::consultar("SELECT M.nombre as marca, 
+//     PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
+//     (SELECT MAX(dolar) FROM dolar) AS tasa
+//     FROM producto AS P
+//     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+//     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+//     INNER JOIN representacion AS R ON R.id = PS.id_representacion
+//     INNER JOIN marca AS M ON M.id = P.id_marca
+//     ORDER BY M.nombre ASC
+// ");
 
-    $pdf->setY(60);
-    $pdf->setX(5);
+// if (mysqli_num_rows($consulta) < 1 ){
+//     $pdf->Ln();
+
+//     $pdf->setY(60);
+//     $pdf->setX(5);
+
+//     $pdf->SetFont('Arial','',10);
+
+//     $pdf->Cell(210, 5, $pdf->convert_codification('NO SE ENCONTRARON PRODUCTOS REGISTRADOS.'),'B',1,'C',0);
+//     $pdf->Cell(210, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LOS PRODUCTOS.'),'B',1,'C',0);
     
-    // Esta funcion devuelve los encabezados 
-    tableHead($pdf);
-
-    $pdf->SetFont('Arial','',10);
-
-    $pdf->Cell(210, 5, $pdf->convert_codification('NO SE ENCONTRARON PRODUCTOS REGISTRADOS.'),'B',1,'C',0);
-    $pdf->Cell(210, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LOS PRODUCTOS.'),'B',1,'C',0);
-    
-    $pdf->Output("I","Listado de Productos (".date('d/m/Y | g:i:a').").pdf",true);
-}
+//     $pdf->Output("I","Listado de Productos (".date('d/m/Y | g:i:a').").pdf",true);
+// }
 
 $pdf->setY(60);
 $pdf->setX(10);
 
-// Esta funcion devuelve los encabezados 
-tableHead($pdf);
-
-
 $i = 1;
-while ( $mostrar = mysqli_fetch_array($consulta)) { 
-    $pdf->SetFont('Arial','',10);
+// while ( $mostrar = mysqli_fetch_array($consulta)) { 
+//     $pdf->SetFont('Arial','',10);
 
-    $pdf->setX(10);
-    $pdf->Cell(10, 5, $pdf->convert_codification($i++),'B',0,'C',0);
-    $pdf->Cell(50, 5, $pdf->convert_codification(" ".$mostrar["marca"]),'B',0,'L',0);
-    $pdf->Cell(65, 5, $pdf->convert_codification($mostrar["presentacion"]),'B',0,'L',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]),'B',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification(($mostrar["precio_venta"] == "0" ? '0' : $mostrar["precio_venta"]) *128 .' bs'),'B',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["precio_venta"] == "0" || $mostrar["precio_venta"] == null  ? '0.$' : $mostrar["precio_venta"].' $' ),'B',0,'C',0);
-    $pdf->Cell(25, 5, $pdf->convert_codification($mostrar["tasa"].' bs'),'B',1,'C',0);
+//     $pdf->setX(10);
+//     $pdf->Cell(10, 5, $pdf->convert_codification($i++),'B',0,'C',0);
+//     $pdf->Cell(50, 5, $pdf->convert_codification(" ".$mostrar["marca"]),'B',0,'L',0);
+//     $pdf->Cell(65, 5, $pdf->convert_codification($mostrar["presentacion"].' '.$mostrar["representacion"]),'B',0,'L',0);
+//     $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]),'B',0,'C',0);
+//     $pdf->Cell(30, 5, $pdf->convert_codification(($mostrar["precio_venta"] == "0" ? '0' : $mostrar["precio_venta"]) *128 .' bs'),'B',0,'C',0);
+//     $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["precio_venta"] == "0" || $mostrar["precio_venta"] == null  ? '0.$' : $mostrar["precio_venta"].' $' ),'B',0,'C',0);
+//     $pdf->Cell(25, 5, $pdf->convert_codification($mostrar["tasa"].' bs'),'B',1,'C',0);
 
-} 
+// } 
 $pdf->Output("I","Listado de Productos (".date('d-m-Y / h:i:a').").pdf",true);

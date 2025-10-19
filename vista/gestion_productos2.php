@@ -83,7 +83,7 @@ if ($rol >= 1 && $rol <= 11) {
         <main id="main" class="main">
             <div class="pagetitle">
                 <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp;Volver al Panel</a>
-                <h1 class="text-center titulosH">Gestión de Productos</h1>
+                <h1 class="text-center titulosH mt-2">Gestión de Productos</h1>
             </div>
             <section class="section dashboard">
                 <div class="row m-0"> 
@@ -98,7 +98,7 @@ if ($rol >= 1 && $rol <= 11) {
                                 <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 border card">
                                     <h3 class="text-center mt-2 titulosH">Categoría</h3>
                                         
-                                    <div class="d-flex justify-content-around text-center">
+                                    <div class="d-flex justify-content-around text-center mb-2">
                                         <?php if ($categoria['l_categoria'] == 1 ): ?>
                                                 <button onclick="btn_show_modal('btn_modal', 'categoria')" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Ver lista</button>
                                         <?php endif; ?>
@@ -110,7 +110,7 @@ if ($rol >= 1 && $rol <= 11) {
                                     <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 border card">
                                         <h3 class=" text-center mt-2 titulosH">Presentación</h3>
 
-                                        <div class="d-flex justify-content-around text-center mb-3">
+                                        <div class="d-flex justify-content-around text-center mb-2">
                                             <?php if ($presentacion['r_presentacion'] == 1): ?>
                                                     <button onclick="btn_show_modal('btn_modal', 'registrarPresentacion')" data-bs-toggle="modal" data-bs-target="#modal" type="button" class="btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                             <?php endif; 
@@ -125,7 +125,7 @@ if ($rol >= 1 && $rol <= 11) {
                                     <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 card border">
                                         <h3 class="text-center mt-2 titulosH">Marca</h3>
                                         
-                                        <div class="d-flex justify-content-around text-center">
+                                        <div class="d-flex justify-content-around text-center mb-2">
                                             <?php if ($marca['r_marca'] == 1): ?>
                                                     <button onclick="btn_show_modal('btn_modal', 'registrarMarca')" type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-success bi bi-plus">&nbsp; Añadir</button>
                                             <?php endif; 
@@ -143,12 +143,7 @@ if ($rol >= 1 && $rol <= 11) {
 
                     <div class="col-12 mb-3 pagetitle text-center">
                         <div class="card">
-                            <div class="card-body row m-0 p-0">
-
-                                <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">
-                                    <?= $producto['l_productos'] == 1 ? 'Inventario de Productos' : 'Registro de Productos'?>
-                                </h3>
-
+                            <div class="card-body row m-0 p-3">
                                 
                                 <?php if ($producto['r_productos'] == 1 && $producto['l_productos'] == 1 ): ?>
                                     <div class="setCol col-md-6 text-center col-md-4 col-12 mb-3">
@@ -162,9 +157,15 @@ if ($rol >= 1 && $rol <= 11) {
                                         </div>
                                 <?php endif; ?>
 
-                                <div class="setCol text-center col-12 col-md-4 mb-3 row m-0 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">
+                                <div class="setCol text-center col-12 col-md-4 mb-2 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">
                                     <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Productos</a>
                                 </div>
+
+                                <hr>
+                                
+                                <h3 id="titleModuleProducts" class="my-3 col-12 fs-4 titulosH">
+                                    <?= $producto['l_productos'] == 1 ? 'Inventario de Productos' : 'Registro de Productos'?>
+                                </h3>
 
                                 <?php if ($producto['l_productos'] == 1 ): ?>
 
@@ -189,12 +190,17 @@ if ($rol >= 1 && $rol <= 11) {
                                             </tbody>
                                         </table>
                                     </div>
+
                                 <?php endif;
-
                                     if ($producto['r_productos'] == 1 ): ?>
-
                                         <form id="registrar_producto" action="../controlador/producto_controlador.php" method="post" class="<?= $producto['l_productos'] == 0 ? '' : 'd-none'?> tableRegisterProducts text-start SendFormAjax row justify-content-around" autocomplete="off" data-type-form="save">
+                                            <input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
                                             <input type="hidden" name="modulo" value="Guardar">
+                                                
+                                            <div id="reader" style="display: none;"></div>
+
+                                            <div id="result"></div>
+
                                             <div class="col-12 mb-1">
                                                 <div class="form-group">
                                                     <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
@@ -206,24 +212,27 @@ if ($rol >= 1 && $rol <= 11) {
                                                     <thead>
                                                         <tr>
                                                             <th class="col text-center" scope="col">Código<span style="color:#f00;"> *</span></th>
-                                                            <th class="col text-center" scope="col">Nombre del Producto <span style="color:#f00;"> *</span></th>
+                                                            <th class="col text-center" scope="col">Nombre <span style="color:#f00;"> *</span></th>
                                                             <th class="col text-center" scope="col">Marca <span style="color:#f00;"> * </span> </th>
                                                             <th class="col text-center" scope="col">Presentación <span style="color:#f00;"> * </span> </th>
                                                             <th class="col text-center" scope="col">Categoría <span style="color:#f00;"> * </span> </th>
+
                                                             <th class="col text-center" scope="col">Quitar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tableProduct">
                                                         <tr id="producto_1">
                                                             <td class="text-center">
-                                                                <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control mb-3" name="code[]" id="code" placeholder="Escribe el código del producto" autocomplete="off">
+                                                                <div class="col-12 mb-3 input-group">
+                                                                    <button type="button" id="startButton" class="btn bi-qr-code-scan input-group-text"></button>
+                                                                    <input type="text" class="form-control mb-3" name="code[]" id="code" placeholder="ingresa el código del producto" autocomplete="off">
+
                                                                 </div>
                                                             </td>
 
                                                             <td class="text-center">
                                                                 <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre del producto" autocomplete="off">
+                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_productos" name="nombre_producto[]" id="input_nombre_producto2" placeholder="ingresa el nombre" autocomplete="off">
                                                                     <datalist id="datalist_nombre_productos">
                                                                         <?php producto_model::options_nombres_productos(); ?> 
                                                                     </datalist>
@@ -232,7 +241,7 @@ if ($rol >= 1 && $rol <= 11) {
 
                                                             <td class="text-center">
                                                                 <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control mb-3" list="datalist_marca" name="marcas[]" id="input_nombre_marca" placeholder="Seleccione una Marca" autocomplete="off">
+                                                                    <input type="text" class="form-control mb-3" list="datalist_marca" name="marcas[]" id="input_nombre_marca" placeholder="ingresa la marca" autocomplete="off">
                                                                     <datalist id="datalist_marca">
                                                                         <?php marca_model::options(); ?>
                                                                     </datalist>
@@ -241,7 +250,7 @@ if ($rol >= 1 && $rol <= 11) {
 
                                                             <td class="text-center">
                                                                 <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_presentacion" name="presentacion[]" id="input_nombre_presentacion" placeholder="Seleccione una Presentación" autocomplete="off">
+                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_presentacion" name="presentacion[]" id="input_nombre_presentacion" placeholder="ingresa la presentación" autocomplete="off">
                                                                     <datalist id="datalist_nombre_presentacion">
                                                                         <?php presentacion_model::options(); ?>
                                                                     </datalist>
@@ -250,12 +259,13 @@ if ($rol >= 1 && $rol <= 11) {
 
                                                             <td class="text-center">
                                                                 <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_categoria" name="categoria[]" id="input_nombre_categoria" placeholder="Seleccione una Categoría" autocomplete="off">
+                                                                    <input type="text" class="form-control mb-3" list="datalist_nombre_categoria" name="categoria[]" id="input_nombre_categoria" placeholder="ingresa la categoría" autocomplete="off">
                                                                     <datalist id="datalist_nombre_categoria">
                                                                         <?php category_model::options(); ?>
                                                                     </datalist>
                                                                 </div>
                                                             </td>
+
                                                             <td class="text-center">
                                                                 <button type="button" onclick="document.getElementById(`producto_1`).remove();" class="btn btn-danger bi bi-trash"></button>
                                                             </td>
@@ -271,13 +281,26 @@ if ($rol >= 1 && $rol <= 11) {
                                 <?php endif; ?>  
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </section>
         </main>
-
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+        <script src="./js/scanQr.js" type="text/javascript"></script>
         <script type="text/javascript">
+
+
+			// mostrar u ocultar el campo de datos del proveedor segun el tipo de compra seleccionado
+			const dataBuyEntries = () => {
+				const tipoCompra = document.querySelector('#tipo_compra_id').value;
+				const datProvider = document.querySelector('#datProvider');
+
+				if (tipoCompra === 'compra_proveedor' && datProvider.classList.contains('d-none')) {
+					datProvider.classList.remove('d-none');
+				}else{
+					datProvider.classList.add('d-none');
+				}
+			};
 
             const toggle = ()=> {
                 const btnToggle = document.getElementById('btn-toggle');
@@ -293,7 +316,7 @@ if ($rol >= 1 && $rol <= 11) {
                 document.getElementById('tableListProducts').classList.toggle('d-none');
 
                 const titleRegister = "Registro de Productos";
-                const titleList = "Lista de Productos";
+                const titleList = "Inventario de Productos";
                 const titleModule = document.getElementById('titleModuleProducts');
                 
                 titleModule.textContent == titleList ? titleModule.textContent = titleRegister : titleModule.textContent = titleList;
@@ -323,7 +346,6 @@ if ($rol >= 1 && $rol <= 11) {
             config_model::verificar_actualizacion_configuracion(); 
         ?>
         <script src="./js/añadir_producto.js"></script>
-
     </body>
 </html>
 <?php }else{

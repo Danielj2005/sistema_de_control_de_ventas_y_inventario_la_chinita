@@ -55,7 +55,7 @@ class producto_model extends modeloPrincipal {
     public static function obtener_todos_los_datos(){
         $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, 
             PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
-            (SELECT MAX(dolar) from dolar) AS tasa
+            (SELECT MAX(dolar) FROM dolar) AS tasa
             FROM producto AS P
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion

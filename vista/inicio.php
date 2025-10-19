@@ -67,7 +67,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                 <div class="card top-selling overflow-auto">
                   
                   <div class="card-body p-3 ">
-                    <h5 class="card-title">Últimas Ventas Realizadas</h5>
+                    <h5 class="card-title">Ventas Recientes</h5>
                     <table class="table table-striped overflow-x-auto " id="example">
                       <thead>
                         <tr>
