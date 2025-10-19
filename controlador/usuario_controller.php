@@ -80,9 +80,9 @@ if($modulo === "Guardar"){
     
     // datos verificados que se van a Registrar
     try {
-        $actualizar = model_user::insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol);
+        $registrar = model_user::insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol);
         
-        if (!$actualizar) {
+        if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar al usuario en la base de datos.","error");
         }
 

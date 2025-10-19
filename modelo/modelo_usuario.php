@@ -76,7 +76,7 @@ class model_user extends modeloPrincipal {
         $actualizar = modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 1, $id_rol, 1");
         
         if (!$actualizar) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo desbloquear al usuario debido a un error interno o alteracion de la información ya registrada, por favor verifique e intente nuevamente","error");
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar al usuario, por favor verifique e intente nuevamente","error");
         }
         return $actualizar;
     }
