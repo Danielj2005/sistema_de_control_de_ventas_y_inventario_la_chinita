@@ -99,9 +99,16 @@ class category_model extends modeloPrincipal {
         <?php  } 
     }
 
+    public static function optionsId () {
+        $consulta = self::consultar_condicional("id_categoria, nombre","estado = 1");
+        // se guardan los datos en un array y se imprime 
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <option value="<?= modeloPrincipal::encryptionId($mostrar["id_categoria"]) ?>"><?= $mostrar["nombre"]; ?></option>
+        <?php }
+    }
+
     public static function actualizar($estado, $id_categoria){
         // se comprueba que no exista un registro con los mismos datos
-        
         if (!modeloprincipal::UpdateSQL("categoria", "estado = $estado", "id_categoria = $id_categoria")) {
             return false;
         }

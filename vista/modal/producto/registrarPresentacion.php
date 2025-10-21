@@ -5,13 +5,12 @@ require_once "../../../modelo/modeloPrincipal.php";
 require_once "../../../modelo/presentacion_model.php";
 
 ?>
-
 <form id="modalSendForm"  action="../controlador/presentacion.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="save">
     <h5 class="card-title">Registrar presentación</h5>
     <input type="hidden" name="modulo" value="Guardar">          
     <div class="row mb-3 ">
 
-        <div class="col-12 col-md-6 mb-2">
+        <div class="col-12 col-md-12 mb-2">
             <label class="col-form-label">Definir Presentación <span style="color:#f00;">*</span> </label>
             <input 
                 type="text" 
@@ -24,7 +23,7 @@ require_once "../../../modelo/presentacion_model.php";
             />
         </div>
 
-        <div class="col-12 col-md-6 mb-2"> 
+        <div class="col-12 col-md-12 mb-2"> 
             <label class="col-form-label">Unidad de Medida<span style="color:#f00;">*</span> </label>
             <select name="representacion" id="representacion" class="form-select">
                 <option selected disabled>Seleccione la unidad de medida</option>

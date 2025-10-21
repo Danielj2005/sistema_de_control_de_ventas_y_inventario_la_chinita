@@ -44,8 +44,10 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 			$fecha_actual = date('Y-m-d');
 
-			$fecha1 = $_POST['fecha_inicio'];
-			$fecha2 = $_POST['fecha_fin']; ?>
+			$tipoCompra = !isset($_POST['tipoCompra']) ? 0 : $_POST['tipoCompra'];
+
+			$fecha1 = !isset($_POST['fecha_inicio']) ? '' : $_POST['fecha_inicio'];
+			$fecha2 = !isset($_POST['fecha_fin']) ? '' : $_POST['fecha_fin']; ?>
         
 		<main id="main" class="main">
 			<div class="pagetitle row">
@@ -188,13 +190,23 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 													</p>
 												</div>
 											</form>
+
+											
+											<form method="post" class="show row m-0 p-0" id="tipo_compra">
+												<div class="col-12 col-sm-12 col-md-12 mb-2 text-center">
+													<input class="form-control" value="<?= $tipoCompra == 0 ? 1 : 0?>" type="hidden" name="tipoCompra">
+													<button type="submit" class="btn btn-outline-<?= $tipoCompra == 0 ? "success" : "danger" ?> bi bi-<?= $tipoCompra == 0 ? "person" : "truck" ?>">&nbsp;<?= $tipoCompra == 0 ? "Ver Adquisiciones Propias" : "Ver Compras a Proveedores" ?></button>
+												</div>
+											</form>
+									
 									
 											<div class="table-responsive">
 												<table class="table table-striped example" id="example">
 													<thead>
 														<tr>
 															<th class="col text-center" scope="col">N.º</th>
-															<th class="col text-center" scope="col">Proveedor</th>
+															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Cédula" : "Cédula o RIF" ?></th>
+															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Usuario" : "Proveedor" ?></th>
 															<th class="col text-center" scope="col">Total ($)</th>
 															<th class="col text-center" scope="col">Total (Bs.)</th>
 															<th class="col text-center" scope="col">Tasa de Cambio</th>
@@ -205,16 +217,26 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 													<tbody>
 														<?php
-															if($fecha1 == "" && $fecha2 == ""){
-																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-																	FROM entrada AS E 
-																	INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+															if ($tipoCompra == 1){
+																$consulta = modeloPrincipal::consultar("SELECT U.cedula, U.nombre, U.apellido, 
+																	E.total_dolar, E.total_bs, E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+																	FROM entrada AS E
 																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+																	INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
 																	ORDER BY E.fecha_entrada DESC 
 																	LIMIT 100
 																");
-															}else{
+															}else if($tipoCompra == 0){
+																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, PROV.cedula_rif,
+																	E.total_dolar, E.total_bs,
+																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+																	FROM entrada AS E
+																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+																	INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+																	ORDER BY E.fecha_entrada DESC 
+																	LIMIT 100
+																");
+															}else if($fecha1 !== "" && $fecha2 !== ""){
 																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
 																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
 																	FROM entrada AS E 
@@ -230,7 +252,8 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 															while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
 																<tr>
 																	<td class="col text-center"></td>
-																	<td class="col text-center"><?= $mostrar["nombre"]; ?></td>
+																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?></td>
+																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?></td>
 																	<td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
 																	<td class="col text-center"><?= $mostrar["total_bs"].' Bs.'; ?></td>
 																	<td class="col text-center"><?= $mostrar["tasa"].' Bs.'; ?></td>
@@ -263,21 +286,20 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 									if ($permisosRol['r_entrada'] == 1) : ?>
 
 										<div class="show <?= $l_entrada == 1 ? 'd-none' : '' ?>">
-
-											<label class="form-label">Tipo de Compra <span style="color:#f00;">*</span></label>
-											<div class="col-12 col-md-12 mb-3">
-												<select onchange="dataBuyEntries()" name="tipo_compra" id="tipo_compra_id" class="form-select">
-													<option selected disabled>Seleccione una opción</option>
-													<option value="adquisicion_propia">Compra Directa (Personal)</option>
-													<option value="compra_proveedor">Compra a Proveedor</option>
-												</select>
-											</div>
-
 											
 											<form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
 												<input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
 												<input type="hidden" name="modulo" value="Guardar">
 
+												<label class="form-label">Tipo de Compra <span style="color:#f00;">*</span></label>
+												<div class="col-12 col-md-12 mb-3">
+													<select onchange="dataBuyEntries()" name="tipo_compra" id="tipo_compra_id" class="form-select ">
+														<option selected disabled>Seleccione una opción</option>
+														<option value="adquisicion_propia">Compra Directa (Personal)</option>
+														<option value="compra_proveedor">Compra a Proveedor</option>
+													</select>
+												</div>
+												
 												<fieldset id="datProvider" class="row m-0 p-0 d-none">
 													<h5 class="card-title">Información del Proveedor</h5> 
 													<!-- datos del proveedor al que se le compró -->

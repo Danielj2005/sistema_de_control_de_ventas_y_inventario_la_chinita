@@ -32,11 +32,12 @@ class producto_model extends modeloPrincipal {
         for ($i = 0; $i < count($id_producto); $i++) {
             $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
                 C.nombre AS categoria, 
-                PS.nombre AS nombre_presentacion,
+                PS.cantidad AS presentacion, R.nombre AS representacion,
                 M.nombre AS marca
                 FROM producto AS P
                 INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
                 INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion 
+                INNER JOIN representacion AS R ON R.id = PS.id_representacion
                 INNER JOIN marca AS M ON M.id = P.id_marca
                 WHERE P.id_producto = " . $id_producto[$i]);
 
@@ -44,7 +45,7 @@ class producto_model extends modeloPrincipal {
                 $resultado = mysqli_fetch_array($consul);
                 $Json['nombre'][] = $resultado['nombre_producto'];
                 $Json['categoria'][] = $resultado['categoria'];
-                $Json['presentacion'][] = $resultado['nombre_presentacion'];
+                $Json['presentacion'][] = $resultado['presentacion']." ".$resultado['representacion'];
                 $Json['marca'][] = $resultado['marca'];
             }
         }
@@ -55,6 +56,7 @@ class producto_model extends modeloPrincipal {
     public static function obtener_todos_los_datos(){
         $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, 
             PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
+            P.id_producto, P.codigo, P.nombre_producto, C.nombre AS categoria, P.fecha_ultima_actualizacion,
             (SELECT MAX(dolar) FROM dolar) AS tasa
             FROM producto AS P
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
@@ -76,23 +78,23 @@ class producto_model extends modeloPrincipal {
     }
 
     
-    public static function registrar ($id_categorias, $nombre_producto, $id_presentaciones, $id_marcas) {
-        for ($i = 0; $i < count($nombre_producto); $i++) {
-            
-            $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre_producto[$i])));
-            $id_categoria = $id_categorias[$i];
-            $id_presentacion = $id_presentaciones[$i];
-            $id_marca = $id_marcas[$i];
+    public static function registrar ($codigo, $id_categorias, $nombre_producto, $id_presentaciones, $id_marcas) {
 
-            $registrar = modeloPrincipal::InsertSQL("producto", "id_categoria, nombre_producto, id_presentacion, id_marca" ,"$id_categoria, '$nombre', $id_presentacion, $id_marca");
-            if (!$registrar) {
-                alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el producto debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
-            }
+        for ($i = 0; $i < count($nombre_producto); $i++) {
+
+            $code = $codigo[$i];
+            $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre_producto[$i])));
+            $categoria = modeloPrincipal::decryptionId($id_categorias[$i]);
+            $presentacion = modeloPrincipal::decryptionId($id_presentaciones[$i]);
+            $marca = modeloPrincipal::decryptionId($id_marcas[$i]);
+            $fecha = date("Y-m-d H:i:s");
+
+            $registrar = modeloPrincipal::InsertSQL("producto", "codigo, nombre_producto, id_marca, id_presentacion, id_categoria, stock_actual, fecha_ultima_actualizacion, estado" ,"$code, '$nombre', $marca, $presentacion, $categoria, 0, '$fecha', 0");
         }
         return $registrar;
     }
 
-    public static function validar_existe($campos,$id_producto){
+    public static function validar_existe($campos, $id_producto){
         // se comprueba que no exista un registro con los mismos datos
         $consult = modeloPrincipal::validacion_registro_existente($campos,"producto","id_producto = $id_producto");
 
@@ -103,31 +105,37 @@ class producto_model extends modeloPrincipal {
 
     }
 
-    public static function verificar_producto_existe($nombre_producto, $marcas, $presentaciones, $categorias){
+    public static function verificar_producto_existe($code, $nombre_producto, $marcas, $presentaciones, $categorias){
         // se comprueba que no exista un producto con los mismos datos
         for ($i = 0; $i < count($nombre_producto); $i++) {
         
+            $codigo = $code[$i];
             $nombre = strtolower($nombre_producto[$i]);
-            $marca = strtolower($marcas[$i]);
-            $presentacion = strtolower($presentaciones[$i]);
-            $categoria = strtolower($categorias[$i]);
+            $marca = modeloPrincipal::decryptionId($marcas[$i]);
+            $presentacion = modeloPrincipal::decryptionId($presentaciones[$i]);
+            $categoria = modeloPrincipal::decryptionId($categorias[$i]);
 
             $sql = modeloPrincipal::consultar("SELECT lower(P.nombre_producto) AS nombre_producto
                 FROM producto AS P
                 INNER JOIN marca AS M ON M.id = P.id_marca   
                 INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+                INNER JOIN representacion AS R ON R.id = PS.id_representacion
                 INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
-                WHERE lower(P.nombre_producto) = '$nombre'
-                AND lower(M.nombre) = '$marca' AND lower(PS.nombre) = '$presentacion' AND lower(C.nombre) = '$categoria'");
+                WHERE lower(P.nombre_producto) = 'Refresco'
+                AND P.id_marca = $marca
+                AND P.id_presentacion = $presentacion
+                AND P.id_categoria = $categoria
+                AND P.codigo = $codigo
+                ");
                 
             if (mysqli_num_rows($sql) > 0) {
                 /********** No se puede registrar un usuario si ya existe **********/
                 alert_model::alerta_simple("¡Ocurrio un error!","El producto ($nombre - $marca - $presentacion - $categoria) ya se encuentra en el sistema, verifica he intenta nuevamente.","error");
                 exit();
             }
-            $nombre_producto[$i] = ucwords(strtolower($nombre_producto[$i]));
+            // $nombre_producto[$i] = ucwords(strtolower($nombre_producto[$i]));
         }
-        return $nombre_producto;
+        // return $nombre_producto;
     }
 
 
@@ -136,7 +144,7 @@ class producto_model extends modeloPrincipal {
     public static function validar_nombre_producto($nombre_producto) {
         for ($i = 0; $i < count($nombre_producto); $i++) {
             if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre_producto[$i])) {
-                return alert_model::alert_of_format_wrong("'nombre'");
+                return alert_model::alerta_simple("¡Ocurrió un error!","El nombre del producto '".$nombre_producto[$i]."' no cumple con el formato establecido","error");
             }
         }
     }
@@ -151,12 +159,13 @@ class producto_model extends modeloPrincipal {
             ?>
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["marca"] ?></td>
+                <td class="text-center"><?= $mostrar["codigo"] ?></td>
+                <td class="text-center"><?= $mostrar["nombre_producto"] ?></td>
                 <td class="text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
                 <td class="text-center"><?= $mostrar["marca"] ?></td>
                 <td class="text-center"><?= $mostrar["categoria"] ?></td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
-                <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0.$' : $mostrar["precio_venta"].' $' ; ?></th>
+                <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></th>
                 <th class="text-center"><?= date("d-m-Y H:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])) ; ?></th>
                 <th class="text-center">
                     <button onclick="btn_show_modal('btn_modal', 'producto')" value="<?= $mostrar["id_producto"] ; ?>" data-bs-toggle="modal" data-bs-target="#modal" class="btn bi btn_modal bi-list btn-outline-info col col-auto"> </button>
@@ -164,7 +173,6 @@ class producto_model extends modeloPrincipal {
             </tr>
         <?php } 
     }
-
 
     public static function options($estado = "") {
         if ($estado == "1") {

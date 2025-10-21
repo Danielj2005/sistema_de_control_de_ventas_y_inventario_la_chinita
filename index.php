@@ -5,8 +5,8 @@ include_once "./modelo/configuracion_model.php"; // se incluye el modelo de conf
 
 $_SESSION["intentos_sesion"] = 1;
 
-$_SESSION['numero_1'] = rand(1, 20);
-$_SESSION['numero_2'] = rand(1, 20);
+$_SESSION['numero_1'] = rand(1, 8);
+$_SESSION['numero_2'] = rand(1, 5);
 
 $_SESSION['captcha'] = $_SESSION['numero_1'] + $_SESSION['numero_2'];
 

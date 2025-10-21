@@ -72,13 +72,13 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 										<table class="table datatable table-striped" id="example">
 											<thead>
 												<tr>
-													<th scope="col">#</th>
-													<th scope="col">Cédula</th>
-													<th scope="col">Nombre y Apellido</th>
-													<th scope="col">Teléfono</th>
+													<th class="text-center col" scope="col">#</th>
+													<th class="text-center col" scope="col">Cédula</th>
+													<th class="text-center col" scope="col">Nombre y Apellido</th>
+													<th class="text-center col" scope="col">Teléfono</th>
 													<?php if ($m_empleado == '1'): ?>
-														<th scope="col" class="text-center">Modificar</th>
-														<th scope="col" class="text-center">Estado</th>
+														<th scope="col" class="text-center col">Modificar</th>
+														<th scope="col" class="text-center col">Estado</th>
 													<?php endif; ?>
 												</tr>
 											</thead>
@@ -90,7 +90,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 								</div>
 							<?php } ?>
 
-							<?php if ($r_empleado == 1) { ?> 
+							<?php if ($r_empleado == 1): ?> 
 								<div class="hidden <?= $l_empleado == 1 ? 'd-none' : ''; ?>">
 									<h5 class="card-title">Registro de Empleados</h5>
 
@@ -153,9 +153,9 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 											<button form="registro_empleado" type="submit" class="btn btn-success bi bi-plus">&nbsp;Registrar</button>
 										</div>
 									</form>
+									
 								</div>
-							<?php } ?>
-
+							<?php endif; ?>
 						</div>
 					</div>
 				</section>

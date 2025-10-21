@@ -90,7 +90,6 @@ class modeloPrincipal {
         return base64_encode($result);
     }
 
-
     /********** Funcion desencriptar Cadena  **********/
     public static function decryption($string) {
         $key = SECRET_KEY;
@@ -130,11 +129,6 @@ class modeloPrincipal {
     // funcion para encriptar id de bases de datos para evitar su rastreo
     public static function alterarId($id) {
         $idModificada = $id * 10;
-        return $idModificada;
-    }
-    // funcion para encriptar id de bases de datos para evitar su rastreo
-    public static function normalizeId($id) {
-        $idModificada = $id / 10;
         return $idModificada;
     }
     
@@ -282,7 +276,6 @@ class modeloPrincipal {
         return $id;
     }
 
-    
     public static function obtener_precio_dolar(){
         $id_dolar = self::obtener_id_precio_dolar();
         $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $id_dolar "));
@@ -329,6 +322,20 @@ class modeloPrincipal {
         return $dataFind;
     }
 
+        
+    /*******************************************************************/ 
+    /*          Funciones dedicadas a Verificar datos                  */
+    /*******************************************************************/ 
+
+    public static function verificarModuloATrabajar (string $modulo) {
+        if (!isset($_POST["$modulo"])) {
+            return alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
+        }
+    }
+    /*******************************************************************/ 
+    /*          Funciones dedicadas a sanear cadenas de texto          */
+    /*******************************************************************/ 
+    public static function primeraLetraMayus ($string):string { return ucwords(strtolower($string)); }
 
 
 }

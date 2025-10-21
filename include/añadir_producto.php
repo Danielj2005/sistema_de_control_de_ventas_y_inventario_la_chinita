@@ -12,8 +12,9 @@ $rand = rand(10000,50000);
 
 <tr id="producto_<?= $rand ?>">
     <td class="text-center">
-        <div class="col-12 mb-3">
-            <input type="text" class="form-control mb-3" name="code[]" id="code<?= $rand ?>" placeholder="Escribe el código del producto" autocomplete="off">
+        <div class="col-12 mb-3 input-group">
+            <button type="button" id="startButton" class="bi-qr-code-scan input-group-text"></button>
+            <input type="text" class="form-control" name="code[]" id="code<?= $rand ?>" placeholder="Escribe el código del producto" autocomplete="off">
         </div>
     </td>
     <td class="text-center">
@@ -27,27 +28,26 @@ $rand = rand(10000,50000);
     </td>
     <td class="text-center">
         <div class="col-12 mb-3">
-            <input type="text" class="form-control mb-3" list="dataList_nombre_marca_<?= $rand ?>" name="marcas[]" id="input_nombre_marca" placeholder="selecciona la marca" autocomplete="off">
-
-            <datalist id="dataList_nombre_marca_<?= $rand ?>">
-                <?php marca_model::options(); ?> 
-            </datalist>
+            <select class="form-select mb-3" name="marcas[]" id="marca_<?= $rand ?>">
+                <option selected disabled>Selecciona una opción</option>
+                <?php marca_model::optionsId(); ?> 
+            </select>
         </div>
     </td>
     <td class="text-center">
         <div class="col-12 mb-3">
-            <input type="text" class="form-control mb-3" list="presentacion_dataList<?= $rand ?>" name="presentacion[]" id="select_presentacion" placeholder="selecciona la presentación" autocomplete="off">
-            <datalist id="presentacion_dataList<?= $rand ?>">
-                <?php presentacion_model::options(); ?>
-            </datalist>
+            <select class="form-select mb-3" name="presentacion[]" id="presentacion<?= $rand ?>">
+                <option selected disabled>Selecciona una opción</option>
+                <?php presentacion_model::optionsId(); ?>
+            </select>
         </div>
     </td>
     <td class="text-center">
         <div class="col-12 mb-3">
-            <input type="text" class="form-control mb-3" list="datalist_nombre_categoria_<?= $rand ?>" name="categoria[]" id="input_nombre_categoria" placeholder="selecciona una categoría" autocomplete="off">
-            <datalist id="datalist_nombre_categoria_<?= $rand ?>">
-                <?php category_model::options(); ?>
-            </datalist>
+            <select class="form-select mb-3" name="categoria[]" id="categoria<?= $rand ?>">
+                <option selected disabled>Selecciona una opción</option>
+                <?php category_model::optionsId(); ?>
+            </select>
         </div>
     </td>
 

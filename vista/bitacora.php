@@ -101,9 +101,9 @@ if ($rol == 1) {  ?>
                                   <th class="col" scope="col"></th>
                                   <th class="col" scope="col"><?= $row['accion'] ?></th>
                                   <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
-                                  <th class="col" scope="col"><?= date('d-m-Y y h:i a', strtotime($row['fecha_hora'])) ?></th>
+                                  <th class="col" scope="col"><?= date('d-m-Y  h:i a', strtotime($row['fecha_hora'])) ?></th>
                                   <th class="text-center col" scope="col">
-                                    <button onclick="btn_show_modal('btn_modal', 'bitacora')" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($row["id"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                    <button modal="bitacora" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($row["id"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                                   </th>
                                 </tr>
                             <?php } ?>  

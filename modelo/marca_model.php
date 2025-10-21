@@ -67,6 +67,7 @@ class marca_model extends modeloPrincipal {
         }
         // return $registrados;
     }
+    
 
     public static function verificar_existe_marca_unica($nombre){
         // se comprueba que no exista un registro con los mismos datos
@@ -104,6 +105,13 @@ class marca_model extends modeloPrincipal {
         $consulta = modeloPrincipal::consultar("SELECT nombre FROM marca");
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
             <option value="<?= $mostrar["nombre"]; ?>"> <?= $mostrar["nombre"]; ?> </option>
+        <?php }
+    }
+
+    public static function optionsId() {
+        $consulta = modeloPrincipal::consultar("SELECT id, nombre FROM marca");
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>
+            <option value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>"><?= $mostrar["nombre"]; ?></option>
         <?php }
     }
 

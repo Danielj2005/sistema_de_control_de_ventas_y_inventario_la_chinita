@@ -2,12 +2,14 @@
 
 class presentacion_model extends modeloPrincipal {
 
-    public static function consultar_por_id($fields, $id_presentacion) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM presentacion WHERE id = $id_presentacion");
+    public static function consultar_por_id($id_presentacion) {
+        $consul = modeloPrincipal::consultar("SELECT PS.cantidad AS presentacion, PS.estado, R.nombre AS representacion
+            FROM presentacion AS PS
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
+            WHERE id = $id_presentacion");
         modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
         return $consul;
     }
-
     
     // funcion para obtener el id de un categoria
     public static function obtener_id_recien_registrada(){
@@ -101,7 +103,6 @@ class presentacion_model extends modeloPrincipal {
         return $dataFind;
     }
 
-
     public static function lista(){
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
             R.nombre AS representacion, R.descripcion, P.estado
@@ -156,6 +157,20 @@ class presentacion_model extends modeloPrincipal {
         <?php  } 
     }
 
+    public static function optionsId() {
+
+        $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion, R.nombre AS representacion
+            FROM presentacion AS P 
+            INNER JOIN representacion AS R ON R.id = P.id_representacion
+            WHERE P.estado = 1
+        ");
+
+        // se guardan los datos en un array y se imprime
+        while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+            <option value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>"><?= $mostrar["presentacion"]; ?> - <?= $mostrar["representacion"]; ?></option>
+        <?php  } 
+    }
+
     public static function selectOptions() {
 
         $consulta = modeloPrincipal::consultar("SELECT id, nombre AS representacion FROM representacion");
@@ -173,5 +188,22 @@ class presentacion_model extends modeloPrincipal {
             return false;
         }
         return true;
+    }
+
+
+    public static function bitacoraPresentacion () {
+        $id = self::obtener_id_recien_registrada();
+
+        $datos = self::consultar_por_id($id);
+        $datos = mysqli_fetch_array($datos);
+        $datos['estado'] = $datos['estado'] == 1 ? 'Activo' : 'Inactivo';
+
+        $bitacora = bitacora::bitacora("Registro Exitoso de una Presentación.",
+        "Se Registro una Presentación con la Siguiente Informacón: <br><br>
+                <b>****** Información de la Presentación:   ******</b><br><br>
+                Descripción: <b>".$datos['cantidad']." ".$datos['representacion']."</b><br>
+                Estado: <b>".$datos['estado']." </b><br>
+        ");
+        return $bitacora;
     }
 }

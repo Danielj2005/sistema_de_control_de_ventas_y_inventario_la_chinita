@@ -2,7 +2,7 @@ const dataModal = {
     listaPresentacion : {
         modalUrl : "./modal/producto/lista_presentacion.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Presentaciones Registradas',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tablePresentationOfProducts"
@@ -10,14 +10,13 @@ const dataModal = {
     registrarPresentacion : {
         modalUrl : "./modal/producto/registrarPresentacion.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
-        modalSize : 'modal-lg',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Registrar Nueva Presentaciones',
         modalSendForm : true,
     },
-    categoria : {
+    listaCategoria : {
         modalUrl : "./modal/producto/lista_categoria.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de categorías registradas',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Categorías Registradas',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableCategoryOfProducts"
@@ -25,33 +24,34 @@ const dataModal = {
     listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de marcas registradas',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Marcas Registradas',
         modalSize : '',
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"
     },
     registrarMarca : {
         modalUrl : "./modal/producto/registrarMarca.php",
-        modalTitle : '<i class="bi bi-person-plus"></i>&nbsp;Registrar nueva marca',
+        modalTitle : '<i class="bi bi-person-plus"></i>&nbsp;Registrar Nueva Marca',
         modalSendForm : true,
+        modalSize : '',
     },
     proveedorDetalles : {
         modalUrl : "./modal/proveedor/detalles.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del proveedor',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del Proveedor',
         modalSize : 'modal-lg',
     },
     proveedorModificar : {
         modalUrl : "./modal/proveedor/modificar.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-person-plus"></i> &nbsp; Modificar información del proveedor',
+        modalTitle : '<i class="bi bi-pencil-square"></i> &nbsp; Modificar Proveedor',
         modalSize : 'modal-lg',
         modalSendForm : true,
     },
     proveedorHistorial : {
         modalUrl : "./modal/proveedor/historial.php",
         modalModule : "list",
-        modalTitle : '<i class="bi bi-person-plus"></i> &nbsp; Modificar información del proveedor',
+        modalTitle : '<i class="bi bi-person-plus"></i> &nbsp; Detalles de Compras al Proveedor',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableProvider"
@@ -68,7 +68,6 @@ const dataModal = {
         modalUrl : "./modal/bitacora/detalles_bitacora.php",
         modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i>&nbsp;Detalle de la Bitácora',
-        modalSize : '',
         modalDataTable : true,
         modalClassTable : "tableDetailsBitacora"
     },

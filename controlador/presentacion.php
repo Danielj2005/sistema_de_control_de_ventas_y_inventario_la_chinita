@@ -43,22 +43,15 @@ if($modulo === "Guardar"){
         exit();
     }
     
-    // se realiza la bitácora con los datos del presentación a registrar
     try {
-        $id_presentacion = presentacion_model::obtener_id_recien_registrada();
+        // se realiza la bitácora con los datos del presentación recien registrada
 
-        $datos_originales = presentacion_model::consultar_por_id("*", $id_presentacion);
-        $datos_originales = mysqli_fetch_array($datos_originales);
-        $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
+        $bitacora = presentacion_model::bitacoraPresentacion();
 
-        bitacora::bitacora("Registro exitoso de una presentación.","Se registro una presentación con la siguiente informacón: <br><br>
-        <b>****** Información de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Descripción: <b>".$datos_originales['descripcion']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b><br>
-        ");
+        if (!$bitacora): return false; endif;
 
-        alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#form_presentacion input').forEach((input) => {input.value = ''});");
+        alert_model::alert_reg_success();
+        
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();
@@ -72,7 +65,7 @@ $id_presentacion = modeloPrincipal::limpiar_cadena($id_presentacion);
 
 if ($modulo === "activo") {
     
-    $datos_originales = presentacion_model::consultar_por_id("*", $id_presentacion);
+    $datos_originales = presentacion_model::consultar_por_id($id_presentacion);
     $datos_originales = mysqli_fetch_array($datos_originales);
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
@@ -92,7 +85,7 @@ if ($modulo === "activo") {
     // se realiza la bitácora con los datos del presentación a registrar
     try {
 
-        $datos_actuales = presentacion_model::consultar_por_id("*", $id_presentacion);
+        $datos_actuales = presentacion_model::consultar_por_id($id_presentacion);
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
@@ -117,7 +110,7 @@ if ($modulo === "activo") {
 
 if ($modulo === "inactivo") {
     
-    $datos_originales = presentacion_model::consultar_por_id("*", $id_presentacion);
+    $datos_originales = presentacion_model::consultar_por_id($id_presentacion);
     $datos_originales = mysqli_fetch_array($datos_originales);
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
@@ -137,7 +130,7 @@ if ($modulo === "inactivo") {
     // se realiza la bitácora con los datos del presentación a registrar
     try {
 
-        $datos_actuales = presentacion_model::consultar_por_id("*", $id_presentacion);
+        $datos_actuales = presentacion_model::consultar_por_id($id_presentacion);
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 

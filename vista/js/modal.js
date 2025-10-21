@@ -1,6 +1,7 @@
 /*-------  Funcion para Mostrar ventana Modal en modulos del sistema ------- */
 
-const btn_show_modal = (btnModalId, nameModule) =>{
+const btn_show_modal = (btn, nameModule) =>{
+    const btn_modal = btn;
 
     // se recibe el objeto con la configuracion del modal
     const TitleId = dataModal[nameModule]?.modalTitleId ?? "exampleModalLabel";
@@ -15,7 +16,6 @@ const btn_show_modal = (btnModalId, nameModule) =>{
     const DataTable = dataModal[nameModule]?.modalDataTable ?? false;
     const ClassTable = dataModal[nameModule]?.modalClassTable ?? "";
     
-    const btn_modal = document.querySelector(`.${btnModalId}`); 
 
     const titleId = document.getElementById(`${TitleId}`); 
     const body = document.getElementById(`${BodyId}`); 
@@ -30,6 +30,14 @@ const btn_show_modal = (btnModalId, nameModule) =>{
 
     Size !== "" ? modalDiaglog.classList.add(`${Size}`) : '';
 
+    if (Size == "" && modalDiaglog.classList.contains('modal-lg')) {
+        modalDiaglog.classList.remove('modal-lg');
+    }
+    if (Size == "" && modalDiaglog.classList.contains('modal-xl')) {
+        modalDiaglog.classList.remove('modal-xl');
+    }
+
+    
     titleId.innerHTML = Title; // titulo del modal a mostrar
 
     // se evalúa si el modal tendra un formulario para llamar a la funcion 'SendFormAjax()' para el envio de formularios en el modal
@@ -56,3 +64,9 @@ const btn_show_modal = (btnModalId, nameModule) =>{
 };
 
 
+const activeModalBtn = document.querySelectorAll(`.btn_modal`);
+activeModalBtn.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        btn_show_modal(e.target, btn.getAttribute('modal'));
+    })
+});
