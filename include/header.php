@@ -86,7 +86,7 @@
             if ($rol >= 1 && $rol <= 6) {?>
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
-                  <i class="bi bi-gear"></i>
+                  <i class="bi bi-gear-fill"></i>
                   <span>Configuración</span>
                 </a>
               </li>

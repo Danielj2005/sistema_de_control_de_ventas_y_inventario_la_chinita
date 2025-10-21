@@ -3,8 +3,8 @@
     <!-- apartado de página principal -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="inicio.php">
-        <i class="bi bi-grid"></i>
-        <span>Inicio</span>
+        <i class="bi bi-speedometer2"></i>
+        <span>Panel de Control</span>
       </a>
     </li>
     
@@ -18,34 +18,41 @@
       if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') {?>
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-menu-button-wide"></i>
+            <i class="bi bi-box-seam-fill"></i>
             <span>Inventario</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <?php if ($productos >= 1 && $productos <= 11) {  ?>
-            <li>
-              <a href="../vista/gestion_productos.php">
-                <i class="bi bi-circle"></i>
-                <span>Gestión de Productos</span>
-              </a>
-            </li>
-            <?php } if ($proveedores >= 1 && $proveedores <= 4) {  ?>
+            <?php 
+            if ($productos >= 1 && $productos <= 11) : ?>
+              <li>
+                <a href="../vista/gestion_productos.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Gestión de Productos</span>
+                </a>
+              </li>
+            <?php 
+            endif;
+
+            if ($proveedores >= 1 && $proveedores <= 4) : ?>
               <li>
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>
                   <span>Proveedores</span>
                 </a>
               </li>
-            <?php } if ($entrada == 1 || $entrada == 2 ) {  ?>
+            <?php 
+            endif;
+
+            if ($entrada == 1 || $entrada == 2 ): ?>
               <li>
                 <a href="../vista/entrada_de_productos.php">
                   <i class="bi bi-circle"></i>
                   <span>Entrada de productos</span>
                 </a>
               </li>
-            <?php } ?>
+            <?php endif; ?>
           </ul>
         </li>
     <?php } 
@@ -58,7 +65,7 @@
       
         <li class="nav-item">
           <a href="gestion_servicios.php" class="nav-link collapsed">
-            <i class="bi bi-layout-text-window-reverse"></i>
+            <i class="bi bi-person-workspace"></i>
             <span> Gestión de Servicios</span>
           </a>
         </li>
@@ -76,7 +83,7 @@
       
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i>
+            <i class="bi bi-currency-dollar"></i>
             <span>Ventas</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
@@ -92,14 +99,14 @@
               <li>
                 <a href="../vista/venta.php">
                   <i class="bi bi-circle"></i>
-                  <span>Ventas Realizadas</span>
+                  <span>Historial de Ventas</span>
                 </a>
               </li>
             <?php } if ($est_venta == 1 ) {  ?>
               <li>
                 <a href="./estadisticas_generales.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Estadísticas de ventas</span>
+                  <i class="bi bi-graph-up"></i>
+                  <span>Análisis de Ventas</span>
                 </a>
               </li>
             <?php } ?>
@@ -117,14 +124,14 @@
       
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-person-circle"></i>
+            <i class="bi bi-people-fill"></i>
             <span>Usuarios</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
 
           <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             
-            <?php if ($cliente >= 1 && $cliente <= 4) {  ?>
+            <?php if ($cliente >= 1 && $cliente <= 4): ?>
 
                 <!-- modulo de clientes -->
                 <li class="nav-item">
@@ -134,34 +141,40 @@
                     <span>Clientes</span>
                   </a>
                 </li>
-
-            <?php } if ($usuario >= 1 && $usuario <= 3) {  ?>
-
-                <!-- modulo de empleados (usuario) -->
+            <?php 
+            endif; 
+            
+            //  modulo de empleados (usuario) 
+            if ($usuario >= 1 && $usuario <= 3): ?>
                 <li class="nav-item">
                   <a class="nav-link collapsed" href="../vista/empleados.php">
                     <i class="bi bi-circle"></i>
                     <span>Empleados</span>
                   </a>
                 </li>
-
-            <?php } if ($rol >= 1 && $rol <= 3) {  ?>
-
-                <!-- modulo de roles -->
+            <?php 
+            endif; 
+            
+            // 3. Roles/Permisos (Permisos de 1 a 3) CRU
+            if ($rol >= 1 && $rol <= 3): ?>
                 <li>
                   <a href="./roles.php">
                     <i class="bi bi-circle"></i>
-                    <span>Roles</span>
+                    <span>Gestión de Roles</span>
                   </a>
                 </li>
-            <?php } ?>
+            <?php endif; ?>
+
           </ul>
         </li>
     <?php } ?>
 
     <!-- apartado del perfil de usuario  -->
     <li class="nav-item">
-      <a class="nav-link collapsed bi bi-person" href="./mi_perfil.php">&nbsp; Mi perfil</a>
+      <a class="nav-link collapsed" href="./mi_perfil.php">
+        <i class="bi bi-person-fill"></i>
+        <span>Mi Perfil</span>
+      </a>
     </li>
 
     <!-- apartado de configuración de sistema -->
@@ -173,8 +186,8 @@
       if ($configuracion > '0' || $bitacora > '0') {?>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gear"></i>
-          <span>Configuración</span>
+          <i class="bi bi-gear-fill"></i>
+          <span>Configuración General</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
 
@@ -184,7 +197,7 @@
             <li>
               <a href="./configuracion.php">
                 <i class="bi bi-circle"></i>
-                <span>Ajustes del sistema</span>
+                <span>Ajustes del Sistema</span>
               </a>
             </li>
 
@@ -203,36 +216,39 @@
     <!-- apartado de ayuda  -->
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#ayuda-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-question-circle"></i>
-        <span>Ayuda</span>
+        <i class="bi bi-question-circle-fill"></i>
+        <span>Soporte y Documentación</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
 
       <ul id="ayuda-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
           <a href="../vista/manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank">
-            <i class="bi bi-circle"></i>
-            <span>Manual de usuario</span>
+            <i class="bi bi-book"></i>
+            <span>Manual de Usuario</span>
           </a>
         </li>
 
         <li>
           <a href="./manuales/MANUAL_DE_INSTALACION_CHINITA.pdf" target="_blank">
-            <i class="bi bi-circle"></i>
-            <span>Manual de instalación</span>
+            <i class="bi bi-wrench"></i>
+            <span>Guía de Instalación Técnica</span>
           </a>
         </li>
         <li>
           <a href="./manuales/MANUAL_DE_SISTEMA_CHINITA.pdf" target="_blank">
-            <i class="bi bi-circle"></i>
-            <span>Manual de sistema</span>
+            <i class="bi bi-laptop"></i>
+            <span>Manual de Referencia</span>
           </a>
         </li>
       </ul>
     </li>
 
     <li class="nav-item">
-      <button class="nav-link collapsed bi bi-box-arrow-right btn-exit-system">&nbsp; Cerrar sesión</button>
+      <button class="nav-link collapsed btn-exit-system">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Cerrar Sesión</span>
+      </button>
     </li>
   </ul>
 </aside>
