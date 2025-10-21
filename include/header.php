@@ -35,20 +35,24 @@
 
       <li class="nav-item dropdown">
 
-        <button class="btn btn-light nav-icon bi bi-currency-exchange fst-italic fs-6" data-bs-toggle="dropdown">
-          &nbsp; La Tasa del Día: <span id="tasa_dolar"><?= $precio_dolar_actual ?></span>bs
+        <button class="btn btn-light nav-icon fst-italic fs-6" data-bs-toggle="dropdown">
+          <i class="bi bi-currency-exchange"></i>
+          &nbsp; Tasa USD: <span id="tasa_dolar"><?= number_format((float)$precio_dolar_actual, 2, ',', '.') ?></span>Bs
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header row justify-content-center">
+            <h6 class="text-center mb-3">Opciones de Actualización</h6>
             <div class=" col-12 mb-2">
               <button id="btn_update_dolar_auto" class="w-100 btn btn-success text-center">
-                <span class="p-2 ms-2">Actualizar automáticamente</span>
+                <i class="bi bi-arrow-repeat"></i>
+                <span class="p-2 ms-2">Sincronizar Tasa (Automático)</span>
               </button>
             </div>
             <div class=" col-12 mb-2">
               <button class="btn btn-warning text-center w-100" data-bs-toggle="modal" data-bs-target="#dolarUpdate" id="btnUpdate">
-                <span class="p-2 ms-2">Actualizar manualmente</span>
+                <i class="bi bi-pencil-square"></i>
+                <span class="p-2 ms-2">Establecer Tasa (Manual)</span>
               </button>
             </div>
           </li>
