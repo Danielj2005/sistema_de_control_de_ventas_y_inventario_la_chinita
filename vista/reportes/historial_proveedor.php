@@ -17,7 +17,7 @@ class PDF extends FPDF{
             $dataProvider = ["id_proveedor" => "", "cedula_rif" => "", "nombre" => "", "telefono" => "", "correo" => "", "direccion" => ""];
         }
         
-        $this->Image('../img/logo.png',170,10,35,35,'PNG');
+        // $this->Image('../img/logo.png',170,10,35,35,'PNG');
 
         $this->setY(10);
         $this->setX(10);

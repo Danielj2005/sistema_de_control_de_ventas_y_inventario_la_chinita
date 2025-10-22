@@ -1,14 +1,13 @@
 <?php
 session_start();
-include_once "../../modelo/modeloPrincipal.php";
-require 'fpdf/fpdf.php';
-
+require_once "../../modelo/modeloPrincipal.php";
+require_once 'fpdf/fpdf.php';
 date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
     function Header(){
         
-        $this->Image('../img/logo.png',220,10,35,35,'PNG');
+        // $this->Image('../img/logo.png',220,10,35,35,'PNG');
         
         $this->setY(10);
         $this->setX(10);
@@ -48,7 +47,7 @@ class PDF extends FPDF{
         $this->Cell(100,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
         $this->Cell(100,5,date('d/m/Y | g:i:a') ,00,1,'R');
         $this->Line(5,287,215,287);
-        $this->Cell(0,5,self::convert_codification("© Todos los derechos reservados."),0,0,"C");
+        $this->Cell(0,5, self::convert_codification("© Todos los derechos reservados."),0,0,"C");
             
     }
 
@@ -58,19 +57,6 @@ class PDF extends FPDF{
     
 }
 
-function tableHead ($pdf) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification('Cédula/RIF'),'LTRB',0,'C',0);
-    $pdf->Cell(65, 5, $pdf->convert_codification('Nombre'),'LTRB',0,'C',0);
-    $pdf->Cell(70, 5, $pdf->convert_codification('Correo'),'LTRB',0,'C',0);
-    $pdf->Cell(25, 5, $pdf->convert_codification('Teléfono'),'LTRB',0,'C',0);
-    $pdf->Cell(80, 5, $pdf->convert_codification('Dirección'),'LTRB',1,'C',0);
-}
-
-
-
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage('P',[290,300],0);
@@ -79,18 +65,22 @@ $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
+$pdf->setY(60);
+$pdf->setX(5);
+$pdf->SetFont('Arial','B',10);
+$pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification('Cédula/RIF'),'LTRB',0,'C',0);
+$pdf->Cell(65, 5, $pdf->convert_codification('Nombre'),'LTRB',0,'C',0);
+$pdf->Cell(70, 5, $pdf->convert_codification('Correo'),'LTRB',0,'C',0);
+$pdf->Cell(25, 5, $pdf->convert_codification('Teléfono'),'LTRB',0,'C',0);
+$pdf->Cell(80, 5, $pdf->convert_codification('Dirección'),'LTRB',1,'C',0);
+
 $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor ORDER BY nombre ASC");
 
 // en caso de que no se encuentren proveedores registrados
 
 if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Ln();
-
-    $pdf->setY(60);
-    $pdf->setX(5);
-    
-    // Esta funcion devuelve los encabezados 
-    tableHead($pdf);
 
     $pdf->SetFont('Arial','',10);
 
@@ -99,14 +89,10 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Output("I","Listado de Proveedores (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
-$pdf->setY(60);
-$pdf->setX(5);
-
-// Esta funcion devuelve los encabezados 
-tableHead($pdf);
-
 $pdf->SetFont('Arial','',8);
+
 $i = 1;
+
 while ( $mostrar = mysqli_fetch_array($consulta)) { 
     
     $pdf->setX(5);
