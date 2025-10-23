@@ -6,7 +6,6 @@ $classifcated = `<td class="text-center col" scope="col">
         <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId(numrand ) ?>')"></button>
     </td>`;
 
-
 require_once "../modelo/modeloPrincipal.php";
 require_once "../modelo/alert_model.php";
 

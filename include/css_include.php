@@ -87,4 +87,6 @@ $configuracion = ['iva' => config_model::obtener_dato('porcentaje_iva'),
 <script type="text/javascript">
     const IVA = <?= $configuracion['iva'] / 100 ?> ;
     const PORCENTAJE_GANANCIA = <?= $configuracion['ganancia'] / 100 ?>;
+    // url de la api del router
+    const URL_API = "../include/api.php";
 </script>

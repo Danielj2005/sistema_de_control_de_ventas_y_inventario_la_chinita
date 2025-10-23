@@ -54,8 +54,8 @@ const dataModal = {
     // modales del módulo entradas
     detallesEntrada : {
         modalUrl : "./modal/producto/detalles_entrada.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
-        modalSize : 'modal-lg',
+        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la Compra',
+        modalSize : 'modal-xl',
         modalDataTable : true,
         modalClassTable : "tableDetailsEntry"
     },

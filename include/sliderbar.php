@@ -35,23 +35,24 @@
             <?php 
             endif;
 
-            if ($proveedores >= 1 && $proveedores <= 4) : ?>
+            if ($entrada == 1 || $entrada == 2 ): ?>
+
+              <li>
+                <a href="../vista/entrada_de_productos.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Registro de Compras</span>
+                </a>
+              </li>
+
+            <?php endif; if ($proveedores >= 1 && $proveedores <= 4) : ?>
+
               <li>
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>
                   <span>Gestión de Proveedores</span>
                 </a>
               </li>
-            <?php 
-            endif;
 
-            if ($entrada == 1 || $entrada == 2 ): ?>
-              <li>
-                <a href="../vista/entrada_de_productos.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Entrada de productos</span>
-                </a>
-              </li>
             <?php endif; ?>
           </ul>
         </li>

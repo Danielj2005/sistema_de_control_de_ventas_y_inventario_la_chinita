@@ -8,8 +8,8 @@ const btn_add_card_product = document.getElementById('btn_add_card_product');
 btn_add_card_product.addEventListener('click', (e) => {
     e.preventDefault();
     $.ajax({
-        data: '',
-        url:  "../include/añadir_producto.php",
+        data: {'module' : "añadir_productos_entrada", id : ""},
+        url:  URL_API,
         type:  'post',
         success:function(valores){
             $(`#tableProduct`).append(valores);

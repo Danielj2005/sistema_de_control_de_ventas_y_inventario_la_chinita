@@ -14,7 +14,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 <html lang="en">
   <head>
     <!-- titulo -->
-    <title>Inicio</title>
+    <title>Panel de Control</title>
     <!-- metadatos -->  
     <?php include_once ("../include/meta_include.php");
       // estilos y librerias css

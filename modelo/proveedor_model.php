@@ -164,7 +164,10 @@ class proveedor_model extends modeloPrincipal {
                         <button modal="proveedorHistorial" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
                         
                         <div class="dropstart col col-auto">
-                            <button class="<?= $haveHistorial > 0 ? " btn-secondary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >&nbsp; PDF</button>
+                            <button class="<?= $haveHistorial > 0 ? " btn-primary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >
+                                <span>PDF</span>
+                                <i class="bi bi-file-earmark-arrow-down"></i>
+                            </button>
                             <ul class="dropdown-menu" style="width: 20rem;">
                                 <li class="p-1 text-center">
                                     <p class="text-center border rounded-3 alert-primary text-primary bg-primary-light p-2">
@@ -213,4 +216,37 @@ class proveedor_model extends modeloPrincipal {
             </tr>
         <?php } 
     }
+
+
+    /*******************************************************************/ 
+    /*     Funciones dedicadas a resolver peticiones del usuario       */
+    /*******************************************************************/ 
+    
+    public static function buscar_proveedor_compra_por_dni($dni) {
+        
+        //datos via Post
+        $cedula = modeloPrincipal::limpiar_cadena($dni); 
+        $datos['existe'] = "0";
+        //Consulta
+        $proveedor = modeloPrincipal::consultar ("SELECT * FROM proveedor WHERE cedula_rif ='$cedula'");
+        
+        if (mysqli_num_rows($proveedor) < 1) {
+            $datos['error'] = "El proveedor no existe.";
+            echo json_encode($datos);
+            exit();
+        }
+        $proveedor = mysqli_fetch_array($proveedor);
+
+        $datos['existe'] = "1";
+        $datos['nombre'] = $proveedor['nombre'];
+        $datos['telefono'] = $proveedor['telefono'];
+        $datos['correo'] = $proveedor['correo'];
+        $datos['direccion'] = $proveedor['direccion'];
+    
+        $datos = json_encode($datos); 
+        echo $datos;
+    }
+
+
+
 }

@@ -10,10 +10,6 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::verificar_intento_de_acceso_al_sistema();
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
-// se guardan los permisos del rol del usuario que inició sesión
-$r_entrada = rol_model::permisos_modulos('r_entrada');
-$l_entrada = rol_model::permisos_modulos('l_entrada');
-
 // permisos del usuario al módulo entrada de productos
 $permisosRol = [
     "r_entrada" => rol_model::permisos_modulos("r_entrada"),
@@ -28,7 +24,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 <html lang="en">
     <head>
 		<!-- titulo -->
-		<title>Entrada de producto</title>
+		<title>Registro de Compras</title>
 		<?php 
 			// se incluyen los meta datos 
 			include_once "../include/meta_include.php"; 
@@ -52,16 +48,20 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 		<main id="main" class="main">
 			<div class="pagetitle row">
 				<div class="col-12">
-					<a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+					<a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">
+						<i class="bi bi-chevron-left"></i> 
+						<span>Volver al Panel Principal</span>
+					</a>
 					<?php 
 						// se define y se decide condicionalmente el titulo de la vista
 						if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 || $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ) : ?>
-							<h1 class="tituloUno my-3">Lista de Entradas de Productos</h1>
+							
+							<h1 class="tituloUno my-3">Historial de Compras</h1>
 
-					<?php endif;
-						if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 0) : ?>
+					<?php endif; if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 0) : ?>
 
-							<h1 class="tituloUno my-3">Registro de Productos Comprados</h1>
+							<h1 class="tituloUno my-3">Registro de Compras</h1>
+
 					<?php endif; ?>
 
 					<div id="cardEntries" class="col-12 col-sm-12 col-md-6 pagetitle text-center card-body">
@@ -200,92 +200,95 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 											</form>
 									
 									
-											<div class="table-responsive">
-												<table class="table table-striped example" id="example">
-													<thead>
-														<tr>
-															<th class="col text-center" scope="col">N.º</th>
-															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Cédula" : "Cédula o RIF" ?></th>
-															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Usuario" : "Proveedor" ?></th>
-															<th class="col text-center" scope="col">Total ($)</th>
-															<th class="col text-center" scope="col">Total (Bs.)</th>
-															<th class="col text-center" scope="col">Tasa de Cambio</th>
-															<th class="col text-center" scope="col">Fecha y Hora</th>
-															<th class="col text-center" scope="col">Acciones</th>
-														</tr>
-													</thead>
+											<?php if ($permisosRol['l_entrada'] == 1 ): 
+												// <!-- historial de compras solo disponible si el usuario cuenta con los permisos necesarios -->
+											?>
 
-													<tbody>
-														<?php
-															if ($tipoCompra == 1){
-																$consulta = modeloPrincipal::consultar("SELECT U.cedula, U.nombre, U.apellido, 
-																	E.total_dolar, E.total_bs, E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-																	FROM entrada AS E
-																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-																	INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
-																	ORDER BY E.fecha_entrada DESC 
-																	LIMIT 100
-																");
-															}else if($tipoCompra == 0){
-																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, PROV.cedula_rif,
-																	E.total_dolar, E.total_bs,
-																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-																	FROM entrada AS E
-																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-																	INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-																	ORDER BY E.fecha_entrada DESC 
-																	LIMIT 100
-																");
-															}else if($fecha1 !== "" && $fecha2 !== ""){
-																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
-																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
-																	FROM entrada AS E 
-																	INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
-																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-																	WHERE E.fecha_entrada 
-																	BETWEEN DATE('$fecha1') AND DATE('$fecha2') 
-																	ORDER BY E.fecha_entrada DESC
-																");
-															}
-
-															// se guardan los datos en un array y se imprime
-															while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
-																<tr>
-																	<td class="col text-center"></td>
-																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?></td>
-																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?></td>
-																	<td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
-																	<td class="col text-center"><?= $mostrar["total_bs"].' Bs.'; ?></td>
-																	<td class="col text-center"><?= $mostrar["tasa"].' Bs.'; ?></td>
-
-																	<td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
-
-																	<?php if (rol_model::verificar_rol('l_entrada') == '1') : ?>
+												<div class="table-responsive">
+													<table class="table table-striped example" id="example">
+														<thead>
+															<tr>
+																<th class="col text-center" scope="col">N.º</th>
+																<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Cédula" : "Cédula o RIF" ?></th>
+																<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Usuario" : "Proveedor" ?></th>
+																<th class="col text-center" scope="col">Total ($)</th>
+																<th class="col text-center" scope="col">Total (Bs.)</th>
+																<th class="col text-center" scope="col">Tasa de Cambio</th>
+																<th class="col text-center" scope="col">Fecha y Hora</th>
+																<th class="col text-center" scope="col">Ver Detalles</th>
+																<th class="col text-center" scope="col">Reporte</th>
+															</tr>
+														</thead>
+	
+														<tbody>
+	
+															<?php
+																if ($tipoCompra == 1){
+																	$consulta = modeloPrincipal::consultar("SELECT U.cedula, U.nombre, U.apellido, 
+																		E.total_dolar, E.total_bs, E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+																		FROM entrada AS E
+																		INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+																		INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
+																		ORDER BY E.fecha_entrada DESC 
+																		LIMIT 100
+																	");
+																}else if($tipoCompra == 0){
+																	$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, PROV.cedula_rif,
+																		E.total_dolar, E.total_bs,
+																		E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+																		FROM entrada AS E
+																		INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+																		INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+																		ORDER BY E.fecha_entrada DESC 
+																		LIMIT 100
+																	");
+																}else if($fecha1 !== "" && $fecha2 !== ""){
+																	$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
+																		E.fecha_entrada, E.id_entrada, D.dolar AS tasa
+																		FROM entrada AS E 
+																		INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+																		INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+																		WHERE E.fecha_entrada 
+																		BETWEEN DATE('$fecha1') AND DATE('$fecha2') 
+																		ORDER BY E.fecha_entrada DESC
+																	");
+																}
+	
+																// se guardan los datos en un array y se imprime
+																while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
+																	<tr>
+																		<td class="col text-center"></td>
+																		<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?></td>
+																		<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?></td>
+																		<td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
+																		<td class="col text-center"><?= $mostrar["total_bs"].' Bs.'; ?></td>
+																		<td class="col text-center"><?= $mostrar["tasa"].' Bs.'; ?></td>
+	
+																		<td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+	
 																		<td class="col text-center" scope="col">
-																			<div class="d-flex justify-content-center align-items-center gap-2">
-																				<div class="col col-auto">
-																					<button onclick="btn_show_modal('btn_modal', 'detallesEntrada')" <?= rol_model::verificar_rol('l_entrada') == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
-																				</div>
-																				<div class="col col-auto">
-																					<form action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
-																						<input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
-																						<button type="submit" class="btn bi bi-file-text btn-primary">&nbsp;PDF</button>
-																					</form>
-																				</div>
-																			</div>
+																			<button modal="detallesEntrada" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
 																		</td>
-																	<?php endif; ?>
-																</tr>
-															<?php } ?>
-													</tbody>
-												</table>
-											</div>
+																		
+																		<td class="col text-center" scope="col">
+																			<form action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
+																				<input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
+																				<button type="submit" class="btn bi bi-file-text btn-primary">&nbsp;PDF</button>
+																			</form>
+																		</td>
+																	</tr>
+																<?php } ?>
+														</tbody>
+													</table>
+												</div>
+
+											<?php endif; ?>
 										</div>
 
 								<?php endif;
 									if ($permisosRol['r_entrada'] == 1) : ?>
 
-										<div class="show <?= $l_entrada == 1 ? 'd-none' : '' ?>">
+										<div class="show <?= $permisosRol['l_entrada'] == 1 ? 'd-none' : '' ?>">
 											
 											<form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
 												<input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
@@ -369,10 +372,10 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 																	<tr>
 																		<th class="col text-center" scope="col">Producto</th>
 																		<th class="col text-center" scope="col">Cantidad</th>
-																		<th class="col text-center" scope="col">Costo Unitario ($)</th>
-																		<th class="col text-center" scope="col">Costo Unitario (Bs.)</th>
+																		<th class="col text-center" scope="col">Costo ($)</th>
+																		<th class="col text-center" scope="col">Costo (Bs.)</th>
 																		<th class="col text-center" scope="col">Precio Venta ($)</th>
-																		<th class="col text-center" scope="col">Acción</th>
+																		<th class="col text-center" scope="col">Quitar</th>
 																	</tr>
 																</thead>
 																<tbody id="lista_producto"></tbody>
@@ -466,7 +469,6 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 			});
 		</script>
 
-		<script src="./js/añadir_elemento_lista.js"></script>
 		<script src="./js/convertir_dolar_bs.js"></script>
 		<?php 
 			include_once "./modal/plantillaModalCustom.php";

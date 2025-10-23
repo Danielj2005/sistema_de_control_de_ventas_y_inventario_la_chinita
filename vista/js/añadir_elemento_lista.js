@@ -24,20 +24,32 @@ function validar_existencia(name_select, id_tr) {
     return existe;
 }
 
+const urlAPI = (btnAddName) => {
+    switch (get_url()) {
+        // endpoints para el modulo de Ventas
+        case "generar_venta": 
+            if (btnAddName == "btn_producto") {
+                return "añadir_productos_a_venta";
+            }else if (btnAddName == "btn_add_servicio") {
+                return "añadir_servico_a_venta";
+            }
+            break;
+        // endpoints para el modulo de Productos
+        case "entrada_de_productos": return "productos_compra_a_proveedores";
+
+        // endpoints para el modulo de Servicios
+        case "gestion_servicios": return "añadir_productos_a_servicio";
+
+        default: return "";
+    }
+};
+
+
 btn_add.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
     
-        let URL = "";
-
-        // funcion para obtener la pagina actual getUrl() funcion global
-        if (get_url() == 'generar_venta') {
-
-            URL = btn.name == 'btn_add_servicio' ? '../include/servicios_venta.php' : '../include/productos_venta.php';
-            
-        }else{
-            URL = btn.name == 'btn_producto' ? '../include/tabla_productos.php' : '../include/productos_servicio.php';
-        }
+        const MODULO = urlAPI(btn.name);
 
         //  se inicializan las variables de los selectores de producto o servicio
         let id_option_selected = "";
@@ -53,12 +65,9 @@ btn_add.forEach(btn => {
             }
         });
 
-        // se define la variable que tendrá la id que será consultada en la base de datos para mostrar la informacion en la lista
-        const params = {'id': id_option_selected};
-
         $.ajax({
-            data: params,
-            url:  URL,
+            data: {'id': id_option_selected, module: MODULO},
+            url:  URL_API,
             type:  'post',
             success:function(valores){
                 if (!validar_existencia(name_select, id_option_selected)) {

@@ -1,21 +1,19 @@
 // función para buscar datos de un proveedor ya registrado
 
 function buscar_proveedor(){
-    let nacionalidad = document.getElementById('nacionalidad').value;
-    let cedula = document.getElementById("cedula").value;
-
-    if (cedula =="") {
-        Swal.fire("Atención!","El campo cédula se encuentra vacío, Por favor llenar todos los campos para continuar","warning");
-    }
-    
-    let parametros = {
-        "buscar": "1",
-        "cedula" : nacionalidad+cedula
-    };
+    const nacionalidad = document.getElementById('nacionalidad').value;
+    const cedula = document.getElementById("cedula").value == "" 
+        ? 
+        Swal.fire("Atención!","El campo cédula se encuentra vacío, Por favor llenar todos los campos para continuar","warning")
+        : 
+        document.getElementById("cedula").value ;
 
     $.ajax({
-        data:  parametros,
-        url:   '../include/buscar_proveedor.php',
+        data:  {
+            "cedula" : nacionalidad+cedula,
+            module: "buscar_proveedor_compra"
+        },
+        url:   URL_API,
         type:  'post',
         dataType: 'json',
         success: function (datos) {

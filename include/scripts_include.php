@@ -76,6 +76,8 @@
 <script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
 <script src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
 
+<script src="./js/añadir_elemento_lista.js"></script>
+
 <script type="text/javascript">
     // inicializar la libreria Select2 
     $('.SelectTwo').select2();

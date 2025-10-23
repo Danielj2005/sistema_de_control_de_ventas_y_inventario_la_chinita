@@ -40,7 +40,7 @@ if (mysqli_num_rows($consulta) < 1) {
                 <th class="col text-center" scope="col">Total ($)</th>
                 <th class="col text-center" scope="col">Total (Bs)</th>
                 <th class="col text-center" scope="col">Tasa de Cambio</th>
-                <th class="col text-center" scope="col">Quién realizó la entrada</th>
+                <th class="col text-center" scope="col">Registrado por</th>
             </tr>
         </thead>
         <tbody>

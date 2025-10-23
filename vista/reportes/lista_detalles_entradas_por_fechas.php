@@ -58,11 +58,11 @@ function tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCo
 
     $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
     $pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total en $'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total en BS'),'LTRB',0,'C',0);
+    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
+    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
     $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha / Hora'),'LTRB',0,'C',0);
-    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Quién Realizó la entrada'),'LTRB',1,'C',0);
+    $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
+    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
 }
 
 // se definen variable con los tamaños de las celdas para mejor adaptacion

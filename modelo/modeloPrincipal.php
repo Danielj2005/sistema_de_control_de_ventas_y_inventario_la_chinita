@@ -337,4 +337,32 @@ class modeloPrincipal {
     public static function primeraLetraMayus ($string):string { return ucwords(strtolower($string)); }
 
 
+    /*******************************************************************/ 
+    /*     Funciones dedicadas a resolver peticiones del usuario       */
+    /*******************************************************************/
+    
+    public static function buscar_datos_cliente ($dni) { 
+        $cedula = self::LimpiarCadenaTexto($dni);
+        $datos['existe'] = "0";
+
+        //Consulta
+        $cliente =  self::consultar ("SELECT * FROM cliente WHERE cedula ='$cedula'");
+        
+        if (mysqli_num_rows($cliente) < 1) {
+            $datos['error'] = "El cliente no existe.";
+            echo json_encode($datos);
+            exit();
+        }
+        $cliente = mysqli_fetch_array($cliente);
+
+        $datos['existe'] = "1";
+        $datos['id_cliente'] = $cliente['id_cliente'];
+        $datos['nombre'] = $cliente['nombre'];
+        $datos['telefono'] = $cliente['telefono'];
+        
+        $datos = json_encode($datos); 
+        echo $datos;
+    }
+
+
 }

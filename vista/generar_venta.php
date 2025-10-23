@@ -101,7 +101,7 @@ if ($rol == 1) {  ?>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-3 mb-3">
-                        <button type="button" name="btn_add_servicio" path="1" class="btn_add btn btn-success bi bi-plus">&nbsp; Añadir servicio</button>
+                        <button type="button" name="btn_add_servicio" class="btn_add btn btn-success bi bi-plus">&nbsp; Añadir servicio</button>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-12 mb-3">
@@ -140,7 +140,7 @@ if ($rol == 1) {  ?>
                       </div>
 
                       <div class="col-12 col-sm-12 col-md-3 mb-3">
-                        <button type="button" name="btn_producto" path="2" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
+                        <button type="button" name="btn_producto" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
                       </div>
 
                       <div class="col-12 col-md-12 mb-3">
@@ -230,32 +230,23 @@ if ($rol == 1) {  ?>
           </div>
         </section>
       </main>
-      <!-- jquery -->
-      <script src="./js/jquery-3.6.0.min.js"></script>
-      <script src="./js/bootstrap.bundle.min.js"></script>
 
-      <!-- datatable js files -->
-      <script src="./js/jquery.dataTables.min.js"></script>
-      <script src="./js/datatables.min.js"></script>
-      <script src="./js/dataTables.bootstrap5.min.js"></script>
-    
-      <!-- Template Main JS File -->
-      <script src="assets/js/main.js"></script>
+        <?php 
+        include_once "./modal/plantillaModalCustom.php";  
+        modalCustom ();
 
-      <script src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
+        // se incluye el footer / pie de pagina a la vista
+        include_once "../include/footer.php"; 
+          // se incluyen los script de javascript a la vista 
+          include_once "../include/scripts_include.php"; 
       
-      <script src="./js/get_url.js"></script>
-      <script src="./js/sweetalert2.min.js"></script>
-      <script src="./js/tiempo_inactividad.js"></script>
+        model_user::validar_sesion_activa($id_usuario);
 
-      <script src="./js/dolar.js"></script>
-      <script src="./js/añadir_elemento_lista.js"></script>
+        config_model::verificar_actualizacion_configuracion(); 
 
-      <script src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
-      <script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
-      <script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
-      <script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
+        ?>
 
+        
       <script type="text/javascript">
             
         // inicializar la libreria Select2 
@@ -306,20 +297,6 @@ if ($rol == 1) {  ?>
         }
       
       </script>
-
-      <?php 
-        include_once "./modal/plantillaModalCustom.php";  
-        modalCustom ();
-
-        // se incluye el footer / pie de pagina a la vista
-        include_once "../include/footer.php"; 
-        // se incluyen los script de javascript a la vista 
-      
-        model_user::validar_sesion_activa($id_usuario);
-
-        config_model::verificar_actualizacion_configuracion(); 
-
-        ?>
     </body>
   </html>
 <?php }else{

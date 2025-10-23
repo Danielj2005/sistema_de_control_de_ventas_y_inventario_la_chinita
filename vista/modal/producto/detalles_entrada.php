@@ -6,14 +6,17 @@ require_once "../../../modelo/modeloPrincipal.php";
 $id = modeloPrincipal::decryptionId($_POST['id']);
 $id = modeloPrincipal::limpiar_cadena($id);
 
-$detalles_entrada = modeloPrincipal::consultar("SELECT
+$detalles_entrada = modeloPrincipal::consultar("SELECT PS.cantidad AS presentacion, R.nombre AS representacion,
+    P.id_producto, P.codigo, P.nombre_producto, 
+    C.nombre AS categoria,
     D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
-    PS.cantidad AS presentacion, R.nombre AS representacion,
-    M.nombre AS marca, U.nombre AS usuario
+    M.nombre AS marca, 
+    U.nombre AS usuario
     FROM detalles_entrada AS D 
     INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
     INNER JOIN producto AS P ON P.id_producto = D.id_producto 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
+    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
     INNER JOIN marca AS M ON M.id = P.id_marca
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
     INNER JOIN representacion AS R ON R.id = PS.id_representacion
@@ -32,13 +35,16 @@ $proveedor = $proveedor['proveedor'];
     <table class="table table-borderless table-striped tableDetailsEntry" id="example">
         <thead>
             <tr>
-                <th class="col text-center" scope="col">#</th>
-                <th class="col text-center" scope="col">Producto</th>
+                <th class="col text-center" scope="col">N.º</th>
+                <th class="col text-center" scope="col">Código</th>
+                <th class="col text-center" scope="col">Nombre</th>
                 <th class="col text-center" scope="col">Presentación</th>
-                <th class="col text-center" scope="col">Cantidad</th>
-                <th class="col text-center" scope="col">Precio por unidad en $</th>
-                <th class="col text-center" scope="col">Precio por unidad en BS</th>
-                <th class="col text-center" scope="col">Quién Realizó la entrada</th>
+                <th class="col text-center" scope="col">Marca</th>
+                <th class="col text-center" scope="col">Categoría</th>
+                <th class="col text-center" scope="col">Unidades Ingresadas</th>
+                <th class="col text-center" scope="col">Costo ($)</th>
+                <th class="col text-center" scope="col">Costo (Bs.)</th>
+                <th class="col text-center" scope="col">Registrado por</th>
             </tr>
         </thead>
         <tbody>
@@ -48,9 +54,12 @@ $proveedor = $proveedor['proveedor'];
             // se guardan los datos en un array y se imprime
             while ( $mostrar = mysqli_fetch_array($detalles_entrada)) { ?>    
                 <tr>
-                    <td class="col text-center"><?= $i++; ?></td>
-                    <td class="col text-center"><?= $mostrar["marca"]; ?></td>
-                    <td class="col text-center"><?= $mostrar["presentacion"]." ".$mostrar["representacion"]; ?></td>
+                    <td class="col text-center"></td>
+                    <td class="col text-center"><?= $mostrar["codigo"] ?></td>
+                    <td class="col text-center"><?= $mostrar["nombre_producto"] ?></td>
+                    <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
+                    <td class="col text-center"><?= $mostrar["marca"] ?></td>
+                    <td class="col text-center"><?= $mostrar["categoria"] ?></td>
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_dolar"].' $'; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_bs"].' bs'; ?></td>
