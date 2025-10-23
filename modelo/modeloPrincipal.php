@@ -10,7 +10,7 @@ const USER = "root";  // Nombre de usuario de mysql
 const PASSWORD = ""; // Contraseña de myqsl
 const DB = "chinita"; // Nombre de la base de datos
 const SECRET_KEY = 'SPLCH2024';
-
+const ICONO_MODIFICAR = "bi bi-pencil-square";
 
 class modeloPrincipal {
 

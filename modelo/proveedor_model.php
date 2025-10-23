@@ -155,7 +155,7 @@ class proveedor_model extends modeloPrincipal {
                 </td>
 
                 <td class="col text-center <?= $m_proveedores == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning bi bi-pencil-square"></button>
+                    <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>"></button>
                 </td>
 
                 <td class="col text-center <?= $h_proveedores == '1' ?  '' : 'd-none eraser' ?>">
