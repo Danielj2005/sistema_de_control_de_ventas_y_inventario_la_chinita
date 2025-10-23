@@ -278,18 +278,16 @@ class modeloPrincipal {
 
     public static function obtener_precio_dolar(){
         $id_dolar = self::obtener_id_precio_dolar();
-        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $id_dolar "));
-        $precio_dolar_actual = $precio_dolar_actual['dolar'];
+        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT dolar from dolar WHERE id_dolar = $id_dolar "))['dolar'];
         return $precio_dolar_actual;
     }
     
     public static function obtener_id_precio_dolar(){
-        $precio_dolar_actual = mysqli_fetch_array(modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id FROM dolar"));
-
-        if($precio_dolar_actual['id'] !==  1) {
-            return '1';
+        $precio_dolar_actual = modeloPrincipal::consultar("SELECT MAX(id_dolar) AS id FROM dolar");
+        if(mysqli_num_rows($precio_dolar_actual) < 1) {
+            return 0;
         }else{
-            $precio_dolar_actual = $precio_dolar_actual['id'];
+            $precio_dolar_actual = mysqli_fetch_array($precio_dolar_actual)['id'];
             return $precio_dolar_actual;
         }
     }
@@ -332,6 +330,7 @@ class modeloPrincipal {
             return alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
         }
     }
+    
     /*******************************************************************/ 
     /*          Funciones dedicadas a sanear cadenas de texto          */
     /*******************************************************************/ 

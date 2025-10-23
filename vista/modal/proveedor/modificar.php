@@ -46,13 +46,13 @@ $cedula = trim($cedula);
 ?>
 
 <form id="modalSendForm" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax" data-type-form="update">   
-    <div class="row m-0">
+    <div class="row m-0 p-0">
 
         <input type="hidden" name="id" value="<?= $datos_proveedor['id_proveedor']; ?>">
         <input type="hidden" name="modulo" value="Modificar">
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
-            <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
+            <label class="form-label">Cédula o RIF <span style="color:#f00;">*</span> </label>
             <div class="input-group">
                 <select name="nacionalidad" class="form-select-sm col-sm-3 input-group-text" aria-label="Default select example">
                     <option name="nacionalidad" <?= ( $select == 'V') ? 'selected' : '' ?> value="V-">V</option>

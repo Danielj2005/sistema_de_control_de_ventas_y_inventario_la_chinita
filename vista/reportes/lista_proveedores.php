@@ -2,12 +2,11 @@
 session_start();
 require_once "../../modelo/modeloPrincipal.php";
 require_once 'fpdf/fpdf.php';
-date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
     function Header(){
         
-        // $this->Image('../img/logo.png',220,10,35,35,'PNG');
+        $this->Image('img/logo.png',25,5,33);
         
         $this->setY(10);
         $this->setX(10);
@@ -44,9 +43,9 @@ class PDF extends FPDF{
     function Footer(){
         $this->SetFont('helvetica', 'B', 8);
         $this->SetY(-15);
-        $this->Cell(100,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
-        $this->Cell(100,5,date('d/m/Y | g:i:a') ,00,1,'R');
-        $this->Line(5,287,215,287);
+        $this->Cell(0,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
+        $this->Cell(0,5,date('d/m/Y | g:i:a') ,00,1,'R');
+        $this->Line(5,280,280,280);
         $this->Cell(0,5, self::convert_codification("© Todos los derechos reservados."),0,0,"C");
             
     }
@@ -69,7 +68,7 @@ $pdf->setY(60);
 $pdf->setX(5);
 $pdf->SetFont('Arial','B',10);
 $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-$pdf->Cell(30, 5, $pdf->convert_codification('Cédula/RIF'),'LTRB',0,'C',0);
+$pdf->Cell(25, 5, $pdf->convert_codification('Cédula/RIF'),'LTRB',0,'C',0);
 $pdf->Cell(65, 5, $pdf->convert_codification('Nombre'),'LTRB',0,'C',0);
 $pdf->Cell(70, 5, $pdf->convert_codification('Correo'),'LTRB',0,'C',0);
 $pdf->Cell(25, 5, $pdf->convert_codification('Teléfono'),'LTRB',0,'C',0);
@@ -84,9 +83,9 @@ if (mysqli_num_rows($consulta) < 1 ){
 
     $pdf->SetFont('Arial','',10);
 
-    $pdf->Cell(210, 5, $pdf->convert_codification ('NO SE ENCONTRARON PROVEEDORES REGISTRADOS.'),'B',1,'C',0);
-    $pdf->Cell(210, 5, $pdf->convert_codification ('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LOS PROVEEDORES.'),'B',1,'C',0);
-    $pdf->Output("I","Listado de Proveedores (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Cell(0, 5, $pdf->convert_codification ('NO SE ENCONTRARON PROVEEDORES REGISTRADOS.'),'B',1,'C',0);
+    $pdf->Cell(0, 5, $pdf->convert_codification ('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LOS PROVEEDORES.'),'B',1,'C',0);
+    $pdf->Output("I","Lista de Proveedores (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
 $pdf->SetFont('Arial','',8);
@@ -97,11 +96,11 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     
     $pdf->setX(5);
     $pdf->Cell(10, 5, $i++,'B',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["cedula_rif"]),'B',0,'L',0);
-    $pdf->Cell(65, 5, $pdf->convert_codification($mostrar["nombre"]),'B',0,'L',0);
-    $pdf->Cell(70, 5, $pdf->convert_codification($mostrar["correo"]),'B',0,'L',0);
-    $pdf->Cell(25, 5, $pdf->convert_codification($mostrar["telefono"]),'B',0,'L',0);
-    $pdf->Cell(80, 5, $pdf->convert_codification($mostrar["direccion"]),'B',1,'L',0);
+    $pdf->Cell(25, 5, $pdf->convert_codification($mostrar["cedula_rif"]),'B',0,'C',0);
+    $pdf->Cell(65, 5, $pdf->convert_codification($mostrar["nombre"]),'B',0,'C',0);
+    $pdf->Cell(70, 5, $pdf->convert_codification($mostrar["correo"]),'B',0,'C',0);
+    $pdf->Cell(25, 5, $pdf->convert_codification($mostrar["telefono"]),'B',0,'C',0);
+    $pdf->Cell(80, 5, $pdf->convert_codification($mostrar["direccion"]),'B',1,'C',0);
     
 } 
 $pdf->Output("I","Listado de Proveedores (".date('d/m/Y | h:i:a').").pdf",true);

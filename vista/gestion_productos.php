@@ -81,7 +81,11 @@ if ($rol >= 1 && $rol <= 11) {
         ?>
         <main id="main" class="main">
             <div class="pagetitle">
-                <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp;Volver al Panel</a>
+                    
+                <a class="btn btn-outline-secondary mb-3" href="./inicio.php">
+                    <i class="bi bi-chevron-left"></i> 
+                    <span>Volver al Panel Principal</span>
+                </a>
                 <h1 class="text-center titulosH my-2 fs-1">Gestión de Productos</h1>
             </div>
             <section class="section dashboard">
@@ -153,7 +157,12 @@ if ($rol >= 1 && $rol <= 11) {
                                 <?php endif; ?>
 
                                 <div class="setCol text-center col-12 col-md-4 mb-2 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">
-                                    <a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_productos.php">Exportar Productos</a>
+                                    <a class="col-12 btn btn-secondary" 
+                                        target="_blank" 
+                                        href="./reportes/productos.php">
+                                            <i class="bi bi-file-earmark-arrow-down"></i>
+                                            <span>Exportar Lista (.PDF)</span>
+                                    </a>
                                 </div>
 
                                 <hr>

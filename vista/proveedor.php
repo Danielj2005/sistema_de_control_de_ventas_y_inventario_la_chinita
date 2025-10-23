@@ -46,8 +46,13 @@ if ($rol >= 1 && $rol <= 4) {  ?>
       <main id="main" class="main">
         <div class="pagetitle row">
           <div class="col-12 col-sm-12 col-md-12 mb-4">
-            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-            <h1 class="mt-3"> Proveedores </h1>
+            
+            <a class="btn btn-outline-secondary mb-3" href="./inicio.php">
+                <i class="bi bi-chevron-left"></i> 
+                <span>Volver al Panel Principal</span>
+            </a>
+            
+            <h1 class="mt-3">Gestión de Proveedores</h1>
           </div>
         </div>
         <section class="section dashboard">
@@ -55,16 +60,22 @@ if ($rol >= 1 && $rol <= 4) {  ?>
             <div class="col-12">
               <div class="card top-selling">
                 <div class="row p-2 text-center">
-                  
-                  <div id="btn_register_container" class="col-12 col-sm-12 mb-3 row m-0 <?= $r_proveedores == 1 ? '' : 'd-none eraser'; ?> <?= $l_proveedores == 1 ? 'col-md-6' : 'd-none'; ?>">
-                    <button id="btn_register" onclick="toggle()" class="btn btn-success bi ">&nbsp; Registrar un Proveedor</button>
-                  </div>
+
+                  <?php if ($r_proveedores == 1 && $l_proveedores == 1 ): ?>
+                    <div id="btn_register_container" class="col-12 col-sm-12 mb-3 row m-0 col-md-6">
+                      <button id="btn_register" onclick="toggle()" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> 
+                        <span>Nuevo Proveedor</span>
+                      </button>
+                    </div>
+                  <?php endif; ?>
 
                   <div class="col-12 col-sm-12 mb-3 row m-0 <?= $r_proveedores == 1 && $l_proveedores == 0 ? 'col-md-12' : 'col-md-6'; ?>">
                     <a class="col-12 btn btn-secondary" 
                       target="_blank" 
                       href="./reportes/lista_proveedores.php">
-                        Exportar Lista de Proveedores
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                        <span>Exportar Lista (.PDF)</span>
                     </a>
                   </div>
                 </div>
@@ -72,70 +83,81 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                 <hr>
 
                 <div class="card-body pb-0">
+
+                  <?php if ($l_proveedores == '1'): ?>
+
+                    <div class="hidden table table-responsive">
+                      <h5 class="card-title">Listado de Proveedores Registrados</h5>
+                      <table class="table table-borderless table-striped example" id="example">
+                        <thead>
+                          <tr>
+                            <th class="col text-center" scope="col">#</th>
+                            <th class="col text-center" scope="col">RIF / Identificación</th>
+                            <th class="col text-center" scope="col">Razón Social</th>
+                            <th class="col text-center" scope="col">Ver Detalles</th>
+                            <?php if ($m_proveedores == '1'): ?>
+                              <th class="col text-center" scope="col" class="text-center">Editar</th>
+                            <?php endif; 
+                              if ($h_proveedores == '1'): ?>
+                                <th class="col text-center" scope="col" class="text-center">Historial de Compras</th>
+                            <?php endif; ?>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php proveedor_model::lista_proveedores_registrados(); ?>  
+                        </tbody>
+                      </table>
+                    </div>
+
+                  <?php endif; if ($r_proveedores == '1'): ?>
+
+                      <div class="hidden <?= $l_proveedores == 1 ? 'd-none' : ''; ?>">
+                        <h5 class="card-title">Nuevo Proveedor</h5>
+
+                        <form id="formularioRegistrar" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
+                            
+                          <input type="hidden" name="modulo" value="Guardar">
+                          <div class="col-12 col-sm-12 col-md-6 mb-3">
+                              <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
+                              <div class="col-md-4 input-group">
+                                  <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
+                                      <option value="V-">V</option>
+                                      <option value="E-">E</option>
+                                      <option value="G-">G</option>
+                                      <option value="J-">J</option>
+                                      <option value="P-">P</option>
+                                      <option value="R-">RIF</option>
+                                  </select>
+                                  <input type="text" class="form-control" pattern="[0-9]{7,8}" minlength="6" maxlength="8" placeholder="ingresa la cédula / RIF" name="cedula" id="cedula" required>
+                              </div>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-6 mb-3">
+                              <label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
+                              <input type="text" class="form-control"  placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-6 mb-3">
+                              <label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
+                              <input type="text" class="form-control" placeholder="ingresa el correo" id="correo" name="correo" required>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-6 mb-3">
+                              <label for="validationDefault05" class="form-label">Teléfono <span style="color:#f00;">*</span></label>
+                              <input type="text" class="form-control" maxlength="11" name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-12 mb-3">
+                              <label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
+                              <input type="text" class="form-control" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
+                          </div>
+                          <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
+                              <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
+                          </div>
+                          
+                          <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
+                            <button type="submit" form="formularioRegistrar" class="btn btn-success bi bi-plus">&nbsp;Registrar</button>
+                          </div>
+                        </form>
+                      </div>
                   
-                  <div class="hidden table table-responsive <?= $l_proveedores == 0 ? 'd-none' : ''; ?> ">
-                    <h5 class="card-title">Lista de Proveedores</h5>
-                    <table class="table table-borderless table-striped example" id="example">
-                      <thead>
-                        <tr>
-                          <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">Cédula / Rif</th>
-                          <th class="col text-center" scope="col">Nombre</th>
-                          <th class="col text-center <?= $l_proveedores == '1' ?  '' : 'd-none eraser' ?>" scope="col">Detalles</th>
-                          <th class="col text-center <?= $m_proveedores == '1' ?  '' : 'd-none eraser' ?>" scope="col" class="text-center">Modificar</th>
-                          <th class="col text-center <?= $h_proveedores == '1' ?  '' : 'd-none eraser' ?>" scope="col" class="text-center">Historial de compras</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php proveedor_model::lista_proveedores_registrados(); ?>  
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div class="hidden <?= $l_proveedores == 1 ? 'd-none' : ''; ?> <?= $r_proveedores == 1 ? '' : 'd-none eraser'; ?>">
-                    <h5 class="card-title">Registro de Proveedores</h5>
-
-                    <form id="formularioRegistrar" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
-                        <input type="hidden" name="modulo" value="Guardar">
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label class="form-label">Cédula / RIF <span style="color:#f00;">*</span></label>
-                            <div class="col-md-4 input-group">
-                                <select class="input-group-text" id="nacionalidad" name="nacionalidad" required>
-                                    <option value="V-">V</option>
-                                    <option value="E-">E</option>
-                                    <option value="G-">G</option>
-                                    <option value="J-">J</option>
-                                    <option value="P-">P</option>
-                                    <option value="R-">RIF</option>
-                                </select>
-                                <input type="text" class="form-control" pattern="[0-9]{7,8}" minlength="6" maxlength="8" placeholder="ingresa la cédula / RIF" name="cedula" id="cedula" required>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label for="validationDefault02" class="form-label">Nombre <span style="color:#f00;">*</span></label>
-                            <input type="text" class="form-control"  placeholder="ingresa el nombre" id="nombre_proveedor" name="nombre_proveedor" required>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label for="validationDefault02" class="form-label">Correo <span style="color:#f00;">*</span></label>
-                            <input type="text" class="form-control" placeholder="ingresa el correo" id="correo" name="correo" required>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 mb-3">
-                            <label for="validationDefault05" class="form-label">Teléfono <span style="color:#f00;">*</span></label>
-                            <input type="text" class="form-control" maxlength="11" name="telefono" placeholder="ingresa el teléfono" id="telefono" required>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 mb-3">
-                            <label for="validationDefault03" class="form-label">Dirección <span style="color:#f00;">*</span></label>
-                            <input type="text" class="form-control" name="direccion" placeholder="ingresa la dirección" id="direccion" required>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-                            <div class="text-start"> <p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p> </div>
-                        </div>
-                        
-                        <div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-                          <button type="submit" form="formularioRegistrar" class="btn btn-success bi bi-plus">&nbsp;Registrar</button>
-                        </div>
-                    </form>
-                  </div>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
@@ -155,7 +177,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         config_model::verificar_actualizacion_configuracion(); ?>
         <script>
           // funcion para mostrar y ocultar elementos en proveedores
-          const titlex = ['Ver lista de provedores registrados','Registrar un Proveedor'];
+          const titlex = ['Ver lista de Provedores Registrados','Registrar un Proveedor'];
           const btnToggle = document.getElementById('btn_register');
 
           const toggle = ()=>{

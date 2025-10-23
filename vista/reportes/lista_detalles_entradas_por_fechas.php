@@ -8,7 +8,6 @@ date_default_timezone_set('America/caracas');
 class PDF extends FPDF{
         
     function Header(){
-        $this->Image('../img/logo.png',235,10,35,35,'PNG');
 
         $this->setY(10);
         $this->setX(10);

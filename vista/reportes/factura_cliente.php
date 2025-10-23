@@ -2,16 +2,12 @@
 require_once ('../../modelo/modeloPrincipal.php');
 require_once ('../../modelo/venta_model.php');
 
-date_default_timezone_set('America/caracas');
 # Incluyendo librerias necesarias #
 require "./code128.php";
-
-
 
 function convert_codification ($cadena):string {
     return mb_convert_encoding("$cadena", 'ISO-8859-1', 'UTF-8');
 }
-
 
 
 $pdf = new PDF_Code128('P','mm',array(80,258));

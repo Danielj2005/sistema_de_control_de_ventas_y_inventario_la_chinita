@@ -39,7 +39,7 @@
               <li>
                 <a href="../vista/proveedor.php">
                   <i class="bi bi-circle"></i>
-                  <span>Proveedores</span>
+                  <span>Gestión de Proveedores</span>
                 </a>
               </li>
             <?php 

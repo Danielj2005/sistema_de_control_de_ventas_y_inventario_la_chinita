@@ -24,7 +24,7 @@ class PDF extends FPDF{
         $userId = $ids['id_usuario'];
         $userData = mysqli_fetch_array(modeloPrincipal::consultar("SELECT U.*, (SELECT nombre FROM rol WHERE id_rol = U.id_rol) AS rol FROM usuario AS U WHERE id_usuario = $userId"));
 
-        $this->Image('../img/logo.png',235,0,35,35,'PNG');
+        
 
         $this->setY(10);
         $this->setX(10);

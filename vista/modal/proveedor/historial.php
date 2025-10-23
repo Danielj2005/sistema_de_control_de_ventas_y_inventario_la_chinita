@@ -37,9 +37,9 @@ if (mysqli_num_rows($consulta) < 1) {
             <tr>
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">Fecha y Hora</th>
-                <th class="col text-center" scope="col">Total en $</th>
-                <th class="col text-center" scope="col">Total en BS</th>
-                <th class="col text-center" scope="col">Cotización</th>
+                <th class="col text-center" scope="col">Total ($)</th>
+                <th class="col text-center" scope="col">Total (Bs)</th>
+                <th class="col text-center" scope="col">Tasa de Cambio</th>
                 <th class="col text-center" scope="col">Quién realizó la entrada</th>
             </tr>
         </thead>
@@ -48,7 +48,7 @@ if (mysqli_num_rows($consulta) < 1) {
                 while ($row = mysqli_fetch_array($consulta)) { ?>    
                     <tr>
                         <td class="col text-center"></td>
-                        <td class="text-center col"><?= date('d-m-Y | g:i:a', strtotime($row["fecha_entrada"])); ?></td> 
+                        <td class="text-center col"><?= date('d-m-Y g:i:a', strtotime($row["fecha_entrada"])); ?></td> 
                         <td class="col text-center"><?= $row["total_dolar"] == 0 ? '0.$' : $row["total_dolar"].' $' ;  ?></td>
                         <td class="col text-center"><?= $row["total_bs"].'bs'; ?></td>
                         <td class="col text-center"><?= $row["tasa"].'bs'; ?></td>
@@ -58,11 +58,3 @@ if (mysqli_num_rows($consulta) < 1) {
         </tbody>
     </table>
 </div>
-
-    <!-- <div class="modal-footer">
-        <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
-            <input type="hidden" value="<  ? php // $nombre_proveedor['id_proveedor'] ?>" name="id_proveedor">
-            <button type="submit" class="btn btn-primary">Exportar Historial en PDF</button>
-        </form>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-    </div> -->

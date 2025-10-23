@@ -3,31 +3,12 @@ error_reporting(E_PARSE);
 
 class alert_model {
 
-    // public function __construct() {
-    //     parent::__construct(); // Llama al constructor de la clase padre (modeloPrincipal)
-    // }
-
-    // public function get_alertas($id_usuario) {
-    //     $query = "SELECT * FROM alertas WHERE id_usuario = :id_usuario AND estado = 1";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-    //     $stmt->execute();
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-    // public function marcar_alerta_leida($id_alerta) {
-    //     $query = "UPDATE alertas SET estado = 0 WHERE id_alerta = :id_alerta";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->bindParam(':id_alerta', $id_alerta, PDO::PARAM_INT);
-    //     return $stmt->execute();
-    // }
-    
-
     /**********************************************************************************/
     /*********************** funciones para crear alertas con sweet alert *************/
     /**********************************************************************************/
 
     /*------------------- funcion para crear una alerta con sweet alert con parametros ---------------*/
+
 
     public static function alerta_simple ($title, $text, $icon){
         echo '<script type="text/javascript">
@@ -39,6 +20,7 @@ class alert_model {
                 });
             </script>';
     }
+
     public static function alert_reset_forms ($title, $text, $icon, $condition = "$('.SendFormAjax')[0].reset();"){
         echo "<script>
                 Swal.fire({
@@ -50,6 +32,7 @@ class alert_model {
             $condition
             </script>";
     }
+
     public static function alerta_condicional ($title, $text, $icon, $condition = "location.reload();", $reset_forms = "$('.SendFormAjax')[0].reset();"){
         echo "<script>
                 Swal.fire({
@@ -67,6 +50,7 @@ class alert_model {
                 $reset_forms
             </script>";
     }
+
 
     public static function alerta_simple_reset_de_formularios($title, $text, $icon, $condition = "$('.SendFormAjax')[0].reset();"){
         self::alert_reset_forms($title, $text, $icon);
@@ -155,6 +139,7 @@ class alert_model {
                 });
             </script>';
     }
+
     public static function alert_of_format_wrong($campo){
         echo '<script type="text/javascript">
             Swal.fire({
@@ -178,6 +163,4 @@ class alert_model {
                 });
         </script>'; 
     }
-
-    
 }

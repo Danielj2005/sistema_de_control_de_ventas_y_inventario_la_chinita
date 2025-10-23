@@ -1,7 +1,7 @@
 const dataModal = {
+    // modales del módulo presentaciones
     listaPresentacion : {
         modalUrl : "./modal/producto/lista_presentacion.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Presentaciones Registradas',
         modalSize : 'modal-lg',
         modalDataTable : true,
@@ -9,21 +9,20 @@ const dataModal = {
     },
     registrarPresentacion : {
         modalUrl : "./modal/producto/registrarPresentacion.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Registrar Nueva Presentaciones',
         modalSendForm : true,
     },
+    // modales del módulo Categorias
     listaCategoria : {
         modalUrl : "./modal/producto/lista_categoria.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Categorías Registradas',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableCategoryOfProducts"
     },
+    // modales del módulo Marcas
     listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Marcas Registradas',
         modalSize : '',
         modalDataTable : true,
@@ -35,38 +34,34 @@ const dataModal = {
         modalSendForm : true,
         modalSize : '',
     },
+    // modales del módulo proveedores
     proveedorDetalles : {
         modalUrl : "./modal/proveedor/detalles.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del Proveedor',
-        modalSize : 'modal-lg',
     },
     proveedorModificar : {
         modalUrl : "./modal/proveedor/modificar.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-pencil-square"></i> &nbsp; Modificar Proveedor',
-        modalSize : 'modal-lg',
         modalSendForm : true,
     },
     proveedorHistorial : {
         modalUrl : "./modal/proveedor/historial.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-person-plus"></i> &nbsp; Detalles de Compras al Proveedor',
-        modalSize : 'modal-lg',
+        modalSize : 'modal-xl',
         modalDataTable : true,
         modalClassTable : "tableProvider"
     },
+    // modales del módulo entradas
     detallesEntrada : {
         modalUrl : "./modal/producto/detalles_entrada.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableDetailsEntry"
     },
+    // modales del módulo bitácora
     bitacora : {
         modalUrl : "./modal/bitacora/detalles_bitacora.php",
-        modalModule : "list",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i>&nbsp;Detalle de la Bitácora',
         modalDataTable : true,
         modalClassTable : "tableDetailsBitacora"

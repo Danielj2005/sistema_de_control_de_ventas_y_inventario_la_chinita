@@ -132,7 +132,9 @@ if($modulo == 'Guardar'){
                 "producto",
                 "stock_actual = ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",
             "id_producto = ".modeloPrincipal::decryptionId($id_productos[$i])."");
+
             }else{
+
                 modeloPrincipal::UpdateSQL(
                 "producto",
                 "stock_actual = stock_actual + ".$cantidad_productos[$i].", precio_venta = ".$precio_venta_dolar[$i].", fecha_ultima_actualizacion = '$fecha_entrada', estado = 1",

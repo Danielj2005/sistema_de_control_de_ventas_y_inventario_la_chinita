@@ -1,16 +1,11 @@
 <?php
 session_start();
-include_once("../../config/ConfigServer.php");
-include_once("../../modelo/modeloPrincipal.php");
-require('fpdf/fpdf.php');
+include_once "../../modelo/modeloPrincipal.php";
+require 'fpdf/fpdf.php';
 
-date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
-    function Header(){
-        
-        $this->Image('../img/logo.png',25,5,33);
-        
+    function Header(){        
 
         $this->setY(20);
         $this->setX(10);
