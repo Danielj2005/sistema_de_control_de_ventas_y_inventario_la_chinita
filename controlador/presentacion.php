@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // modulo a trabajar
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
@@ -19,9 +19,9 @@ if($modulo === "Guardar"){
     modeloPrincipal::validar_campos_vacios([$cantidad, $representacion]);
 
     // se comprueba que no exista un registro con los mismos datos
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE cantidad = '$cantidad'")) > 0){
+    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE cantidad = '$cantidad' and id_representacion = $representacion")) > 0){
         /********** No se puede registrar un usuario si ya existe **********/
-        alert_model::alerta_simple("¡Ocurrio un error!","La cantidad que ingresaste ya se encuentra en uso.","error");
+        alert_model::alerta_simple("¡Ocurrio un error!","La Presentación que intentas registrar ya se encuentra en nuestro sistema.","error");
         exit(); 
     }
 
@@ -32,23 +32,32 @@ if($modulo === "Guardar"){
 
     // se registran los datos del presentación
     try {
-        $registrar = presentacion_model::registrar($cantidad, $representacion);
+        $registrar = modeloPrincipal::InsertSQL("presentacion", "cantidad, id_representacion, estado" ,"'$cantidad', $representacion, 1");
 
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar una presentación.","error");
         }
 
     } catch (Exception $e) {
-        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la presentación debido a un error de consulta.", "error");
+        alert_model::alerta_simple("¡Ocurrió un error!", "No se pudo registrar la presentación, intente nuevamente.", "error");
         exit();
     }
     
     try {
         // se realiza la bitácora con los datos del presentación recien registrada
 
-        $bitacora = presentacion_model::bitacoraPresentacion();
+        $id = presentacion_model::obtener_id_recien_registrada();
 
-        if (!$bitacora): return false; endif;
+        $datos = presentacion_model::consultar_por_id($id);
+        $datos = mysqli_fetch_array($datos);
+        $datos['estado'] = $datos['estado'] == 1 ? 'Activo' : 'Inactivo';
+
+        $bitacora = bitacora::bitacora("Registro Exitoso de una Presentación.",
+        "Se Registro una Presentación con la Siguiente Informacón: <br><br>
+                <b>****** Información de la Presentación:   ******</b><br><br>
+                Descripción: <b>".$datos['presentacion']." ".$datos['representacion']."</b><br>
+                Estado: <b>".$datos['estado']." </b><br>
+            ");
 
         alert_model::alert_reg_success();
         
@@ -58,7 +67,6 @@ if($modulo === "Guardar"){
         exit();
     }
 }
-
 
 $id_presentacion = modeloPrincipal::decryptionId($_POST["UID"]);
 $id_presentacion = modeloPrincipal::limpiar_cadena($id_presentacion);

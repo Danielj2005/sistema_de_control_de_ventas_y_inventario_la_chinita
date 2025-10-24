@@ -8,6 +8,7 @@ date_default_timezone_set('America/caracas');
 class PDF extends FPDF{
         
     function Header(){
+        
         $id_entrada = modeloPrincipal::decryptionId($_POST['UIDE']);
         $id_entrada = modeloPrincipal::limpiar_cadena($id_entrada);
         $ids = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_proveedor, id_dolar, total_dolar, fecha_entrada, id_usuario FROM entrada WHERE id_entrada = 32"));

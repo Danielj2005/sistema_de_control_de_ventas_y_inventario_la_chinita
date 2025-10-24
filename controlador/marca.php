@@ -46,10 +46,11 @@ if($modulo === "Guardar"){
         $datos_originales = mysqli_fetch_array($datos_originales);
         $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-        bitacora::bitacora("Registro exitoso de una Marca.","Se registro una Marca con la siguiente informacón: <br><br>
-        <b>****** Información de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        ");
+        bitacora::bitacora("Registro exitoso de una Marca.",
+        "Se registro una Marca con la siguiente informacón: <br><br>
+                <b>****** Información de la Marca:   ******</b><br><br>
+                Nombre: <b>".$datos_originales['nombre']." </b><br>
+            ");
 
         alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#form_marca input').forEach((input) => {input.value = ''});");
         exit();

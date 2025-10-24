@@ -645,7 +645,6 @@ ALTER TABLE `preguntas_secretas`
 --
 ALTER TABLE `presentacion`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`cantidad`),
   ADD KEY `id_representacion` (`id_representacion`);
 
 --

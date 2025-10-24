@@ -6,7 +6,7 @@ class presentacion_model extends modeloPrincipal {
         $consul = modeloPrincipal::consultar("SELECT PS.cantidad AS presentacion, PS.estado, R.nombre AS representacion
             FROM presentacion AS PS
             INNER JOIN representacion AS R ON R.id = PS.id_representacion
-            WHERE id = $id_presentacion");
+            WHERE PS.id = $id_presentacion");
         modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -18,90 +18,19 @@ class presentacion_model extends modeloPrincipal {
         return $id_presentacion;
     }
 
-    public static function registrar ($cantidad, $representacion) {
-        $cantidadLimpia = modeloPrincipal::limpiar_cadena($cantidad);
 
-        $registrar = modeloPrincipal::InsertSQL("presentacion", "cantidad, id_representacion, estado" ,"'$cantidadLimpia', $representacion, 1");
+    public static function registrar ($cantidad, $representacion) {
+
+        $registrar = modeloPrincipal::InsertSQL("presentacion", "cantidad, id_representacion, estado" ,"'$cantidad', $representacion, 1");
+        
         if (!$registrar) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar la presentación debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se Pudo registrar la presentación debido a un error interno, por favor verifique e intente nuevamente","error");
         }
+
         return $registrar;
     }
-
-    public static function verificar_existe_presentacion ($nombres){
-        $nombres = modeloPrincipal::format_array_of_data_with_dublicated($nombres);
-        // $descripciones = modeloPrincipal::format_array_of_data_with_dublicated($descripciones);
-        // se comprueba que no exista un registro con los mismos datos
-        $nombres_registrados = [];
-        try {
-
-            for ($i = 0; $i < count($nombres); $i++) {
-                
-                $nombre = strtolower($nombres[$i]);
-                // $descripcion = strtolower($descripciones[$i]);
-
-                // if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM presentacion WHERE lower(nombre) = '$nombre' AND lower(descripcion) = '$descripcion'")) < 1){
-                if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM presentacion WHERE lower(nombre) = '$nombre'")) < 1){
-                    self::registrar($nombre,"");
-                    // $nombres_registrados[$i] = $nombres[$i];
-                    $nombres_registrados[$i] = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombres[$i])));
-                }
-            }
-                
-            $nombres_registrados = array_values($nombres_registrados);
-            
-            if (count($nombres_registrados) > 0) {
-                self::bitacora($nombres_registrados);
-            }
-        } catch (Exception $e) {
-            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la presentación debido a un error interno.","error");
-            exit();
-        }
-        // return $registrados;
-    }
-
-    public static function bitacora($presentacion) {
-        try {
-
-            $mensaje = '';
-            
-            for ($i = 0; $i < count($presentacion); $i++) { 
-                $datos_originales = modeloPrincipal::consultar("SELECT * FROM presentacion WHERE nombre = '".$presentacion[$i]."'");
-                $datos_originales = mysqli_fetch_array($datos_originales);
-                
-                $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activa' : 'Inactiva';
-                $datos_originales['descripcion'] = $datos_originales['descripcion'] == '' ? 'No definida!' : $datos_originales['descripcion'];
-
-                $mensaje .= "Nombre: <b>".$datos_originales['nombre']." </b><br>
-                Descripción: <b>".$datos_originales['descripcion']." </b><br>
-                Estado: <b>".$datos_originales['estado']." </b><br><br>";
-            }
-
-            bitacora::bitacora("Registro exitoso de una presentación.","Se registro una presentación con la siguiente informacón: <br><br>
-                <b>****** Información de la presentación:   ******</b><br><br>
-                $mensaje
-                ");
-                
-        } catch (Exception $e) {
-            alert_model::alerta_simple("Ocurrio un error!","No se pudo registrar la presentación en bitácora debido a un error interno.","error");
-            exit();
-        }
-    }
     
-    public static function obtener_array_id_presentacion($NP):array {
-        // $NC es un array con los Nombres de las presentaciones = NM
-        
-        $dataFind = [];
 
-        for ( $i = 0;  $i < count($NP); $i++ ) {
-
-            $dataFind[$i] = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id FROM presentacion WHERE nombre = '".$NP[$i]."'"))['id'];
-        }
-
-        $dataFind = array_values($dataFind);
-
-        return $dataFind;
-    }
 
     public static function lista(){
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
@@ -190,20 +119,4 @@ class presentacion_model extends modeloPrincipal {
         return true;
     }
 
-
-    public static function bitacoraPresentacion () {
-        $id = self::obtener_id_recien_registrada();
-
-        $datos = self::consultar_por_id($id);
-        $datos = mysqli_fetch_array($datos);
-        $datos['estado'] = $datos['estado'] == 1 ? 'Activo' : 'Inactivo';
-
-        $bitacora = bitacora::bitacora("Registro Exitoso de una Presentación.",
-        "Se Registro una Presentación con la Siguiente Informacón: <br><br>
-                <b>****** Información de la Presentación:   ******</b><br><br>
-                Descripción: <b>".$datos['cantidad']." ".$datos['representacion']."</b><br>
-                Estado: <b>".$datos['estado']." </b><br>
-        ");
-        return $bitacora;
-    }
 }

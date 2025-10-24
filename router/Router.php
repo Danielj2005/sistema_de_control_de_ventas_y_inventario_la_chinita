@@ -82,7 +82,6 @@ class Router {
                 $this->executeModelCall([producto_model::class, 'añadir_productos_entrada']);
                 break;
 
-
             // endpoint de servicios
             case 'añadir_servico_a_venta':
                 $this->executeModelCall([servicio_model::class, 'añadir_servico_a_venta']);

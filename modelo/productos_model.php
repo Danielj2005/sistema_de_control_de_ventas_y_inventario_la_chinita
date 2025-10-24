@@ -155,7 +155,6 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
 
         while ($mostrar = mysqli_fetch_assoc($consulta)) {
-            
             ?>
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
@@ -166,7 +165,7 @@ class producto_model extends modeloPrincipal {
                 <td class="text-center"><?= $mostrar["categoria"] ?></td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
                 <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></th>
-                <th class="text-center"><?= date("d-m-Y H:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></th>
+                <th class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></th>
             </tr>
         <?php } 
     }
@@ -232,7 +231,6 @@ class producto_model extends modeloPrincipal {
 
         } else { return 'text-success'; }
     }
-
     
     /*******************************************************************/ 
     /*     Funciones dedicadas a resolver peticiones del usuario       */
