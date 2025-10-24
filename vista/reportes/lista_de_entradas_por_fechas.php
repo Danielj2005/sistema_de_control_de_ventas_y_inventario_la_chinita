@@ -3,11 +3,12 @@ session_start();
 include_once "../../modelo/modeloPrincipal.php";
 require 'fpdf/fpdf.php';
 
-date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
         
     function Header(){
+
+        $this->Image('img/logo.png',25,5,33);
 
         $this->setY(10);
         $this->setX(10);
@@ -32,6 +33,10 @@ class PDF extends FPDF{
         $this->setX(10);
         $this->Cell(0,7,self::convert_codification("RIF: J-04608675-5"),0,1,'C');
         
+        $this->setY(40);
+        $this->setX(10);
+        $this->Cell(0,5,self::convert_codification("Lista de Entradas por Fechas"),0,0,"C");
+
         $this->Ln(50);
     }
 
@@ -52,21 +57,7 @@ class PDF extends FPDF{
     
 }
 
-function tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
-    $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
-    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
-}
-
 // se definen variable con los tamaños de las celdas para mejor adaptacion
-
 $CellProveedor = 75;
 $CellTotalDolar = 30;
 $CellTotalBS = 30;
@@ -83,36 +74,39 @@ $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
-
 $fechaReporteInicio = $_POST['fechaReporteInicio'];
 $fechaReporteFin = $_POST['fechaReporteFin'];
 
-// $fechaReporteInicio = date('Y-m-d', $fechaReporteInicio);
-// $fechaReporteFin = date('Y-m-d', $fechaReporteFin);
-
-$consulta = modeloPrincipal::consultar("SELECT PROV.nombre AS proveedor,
+$consulta = modeloPrincipal::consultar("SELECT U.cedula, U.apellido,
+    (SELECT P.nombre FROM proveedor AS P WHERE P.id_proveedor = E.id_proveedor) AS proveedor,
     E.total_dolar, E.total_bs, D.dolar AS tasa,
-    E.fecha_entrada, U.nombre AS usuario
+    E.fecha_entrada
     FROM entrada AS E
-    INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
     WHERE E.fecha_entrada 
     BETWEEN DATE('$fechaReporteInicio') AND DATE('$fechaReporteFin') 
-    ORDER BY E.fecha_entrada DESC");
+    ORDER BY E.fecha_entrada DESC
+");
 
+
+$pdf->setY(60);
+$pdf->setX(5);
+// En esta parte estan los encabezados 
+$pdf->SetFont('Arial','B',10);
+
+$pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
+$pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor / Adquisición Propia'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
+$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
+$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
+$pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
 
 // en caso de que no se encuentren proveedores registrados
 
 if (mysqli_num_rows($consulta) < 1 ){
-    $pdf->Ln();
-
-    $pdf->setY(60);
-    $pdf->setX(5);
     
-    // En esta parte estan los encabezados 
-    tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario);
-
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(0, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
     $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER SELECCIONADO CORRECTAMENTE LAS FECHAS.'),'B',1,'C',0);
@@ -120,24 +114,20 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
-$pdf->setY(60);
-$pdf->setX(5);
-
-// En esta parte estan los encabezados 
-tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario);
 
 $i = 1;
+
 while ( $mostrar = mysqli_fetch_array($consulta)) { 
     $pdf->SetFont('Arial','',10);
     
     $pdf->setX(5);
     $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
-    $pdf->Cell($CellProveedor,5, $pdf->convert_codification($mostrar["proveedor"]),'B',0,'L',0);
+    $pdf->Cell($CellProveedor,5, $pdf->convert_codification($mostrar["proveedor"] ?? "Adquisición Propia" ),'B',0,'L',0);
     $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification($mostrar["total_dolar"].' $'),'B',0,'C',0);
     $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification($mostrar["total_bs"].' bs'),'B',0,'C',0);
     $pdf->Cell($CellCotización, 5, $pdf->convert_codification($mostrar["tasa"].' bs'),'B',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y / g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
-    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification($mostrar["usuario"]),'B',1,'C',0);
+    $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
+    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification($mostrar["cedula"]." ".$mostrar["nombre"]),'B',1,'C',0);
 
 }
 

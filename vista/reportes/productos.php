@@ -75,9 +75,9 @@ $pdf->Cell(45, 5, $pdf->convert_codification("Presentación"),'LTRB',0,'C',0);
 $pdf->Cell(40, 5, $pdf->convert_codification("Marca"),'LTRB',0,'C',0);
 $pdf->Cell(55, 5, $pdf->convert_codification("Categoría"),'LTRB',0,'C',0);
 $pdf->Cell(25, 5, $pdf->convert_codification("Cantidad"),'LTRB',0,'C',0);
-$pdf->Cell(40, 5, $pdf->convert_codification("Precio bs"),'LTRB',0,'C',0);
-$pdf->Cell(30, 5, $pdf->convert_codification("Precio $"),'LTRB',0,'C',0);
-$pdf->Cell(30, 5, $pdf->convert_codification("Tasa"),'LTRB',1,'C',0);
+$pdf->Cell(40, 5, $pdf->convert_codification("Costo (Bs)"),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification("Costo ($)"),'LTRB',0,'C',0);
+$pdf->Cell(30, 5, $pdf->convert_codification("Tasa de Cambio"),'LTRB',1,'C',0);
 
 $consulta = modeloPrincipal::consultar("SELECT P.codigo AS codigoP, P.nombre_producto AS nombreP, M.nombre AS marca, 
     PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, P.stock_actual, P.precio_venta,

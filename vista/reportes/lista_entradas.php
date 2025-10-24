@@ -7,6 +7,8 @@ date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
     function Header(){
+
+        $this->Image('img/logo.png',25,5,33);
         
         $this->setY(10);
         $this->setX(10);
@@ -42,9 +44,9 @@ class PDF extends FPDF{
         $this->SetFont('helvetica', 'B', 10);
         $this->SetY(-20);
         $this->Cell(190,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
-        $this->Cell(0,5,date('d/m/Y | g:i:a') ,00,1,'R');
+        $this->Cell(0,5,date('d-m-Y | g:i:a') ,00,1,'R');
         $this->SetY(-15);
-        $this->Line(5, 285,5,285);
+        $this->Line(5, 295,295,295);
         $this->SetY(-10);
         $this->Cell(0,5,self::convert_codification("© Todos los derechos reservados."),0,0,"C");       
     }
@@ -55,33 +57,36 @@ class PDF extends FPDF{
     
 }
 
-$CellProveedor = 80;
-$CellTotalDolar = 30;
-$CellTotalBS = 30;
+$CellProveedor = 55;
+$CellTotalDolar = 35;
+$CellTotalBS = 35;
 $CellCotización = 35;
 $CellFecha = 45;
-$CellUsuario = 45;
+$CellUsuario = 50;
 
-function tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total en $'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total en BS'),'LTRB',0,'C',0);
-    $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha / Hora'),'LTRB',0,'C',0);
-    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Quién Realizó la entrada'),'LTRB',1,'C',0);
-}
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage('P',[285,327],0);
+$pdf->AddPage('P',[275,320],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
+
+
+$pdf->setY(60);
+$pdf->setX(5);
+
+// En esta parte estan los encabezados 
+$pdf->SetFont('Arial','B',10);
+
+$pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
+$pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
+$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Tasa de Cambio'),'LTRB',0,'C',0);
+$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
+$pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
 
 $consulta = modeloPrincipal::consultar("SELECT PROV.nombre AS proveedor,
     E.total_dolar, E.total_bs,
@@ -95,17 +100,12 @@ $consulta = modeloPrincipal::consultar("SELECT PROV.nombre AS proveedor,
     ORDER BY E.fecha_entrada DESC
     ");
 
+
 // en caso de que no se encuentren proveedores registrados
 
 if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Ln();
-
-    $pdf->setY(60);
-    $pdf->setX(5);
     
-    // En esta parte estan los encabezados 
-    tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario);
-
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(210, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
     $pdf->Cell(210, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LAS ENTRADAS.'),'B',1,'C',0);
@@ -113,13 +113,8 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
-$pdf->setY(60);
-$pdf->setX(5);
+$i = 1; // iterable
 
-// En esta parte estan los encabezados 
-tableHead ($pdf, $CellProveedor, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario);
-
-$i = 1;
 while ( $mostrar = mysqli_fetch_array($consulta)) { 
     $pdf->SetFont('Arial','',10);
     
@@ -131,7 +126,7 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->Cell($CellTotalBS, 10, $pdf->convert_codification($mostrar["total_bs"]).' bs','B',0,'C',0);
 
     $pdf->Cell($CellCotización, 10, $pdf->convert_codification($mostrar["tasa"]).' bs','B',0,'C',0);
-    $pdf->Cell($CellFecha, 10, $pdf->convert_codification(date('d/m/Y / g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
+    $pdf->Cell($CellFecha, 10, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
     $pdf->Cell($CellUsuario, 10, $pdf->convert_codification($mostrar["nombre"]),'B',1,'C',0);
     
 }

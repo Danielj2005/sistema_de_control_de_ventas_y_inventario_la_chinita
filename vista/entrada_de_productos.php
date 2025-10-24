@@ -99,19 +99,24 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 								<div class="col-12 col-sm-12 mb-2 <?= $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ? 'col-md-12 ' : 'col-md-6' ?>">
 									<div class="col-12 dropdown">
-										<button class="col-12 btn btn-secondary dropdown-toggle bi bi-file-text" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-											Exportar Entradas
+										<button class="col-12 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="bi bi-file-text"></i>
+											<span>Exportar Entradas</span>
 										</button>
+
 										<ul class="dropdown-menu">
 											<li> <hr class="dropdown-divider"> </li>
 											<li class="p-2 text-center">
-												<a class="btn bi bi-file-text btn-outline-success" target="_blank" href="./reportes/lista_entradas.php">&nbsp;Exportar Entradas</a>
+												<a class="btn btn-outline-success" target="_blank" href="./reportes/lista_entradas.php">
+													<i class="bi bi-file-text"></i> 
+													<span>Exportar Entradas</span>
+												</a>
 											</li>
 											<li> <hr class="dropdown-divider"> </li>
 											<li> <hr class="dropdown-divider"> </li>
 											<li class="p-2 text-center">
 												<label class="dropdown-item">Exportar Por Fecha</label>
-												<form action="./reportes/lista_detalles_entradas_por_fechas.php" method="post" class="p-2 row mb-3" id="" target="_blank">
+												<form action="./reportes/lista_de_entradas_por_fechas.php" method="post" class="p-2 row mb-3" id="" target="_blank">
 													
 													<div class="input-group mb-3 justify-content-center">
 														<label class="input-group-text text-start control-label">Fecha de inicio &nbsp;<span class="text-danger">*</span></label>
@@ -130,8 +135,12 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 															Las fechas seleccionadas no pueden ser posteriores a la Fecha actual.
 														</p>
 													</div>
+
 													<div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-														<button type="submit" class="d-none btn btn-outline-success bi bi-file-text" id="btnReportesFechas">&nbsp; Generar Reporte (PDF)</button>
+														<button type="submit" class="d-none btn btn-outline-success" id="btnReportesFechas">
+															<i class="bi bi-file-text"></i>
+															<span>Generar Reporte (PDF)</span>
+														</button>
 													</div>
 												</form>
 											</li>
@@ -271,9 +280,12 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 																		</td>
 																		
 																		<td class="col text-center" scope="col">
-																			<form action="./reportes/lista_detalles_entradas.php" method="post" target="_blank">
+																			<form action="./reportes/detalles_de_entrada.php" method="post" target="_blank">
 																				<input type="hidden" name="UIDE" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
-																				<button type="submit" class="btn bi bi-file-text btn-primary">&nbsp;PDF</button>
+																				<button type="submit" class="btn btn-primary">
+																					<i class="bi bi-file-text"></i> 
+																					<span>PDF</span>
+																				</button>
 																			</form>
 																		</td>
 																	</tr>

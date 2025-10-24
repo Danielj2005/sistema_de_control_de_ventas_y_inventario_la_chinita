@@ -8,24 +8,38 @@ date_default_timezone_set('America/caracas');
 class PDF extends FPDF{
         
     function Header(){
-        
+
+        $this->Image('img/logo.png',25,5,33);
+
         $id_entrada = modeloPrincipal::decryptionId($_POST['UIDE']);
         $id_entrada = modeloPrincipal::limpiar_cadena($id_entrada);
-        $ids = mysqli_fetch_array(modeloPrincipal::consultar("SELECT id_proveedor, id_dolar, total_dolar, fecha_entrada, id_usuario FROM entrada WHERE id_entrada = 32"));
-        $id_proveedor = $ids['id_proveedor'];
+
+        $datosProveedorEntrada = modeloPrincipal::consultar("SELECT * FROM entrada WHERE id_entrada = $id_entrada");
+                
+        if (mysqli_num_rows($datosProveedorEntrada) < 1 ){
+            $datosProveedorEntrada = mysqli_fetch_array($datosProveedorEntrada);
+            
+            
+        }else{
+                
+            $datosProveedorEntrada = mysqli_fetch_array($datosProveedorEntrada);
+
+        }
+
+
+
+        $id_proveedor = $datosProveedorEntrada['id_proveedor'];
         $dataProvider = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor"));
         
-        $id_dolar = $ids['id_dolar'];
+        $id_dolar = $datosProveedorEntrada['id_dolar'];
         $id_dolar = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar"))['dolar'];
 
-        $total_dolar = $ids['total_dolar'];
-        $fecha_entrada = $ids['fecha_entrada'];
+        $total_dolar = $datosProveedorEntrada['total_dolar'];
+        $fecha_entrada = $datosProveedorEntrada['fecha_entrada'];
         $fecha_entrada = date('d-m-Y | g:i:a', strtotime($fecha_entrada));
 
-        $userId = $ids['id_usuario'];
+        $userId = $datosProveedorEntrada['id_usuario'];
         $userData = mysqli_fetch_array(modeloPrincipal::consultar("SELECT U.*, (SELECT nombre FROM rol WHERE id_rol = U.id_rol) AS rol FROM usuario AS U WHERE id_usuario = $userId"));
-
-        
 
         $this->setY(10);
         $this->setX(10);
@@ -53,7 +67,7 @@ class PDF extends FPDF{
         $this->setY(40);
         // datos del proveedor
         $this->Cell(80, 5, self::convert_codification('Datos del Proveedor:'),'B',0,'L',0);
-        $this->setX(170);
+        $this->setX(220);
         $this->Cell(100, 5, self::convert_codification('Datos del usuario que realizó la entrada:'),'B',1,'L',0);
         $this->setX(10);
         // datos del proveedor
@@ -77,17 +91,18 @@ class PDF extends FPDF{
         $this->setX(170);
         $this->Cell(100, 5, self::convert_codification('Dirección: '.$userData['direccion']),'',1,'L',0);
         $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Cotización: '.$id_dolar.' bs'),'',0,'L',0);
+        $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.$id_dolar.' bs'),'',0,'L',0);
         $this->setX(170);
-        $this->Cell(100, 5, self::convert_codification("Rol: ".$userData['rol']),'',1,'L',0);
+        $this->Cell(80, 5, self::convert_codification("Rol: ".$userData['rol']),'',1,'L',0);
+
         $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Total de la Compra $: '.$total_dolar,),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification('Total ($): '.$total_dolar,),'',1,'L',0);
         
         $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Total de la Compra bs: '.round(floatval($id_dolar * $total_dolar), 2)),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification('Total (Bs): '.round(floatval($id_dolar * $total_dolar), 2)),'',1,'L',0);
         
         $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Fecha / Hora: '.$fecha_entrada),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification('Fecha y Hora: '.$fecha_entrada),'',1,'L',0);
         
 
         $this->Ln(50);
@@ -99,7 +114,7 @@ class PDF extends FPDF{
         $this->Cell(0,5,self::convert_codification('Página ').$this->PageNo().' / {nb}',0,0,'L');
         $this->Cell(0,5,date('d/m/Y | g:i:a') ,00,1,'R');
         $this->SetY(-15);
-        $this->Line(5, 427,390,427);
+        $this->Line(5, 400,400,400);
         $this->SetY(-10);
         $this->Cell(0,5,self::convert_codification("© Todos los derechos reservados."),0,0,"C");       
     }
@@ -110,85 +125,96 @@ class PDF extends FPDF{
     
 }
 
-function tableHead ($pdf, $Producto, $Presentación, $Cantidad, $Cotización, $PrecioDolar, $PrecioBs) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell($Producto, 5, $pdf->convert_codification('Producto'),'LTRB',0,'C',0);
-    $pdf->Cell($Presentación, 5, $pdf->convert_codification('Presentación'),'LTRB',0,'C',0);
-    $pdf->Cell($Cantidad, 5, $pdf->convert_codification('Cantidad'),'LTRB',0,'C',0);
-    $pdf->Cell($PrecioDolar, 5, $pdf->convert_codification('Precio por unidad en $'),'LTRB',0,'C',0);
-    $pdf->Cell($PrecioBs, 5, $pdf->convert_codification('Precio por unidad en BS'),'LTRB',1,'C',0);
-}
 
 // se definen variable con los tamaños de las celdas para mejor adaptacion
-$Producto = 60;
-$Presentación = 60;
-$Cantidad = 40;
-$Cotización = 50;
-$PrecioDolar = 50;
-$PrecioBs = 45;
+$codigo = 30;
+$nombre = 55;
+$presentación = 40;
+$marca = 35;
+$categoria = 55;
+$unidades = 25;
+$costoUSd = 30;
+$costoBS = 45;
+$registradoPor = 45;
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage('P',[280,427],0);
+$pdf->AddPage('P',[420,380],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
 
+$pdf->setY(100);
+$pdf->setX(5);
+
+// En esta parte estan los encabezados 
+$pdf->SetFont('Arial','B',10);
+
+$pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
+$pdf->Cell($codigo, 5, $pdf->convert_codification('Código'),'LTRB',0,'C',0);
+$pdf->Cell($nombre, 5, $pdf->convert_codification('Nombre'),'LTRB',0,'C',0);
+$pdf->Cell($presentación, 5, $pdf->convert_codification('Presentación'),'LTRB',0,'C',0);
+$pdf->Cell($marca, 5, $pdf->convert_codification('Marca'),'LTRB',0,'C',0);
+$pdf->Cell($categoria, 5, $pdf->convert_codification('Categoría'),'LTRB',0,'C',0);
+$pdf->Cell($unidades, 5, $pdf->convert_codification('Cantidad'),'LTRB',0,'C',0);
+$pdf->Cell($costoUSd, 5, $pdf->convert_codification('Costo ($)'),'LTRB',0,'C',0);
+$pdf->Cell($costoBS, 5, $pdf->convert_codification('Costo (Bs)'),'LTRB',0,'C',0);
+$pdf->Cell($registradoPor, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
+
+
 $id_entrada = modeloPrincipal::decryptionId($_POST['UIDE']);
+
 $id_entrada = modeloPrincipal::limpiar_cadena($id_entrada);
 
 
-$consulta = modeloPrincipal::consultar("SELECT
-    M.nombre AS marca,
-    PS.nombre AS presentacion,
-    D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs
+$consulta = modeloPrincipal::consultar("SELECT 
+    P.id_producto, P.codigo, P.nombre_producto, 
+    PS.cantidad AS presentacion, R.nombre AS representacion,
+    M.nombre AS marca, 
+    C.nombre AS categoria,
+    D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
+    U.nombre AS usuario
     FROM detalles_entrada AS D 
     INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
     INNER JOIN producto AS P ON P.id_producto = D.id_producto 
+    INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
+    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
     INNER JOIN marca AS M ON M.id = P.id_marca
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-    WHERE D.id_entrada = $id_entrada");
+    INNER JOIN representacion AS R ON R.id = PS.id_representacion
+    WHERE D.id_entrada = $id_entrada
+");
 
 // en caso de que no se encuentren proveedores registrados
 
 if (mysqli_num_rows($consulta) < 1 ){
-    $pdf->Ln();
-
-    $pdf->setY(100);
-    $pdf->setX(5);
-    
-    // En esta parte estan los encabezados 
-    tableHead ($pdf, $Producto, $Presentación, $Cantidad, $Cotización, $PrecioDolar, $PrecioBs);
 
     $pdf->SetFont('Arial','',10);
-    $pdf->Cell(210, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
-    $pdf->Cell(210, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LAS ENTRADAS.'),'B',1,'C',0);
+    $pdf->Cell(0, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
+    $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LAS ENTRADAS.'),'B',1,'C',0);
     
     $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
-$pdf->setY(90);
-$pdf->setX(5);
-
-// En esta parte estan los encabezados 
-tableHead ($pdf, $Producto, $Presentación, $Cantidad, $Cotización, $PrecioDolar, $PrecioBs);
 
 $i = 1;
+
 while ( $mostrar = mysqli_fetch_array($consulta)) { 
     $pdf->SetFont('Arial','',10);
     
     $pdf->setX(5);
-    $pdf->Cell( 10,10, $pdf->convert_codification($i++),'B',0,'C',0);
-    $pdf->Cell($Producto,10, $pdf->convert_codification($mostrar["marca"]),'B',0,'L',0);
-    $pdf->Cell($Presentación, 10, $pdf->convert_codification($mostrar["presentacion"]),'B',0,'C',0);
-    $pdf->Cell($Cantidad, 10, $pdf->convert_codification($mostrar["cantidad_comprada"]),'B',0,'C',0);
-    $pdf->Cell($PrecioDolar, 10, $pdf->convert_codification($mostrar["precio_dolar"].' $'),'B',0,'C',0);
-    $pdf->Cell($PrecioBs, 10, $pdf->convert_codification($mostrar["precio_bs"].' bs'),'B',1,'C',0);
+    $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
+    $pdf->Cell($codigo,5, $pdf->convert_codification($mostrar["codigo"]),'B',0,'C',0);
+    $pdf->Cell($nombre, 5, $pdf->convert_codification($mostrar["nombre_producto"]),'B',0,'C',0);
+    $pdf->Cell($presentación, 5, $pdf->convert_codification($mostrar["presentacion"]." ".$mostrar["representacion"]),'B',0,'C',0);
+    $pdf->Cell($marca,5, $pdf->convert_codification($mostrar["marca"]),'B',0,'C',0);
+    $pdf->Cell($categoria, 5, $pdf->convert_codification($mostrar["categoria"]),'B',0,'C',0);
+    $pdf->Cell($unidades, 5, $pdf->convert_codification($mostrar["cantidad_comprada"]),'B',0,'C',0);
+    $pdf->Cell($costoUSd, 5, $pdf->convert_codification($mostrar["precio_dolar"].' $'),'B',0,'C',0);
+    $pdf->Cell($costoBS, 5, $pdf->convert_codification($mostrar["precio_bs"].' Bs'),'B',0,'C',0);
+    $pdf->Cell($registradoPor, 5, $pdf->convert_codification($mostrar["usuario"]),'B',1,'C',0);
 
 }
 
