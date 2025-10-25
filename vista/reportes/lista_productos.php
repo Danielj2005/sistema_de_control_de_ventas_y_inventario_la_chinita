@@ -79,20 +79,34 @@ $pdf->Cell(40, 5, $pdf->convert_codification("Costo (Bs)"),'LTRB',0,'C',0);
 $pdf->Cell(30, 5, $pdf->convert_codification("Costo ($)"),'LTRB',0,'C',0);
 $pdf->Cell(30, 5, $pdf->convert_codification("Tasa de Cambio"),'LTRB',1,'C',0);
 
-$consulta = modeloPrincipal::consultar("SELECT P.codigo AS codigoP, P.nombre_producto AS nombreP, M.nombre AS marca, 
-    PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, P.stock_actual, P.precio_venta,
-    (SELECT MAX(dolar) FROM dolar) AS tasa
-    FROM producto AS P
-    INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
-    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-    INNER JOIN representacion AS R ON R.id = PS.id_representacion
-    INNER JOIN marca AS M ON M.id = P.id_marca
-    ORDER BY M.nombre ASC
-");
+$state = isset($_POST['UUIDS']) ? modeloPrincipal::decryptionId($_POST['UUIDS']) : 2;
 
+if ($state === 2) {
+    $consulta = modeloPrincipal::consultar("SELECT P.codigo AS codigoP, P.nombre_producto AS nombreP, M.nombre AS marca, 
+        PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, P.stock_actual, P.precio_venta,
+        (SELECT MAX(dolar) FROM dolar) AS tasa
+        FROM producto AS P
+        INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+        INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+        INNER JOIN representacion AS R ON R.id = PS.id_representacion
+        INNER JOIN marca AS M ON M.id = P.id_marca
+        ORDER BY M.nombre ASC
+    ");
+}else {
+    $consulta = modeloPrincipal::consultar("SELECT P.codigo AS codigoP, P.nombre_producto AS nombreP, M.nombre AS marca, 
+        PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, P.stock_actual, P.precio_venta,
+        (SELECT MAX(dolar) FROM dolar) AS tasa
+        FROM producto AS P
+        INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+        INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+        INNER JOIN representacion AS R ON R.id = PS.id_representacion
+        INNER JOIN marca AS M ON M.id = P.id_marca
+        WHERE P.estado = $state
+        ORDER BY M.nombre ASC
+    ");
+}
 
 if (mysqli_num_rows($consulta) < 1 ){
-    $pdf->Ln();
     $pdf->SetFont('Arial','',10);
 
     $pdf->Cell(0, 5, $pdf->convert_codification('NO SE ENCONTRARON PRODUCTOS REGISTRADOS.'),'B',1,'C',0);

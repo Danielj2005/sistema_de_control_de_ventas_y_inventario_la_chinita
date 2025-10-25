@@ -143,7 +143,7 @@ class proveedor_model extends modeloPrincipal {
             $haveHistorial = self::validar_existe_historial ($mostrar["id_proveedor"]);
             $encryptionId = modeloPrincipal::encryptionId($mostrar["id_proveedor"]);
             $alterarId = modeloPrincipal::alterarId($mostrar['id_proveedor']);
-            $nameProvider = $mostrar["nombre"];
+            
             ?>    
             <tr>
                 <td class="col text-center"></td>
@@ -169,13 +169,6 @@ class proveedor_model extends modeloPrincipal {
                                 <i class="bi bi-file-earmark-arrow-down"></i>
                             </button>
                             <ul class="dropdown-menu" style="width: 20rem;">
-                                <li class="p-1 text-center">
-                                    <p class="text-center border rounded-3 alert-primary text-primary bg-primary-light p-2">
-                                        <?= $nameProvider ; ?>
-                                    </p>
-                                </li>
-
-                                <li> <hr class="dropdown-divider"> </li>
 
                                 <li class="p-2 text-center">
                                     <form target="_blank" action="./reportes/historial_proveedor.php" method="post">

@@ -142,12 +142,44 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                                     <?php endif; ?>
 
                                     <div class="setCol text-center col-12 col-md-4 mb-2 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">
-                                        <a class="col-12 btn btn-secondary" 
-                                            target="_blank" 
-                                            href="./reportes/productos.php">
-                                                <i class="bi bi-file-earmark-arrow-down"></i>
+                                        <div class="col-12 dropdown">
+                                            <button class="col-12 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-file-text"></i>
                                                 <span>Exportar Lista (.PDF)</span>
-                                        </a>
+                                            </button>
+
+                                            <ul class="dropdown-menu">
+                                                <li> <hr class="dropdown-divider"> </li>
+                                                <li class="p-2 text-center">
+                                                    <a class="btn btn-outline-primary" target="_blank" href="./reportes/lista_productos.php">
+                                                        <i class="bi bi-file-text"></i> 
+                                                        <span>Todos los Productos</span>
+                                                    </a>
+                                                </li>
+                                                <li> <hr class="dropdown-divider"> </li>
+                                                <li class="p-2 text-center">
+                                                    <form action="./reportes/lista_productos.php" method="post" class="" target="_blank">
+														<input type="hidden" name="UUIDS" value="<?= modeloPrincipal::encryptionId("1") ?>">
+                                                            
+                                                        <button type="submit" class="btn btn-outline-success">
+                                                            <i class="bi bi-file-text"></i> 
+                                                            <span>Productos Con Stock</span>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                                <li> <hr class="dropdown-divider"> </li>
+                                                <li class="p-2 text-center">
+                                                    <form action="./reportes/lista_productos.php" method="post" class="" target="_blank">
+														<input type="hidden" name="UUIDS" value="<?= modeloPrincipal::encryptionId("0") ?>">
+                                                            
+                                                        <button type="submit" class="btn btn-outline-danger" >
+                                                            <i class="bi bi-file-text"></i> 
+                                                            <span>Productos sin Stock</span>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
 
                                     <hr>
@@ -177,8 +209,7 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                                             </table>
                                         </div>
 
-                                    <?php endif;
-                                        if ($producto['r_productos'] == 1 ): ?>
+                                    <?php endif; if ($producto['r_productos'] == 1 ): ?>
                                             <form id="registrar_producto" action="../controlador/producto_controlador.php" method="post" class="<?= $producto['l_productos'] == 0 ? '' : 'd-none'?> tableRegisterProducts text-start SendFormAjax row justify-content-around" autocomplete="off" data-type-form="save">
                                                 <input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">
                                                 <input type="hidden" name="modulo" value="Guardar">

@@ -8,6 +8,10 @@ date_default_timezone_set('America/caracas');
 class PDF extends FPDF{
         
     function Header(){
+
+        $this->Image('img/logo.png',10,5,33);
+
+
         if (isset($_POST['UID'])) {
             $id_proveedor = modeloPrincipal::decryptionId($_POST["UID"]);
             $id_proveedor = modeloPrincipal::limpiar_cadena($id_proveedor);
@@ -79,25 +83,6 @@ class PDF extends FPDF{
     
 }
 
-function tableHead ($pdf, $CellTotalDolar, $CellTotalBS, $CellCotización, $CellFecha, $CellUsuario) {
-    // En esta parte estan los encabezados 
-    $pdf->SetFont('Arial','B',10);
-
-    $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha | Hora'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total en $'),'LTRB',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total en BS'),'LTRB',0,'C',0);
-    $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
-    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Quién Realizó la entrada'),'LTRB',1,'C',0);
-}
-
-if (!isset($_POST['UID'])){
-    $pdf->SetFont('Arial','',10);
-    $pdf->Cell(0, 5, $pdf->convert_codification('NO SE SELECCIONO CORRECTAMENTE A UN PROVEEDOR.'),'B',1,'C',0);
-    $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER SELECCIONADO CORRECTAMENTE LAS FECHAS Y DE NO ALTERAR LA INFORMACIÓN DE LA LISTA.'),'B',1,'C',0);
-    
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
-}
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
@@ -115,6 +100,8 @@ $CellCotización = 35;
 $CellFecha = 45;
 $CellUsuario = 50;
 
+
+
 $setY = 75;
 $pdf->setY($setY);
 $pdf->setX(5);
@@ -122,18 +109,26 @@ $pdf->setX(5);
 $pdf->SetFont('Arial','B',10);
 
 $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha | Hora'),'LTRB',0,'C',0);
-$pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total en $'),'LTRB',0,'C',0);
-$pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total en BS'),'LTRB',0,'C',0);
-$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
-$pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Quién Realizó la entrada'),'LTRB',1,'C',0);
+$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
+$pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
+$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Tasa de Cambio'),'LTRB',0,'C',0);
+$pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
+
+
+if (!isset($_POST['UID'])){
+    $pdf->SetFont('Arial','',10);
+    $pdf->Cell(0, 5, $pdf->convert_codification('NO SE SELECCIONO CORRECTAMENTE A UN PROVEEDOR.'),'B',1,'C',0);
+    $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER SELECCIONADO CORRECTAMENTE LAS FECHAS Y DE NO ALTERAR LA INFORMACIÓN DE LA LISTA.'),'B',1,'C',0);
+    
+    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+}
 
 $fechaReporteInicio = $_POST['fechaReporteInicio'];
 $fechaReporteFin = $_POST['fechaReporteFin'];
 
 $id = modeloPrincipal::decryptionId($_POST["UID"]);
 $id = modeloPrincipal::limpiar_cadena($id);
-
 
 $consulta = modeloPrincipal::consultar("SELECT
     E.total_dolar, E.total_bs, D.dolar AS tasa,
@@ -142,7 +137,8 @@ $consulta = modeloPrincipal::consultar("SELECT
     INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
-    WHERE PROV.id_proveedor = $id");
+    WHERE PROV.id_proveedor = $id
+");
 
 
 // en caso de que no se encuentren proveedores registrados

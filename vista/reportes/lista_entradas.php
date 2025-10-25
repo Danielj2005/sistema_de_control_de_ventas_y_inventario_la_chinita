@@ -35,7 +35,7 @@ class PDF extends FPDF{
         
         $this->setY(40);
         $this->setX(10);
-        $this->Cell(0,5,self::convert_codification("Lista de Entradas (Compras a proveedores)"),0,0,"C");
+        $this->Cell(0,5,self::convert_codification("Lista de Entradas"),0,0,"C");
 
         $this->Ln(50);
     }
@@ -88,17 +88,16 @@ $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Tasa de Cambio'),'LT
 $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
 $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
 
-$consulta = modeloPrincipal::consultar("SELECT PROV.nombre AS proveedor,
-    E.total_dolar, E.total_bs,
-    D.dolar AS tasa,
-    E.fecha_entrada,
-    U.nombre
-    FROM entrada AS E 
-    INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+$consulta = modeloPrincipal::consultar("SELECT U.cedula,
+    (SELECT P.nombre FROM proveedor AS P WHERE P.id_proveedor = E.id_proveedor) AS proveedor,
+    E.total_dolar, E.total_bs, D.dolar AS tasa,
+    E.fecha_entrada
+    FROM entrada AS E
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
+    WHERE E.fecha_entrada 
     ORDER BY E.fecha_entrada DESC
-    ");
+");
 
 
 // en caso de que no se encuentren proveedores registrados
@@ -119,15 +118,15 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->SetFont('Arial','',10);
     
     $pdf->setX(5);
-    $pdf->Cell( 10,10, $pdf->convert_codification($i++),'B',0,'C',0);
-    $pdf->Cell($CellProveedor,10, $pdf->convert_codification($mostrar["proveedor"]),'B',0,'L',0);
+    $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
+    $pdf->Cell($CellProveedor,5, $pdf->convert_codification($mostrar["proveedor"] ?? "Adquisición Propia"),'B',0,'L',0);
 
-    $pdf->Cell($CellTotalDolar, 10, $pdf->convert_codification($mostrar["total_dolar"]).' $','B',0,'C',0);
-    $pdf->Cell($CellTotalBS, 10, $pdf->convert_codification($mostrar["total_bs"]).' bs','B',0,'C',0);
+    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification($mostrar["total_dolar"]).' $','B',0,'C',0);
+    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification($mostrar["total_bs"]).' bs','B',0,'C',0);
 
-    $pdf->Cell($CellCotización, 10, $pdf->convert_codification($mostrar["tasa"]).' bs','B',0,'C',0);
-    $pdf->Cell($CellFecha, 10, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
-    $pdf->Cell($CellUsuario, 10, $pdf->convert_codification($mostrar["nombre"]),'B',1,'C',0);
+    $pdf->Cell($CellCotización, 5, $pdf->convert_codification($mostrar["tasa"]).' bs','B',0,'C',0);
+    $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
+    $pdf->Cell($CellUsuario, 5, $pdf->convert_codification($mostrar["cedula"]),'B',1,'C',0);
     
 }
 

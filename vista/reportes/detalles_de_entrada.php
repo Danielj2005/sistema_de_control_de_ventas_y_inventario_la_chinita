@@ -6,31 +6,28 @@ require 'fpdf/fpdf.php';
 date_default_timezone_set('America/caracas');
 
 class PDF extends FPDF{
-        
+    
     function Header(){
+
+        $positionDataUser = 270;
+        $positionAxisXDataProvider = 10;
 
         $this->Image('img/logo.png',25,5,33);
 
         $id_entrada = modeloPrincipal::decryptionId($_POST['UIDE']);
         $id_entrada = modeloPrincipal::limpiar_cadena($id_entrada);
 
-        $datosProveedorEntrada = modeloPrincipal::consultar("SELECT * FROM entrada WHERE id_entrada = $id_entrada");
+        $datosProveedorEntrada = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM entrada WHERE id_entrada = $id_entrada"));
                 
-        if (mysqli_num_rows($datosProveedorEntrada) < 1 ){
-            $datosProveedorEntrada = mysqli_fetch_array($datosProveedorEntrada);
-            
-            
-        }else{
-                
-            $datosProveedorEntrada = mysqli_fetch_array($datosProveedorEntrada);
+        if ($datosProveedorEntrada['tipo_compra'] == 0){
+
+            $id_proveedor = $datosProveedorEntrada['id_proveedor'];
+            $dataProvider = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor"));
 
         }
 
+        $entradaConProveedor = $datosProveedorEntrada['tipo_compra'] == 0;
 
-
-        $id_proveedor = $datosProveedorEntrada['id_proveedor'];
-        $dataProvider = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM proveedor WHERE id_proveedor = $id_proveedor"));
-        
         $id_dolar = $datosProveedorEntrada['id_dolar'];
         $id_dolar = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar"))['dolar'];
 
@@ -39,7 +36,12 @@ class PDF extends FPDF{
         $fecha_entrada = date('d-m-Y | g:i:a', strtotime($fecha_entrada));
 
         $userId = $datosProveedorEntrada['id_usuario'];
-        $userData = mysqli_fetch_array(modeloPrincipal::consultar("SELECT U.*, (SELECT nombre FROM rol WHERE id_rol = U.id_rol) AS rol FROM usuario AS U WHERE id_usuario = $userId"));
+
+        $userData = mysqli_fetch_array(modeloPrincipal::consultar("SELECT U.*, 
+            (SELECT nombre FROM rol WHERE id_rol = U.id_rol) AS rol 
+            FROM usuario AS U 
+            WHERE id_usuario = $userId
+        "));
 
         $this->setY(10);
         $this->setX(10);
@@ -64,47 +66,81 @@ class PDF extends FPDF{
         
         $this->SetFont('Arial','',10);
 
+        // datos del proveedor
         $this->setY(40);
-        // datos del proveedor
-        $this->Cell(80, 5, self::convert_codification('Datos del Proveedor:'),'B',0,'L',0);
-        $this->setX(220);
+
+
+        if ($entradaConProveedor):
+            $this->Cell(80, 5, self::convert_codification('Datos del Proveedor:'),'B',0,'L',0);
+        endif;
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Datos del usuario que realizó la entrada:'),'B',1,'L',0);
-        $this->setX(10);
-        // datos del proveedor
-        $this->Cell(80, 5, self::convert_codification('Cédula / RIF: '.$dataProvider['cedula_rif']),'',0,'L',0);
-        $this->setX(170);
+        
+
+        if ($entradaConProveedor):
+            $this->setX($positionAxisXDataProvider);
+            $this->Cell(80, 5, self::convert_codification('Cédula / RIF: '.$dataProvider['cedula_rif']),'',0,'L',0);
+        endif;
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Cédula: '.$userData['cedula']),'',1,'L',0);
-        $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Nombre: '.$dataProvider['nombre']),'',0,'L',0);
-        $this->setX(170);
+
+        if ($entradaConProveedor):
+            $this->setX($positionAxisXDataProvider);
+            $this->Cell(80, 5, self::convert_codification('Nombre: '.$dataProvider['nombre']),'',0,'L',0);
+        endif; 
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Nombre y Apellido: '.$userData['nombre'].' '.$userData['apellido']),'',1,'L',0);
-        $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Teléfono: '.$dataProvider['telefono']),'',0,'L',0);
-        $this->setX(170);
+        
+        if ($entradaConProveedor):
+            $this->setX($positionAxisXDataProvider);
+            $this->Cell(80, 5, self::convert_codification('Teléfono: '.$dataProvider['telefono']),'',0,'L',0);
+        endif;
+
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Teléfono: '.$userData['telefono']),'',1,'L',0);
-        $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Correo: '.$dataProvider['correo']),'',0,'L',0);
-        $this->setX(170);
+        
+        if ($entradaConProveedor):
+            $this->setX($positionAxisXDataProvider);
+            $this->Cell(80, 5, self::convert_codification('Correo: '.$dataProvider['correo']),'',0,'L',0);
+        endif;
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Correo: '.$userData['correo']),'',1,'L',0);
-        $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Dirección: '.$dataProvider['direccion']),'',0,'L',0);
-        $this->setX(170);
+        
+        if ($entradaConProveedor):
+            $this->setX($positionAxisXDataProvider);
+            $this->Cell(80, 5, self::convert_codification('Dirección: '.$dataProvider['direccion']),'',0,'L',0);
+        endif;
+
+
+        $this->setX($positionDataUser);
         $this->Cell(100, 5, self::convert_codification('Dirección: '.$userData['direccion']),'',1,'L',0);
-        $this->setX(10);
-        $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.$id_dolar.' bs'),'',0,'L',0);
-        $this->setX(170);
+        
+        $this->setX($positionDataUser);
         $this->Cell(80, 5, self::convert_codification("Rol: ".$userData['rol']),'',1,'L',0);
 
-        $this->setX(10);
+        $this->Ln(5);
+        
+        $this->setX($positionDataUser);
+        $this->Cell(80, 5, self::convert_codification('Datos de la Entrada:'),'B',1,'L',0);
+        $this->setX($positionDataUser);
+        $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.$id_dolar.' bs'),'',1,'L',0);
+        $this->setX($positionDataUser);
         $this->Cell(0, 5, self::convert_codification('Total ($): '.$total_dolar,),'',1,'L',0);
-        
-        $this->setX(10);
+        $this->setX($positionDataUser);
         $this->Cell(0, 5, self::convert_codification('Total (Bs): '.round(floatval($id_dolar * $total_dolar), 2)),'',1,'L',0);
-        
-        $this->setX(10);
+        $this->setX($positionDataUser);
         $this->Cell(0, 5, self::convert_codification('Fecha y Hora: '.$fecha_entrada),'',1,'L',0);
         
-
         $this->Ln(50);
     }
 
@@ -146,7 +182,7 @@ $pdf->SetLeftMargin(5);
 $pdf->SetRightMargin(5);
 
 
-$pdf->setY(100);
+$pdf->setY(115);
 $pdf->setX(5);
 
 // En esta parte estan los encabezados 

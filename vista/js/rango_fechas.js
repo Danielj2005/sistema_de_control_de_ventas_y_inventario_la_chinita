@@ -27,7 +27,8 @@ function dateValidate(){
 }
 
 
-// Esta funcionalidad se encarga de mostrar un boton [const btnReportesFechas = document.getElementById('btnReportesFechas');]
+// Esta funcionalidad se encarga de mostrar un boton 
+// [const btnReportesFechas = document.getElementById('btnReportesFechas');]
 // para generar un reporte por fechas de las entradas registradas en el sistema
 const reportDates = document.querySelectorAll('.reportDates');
 
