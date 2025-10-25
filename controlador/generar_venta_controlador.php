@@ -178,25 +178,26 @@ try {
 
     $datos_venta = mysqli_fetch_array($datos_venta);
 
-    bitacora::bitacora("Venta realizada exitosamente.","Se registro una venta con la siguiente informacón: <br><br>
-    <b>****** Información del cliente:   ******</b><br>
-    Cédula: <b>".$datos_venta['Ccedula']." </b><br>
-    Nombre: <b>".$datos_venta['Cnombre']." </b><br>
-    Teléfono: <b>".$datos_venta['Ctelefono']." </b><br><br>
+    bitacora::bitacora("Venta realizada exitosamente.",
+        "Se registro una venta con la siguiente informacón: <br><br>
+        <b>****** Información del cliente:   ******</b><br>
+        Cédula: <b>".$datos_venta['Ccedula']." </b><br>
+        Nombre: <b>".$datos_venta['Cnombre']." </b><br>
+        Teléfono: <b>".$datos_venta['Ctelefono']." </b><br><br>
 
-    <b>****** Información de la Venta:   ******</b><br>
-    Subtotal ($): <b>".$datos_venta['sub_total_dolares']." $ </b><br>
-    Subtotal (Bs): <b>".$datos_venta['sub_total_bs']." bs</b><br>
-    Total de la compra en $ + IVA (16%): <b>".$datos_venta['monto_total_dolares']." $ </b><br>
-    Total de la compra en bs + IVA (16%): <b>".$datos_venta['monto_total_bolivares']." bs</b><br>
-    Fecha / hora: <b>".date("d-m-Y / h:i:a",strtotime($datos_venta['fecha_venta']))." </b><br>
-    Tasa del dolar: <b>$dolar bs </b><br><br>
+        <b>****** Información de la Venta:   ******</b><br>
+        Subtotal ($): <b>".$datos_venta['sub_total_dolares']." $ </b><br>
+        Subtotal (Bs): <b>".$datos_venta['sub_total_bs']." bs</b><br>
+        Total de la compra en $ + IVA (16%): <b>".$datos_venta['monto_total_dolares']." $ </b><br>
+        Total de la compra en bs + IVA (16%): <b>".$datos_venta['monto_total_bolivares']." bs</b><br>
+        Fecha y hora: <b>".date("d-m-Y | g:i:a",strtotime($datos_venta['fecha_venta']))." </b><br>
+        Tasa de Cambio: <b>$dolar bs </b><br><br>
 
-    <b>****** Información del Usuario que realizó la venta:   ******</b><br>
-    Cédula: <b>".$datos_venta['Ucedula']." </b><br>
-    Nombre: <b>".$datos_venta['Unombre']." ".$datos_venta['Uapellido']." </b><br>
-    Correo: <b>".$datos_venta['correo']." </b><br>
-    Teléfono: <b>".$datos_venta['telefono']." </b><br>
+        <b>****** Información del Usuario que realizó la venta:   ******</b><br>
+        Cédula: <b>".$datos_venta['Ucedula']." </b><br>
+        Nombre: <b>".$datos_venta['Unombre']." ".$datos_venta['Uapellido']." </b><br>
+        Correo: <b>".$datos_venta['correo']." </b><br>
+        Teléfono: <b>".$datos_venta['telefono']." </b><br>
     ");
 
     alert_model::alert_reload ("Venta realizada!", "La venta se realizo correctamente", "success");

@@ -77,46 +77,63 @@ if($modulo == 'Guardar'){
         $datos_servicio = mysqli_fetch_array(servicio_model::consultar_por_id("*", $id_servicio));
         $datos_servicio['estatus'] = $datos_servicio['estatus'] == 1 ? 'Activo' : 'Inactivo';
 
-        $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
-            PS.nombre AS presentacion, 
+        $detalles_menu = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto AS producto, P.stock_actual,
+            PS.cantidad AS presentacion, R.nombre AS representacion, 
             C.nombre AS categoria, 
             DM.cantidad,
             M.nombre AS marca
             FROM detalles_menu AS DM
             INNER JOIN producto AS P ON P.id_producto = DM.id_producto
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
             INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
             INNER JOIN marca AS M ON M.id = P.id_marca
             WHERE DM.id_menu = $id_servicio
-            ");
+        ");
         
         while ($row = mysqli_fetch_array($detalles_menu)) {
+            $color_stock = producto_model::asignar_color_segun_stock($mostrar["stock_actual"]);  
+
             $mensaje .= '<tr>
-                            <td class="text-center">'.$row['producto'].' '.$row['marca'].' '.$row['presentacion'].'</td>
+                            <td class="col text-start " scope="col">
+                                <p class="text-secondary fw-bold mb-1">
+                                    Código: '.$row["codigo"].'
+                                </p>
+                                <p class="text-primary fw-bold mb-1">
+                                    '.$row["producto"].' - '.$row["marca"].'
+                                </p>
+                                <small class="d-block text-muted">
+                                    Formato: '.$row["presentacion"].' / '.$row["representacion"].'
+                                </small>
+                                <small class="d-block text-muted">
+                                    Categoría: '.$row["categoria"].'
+                                </small>
+                            </td>
                             <td class="text-center">'.$row['cantidad'].'</td>
                         </tr>';
         }
 
-        bitacora::bitacora("Registro exitoso de un nuevo servicio.",'Se registro un servicio con la siguiente informacón: <br><br>
-        <b>****** Información del servicio:   ******</b><br>
-        Nombre: <b>'.$datos_servicio['nombre_platillo'].' </b><br>
-        Descripción: <b>'.$datos_servicio['descripcion'].' </b><br>
-        Precio en $: <b>'.$datos_servicio['precio_dolar'].' $</b><br>
-        Estado: <b>Activo </b><br><br>
+        bitacora::bitacora("Registro exitoso de un nuevo servicio.",
+        'Se registro un servicio con la siguiente informacón: <br><br>
+                <b>****** Información del servicio:   ******</b><br>
+                Nombre: <b>'.$datos_servicio['nombre_platillo'].' </b><br>
+                Descripción: <b>'.$datos_servicio['descripcion'].' </b><br>
+                Precio ($): <b>'.$datos_servicio['precio_dolar'].' $</b><br>
+                Estado: <b> Activo </b><br><br>
 
-        <label><b>****** Detalles del servicio: ******</b></label><br><br>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="col text-center" scope="col">PRODUCTO</th>
-                <th class="col text-center" scope="col">CANTIDAD</th>
-            </tr>
-            </thead>
-            <tbody>
-                '.$mensaje.'
-            </tbody>
-        </table>
-        <br><br>
+            <label><b>Detalles del Servicio: </b></label><br><br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col text-center" scope="col">Producto</th>
+                        <th class="col text-center" scope="col">Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    '.$mensaje.'
+                </tbody>
+            </table>
+            <br><br>
         ');
 
         alert_model::alert_reg_success();

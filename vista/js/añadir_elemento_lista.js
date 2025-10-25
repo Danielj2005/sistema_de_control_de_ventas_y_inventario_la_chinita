@@ -1,7 +1,9 @@
 // se obtienen los botones para agregar datos a una lista
-const btn_add = document.querySelectorAll('.btn_add');
+
+const btn_add_element_to_list = document.querySelectorAll('.btn_add');
+
 // se obtienen los selects de productos o servicios
-const selects = document.querySelectorAll('.select');
+const selects_element_to_list = document.querySelectorAll('.select');
 
 // funcion para quitar un elemento de una lista 
 function quitar_elemento(id){
@@ -44,24 +46,25 @@ const urlAPI = (btnAddName) => {
     }
 };
 
+btn_add_element_to_list.forEach(btn => {
 
-btn_add.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-    
         const MODULO = urlAPI(btn.name);
-
+        
         //  se inicializan las variables de los selectores de producto o servicio
-        let id_option_selected = "";
-        let name_select = "";
+        let id_option_selected = null;
+        let name_select = null;
+        
+        const btnName = e?.target?.name || '';
 
-        selects.forEach(select => {
+        selects_element_to_list.forEach(selectElement => {
             // se evalua si el boton de agregar tiene el nombre parecido al del selector de productos o servicios
-            if (e.target.name.includes(`${select.name}`)) {
-                // se extrae la id de la opcion seleccionada
-                id_option_selected = select.value
-                // se extrae el nombre del selector
-                name_select = select.name;
+            
+            if (btnName.includes(selectElement.name)) {
+                id_option_selected = selectElement.value // se extrae la id de la opcion seleccionada
+                name_select = selectElement.name; // se extrae el nombre del selector
+                return;
             }
         });
 
@@ -81,4 +84,5 @@ btn_add.forEach(btn => {
             }
         });
     });
+
 });

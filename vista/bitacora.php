@@ -87,21 +87,20 @@ if ($rol == 1) {  ?>
                         <thead>
                           <tr>
                             <th class="text-center col" scope="col">#</th>
-                            <th class="text-center col" scope="col">ACCIÓN</th>
-                            <th class="text-center col" scope="col">USUARIO</th>
-                            <th class="col text-center" scope="col">FECHA / HORA</th>
-                            <th class="text-center col" scope="col">DETALLES</th>
+                            <th class="text-center col" scope="col">Acción</th>
+                            <th class="text-center col" scope="col">Usuario</th>
+                            <th class="col text-center" scope="col">Fecha y Hora</th>
+                            <th class="text-center col" scope="col">Detalles</th>
                           </tr>
                         </thead>
                         <tbody>
-  
                             <?php
                               while( $row = mysqli_fetch_assoc($consulta)) { ?>
                                 <tr>
                                   <th class="col" scope="col"></th>
                                   <th class="col" scope="col"><?= $row['accion'] ?></th>
                                   <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
-                                  <th class="col" scope="col"><?= date('d-m-Y  h:i a', strtotime($row['fecha_hora'])) ?></th>
+                                  <th class="col" scope="col"><?= date('d-m-Y | g:i a', strtotime($row['fecha_hora'])) ?></th>
                                   <th class="text-center col" scope="col">
                                     <button modal="bitacora" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($row["id"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                                   </th>

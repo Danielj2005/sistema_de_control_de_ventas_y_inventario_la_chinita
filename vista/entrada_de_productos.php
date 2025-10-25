@@ -52,15 +52,15 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 						<i class="bi bi-chevron-left"></i> 
 						<span>Volver al Panel Principal</span>
 					</a>
-					<?php 
-						// se define y se decide condicionalmente el titulo de la vista
-						if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 || $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ) : ?>
+
+					<?php if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 || $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ) : ?>
+						<!-- Se define y se decide condicionalmente el titulo de la vista -->
 							
-							<h1 class="tituloUno my-3">Historial de Compras</h1>
+						<h1 class="tituloUno my-3">Historial de Compras</h1>
 
 					<?php endif; if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 0) : ?>
 
-							<h1 class="tituloUno my-3">Registro de Compras</h1>
+						<h1 class="tituloUno my-3">Registro de Compras</h1>
 
 					<?php endif; ?>
 

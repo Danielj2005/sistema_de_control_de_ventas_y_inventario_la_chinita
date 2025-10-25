@@ -165,7 +165,7 @@ $_SESSION['CPS'] = $CPS;
 									</button>
 								</div>
 
-								<div class="col-12 col-md-6 text-center">
+								<div class="col-12 text-center">
 									<button 
 										type="button" 
 										class="btn btn-link text-white-50 p-0" 

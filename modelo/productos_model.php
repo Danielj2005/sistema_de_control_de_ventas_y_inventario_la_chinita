@@ -322,46 +322,44 @@ class producto_model extends modeloPrincipal {
             ?>
 
                 <tr id="tr_producto_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" >
-                    <td class="col text-start" scope="col">
-                        <p class="text-secondary fw-bold mb-1">
-                            Código: <?= $mostrar["codigo"] ?>
-                        </p>
+                    <td class="col text-center" scope="col">
                         <p class="text-primary fw-bold mb-1">
                             <?= $mostrar["producto"] . ' - ' . $mostrar["marca"] ?>
                         </p>
                         <small class="d-block text-muted">
-                            Formato: <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
-                        </small>
-                        <small class="d-block text-muted">
-                            Categoría: <?= $mostrar["categoria"]?>
+                            Formato: <?= $mostrar["presentacion"] . ' ' . $mostrar["representacion"] ?>
                         </small>
                         <p class="fst-italic mb-0 <?= $color_stock ?>">
                             Stock actual: <?= $mostrar["stock"] ?> unidades
                         </p>
                         <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                     </td>
+
                     <td class="col text-center" scope="col">
-                        <input 
-                            type="number" 
-                            class="form-control cantidad text-center" 
-                            name="cantidad[]" 
-                            placeholder="0" 
-                            min="1" 
-                            min="100"
-                            step="1"
-                            title="Ingrese la cantidad de unidades que están ingresando al almacén."
-                            id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" 
-                            required
-                        >    
+                        <div class="d-flex justify-content-center" >
+                            <input 
+                                type="text" 
+                                class="w-25 form-control form-control-sm cantidad text-center" 
+                                name="cantidad[]" 
+                                placeholder="0" 
+                                min="1"
+                                min="100"
+                                step="1"
+                                title="Ingrese la cantidad de unidades que están ingresando al almacén."
+                                id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" 
+                                required
+                            >
+                        </div>
                     </td>
                     
                     <td class="text-center col" scope="col">
                         <button 
                             type="button" 
-                            class="btn btn-sm btn-danger bi bi-trash3-fill" 
-                            title="Quitar este artículo de la recepción"
+                            class="btn btn-outline-danger" 
+                            title="Quitar este artículo del servicio"
                             onclick="quitar_elemento('tr_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>')"
                         >
+                            <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
                 </tr>

@@ -67,11 +67,11 @@ if ($rol >= 1 && $rol <= 9) {  ?>
             <main id="main" class="main">
                 <div class="pagetitle">
                         
-                    <a class="btn btn-outline-secondary mb-3" href="./inicio.php">
+                    <a class="btn btn-outline-secondary mb-3" href="./index.php">
                         <i class="bi bi-chevron-left"></i> 
                         <span>Volver al Panel Principal</span>
                     </a>
-                    <h1 class="text-center titulosH my-2 fs-1">Gestión de Productos</h1>
+                    <h1 class="text-center titulosH my-2">Gestión de Productos</h1>
                 </div>
                 <section class="section dashboard">
                     <div class="row m-0"> 
