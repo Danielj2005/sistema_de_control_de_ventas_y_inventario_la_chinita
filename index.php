@@ -24,90 +24,156 @@ $_SESSION['CPS'] = $CPS;
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Inicio</title>
+		<meta name="description" content="Sistema de Control de Inventario y Venta de la Pollera La Chinita">
+		<meta name="keywords" content="HTML, CSS, Bootstrap, Javascript, Php, Mysql">
+		<meta name="author" content="DANIEL BARRUETA - MANUEL TORREZ - LUISA SALAS - ANGEL ALIBARDI">
+
+		<title>Sistema de Control de Inventario y Venta de la Pollera La Chinita</title>
+
+		<link rel="shortcut icon" href="vista/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweetalert2.min.css">
-		<link rel="shortcut icon" href="vista/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
 	</head>
 	<body>
-		<div class="row justify-content-center">
+		<div class="justify-content-center">
 
 			<!-- galeria de imagenes -->
 			
-			<div class="carousel slide z-depth-5 col-12 col-sm-12 col-md-12 col-lg-12" data-bs-ride="carousel" id="myCarousel">
-				<div class="carousel-indicators">
-					<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-					<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-					<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			<div 
+				id="backgroundCarousel" 
+				class="carousel slide w-100 h-100 position-fixed top-0 start-0" 
+				data-bs-ride="carousel" 
+				data-bs-interval="5000" 
+				style="z-index: 1;"
+			>
+				<div class="carousel-inner w-100 h-100">
+					<div class="carousel-item active w-100 h-100">
+						<img 
+							src="vista/img/Designer(10).jpeg" 
+							class="d-block w-100 h-100 object-fit-cover" 
+							alt="Imagen de Fondo 1"
+						>
+					</div>
+					<div class="carousel-item active w-100 h-100">
+						<img 
+							src="vista/img/Designer(11).jpeg" 
+							class="d-block w-100 h-100 object-fit-cover" 
+							alt="Imagen de Fondo 2"
+						>
+					</div>
+					<div class="carousel-item active w-100 h-100">
+						<img 
+							src="vista/img/Designer(12).jpeg" 
+							class="d-block w-100 h-100 object-fit-cover" 
+							alt="Imagen de Fondo 3"
+						>
+					</div>
 				</div>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="vista/img/Designer(10).jpeg" width="100%" aria-hidden="true" focusable="false">
-					</div>
-					<div class="carousel-item">
-						<img src="vista/img/Designer(11).jpeg" width="100%" aria-hidden="true" focusable="false">
-					</div>
-					<div class="carousel-item">
-						<img src="vista/img/Designer(12).jpeg" width="100%" aria-hidden="true" focusable="false">
-					</div>
-				</div>
-				<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
+				
 			</div>
-
 			<!-- fomulario de inicio de sesión -->
-			
-			<div class="col-12 position-absolute row justify-content-center align-items-center">
-				<div class="col-12 col-sm-6 col-md-6 glassmorph rounded-4 mt-3 p-4 ">
-					<form method="post" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
-						<div class="row justify-content-center">
+			<div class="vh-100 d-flex justify-content-center align-items-center" style="z-index: 2; position: absolute;">
+				<div class="col-12 col-sm-10 col-md-6 col-lg-4 glassmorph rounded-4 p-4 my-3 mx-auto">
+					<form method="POST" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
+						<div class="row">
 
-							<div class="col-12 avatar text-center mb-2">
-								<img src="vista/img/favicon.ico">
-								<h2 class="my-3">Inicio de Sesión </h2>
+							<div class="col-12 text-center mb-4">
+								<img 
+									src="./vista/img/favicon.ico" 
+									alt="Logo de la Aplicación" 
+									class="rounded-circle mb-3"
+									style="width: 80px; height: 80px;" 
+								>
+								<h3 class="fw-bold">Acceso al Sistema</h3>
 							</div>
 
-							<div class="col-12 col-sm-12 col-md-12 mb-1">
-								<label class="mb-2">Correo electrónico</label>
-								<div class="input-group mb-3">
-									<span class="input-group-text" id="basic-addon1">@</span>
-									<input type="text" class="p-1 form-control" id="correo" name="correo" placeholder="Ingresa tu correo" aria-label="email" aria-describedby="basic-addon1">
+
+							<div class="col-12 mb-3">
+								<label for="correo" class="form-label fw-bold">Correo Electrónico</label>
+								<div class="input-group shadow-sm">
+									<span class="input-group-text">
+										<i class="bi bi-envelope"></i> </span>
+									<input 
+										type="email" 
+										class="form-control" 
+										id="correo" 
+										name="correo" 
+										placeholder="ejemplo@dominio.com" 
+										aria-label="Correo Electrónico"
+										required 
+										autocomplete="email" 
+									>
 								</div>
 							</div>
 
-							<div class="col-12 col-sm-12 col-md-12">
-								<label class="mb-2">Contraseña</label>
-								
-								<div class="input-group mb-3">
-									<span class="input-group-text bi bi-lock"></span>
-									<input type="password" class="p-1 passw form-control" id="pswd" name="contraseña" placeholder="Ingresa tu contraseña">
-									<button id="eyeIcon" type="button" class="input-group-text btn btn-secondary bi bi-eye" onclick="show_password('eyeIcon', 'pswd')"> </button>
+							<div class="col-12 mb-3">
+								<label for="pswd" class="form-label fw-bold">Contraseña</label>
+								<div class="input-group shadow-sm">
+									<span class="input-group-text">
+										<i class="bi bi-lock-fill"></i> </span>
+									<input 
+										type="password" 
+										class="form-control" 
+										id="pswd" 
+										name="contraseña" 
+										placeholder="Ingresa tu contraseña"
+										aria-label="Contraseña" 
+										required
+										autocomplete="current-password"
+									>
+									<button 
+										id="btnEyeIcon" 
+										type="button" 
+										class="input-group-text btn btn-secondary" 
+										title="Mostrar contraseña"
+										onclick="show_password('eyeIcon', 'pswd')"
+									>
+										<i class="bi bi-eye" id="eyeIcon"></i> </button>
 								</div>
 							</div>
 
-							<div class="card text-center border border-1 border-white p-0 m-0 col-10 col-md-6 col-lg-6 bg-transparent text-white">
-								<div class="card-body">
-									<p class="card-title">Resuelve el captcha: <?= $_SESSION['numero_1']." + ".$_SESSION['numero_2'] ?></p>
-									<input placeholder="ingresa la respuesta del captcha" type="text" id="respuesta_captcha" name="respuesta_captcha" autocomplete="off" min="1" pattern="[0-9]{1,20}" required class="form-control d-block border-2 border text-center w-100 rounded-3">
+							<div class="col-12 mb-4">
+								<div style="max-width: 300px;" class="card bg-transparent text-white border-0 mx-auto">
+									<div class="card-body p-0">
+										<label for="respuesta_captcha" class="form-label text-center d-block fw-bold mb-2">
+											¿Cuánto es <?= $_SESSION['numero_1'] ?> + <?= $_SESSION['numero_2'] ?>?
+										</label>
+										
+										<input 
+											placeholder="Ingresa la respuesta aquí" 
+											type="number" 
+											id="respuesta_captcha" 
+											name="respuesta_captcha" 
+											autocomplete="off" 
+											min="1" 
+											max="20" 
+											pattern="[0-9]*" 
+											required 
+											class="form-control border-2 text-center rounded-3 shadow-sm"
+										>
+									</div>
 								</div>
 							</div>
 
 							<div class="row col-12 mb-1 text-center justify-content-center">
-								<div class="col-12 mb-1 text-center">
-									<button type="submit" class="btn btn-primary mt-2">iniciar sesión</button>
+								<div class="col-12 mb-3 text-center">
+									<button type="submit" class="btn btn-primary mt-2">
+										<i class="bi bi-box-arrow-in-right"></i>
+										<span>Iniciar Sesión</span>
+									</button>
 								</div>
+
 								<div class="col-12 col-md-6 text-center">
-									<button type="button" class="btn btn-link text-light" data-bs-toggle="modal" data-bs-target="#recuperar_contraseña">
-										¿Problemas para iniciar sesión? <br>
-										Recupera tu acceso
+									<button 
+										type="button" 
+										class="btn btn-link text-white-50 p-0" 
+										data-bs-toggle="modal" 
+										data-bs-target="#recuperar_contraseña"
+									>
+										<i class="bi bi-key me-2"></i> 
+										¿Olvidaste tu Contraseña?
 									</button>
 								</div>
 							</div>
@@ -115,6 +181,7 @@ $_SESSION['CPS'] = $CPS;
 					</form>
 				</div>
 			</div>
+			
 		</div>
 
 		<div class="msjFormSend"></div>

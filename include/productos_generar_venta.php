@@ -1,5 +1,5 @@
 <?php
-require_once ('../config/ConfigServer.php');
+
 require_once ('../modelo/modeloPrincipal.php');
 
 if (isset($_POST['producto'])) {

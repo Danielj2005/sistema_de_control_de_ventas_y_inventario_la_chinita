@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_PARSE);
 date_default_timezone_set('America/Caracas');
+
 function getPrice() {
     try {
         // Inicializar cURL

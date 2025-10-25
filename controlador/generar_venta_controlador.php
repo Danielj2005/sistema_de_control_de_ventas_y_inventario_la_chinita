@@ -185,8 +185,8 @@ try {
     Teléfono: <b>".$datos_venta['Ctelefono']." </b><br><br>
 
     <b>****** Información de la Venta:   ******</b><br>
-    Subtotal de la compra en $: <b>".$datos_venta['sub_total_dolares']." $ </b><br>
-    Subtotal de la compra en bs: <b>".$datos_venta['sub_total_bs']." bs</b><br>
+    Subtotal ($): <b>".$datos_venta['sub_total_dolares']." $ </b><br>
+    Subtotal (Bs): <b>".$datos_venta['sub_total_bs']." bs</b><br>
     Total de la compra en $ + IVA (16%): <b>".$datos_venta['monto_total_dolares']." $ </b><br>
     Total de la compra en bs + IVA (16%): <b>".$datos_venta['monto_total_bolivares']." bs</b><br>
     Fecha / hora: <b>".date("d-m-Y / h:i:a",strtotime($datos_venta['fecha_venta']))." </b><br>
