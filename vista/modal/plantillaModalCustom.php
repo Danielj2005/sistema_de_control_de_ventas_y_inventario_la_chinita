@@ -8,7 +8,7 @@ function modalCustom ($width="") { ?>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <div class="modal-body row" id="body_modal"> </div>
+                <div class="modal-body row m-0" id="body_modal"> </div>
 
                 <div class="modal-footer">
                     <button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>

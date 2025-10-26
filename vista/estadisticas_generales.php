@@ -12,26 +12,40 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
+
 $rol = rol_model::verificar_rol('est_venta');
+
 // se evalua que este rol tenga el acceso a esta vista
+
 if ($rol == 1) {  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>ESTADISTICAS</title>
+      <title>Estadísticas | Sistema de Control de Inventario y Venta de la Pollera La Chinita</title>
       <?php
         include_once "../include/meta_include.php"; 
-        include_once "../include/css_include.php"; ?>
+        include_once "../include/css_include.php";
+      ?>
     </head>
     <body>
       <!-- ======= Header ======= -->
       <?php  
         include_once "../include/header.php";
-        include_once "../include/sliderbar.php"; ?>
+        include_once "../include/sliderbar.php"; 
+      ?>
 
       <main id="main" class="main">
-        <div class="pagetitle"><h1> ESTADÍSTICAS DE PRODUCTOS VENDIDOS </h1></div>
+        <div class="pagetitle">
+          <a class="btn btn-outline-secondary mb-3" href="./">
+              <i class="bi bi-chevron-left"></i> 
+              <span>Volver al Panel Principal</span>
+          </a>
+          <h1 class="display-5 fw-bold text-primary mb-4 border-bottom pb-2">
+            <i class="bi bi-bar-chart-line-fill me-3"></i> 
+            Estadísticas de Productos Vendidos
+          </h1>
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
@@ -40,7 +54,7 @@ if ($rol == 1) {  ?>
                 <h5 class="card-title">Graficas de productos vendidos unitariamente</h5>
                   <!-- Default Tabs -->
 
-                  <?php include "../include/listas_estadisticas_include.php"; consultar_registros('estadistica_producto'); ?>
+                  <?php //include "../include/listas_estadisticas_include.php"; consultar_registros('estadistica_producto'); ?>
 
 
                   <div class="tab-content pt-2" id="myTabContent">

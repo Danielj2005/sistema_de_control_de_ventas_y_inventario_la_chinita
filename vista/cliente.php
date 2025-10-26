@@ -24,15 +24,20 @@ if ($rol >= 1 && $rol <= 4) {  ?>
       <title>Clientes</title>
       <?php
         include_once "../include/meta_include.php"; 
-        include_once "../include/css_include.php"; ?>
+        include_once "../include/css_include.php"; 
+      ?>
     </head>
     <body>
       <?php 
         include_once "../include/header.php"; 
-        include_once "../include/sliderbar.php"; ?>
+        include_once "../include/sliderbar.php"; 
+      ?>
       <main id="main" class="main">
         <div class="pagetitle">
-          <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
+          <a class="btn btn-outline-secondary mb-3" href="./">
+            <i class="bi bi-chevron-left"></i> 
+            <span>Volver al Panel Principal</span>
+          </a>
           <h1 class="my-3">Clientes</h1>
         </div>
         <section class="section dashboard">

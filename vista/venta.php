@@ -46,7 +46,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
       ?>
       <main id="main" class="main">
         <div class="pagetitle">
-          <a class="btn btn-outline-secondary mb-3" href="./index.php">
+          <a class="btn btn-outline-secondary mb-3" href="./">
               <i class="bi bi-chevron-left"></i> 
               <span>Volver al Panel Principal</span>
           </a>
@@ -125,20 +125,24 @@ if ($rol >= 1 && $rol <= 3) { ?>
                     <table class="table table-striped example" id="example">
                       <thead>
                         <tr>
-                          <th class="col text-center" scope="col">#</th>
-                          <th class="col text-center" scope="col">Nº de factura</th>
-                          <th class="col text-center" scope="col">Cédula del cliente</th>
-                          <th class="col text-center" scope="col">Nombre del cliente</th>
-                          <th class="col text-center" scope="col">Monto total en $</th>
-                          <th class="col text-center" scope="col">Monto total en bs</th>
-                          <th class="col text-center" scope="col">Fecha y Hora</th>
-
-                          <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
-                            <th class="col text-center" scope="col">Detalles</th>
+                            <th class="col text-center" scope="col" style="width: 5%;">N.°</th>
+                            <th class="col text-center" scope="col">N.° de Factura</th>
+                            
+                            <th class="col text-center" scope="col">Cédula/RIF Cliente</th>
+                            <th class="col text-center" scope="col">Cliente</th>
+                            
+                            <th class="col text-center" scope="col" style="width: 10%;">Total (USD)</th>
+                            <th class="col text-center" scope="col" style="width: 10%;">Total (Bs.)</th>
+                            
+                            <th class="col text-center" scope="col">Fecha y Hora</th>
+                            
+                            
+                          <?php if (rol_model::verificar_rol('d_venta') == '1') : ?>
+                            <th class="col text-center" scope="col" style="width: 8%;">Detalles</th>
                           <?php endif; ?>
                           
                           <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
-                            <th class="col text-center" scope="col">Ver Factura</th>
+                            <th class="col text-center" scope="col" style="width: 8%;">Ver Facturas</th>
                           <?php endif; ?>
 
                         </tr>

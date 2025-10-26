@@ -17,6 +17,7 @@ $m_servicio = rol_model::permisos_modulos('m_servicio');
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::permisos_modulos('r_servicio + m_servicio + l_servicio');
 // se evalua que este rol tenga el acceso a esta vista
+
 if ($rol >= 1 && $rol <= 3) { ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -26,11 +27,12 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
 			<?php 
 				// se incluyen los meta datos 
-				include_once("../include/meta_include.php"); 
+				include_once "../include/meta_include.php"; 
 				// se incluyen los estilos css y sus librerias a la vista
-				include_once("../include/css_include.php"); ?>
+				include_once "../include/css_include.php"; 
+			?>
 		</head>
-    	<body>
+		<body>	
 			<?php 
 				// se incluye el header / encabezado a la vista
 				include_once "../include/header.php";
@@ -40,10 +42,10 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
 			<main id="main" class="main">
 				<div class="pagetitle">
-					<a class="btn btn-outline-secondary" href="./index.php">
-                        <i class="bi bi-chevron-left"></i> 
-                        <span>Volver al Panel Principal</span>
-                    </a>
+					<a href="./" class="btn btn-outline-secondary shadow-sm mb-3">
+						<i class="bi bi-chevron-left"></i> 
+						<span>Volver al Panel Principal</span>
+					</a>
 
 					<h1 class="titulosH my-2">Gestión de Servicios</h1> 
 				</div>

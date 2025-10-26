@@ -66,25 +66,31 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
             <div class="row">
               <div class="col-12">
-                <div class="card top-selling overflow-auto">
-                  
-                  <div class="card-body p-3 ">
-                    <h5 class="card-title">Ventas Recientes</h5>
-                    <table class="table table-striped overflow-x-auto " id="example">
-                      <thead>
-                        <tr>
-                          <th class="col text-center" scope="col">N.°</th>
-                          <th class="col text-center" scope="col">N.° de Factura</th>
-                          <th class="col text-center" scope="col">Cédula/RIF Cliente</th>
-                          <th class="col text-center" scope="col">Cliente</th>
-                          <th class="col text-center" scope="col">Total (USD)</th>
-                          <th class="col text-center" scope="col">Total (Bs.)</th>
-                          <th class="col text-center" scope="col">Fecha</th>
-                          <th class="col text-center" scope="col">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody> <?php venta_model::lista_ventas_diarias(); ?>  </tbody>
-                    </table>
+                <div class="card top-selling overflow-auto mb-4">
+                    
+                  <div class="card-body">
+                    <h5 class="mb-3 card-title"> Ventas Recientes </h5>
+                    
+                    <div class="table-responsive">
+                      <table class="table example table-hover table-striped mb-0" id="example">
+                        <thead>
+                          <tr>
+                            <th class="text-center" scope="col" style="width: 5%;">N.°</th>
+                            <th class="text-center" scope="col">N.° de Factura</th>
+                            
+                            <th class="text-start" scope="col">Cédula/RIF Cliente</th>
+                            <th class="text-start" scope="col">Cliente</th>
+                            
+                            <th class="text-end" scope="col" style="width: 10%;">Total (USD)</th>
+                            <th class="text-end" scope="col" style="width: 10%;">Total (Bs.)</th>
+                            
+                            <th class="text-center" scope="col">Fecha y Hora</th>
+                            <th class="text-center" scope="col" style="width: 8%;">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody> <?php venta_model::lista_ventas_diarias(); ?> </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>

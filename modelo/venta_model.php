@@ -301,14 +301,20 @@ class venta_model extends modeloPrincipal {
         while($row = mysqli_fetch_array($ventas_del_dia)){ ?>
             <tr>
                 <td class="text-center col"></td> 
-                <td class="text-center col">#<?= self::generar_numero($row['id_venta']) ?></td> 
+                <td class="text-center col"><?= self::generar_numero($row['id_venta']) ?></td> 
                 <td class="text-center col"><?= $row['cedula'] ?></td> 
                 <td class="text-center col"><?= $row['nombre'] ?></td> 
                 <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
                 <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
-                <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
+                <td class="text-center col"><?= date("d-m-Y | g:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
-                    <button class="btn_modal btn btn-info bi bi-eye" modal="ventaDetalles" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                    <button 
+                        class="btn_modal btn btn-info bi bi-eye" 
+                        modal="ventaDetalles" 
+                        value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modal">
+                    </button>
                 </td> 
             </tr>
         <?php }

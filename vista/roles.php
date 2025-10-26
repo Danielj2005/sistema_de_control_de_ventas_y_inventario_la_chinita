@@ -24,17 +24,18 @@ if ($m_rol == 1 || $l_rol == 1) {
 
 	$consulta = modeloPrincipal::consultar("SELECT id_rol, nombre, estado
 		FROM rol WHERE id_rol != 1 AND estado = $estado");
-	?>
+?>
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<!-- titulo -->
-			<title>Roles</title> 
+			<title>Gestión de Roles</title>
 			<?php 
 				// se incluyen los meta datos 
 				include_once "../include/meta_include.php"; 
 				// se incluyen los estilos css y sus librerias a la vista
-				include_once "../include/css_include.php"; ?>
+				include_once "../include/css_include.php";
+			?>
 		</head>
 		<body>
 	
@@ -42,12 +43,19 @@ if ($m_rol == 1 || $l_rol == 1) {
 				// se incluye el header / encabezado a la vista
 				include_once "../include/header.php";
 				// se incluye el menu lateral a la vista 
-				include_once "../include/sliderbar.php"; ?>
+				include_once "../include/sliderbar.php";
+			?>
 
 			<main id="main" class="main">
 				<div class="pagetitle">
-					<a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-					<h1 class="my-3">Roles</h1>
+					<a href="./" class="btn btn-outline-secondary shadow-sm mb-3">
+						<i class="bi bi-chevron-left"></i> 
+						<span>Volver al Panel Principal</span>
+					</a>
+					<h1 class="display-4 fw-bold mb-4 border-bottom pb-2">
+						<i class="bi bi-person-lines-fill me-3 text-secondary"></i> 
+						Gestión de Roles
+					</h1>
 				</div>
 				<section class="section dashboard">
 					<div class="card">
@@ -73,7 +81,15 @@ if ($m_rol == 1 || $l_rol == 1) {
 						<hr>
 
 						<div class="card-body pb-1">
-							<h5 class="card-title">Lista de Roles <?= ($estado == '1') ? "Activos" : "Inactivos"?></h5>
+							<h5 class="card-title fw-bold d-flex align-items-center mb-3">
+								<?php if ($estado == '1'): ?>
+									<i class="bi bi-person-check-fill me-2 text-success"></i> 
+									Lista de Roles Activos
+								<?php else: ?>
+									<i class="bi bi-person-x-fill me-2 text-danger"></i> 
+									Lista de Roles Inactivos
+								<?php endif; ?>
+							</h5>
 							<div class="table table-responsive">
 								<table class="table datatable table-striped" id="example">
 									<thead>

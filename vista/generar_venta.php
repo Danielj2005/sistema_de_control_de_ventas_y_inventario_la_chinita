@@ -23,26 +23,29 @@ if ($rol == 1) {  ?>
       <title>Generar Venta</title>
       <?php 
         // se incluyen los meta datos 
-        include_once("../include/meta_include.php"); 
+        include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/css_include.php";
+      ?>
     </head>
     <body>
       <?php 
         // se incluye el header / encabezado a la vista
-        include_once("../include/header.php");
+        include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
-        include_once("../include/sliderbar.php"); ?>
+        include_once "../include/sliderbar.php"; 
+      ?>
       <main id="main" class="main">
         <div class="pagetitle"> 
-          <a class="btn btn-outline-secondary mb-3" href="./index.php">
-              <i class="bi bi-chevron-left"></i> 
-              <span>Volver al Panel Principal</span>
+          <a href="./" class="btn btn-outline-secondary shadow-sm mb-3">
+            <i class="bi bi-chevron-left"></i> 
+            <span>Volver al Panel Principal</span>
           </a>
-          <h1> 
+          <h1 class="h3 fw-bold mb-0">
             Generar Venta
-          </h1> 
+          </h1>
         </div>
+
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">

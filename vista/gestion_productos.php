@@ -66,8 +66,7 @@ if ($rol >= 1 && $rol <= 9) {  ?>
             ?>
             <main id="main" class="main">
                 <div class="pagetitle">
-                        
-                    <a class="btn btn-outline-secondary mb-3" href="./index.php">
+                    <a class="btn btn-outline-secondary mb-3" href="./">
                         <i class="bi bi-chevron-left"></i> 
                         <span>Volver al Panel Principal</span>
                     </a>

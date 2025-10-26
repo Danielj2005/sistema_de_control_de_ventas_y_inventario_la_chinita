@@ -26,19 +26,25 @@ if ($rol >= 1 && $rol <= 6) {
         // se incluyen los meta datos 
         include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
-        include_once "../include/css_include.php"; ?>
+        include_once "../include/css_include.php";
+      ?>
     </head>
     <body>
       <?php
         // se incluye el header / encabezado a la vista
         include_once "../include/header.php"; 
         // se incluye el menu lateral a la vista 
-        include_once "../include/sliderbar.php"; ?>
+        include_once "../include/sliderbar.php";
+      ?>
 
       <main id="main" class="main">
         <div class="pagetitle">
+          <a class="btn btn-outline-secondary mb-3" href="./">
+            <i class="bi bi-chevron-left"></i> 
+            <span>Volver al Panel Principal</span>
+          </a>
+
           <h1>
-            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver</a>
             Configuración del sistema
             <form id="backUp" action="../controlador/configuracion_controlador.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="load">
               <input type="hidden" name="modulo" id="input" class="form-control" value="backup">
@@ -46,10 +52,10 @@ if ($rol >= 1 && $rol <= 6) {
               <div class="col-12 col-sm-12 col-md-12 mt-3 mb-3 text-center">
                 <button form="backUp" name="insertar" class="btn btn-dark">Guardar copia de seguridad de la base de datos</button>
               </div>
-
             </form>
           </h1>
         </div>
+        
         <section class="section dashboard">
           <div class="card top-selling overflow-auto"> 
             <div class="card-body pb-0">

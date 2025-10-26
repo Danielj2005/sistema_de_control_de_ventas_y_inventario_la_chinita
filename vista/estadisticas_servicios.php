@@ -3,7 +3,7 @@ session_start();
 
 // importacion de la conexion a la base de datos y al modelo principal
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
@@ -15,30 +15,42 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 $rol = rol_model::verificar_rol('e_venta');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
+
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <!-- titulo -->
       <title>ESTADISTICAS</title>
       <?php
-        include_once("../include/meta_include.php"); 
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/meta_include.php"; 
+        include_once "../include/css_include.php";
+      ?>
     </head>
     <body>
       <!-- ======= Header ======= -->
       <?php  
         include_once("../include/header.php");
-        include_once("../include/sliderbar.php"); ?>
+        include_once("../include/sliderbar.php");
+      ?>
 
       <main id="main" class="main">
-      <div class="pagetitle"><h1> ESTADISTICAS DE SERVICIOS VENDIDOS </h1></div>
+      <div class="pagetitle">
+          <a class="btn btn-outline-secondary mb-3" href="./">
+              <i class="bi bi-chevron-left"></i> 
+              <span>Volver al Panel Principal</span>
+          </a>
+          <h1 class="display-5 fw-bold text-primary mb-4 border-bottom pb-2">
+            <i class="bi bi-bar-chart-line-fill me-3"></i> 
+            Estadísticas de Servicios Vendidos
+          </h1>
+        </div>
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Graficas de servicios vendidos unitariamente</h5>
-                  <?php include("../include/listas_estadisticas_include.php"); consultar_registros('estadistica_servicios'); ?>
+                  <?php //include("../include/listas_estadisticas_include.php"); consultar_registros('estadistica_servicios'); ?>
 
                   <div class="tab-content pt-2" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">

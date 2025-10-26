@@ -32,26 +32,26 @@ if ($rol >= 1 && $rol <= 4) {  ?>
       <title>Proveedores</title>
       <?php 
         // se incluyen los meta datos 
-        include_once("../include/meta_include.php"); 
+        include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
-        include_once("../include/css_include.php"); ?>
+        include_once "../include/css_include.php";
+      ?>
     </head>
     <body>
       <?php 
         // se incluye el header / encabezado a la vista
         include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
-        include_once "../include/sliderbar.php"; ?>
-        <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
+        include_once "../include/sliderbar.php";
+      ?>
+      <input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
       <main id="main" class="main">
         <div class="pagetitle row">
           <div class="col-12 col-sm-12 col-md-12 mb-4">
-            
-            <a class="btn btn-outline-secondary mb-3" href="./inicio.php">
-                <i class="bi bi-chevron-left"></i> 
-                <span>Volver al Panel Principal</span>
+            <a href="./" class="btn btn-outline-secondary shadow-sm mb-3">
+              <i class="bi bi-chevron-left"></i> 
+              <span>Volver al Panel Principal</span>
             </a>
-            
             <h1 class="mt-3">Gestión de Proveedores</h1>
           </div>
         </div>

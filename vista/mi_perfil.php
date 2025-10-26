@@ -21,15 +21,22 @@ model_user::verificar_intento_de_acceso_al_sistema();
     <?php 
       include_once "../include/meta_include.php";
       // ======= estilos y librerias css ======= 
-      include_once "../include/css_include.php"; ?>    
+      include_once "../include/css_include.php"; 
+    ?>    
   </head>
   <body>
+
     <?php
       include_once "../include/header.php"; 
-      include_once "../include/sliderbar.php"; ?>
+      include_once "../include/sliderbar.php";
+    ?>
+    
     <main id="main" class="main">
       <div class="pagetitle">
-        <h1> Mi Perfil </h1>
+        <h1 class="display-4 fw-bold text-start mb-3">
+          <i class="bi bi-person-circle me-3 text-primary"></i> 
+          Mi Perfil de Usuario
+        </h1>
       </div>
       <section class="section dashboard">
         <div class="row">

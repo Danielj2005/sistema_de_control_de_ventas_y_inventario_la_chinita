@@ -2,7 +2,7 @@
   <ul class="sidebar-nav" id="sidebar-nav">
     <!-- apartado de página principal -->
     <li class="nav-item">
-      <a class="nav-link collapsed" href="inicio.php">
+      <a class="nav-link collapsed" href="./">
         <i class="bi bi-speedometer2"></i>
         <span>Panel de Control</span>
       </a>

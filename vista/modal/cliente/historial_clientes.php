@@ -11,7 +11,7 @@ $id_usuario = $_SESSION['id_usuario'];
 $id_cliente = modeloPrincipal::decryptionId($_POST['id']);
 $id_cliente = modeloPrincipal::limpiar_cadena($id_cliente);
 
-        
+
 $historial_cliente = modeloPrincipal::consultar("SELECT V.id_venta, V.fecha_venta, V.monto_total_dolares, V.monto_total_bolivares,
     V.id_usuario, C.nombre 
     FROM venta AS V 

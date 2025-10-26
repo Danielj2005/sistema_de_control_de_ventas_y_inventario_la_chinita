@@ -24,12 +24,13 @@ if ($rol == 1) {  ?>
   <html lang="en">
     <head>
       <!-- titulo -->
-      <title>Bitácora</title> 
+      <title>Bitácora de Eventos</title> 
       <?php 
         // se incluyen los meta datos 
         include_once "../include/meta_include.php"; 
         // se incluyen los estilos css y sus librerias a la vista
-        include_once "../include/css_include.php"; ?>
+        include_once "../include/css_include.php"; 
+      ?>
     </head>
     <body>
       <?php 
@@ -53,19 +54,31 @@ if ($rol == 1) {  ?>
           $consulta = modeloPrincipal::consultar("SELECT B.*, U.nombre, U.apellido FROM bitacora AS B
             INNER JOIN usuario AS U ON B.id_usuario = U.id_usuario ORDER BY id DESC LIMIT 100");
         }
-        ?>
+      ?>
 
       <main id="main" class="main">
         <div class="pagetitle">
-          <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al inicio</a>
-          <h1 class="my-3">Bitácora</h1>
+          <a class="btn btn-outline-secondary mb-3" href="./">
+            <i class="bi bi-chevron-left"></i> 
+            <span>Volver al Panel Principal</span>
+          </a>
+
+          <h1 class="display-4 fw-bold mb-4 border-bottom pb-2">
+            <i class="bi bi-journal-text me-3 text-secondary"></i> 
+            Bitácora de Eventos del Sistema
+          </h1>
         </div>
+
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
               <div class="card top-selling pb-3">
                 <div class="card-body pb-0">
-                  <h5 class="card-title">Movimientos del sistema</h5>
+                  <h5 class="card-title fw-bold mb-3">
+                    <i class="bi bi-clock-history me-2 text-secondary"></i>
+                    Historial de Actividad Reciente
+                  </h5>
+
                   <div>
                     <form method="post" class="row mb-3" id="" action="#!">
                       <label class="form-label">Selecciona un Usuario para ver todos sus movimientos</label>

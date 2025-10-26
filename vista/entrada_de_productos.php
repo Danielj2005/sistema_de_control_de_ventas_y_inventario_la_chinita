@@ -29,7 +29,8 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 			// se incluyen los meta datos 
 			include_once "../include/meta_include.php"; 
 			// se incluyen los estilos css y sus librerias a la vista
-			include_once "../include/css_include.php"; ?>
+			include_once "../include/css_include.php"; 
+		?>
     </head>
     <body>
 		<?php 
@@ -43,12 +44,13 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 			$tipoCompra = !isset($_POST['tipoCompra']) ? 0 : $_POST['tipoCompra'];
 
 			$fecha1 = !isset($_POST['fecha_inicio']) ? '' : $_POST['fecha_inicio'];
-			$fecha2 = !isset($_POST['fecha_fin']) ? '' : $_POST['fecha_fin']; ?>
+			$fecha2 = !isset($_POST['fecha_fin']) ? '' : $_POST['fecha_fin']; 
+		?>
         
 		<main id="main" class="main">
 			<div class="pagetitle row">
 				<div class="col-12">
-					<a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">
+					<a class="btn btn-outline-secondary mb-3" href="./">
 						<i class="bi bi-chevron-left"></i> 
 						<span>Volver al Panel Principal</span>
 					</a>

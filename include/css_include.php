@@ -75,6 +75,18 @@
         color:#012970;
         font-weight: bold;
     } 
+
+    /* CSS personalizado para el separador */
+    .dotted-separator {
+        border: none;
+        border-top: 1px dotted #000;
+        margin: 8px 0; /* Espaciado vertical para recibo */
+    }
+
+    /* CSS para asegurar que el formato de texto sea pequeño y apto para recibos */
+    .small {
+        font-size: 0.8rem;
+    }
 </style>
 
 

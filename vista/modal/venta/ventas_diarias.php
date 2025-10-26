@@ -46,108 +46,79 @@ $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cant
 
 ?>
 
-<div class="justify-content-center row">
-    <img src="./img/logo.png" rel="icon" class="w-25">
+
+<div class="d-flex justify-content-center m-0 p-0 mb-3">
+    <img src="./img/logo.png" alt="Logo La Chinita" style="max-width: 60px; height: auto;">
 </div>
-<hr style="border-top: dotted; border-color: #000 !important;">
+<h6 class="text-center fw-bold">BAR RESTAURANT Y LUNCHERIA 'LA CHINITA'</h6>
+<p class="text-center m-0 small">RIF: V-04608675-5</p>
+<p class="text-center m-0 small">Calle 2 entre Av 5 y 6 - Villa Bruzual Portuguesa</p>
 
-<h5 class=" text-center">BAR RESTAURANT Y LUNCHERIA <br>'LA CHINITA'</h5>
-<h5 class=" text-center">RIF: V-04608675-5</h5>
-<h5 class=" text-center">Calle 2 entre Av 5 y 6 - Villa Bruzual Portuguesa</h5>
+<hr class="dotted-separator">
 
-<hr style="border-top: dotted; border-color: #000 !important;">
+<div class="d-flex justify-content-between small">
+    <span class="fw-bold">CLIENTE</span>
+    <span>TOTAL ART.: <?= $cant_productos + $cant_servicios ?></span>
+</div>
+<ul class="list-unstyled small m-0">
+    <li><span class="fw-bold">RIF/C.I.:</span> <?= $datos_venta['cedula']; ?></li>
+    <li><span class="fw-bold">Razón Social:</span> <?= $datos_venta['nombre']; ?></li>
+</ul>   
 
-<div class="list-group-flush">
-    <ul class="list-decoration-none list-group-item list-unstyled">
-        <li class="list-item">RIF/C.I.: <?= $datos_venta['cedula']; ?></li>
-        <li class="list-item">RAZON SOCIAL: <?= $datos_venta['nombre']; ?></li>
-        <li class="list-item">TOTAL ART.: <?= $cant_productos + $cant_servicios ?></li>
-    </ul>
-</div>        
+<div class="d-flex justify-content-between small mt-2">
+    <span class="fw-bold">EMPLEADO</span>
+    <span>Nº FACTURA: <?= venta_model::generar_numero($datos_venta['id_venta']); ?></span>
+</div>
+<ul class="list-unstyled small m-0">
+    <li><span class="fw-bold">Vendedor:</span> <?= $datos_venta['empleado_nombre'].' '.$datos_venta['empleado_apellido']; ?></li>
+    <li><span class="fw-bold">Fecha/Hora:</span> <?= date ("d-m-Y g:i:a", strtotime($datos_venta['fecha_venta'])); ?></li>
+</ul>
 
-<h5 class="text-center">Empleado</h5>
+<hr class="dotted-separator">
 
-<div class="list-group-flush">
-    <ul class="list-decoration-none list-group-item list-unstyled">
-        <li class="list-item">RIF/C.I.: <?= $datos_venta['empleado_cedula']; ?></li>
-        <li class="list-item">RAZON SOCIAL: <?= $datos_venta['empleado_nombre'].' '.$datos_venta['empleado_apellido'];  ?></li>
-    </ul>
-</div> 
-
-<hr style="border-top: dotted; border-color: #000 !important;">
-
-<h5 class="card-title text-center">FACTURA</h5>
-
-<div class="row">
-    <div class="col-12 row">
-        <p class="col-6 text-start">Nº FACTURA: <?= venta_model::generar_numero($datos_venta['id_venta']); ?></p>
-        <p class="col-6 text-end"></p>
-        <p class="col-6 text-start">FECHA: <?= date ("d-m-Y",strtotime($datos_venta['fecha_venta'])); ?></p>
-        <p class="col-6 text-end">HORA: <?= date( 'h:i:a',strtotime($datos_venta['fecha_venta'])); ?></p>
-    </div>
-
+<div class="d-flex small fw-bold">
+    <span style="width: 50%;">DESCRIPCIÓN</span>
+    <span class="text-center" style="width: 20%;">CANT</span>
+    <span class="text-end" style="width: 30%;">PRECIO (Bs)</span>
 </div>
 
-<hr style="border-top: dotted; border-color: #000 !important;">
-
-<?php while($row = mysqli_fetch_array($detalles_venta_productos)){  ?>
-    <div>
-        <div class="col-12 mb-2 d-flex justify-content-between">
-            <p class=" text-start"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion'].' '.$row['representacion'] ?></p>
-            <p class=" text-end"><?= 'Cant.:'.$row['cantidad']; ?></p>
-            <p class=" text-end">Bs <?= $row['precio'] ?></p>
-        </div>
+<?php while($row = mysqli_fetch_array($detalles_venta_productos)){ ?>
+    <div class="d-flex justify-content-between small">
+        <span style="width: 50%;"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion'].' '.$row['representacion'] ?></span>
+        <span class="text-center" style="width: 20%;"><?= $row['cantidad']; ?></span>
+        <span class="text-end" style="width: 30%;"><?= number_format($row['precio'], 2); ?></span>
     </div>
-<?php } 
-
-    while($row = mysqli_fetch_array($detalles_venta)){  ?>
-        <div>
-            <div class="col-12 mb-2 d-flex justify-content-between">
-                <p class=" text-start">SERVICIO: </p>
-                <p class=" text-start"><?= $row['nombre_platillo']?></p>
-                <p class=" text-end"><?= 'Cant.:'.$row['cantidad_servicio']; ?></p>
-                <p class=" text-end">Bs <?= $row['precio'] ?></p>
-            </div>
-        </div>
 <?php } ?>
 
-<hr style="border-top: dotted; border-color: #000 !important;">
+<?php while($row = mysqli_fetch_array($detalles_venta)){ ?>
+    <div class="d-flex justify-content-between small">
+        <span style="width: 50%;">SERVICIO: <?= $row['nombre_platillo']?></span>
+        <span class="text-center" style="width: 20%;"><?= $row['cantidad_servicio']; ?></span>
+        <span class="text-end" style="width: 30%;"><?= number_format($row['precio'], 2); ?></span>
+    </div>
+<?php } ?>
 
-<div>
-    <div class="col-12 mb-2 row">
-        <p class="col-6 text-start">SUBTOTAL</p>
-        <p class="col-6 text-end">Bs <?= $datos_venta['sub_total_bs']; ?></p>
-    </div>
-</div>
-
-<hr style="border-top: dotted; border-color: #000 !important;">
-<div>
-    <div class="col-12 mb-2 d-flex justify-content-between">
-        <p>Exento</p>
-        <p>Bs &nbsp;</p>
-        <p>Bs </p>
-    </div>
-    <div class="col-12 mb-2 d-flex justify-content-between">
-        <p>BI G16,00%</p>
-        <p>Bs <?= $datos_venta['sub_total_bs']; ?></p>
-        <p>IVA G16,00%</p>
-        <p>Bs <?= round($datos_venta['sub_total_bs'] * 0.16, 2); ?></p>
-    </div>
-</div>
-<hr style="border-top: dotted; border-color: #000 !important;">
-<div>
-    <div class="col-12 mb-2 row">
-        <p class="col-6 text-start">SUBTOTAL</p>
-        <p class="col-6 text-end">Bs <?= $datos_venta['sub_total_bs']; ?></p>
-        <p class="col-6 text-end">IVA</p>
-        <p class="col-6 text-end">Bs <?= round($datos_venta['sub_total_bs'] * 0.16, 2); ?></p>
-    </div>
+<hr class="dotted-separator">
+<div class="d-flex justify-content-between small">
+    <span class="fw-bold">SUBTOTAL</span>
+    <span class="fw-bold">Bs <?= number_format($datos_venta['sub_total_bs'], 2); ?></span>
 </div>
 
-<hr style="border-top: dotted; border-color: #000 !important;">
-<div>
-    <div class="col-12 mb-2 row">
-        <p class="col-6 text-start">TOTAL</p>
-        <p class="col-6 text-end">Bs <?= $datos_venta['monto_total_bolivares']  ?> </p>
-    </div>
+<div class="d-flex justify-content-between small">
+    <span>IVA (16,00%)</span>
+    <span>Bs <?= number_format(round($datos_venta['sub_total_bs'] * 0.16, 2), 2); ?></span>
 </div>
+
+<div class="d-flex justify-content-between small">
+    <span>Exento</span>
+    <span>Bs 0.00</span>
+</div>
+
+<hr class="dotted-separator">
+
+<div class="d-flex justify-content-between fs-5 fw-bold">
+    <span>TOTAL A PAGAR</span>
+    <span>Bs <?= number_format($datos_venta['monto_total_bolivares'], 2); ?></span>
+</div>
+
+<hr class="dotted-separator">

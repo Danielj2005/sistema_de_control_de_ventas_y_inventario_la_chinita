@@ -24,27 +24,34 @@ if ($rol == 1) {  ?>
     <html lang="en">
       <head>
         <!-- titulo -->
-        <title>Registro de rol</title>
+        <title>Registro de Nuevo Rol</title>
         <?php 
           // se incluyen los meta datos 
-          include_once("../include/meta_include.php"); 
+          include_once "../include/meta_include.php"; 
           // se incluyen los estilos css y sus librerias a la vista
-          include_once("../include/css_include.php"); ?>
+          include_once "../include/css_include.php"; 
+        ?>
       </head>
       <body>
 
         <?php 
           // se incluye el header / encabezado a la vista
-          include_once("../include/header.php");
+          include_once "../include/header.php";
           // se incluye el menu lateral a la vista 
-          include_once("../include/sliderbar.php"); ?>
+          include_once "../include/sliderbar.php"; 
+        ?>
         <main id="main" class="main">
           <div class="pagetitle">
-            <h1>
-              <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="<?= $m_rol == 0 && $l_rol == 0 ? './inicio.php' : './roles.php'; ?>">&nbsp; <?= $m_rol == 0 && $l_rol == 0 ? 'Volver al inicio' : 'Volver a la lista de roles'; ?></a>
-              Registro de rol
-            </h1> 
+            <a href="<?= $m_rol == 0 && $l_rol == 0 ? './' : './roles.php'; ?>" class="btn btn-outline-secondary shadow-sm mb-3">
+              <i class="bi bi-chevron-left"></i> 
+              <span><?= $m_rol == 0 && $l_rol == 0 ? 'Volver al Panel Principal' : 'Volver a la lista de roles'; ?></span>
+            </a>
+            <h1 class="display-5 fw-bold text-start mb-4">
+              <i class="bi bi-person-badge-fill me-3 text-primary"></i> 
+              Registro de Nuevo Rol
+            </h1>
           </div>
+
           <section class="section dashboard">
             <div class="card p-3">
               <div class="container-fluid row mb-3 p-3 justify-content-around">
