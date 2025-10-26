@@ -40,14 +40,20 @@ if ($rol >= 1 && $rol <= 4) {  ?>
           </a>
           <h1 class="my-3">Clientes</h1>
         </div>
+
         <section class="section dashboard">
-          <div class="row">
+          <div class="row m-0">
             <div class="col-12">
               <div class="card top-selling">
-                <div class="row p-4 mb-3">
-                  <a target="_blank" href="./reportes/lista_clientes.php" class="btn btn-secondary">Exportar Lista de Clientes</a>
+                <div class="row p-2 m-0">
+                  <a target="_blank" href="./reportes/lista_clientes.php" class="btn btn-secondary">
+                    <i class="bi bi-file-text"></i>
+                    <span>Exportar Lista (.PDF)</span>
+                  </a>
                 </div>
+
                 <hr>
+
                 <div class="card-body pb-3">
                   <div class="table table-responsive" id="table">
                     <h5 class="card-title">Lista de Clientes</h5>
@@ -59,13 +65,15 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                           <th class="text-center col" scope="col">Nombre y Apellido</th>
                           <th class="text-center col" scope="col">Teléfono</th>
                           
-                          <?php if (rol_model::verificar_rol('m_cliente') == '1') { ?>
+                          <?php if (rol_model::verificar_rol('m_cliente') == '1') : ?>
+
                             <th class="text-center col" scope="col">Modificar</th>
-                          <?php } 
-                            if (rol_model::verificar_rol('h_cliente') == '1') { ?>
+
+                          <?php endif; if (rol_model::verificar_rol('h_cliente') == '1') : ?>
+
                             <th class="text-center col" scope="col">Ver Historial</th>
 
-                          <?php } ?>
+                          <?php endif; ?>
                         </tr>
                       </thead>
                       <tbody>

@@ -101,34 +101,36 @@ const dataModal = {
         modalUrl : "./modal/venta/ventas_diarias.php",
         modalTitle : `${ICONS.list} Detalles de la Venta`,
     },
+
+    // modales del módulo Cliente
+    clienteModificar : {
+        modalUrl : "./modal/cliente/modificar_cliente.php",
+        modalTitle : `${ICONS.modify} Modificar Servicio`,
+        modalSendForm : true,
+    },
+    clienteHistorial : {
+        modalUrl : "./modal/cliente/historial_clientes.php",
+        modalTitle : `${ICONS.list} Detalles del Cliente`,
+        modalDataTable : true,
+        modalClassTable : "tableDetailsClient",
+        modalSize: "modal-lg"
+    },
+
+    // modales del módulo usuario
+    usuarioModificar : {
+        modalUrl : "./modal/usuario/modificar_empleado.php",
+        modalTitle : `${ICONS.modify} Configurar Acceso y Rol de Empleado`,
+        modalSendForm : true,
+        modalSize: "modal-lg"
+    },
+
 };
 
-// const title_per_module = {
-//     "ver_detalles_bitacora": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del registro en bitácora',
-    
-//     "ver_reportes": '<i class="bi bi-file-text "></i> &nbsp; Exportar reporte de compras',
-    
 //     "datos_usuario": '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario',
 //     "modificar_info_personal_usuario": '<i class="bi bi-person-plus"></i> &nbsp; Actualizar información personal',
 //     "preguntas_seguridad": '<i class="bi bi-shield-plus"></i> &nbsp; Actualizar preguntas de seguridad del usuario',
-    
-//     "modificar_cliente": '<i class="bi bi-person-plus"></i> &nbsp; Modificar cliente',
-//     "ver_historial_cliente": '<i class="bi bi-cart-check"></i> &nbsp; Historial de compras del cliente',
     
 //     "modificar_empleado": '<i class="bi bi-person-plus"></i> &nbsp; Modificar características de acceso del usuario',
 
 //     "ver_detalles_rol" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de permisos de acceso de un rol',
 //     "modificar_rol" : '<i class="bi bi-person-lines-fill"></i> &nbsp; Modificar permisos de acceso de un rol',
-
-//     "registrar_producto" : '<i class="bi bi-box-seam"></i> &nbsp; Añadir Nuevo Producto',
-//     "ver_detalles_entrada" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la entrada',
-//     "ver_marcas" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de marcas registradas',
-//     "ver_categorias" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de categorías registradas',
-//     "ver_presentaciones" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de presentaciones registradas',
-//     "ver_productos" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Productos registrados',
-    
-//     "ver_detalles_servicio" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del servicio',
-//     "modificar_servicio": '<i class="bi bi-person-plus"></i> &nbsp; Modificar servicio',
-
-//     "ver_detalles_venta_del_dia": '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de la Venta',
-// };

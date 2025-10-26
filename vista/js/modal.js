@@ -3,9 +3,10 @@
 const activeModalBtn = document.querySelectorAll(`.btn_modal`);
 activeModalBtn.forEach((btn) => {
     btn.addEventListener('click', (e) => {
+        e.preventDefault();
 
         const nameModule = btn.getAttribute('modal');
-
+        
         // se recibe el objeto con la configuracion del modal
         const TitleId = dataModal[nameModule]?.modalTitleId ?? "exampleModalLabel";
         const BodyId = dataModal[nameModule]?.modalBodyId ?? "body_modal";

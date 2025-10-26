@@ -74,7 +74,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 									<h5 class="card-title">Lista de Empleados</h5>
 
 									<div class="table-responsive">
-										<table class="table datatable table-striped" id="example">
+										<table class="table datatable table-striped table-borderless table-hover " id="example">
 											<thead>
 												<tr>
 													<th class="text-center col" scope="col">#</th>
@@ -166,27 +166,6 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 				</section>
 			</main>
 			
-			<?php if (rol_model::verificar_rol('m_empleado') == '1'){ ?>
-
-				<div class="modal fade" id="update_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div id="modal_tamano" class="modal-dialog modal-dialog-scrollable modal-xl">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Modificar o actualizar acceso al sistema del empleado</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body row justify-content-center" id="body_modal"> </div>
-								
-							<div class="modal-footer">
-								<button id="btn_guardar_modal" type="submit" class="btn btn-success">Guardar</button>
-								<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			<?php } ?>
-			
 			<script>
 				// funcion para mostrar y ocultar elementos en empleados
 				const titlex = ['Registrar un Empleado','Ver lista de empleados registrados'];
@@ -206,6 +185,9 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 				};
 			</script>
 			<?php
+                include_once "./modal/plantillaModalCustom.php"; 
+
+                modalCustom();
 			
 				// se incluye el footer / pie de pagina a la vista
 				include_once "../include/footer.php";

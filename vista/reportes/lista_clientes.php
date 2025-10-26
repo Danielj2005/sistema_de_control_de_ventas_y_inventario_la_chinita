@@ -10,6 +10,7 @@ class PDF extends FPDF{
     function Header(){
         
         
+        $this->Image('img/logo.png',10,5,33);
 
         $this->setY(10);
         $this->setX(10);
@@ -69,7 +70,6 @@ $pdf->SetRightMargin(5);
 $consulta = modeloPrincipal::consultar("SELECT * FROM cliente ORDER BY nombre ASC");
 
 // en caso de que no se encuentren proveedores registrados
-
 
 $pdf->setY(60);
 $pdf->setX(10);

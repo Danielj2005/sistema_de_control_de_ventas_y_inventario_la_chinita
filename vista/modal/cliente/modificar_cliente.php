@@ -27,11 +27,11 @@ $cedula = stripslashes($cedula);
 $cedula = trim($cedula);
 
 ?>
-<form id="SendForm" action="../controlador/cliente_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+<form id="modalSendForm" action="../controlador/cliente_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
 	<input type="hidden" name="UIC" value="<?= modeloPrincipal::encryptionId($id_cliente); ?>">
     <input type="hidden" name="modulo" value="modificar">
     
-    <div class="row mb-3">
+    <div class="row mb-3 m-0">
         <div class="col-12 mb-3">
             <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
             <div class="input-group">

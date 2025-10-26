@@ -204,10 +204,21 @@ class model_user extends modeloPrincipal {
 
                 <?php if (rol_model::verificar_rol('m_empleado') == '1'): ?>
                     <th scope="col" class="col text-center">
-                        <buttom modal="modificar_empleado" url="./modal/usuario/modificar_empleado.php" data-bs-toggle="modal" data-bs-target="#update_user" value="<?= modeloPrincipal::encryptionId($mostrar["id_usuario"]); ?>" class="btn_modal btn btn-warning bi bi-gear"></buttom>
+                        <button
+                            modal="usuarioModificar" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modal" 
+                            value="<?= modeloPrincipal::encryptionId($mostrar["id_usuario"]); ?>" 
+                            class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>">
+                        </button>
                     </th>
                     <th scope="col" class="col text-center">
-                        <button class="btn bi <?= ($mostrar["estado"] === "1") ? 'btn-success bi-check-circle' : 'btn-danger bi-x-circle' ?>" >&nbsp;
+                        <button class="btn w-100 <?= ($mostrar["estado"] === "1") ? 'btn-success' : 'btn-danger' ?>" 
+                            type="button" 
+                            disabled
+                        >
+                            <i class="bi <?= ($mostrar["estado"] === "1") ? 'bi-check-circle-fill' : 'bi-x-circle-fill' ?> me-1"></i>
+                        
                             <?= ($mostrar["estado"] === "1") ? 'Activo' : 'Inactivo' ?>
                         </button>
                     </th>

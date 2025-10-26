@@ -85,11 +85,12 @@ class cliente_model extends modeloPrincipal {
             $datos_originales = self::consultar_por_id("*", $id_cliente);
             $datos_originales = mysqli_fetch_array($datos_originales);
 
-            bitacora::bitacora("Registro exitoso de un cliente.","Se registro un cliente con la siguiente informacón: <br><br>
-            <b>****** Información del cliente:   ******</b><br><br>
-            Cédula: <b>".$datos_originales['cedula']." </b><br>
-            Nombre: <b>".$datos_originales['nombre']." </b><br>
-            Teléfono: <b>".$datos_originales['telefono']." </b><br><br>
+            bitacora::bitacora("Registro Exitoso de un Cliente.",
+                "Se registro un Cliente con la Siguiente Informacón: <br><br>
+                <b>****** Información del Cliente:   ******</b><br><br>
+                Cédula: <b>".$datos_originales['cedula']." </b><br>
+                Nombre y Apeellido: <b>".$datos_originales['nombre']." </b><br>
+                Teléfono: <b>".$datos_originales['telefono']." </b><br><br>
             ");
 
             return true;
@@ -115,14 +116,13 @@ class cliente_model extends modeloPrincipal {
                 <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
                 <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
-                <?php if (rol_model::verificar_rol('m_cliente') == '1') :?>
+                <?php if (rol_model::verificar_rol('m_cliente') == '1') : ?>
                     <td scope='col' class="text-center col">
-                        <button value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" modal="modificar_cliente" url="./modal/cliente/modificar_cliente.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-gear btn-warning" ></button>
+                        <button value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" modal="clienteModificar" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn <?= ICONO_MODIFICAR ?> btn-warning" ></button>
                     </td>
-                <?php endif; ?>
-                <?php if (rol_model::verificar_rol('h_cliente') == '1') :?>
+                <?php endif; if (rol_model::verificar_rol('h_cliente') == '1') : ?>
                     <td scope='col' class="text-center col">
-                        <button modal="ver_historial_cliente" class="btn_modal btn btn-info bi bi-eye detalles_generales" value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" url="./modal/cliente/historial_clientes.php" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                        <button modal="clienteHistorial" class="btn_modal btn btn-info bi bi-eye detalles_generales" value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                     </td> 
                 <?php endif; ?>
             </tr>
