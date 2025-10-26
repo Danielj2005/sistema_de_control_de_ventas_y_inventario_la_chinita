@@ -95,6 +95,12 @@ const dataModal = {
         modalClassTable : "tableDetailsService",
         modalSize: "modal-lg"
     },
+
+    // modales del módulo Venta
+    ventaDetalles : {
+        modalUrl : "./modal/venta/ventas_diarias.php",
+        modalTitle : `${ICONS.list} Detalles de la Venta`
+    },
 };
 
 // const title_per_module = {

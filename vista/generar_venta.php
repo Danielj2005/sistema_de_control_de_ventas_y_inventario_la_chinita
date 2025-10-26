@@ -35,8 +35,11 @@ if ($rol == 1) {  ?>
         include_once("../include/sliderbar.php"); ?>
       <main id="main" class="main">
         <div class="pagetitle"> 
+          <a class="btn btn-outline-secondary mb-3" href="./index.php">
+              <i class="bi bi-chevron-left"></i> 
+              <span>Volver al Panel Principal</span>
+          </a>
           <h1> 
-            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./venta.php">&nbsp; Volver</a>
             Generar Venta
           </h1> 
         </div>

@@ -20,15 +20,15 @@ $datos_venta = mysqli_fetch_array($datos_venta);
 
 $detalles_venta_productos = modeloPrincipal::consultar("SELECT
 	P.nombre_producto AS producto,
-    PS.nombre AS presentacion, 
+    PS.cantidad AS presentacion, R.nombre AS representacion,
     M.nombre AS marca, 
     DV.cantidad,
-    round((SELECT MAX(dolar) AS dolar FROM dolar) * I.precio_venta, 2) AS precio
+    round((SELECT MAX(dolar) AS dolar FROM dolar) * P.precio_venta, 2) AS precio
     FROM detalles_venta AS DV
     INNER JOIN producto AS P ON P.id_producto = DV.id_producto
-    INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+    INNER JOIN presentacion AS PS ON P.id_presentacion = PS.id 
+    INNER JOIN representacion AS R ON R.id = PS.id_representacion
     INNER JOIN marca AS M ON M.id = P.id_marca
-    INNER JOIN inventario AS I ON I.id_producto = P.id_producto
     WHERE DV.id_venta = $id");
 
 $detalles_venta = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.cantidad_servicio,
@@ -38,8 +38,8 @@ $detalles_venta = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.canti
     INNER JOIN detalles_menu AS DM ON DM.id_menu = M.id_menu
     WHERE DV.id_venta = $id");
 
-
-$cantidades = mysqli_fetch_array( modeloPrincipal::consultar("SELECT cantidad_servicio, cantidad FROM detalles_venta WHERE id_venta = $id"));
+$cantidades = mysqli_fetch_array( modeloPrincipal::consultar("SELECT cantidad_servicio, cantidad 
+    FROM detalles_venta WHERE id_venta = $id"));
 
 $cant_productos = $cantidades['cantidad'] == "" ? 0 : $cantidades['cantidad'];
 $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cantidad_servicio'];
@@ -93,7 +93,7 @@ $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cant
 <?php while($row = mysqli_fetch_array($detalles_venta_productos)){  ?>
     <div>
         <div class="col-12 mb-2 d-flex justify-content-between">
-            <p class=" text-start"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion'] ?></p>
+            <p class=" text-start"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion'].' '.$row['representacion'] ?></p>
             <p class=" text-end"><?= 'Cant.:'.$row['cantidad']; ?></p>
             <p class=" text-end">Bs <?= $row['precio'] ?></p>
         </div>

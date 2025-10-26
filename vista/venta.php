@@ -46,8 +46,11 @@ if ($rol >= 1 && $rol <= 3) { ?>
       ?>
       <main id="main" class="main">
         <div class="pagetitle">
-            <a class="btn btn-outline-secondary bi bi-arrow-bar-left" href="./inicio.php">&nbsp; Volver al Inicio</a>
-            <h1 class="mt-3"> Ventas </h1>
+          <a class="btn btn-outline-secondary mb-3" href="./index.php">
+              <i class="bi bi-chevron-left"></i> 
+              <span>Volver al Panel Principal</span>
+          </a>
+          <h1> Ventas </h1>
         </div> 
         <section class="section dashboard">
           <div class="row">

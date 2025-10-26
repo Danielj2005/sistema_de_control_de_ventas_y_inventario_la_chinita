@@ -125,6 +125,6 @@ bitacora::login(); // se registra el inicio de sesión en la bitácora
 // se actualiza el estado de la sesión del usuario a activa
 model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
 
-alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','./vista/inicio.php');
+alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','./vista');
 mysqli_free_result($selectUser);
 exit();

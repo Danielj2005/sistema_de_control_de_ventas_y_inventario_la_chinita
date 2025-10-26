@@ -83,7 +83,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
                           <th class="col text-center" scope="col">Acciones</th>
                         </tr>
                       </thead>
-                      <tbody><?php venta_model::lista_ventas_diarias(); ?>  </tbody>
+                      <tbody> <?php venta_model::lista_ventas_diarias(); ?>  </tbody>
                     </table>
                   </div>
                 </div>

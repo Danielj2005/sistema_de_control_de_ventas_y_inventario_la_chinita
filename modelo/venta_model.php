@@ -261,7 +261,14 @@ class venta_model extends modeloPrincipal {
                     <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                     <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
                         <td class="text-center col">
-                            <button class="btn_modal btn btn-info bi bi-eye" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" url="./modal/venta/ventas_diarias.php" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                            <button 
+                                class="btn_modal btn btn-info " 
+                                value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" 
+                                modal="ventaDetalles" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modal">
+                                    <i class="bi bi-eye"></i> 
+                            </button>
                         </td> 
                     <?php endif; ?>
                     <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
@@ -301,7 +308,7 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                 <td class="text-center col"><?= date("d-m-Y  h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
-                    <button class="btn_modal btn btn-info bi bi-eye" url="./modal/venta/ventas_diarias.php" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" modal="ver_detalles_venta_del_dia" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                    <button class="btn_modal btn btn-info bi bi-eye" modal="ventaDetalles" value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
                 </td> 
             </tr>
         <?php }
