@@ -1,56 +1,67 @@
+const ICONS = {
+    modify: '<i class="bi bi-pencil-square"></i> &nbsp;',
+    list: '<i class="bi bi-list-columns-reverse"></i> &nbsp;',
+    reg: '<i class="bi bi-plus-circle"></i> &nbsp;',
+
+}
+
 const dataModal = {
     // modales del módulo presentaciones
     listaPresentacion : {
         modalUrl : "./modal/producto/lista_presentacion.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Presentaciones Registradas',
+        modalTitle : `${ICONS.list} Lista de Presentaciones Registradas`,
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tablePresentationOfProducts"
     },
     registrarPresentacion : {
         modalUrl : "./modal/producto/registrarPresentacion.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Registrar Nueva Presentaciones',
+        modalTitle :  `${ICONS.reg} Registrar Nueva Presentaciones`,
         modalSendForm : true,
     },
+
     // modales del módulo Categorias
     listaCategoria : {
         modalUrl : "./modal/producto/lista_categoria.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Categorías Registradas',
+        modalTitle : `${ICONS.list} Lista de Categorías Registradas`,
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tableCategoryOfProducts"
     },
+
     // modales del módulo Marcas
     listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Lista de Marcas Registradas',
+        modalTitle : `${ICONS.list} Lista de Marcas Registradas`,
         modalSize : '',
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"
     },
     registrarMarca : {
         modalUrl : "./modal/producto/registrarMarca.php",
-        modalTitle : '<i class="bi bi-person-plus"></i>&nbsp;Registrar Nueva Marca',
+        modalTitle : `${ICONS.reg} Registrar Nueva Marca`,
         modalSendForm : true,
         modalSize : '',
     },
+
     // modales del módulo proveedores
     proveedorDetalles : {
         modalUrl : "./modal/proveedor/detalles.php",
-        modalTitle : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles del Proveedor',
+        modalTitle : `${ICONS.list} Detalles del Proveedor`,
     },
     proveedorModificar : {
         modalUrl : "./modal/proveedor/modificar.php",
-        modalTitle : '<i class="bi bi-pencil-square"></i> &nbsp; Modificar Proveedor',
+        modalTitle : `${ICONS.modify} Modificar Proveedor`,
         modalSendForm : true,
     },
     proveedorHistorial : {
         modalUrl : "./modal/proveedor/historial.php",
-        modalTitle : '<i class="bi bi-person-plus"></i> &nbsp; Detalles de Compras al Proveedor',
+        modalTitle : `${ICONS.list} Detalles de Compras al Proveedor`,
         modalSize : 'modal-xl',
         modalDataTable : true,
         modalClassTable : "tableProvider"
     },
+
     // modales del módulo entradas
     detallesEntrada : {
         modalUrl : "./modal/producto/detalles_entrada.php",
@@ -59,12 +70,30 @@ const dataModal = {
         modalDataTable : true,
         modalClassTable : "tableDetailsEntry"
     },
+
     // modales del módulo bitácora
     bitacora : {
         modalUrl : "./modal/bitacora/detalles_bitacora.php",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i>&nbsp;Detalle de la Bitácora',
         modalDataTable : true,
         modalClassTable : "tableDetailsBitacora"
+    },
+
+    // modales del módulo Servicio
+    servicioModificar : {
+        modalUrl : "./modal/servicio/modificar_servicio.php",
+        modalTitle : `${ICONS.modify} Modificar Servicio`,
+        modalSendForm : true,
+        modalSize: "modal-lg",
+        modalDataTable : true,
+        modalClassTable : "tableModifyService",
+    },
+    servicioDetalles : {
+        modalUrl : "./modal/servicio/detalles.php",
+        modalTitle : `${ICONS.list} Detalles del Servicio`,
+        modalDataTable : true,
+        modalClassTable : "tableDetailsService",
+        modalSize: "modal-lg"
     },
 };
 

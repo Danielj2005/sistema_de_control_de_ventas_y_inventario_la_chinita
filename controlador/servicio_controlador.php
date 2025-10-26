@@ -182,22 +182,41 @@ if($modulo == 'Modificar'){
 
     // se consultan los datos del servicio antes de ser modificado para registrar los cambios en la bitacora
     $bitacora_original = "";
-    $datos_producto_original = modeloPrincipal::Consultar("SELECT P.id_producto, P.nombre_producto AS producto,
-        PS.nombre AS presentacion,
+
+    $datos_producto_original = modeloPrincipal::Consultar("SELECT P.codigo, P.nombre_producto AS producto,
+        PS.cantidad AS presentacion, R.nombre AS representacion, 
+        C.nombre AS categoria, 
         DM.cantidad,
         M.nombre AS marca
         FROM detalles_menu AS DM
         INNER JOIN producto AS P ON P.id_producto = DM.id_producto
         INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+        INNER JOIN representacion AS R ON R.id = PS.id_representacion
+        INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
         INNER JOIN marca AS M ON M.id = P.id_marca
         WHERE DM.id_menu = $id_servicio");
 
     while ($row = mysqli_fetch_array($datos_producto_original)) {
 
-        $bitacora_original .= "Nombre: <b>".ucwords(strtolower($row['producto']))." ".ucwords(strtolower($row['marca']))." ".ucwords(strtolower($row['presentacion']))." </b><br>
-            Cantidad: <b>".$row['cantidad']."</b><br><br>
-
-            <b>*********************************************</b><br><br>";
+        $bitacora_original .= '<p class="text-secondary fw-bold mb-1">
+                Código: '.$row["codigo"].'
+            </p>
+            <p class="text-secondary fw-bold mb-1">
+                Nombre: <span class="text-primary fw-bold mb-1">'.$row["producto"].'</span>
+            </p>
+            <p class="text-secondary fw-bold mb-1">
+                Marca: '.$row["marca"].'
+            </p>
+            <small class="d-block text-muted">
+                Formato: '.$row["presentacion"].' '.$row["representacion"].'
+            </small>
+            <small class="d-block text-muted">
+                Categoría: '.$row["categoria"].'
+            </small>
+            <p class="text-primary fw-bold mb-1">
+                Cantidad: '.$row["cantidad"].'
+            </p>
+            <hr></hr><br>';
 
     }
 
@@ -258,51 +277,71 @@ if($modulo == 'Modificar'){
     try {
         
         $bitacora = "";
-
         
-        $datos_producto_actualizados = modeloPrincipal::Consultar("SELECT P.id_producto, P.nombre_producto AS producto,
-            PS.nombre AS presentacion,
+        $datos_producto_actualizados = modeloPrincipal::Consultar("SELECT P.codigo, P.nombre_producto AS producto, P.stock_actual,
+            PS.cantidad AS presentacion, R.nombre AS representacion, 
+            C.nombre AS categoria, 
             DM.cantidad,
             M.nombre AS marca
             FROM detalles_menu AS DM
             INNER JOIN producto AS P ON P.id_producto = DM.id_producto
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
             INNER JOIN marca AS M ON M.id = P.id_marca
             WHERE DM.id_menu = $id_servicio");
 
         while ($row = mysqli_fetch_array($datos_producto_actualizados)) {
 
-            $bitacora .= "Nombre: <b>".ucwords(strtolower($row['producto']))." ".ucwords(strtolower($row['marca']))." ".ucwords(strtolower($row['presentacion']))." </b><br>
-                Cantidad: <b>".$row['cantidad']."</b><br><br>
-                <b>*********************************************</b><br><br>";
+            $bitacora .= '<p class="text-secondary fw-bold mb-1">
+                    Código: '.$row["codigo"].'
+                </p>
+                <p class="text-secondary fw-bold mb-1">
+                    Nombre: <span class="text-primary fw-bold mb-1">'.$row["producto"].'</span>
+                </p>
+                <p class="text-secondary fw-bold mb-1">
+                    Marca: '.$row["marca"].'
+                </p>
+                <small class="d-block text-muted">
+                    Formato: '.$row["presentacion"].' '.$row["representacion"].'
+                </small>
+                <small class="d-block text-muted">
+                    Categoría: '.$row["categoria"].'
+                </small>
+                <p class="text-primary fw-bold mb-1">
+                    Cantidad: '.$row["cantidad"].'
+                </p>
+                <hr></hr><br>';
 
         }
 
         $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
         $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
 
-        // modeloPrincipal::bitacora("Modificación de un servicio","El usuario actualizó la información de un servicio de: (nombre del platillo: $existe_platillo_nombre_platillo, precio en dolares: $existe_platillo_precio_dolar, descripción: $existe_platillo_descripcion, estado: $existe_platillo_estatus) a: (nombre del platillo: $nombre_platillo, precio en dolares: $precio_dolar, descripción: $descripcion, estado: $estado_menu).");
-        bitacora::bitacora("Modificación de un servicio","El usuario actualizó la información de un servicio: <br><br>
-            <b>****** Información original del servicio:   ******</b><br>
-            Nombre del platillo: <b> $nombre_original </b><br> 
-            Precio en dolares: <b> $precio_dolar_original$ </b><br> 
-            Descripción: <b> $descripcion_original. </b><br> 
-            Estado: <b> $estatus_original </b><br><br> 
+        bitacora::bitacora("Modificación de un Servicio",
+        '<p class="mb-3"> El usuario actualizó la información de un servicio: </p> 
 
-            <b>*****************************************************</b><br> <br> 
-            <b>********** Productos del servicio original: *********</b><br> 
-            $bitacora_original
+            <h4 class="text-center card-title"><b> Información Original del Servicio: </b></h4>
+            <p> Nombre del platillo: <b> '.$nombre_original.' </b> </p> 
+            <p> Precio en dolares: <b> '.$precio_dolar_original.' $ </b> </p>
+            <p> Descripción: <b> '.$descripcion_original.'. </b> </p> 
+            <p> Estado: <b> '.$estatus_original.' </b> </p>
+            
 
-            <b>****** Información del servicio actualizado:   ******</b><br> 
-            Nombre del platillo: <b> $nombre_platillo </b><br> 
-            Precio en dolares:  <b> $precio_dolar $ </b><br> 
-            Descripción:  <b> $descripcion </b><br> 
-            Estado:  <b> $estado_menu </b><br> <br> 
+            <p class="card-title">Productos del Servicio Original:</p>
+            '.$bitacora_original.'
 
-            <b>*****************************************************</b><br> <br> 
-            <b>********** Productos del servicio actualizado: *********</b><br> 
-            $bitacora
-            ");
+            <h4 class="text-center card-title"> <b> Información del Servicio Actualizado:  </b> </h4>
+            <p> Nombre del platillo: <b> '.$nombre_platillo.' </b> </p> 
+            <p> Precio en dolares: <b> '.$precio_dolar.' $ </b> </p>
+            <p> Descripción: <b> '.$descripcion.'. </b> </p> 
+            <p> Estado: <b> '.$estado_menu.' </b> </p>
+
+            <p class="card-title">Productos del servicio actualizado:</p>
+
+            '.$bitacora.'
+
+            ');
 
         alert_model::alert_reset_forms('¡Modificacion exitosa!','Los datos se modificaron correctamente','success',"document.querySelector('.btn-danger').click();");
         exit();

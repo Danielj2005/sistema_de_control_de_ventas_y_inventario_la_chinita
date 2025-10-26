@@ -53,13 +53,17 @@ class servicio_model extends modeloPrincipal {
 
                 <?php if ($l_servicio == '1') { ?>
                     <td class="col text-center">
-                        <button value="<?= $idSecure; ?>" modal="ver_detalles_servicio" url="./modal/servicio/detalles.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-eye btn-info"></button>
+                        <button value="<?= $idSecure; ?>" modal="servicioDetalles" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-info">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </td>
                 <?php } ?>
 
                 <?php if ($m_servicio == '1') { ?>
                     <td class="col text-center">
-                        <button value="<?= $idSecure; ?>" modal="modificar_servicio" url="./modal/servicio/modificar_servicio.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-gear btn-warning"></button>
+                        <button value="<?= $idSecure; ?>" modal="servicioModificar" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-warning">
+                            <i class="<?= ICONO_MODIFICAR ?>"></i>
+                        </button>
                     </td>
     
                     <td scope="row" class="text-center">

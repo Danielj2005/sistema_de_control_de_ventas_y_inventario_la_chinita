@@ -1,22 +1,22 @@
 <?php
-require_once "../../../modelo/modeloPrincipal.php"; 
-require_once "../../../modelo/bitacora_model.php"; 
+require_once "../../../modelo/modeloPrincipal.php";
 
 $id = modeloPrincipal::decryptionId($_POST['id']);
-$id_servicio = modeloPrincipal::limpiar_cadena($id);
 
 $detalles_menu = modeloPrincipal::consultar("SELECT P.nombre_producto AS producto,
-    PS.nombre AS presentacion, 
+    PS.cantidad AS presentacion, R.nombre AS representacion,
     C.nombre AS categoria, 
     DM.cantidad,
     MA.nombre AS marca
     FROM detalles_menu AS DM
     INNER JOIN producto AS P ON P.id_producto = DM.id_producto
     INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+    INNER JOIN representacion AS R ON R.id = PS.id_representacion
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
     INNER JOIN marca AS MA ON MA.id = P.id_marca
     INNER JOIN menu AS M ON M.id_menu = DM.id_menu 
-    WHERE DM.id_menu = $id ORDER BY P.nombre_producto");
+    WHERE DM.id_menu = $id ORDER BY P.nombre_producto
+");
 
 $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM menu WHERE id_menu = $id"));
 ?>
@@ -38,27 +38,39 @@ $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM me
 
 </div>
 <div class="table-responsive">
-    <label>Productos del servicio</label>
-    <table class="table table-striped datatable">
+    <h3>Productos del servicio</h3>
+    <table class="table table-striped tableDetailsService">
         <thead>
             <tr>
+                <th class="col text-center" scope="col">Nº</th>
                 <th class="col text-center" scope="col">Producto</th>
-                <th class="col text-center" scope="col">Categoría</th>
                 <th class="col text-center" scope="col">Cantidad</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            if (mysqli_num_rows($detalles_menu) <= 0) {
-                echo '<tr><td colspan="4" class="text-center">No se encontraron los detalles de este servicio</td></tr>';
-            }
-            // se guardan los datos en un array y se imprime
-            while ( $mostrar = mysqli_fetch_array($detalles_menu)) { ;?>    
-                <tr>
-                    <td class="text-center"><?= $mostrar['producto'].' '.$mostrar['marca'].' '.$mostrar['presentacion']; ?></td>
-                    <td class="text-center"><?= $mostrar['categoria']; ?></td>
-                    <td class="text-center"><?= $mostrar['cantidad']; ?></td>
-                </tr>
+                if (mysqli_num_rows($detalles_menu) <= 0) {
+                    echo '<tr><td colspan="4" class="text-center">No se encontraron los detalles de este servicio</td></tr>';
+                }
+                // se guardan los datos en un array y se imprime
+                while ( $mostrar = mysqli_fetch_array($detalles_menu)) { ?>    
+                    <tr>
+                        <td class="text-center"></td>
+
+                        <td class="col text-center" scope="col">
+                            <p class="text-primary fw-bold mb-1">
+                                <?= $mostrar["producto"] . ' - ' . $mostrar["marca"] ?>
+                            </p>
+                            <small class="d-block text-muted">
+                                Formato: <?= $mostrar["presentacion"] . ' ' . $mostrar["representacion"] ?>
+                            </small>
+                            <small class="d-block text-muted">
+                                Categoría: <?= $mostrar["categoria"] ?>
+                            </small>
+                        </td>
+
+                        <td class="text-center"><?= $mostrar['cantidad']; ?></td>
+                    </tr>
             <?php } ?>
         
         </tbody>

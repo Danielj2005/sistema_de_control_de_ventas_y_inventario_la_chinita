@@ -276,7 +276,14 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 																		<td class="col text-center"><?= date('Y-m-d g:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
 	
 																		<td class="col text-center" scope="col">
-																			<button modal="detallesEntrada" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>"></button>
+																			<button 
+																				modal="detallesEntrada" 
+																				data-bs-toggle="modal" 
+																				data-bs-target="#modal" 
+																				class="btn_modal btn btn-info"
+																				value="<?= modeloPrincipal::encryptionId($mostrar["id_entrada"]); ?>">
+																					<i class="bi bi-eye"></i> 
+																			</button>
 																		</td>
 																		
 																		<td class="col text-center" scope="col">
