@@ -127,7 +127,6 @@ const dataModal = {
     rolDetalles : {
         modalUrl : "./modal/rol/permisos_rol.php",
         modalTitle : `${ICONS.list} Detalles de Acceso del Rol`,
-        modalSendForm : true,
         modalSize: "modal-xl"
     },
     rolModificar : {
@@ -144,8 +143,3 @@ const dataModal = {
 //     "datos_usuario": '<i class="bi bi-person-circle"></i> &nbsp; Actualizar datos de la cuenta del usuario',
 //     "modificar_info_personal_usuario": '<i class="bi bi-person-plus"></i> &nbsp; Actualizar información personal',
 //     "preguntas_seguridad": '<i class="bi bi-shield-plus"></i> &nbsp; Actualizar preguntas de seguridad del usuario',
-    
-//     "modificar_empleado": '<i class="bi bi-person-plus"></i> &nbsp; Modificar características de acceso del usuario',
-
-//     "ver_detalles_rol" : '<i class="bi bi-list-columns-reverse"></i> &nbsp; Detalles de permisos de acceso de un rol',
-//     "modificar_rol" : '<i class="bi bi-person-lines-fill"></i> &nbsp; Modificar permisos de acceso de un rol',

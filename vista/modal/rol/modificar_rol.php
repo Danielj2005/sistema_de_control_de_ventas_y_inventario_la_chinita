@@ -25,6 +25,12 @@ $ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion']
 $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
 ?>
+
+            <div class="row mt-4">
+                <div class="col-12"><hr></div>
+            </div>
+
+            
 <form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update" id="SendForm">
     <div class="container-fluid row mb-3 p-3 justify-content-around">
         <input type="hidden" value="<?= $id_rol ?>" name="id_rol">
