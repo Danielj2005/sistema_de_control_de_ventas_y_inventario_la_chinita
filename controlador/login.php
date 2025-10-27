@@ -31,7 +31,7 @@ if ($respuesta_captcha !== $captcha) {
 }
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.suspender, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
 
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
@@ -55,7 +55,6 @@ if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
     exit();
 }
 
-
 $contraseña_usuario = $datos_usuario["contraseña"];
 
 // se verifica si la contraseña es correcta
@@ -78,16 +77,9 @@ if ($datos_usuario["bloqueado"] == 1) {
     exit();
 }
 
-
-/** se verifica si el usuario esta suspendido: 
- * la cuenta es suspendida cuando se modifica su permiso para el inicio de sesión */
-if ($datos_usuario["suspender"] == 1) {
-    alert_model::alerta_simple_reset_de_formularios('¡Cuenta suspendida!','Su cuenta ha sido suspendida y no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
-    exit();
-}
-
-/** se verifica si el estado del rol del usuario esta inactivo: 
- * la cuenta es suspendida cuando se modifica su permiso para el inicio de sesión */
+/* se verifica si el estado del rol del usuario esta inactivo: 
+la cuenta es desactivada cuando el usuario no se le permitira el uso del sistema luego de un periodo de tiempo 
+ */
 if ($datos_usuario["estado_rol"] == 0) {
     alert_model::alerta_simple_reset_de_formularios('¡Rol Desactivado!','El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.','warning');
     exit();

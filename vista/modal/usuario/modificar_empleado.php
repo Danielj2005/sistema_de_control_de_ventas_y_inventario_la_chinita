@@ -5,78 +5,104 @@ include_once("../../../modelo/modeloPrincipal.php");
 $id_usuario = modeloPrincipal::decryptionId($_POST['id']);
 
 $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.id_usuario, U.cedula, U.nombre,
-    U.apellido, U.telefono, U.estado, R.id_rol, R.nombre AS nombre_rol, suspender 
+    U.apellido, U.telefono, U.estado, R.id_rol, R.nombre AS nombre_rol 
     FROM usuario AS U
     INNER JOIN rol AS R ON R.id_rol = U.id_rol
     WHERE id_usuario = $id_usuario"));
 
 ?>
 
-<form id="SendForm" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax row mb-3" autocomplete="off" data-type-form="update">
+<form id="modalSendForm" 
+    action="../controlador/usuario_controller.php"
+    method="post"
+    class="SendFormAjax row mb-4" 
+    autocomplete="off" 
+    data-type-form="update">
 
     <input type="hidden" name="UIDTM" id="id_usuario" value="<?= modeloPrincipal::encryptionId($existe["id_usuario"]); ?>">
     <input type="hidden" name="modulo" value="caracteristicas_de_acceso">
 
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <label class="col-form-label">Cédula de identidad</label>
-        <input type="text" required="" value="<?= $existe['cedula'] ?>" placeholder="ingrese la cédula del usuario" readonly class="bg-body-secondary form-control" id="cedula_user" name="cedula_user">
+    <h6 class="fw-bold text-primary border-bottom pb-2">Información Básica del Empleado</h6>
+
+    <div class="col-12 col-md-4">
+        <label for="cedula_user" class="form-label">Cédula de Identidad</label>
+        <input type="text" 
+            value="<?= $existe['cedula'] ?>" 
+            class="form-control bg-body-secondary" 
+            id="cedula_user" 
+            name="cedula_user"
+            readonly>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <label class="col-form-label">Nombres y Apellidos</label>
-        <input type="text" required="" value="<?= $existe['nombre'], ' ',  $existe['apellido'] ?>" placeholder="ingrese el nombre y apellido" class="bg-body-secondary form-control" id="nombre_completo" name="nombre_completo">
+    <div class="col-12 col-md-4">
+        <label for="nombre_completo" class="form-label">Nombres y Apellidos</label>
+        <input type="text" 
+            value="<?= $existe['nombre'] . ' ' . $existe['apellido'] ?>" 
+            class="form-control bg-body-secondary" 
+            id="nombre_completo" 
+            name="nombre_completo"
+            readonly>
+    </div>
+    
+    <div class="col-12 col-md-4">
+        <label for="telefono_user" class="form-label">Teléfono</label>
+        <input type="text" 
+            value="<?= $existe['telefono'] ?? 'N/A' ?>" placeholder="ingresa el teléfono del usuario" 
+            class="form-control bg-body-secondary" 
+            id="telefono_user" 
+            name="telefono_user"
+            required>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <label class="col-form-label">Teléfono</label>
-        <input type="text" required="" value="04154785965" placeholder="ingresa el teléfono del usuario" class="bg-body-secondary form-control" id="telefono_user" name="telefono_user">
+    <h6 class="fw-bold text-success border-bottom pb-2 mt-4">Configuración de Acceso</h6>
+
+    <div class="col-12 col-md-6">
+        <label for="cambiar_estado" class="form-label">
+            Estado Actual: 
+            <span class="fw-bold <?= ($existe['estado'] == 1) ? 'text-success' : 'text-danger'; ?>">
+                <?= ($existe['estado'] == 1) ? 'ACTIVO' : 'INACTIVO'; ?>
+            </span>
+        </label>
+        <select class="form-select" name="cambiar_estado" id="cambiar_estado">
+            <option value="1" <?= ($existe['estado'] == 1) ? 'selected' : ''; ?>>Activar Empleado</option>
+            <option value="0" <?= ($existe['estado'] == 0) ? 'selected' : ''; ?>>Inactivar Empleado</option>
+        </select>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <div class="form-group">
-            <label class="col-form-label">Estado (<?= ($existe['estado'] == 1) ? '<span class="text-success">Activo</span>' : '<span class="text-danger">Inactivo</span>'; ?>)</label>
+    <div class="col-12 col-md-6">
+        <label for="asignar_rol" class="form-label">
+            Rol Asignado: <strong class="text-info"><?= $existe['nombre_rol'] ?></strong>
+        </label>
+        <select class="form-select" name="asignar_rol" id="asignar_rol">
+            <?php
+            // Se asume que modeloPrincipal::consultar devuelve un resultado mysqli válido.
+            $roles = modeloPrincipal::consultar("SELECT id_rol, nombre FROM rol WHERE estado = 1 AND id_rol != 1");
 
-            <select class="form-select" name="cambiar_estado" id="cambiar_estado">
-
-                <option value="1" <?= ($existe['estado'] == 1) ? 'selected' : ''; ?>>Activar</option>
-                <option value="0" <?= ($existe['estado'] == 1) ? '' : 'selected'; ?>>Inactivar</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <div class="form-group">
-            <label class="col-form-label">Permiso de inicio de sesión (<?= ($existe['suspender'] == 0) ? '<span class="text-success">Permitido</span>' : '<span class="text-danger">Denegado</span>'; ?>)</label>
-            <select class="form-select" name="permitir_acceso" id="permitir_acceso">
-                <option value="0" <?= ($existe['suspender'] == 0) ? 'selected' : ''; ?>>Permitir</option>
-                <option value="1" <?= ($existe['suspender'] == 0) ? '' : 'selected'; ?>>Denegar</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="col-12 col-sm-12 col-md-4 mb-3">
-        <div class="form-group">
-            <label class="col-form-label">Rol asignado (<strong> <?= $existe['nombre_rol'] ?> </strong>)</label>
-            <select class="form-select" name="asignar_rol" id="asignar_rol">
-                <?php
-                    $roles = modeloPrincipal::consultar("SELECT id_rol, nombre FROM rol WHERE estado = 1 AND id_rol != 1");
-
-                    while ($row = mysqli_fetch_array($roles)) { ?>
-
-                        <option <?= $existe['id_rol'] == $row['id_rol'] ? 'selected' : '' ?> value="<?= $row['id_rol']; ?>" > <?= $row['nombre']; ?> </option>
-                <?php } ?>
-            </select>
-        </div>
+            while ($row = mysqli_fetch_array($roles)) { ?>
+                <option <?= $existe['id_rol'] == $row['id_rol'] ? 'selected' : '' ?> value="<?= $row['id_rol']; ?>"> 
+                    <?= $row['nombre']; ?> 
+                </option>
+            <?php } ?>
+        </select>
     </div>
 </form>
 
-<div class="col-12 col-sm-12 col-md-12 mb-3 text-center">
-    <form id="resetear_contraseña" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
+<div class="text-center mt-1 pt-3 border-top">
+    <h6 class="fw-bold text-danger mb-3">Acción de Mantenimiento</h6>
+    
+    <form id="resetPasswordForm" 
+        action="../controlador/usuario_controller.php" 
+        method="post" 
+        class="SendFormAjax d-inline-block" 
+        autocomplete="off" 
+        data-type-form="update">
+        
         <input type="hidden" name="modulo" value="resetear_contraseña">
-        <input type="hidden" name="id_usuario_a_modificar" id="id_usuario" value="<?= $existe["id_usuario"]; ?>">
+        <input type="hidden" name="UUIDU" value="<?= modeloPrincipal::encryptionId($existe["id_usuario"]); ?>">
 
-        <button form="resetear_contraseña" type="submit" class="btn bi bi-repeat btn-outline-dark">
-            Resetear usuario
+        <button type="submit" class="btn btn-warning shadow-sm" title="Restablecer la contraseña del usuario a un valor por defecto.">
+            <i class="bi bi-key-fill me-2"></i>
+            Resetear Contraseña
         </button>
     </form>
 </div>

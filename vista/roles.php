@@ -57,6 +57,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 						Gestión de Roles
 					</h1>
 				</div>
+
 				<section class="section dashboard">
 					<div class="card">
 						<div class="row text-center p-2 align-items-center">
@@ -94,12 +95,12 @@ if ($m_rol == 1 || $l_rol == 1) {
 								<table class="table datatable table-striped" id="example">
 									<thead>
 										<tr>
-											<th class="text-center col" scope="col">#</th>
-											<th class="text-center col" scope="col">NOMBRE</th>
-											<th class="text-center col" scope="col">VER PERMISOS</th>
+											<th class="text-center col" scope="col">Nº </th>
+											<th class="text-center col" scope="col">Nombre</th>
+											<th class="text-center col" scope="col">Ver Detalles</th>
 											<?php if ($m_rol == '1'): ?>
-												<th class="text-center col" scope="col">MODIFICAR</th>
-												<th class="text-center col" scope="col"><?= ($estado == '0') ? 'ACTIVAR' : 'DESACTIVAR'; ?></th>
+												<th class="text-center col" scope="col">Modificar</th>
+												<th class="text-center col" scope="col"><?= ($estado == '0') ? 'Activar' : 'Desactivar'; ?></th>
 											<?php endif; ?>
 										</tr>
 									</thead>
@@ -110,17 +111,31 @@ if ($m_rol == 1 || $l_rol == 1) {
 													<th class="text-center col" scope="col"></th>
 													<th class="text-center col" scope="col"><?= $row['nombre'] ?></th>
 													<th class="text-center col" scope="col">
-														<button modal="ver_detalles_rol" class="btn_modal btn bi bi-eye btn-info" url="./modal/rol/permisos_rol.php" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+														<button 
+															modal="rolDetalles" 
+															class="btn_modal btn bi bi-eye btn-info" 
+															value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>" 
+															data-bs-toggle="modal" 
+															data-bs-target="#modal">
+														</button>
 													</th>
 													<?php if (rol_model::verificar_rol('m_rol') == '1') { ?>
 														<th class="text-center col" scope="col">
-															<button modal="modificar_rol" url="./modal/rol/modificar_rol.php" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn bi bi-gear btn-warning" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>"></button>
+															<button 
+																modal="rolModificar"
+																data-bs-toggle="modal" 
+																data-bs-target="#modal" 
+																class="btn_modal btn btn-warning  <?= ICONO_MODIFICAR ?>" 
+																value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>">
+															</button>
 														</th>
 														<th class="text-center col" scope="col">
 															<form action="../controlador/rol.php" method="post" class="SendFormAjax" data-type-form="update_estate">
 																<input name="modulo" type="hidden" value="<?= ($estado == '1') ? 'activo' : 'inactivo'; ?>">
 																<input name="UIDR" type="hidden" value="<?= modeloPrincipal::encryptionId($row["id_rol"]); ?>">
-																<button class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>" ></button>
+																<button 
+																	class="btn bi <?= ($row['estado'] == '0') ? 'bi-check-circle btn-success' : 'bi-x-circle btn-danger'; ?>" >
+																</button>
 															</form>
 														</th>
 													<?php } ?>
@@ -139,7 +154,8 @@ if ($m_rol == 1 || $l_rol == 1) {
 
 			<?php 
 				include_once "./modal/plantillaModalCustom.php"; 
-				modalCustom ("modal-xl");
+				modalCustom ();
+				
 				// se incluye el footer / pie de pagina a la vista
 				include_once "../include/footer.php";
 

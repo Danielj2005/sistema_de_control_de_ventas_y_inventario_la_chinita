@@ -116,14 +116,31 @@ class cliente_model extends modeloPrincipal {
                 <td class="text-center col"><?= $mostrar["cedula"]; ?></td>
                 <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
+
                 <?php if (rol_model::verificar_rol('m_cliente') == '1') : ?>
+
                     <td scope='col' class="text-center col">
-                        <button value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" modal="clienteModificar" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn <?= ICONO_MODIFICAR ?> btn-warning" ></button>
+                        <button 
+                            value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" 
+                            modal="clienteModificar" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modal" 
+                            class="btn_modal btn <?= ICONO_MODIFICAR ?> btn-warning" >
+                        </button>
                     </td>
+
                 <?php endif; if (rol_model::verificar_rol('h_cliente') == '1') : ?>
+
                     <td scope='col' class="text-center col">
-                        <button modal="clienteHistorial" class="btn_modal btn btn-info bi bi-eye detalles_generales" value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                        <button 
+                            modal="clienteHistorial" 
+                            class="btn_modal btn btn-info bi bi-eye detalles_generales" 
+                            value="<?= modeloPrincipal::encryptionId($mostrar["id_cliente"]); ?>" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modal">
+                        </button>
                     </td> 
+
                 <?php endif; ?>
             </tr>
         <?php }

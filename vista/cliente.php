@@ -13,9 +13,16 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
+
+$m_cliente = rol_model::permisos_modulos('m_cliente');
+$l_cliente = rol_model::permisos_modulos('l_cliente');
+$h_cliente = rol_model::permisos_modulos('h_cliente');
+$f_cliente = rol_model::permisos_modulos('f_cliente');
+
 $rol = rol_model::permisos_modulos('m_cliente + l_cliente + h_cliente + f_cliente');
 
 // se evalua que este rol tenga el acceso a esta vista
+
 if ($rol >= 1 && $rol <= 4) {  ?>
 
   <!DOCTYPE html>
@@ -65,20 +72,20 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                           <th class="text-center col" scope="col">Nombre y Apellido</th>
                           <th class="text-center col" scope="col">Teléfono</th>
                           
-                          <?php if (rol_model::verificar_rol('m_cliente') == '1') : ?>
+                          <?php if ($m_cliente == 1) : ?>
 
                             <th class="text-center col" scope="col">Modificar</th>
 
-                          <?php endif; if (rol_model::verificar_rol('h_cliente') == '1') : ?>
+                          <?php endif; if ($h_cliente == 1) : ?>
 
                             <th class="text-center col" scope="col">Ver Historial</th>
 
                           <?php endif; ?>
                         </tr>
                       </thead>
-                      <tbody>
-                        <?= cliente_model::lista_clientes_registrados(); ?>  
-                      </tbody>
+
+                      <tbody> <?= cliente_model::lista_clientes_registrados(); ?> </tbody>
+
                     </table>
                   </div>
                 </div>

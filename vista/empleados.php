@@ -7,6 +7,7 @@ require_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
+
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
@@ -15,7 +16,6 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 $r_empleado = rol_model::permisos_modulos('r_empleado');
 $m_empleado = rol_model::permisos_modulos('m_empleado');
 $l_empleado = rol_model::permisos_modulos('l_empleado');
-
 
 // esta funcion retorna si el rol tiene permiso a las vista
 $rol = rol_model::permisos_modulos('r_empleado + m_empleado + l_empleado');
@@ -36,6 +36,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 			?>
 		</head>
 		<body>
+
 			<?php
 				// se incluye el header / encabezado a la vista
 				include_once "../include/header.php"; 
@@ -44,6 +45,7 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 			?>
 
 			<main id="main" class="main">
+
 				<div class="pagetitle">
 					<a class="btn btn-outline-secondary mb-3" href="./">
 						<i class="bi bi-chevron-left"></i> 
@@ -51,20 +53,28 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 					</a>
 					<h1 class="my-3">Empleados</h1>
 				</div>
+
 				<section class="section dashboard">
 					<div class="card">
 						
 						<div class="row text-center p-2 justify-content-center">
 							<?php if ($r_empleado == '1' && $l_empleado == '1'): ?>
 								<div class="col-12 mb-3 row m-0 col-md-6">
-									<button id="btn_register" onclick="toggle()" class="col-12 btn btn-success bi bi-person-plus">&nbsp;Registrar un Empleado</button>
+									<button id="btn_register" onclick="toggle()" class="col-12 btn btn-success">
+										<i class="bi bi-person-plus"></i>
+										Registrar un Empleado
+									</button>
 								</div>
 							<?php endif; ?>
 
 							<div class="col-12 mb-3 <?= $r_empleado == 1 && $l_empleado == 0 ? 'col-md-12' : 'col-md-6'; ?>">
-								<a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_empleados.php">Exportar Lista de Empleados </a>
+								<a class="col-12 btn btn-secondary" target="_blank" href="./reportes/lista_empleados.php">
+									<i class="bi bi-file-text"></i>
+									<span>Exportar Lista (.PDF)</span>
+								</a>
 							</div>
 						</div>
+
 						<hr>
 
 						<div class="card-body pb-3">

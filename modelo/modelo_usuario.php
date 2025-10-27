@@ -5,11 +5,8 @@ class model_user extends modeloPrincipal {
     
     /********************************************************************************************************/ 
     /*********************************     CRUD de usuarios         *****************************************/
-    /********************************************************************************************************/ 
+    /********************************************************************************************************/
     
-    /***************************************************************/
-    /******* funciones para consultar datos de los usuarios ********/
-    /***************************************************************/
 
     public static function consultar_usuario($fields) {
         $consul = modeloPrincipal::consultar("SELECT $fields FROM usuario");
@@ -54,26 +51,13 @@ class model_user extends modeloPrincipal {
     }
     
 
-    public static function consultar_preguntas_seguridad_por_id($id_pregunta) {
-        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM seguridad WHERE id_pregunta = '$id_pregunta'");
-        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
-        return $preguntas_sistema;
-    }
-    
-
-    public static function consultar_preguntas_seguridad_por_id_usuario($id_usuario) {
-        $preguntas_sistema = modeloPrincipal::consultar("SELECT pregunta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
-        modeloPrincipal::verificar_consulta($preguntas_sistema,'preguntas de seguridad');
-        return $preguntas_sistema;
-    }
-
     /****************************************************************************/ 
     /*       funciones de insertar datos de los usuarios   */
     /****************************************************************************/ 
 
     public static function insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol){
 
-        $actualizar = modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, suspender, primer_inicio, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 0, 1, $id_rol, 1");
+        $actualizar = modeloPrincipal::InsertSQL( "usuario","cedula, nombre, apellido, correo, contraseña, telefono, direccion, sesion_activa, bloqueado, primer_inicio, id_rol, estado", "'$cedula', '$nombre', '$apellido', '$correo', '$contraseña', '$telefono', '$direccion', 0, 0, 1, $id_rol, 1");
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar al usuario, por favor verifique e intente nuevamente","error");

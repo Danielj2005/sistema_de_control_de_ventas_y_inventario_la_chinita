@@ -319,29 +319,21 @@ if($modulo == 'Modificar'){
         $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
 
         bitacora::bitacora("Modificación de un Servicio",
-        '<p class="mb-3"> El usuario actualizó la información de un servicio: </p> 
-
+        '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la información de un servicio:</p> 
             <h4 class="text-center card-title"><b> Información Original del Servicio: </b></h4>
             <p> Nombre del platillo: <b> '.$nombre_original.' </b> </p> 
             <p> Precio en dolares: <b> '.$precio_dolar_original.' $ </b> </p>
             <p> Descripción: <b> '.$descripcion_original.'. </b> </p> 
             <p> Estado: <b> '.$estatus_original.' </b> </p>
-            
-
             <p class="card-title">Productos del Servicio Original:</p>
             '.$bitacora_original.'
-
             <h4 class="text-center card-title"> <b> Información del Servicio Actualizado:  </b> </h4>
             <p> Nombre del platillo: <b> '.$nombre_platillo.' </b> </p> 
             <p> Precio en dolares: <b> '.$precio_dolar.' $ </b> </p>
             <p> Descripción: <b> '.$descripcion.'. </b> </p> 
             <p> Estado: <b> '.$estado_menu.' </b> </p>
-
             <p class="card-title">Productos del servicio actualizado:</p>
-
-            '.$bitacora.'
-
-            ');
+            '.$bitacora.'');
 
         alert_model::alert_reset_forms('¡Modificacion exitosa!','Los datos se modificaron correctamente','success',"document.querySelector('.btn-danger').click();");
         exit();

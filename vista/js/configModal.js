@@ -123,6 +123,21 @@ const dataModal = {
         modalSendForm : true,
         modalSize: "modal-lg"
     },
+    // modales del módulo roles
+    rolDetalles : {
+        modalUrl : "./modal/rol/permisos_rol.php",
+        modalTitle : `${ICONS.list} Detalles de Acceso del Rol`,
+        modalSendForm : true,
+        modalSize: "modal-xl"
+    },
+    rolModificar : {
+        modalUrl : "./modal/rol/modificar_rol.php",
+        modalTitle : `${ICONS.modify} Configurar Acceso del Rol`,
+        modalSendForm : true,
+        modalSize: "modal-xl"
+    },
+
+
 
 };
 
