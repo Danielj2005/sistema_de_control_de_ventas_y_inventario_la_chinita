@@ -246,8 +246,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                     </div>
 
                 <?php } ?>
-        </div>
-    </div>
+        
     <?php } if ($venta > 0) { ?>
                 <div class="col-12 col-md-6 mb-4">
                     <h4 class="mb-3 text-primary">🛍️ Ventas</h4>
@@ -320,7 +319,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                             <div class="accordion-item shadow-sm">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="false" aria-controls="serviciosCard">
-                                        **Módulo Servicios**
+                                        Módulo Servicios
                                         <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($menu, 3) ?>"></i></span>
                                     </button>
                                 </h2>
@@ -378,7 +377,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div class="accordion-item shadow-sm">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#clienteCard" aria-expanded="false" aria-controls="clienteCard">
-                                                **Módulo Clientes**
+                                                Módulo Clientes
                                                 <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($cliente, 5) ?>"></i></span>
                                             </button>
                                         </h2>
@@ -434,7 +433,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div class="accordion-item shadow-sm">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#empleadoCard" aria-expanded="false" aria-controls="empleadoCard">
-                                                **Módulo Empleados**
+                                                Módulo Empleados
                                                 <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($empleado, 3) ?>"></i></span>
                                             </button>
                                         </h2>
@@ -478,7 +477,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div class="accordion-item shadow-sm">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rolesCard" aria-expanded="false" aria-controls="rolesCard">
-                                                **Módulo Roles**
+                                                Módulo Roles
                                                 <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($rol, 3) ?>"></i></span>
                                             </button>
                                         </h2>
@@ -537,7 +536,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div class="accordion-item shadow-sm">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
-                                                **Ajustes del Sistema**
+                                                Ajustes del Sistema
                                                 <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?>"></i></span>
                                             </button>
                                         </h2>
@@ -599,7 +598,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div class="accordion-item shadow-sm">
                                         <h2 class="accordion-header">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="false" aria-controls="bitacoraCard">
-                                                **Bitácora**
+                                                Bitácora
                                                 <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($bitacora, 2) ?>"></i></span>
                                             </button>
                                         </h2>
