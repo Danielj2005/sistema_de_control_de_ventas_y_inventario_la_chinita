@@ -1,32 +1,117 @@
 <?php
 
 include_once "../../../modelo/modeloPrincipal.php"; 
+include_once "../../../modelo/rol_model.php"; 
 include_once "../../../include/obtener_icono_permisos_include.php"; 
 
 $id_rol = modeloPrincipal::decryptionId($_POST['id']);
 
+$estadoRol = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT nombre, estado FROM rol WHERE id_rol = $id_rol"));
 
-$permisos = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT * FROM rol WHERE id_rol = $id_rol"));
-
-$nombre = $permisos['nombre'];
+$nombre = $estadoRol['nombre'];
+$estadoRol = $estadoRol['estado'];
 
 // cantidad de vistas de inventario 
-$proveedor = $permisos['r_proveedores'] + $permisos['m_proveedores'] + $permisos['l_proveedores'] + $permisos['h_proveedores'];
-$producto = $permisos['r_categoria'] + $permisos['m_categoria'] + $permisos['l_categoria'] + $permisos['r_presentacion'] + $permisos['m_presentacion'] + $permisos['l_presentacion'] +  $permisos['r_marca'] + $permisos['m_marca'] + $permisos['l_marca'] + $permisos['r_productos'] + $permisos['l_productos'] + $permisos['r_entrada'] + $permisos['l_entrada'];
+$proveedor = [
+    "r_proveedores" => rol_model::obtenerPermisoRol("r_proveedores"),
+    "m_proveedores" => rol_model::obtenerPermisoRol("m_proveedores"),
+    "l_proveedores" => rol_model::obtenerPermisoRol("l_proveedores"),
+    "h_proveedores" => rol_model::obtenerPermisoRol("h_proveedores"),
+    'total' => rol_model::obtenerSumaPermisoRol(['r_proveedores', 'm_proveedores','l_proveedores','h_proveedores'])
+];
+
+$producto = [
+    "categoria" => [
+        "l_categoria" => rol_model::obtenerPermisoRol("l_categoria"),
+        'total' => rol_model::obtenerSumaPermisoRol(["m_categoria","l_categoria"])
+    ],
+    "presentacion" => [
+        "r_presentacion" => rol_model::obtenerPermisoRol("r_presentacion"),
+        "m_presentacion" => rol_model::obtenerPermisoRol("m_presentacion"),
+        "l_presentacion" => rol_model::obtenerPermisoRol("l_presentacion"),
+        'total' => rol_model::obtenerSumaPermisoRol(["r_presentacion", "m_presentacion", "l_presentacion"])
+    ],
+    "marca" => [
+        "r_marca" => rol_model::obtenerPermisoRol("r_marca"),
+        "m_marca" => rol_model::obtenerPermisoRol("m_marca"),
+        "l_marca" => rol_model::obtenerPermisoRol("l_marca"),
+        'total' => rol_model::obtenerSumaPermisoRol(["r_marca", "m_marca", "l_marca"])
+    ],
+    "entrada" => [
+        "r_entrada" => rol_model::obtenerPermisoRol("r_entrada"),
+        "l_entrada" => rol_model::obtenerPermisoRol("l_entrada"),
+        'total' => rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"])
+    ],
+    "productos" => [
+        "r_productos" => rol_model::obtenerPermisoRol("r_productos"),
+        "l_productos" => rol_model::obtenerPermisoRol("l_productos"),
+        'total' => rol_model::obtenerSumaPermisoRol(["r_productos", "l_productos"])
+    ],
+    "total" => rol_model::obtenerSumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada']),
+];
 
 // cantidad de vistas de venta
-$venta = $permisos['g_venta'] + $permisos['d_venta'] + $permisos['f_venta'] + $permisos['l_venta'];
+$venta = [
+    "g_venta" => rol_model::obtenerPermisoRol("g_venta"),
+    "d_venta" => rol_model::obtenerPermisoRol("d_venta"),
+    "f_venta" => rol_model::obtenerPermisoRol("f_venta"),
+    "l_venta" => rol_model::obtenerPermisoRol("l_venta"),
+    "est_venta" => rol_model::obtenerPermisoRol("est_venta"),
+    "total" => rol_model::obtenerSumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta']),
+];
+
 // cantidad de vistas de menu
-$menu = $permisos['r_servicio'] + $permisos['m_servicio'] + $permisos['l_servicio'];
+$menu = [
+    "r_servicio" => rol_model::obtenerPermisoRol("r_servicio"),
+    "m_servicio" => rol_model::obtenerPermisoRol("m_servicio"),
+    "l_servicio" => rol_model::obtenerPermisoRol("l_servicio"),
+    "total" => rol_model::obtenerSumaPermisoRol(['r_servicio','m_servicio','l_servicio']),
+];
+
 // cantidad de vistas de usuario
-$cliente = $permisos['r_cliente'] + $permisos['m_cliente'] + $permisos['l_cliente'] + $permisos['h_cliente'] + $permisos['f_cliente'];
-$empleado = $permisos['r_empleado'] + $permisos['m_empleado'] + $permisos['l_empleado'];
-$rol = $permisos['r_rol'] + $permisos['m_rol'] + $permisos['l_rol'];
+$cliente = [
+    "r_cliente" => rol_model::obtenerPermisoRol("r_cliente"),
+    "m_cliente" => rol_model::obtenerPermisoRol("m_cliente"),
+    "l_cliente" => rol_model::obtenerPermisoRol("l_cliente"),
+    "h_cliente" => rol_model::obtenerPermisoRol("h_cliente"),
+    "f_cliente" => rol_model::obtenerPermisoRol("f_cliente"),
+    "total" => rol_model::obtenerSumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente']),
+];
+
+$empleado = [
+    "r_empleado" => rol_model::obtenerPermisoRol("r_empleado"),
+    "m_empleado" => rol_model::obtenerPermisoRol("m_empleado"),
+    "l_empleado" => rol_model::obtenerPermisoRol("l_empleado"),
+    "total" => rol_model::obtenerSumaPermisoRol(['r_empleado','m_empleado','l_empleado']),
+];
+
+
+$rol = [
+    "r_rol" => rol_model::obtenerPermisoRol("r_rol"),
+    "m_rol" => rol_model::obtenerPermisoRol("m_rol"),
+    "l_rol" => rol_model::obtenerPermisoRol("l_rol"),
+    "total" => rol_model::obtenerSumaPermisoRol(['r_rol','m_rol','l_rol']),
+];
+
 // cantidad de vistas de configuración
-$ajustes = $permisos['m_cant_pregunta_seguridad'] + $permisos['m_tiempo_sesion'] + $permisos['m_cant_caracteres'] + $permisos['m_cant_simbolos'] + $permisos['m_cant_num'] + $permisos['intentos_inicio_sesion'];
-$bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
+$ajustes = [
+    "m_cant_pregunta_seguridad" => rol_model::obtenerPermisoRol("m_cant_pregunta_seguridad"),
+    "m_tiempo_sesion" => rol_model::obtenerPermisoRol("m_tiempo_sesion"),
+    "m_cant_caracteres" => rol_model::obtenerPermisoRol("m_cant_caracteres"),
+    "m_cant_simbolos" => rol_model::obtenerPermisoRol("m_cant_simbolos"),
+    "m_cant_num" => rol_model::obtenerPermisoRol("m_cant_num"),
+    "intentos_inicio_sesion" => rol_model::obtenerPermisoRol("intentos_inicio_sesion"),
+    "total" => rol_model::obtenerSumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion']),
+];
+
+$bitacora = [
+    "v_bitacora" => rol_model::obtenerPermisoRol("v_bitacora"),
+    "m_bitacora" => rol_model::obtenerPermisoRol("m_bitacora"),
+    "total" => rol_model::obtenerSumaPermisoRol(['v_bitacora','m_bitacora']),
+];
 
 ?>
+
 <div class="container-fluid p-3">
     
     <div class="row align-items-center mb-4 pb-2 border-bottom">
@@ -41,14 +126,14 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
         <div class="col-12 col-md-6 text-center text-md-end">
             <h5 class="fw-bold mb-0">
                 Estado: 
-                <span class="badge rounded-pill fs-6 <?= ($permisos['estado'] == 1) ? 'bg-success' : 'bg-danger' ?>">
-                    <?= ($permisos['estado'] == 1) ? 'ACTIVO' : 'INACTIVO' ?>
+                <span class="badge rounded-pill fs-6 <?= ($estadoRol == 1) ? 'bg-success' : 'bg-danger' ?>">
+                    <?= ($estadoRol == 1) ? 'Activo' : 'Inactivo' ?>
                 </span>
             </h5>
         </div>
     </div>
 
-    <div class="row mb-4">
+    <div class="row mb-1">
         <div class="col-12">
             <p class="fw-bold mb-2 text-secondary d-flex align-items-center">
                 <i class="bi bi-info-circle me-2"></i>
@@ -70,6 +155,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
             </ul>
         </div>
     </div>
+
     <hr class="my-0">
     
     <div class="row mt-3">
@@ -80,9 +166,9 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
     <div class="row g-3">
         
-        <?php if ($proveedor > 0 || $producto > 0 ) { ?>
+        <?php if ($proveedor["total"] > 0 || $producto["total"] > 0 ) { ?>
 
-            <div class="col-12 mb-4 ">
+            <div class="col-12 col-md-6 mb-1 ">
     
                 <h4 class="mb-3 text-primary">
                     <i class="bi bi-box-seam me-2"></i>
@@ -93,16 +179,16 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
     
                 <div class="row g-3 justify-content-center">
                         
-                    <?php if ($proveedor <= 4 && $proveedor >= 1) { ?>
+                    <?php if ($proveedor["total"] <= 4 && $proveedor["total"] >= 1) { ?>
     
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 mb-2">
                             <div class="accordion" id="acordeon_proveedores">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proveedoresCard" aria-expanded="false" aria-controls="proveedoresCard">
                                             Módulo Proveedores
                                             <span class="ms-auto me-2">
-                                                <i class="bi <?= obtenerIconoPermisos($proveedor, 4) ?>"></i>
+                                                <i class="bi <?= obtenerIconoPermisos($proveedor["total"], 4) ?>"></i>
                                             </span>
                                         </button>
                                     </h2>
@@ -110,7 +196,7 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div id="proveedoresCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_proveedores">
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
-                                                <?php if ($proveedor == 4 ) { ?>
+                                                <?php if ($proveedor["total"] == 4 ) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Proveedores</strong>
                                                     </li>
@@ -118,24 +204,24 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                                 
                                                 <ul class="list-group list-group-flush">
 
-                                                    <?php if ($permisos['r_proveedores'] == 1) { ?>
+                                                    <?php if ($proveedor['r_proveedores'] == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Registrar Nuevos Proveedores
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
                                                     <?php }
-                                                    if ($permisos['l_proveedores'] == 1) { ?>
+                                                    if ($proveedor['l_proveedores'] == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Consultar Lista de Proveedores Registrados
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
                                                     <?php }
-                                                    if ($permisos['m_proveedores'] == 1) { ?>
+                                                    if ($proveedor['m_proveedores'] == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Modificar Información de Proveedores
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
-                                                    <?php } if ($permisos['h_proveedores'] == 1) { ?>
+                                                    <?php } if ($proveedor['h_proveedores'] == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Visualizar Historial de Compras
                                                             <i class="bi bi-check-circle-fill text-success"></i>
@@ -149,16 +235,16 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                             </div>
                         </div>
     
-                    <?php } if ($producto < 14 && $producto > 0) { ?>
+                    <?php } if ($producto["total"] < 14 && $producto["total"] > 0) { ?>
     
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 mb-2">
                             <div class="accordion" id="acordeon_productos">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="false" aria-controls="productosCard">
                                             Módulo Productos
                                             <span class="ms-auto me-2">
-                                                <i class="bi <?= obtenerIconoPermisos($producto, 13) ?>"></i>
+                                                <i class="bi <?= obtenerIconoPermisos($producto["total"], 13) ?>"></i>
                                             </span>
                                         </button>
                                     </h2>
@@ -166,44 +252,47 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush list-unstyled">
-                                                <?php if ($producto == 13 ) { ?>
+                                                <?php if ($producto["total"] == 13 ) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Productos</strong>
                                                     </li>
                                                 <?php } ?>
                                                 
-                                                <?php if ($permisos['r_categoria'] == 1 || $permisos['m_categoria'] == 1 || $permisos['l_categoria'] == 1) { ?>
+                                                <?php if ($producto['categoria']['r_categoria'] == 1 || $producto['categoria']['m_categoria'] == 1 || $producto['categoria']['l_categoria'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-folder-fill me-2 text-secondary"></i>
                                                         Categorías:
                                                     </li>
+
                                                     <ul class="list-group list-group-flush ms-3">
-                                                        <?php if ($permisos['l_categoria'] == 1) { ?>
+                                                        <?php if ($producto['categoria']['l_categoria'] == 1) { ?>
+
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Consultar Lista de Categorías Registradas
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
+
                                                         <?php } ?>
                                                     </ul>
                                                 <?php } ?>
     
-                                                <?php if ($permisos['r_presentacion'] == 1 || $permisos['m_presentacion'] == 1 || $permisos['l_presentacion'] == 1) { ?>
+                                                <?php if ($producto['presentacion']['r_presentacion'] == 1 || $producto['presentacion']['m_presentacion'] == 1 || $producto['presentacion']['l_presentacion'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-box-fill me-2 text-secondary"></i>
                                                         Presentaciones:
                                                     </li>
                                                     <ul class="list-group list-group-flush ms-3">
-                                                        <?php if ($permisos['r_presentacion'] == 1) { ?>
+                                                        <?php if ($producto['presentacion']['r_presentacion'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Registrar Nuevas Presentaciones
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['m_presentacion'] == 1) { ?>
+                                                        <?php } if ($producto['presentacion']['m_presentacion'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Modificar Información de Presentaciones
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['l_presentacion'] == 1) { ?>
+                                                        <?php } if ($producto['presentacion']['l_presentacion'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Consultar Lista de Presentaciones Registradas
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
@@ -212,23 +301,23 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                                     </ul>
                                                 <?php } ?>
     
-                                                <?php if ($permisos['r_marca'] == 1 || $permisos['m_marca'] == 1 || $permisos['l_marca'] == 1) { ?>
+                                                <?php if ($producto['marca']['r_marca'] == 1 || $producto['marca']['m_marca'] == 1 || $producto['marca']['l_marca'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-tags-fill me-2 text-secondary"></i>
                                                         Marcas:
                                                     </li>
                                                     <ul class="list-group list-group-flush ms-3">
-                                                        <?php if ($permisos['r_marca'] == 1) { ?>
+                                                        <?php if ($producto['marca']['r_marca'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Registrar Nuevas Marcas
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['m_marca'] == 1) { ?>
+                                                        <?php } if ($producto['marca']['m_marca'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Modificar Información de Marcas
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['l_marca'] == 1) { ?>
+                                                        <?php } if ($producto['marca']['l_marca'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Consultar Lista de Marcas Registradas
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
@@ -237,18 +326,18 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                                     </ul>
                                                 <?php } ?>
     
-                                                <?php if ($permisos['r_productos'] == 1 || $permisos['l_productos'] == 1) { ?>
+                                                <?php if ($producto['productos']['r_productos'] == 1 || $producto['productos']['l_productos'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-bag-fill me-2 text-secondary"></i>
                                                         Gestión de Productos:
                                                     </li>
                                                     <ul class="list-group list-group-flush ms-3">
-                                                        <?php if ($permisos['r_productos'] == 1) { ?>
+                                                        <?php if ($producto['productos']['r_productos'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Registrar Nuevos Productos
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['l_productos'] == 1) { ?>
+                                                        <?php } if ($producto['productos']['l_productos'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Consultar Lista de Productos Registrados
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
@@ -257,18 +346,18 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                                     </ul>
                                                 <?php } ?>
                                                 
-                                                <?php if ($permisos['r_entrada'] == 1 || $permisos['l_entrada'] == 1) { ?>
+                                                <?php if ($producto['entrada']['r_entrada'] == 1 || $producto['entrada']['l_entrada'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-box-arrow-in-right me-2 text-secondary"></i>
                                                         Entrada de Productos:
                                                     </li>
                                                     <ul class="list-group list-group-flush ms-3">
-                                                        <?php if ($permisos['r_entrada'] == 1) { ?>
+                                                        <?php if ($producto['entrada']['r_entrada'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Registrar Entrada de Productos
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
-                                                        <?php } if ($permisos['l_entrada'] == 1) { ?>
+                                                        <?php } if ($producto['entrada']['l_entrada'] == 1) { ?>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 Consultar Lista de Entradas de Productos
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
@@ -288,143 +377,155 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
             </div>
 
-        <?php } if ($venta > 0) { ?>
+        <?php } if ($venta['total'] > 0 || $menu['total'] > 0) { ?>
 
-            <div class="col-12 col-md-6 mb-4">
-                <h4 class="mb-3 text-primary"><i class="bi bi-currency-dollar"></i> Ventas</h4>
+            <div class="col-12 col-md-6 mb-1">
+                <h4 class="mb-3 text-primary">
+                    <?php if ($venta['total'] > 0) { ?>
+                        <i class="bi bi-currency-dollar"></i> Ventas |
+                    <?php } if ($menu['total'] > 0) { ?>
+                        <i class="bi bi-fork-knife"></i> Menú / Servicios
+                    <?php } ?>
+                </h4>
+
                 <hr>
+                    
+                <div class="row g-3 justify-content-center">
 
-                <div class="accordion" id="acordeon_ventas">
-                    <div class="accordion-item shadow-sm">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="false" aria-controls="ventasCard">
-                                Módulo Ventas
-                                <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($venta, 4) ?>"></i></span>
-                            </button>
-                        </h2>
+                    <?php if ($venta['total'] > 0) { ?>
 
-                        <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
-                            <div class="accordion-body p-0">
-                                <ul class="list-group list-group-flush">
-                                    <?php if ($venta == 4) { ?>
-                                        <li class="list-group-item bg-light border-0">
-                                            <strong class="text-success">Acceso Total al Módulo de Ventas</strong>
-                                        </li>
-                                    <?php } ?>
+                        <div class="col-12 mb-2">      
+                            <div class="accordion" id="acordeon_ventas">
+                                <div class="accordion-item shadow-sm">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="false" aria-controls="ventasCard">
+                                            Módulo Ventas
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($venta['total'], 5) ?>"></i></span>
+                                        </button>
+                                    </h2>
 
-                                    <?php if ($permisos['g_venta'] == 1) { ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Generar Nuevas Ventas
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </li>
-                                    <?php } ?>
+                                    <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
+                                        <div class="accordion-body p-0">
+                                            <ul class="list-group list-group-flush">
+                                                <?php if ($venta['total'] == 5) { ?>
+                                                    <li class="list-group-item bg-light border-0">
+                                                        <strong class="text-success">Acceso Total al Módulo de Ventas</strong>
+                                                    </li>
+                                                <?php } ?>
 
-                                    <?php if ($permisos['l_venta'] == 1) { ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Consultar Lista de Ventas Realizadas
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </li>
-                                    <?php } ?>
+                                                <?php if ($venta['g_venta'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Generar Nuevas Ventas
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
 
-                                    <?php if ($permisos['d_venta'] == 1) { ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Visualizar Detalles de Ventas
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </li>
-                                    <?php } ?>
+                                                <?php if ($venta['l_venta'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Consultar Lista de Ventas Realizadas
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
 
-                                    <?php if ($permisos['f_venta'] == 1) { ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Acceder a Facturas de Ventas
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </li>
-                                    <?php } ?>
+                                                <?php if ($venta['d_venta'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Visualizar Detalles de Ventas
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
 
-                                    <?php if ($permisos['r_venta'] == 1) { ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Consultar Estadísticas/Reportes de Ventas
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                <?php if ($venta['f_venta'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Acceder a Facturas de Ventas
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
 
-        <?php }  if ($menu > 0) { ?>
-
-            <div class="col-12 col-md-6 mb-4">
-                <h4 class="mb-3 text-primary"><i class="bi bi-fork-knife"></i> Menú / Servicios</h4>
-                <hr>
-
-                <?php if ($menu >= 1) { ?>
-                    <div class="accordion" id="acordeon_servicios">
-                        <div class="accordion-item shadow-sm">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="false" aria-controls="serviciosCard">
-                                    Módulo Servicios
-                                    <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($menu, 3) ?>"></i></span>
-                                </button>
-                            </h2>
-
-                            <div id="serviciosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_servicios">
-                                <div class="accordion-body p-0">
-                                    <ul class="list-group list-group-flush">
-                                        <?php if ($menu == 3) { ?>
-                                            <li class="list-group-item bg-light border-0">
-                                                <strong class="text-success">Acceso Total al Módulo de Servicios</strong>
-                                            </li>
-                                        <?php } ?>
-
-                                        <?php if ($permisos['r_servicio'] == 1) { ?>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Registrar Nuevos Servicios
-                                                <i class="bi bi-check-circle-fill text-success"></i>
-                                            </li>
-                                        <?php } ?>
-
-                                        <?php if ($permisos['l_servicio'] == 1) { ?>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Lista de Servicios Registrados
-                                                <i class="bi bi-check-circle-fill text-success"></i>
-                                            </li>
-                                        <?php } ?>
-
-                                        <?php if ($permisos['m_servicio'] == 1) { ?>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Modificar Información de Servicios
-                                                <i class="bi bi-check-circle-fill text-success"></i>
-                                            </li>
-                                        <?php } ?>
-
-                                    </ul>
+                                                <?php if ($venta['est_venta'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Consultar Estadísticas/Reportes de Ventas
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php } ?>
-            </div>
 
-        <?php }  if ($cliente > 0 || $empleado > 0 || $rol > 0) { ?>
+                    <?php } if ($menu['total'] > 0) { ?>
 
-            <div class="col-12 mb-4">
+                        <div class="col-12 mb-2">
+                            <div class="accordion" id="acordeon_servicios">
+                                <div class="accordion-item shadow-sm">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="false" aria-controls="serviciosCard">
+                                            Módulo Servicios
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($menu['total'], 3) ?>"></i></span>
+                                        </button>
+                                    </h2>
+
+                                    <div id="serviciosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_servicios">
+                                        <div class="accordion-body p-0">
+                                            <ul class="list-group list-group-flush">
+                                                <?php if ($menu['total'] == 3) { ?>
+                                                    <li class="list-group-item bg-light border-0">
+                                                        <strong class="text-success">Acceso Total al Módulo de Servicios</strong>
+                                                    </li>
+                                                <?php } ?>
+
+                                                <?php if ($menu['r_servicio'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Registrar Nuevos Servicios
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
+
+                                                <?php if ($menu['l_servicio'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Lista de Servicios Registrados
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
+
+                                                <?php if ($menu['m_servicio'] == 1) { ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Modificar Información de Servicios
+                                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                                    </li>
+                                                <?php } ?>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php } ?>
+
+                </div>
+            </div>       
+
+        <?php }  if ($cliente['total'] > 0 || $empleado['total'] > 0 || $rol['total'] > 0) { ?>
+
+            <div class="col-12 col-md-6 mb-1">
                 <h4 class="mb-3 text-primary"><i class="bi bi-people-fill"></i> Usuarios</h4>
 
                 <hr>
 
                 <div class="row justify-content-center">
 
-                    <?php if ($cliente >= 1) { ?>
+                    <?php if ($cliente['total'] >= 1) { ?>
 
-                        <div class="col-12 col-md-4 mb-3 p-2">
+                        <div class="col-12 mb-1 p-2">
                             <div class="accordion" id="acordeon_cliente">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#clienteCard" aria-expanded="false" aria-controls="clienteCard">
                                             Módulo Clientes
-                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($cliente, 5) ?>"></i></span>
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($cliente['total'], 5) ?>"></i></span>
                                         </button>
                                     </h2>
 
@@ -432,41 +533,41 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
                                                 
-                                                <?php if ($cliente == 5) { ?>
+                                                <?php if ($cliente['total'] == 5) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Clientes</strong>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['r_cliente'] == 1) { ?>
+                                                <?php if ($cliente['r_cliente'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Registrar Nuevos Clientes
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['l_cliente'] == 1) { ?>
+                                                <?php if ($cliente['l_cliente'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Consultar Lista de Clientes Registrados
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['m_cliente'] == 1) { ?>
+                                                <?php if ($cliente['m_cliente'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar Información de Clientes
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['h_cliente'] == 1) { ?>
+                                                <?php if ($cliente['h_cliente'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Visualizar Historial de Compras
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
                                                 
-                                                <?php if ($permisos['f_cliente'] == 1) { ?>
+                                                <?php if ($cliente['f_cliente'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Visualizar Facturas de Compras
                                                         <i class="bi bi-check-circle-fill text-success"></i>
@@ -481,15 +582,15 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
                     <?php } ?>
 
-                    <?php if ($empleado >= 1) { ?>
-
-                        <div class="col-12 col-md-4 mb-3 p-2">
+                    <?php if ($empleado['total'] >= 1) { ?>
+                        
+                        <div class="col-12 mb-1 p-2">
                             <div class="accordion" id="acordeon_empleado">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#empleadoCard" aria-expanded="false" aria-controls="empleadoCard">
                                             Módulo Empleados
-                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($empleado, 3) ?>"></i></span>
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($empleado['total'], 3) ?>"></i></span>
                                         </button>
                                     </h2>
 
@@ -497,27 +598,27 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
                                                 
-                                                <?php if ($empleado == 3) { ?>
+                                                <?php if ($empleado['total'] == 3) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Empleados</strong>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['r_empleado'] == 1) { ?>
+                                                <?php if ($empleado['r_empleado'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Registrar Nuevos Empleados
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['l_empleado'] == 1) { ?>
+                                                <?php if ($empleado['l_empleado'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Consultar Lista de Empleados Registrados
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['m_empleado'] == 1) { ?>
+                                                <?php if ($empleado['m_empleado'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar Información de Empleados
                                                         <i class="bi bi-check-circle-fill text-success"></i>
@@ -532,15 +633,15 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
                     <?php } ?>
 
-                    <?php if ($rol >= 1) { ?>
+                    <?php if ($rol['total'] >= 1) { ?>
 
-                        <div class="col-12 col-md-4 mb-3 p-2">
+                        <div class="col-12 mb-1 p-2">
                             <div class="accordion" id="acordeon_roles">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rolesCard" aria-expanded="false" aria-controls="rolesCard">
                                             Módulo Roles
-                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($rol, 3) ?>"></i></span>
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($rol['total'], 3) ?>"></i></span>
                                         </button>
                                     </h2>
 
@@ -548,27 +649,27 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
 
-                                                <?php if ($rol == 3) { ?>
+                                                <?php if ($rol['total'] == 3) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Roles</strong>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['r_rol'] == 1) { ?>
+                                                <?php if ($rol['r_rol'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Registrar Nuevos Roles
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['l_rol'] == 1) { ?>
+                                                <?php if ($rol['l_rol'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Consultar Lista de Roles Registrados
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($permisos['m_rol'] == 1) { ?>
+                                                <?php if ($rol['m_rol'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar Información de Roles
                                                         <i class="bi bi-check-circle-fill text-success"></i>
@@ -586,64 +687,70 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                 </div>
             </div>
 
-        <?php }  if ($ajustes > 0 || $bitacora > 0) { ?>
+        <?php }  if ($ajustes['total'] > 0 || $bitacora['total'] > 0) { ?>
             
-            <div class="col-12 mb-4">
+            <div class="col-12 col-md-6 mb-1">
 
                 <h4 class="mb-3 text-primary"><i class="bi bi-gear-fill"></i> Configuración General</h4>
                 <hr>
 
                 <div class="row justify-content-center">
 
-                    <?php if ($ajustes >= 1) { ?>
-                        <div class="col-12 col-md-6 mb-3 p-2">
+                    <?php if ($ajustes['total'] >= 1) { ?>
+                        <div class="col-12 mb-1 p-2">
                             <div class="accordion" id="acordeon_ajustes_del_sistema">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
                                             Ajustes del Sistema
-                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?>"></i></span>
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($ajustes['total'], 6) ?>"></i></span>
                                         </button>
                                     </h2>
                                     <div id="ajustesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ajustes_del_sistema">
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
-                                                <?php if ($ajustes == 6) { ?>
+                                                <?php if ($ajustes['total'] == 6) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total a la Configuración del Sistema</strong>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_cant_pregunta_seguridad'] == 1) { ?>
+
+                                                <?php if ($ajustes['m_cant_pregunta_seguridad'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar cantidad de preguntas de seguridad
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_tiempo_sesion'] == 1) { ?>
+
+                                                <?php if ($ajustes['m_tiempo_sesion'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar tiempo de inactividad de sesión
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_cant_caracteres'] == 1) { ?>
+
+                                                <?php if ($ajustes['m_cant_caracteres'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar cantidad de caracteres de contraseña
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_cant_simbolos'] == 1) { ?>
+
+                                                <?php if ($ajustes['m_cant_simbolos'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar cantidad de símbolos de contraseña
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_cant_num'] == 1) { ?>
+
+                                                <?php if ($ajustes['m_cant_num'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar cantidad de números de contraseña
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['intentos_inicio_sesion'] == 1) { ?>
+
+                                                <?php if ($ajustes['intentos_inicio_sesion'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Modificar intentos de inicio de sesión
                                                         <i class="bi bi-check-circle-fill text-success"></i>
@@ -657,31 +764,31 @@ $bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                         </div>
                     <?php } ?>
 
-                    <?php if ($bitacora >= 1) { ?>
-                        <div class="col-12 col-md-6 mb-3 p-2">
+                    <?php if ($bitacora['total'] >= 1) { ?>
+                        <div class="col-12 mb-1 p-2">
                             <div class="accordion" id="acordeon_bitacora">
                                 <div class="accordion-item shadow-sm">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="false" aria-controls="bitacoraCard">
                                             Bitácora
-                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($bitacora, 2) ?>"></i></span>
+                                            <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($bitacora['total'], 2) ?>"></i></span>
                                         </button>
                                     </h2>
                                     <div id="bitacoraCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_bitacora">
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
-                                                <?php if ($bitacora == 2) { ?>
+                                                <?php if ($bitacora['total'] == 2) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total a la Bitácora</strong>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['v_bitacora'] == 1) { ?>
+                                                <?php if ($bitacora['v_bitacora'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Consultar Registros de la Bitácora
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>
-                                                <?php if ($permisos['m_bitacora'] == 1) { ?>
+                                                <?php if ($bitacora['m_bitacora'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Consultar Movimientos de un Usuario en la Bitácora
                                                         <i class="bi bi-check-circle-fill text-success"></i>

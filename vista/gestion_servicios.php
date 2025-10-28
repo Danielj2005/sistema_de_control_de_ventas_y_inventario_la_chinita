@@ -10,12 +10,12 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // se guardan los permisos del rol del usuario que inició sesión
-$r_servicio = rol_model::permisos_modulos('r_servicio');
-$l_servicio = rol_model::permisos_modulos('l_servicio');
-$m_servicio = rol_model::permisos_modulos('m_servicio');
+$r_servicio = rol_model::obtenerPermisoRol('r_servicio');
+$l_servicio = rol_model::obtenerPermisoRol('l_servicio');
+$m_servicio = rol_model::obtenerPermisoRol('m_servicio');
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('r_servicio + m_servicio + l_servicio');
+$rol = rol_model::obtenerSumaPermisoRol('r_servicio + m_servicio + l_servicio');
 // se evalua que este rol tenga el acceso a esta vista
 
 if ($rol >= 1 && $rol <= 3) { ?>
@@ -89,9 +89,8 @@ if ($rol >= 1 && $rol <= 3) { ?>
 														<?php endif; ?>
 													</tr>
 												</thead>
-												<tbody>
-													<?php servicio_model::lista(); ?>  
-												</tbody>
+
+												<tbody> <?php servicio_model::lista(); ?> </tbody>
 											</table>
 										</div>
 

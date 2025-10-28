@@ -12,11 +12,10 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // se guardan los permisos del rol del usuario que inició sesión
-$r_rol = rol_model::permisos_modulos('r_rol');
-$m_rol = rol_model::permisos_modulos('m_rol');
-$l_rol = rol_model::permisos_modulos('l_rol');
+$r_rol = rol_model::obtenerPermisoRol('r_rol');
+$m_rol = rol_model::obtenerPermisoRol('m_rol');
+$l_rol = rol_model::obtenerPermisoRol('l_rol');
 
-$rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol'); // esta funcion retorna si el rol tiene permiso a las vista
 // se evalua que este rol tenga el acceso a esta vista
 if ($m_rol == 1 || $l_rol == 1) {  
 
@@ -54,7 +53,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 					</a>
 					<h1 class="display-4 fw-bold mb-4 border-bottom pb-2">
 						<i class="bi bi-person-lines-fill me-3 text-secondary"></i> 
-						Gestión de Roles
+						Gestión de Roles <?= rol_model::obtenerSumaPermisoRol(['r_rol', 'm_rol']) ?>
 					</h1>
 				</div>
 
@@ -65,7 +64,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 								<div class="col-12 col-sm-12 col-md-6 mb-1">
 									<a 
 										class="col-12 btn btn-success" 
-										href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
+										href="./<?= rol_model::obtenerPermisoRol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
 											<i class="bi bi-plus-circle"></i>
 											Registrar un Nuevo Rol
 									</a>
@@ -122,7 +121,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 															data-bs-target="#modal">
 														</button>
 													</th>
-													<?php if (rol_model::verificar_rol('m_rol') == '1') { ?>
+													<?php if (rol_model::obtenerPermisoRol('m_rol') == '1') { ?>
 														<th class="text-center col" scope="col">
 															<button 
 																modal="rolModificar"
@@ -167,7 +166,8 @@ if ($m_rol == 1 || $l_rol == 1) {
 				
 				model_user::validar_sesion_activa($id_usuario);
 				
-				config_model::verificar_actualizacion_configuracion(); ?>
+				config_model::verificar_actualizacion_configuracion();
+			?>
 		</body>
 	</html>
 <?php }else if ($r_rol == 1 && $m_rol == 0 && $l_rol == 0 ) { 

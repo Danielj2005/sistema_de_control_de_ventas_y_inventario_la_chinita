@@ -16,7 +16,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::verificar_rol('v_bitacora');
+$rol = rol_model::obtenerPermisoRol('v_bitacora');
 
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
@@ -115,7 +115,13 @@ if ($rol == 1) {  ?>
                                   <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
                                   <th class="col" scope="col"><?= date('d-m-Y | g:i a', strtotime($row['fecha_hora'])) ?></th>
                                   <th class="text-center col" scope="col">
-                                    <button modal="bitacora" class="btn_modal btn bi bi-eye btn-info" value="<?= modeloPrincipal::encryptionId($row["id"]); ?>" data-bs-toggle="modal" data-bs-target="#modal"></button>
+                                    <button 
+                                      modal="bitacora"
+                                      class="btn_modal btn bi bi-eye btn-info"
+                                      value="<?= modeloPrincipal::encryptionId($row["id"]); ?>"
+                                      data-bs-toggle="modal" 
+                                      data-bs-target="#modal">
+                                    </button>
                                   </th>
                                 </tr>
                             <?php } ?>  

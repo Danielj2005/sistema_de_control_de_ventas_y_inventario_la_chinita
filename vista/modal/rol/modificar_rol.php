@@ -371,7 +371,7 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                             Acceso a la Vista del Módulo de Clientes
                                         </label>
                                     </div>
-                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                    <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
                                             <input name="r_cliente" class="form-check-input clientes" <?= $permisos['r_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_cliente">
                                             <label class="form-check-label" for="r_cliente">Registrar Nuevos Clientes</label>
@@ -412,6 +412,7 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     </span>
                                 </button>
                             </h2>
+
                             <div id="empleadosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_empleados">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
@@ -421,7 +422,7 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                         </label>
                                     </div>
                                     
-                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                    <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
                                             <input name="r_empleado" class="form-check-input empleado" <?= $permisos['r_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_empleado">
                                             <label class="form-check-label" for="r_empleado">Registrar Nuevos Empleados</label>
@@ -463,7 +464,8 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                             Acceso a la Vista del Módulo de Roles
                                         </label>
                                     </div>
-                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+
+                                    <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
                                             <input name="r_rol" class="form-check-input roles" <?= $permisos['r_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_rol">
                                             <label class="form-check-label" for="r_rol">Registrar Nuevos Roles</label>
@@ -486,7 +488,7 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
             </div>
         </div>
 
-        <div class="col-12 col-md-6 m-0 mb-4 ">
+        <div class="col-12 col-md-6 m-0 mb-4">
 
             <h4 class="mb-3 text-primary"><i class="bi bi-gear-fill"></i> Configuración General</h4>
             <hr>
@@ -494,8 +496,11 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
             <div class="accordion mb-3" id="acordeon_ajustes_sistema">
                 <div class="accordion-item shadow-sm">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
-                            Módulo Ajustes del Sistema <i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?> ms-2"></i>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
+                            Módulo Ajustes del Sistema
+                            <span class="ms-auto me-2">
+                                <i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?>"></i>
+                            </span>
                         </button>
                     </h2>
                     
@@ -507,7 +512,8 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
                                     Acceso a la Vista del Módulo de Ajustes del Sistema
                                 </label>
                             </div>
-                            <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+
+                            <ul class="list-unstyled pt-2 border-top mt-2">
                                 <li class="form-check mb-1">
                                     <input name="m_cant_pregunta_seguridad" class="form-check-input ajustes_sistema" <?= $permisos['m_cant_pregunta_seguridad'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cant_pregunta_seguridad">
                                     <label class="form-check-label" for="m_cant_pregunta_seguridad">Modificar cantidad de preguntas de seguridad</label>

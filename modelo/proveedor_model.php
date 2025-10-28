@@ -134,9 +134,9 @@ class proveedor_model extends modeloPrincipal {
     
         $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
         
-        $l_proveedores = rol_model::verificar_rol('l_proveedores');
-        $m_proveedores = rol_model::verificar_rol('m_proveedores');
-        $h_proveedores = rol_model::verificar_rol('h_proveedores');
+        $l_proveedores = rol_model::obtenerPermisoRol('l_proveedores');
+        $m_proveedores = rol_model::obtenerPermisoRol('m_proveedores');
+        $h_proveedores = rol_model::obtenerPermisoRol('h_proveedores');
 
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
@@ -153,59 +153,65 @@ class proveedor_model extends modeloPrincipal {
                 <td class="col text-center">
                     <button modal="proveedorDetalles" type="submit" value="<?= $encryptionId ; ?>" <?= $l_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
                 </td>
+                <?php if ($m_proveedores == '1') { ?>
+                    <td class="col text-center">
+                        <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>"></button>
+                    </td>
+                <?php } ?>
+                <?php if ($h_proveedores == '1') { ?>
 
-                <td class="col text-center <?= $m_proveedores == '1' ?  '' : 'd-none eraser' ?>">
-                    <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>"></button>
-                </td>
+                    <td class="col text-center">
+                        <div class="m-0 row justify-content-center align-items-center">
 
-                <td class="col text-center <?= $h_proveedores == '1' ?  '' : 'd-none eraser' ?>">
-                    <div class="m-0 row justify-content-center align-items-center">
+                            <button modal="proveedorHistorial" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
+                            
+                            <div class="dropstart col col-auto">
+                                <button class="<?= $haveHistorial > 0 ? " btn-primary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >
+                                    <span>PDF</span>
+                                    <i class="bi bi-file-earmark-arrow-down"></i>
+                                </button>
 
-                        <button modal="proveedorHistorial" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
-                        
-                        <div class="dropstart col col-auto">
-                            <button class="<?= $haveHistorial > 0 ? " btn-primary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >
-                                <span>PDF</span>
-                                <i class="bi bi-file-earmark-arrow-down"></i>
-                            </button>
-                            <ul class="dropdown-menu" style="width: 20rem;">
+                                <ul class="dropdown-menu" style="width: 20rem;">
 
-                                <li class="p-2 text-center">
-                                    <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
-                                        <input type="hidden" value="<?= $encryptionId ; ?>" name="UID">
-                                        <button type="submit" class="btn bi bi-file-text btn-outline-success"> Exportar todas las compras</button>
-                                    </form>
-                                </li>
-                                <li> <hr class="dropdown-divider"> </li>
-                                <li> <hr class="dropdown-divider"> </li>
+                                    <li class="p-2 text-center">
+                                        <form target="_blank" action="./reportes/historial_proveedor.php" method="post">
+                                            <input type="hidden" value="<?= $encryptionId ; ?>" name="UID">
+                                            <button type="submit" class="btn bi bi-file-text btn-outline-success"> Exportar todas las compras</button>
+                                        </form>
+                                    </li>
+                                    <li> <hr class="dropdown-divider"> </li>
+                                    <li> <hr class="dropdown-divider"> </li>
 
-                                <li class="p-0 text-center">
-                                    <label class="dropdown-item">Exportar Lista de las compras por Fecha</label>
-                                    <form action="./reportes/historial_por_fechas_proveedor.php" method="post" class="p-1 row" id="<?= $alterarId; ?>" target="_blank">
-                                        <input form="<?= $alterarId; ?>" type="hidden" value="<?= $encryptionId ; ?>" name="UID">
+                                    <li class="p-0 text-center">
+                                        <label class="dropdown-item">Exportar Lista de las compras por Fecha</label>
 
-                                        <div class="input-group mb-1 justify-content-center">
-                                            <label class="input-group-text text-start control-label">Fecha de Inicio <span class="text-danger">*</span></label>
-                                            <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" type="date" id="fechaReporteInicio_<?= $alterarId; ?>" name="fechaReporteInicio">
-                                        </div>
-                                        
-                                        <div class="input-group mb-1 justify-content-center">
-                                            <label class="input-group-text text-start control-label">Fecha de Fin<span class="text-danger">*</span></label>
-                                            <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin_<?= $alterarId; ?>" name="fechaReporteFin">
-                                        </div>
-                                        
-                                        <div class="input-group mb-1 justify-content-center">
-                                            <p class="showThis_<?= $alterarId; ?> bg-danger-light text-danger p-2 d-none" id="mensajefechaReporteInicio" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
-                                        </div>
-                                        <div class="col-12 col-sm-12 col-md-12 mb-1 text-center">
-                                            <button form="<?= $alterarId; ?>" type="submit" class="d-none btn btn-outline-success bi bi-file-text" id="btnReportesFechas_<?= $alterarId; ?>">&nbsp; Generar Reporte</button>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
+                                        <form action="./reportes/historial_por_fechas_proveedor.php" method="post" class="p-1 row" id="<?= $alterarId; ?>" target="_blank">
+                                            <input form="<?= $alterarId; ?>" type="hidden" value="<?= $encryptionId ; ?>" name="UID">
+
+                                            <div class="input-group mb-1 justify-content-center">
+                                                <label class="input-group-text text-start control-label">Fecha de Inicio <span class="text-danger">*</span></label>
+                                                <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" type="date" id="fechaReporteInicio_<?= $alterarId; ?>" name="fechaReporteInicio">
+                                            </div>
+                                            
+                                            <div class="input-group mb-1 justify-content-center">
+                                                <label class="input-group-text text-start control-label">Fecha de Fin<span class="text-danger">*</span></label>
+                                                <input form="<?= $alterarId; ?>" onchange="validateDate(`<?= $alterarId; ?>`)" class="reportDates form-control" value="<?= date('Y-m-d') ?>" type="date" id="fechaReporteFin_<?= $alterarId; ?>" name="fechaReporteFin">
+                                            </div>
+                                            
+                                            <div class="input-group mb-1 justify-content-center">
+                                                <p class="showThis_<?= $alterarId; ?> bg-danger-light text-danger p-2 d-none" id="mensajefechaReporteInicio" style="width: fit-content;">La fecha de inicio no puede ser mayor a la fecha de fin y ninguno puede ser mayor a la fecha actual.</p>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 mb-1 text-center">
+                                                <button form="<?= $alterarId; ?>" type="submit" class="d-none btn btn-outline-success bi bi-file-text" id="btnReportesFechas_<?= $alterarId; ?>">&nbsp; Generar Reporte</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
+                <?php } ?>
+
             </tr>
         <?php } 
     }

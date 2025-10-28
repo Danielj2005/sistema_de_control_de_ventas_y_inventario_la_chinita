@@ -12,7 +12,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::verificar_rol('e_venta');
+$rol = rol_model::obtenerPermisoRol('e_venta');
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
 
@@ -34,7 +34,7 @@ if ($rol == 1) {  ?>
       ?>
 
       <main id="main" class="main">
-      <div class="pagetitle">
+        <div class="pagetitle">
           <a class="btn btn-outline-secondary mb-3" href="./">
               <i class="bi bi-chevron-left"></i> 
               <span>Volver al Panel Principal</span>
@@ -44,6 +44,7 @@ if ($rol == 1) {  ?>
             Estadísticas de Servicios Vendidos
           </h1>
         </div>
+
         <section class="section dashboard">
           <div class="row">
             <div class="col-lg-12">
@@ -89,6 +90,7 @@ if ($rol == 1) {  ?>
             </div>
           </div>
         </section>
+
       </main>
       
       <?php 

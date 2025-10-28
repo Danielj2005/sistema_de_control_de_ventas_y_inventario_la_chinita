@@ -117,7 +117,7 @@ class cliente_model extends modeloPrincipal {
                 <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
 
-                <?php if (rol_model::verificar_rol('m_cliente') == '1') : ?>
+                <?php if (rol_model::obtenerPermisoRol('m_cliente') == '1') : ?>
 
                     <td scope='col' class="text-center col">
                         <button 
@@ -129,7 +129,7 @@ class cliente_model extends modeloPrincipal {
                         </button>
                     </td>
 
-                <?php endif; if (rol_model::verificar_rol('h_cliente') == '1') : ?>
+                <?php endif; if (rol_model::obtenerPermisoRol('h_cliente') == '1') : ?>
 
                     <td scope='col' class="text-center col">
                         <button 

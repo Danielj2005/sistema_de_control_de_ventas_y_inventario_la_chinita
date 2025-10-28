@@ -13,7 +13,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('intentos_inicio_sesion + m_cant_pregunta_seguridad + m_tiempo_sesion + m_cant_caracteres + m_cant_simbolos + m_cant_num');
+$rol = rol_model::obtenerSumaPermisoRol(['intentos_inicio_sesion', 'm_cant_pregunta_seguridad', 'm_tiempo_sesion', 'm_cant_caracteres', 'm_cant_simbolos', 'm_cant_num']);
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 6) {  
 ?>

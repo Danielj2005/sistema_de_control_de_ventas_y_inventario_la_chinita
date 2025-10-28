@@ -13,7 +13,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
 // esta funcion retorna si el rol tiene permiso a las vista
 
-$rol = rol_model::verificar_rol('est_venta');
+$rol = rol_model::obtenerPermisoRol('est_venta');
 
 // se evalua que este rol tenga el acceso a esta vista
 

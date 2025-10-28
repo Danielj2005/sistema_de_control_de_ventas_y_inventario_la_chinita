@@ -15,13 +15,13 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 $fecha_actual = date('Y-m-d'); // se guarda la fecha actual para su posterior uso
 
 // se guardan los permisos del rol del usuario que inició sesión
-$r_proveedores = rol_model::permisos_modulos('r_proveedores');
-$l_proveedores = rol_model::permisos_modulos('l_proveedores');
-$m_proveedores = rol_model::permisos_modulos('m_proveedores');
-$h_proveedores = rol_model::permisos_modulos('h_proveedores');
+$r_proveedores = rol_model::obtenerPermisoRol('r_proveedores');
+$l_proveedores = rol_model::obtenerPermisoRol('l_proveedores');
+$m_proveedores = rol_model::obtenerPermisoRol('m_proveedores');
+$h_proveedores = rol_model::obtenerPermisoRol('h_proveedores');
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
+$rol = rol_model::obtenerSumaPermisoRol(['r_proveedores','m_proveedores','l_proveedores','h_proveedores']);
 
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 4) {  ?>
@@ -55,6 +55,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
             <h1 class="mt-3">Gestión de Proveedores</h1>
           </div>
         </div>
+
         <section class="section dashboard">
           <div class="row">
             <div class="col-12">
@@ -163,6 +164,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
             </div>
           </div>
         </section>
+        
       </main>
       
       <?php 
@@ -174,55 +176,56 @@ if ($rol >= 1 && $rol <= 4) {  ?>
         
         model_user::validar_sesion_activa($id_usuario);
         
-        config_model::verificar_actualizacion_configuracion(); ?>
-        <script>
-          // funcion para mostrar y ocultar elementos en proveedores
-          const titlex = ['Ver lista de Provedores Registrados','Registrar un Proveedor'];
-          const btnToggle = document.getElementById('btn_register');
+        config_model::verificar_actualizacion_configuracion();
+      ?>
+      <script>
+        // funcion para mostrar y ocultar elementos en proveedores
+        const titlex = ['Ver lista de Provedores Registrados','Registrar un Proveedor'];
+        const btnToggle = document.getElementById('btn_register');
 
-          const toggle = ()=>{
-            const hiddenElements = document.querySelectorAll('.hidden');
-            hiddenElements.forEach(element => {
-              element.classList.toggle('d-none');
+        const toggle = ()=>{
+          const hiddenElements = document.querySelectorAll('.hidden');
+          hiddenElements.forEach(element => {
+            element.classList.toggle('d-none');
 
-              btnToggle.classList.toggle('bi-truck');
-              btnToggle.classList.toggle('btn-secondary');
-              btnToggle.classList.toggle('btn-success');
-              btnToggle.classList.toggle('bi-list-columns-reverse');
-              btnToggle.textContent = btnToggle.textContent == titlex[0] ? titlex[1] : titlex[0];
-            });
+            btnToggle.classList.toggle('bi-truck');
+            btnToggle.classList.toggle('btn-secondary');
+            btnToggle.classList.toggle('btn-success');
+            btnToggle.classList.toggle('bi-list-columns-reverse');
+            btnToggle.textContent = btnToggle.textContent == titlex[0] ? titlex[1] : titlex[0];
+          });
+        };
+          // Esta funcionalidad se encarga de mostrar un boton [const btnReportesFechas = document.getElementById('btnReportesFechas');]
+          // para generar un reporte por fechas de las entradas registradas en el sistema
+          function validateDate (id) {
+            
+            const btnReportesFechas = document.getElementById('btnReportesFechas_'+id);
+
+            const msjDate = document.querySelector('.showThis_'+id);
+            const dateToday = document.getElementById('fecha_actual').value;
+            const fechaReporteInicio = document.getElementById(`fechaReporteInicio_${id}`).value;
+            const fechaReporteFin = document.getElementById(`fechaReporteFin_${id}`).value;
+            
+            if (fechaReporteInicio != "" && fechaReporteFin != "") {
+
+                if (fechaReporteInicio > fechaReporteFin || fechaReporteInicio > dateToday || fechaReporteFin > dateToday) {
+                    msjDate.classList.contains('d-none') ? msjDate.classList.remove('d-none') : '';
+                    btnReportesFechas.classList.contains('d-none') ? '' : btnReportesFechas.classList.add('d-none');
+                }else{
+                    msjDate.classList.contains('d-none') ? '' : msjDate.classList.add('d-none');
+                    btnReportesFechas.classList.contains('d-none') ? btnReportesFechas.classList.remove('d-none') : btnReportesFechas.classList.add('d-none');
+                }
+                // Esta funcionalidad se encarga de resetear el input de las fechas seleccionadas para el reporte de entradas
+                // y también se encarga de ocultar nuevamente el boton de generar reporte.
+                btnReportesFechas.addEventListener('click', ()=>{
+                    setTimeout(() => {
+                        document.getElementById(`fechaReporteInicio_${id}`).value = '';
+                        btnReportesFechas.classList.add('d-none');
+                    }, 2000);
+                });
+            }
           };
-            // Esta funcionalidad se encarga de mostrar un boton [const btnReportesFechas = document.getElementById('btnReportesFechas');]
-            // para generar un reporte por fechas de las entradas registradas en el sistema
-            function validateDate (id) {
-              
-              const btnReportesFechas = document.getElementById('btnReportesFechas_'+id);
-
-              const msjDate = document.querySelector('.showThis_'+id);
-              const dateToday = document.getElementById('fecha_actual').value;
-              const fechaReporteInicio = document.getElementById(`fechaReporteInicio_${id}`).value;
-              const fechaReporteFin = document.getElementById(`fechaReporteFin_${id}`).value;
-              
-              if (fechaReporteInicio != "" && fechaReporteFin != "") {
-  
-                  if (fechaReporteInicio > fechaReporteFin || fechaReporteInicio > dateToday || fechaReporteFin > dateToday) {
-                      msjDate.classList.contains('d-none') ? msjDate.classList.remove('d-none') : '';
-                      btnReportesFechas.classList.contains('d-none') ? '' : btnReportesFechas.classList.add('d-none');
-                  }else{
-                      msjDate.classList.contains('d-none') ? '' : msjDate.classList.add('d-none');
-                      btnReportesFechas.classList.contains('d-none') ? btnReportesFechas.classList.remove('d-none') : btnReportesFechas.classList.add('d-none');
-                  }
-                  // Esta funcionalidad se encarga de resetear el input de las fechas seleccionadas para el reporte de entradas
-                  // y también se encarga de ocultar nuevamente el boton de generar reporte.
-                  btnReportesFechas.addEventListener('click', ()=>{
-                      setTimeout(() => {
-                          document.getElementById(`fechaReporteInicio_${id}`).value = '';
-                          btnReportesFechas.classList.add('d-none');
-                      }, 2000);
-                  });
-              }
-            };
-        </script>
+      </script>
     </body>
   </html>
 <?php }else{

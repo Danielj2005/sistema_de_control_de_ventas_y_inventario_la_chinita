@@ -14,12 +14,12 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
 // esta funcion retorna si el rol tiene permiso a las vista
 
-$m_cliente = rol_model::permisos_modulos('m_cliente');
-$l_cliente = rol_model::permisos_modulos('l_cliente');
-$h_cliente = rol_model::permisos_modulos('h_cliente');
-$f_cliente = rol_model::permisos_modulos('f_cliente');
+$m_cliente = rol_model::obtenerPermisoRol('m_cliente');
+$l_cliente = rol_model::obtenerPermisoRol('l_cliente');
+$h_cliente = rol_model::obtenerPermisoRol('h_cliente');
+$f_cliente = rol_model::obtenerPermisoRol('f_cliente');
 
-$rol = rol_model::permisos_modulos('m_cliente + l_cliente + h_cliente + f_cliente');
+$rol = rol_model::obtenerSumaPermisoRol(['m_cliente', 'l_cliente', 'h_cliente', 'f_cliente']);
 
 // se evalua que este rol tenga el acceso a esta vista
 

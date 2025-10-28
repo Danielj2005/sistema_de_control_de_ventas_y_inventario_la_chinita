@@ -196,36 +196,18 @@ class venta_model extends modeloPrincipal {
     /**********************************************************************************/
     /*---------- Funcion para generar el codigo de las ventas ----------*/
     public static function generar_numero($num){
-        switch (strlen($num)) {
-            case '1':
-                $num = '0000000'.$num;
+        $id_generate = "0";
+        $vueltas = 8 - strlen($num);
+        for ($i=0; $i < 7; $i++) { 
+
+            if (strlen($id_generate) < $vueltas){
+                $id_generate .= "0";
+            }else{
+                $id_generate .= $num;
                 break;
-            case '2':
-                $num = '000000'.$num;
-                break;
-            case '3':
-                $num = '00000'.$num;
-                break;
-            case '4':
-                $num = '0000'.$num;
-                break;
-            case '5':
-                $num = '000'.$num;
-                break;
-            case '6':
-                $num = '00'.$num;
-                break;
-            case '7':
-                $num = '0'.$num;
-                break;
-            case '8':
-                $num;
-                break;
-            default:
-                $num;
-                break;
+            }
         }
-        return $num;
+        return $id_generate;
     }
 
 
@@ -253,7 +235,7 @@ class venta_model extends modeloPrincipal {
             while($row = mysqli_fetch_array($ventas_realizadas)){ ?>
                 <tr>
                     <td class="text-center col"><?= $i++ ?></td> 
-                    <td class="text-center col">#<?= self::generar_numero($row['id_venta']) ?></td> 
+                    <td class="text-center col"><?= self::generar_numero( $row['id_venta']) ?></td> 
                     <td class="text-center col"><?= $row['cedula'] ?></td> 
                     <td class="text-center col"><?= $row['nombre'] ?></td> 
                     <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
@@ -271,9 +253,9 @@ class venta_model extends modeloPrincipal {
                             </button>
                         </td> 
                     <?php endif; ?>
-                    <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
+                    <?php if (rol_model::obtenerPermisoRol('f_venta') == '1') :?>
                         <td class="text-center col">
-                            <form action="<?= (rol_model::verificar_rol('f_venta') == '1') ?  './reportes/factura_cliente.php' : '!#' ?>" method="post" target="_blank">
+                            <form action="./reportes/factura_cliente.php" method="post" target="_blank">
                                 
                                 <input type="hidden" name="UIDC" value="<?= modeloPrincipal::encryptionId($row["id_cliente"]); ?>">
                                 <input type="hidden" name="UIDV" value="<?= modeloPrincipal::encryptionId($row["id_venta"]); ?>">
@@ -336,6 +318,8 @@ class venta_model extends modeloPrincipal {
             'bs' => $total_del_dia_en_bs
         ];
     }
+
+
     public static function totales_ventas() {
         $totales_ventas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT 
             ROUND(sum(monto_total_dolares) , 2) AS total_de_ventas_dolares,

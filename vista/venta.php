@@ -12,7 +12,9 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::permisos_modulos('d_venta + l_venta + f_venta');
+
+$rol = rol_model::obtenerSumaPermisoRol(['d_venta','l_venta','f_venta']);
+
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol >= 1 && $rol <= 3) { ?>
   <!DOCTYPE html>
@@ -28,7 +30,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
       ?>
     </head>
     <body>
+
       <?php 
+
         // se incluye el header / encabezado a la vista
         include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
@@ -43,7 +47,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
 
         $fecha_inicio = $_POST['fecha_inicio'];  
         $fecha_fin = $_POST['fecha_fin'];
+
       ?>
+
       <main id="main" class="main">
         <div class="pagetitle">
           <a class="btn btn-outline-secondary mb-3" href="./">
@@ -137,11 +143,11 @@ if ($rol >= 1 && $rol <= 3) { ?>
                             <th class="col text-center" scope="col">Fecha y Hora</th>
                             
                             
-                          <?php if (rol_model::verificar_rol('d_venta') == '1') : ?>
+                          <?php if (rol_model::obtenerPermisoRol('d_venta') == '1') : ?>
                             <th class="col text-center" scope="col" style="width: 8%;">Detalles</th>
                           <?php endif; ?>
                           
-                          <?php if (rol_model::verificar_rol('f_venta') == '1') :?>
+                          <?php if (rol_model::obtenerPermisoRol('f_venta') == '1') :?>
                             <th class="col text-center" scope="col" style="width: 8%;">Ver Facturas</th>
                           <?php endif; ?>
 
@@ -161,7 +167,9 @@ if ($rol >= 1 && $rol <= 3) { ?>
       </main>
       
       <script src="./js/rango_fechas.js"></script>
+
       <?php 
+
         include_once "./modal/plantillaModalCustom.php"; 
         modalCustom ("modal-xl");
         
@@ -169,7 +177,10 @@ if ($rol >= 1 && $rol <= 3) { ?>
         include_once "../include/scripts_include.php";
         model_user::validar_sesion_activa($id_usuario);
 
-        config_model::verificar_actualizacion_configuracion(); ?>
+        config_model::verificar_actualizacion_configuracion();
+
+      ?>
+
     </body>
   </html>
 <?php }else{

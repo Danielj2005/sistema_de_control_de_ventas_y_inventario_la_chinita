@@ -12,10 +12,10 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
 // esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::verificar_rol('r_rol');
+$rol = rol_model::obtenerPermisoRol('r_rol');
 
-$m_rol = rol_model::permisos_modulos('m_rol');
-$l_rol = rol_model::permisos_modulos('l_rol');
+$m_rol = rol_model::obtenerPermisoRol('m_rol');
+$l_rol = rol_model::obtenerPermisoRol('l_rol');
 
 // se evalua que este rol tenga el acceso a esta vista
 if ($rol == 1) {  ?>
@@ -48,7 +48,7 @@ if ($rol == 1) {  ?>
             </a>
             <h1 class="display-5 fw-bold text-start mb-4">
               <i class="bi bi-person-badge-fill me-3 text-primary"></i> 
-              Registro de Nuevo Rol
+              Registro de Nuevo Rol 
             </h1>
           </div>
 
@@ -543,7 +543,8 @@ if ($rol == 1) {  ?>
           // se incluyen los script de javascript a la vista 
           include_once("../include/scripts_include.php"); 
         
-          config_model::verificar_actualizacion_configuracion(); ?>
+          config_model::verificar_actualizacion_configuracion();
+        ?>
       </body>
     </html>
 <?php }else{

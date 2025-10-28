@@ -30,6 +30,30 @@ class rol_model extends model_user {
         return $permiso_rol;
     }
 
+
+
+    public static function obtenerPermisoRol ($codeRol){
+        $id_rol_usuario = self::obtener_id_rol_usuario();
+        
+        $permiso_rol = modeloPrincipal::consultar("SELECT 1 
+            FROM funciones_rol RF 
+            JOIN funcion F ON RF.id_funcion = F.id 
+            WHERE RF.id_rol = '$id_rol_usuario' AND F.codigo = '$codeRol'");
+
+        $permiso_rol = mysqli_num_rows($permiso_rol) > 0 ? true : false;
+        return $permiso_rol;
+
+    }
+    
+
+    public static function obtenerSumaPermisoRol ($codeRol){
+        $num = null;
+        foreach ($codeRol as $key) {
+            $num += self::obtenerPermisoRol($key);
+        }
+        return $num;
+
+    }
     // funcion para obtener el id del rol de un usuario
 
     public static function obtener_id_rol_usuario(){
@@ -40,8 +64,8 @@ class rol_model extends model_user {
             alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se encontró el rol del usuario, por favor verifique e intente nuevamente","error");
         }
         
-        $id_rol = mysqli_fetch_array($id_rol);
-        return $id_rol['id_rol'];
+        $id_rol = mysqli_fetch_array($id_rol)['id_rol'];;
+        return $id_rol;
     }
 
     // funcion para obtener el id del rol de un usuario
@@ -249,5 +273,27 @@ class rol_model extends model_user {
         foreach ($permisos as $key ) {
             echo '<option value="'.modeloPrincipal::encryptionId($key['id_rol']).'">'.$key['nombre'].'</option>';
         }
+    }
+
+    Public static function registrar_permisos_rol ($id_rol, $id_funcion, $fecha_asignacion) {
+
+        $registrar = modeloPrincipal::InsertSQL("funciones_rol", "id_rol, id_funcion, fecha_asignacion", "$id_rol, $id_funcion, '$fecha_asignacion'");
+
+        if (!$registrar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el rol debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+        }
+        return $registrar;
+
+    }
+    
+    Public static function modificar_permisos_rol ($id, $id_rol, $id_funcion, $fecha_asignacion) {
+
+        $actualizar = modeloPrincipal::UpdateSQL("funciones_rol", "id_rol = $id_rol, id_funcion = $id_funcion, fecha_asignacion = '$fecha_asignacion'", "id = '$id'");
+
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el rol debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
+        }
+        return $actualizar;
+
     }
 }

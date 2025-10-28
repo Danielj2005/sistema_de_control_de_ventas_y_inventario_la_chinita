@@ -10,35 +10,35 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
-$rol = rol_model::permisos_modulos('r_productos + l_productos + l_categoria + r_presentacion + m_presentacion + l_presentacion + r_marca + m_marca + l_marca');
+$rol = rol_model::obtenerSumaPermisoRol(['r_productos','l_productos','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca']);
 
 // permisos del usuario al módulo categoría
 $categoria = [
-    "l_categoria" => rol_model::permisos_modulos("l_categoria"),
-    'total' => rol_model::permisos_modulos("m_categoria + l_categoria")
+    "l_categoria" => rol_model::obtenerPermisoRol("l_categoria"),
+    'total' => rol_model::obtenerSumaPermisoRol(["m_categoria","l_categoria"])
 ];
 
 // permisos del usuario al módulo presentacion
 $presentacion = [
-    "r_presentacion" => rol_model::permisos_modulos("r_presentacion"),
-    "m_presentacion" => rol_model::permisos_modulos("m_presentacion"),
-    "l_presentacion" => rol_model::permisos_modulos("l_presentacion"),
-    'total' => rol_model::permisos_modulos("r_presentacion + m_presentacion + l_presentacion")
+    "r_presentacion" => rol_model::obtenerPermisoRol("r_presentacion"),
+    "m_presentacion" => rol_model::obtenerPermisoRol("m_presentacion"),
+    "l_presentacion" => rol_model::obtenerPermisoRol("l_presentacion"),
+    'total' => rol_model::obtenerSumaPermisoRol(["r_presentacion", "m_presentacion", "l_presentacion"])
 ];
 
 // permisos del usuario al módulo marcas
 $marca = [
-    "r_marca" => rol_model::permisos_modulos("r_marca"),
-    "m_marca" => rol_model::permisos_modulos("m_marca"),
-    "l_marca" => rol_model::permisos_modulos("l_marca"),
-    'total' => rol_model::permisos_modulos("r_marca + m_marca + l_marca")
+    "r_marca" => rol_model::obtenerPermisoRol("r_marca"),
+    "m_marca" => rol_model::obtenerPermisoRol("m_marca"),
+    "l_marca" => rol_model::obtenerPermisoRol("l_marca"),
+    'total' => rol_model::obtenerSumaPermisoRol(["r_marca", "m_marca", "l_marca"])
 ];
 
 // permisos del usuario al módulo productos
 $producto = [
-    "r_productos" => rol_model::permisos_modulos("r_productos"),
-    "l_productos" => rol_model::permisos_modulos("l_productos"),
-    'total' => rol_model::permisos_modulos("r_productos + l_productos")
+    "r_productos" => rol_model::obtenerPermisoRol("r_productos"),
+    "l_productos" => rol_model::obtenerPermisoRol("l_productos"),
+    'total' => rol_model::obtenerSumaPermisoRol(["r_productos", "l_productos"])
 ];
 
 
@@ -54,8 +54,8 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                 // se incluyen los meta datos 
                 include_once "../include/meta_include.php"; 
                 // se incluyen los estilos css y sus librerias a la vista
-                include_once "../include/css_include.php"; ?>
-                
+                include_once "../include/css_include.php";
+            ?>
         </head>
         <body class="toggle-sidebar">
             <?php 
@@ -124,6 +124,7 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                                                 <?php endif; ?>
                                             </div>
                                         </div>   
+
                                 <?php endif; 
                                     if ($marca['r_marca'] == 1 || $marca['l_marca'] == 1 ): ?>
 
@@ -159,6 +160,7 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                                                 <?php endif; ?>
                                             </div>
                                         </div>  
+
                                 <?php endif; ?>              
                             </div>
                             
@@ -171,18 +173,21 @@ if ($rol >= 1 && $rol <= 9) {  ?>
                                 <div class="card-body row m-0 p-3">
                                     
                                     <?php if ($producto['r_productos'] == 1 && $producto['l_productos'] == 1 ): ?>
+
                                         <div class="setCol col-md-6 text-center col-md-4 col-12 mb-3">
                                             <button id="btn-toggle" onclick="toggle()" type="button" class="col-12 btn btn-success">
                                                 <i class="bi bi-plus-circle"></i> 
                                                 Registrar Productos
                                             </button>
                                         </div>
-                                    <?php endif; 
 
+                                    <?php endif; 
                                         if ($producto['r_productos'] == 1 ): ?>
+                                        
                                             <div class="tableRegisterProducts text-center col-12 col-md-4 mb-3 <?= $producto['l_productos'] == 0 ? 'col-md-6' : 'd-none'?> ">
-                                                <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus">&nbsp;Agregar a la Lista de Producto</button>
+                                                <button type="button" id="btn_add_card_product" class="col-12 btn btn-success bi bi-plus-circle">&nbsp;Agregar a la Lista de Producto</button>
                                             </div>
+
                                     <?php endif; ?>
 
                                     <div class="setCol text-center col-12 col-md-4 mb-2 <?= $producto['r_productos'] == 0 ? 'col-md-12' : 'col-md-6'?>">

@@ -8,8 +8,10 @@ include_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 model_user::verificar_intento_de_acceso_al_sistema();
 
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesión
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

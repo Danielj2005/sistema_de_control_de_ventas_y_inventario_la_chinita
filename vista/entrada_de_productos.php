@@ -12,9 +12,9 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
 
 // permisos del usuario al módulo entrada de productos
 $permisosRol = [
-    "r_entrada" => rol_model::permisos_modulos("r_entrada"),
-    "l_entrada" => rol_model::permisos_modulos("l_entrada"),
-    'total' => rol_model::permisos_modulos("r_entrada + l_entrada")
+    "r_entrada" => rol_model::obtenerPermisoRol("r_entrada"),
+    "l_entrada" => rol_model::obtenerPermisoRol("l_entrada"),
+    'total' => rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"])
 ];
 
 // se evalua que este rol tenga el acceso a esta vista
@@ -49,6 +49,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 		?>
         
 		<main id="main" class="main">
+			
 			<div class="pagetitle row">
 				<div class="col-12">
 					<a class="btn btn-outline-secondary mb-3" href="./">
@@ -103,8 +104,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 									</div>
 
 								<?php endif; ?>
-
-
+								
 								<div class="col-12 col-sm-12 mb-2 <?= $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ? 'col-md-12 ' : 'col-md-6' ?>">
 									<div class="col-12 dropdown">
 										<button class="col-12 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -156,7 +156,9 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 									</div>
 								</div>
 							</div>
+
 							<hr>
+
 							<div class="card-body">
 
 								<?php if ($permisosRol['l_entrada'] == 1) : ?>
@@ -454,6 +456,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 												</div>
 											</form>
 										</div>
+
 								<?php endif; ?>
 							</div>
 						</div>

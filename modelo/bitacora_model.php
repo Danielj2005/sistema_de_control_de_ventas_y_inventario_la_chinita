@@ -40,7 +40,7 @@ class bitacora extends model_user {
     public static function intento_de_acceso_a_vista_sin_permisos($pantalla) {
         // Registra en la bitácora el intento de acceso no autorizado
         Self::bitacora("Intento de acceso no autorizado a la pantalla $pantalla.","Se ha registrado un intento de acceso incorrecto a la pantalla $pantalla por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
-        header('Location: ./inicio.php');
+        header('Location: ./');
     }
     
     
