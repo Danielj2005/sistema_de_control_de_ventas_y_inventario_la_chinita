@@ -60,16 +60,19 @@ if ($m_rol == 1 || $l_rol == 1) {
 
 				<section class="section dashboard">
 					<div class="card">
-						<div class="row text-center p-2 align-items-center">
+						<div class="row text-center p-2 align-items-center m-0">
 							<?php if ($r_rol == '1' && $l_rol == '1'): ?>
-								<div class="col-12 col-sm-12 col-md-6 mb-3">
-									<a class="col-12 btn btn-success" href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
-										Registrar un nuevo rol
+								<div class="col-12 col-sm-12 col-md-6 mb-1">
+									<a 
+										class="col-12 btn btn-success" 
+										href="./<?= rol_model::verificar_rol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
+											<i class="bi bi-plus-circle"></i>
+											Registrar un Nuevo Rol
 									</a>
 								</div>
 							<?php endif; ?>
 
-							<div class="col-12 mb-3 <?= $r_rol == 1 && $l_rol == 0 ? 'col-md-12' : 'col-md-6'; ?>">
+							<div class="col-12 mb-1 <?= $r_rol == 1 && $l_rol == 0 ? 'col-md-12' : 'col-md-6'; ?>">
 								<form action="./roles.php" method="post">
 									<input type="hidden" name="estado_rol" value="<?= ($estado == '0') ? "1" : "0"?>">
 									<button type="submit" class="col-12 btn btn-secondary">

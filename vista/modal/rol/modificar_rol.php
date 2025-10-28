@@ -26,503 +26,514 @@ $modulo_bitacora = $permisos['v_bitacora'] + $permisos['m_bitacora'];
 
 ?>
 
-            <div class="row mt-4">
-                <div class="col-12"><hr></div>
-            </div>
+<form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update" id="modalSendForm">
 
-            
-<form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update" id="SendForm">
-    <div class="container-fluid row mb-3 p-3 justify-content-around">
-        <input type="hidden" value="<?= $id_rol ?>" name="id_rol">
-        <input type="hidden" value="<?= $permisos['estado'] ?>" name="estado_rol">
-        <input type="hidden" value="<?= $nombre ?>" name="nombre_rol">
-        <input type="hidden" value="Modificar" name="modulo">
-    
-        <div class="col-12 col-sm-12 col-md-12 mb-1 m-0 rounded-3 row justify-content-center">
-            <div class="col-12 col-md-12 mb-3 row justify-content-around">
-                <h3 class="col-6 mb-2 text-center text-capitalize">Nombre del rol: <?= $nombre; ?></h3>
-                <h3 class="col-6 mb-2 text-center text-capitalize">Estado del rol: <?= ($permisos['estado'] == 1) ? '<span class="text-success">activo</span>' : '<span class="text-danger">inactivo</span>' ?></h3>
-            </div>
-            <label class="" for="">Leyenda: </label>
-            <ul id="" class="ps-3 nav-content list-unstyled">
+    <input type="hidden" value="<?= $id_rol ?>" name="id_rol">
+    <input type="hidden" value="<?= $permisos['estado'] ?>" name="estado_rol">
+    <input type="hidden" value="<?= $nombre ?>" name="nombre_rol">
+    <input type="hidden" value="Modificar" name="modulo">
+        
+    <div class="row align-items-center mb-4 pb-2 border-bottom">
+        
+        <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+            <h5 class="h5 text-capitalize mb-0">
+                <i class="bi bi-person-badge me-2"></i>
+                Rol: <?= $nombre; ?>
+            </h5>
+        </div>
+        
+        <div class="col-12 col-md-6 text-center text-md-end">
+            <h5 class="fw-bold mb-0">
+                Estado: 
+                <span class="badge rounded-pill fs-6 <?= ($permisos['estado'] == 1) ? 'bg-success' : 'bg-danger' ?>">
+                    <?= ($permisos['estado'] == 1) ? 'ACTIVO' : 'INACTIVO' ?>
+                </span>
+            </h5>
+        </div>
+    </div>
+
+    <div class="row m-0">
+        <div class="col-12">
+            <p class="fw-bold mb-2 text-secondary d-flex align-items-center">
+                <i class="bi bi-info-circle me-2"></i>
+                Leyenda de Acceso:
+            </p>
+            <ul class="list-unstyled d-flex flex-wrap gap-4 small ps-3">
                 <li>
-                    <label>Acceso Total al Módulo: </label> &nbsp; 
-                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    Acceso Total al Módulo
                 </li>
                 <li>
-                    <label>Acceso Parcial al Módulo: </label> &nbsp; 
-                    <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                    <i class="bi bi-dash-circle-fill text-primary me-1"></i>
+                    Acceso Parcial (Lectura/Escritura)
                 </li>
                 <li>
-                    <label>Sin Acceso al Módulo: </label> &nbsp; 
-                    <i class="bi bi-x-circle-fill text-danger"></i>
+                    <i class="bi bi-x-circle-fill text-danger me-1"></i>
+                    Acceso Denegado (Sin Permiso)
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <hr class="my-0">
+
     
+    <div class="row mt-3 m-0 mb-3">
+        <div class="col-12">
+            <p class="text-muted small">Desglose de permisos por módulo:</p>
+        </div>
+    </div>
+    
+    <div class="row g-3">
+
+        <div class="col-12 col-md-6 m-0 nb-1">        
+    
+            <h4 class="mb-3 text-primary">
+                <i class="bi bi-box-seam me-2"></i>
+                Módulo de Inventario
+            </h4>
+
             <hr>
-            <hr>
+
+            <div class="row g-3 justify-content-center">
+
+                <div class="col-12 mb-2">
+                    <div class="accordion" id="acordeon_proveedores">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proveedoresCard" aria-expanded="false" aria-controls="proveedoresCard">
+                                    Módulo Proveedores
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($proveedor, 4) ?>"></i>
+                                    </span>
+                                </button>
+                            </h2>
+
+                            <div id="proveedoresCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_proveedores">
+                                <div class="accordion-body p-0">
+                                    <div class="form-check mb-2 ms-4 pt-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_proveedores" <?= $proveedor > 0 ? 'checked' : '' ?> value="proveedores">
+                                        <label class="form-check-label fw-bold" for="vista_proveedores">
+                                            Acceso a la Vista del Módulo de Proveedores
+                                        </label>
+                                    </div>
+                                    
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="r_proveedores" class="form-check-input proveedores" <?= $permisos['r_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_proveedores">
+                                            <label class="form-check-label" for="r_proveedores">Registrar Nuevos Proveedores</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_proveedores" class="form-check-input proveedores" <?= $permisos['m_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_proveedores">
+                                            <label class="form-check-label" for="m_proveedores">Modificar Información de Proveedores</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_proveedores" class="form-check-input proveedores" <?= $permisos['l_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_proveedores">
+                                            <label class="form-check-label" for="l_proveedores">Consultar Lista de Proveedores</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="h_proveedores" class="form-check-input proveedores" <?= $permisos['h_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="h_proveedores">
+                                            <label class="form-check-label" for="h_proveedores">Visualizar Historial de Compras</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <div class="accordion" id="acordeon_productos">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="false" aria-controls="productosCard">
+                                    Módulo Productos
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($producto, 13) ?>"></i>
+                                    </span>
+                                </button>
+                            </h2>
+
+                            <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
+                                <div class="accordion-body p-0">
+                                    <div class="form-check mb-2 ms-4 pt-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $producto > 0 ? 'checked' : '' ?> value="productos">
+                                        <label class="form-check-label fw-bold" for="vista_productos">
+                                            Acceso a la Vista del Módulo de Productos
+                                        </label>
+                                    </div>
+                                        
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1 border-bottom">
+                                            <p class="fw-bold mb-1">Categorías</p>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="r_categoria" class="form-check-input productos" <?= $permisos['r_categoria'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_categoria">
+                                            <label class="form-check-label" for="r_categoria">Registrar Nuevas Categorías</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input class="form-check-input productos" type="checkbox" <?= $permisos['m_categoria'] == 1 ? 'checked' : '' ?> value="1" name="m_categoria" id="m_categoria">
+                                            <label class="form-check-label" for="m_categoria">Modificar Categorías</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input class="form-check-input productos" type="checkbox" <?= $permisos['l_categoria'] == 1 ? 'checked' : '' ?> value="1" name="l_categoria" id="l_categoria">
+                                            <label class="form-check-label" for="l_categoria">Consultar Lista de Categorías</label>
+                                        </li>
+                                        <li class="form-check mb-1 mt-3 border-bottom">
+                                            <p class="fw-bold mb-1">Presentaciones</p>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="r_presentacion" class="form-check-input productos" <?= $permisos['r_presentacion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_presentacion">
+                                            <label class="form-check-label" for="r_presentacion">Registrar Nuevas Presentaciones</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input class="form-check-input productos" type="checkbox" <?= $permisos['m_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="m_presentacion" id="m_presentacion">
+                                            <label class="form-check-label" for="m_presentacion">Modificar Presentaciones</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input class="form-check-input productos" type="checkbox" <?= $permisos['l_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="l_presentacion" id="l_presentacion">
+                                            <label class="form-check-label" for="l_presentacion">Consultar Lista de Presentaciones</label>
+                                        </li>
+                                        <li class="form-check mb-1 mt-3 border-bottom">
+                                            <p class="fw-bold mb-1">Marcas</p>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="r_marca" class="form-check-input productos" <?= $permisos['r_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_marca">
+                                            <label class="form-check-label" for="r_marca">Registrar Nuevas Marcas</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_marca" class="form-check-input productos" <?= $permisos['m_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_marca">
+                                            <label class="form-check-label" for="m_marca">Modificar Información de Marcas</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_marca" class="form-check-input productos" <?= $permisos['l_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_marca">
+                                            <label class="form-check-label" for="l_marca">Consultar Lista de Marcas</label>
+                                        </li>
+                                        <li class="form-check mb-1 mt-3 border-bottom">
+                                            <p class="fw-bold mb-1">Productos y Entradas</p>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="r_productos" class="form-check-input productos" <?= $permisos['r_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_productos">
+                                            <label class="form-check-label" for="r_productos">Registrar Nuevos Productos</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_productos" class="form-check-input productos" <?= $permisos['l_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_productos">
+                                            <label class="form-check-label" for="l_productos">Consultar Lista de Productos</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="r_entrada" class="form-check-input productos" <?= $permisos['r_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_entrada">
+                                            <label class="form-check-label" for="r_entrada">Registrar Entrada de Productos</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_entrada" class="form-check-input productos" <?= $permisos['l_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_entrada">
+                                            <label class="form-check-label" for="l_entrada">Consultar Lista de Entradas</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+        <div class="col-12 col-md-6 m-0 nb-1">
             
-            <div class="col-12 col-md-12 mb-3">
-                <h4 class="mb-3">Inventario</h4>
-    
-                <hr>
-    
-                <div class="row p-0 justify-content-around">
-                    <!-- vistas de proveedores -->
-                    
-                    <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
-                        <div class="accordion" id="acordeon_proveedores">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proveedoresCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Proveedores &nbsp;<i class="bi <?= obtenerIconoPermisos($proveedor, 4) ?>"></i>
-                                    </button>
-                                </h2>
-                                <div id="proveedoresCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_proveedores">
-                                    <div class="accordion-body">
-                                        <ul id="" class="nav-content list-unstyled">
-                                            <li>
-                                                <input class="vista" type="checkbox" <?= $proveedor == 4 ? 'checked' : '' ?> value="proveedores">
-                                                Acceso Total al Módulo de Proveedores
-                                            </li>
-                                            <ul id="" class="ps-3 nav-content list-unstyled">
-                                                <li>
-                                                    <input name="r_proveedores" class="proveedores" <?= $permisos['r_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevos Proveedores</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="m_proveedores" class="proveedores" <?= $permisos['m_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Modificar Información de Proveedores</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="l_proveedores" class="proveedores" <?= $permisos['l_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Consultar Lista de Proveedores Registrados</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="h_proveedores" class="proveedores" <?= $permisos['h_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Visualizar Historial de Compras</span>
-                                                </li>
-                                            </ul>
-                                        </ul>
+            <h4 class="mb-3 text-primary">
+                <i class="bi bi-currency-dollar"></i> Ventas |
+                <i class="bi bi-fork-knife"></i> Menú / Servicios
+            </h4>
+
+            <hr>
+
+            <div class="row g-3 justify-content-center">
+
+                <div class="col-12 mb-2">
+                    <div class="accordion" id="acordeon_ventas">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="false" aria-controls="ventasCard">
+                                    Módulo Ventas
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($venta, 5) ?>"></i>
+                                    </span>
+                                </button>
+                            </h2>
+
+                            <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
+                                <div class="accordion-body p-0">
+                                    <div class="form-check mb-2 ms-4 pt-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $venta > 0 ? 'checked' : '' ?> value="productos">
+                                        <label class="form-check-label fw-bold" for="vista_productos">
+                                            Acceso a la Vista del Módulo de Ventas
+                                        </label>
                                     </div>
+
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="g_venta" class="form-check-input ventas" <?= $permisos['g_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="g_venta">
+                                            <label class="form-check-label" for="g_venta">Generar Venta</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_venta" class="form-check-input ventas" <?= $permisos['l_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_venta">
+                                            <label class="form-check-label" for="l_venta">Lista de Ventas Realizadas</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="d_venta" class="form-check-input ventas" <?= $permisos['d_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="d_venta">
+                                            <label class="form-check-label" for="d_venta">Detalles de Ventas</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="f_venta" class="form-check-input ventas" <?= $permisos['f_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="f_venta">
+                                            <label class="form-check-label" for="f_venta">Ver Facturas de Ventas</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="est_venta" class="form-check-input ventas" <?= $permisos['est_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="est_venta">
+                                            <label class="form-check-label" for="est_venta">Ver Estadísticas de Ventas</label>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-    
-                    <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
-                        <div class="accordion" id="acordeon_productos">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Productos &nbsp;<i class="bi <?= obtenerIconoPermisos($producto, 13) ?>"></i>
-                                    </button>
-                                </h2>
-                                <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
-                                    <div class="accordion-body">
-                                        <ul id="" class="nav-content list-unstyled">
-                                            <li>
-                                                <input class="vista" type="checkbox" <?= $producto == 13 ? 'checked' : '' ?> value="productos">
-                                                Acceso Total al Módulo de Productos
-                                            </li>
-    
-                                            <ul id="" class="ps-3 nav-content list-unstyled">
-                                                <li>
-                                                    <input name="r_categoria" class="productos" <?= $permisos['r_categoria'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevas Categorías</span>
-                                                </li>
-                                                <li>
-                                                    <input class="productos" type="checkbox" <?= $permisos['m_categoria'] == 1 ? 'checked' : '' ?> value="1" name="m_categoria">
-                                                    <span>Modificar Información de Categorías</span>
-                                                </li>
-                                                <li>
-                                                    <input class="productos" type="checkbox" <?= $permisos['l_categoria'] == 1 ? 'checked' : '' ?> value="1" name="l_categoria">
-                                                    <span>Consultar Lista de Categorías Registradas</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="r_presentacion" class="productos" <?= $permisos['r_presentacion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevas Presentaciones</span>
-                                                </li>
-                                                <li>
-                                                    <input class="productos" type="checkbox" <?= $permisos['m_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="m_presentacion">
-                                                    <span>Modificar Información de Presentaciones</span>
-                                                </li>
-                                                <li>
-                                                    <input class="productos" type="checkbox" <?= $permisos['l_presentacion'] == 1 ? 'checked' : '' ?> value="1" name="l_presentacion">
-                                                    <span>Consultar Lista de Presentaciones Registradas</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="r_marca" class="productos" <?= $permisos['r_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevas Marcas</span>
-                                                </li>
-                                                <li>
-                                                    <input name="m_marca" class="productos" <?= $permisos['m_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Modificar Información de Marcas</span>
-                                                </li>
-                                                <li>
-                                                    <input name="l_marca" class="productos" <?= $permisos['l_marca'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Consultar Lista de Marcas Registradas</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="r_productos" class="productos" <?= $permisos['r_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevos Productos</span>
-                                                </li>
-                                                <li>
-                                                    <input name="l_productos" class="productos" <?= $permisos['l_productos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Consultar Lista de Productos Registrados</span>
-                                                </li>
-                                                <br>
-                                                <li>
-                                                    <input name="r_entrada" class="productos" <?= $permisos['r_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Entrada de Productos</span>
-                                                </li>
-                                                <li>
-                                                    <input name="l_entrada" class="productos" <?= $permisos['l_entrada'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Consultar Lista de Entradas de Productos</span>
-                                                </li>
-                                            </ul>
-                                        </ul>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <div class="accordion mb-3" id="acordeon_servicios">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="false" aria-controls="serviciosCard">
+                                    Módulo Servicios
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($menu, 3) ?>"></i>
+                                    </span>
+                                </button>
+                            </h2>
+
+                            <div id="serviciosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_servicios">
+                                <div class="accordion-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_servicio" <?= $menu > 0 ? 'checked' : '' ?> value="servicio">
+                                        <label class="form-check-label fw-bold" for="vista_servicio">
+                                            Acceso a la Vista del Módulo de Servicios
+                                        </label>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <hr>
-            <hr>
-    
-            <div class="row">
-                <div class="col-12 col-md-6 mb-3">
-                    <h4 class="mb-3">Ventas</h4>
-                    
-                    <hr>
-    
-                    <div class="row m-0 p-0 justify-content-around">
-                        <div class="col-12 col-sm-12 col-md-12 mb-3 p-2">
-                            
-                            <div class="accordion" id="acordeon_ventas">    
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="true" aria-controls="collapseOne">
-                                            Módulo Ventas &nbsp; <i class="bi <?= obtenerIconoPermisos($venta, 5) ?>"></i>
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
-                                    <div class="accordion-body">
-                                        <ul id="" class="nav-content list-unstyled">
-                                            <li>
-                                                <input class="vista" type="checkbox" <?= $venta == 5 ? 'checked' : '' ?> value="ventas">
-                                                Acceso Total al Módulo de Ventas
-                                            </li>
-                                            <ul id="" class="ps-3 nav-content list-unstyled">
-                                                <li>
-                                                    <input name="g_venta" class="ventas" <?= $permisos['g_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Generar venta</span>
-                                                </li>
-                                                <li>
-                                                    <input name="l_venta" class="ventas" <?= $permisos['l_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Lista de ventas realizadas</span>
-                                                </li>
-                                                <li>
-                                                    <input name="d_venta" class="ventas" <?= $permisos['d_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Detalles de ventas realizadas</span>
-                                                </li>
-                                                <li>
-                                                    <input name="f_venta" class="ventas" <?= $permisos['f_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Ver facturas de ventas realizadas</span>
-                                                </li>
-                                                <li>
-                                                    <input name="est_venta" class="ventas" <?= $permisos['est_venta'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Ver estadísticas de ventas realizadas</span>
-                                                </li>
-                                            </ul>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-12 col-md-6 mb-3">
-                    <h4 class="mb-3"> Menú </h4>
-                    <hr>
-                    <div class="row p-0 justify-content-around">
-                        <div class="col-12 col-sm-12 col-md-12 mb-3 p-2">
-                            <div class="accordion" id="acordeon_servicios">  
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="true" aria-controls="collapseOne">
-                                            Módulo Servicios &nbsp;<i class="bi <?= obtenerIconoPermisos($menu, 3) ?>"></i>
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="serviciosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_servicios">
-                                    <div class="accordion-body">
-                                        <ul id="" class="nav-content list-unstyled">
-                                            <li>
-                                                <input class="vista" type="checkbox" <?= $menu == 3 ? 'checked' : '' ?> value="servicio">
-                                                Acceso Total al Módulo de Servicios
-                                            </li>
-                                            <ul id="" class="ps-3 nav-content list-unstyled">
-                                                <li>
-                                                    <input name="r_servicio" class="servicio" <?= $permisos['r_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Registrar Nuevos Servicios</span>
-                                                </li>
-                                                <li>
-                                                    <input name="m_servicio" class="servicio" <?= $permisos['m_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Modificar Información de Servicios</span>
-                                                </li>
-                                                <li>
-                                                    <input name="l_servicio" class="servicio" <?= $permisos['l_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                    <span>Consultar Lista de Servicios Registrados</span>
-                                                </li>
-                                            </ul>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <hr>
-            <hr>
-    
-            <div class="col-12 col-md-12 mb-3">
-                <h4 class="mb-3">Usuario</h4>
-    
-                <hr>
-    
-                <div class="row p-0 justify-content-around">
-                    <!-- módulo de clientes -->
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 p-2">
-                        <div class="accordion" id="acordeon_clientes">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#clientesCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Clientes &nbsp;<i class="bi <?= obtenerIconoPermisos($cliente, 5) ?>"></i>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="clientesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_clientes">
-                                <div class="accordion-body">
-                                    <ul id="" class="nav-content list-unstyled">
-                                        <li>
-                                            <input class="vista" type="checkbox" <?= $cliente == 5 ? 'checked' : '' ?> value="clientes">
-                                            Acceso Total al Módulo de Clientes
-                                        </li>  
-                                        <ul id="" class="ps-3 nav-content list-unstyled">
-                                            <li>
-                                                <input name="r_cliente" class="clientes" <?= $permisos['r_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Registrar Nuevos Clientes</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_cliente" class="clientes" <?= $permisos['m_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar Información de Clientes</span>
-                                            </li>
-                                            <li>
-                                                <input name="l_cliente" class="clientes" <?= $permisos['l_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Consultar Lista de Clientes Registrados</span>
-                                            </li>
-                                            <li>
-                                                <input name="h_cliente" class="clientes" <?= $permisos['h_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Visualizar Historial de Compras</span>
-                                            </li>
-                                            <li>
-                                                <input name="f_cliente" class="clientes" <?= $permisos['f_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Ver facturas de compras</span>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <!-- módulo de empleados -->
-                    
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 p-2">
-                        <div class="accordion" id="acordeon_empleados">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#empleadosCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Empleados &nbsp;<i class="bi <?= obtenerIconoPermisos($empleado, 3) ?>"></i>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="empleadosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_empleados">
-                                <div class="accordion-body">
-                                    <ul id="" class="nav-content list-unstyled">
-                                        <li>
-                                            <input class="vista" type="checkbox" <?= $empleado == 3 ? 'checked' : '' ?> value="empleado">
-                                            Acceso Total al Módulo de Empleados
-                                        </li>  
-                                        <ul id="" class="ps-3 nav-content list-unstyled">
-                                            <li>
-                                                <input name="r_empleado" class="empleado" <?= $permisos['r_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Registrar Nuevos Empleados</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_empleado" class="empleado" <?= $permisos['m_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar Información de Empleados</span>
-                                            </li>
-                                            <li>
-                                                <input name="l_empleado" class="empleado" <?= $permisos['l_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Consultar Lista de Empleados Registrados</span>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <!-- módulo de roles -->
-                    
-                    <div class="col-12 col-sm-12 col-md-4 mb-3 p-2">
-                        <div class="accordion" id="acordeon_roles">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rolesCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Roles &nbsp;<i class="bi <?= obtenerIconoPermisos($rol, 3) ?>"></i>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="rolesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_roles">
-                                <div class="accordion-body">
-                                    <ul id="" class="nav-content list-unstyled">
-                                        <li>
-                                            <input class="vista" type="checkbox" <?= $rol == 3 ? 'checked' : '' ?> value="roles">
-                                            Acceso Total al Módulo de Roles
-                                        </li>  
-                                        <ul id="" class="ps-3 nav-content list-unstyled">
-                                            <li>
-                                                <input name="r_rol" class="roles" <?= $permisos['r_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Registrar Nuevos Roles</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_rol" class="roles" <?= $permisos['m_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar Información de Roles</span>
-                                            </li>
-                                            <li>
-                                                <input name="l_rol" class="roles" <?= $permisos['l_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Consultar Lista de Roles Registrados</span>
-                                            </li>
-                                        </ul>
+
+                                    <ul class="list-unstyled pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="r_servicio" class="form-check-input servicio" <?= $permisos['r_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_servicio">
+                                            <label class="form-check-label" for="r_servicio">Registrar Nuevos Servicios</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_servicio" class="form-check-input servicio" <?= $permisos['m_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_servicio">
+                                            <label class="form-check-label" for="m_servicio">Modificar Información de Servicios</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_servicio" class="form-check-input servicio" <?= $permisos['l_servicio'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_servicio">
+                                            <label class="form-check-label" for="l_servicio">Consultar Lista de Servicios</label>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-            <hr>
-            <hr>
-    
-            <div class="col-12 col-md-12 mb-3">
-                <h4 class="mb-3">Configuración</h4>
-    
-                <hr>
-    
-                <div class="row p-0 justify-content-around">
-                    <!-- módulo ajustes del sistema -->
-    
-                    <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
-                        <div class="accordion" id="acordeon_ajustes_sistema">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Ajustes del Sistema &nbsp;<i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?>"></i>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="ajustesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ajustes_sistema">
-                                <div class="accordion-body">
-                                    <ul id="" class="nav-content list-unstyled">
-                                        <li>
-                                            <input class="vista" type="checkbox" <?= $ajustes == 6 ? 'checked' : '' ?> value="ajustes_sistema">
-                                            Acceso Total al Módulo de Ajustes del Sistema
-                                        </li>  
-                                        <ul id="" class="ps-3 nav-content list-unstyled">
-                                            <li>
-                                                <input name="m_cant_pregunta_seguridad" class="ajustes_sistema" <?= $permisos['m_cant_pregunta_seguridad'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar cantidad de preguntas de seguridad</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_tiempo_sesion" class="ajustes_sistema" <?= $permisos['m_tiempo_sesion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar tiempo de inactividad de sesión</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_cant_caracteres" class="ajustes_sistema" <?= $permisos['m_cant_caracteres'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar cantidad de carecteres</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_cant_simbolos" class="ajustes_sistema" <?= $permisos['m_cant_simbolos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar cantidad de símbolos</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_cant_num" class="ajustes_sistema" <?= $permisos['m_cant_num'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar cantidad de números</span>
-                                            </li>
-                                            <li>
-                                                <input name="intentos_inicio_sesion" class="ajustes_sistema" <?= $permisos['intentos_inicio_sesion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Modificar cantidad de intentos de inicio de sesión</span>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <!-- módulo bitácora -->
-                    
-                    <div class="col-12 col-sm-12 col-md-6 mb-3 p-2">
-                        <div class="accordion" id="acordeon_bitacora">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="true" aria-controls="collapseOne">
-                                        Módulo Bitácora &nbsp;<i class="bi <?= obtenerIconoPermisos($modulo_bitacora , 2) ?>"></i>
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="bitacoraCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_bitacora">
-                                <div class="accordion-body">
-                                    <ul id="" class="nav-content list-unstyled">
-                                        <li>
-                                            <input class="vista" type="checkbox" <?= $modulo_bitacora == 2 ? 'checked' : '' ?> value="bitacora">
-                                            Acceso Total al Módulo de Bitácora
-                                        </li>  
-                                        <ul id="" class="ps-3 nav-content list-unstyled">
-                                            <li>
-                                                <input name="v_bitacora" class="bitacora" <?= $permisos['v_bitacora'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Consultar Registros de la Bitácora</span>
-                                            </li>
-                                            <li>
-                                                <input name="m_bitacora" class="bitacora" <?= $permisos['m_bitacora'] == 1 ? 'checked' : '' ?> value="1" type="checkbox">
-                                                <span>Consultar Movimientos de un Usuario en la Bitácora</span>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
             </div>
         </div>
+
+        <div class="col-12 col-md-6 m-0 mb-1 ">
+
+            <h4 class="mb-3 text-primary">
+                <i class="bi bi-people-fill"></i>
+                Usuarios
+            </h4>
+
+            <hr>
+
+            <div class="row g-3 justify-content-center">
+
+                <div class="col-12 mb-2">
+                    
+                    <div class="accordion" id="acordeon_clientes">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#clientesCard" aria-expanded="false" aria-controls="clientesCard">
+                                    Módulo Clientes
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($cliente, 5) ?> "></i>
+                                    </span>
+                                </button>
+                            </h2>
+                            <div id="clientesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_clientes">
+                                <div class="accordion-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_clientes" <?= $cliente > 0 ? 'checked' : '' ?> value="clientes">
+                                        <label class="form-check-label fw-bold" for="vista_clientes">
+                                            Acceso a la Vista del Módulo de Clientes
+                                        </label>
+                                    </div>
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="r_cliente" class="form-check-input clientes" <?= $permisos['r_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_cliente">
+                                            <label class="form-check-label" for="r_cliente">Registrar Nuevos Clientes</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_cliente" class="form-check-input clientes" <?= $permisos['m_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cliente">
+                                            <label class="form-check-label" for="m_cliente">Modificar Información de Clientes</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_cliente" class="form-check-input clientes" <?= $permisos['l_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_cliente">
+                                            <label class="form-check-label" for="l_cliente">Consultar Lista de Clientes</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="h_cliente" class="form-check-input clientes" <?= $permisos['h_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="h_cliente">
+                                            <label class="form-check-label" for="h_cliente">Visualizar Historial de Compras</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="f_cliente" class="form-check-input clientes" <?= $permisos['f_cliente'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="f_cliente">
+                                            <label class="form-check-label" for="f_cliente">Ver Facturas de Compras</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 mb-2">
+
+                    <div class="accordion" id="acordeon_empleados">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#empleadosCard" aria-expanded="false" aria-controls="empleadosCard">
+                                    Módulo Empleados
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($empleado, 3) ?> "></i>
+                                    </span>
+                                </button>
+                            </h2>
+                            <div id="empleadosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_empleados">
+                                <div class="accordion-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_empleado" <?= $empleado > 0 ? 'checked' : '' ?> value="empleado">
+                                        <label class="form-check-label fw-bold" for="vista_empleado">
+                                            Acceso a la Vista del Módulo de Empleados
+                                        </label>
+                                    </div>
+                                    
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="r_empleado" class="form-check-input empleado" <?= $permisos['r_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_empleado">
+                                            <label class="form-check-label" for="r_empleado">Registrar Nuevos Empleados</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_empleado" class="form-check-input empleado" <?= $permisos['m_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_empleado">
+                                            <label class="form-check-label" for="m_empleado">Modificar Información de Empleados</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_empleado" class="form-check-input empleado" <?= $permisos['l_empleado'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_empleado">
+                                            <label class="form-check-label" for="l_empleado">Consultar Lista de Empleados</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 mb-2">
+            
+                    <div class="accordion" id="acordeon_roles">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rolesCard" aria-expanded="false" aria-controls="rolesCard">
+                                    Módulo Roles 
+                                    <span class="ms-auto me-2">
+                                        <i class="bi <?= obtenerIconoPermisos($rol, 3) ?>"></i>
+                                    </span>
+                                </button>
+                            </h2>
+                            
+                            <div id="rolesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_roles">
+                                <div class="accordion-body">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_roles" <?= $rol > 0 ? 'checked' : '' ?> value="roles">
+                                        <label class="form-check-label fw-bold" for="vista_roles">
+                                            Acceso a la Vista del Módulo de Roles
+                                        </label>
+                                    </div>
+                                    <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                        <li class="form-check mb-1">
+                                            <input name="r_rol" class="form-check-input roles" <?= $permisos['r_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_rol">
+                                            <label class="form-check-label" for="r_rol">Registrar Nuevos Roles</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="m_rol" class="form-check-input roles" <?= $permisos['m_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_rol">
+                                            <label class="form-check-label" for="m_rol">Modificar Información de Roles</label>
+                                        </li>
+                                        <li class="form-check mb-1">
+                                            <input name="l_rol" class="form-check-input roles" <?= $permisos['l_rol'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="l_rol">
+                                            <label class="form-check-label" for="l_rol">Consultar Lista de Roles</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 m-0 mb-4 ">
+
+            <h4 class="mb-3 text-primary"><i class="bi bi-gear-fill"></i> Configuración General</h4>
+            <hr>
+            
+            <div class="accordion mb-3" id="acordeon_ajustes_sistema">
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
+                            Módulo Ajustes del Sistema <i class="bi <?= obtenerIconoPermisos($ajustes, 6) ?> ms-2"></i>
+                        </button>
+                    </h2>
+                    
+                    <div id="ajustesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ajustes_sistema">
+                        <div class="accordion-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input vista" type="checkbox" id="vista_ajustes" <?= $ajustes > 0 ? 'checked' : '' ?> value="ajustes_sistema">
+                                <label class="form-check-label fw-bold" for="vista_ajustes">
+                                    Acceso a la Vista del Módulo de Ajustes del Sistema
+                                </label>
+                            </div>
+                            <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
+                                <li class="form-check mb-1">
+                                    <input name="m_cant_pregunta_seguridad" class="form-check-input ajustes_sistema" <?= $permisos['m_cant_pregunta_seguridad'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cant_pregunta_seguridad">
+                                    <label class="form-check-label" for="m_cant_pregunta_seguridad">Modificar cantidad de preguntas de seguridad</label>
+                                </li>
+                                <li class="form-check mb-1">
+                                    <input name="m_tiempo_sesion" class="form-check-input ajustes_sistema" <?= $permisos['m_tiempo_sesion'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_tiempo_sesion">
+                                    <label class="form-check-label" for="m_tiempo_sesion">Modificar tiempo de inactividad de sesión</label>
+                                </li>
+                                <li class="form-check mb-1">
+                                    <input name="m_cant_caracteres" class="form-check-input ajustes_sistema" <?= $permisos['m_cant_caracteres'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cant_caracteres">
+                                    <label class="form-check-label" for="m_cant_caracteres">Modificar cantidad de caracteres (min/max)</label>
+                                </li>
+                                <li class="form-check mb-1">
+                                    <input name="m_cant_simbolos" class="form-check-input ajustes_sistema" <?= $permisos['m_cant_simbolos'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cant_simbolos">
+                                    <label class="form-check-label" for="m_cant_simbolos">Modificar cantidad de símbolos</label>
+                                </li>
+                                <li class="form-check mb-1">
+                                    <input name="m_cant_num" class="form-check-input ajustes_sistema" <?= $permisos['m_cant_num'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="m_cant_num">
+                                    <label class="form-check-label" for="m_cant_num">Modificar cantidad de números</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </form>

@@ -33,6 +33,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 		?>
     </head>
     <body>
+
 		<?php 
 			// se incluye el header / encabezado a la vista
 			include_once "../include/header.php";
@@ -93,9 +94,14 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 							<div class="row text-center p-2 align-items-center">
 
 								<?php if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 ): ?>
-									<div class="col-12 col-sm-12 col-md-6 mb-2 ">
-										<button class="col-12 btnHiddenElements btn btn-success bi bi-plus"> Registrar Entrada</button>
+
+									<div class="col-12 col-sm-12 col-md-6 mb-2">
+										<button class="col-12 btnHiddenElements btn btn-success">
+											<i class="bi bi-plus-circle"></i>
+											Registrar Entrada
+										</button>
 									</div>
+
 								<?php endif; ?>
 
 
@@ -454,6 +460,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 					</div>
 				</div>
 			</section>
+
 		</main>
 
 		<script type="text/javascript">

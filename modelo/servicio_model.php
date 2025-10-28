@@ -70,7 +70,7 @@ class servicio_model extends modeloPrincipal {
     
                         <?php if ($mostrar["estatus"] === "1") { ?>
     
-                                <button class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
+                                <button disabled class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
     
                         <?php }else if ($mostrar["estatus"] === "0") { ?>
                             <form action="../controlador/servicio_controlador.php" method="post" class="SendFormAjax" data-type-form="update_estate" >

@@ -59,12 +59,14 @@ if ($rol >= 1 && $rol <= 3) {  ?>
 						
 						<div class="row text-center p-2 justify-content-center">
 							<?php if ($r_empleado == '1' && $l_empleado == '1'): ?>
+
 								<div class="col-12 mb-3 row m-0 col-md-6">
 									<button id="btn_register" onclick="toggle()" class="col-12 btn btn-success">
-										<i class="bi bi-person-plus"></i>
+										<i class="bi bi-plus-circle"></i>
 										Registrar un Empleado
 									</button>
 								</div>
+								
 							<?php endif; ?>
 
 							<div class="col-12 mb-3 <?= $r_empleado == 1 && $l_empleado == 0 ? 'col-md-12' : 'col-md-6'; ?>">

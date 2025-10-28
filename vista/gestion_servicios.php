@@ -56,15 +56,17 @@ if ($rol >= 1 && $rol <= 3) { ?>
 							<div class="card top-selling">
 
 								<?php if ($r_servicio == 1 && $l_servicio == 1) : ?>
+
 									<div class="row p-2 text-center">
 										<div class="col-12 col-sm-12 col-md-12 ">
-											<button id="btn_register" type="button" onclick="toggle()" class="w-100 fw-bold shadow-sm btn btn-success">
-												<i class="bi bi-plus-circle me-2"></i> 
+											<button id="btn_register" type="button" onclick="toggle()" class="w-100 shadow-sm btn btn-success">
+												<i class="bi bi-plus-circle"></i> 
 												<span>Registrar Nuevo Servicio</span>
 											</button>
 										</div>
 									</div>
 									<hr>
+
 								<?php endif; ?>
 								
 								<div class="card-body pb-3">
@@ -214,6 +216,7 @@ if ($rol >= 1 && $rol <= 3) { ?>
 						</div>
 				</div>
 				</section>
+
 			</main>
 		
 			<script>
