@@ -11,12 +11,14 @@
     <!-- apartado de inventario -->
     <?php 
       // vistas
-      $entrada = rol_model::permisos_modulos('r_entrada + l_entrada');
-      $productos = rol_model::permisos_modulos('r_categoria + m_categoria + l_categoria + r_presentacion + m_presentacion + l_presentacion + r_marca + m_marca + l_marca + r_productos + l_productos');
-      $proveedores = rol_model::permisos_modulos('r_proveedores + m_proveedores + l_proveedores + h_proveedores');
+      $entrada = rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"]);
+      $productos = rol_model::obtenerSumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada']);
+      $proveedores = rol_model::obtenerSumaPermisoRol(['r_proveedores', 'm_proveedores','l_proveedores','h_proveedores']);
 
-      if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') {?>
+      if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') { ?>
+
         <li class="nav-item">
+
           <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-box-seam-fill"></i>
             <span>Inventario</span>
@@ -24,16 +26,18 @@
           </a>
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
             <?php 
-            if ($productos >= 1 && $productos <= 11) : ?>
-              <li>
-                <a href="../vista/gestion_productos.php">
-                  <i class="bi bi-circle"></i>
-                  <span>Gestión de Productos</span>
-                </a>
-              </li>
+
+              if ($productos >= 1 && $productos <= 11) : ?>
+                <li>
+                  <a href="./gestion_productos.php">
+                    <i class="bi bi-circle"></i>
+                    <span>Gestión de Productos</span>
+                  </a>
+                </li>
             <?php 
-            endif;
+              endif;
 
             if ($entrada == 1 || $entrada == 2 ): ?>
 
@@ -56,13 +60,14 @@
             <?php endif; ?>
           </ul>
         </li>
+
     <?php } 
     // <!-- apartado de menú de servicios -->
-      $registro_servicio = rol_model::permisos_modulos('r_servicio');
-      $modificar_servicio = rol_model::permisos_modulos('m_servicio');
-      $lista_servicio = rol_model::permisos_modulos('l_servicio');
+      $registro_servicio = rol_model::obtenerPermisoRol('r_servicio');
+      $modificar_servicio = rol_model::obtenerPermisoRol('m_servicio');
+      $lista_servicio = rol_model::obtenerPermisoRol('l_servicio');
 
-      if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) {?>
+      if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) { ?>
       
         <li class="nav-item">
           <a href="gestion_servicios.php" class="nav-link collapsed">
@@ -74,11 +79,11 @@
 
     //  <!-- apartado de ventas  -->
 
-      $generar_venta = rol_model::permisos_modulos('g_venta');
-      $est_venta = rol_model::permisos_modulos('est_venta');
-      $lista_venta = rol_model::permisos_modulos('l_venta');
-      $detalles_venta = rol_model::permisos_modulos('d_venta');
-      $factura_venta = rol_model::permisos_modulos('f_venta');
+      $generar_venta = rol_model::obtenerPermisoRol('g_venta');
+      $est_venta = rol_model::obtenerPermisoRol('est_venta');
+      $lista_venta = rol_model::obtenerPermisoRol('l_venta');
+      $detalles_venta = rol_model::obtenerPermisoRol('d_venta');
+      $factura_venta = rol_model::obtenerPermisoRol('f_venta');
 
       if ($generar_venta > '0' || $est_venta > '0' || $detalles_venta > '0' || $factura_venta > '0' || $lista_venta > 0) {?>
       
@@ -117,9 +122,9 @@
 
     <!-- apartado de gestión de usuarios  -->
     <?php 
-      $cliente = rol_model::permisos_modulos('m_cliente + l_cliente + h_cliente + f_cliente');
-      $usuario = rol_model::permisos_modulos('r_empleado + m_empleado + l_empleado');
-      $rol = rol_model::permisos_modulos('r_rol + m_rol + l_rol');
+      $cliente = rol_model::obtenerSumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente']);
+      $usuario = rol_model::obtenerSumaPermisoRol(['r_empleado','m_empleado','l_empleado']);
+      $rol = rol_model::obtenerSumaPermisoRol(['r_rol','m_rol','l_rol']);
 
       if ($cliente > '0' || $usuario > '0' || $rol > '0' ) {?>
       

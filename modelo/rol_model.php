@@ -61,7 +61,10 @@ class rol_model extends model_user {
         $id_rol = modeloPrincipal::consultar("SELECT id_rol FROM usuario WHERE id_usuario = $id_usuario");
 
         if (!$id_rol) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se encontró el rol del usuario, por favor verifique e intente nuevamente","error");
+            alert_model::alerta_simple(
+                "¡Ocurrió un error inesperado!",
+                "No se encontró el rol del usuario, por favor verifique e intente nuevamente",
+                "error");
         }
         
         $id_rol = mysqli_fetch_array($id_rol)['id_rol'];;
