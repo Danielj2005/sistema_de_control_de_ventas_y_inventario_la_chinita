@@ -10,6 +10,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesión
 
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +36,7 @@ model_user::validar_primer_inicio($id_usuario); // se valida si es el primer ini
     ?>
 
     <main id="main" class="main">
-      <div class="pagetitle"> <h1> Panel de Control</h1> </div> 
+      <div class="pagetitle"> <h1> Panel de Control </h1> </div> 
       <section class="section dashboard">
         <div class="row">
 

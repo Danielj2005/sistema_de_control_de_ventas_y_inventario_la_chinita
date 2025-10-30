@@ -8,14 +8,7 @@
       </a>
     </li>
     
-    <!-- apartado de inventario -->
-    <?php 
-      // vistas
-      $entrada = rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"]);
-      $productos = rol_model::obtenerSumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada']);
-      $proveedores = rol_model::obtenerSumaPermisoRol(['r_proveedores', 'm_proveedores','l_proveedores','h_proveedores']);
-
-      if ($entrada > '0' || $productos > '0' || $proveedores > '0' || $presentacion > '0' || $categoria > '0') { ?>
+    <?php if ($PERMISOS_MODULO_PRODUCTOS['total'] > '0' || $PERMISOS_MODULO_PROVEEDORES['total'] > '0') {  ?>
 
         <li class="nav-item">
 
@@ -27,31 +20,28 @@
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-            <?php 
+            <?php if ($PERMISOS_MODULO_PRODUCTOS['total'] > 0 && $PERMISOS_MODULO_PRODUCTOS['total'] < 14) : ?>
 
-              if ($productos >= 1 && $productos <= 11) : ?>
                 <li>
                   <a href="./gestion_productos.php">
                     <i class="bi bi-circle"></i>
                     <span>Gestión de Productos</span>
                   </a>
                 </li>
-            <?php 
-              endif;
-
-            if ($entrada == 1 || $entrada == 2 ): ?>
+                
+            <?php endif; if ($PERMISOS_MODULO_PRODUCTOS['entrada']['total'] == 1 || $PERMISOS_MODULO_PRODUCTOS['entrada']['total'] == 2 ): ?>
 
               <li>
-                <a href="../vista/entrada_de_productos.php">
+                <a href="./entrada_de_productos.php">
                   <i class="bi bi-circle"></i>
                   <span>Registro de Compras</span>
                 </a>
               </li>
 
-            <?php endif; if ($proveedores >= 1 && $proveedores <= 4) : ?>
+            <?php endif; if ($PERMISOS_MODULO_PROVEEDORES['total'] >= 1 && $PERMISOS_MODULO_PROVEEDORES['total'] <= 4) : ?>
 
               <li>
-                <a href="../vista/proveedor.php">
+                <a href="./proveedor.php">
                   <i class="bi bi-circle"></i>
                   <span>Gestión de Proveedores</span>
                 </a>
@@ -61,13 +51,7 @@
           </ul>
         </li>
 
-    <?php } 
-    // <!-- apartado de menú de servicios -->
-      $registro_servicio = rol_model::obtenerPermisoRol('r_servicio');
-      $modificar_servicio = rol_model::obtenerPermisoRol('m_servicio');
-      $lista_servicio = rol_model::obtenerPermisoRol('l_servicio');
-
-      if ($registro_servicio > '0' || $modificar_servicio > '0' || $lista_servicio > 0) { ?>
+    <?php } if ($PERMISOS_MODULO_SERVICIOS['total'] > '0' && $PERMISOS_MODULO_SERVICIOS['total'] < '4') { ?>
       
         <li class="nav-item">
           <a href="gestion_servicios.php" class="nav-link collapsed">
@@ -75,60 +59,55 @@
             <span> Gestión de Servicios</span>
           </a>
         </li>
-    <?php } 
 
-    //  <!-- apartado de ventas  -->
-
-      $generar_venta = rol_model::obtenerPermisoRol('g_venta');
-      $est_venta = rol_model::obtenerPermisoRol('est_venta');
-      $lista_venta = rol_model::obtenerPermisoRol('l_venta');
-      $detalles_venta = rol_model::obtenerPermisoRol('d_venta');
-      $factura_venta = rol_model::obtenerPermisoRol('f_venta');
-
-      if ($generar_venta > '0' || $est_venta > '0' || $detalles_venta > '0' || $factura_venta > '0' || $lista_venta > 0) {?>
+    <?php }  if ($PERMISOS_MODULO_VENTAS['total'] > '0' && $PERMISOS_MODULO_VENTAS['total'] < '6') {?>
       
         <li class="nav-item">
+          
           <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-currency-dollar"></i>
             <span>Ventas</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
+
           <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <?php if ($generar_venta == 1 ) {  ?>
+
+            <?php if ($PERMISOS_MODULO_VENTAS['g_venta'] == 1 ) {  ?>
+
               <li>
                 <a href="./generar_venta.php">
                   <i class="bi bi-circle"></i>
                   <span>Generar venta</span>
                 </a>
               </li>
-            <?php } if ($lista_venta == 1 || $detalles_venta == 1 || $factura_venta == 1 ) {  ?>
+
+            <?php } if ($PERMISOS_MODULO_VENTAS['l_venta'] == 1 || $PERMISOS_MODULO_VENTAS['d_venta'] == 1 || $PERMISOS_MODULO_VENTAS['f_venta'] == 1 ) {  ?>
+
               <li>
-                <a href="../vista/venta.php">
+                <a href="./venta.php">
                   <i class="bi bi-circle"></i>
                   <span>Historial de Ventas</span>
                 </a>
               </li>
-            <?php } if ($est_venta == 1 ) {  ?>
+
+            <?php } if ($PERMISOS_MODULO_VENTAS['est_venta'] == 1 ) {  ?>
+
               <li>
                 <a href="./estadisticas_generales.php">
                   <i class="bi bi-graph-up"></i>
                   <span>Análisis de Ventas</span>
                 </a>
               </li>
+
             <?php } ?>
+
           </ul>
         </li>
-    <?php } ?>
 
-    <!-- apartado de gestión de usuarios  -->
-    <?php 
-      $cliente = rol_model::obtenerSumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente']);
-      $usuario = rol_model::obtenerSumaPermisoRol(['r_empleado','m_empleado','l_empleado']);
-      $rol = rol_model::obtenerSumaPermisoRol(['r_rol','m_rol','l_rol']);
-
-      if ($cliente > '0' || $usuario > '0' || $rol > '0' ) {?>
+    <?php } if ($PERMISOS_MODULO_CLIENTES['total'] > '0' || $PERMISOS_MODULO_USUARIOS['total'] > '0' || $PERMISOS_MODULO_ROLES['total'] > '0' ) {?>
       
         <li class="nav-item">
+
           <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
             <i class="bi bi-people-fill"></i>
             <span>Usuarios</span>
@@ -137,42 +116,38 @@
 
           <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             
-            <?php if ($cliente >= 1 && $cliente <= 4): ?>
+            <?php if ($PERMISOS_MODULO_CLIENTES['total'] >= 1 && $PERMISOS_MODULO_CLIENTES['total'] <= 4): ?>
 
                 <!-- modulo de clientes -->
                 <li class="nav-item">
-
-                  <a class="nav-link collapsed" href="../vista/cliente.php">
+                  <a class="nav-link collapsed" href="./cliente.php">
                     <i class="bi bi-circle"></i>
                     <span>Clientes</span>
                   </a>
                 </li>
-            <?php 
-            endif; 
-            
-            //  modulo de empleados (usuario) 
-            if ($usuario >= 1 && $usuario <= 3): ?>
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../vista/empleados.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Empleados</span>
-                  </a>
-                </li>
-            <?php 
-            endif; 
-            
-            // 3. Roles/Permisos (Permisos de 1 a 3) CRU
-            if ($rol >= 1 && $rol <= 3): ?>
+
+            <?php endif;  if ($PERMISOS_MODULO_USUARIOS['total'] >= 1 && $PERMISOS_MODULO_USUARIOS['total'] <= 3): ?>
+
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="./empleados.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Empleados</span>
+                </a>
+              </li>
+
+            <?php endif; if ($PERMISOS_MODULO_ROLES['total'] >= 1 && $PERMISOS_MODULO_ROLES['total']  <= 3): ?>
+
                 <li>
                   <a href="./roles.php">
                     <i class="bi bi-circle"></i>
                     <span>Gestión de Roles</span>
                   </a>
                 </li>
-            <?php endif; ?>
 
+            <?php endif; ?>
           </ul>
         </li>
+
     <?php } ?>
 
     <!-- apartado del perfil de usuario  -->
@@ -183,40 +158,39 @@
       </a>
     </li>
 
-    <!-- apartado de configuración de sistema -->
-    <?php 
-      // vistas
-      $configuracion = rol_model::permisos_modulos('m_cant_pregunta_seguridad + m_cant_num + m_cant_simbolos + m_cant_caracteres + m_tiempo_sesion');
-      $bitacora = rol_model::permisos_modulos('v_bitacora');
+    <?php if ($PERMISOS_MODULO_AJUSTES['total'] > '0' || $PERMISOS_MODULO_BITACORA['total'] > '0') { ?>
 
-      if ($configuracion > '0' || $bitacora > '0') {?>
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gear-fill"></i>
-          <span>Configuración General</span>
-          <i class="bi bi-chevron-down ms-auto"></i>
-        </a>
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-gear-fill"></i>
+            <span>Configuración General</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
 
-        <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          
-          <?php if ($configuracion >= 1 && $configuracion <= 5) {  ?>
-            <li>
-              <a href="./configuracion.php">
-                <i class="bi bi-circle"></i>
-                <span>Ajustes del Sistema</span>
-              </a>
-            </li>
+          <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            
+            <?php if ($PERMISOS_MODULO_AJUSTES['total'] >= 1 && $PERMISOS_MODULO_AJUSTES['total'] <= 5) {  ?>
+              
+              <li>
+                <a href="./configuracion.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Ajustes del Sistema</span>
+                </a>
+              </li>
 
-          <?php } if ($bitacora == 1) {  ?>
-            <li>
-              <a href="./bitacora.php">
-                <i class="bi bi-circle"></i>
-                <span>Bitácora</span>
-              </a>
-            </li>
-          <?php } ?>
-        </ul>
-      </li>
+            <?php } if ($PERMISOS_MODULO_BITACORA['total'] == 1) {  ?>
+              
+              <li>
+                <a href="./bitacora.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Bitácora</span>
+                </a>
+              </li>
+              
+            <?php } ?>
+          </ul>
+        </li>
+
     <?php } ?>
 
     <!-- apartado de ayuda  -->
@@ -229,7 +203,7 @@
 
       <ul id="ayuda-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="../vista/manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank">
+          <a href="./manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank">
             <i class="bi bi-book"></i>
             <span>Manual de Usuario</span>
           </a>

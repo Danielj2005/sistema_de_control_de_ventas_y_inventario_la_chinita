@@ -43,7 +43,7 @@ $producto = [
 
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 9) {  ?>
+if ($PERMISOS_MODULO_PRODUCTOS['total'] > 0 && $PERMISOS_MODULO_PRODUCTOS['total'] < 12) {  ?>
 
     <!DOCTYPE html>
     <html lang="en">

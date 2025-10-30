@@ -61,9 +61,9 @@
 
       <li class="nav-item dropdown pe-3">
 
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
+        <button class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
           <span class="d-none d-md-block dropdown-toggle ps-2"><?= model_user::obtener_info_personal_usuario('nombre',$id_usuario), " ", model_user::obtener_info_personal_usuario('apellido',$id_usuario); ?></span>
-        </a>
+        </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
@@ -84,9 +84,9 @@
 
           <?php 
             // esta funcion retorna si el rol tiene permiso a las vista
-            $rol = rol_model::obtenerSumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion']);
+            // $rol = rol_model::obtenerSumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion']);
             // se evalua que este rol tenga el acceso a esta vista
-            if ($rol >= 1 && $rol <= 6) { ?>
+            if ($PERMISOS_MODULO_AJUSTES['total'] >= 1 && $PERMISOS_MODULO_AJUSTES['total'] <= 6) { ?>
             
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
