@@ -35,7 +35,7 @@
 
       <li class="nav-item dropdown">
 
-        <button class="btn btn-light nav-icon fst-italic fs-6" data-bs-toggle="dropdown">
+        <button class="btn bg-secondary-light nav-icon fst-italic fs-6" data-bs-toggle="dropdown">
           <i class="bi bi-currency-exchange"></i>
           &nbsp; Tasa USD: <span id="tasa_dolar"><?= number_format((float)$precio_dolar_actual, 2, ',', '.') ?></span>Bs
         </button>
@@ -62,13 +62,13 @@
       <li class="nav-item dropdown pe-3">
 
         <button class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
-          <span class="d-none d-md-block dropdown-toggle ps-2"><?= model_user::obtener_info_personal_usuario('nombre',$id_usuario), " ", model_user::obtener_info_personal_usuario('apellido',$id_usuario); ?></span>
+          <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['nombre']." ".$_SESSION['apellido']; ?></span>
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6><?= model_user::obtener_info_personal_usuario('nombre',$id_usuario), " ", model_user::obtener_info_personal_usuario('apellido',$id_usuario); ?></h6>
-            <span><?= rol_model::obtener_nombre_rol_usuario( rol_model::obtener_id_rol_usuario()); ?></span>
+            <h6><?= $_SESSION['nombre']." ".$_SESSION['apellido']; ?></h6>
+            <span><?= $_SESSION['nombreRolUsuario']; ?></span>
           </li>
 
           <li> <hr class="dropdown-divider"> </li>
@@ -83,10 +83,13 @@
           <li> <hr class="dropdown-divider"> </li>
 
           <?php 
-            // esta funcion retorna si el rol tiene permiso a las vista
-            // $rol = rol_model::obtenerSumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion']);
+            // Lista de todos los permisos que pertenecen al Módulo de Configuración/Ajustes
+
+            $permiso_ajustes = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['ajustes']);
+
             // se evalua que este rol tenga el acceso a esta vista
-            if ($PERMISOS_MODULO_AJUSTES['total'] >= 1 && $PERMISOS_MODULO_AJUSTES['total'] <= 6) { ?>
+
+            if ($permiso_ajustes) { ?>
             
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
@@ -95,7 +98,7 @@
                 </a>
               </li>
 
-          <?php } ?>
+          <?php }  ?>
 
           <li> <hr class="dropdown-divider"> </li>
 

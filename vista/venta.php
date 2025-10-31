@@ -4,19 +4,20 @@ session_start();
 
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
 
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+$permiso_venta = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['venta']);
 
-// esta funcion retorna si el rol tiene permiso a las vista
-
-$rol = rol_model::obtenerSumaPermisoRol(['d_venta','l_venta','f_venta']);
+$d_venta = modeloPrincipal::verificar_permisos_requeridos(['d_venta']);
+$l_venta = modeloPrincipal::verificar_permisos_requeridos(['l_venta']);
+$f_venta = modeloPrincipal::verificar_permisos_requeridos(['f_venta']);
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 3) { ?>
+if ($permiso_venta) { ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -143,11 +144,11 @@ if ($rol >= 1 && $rol <= 3) { ?>
                             <th class="col text-center" scope="col">Fecha y Hora</th>
                             
                             
-                          <?php if (rol_model::obtenerPermisoRol('d_venta') == '1') : ?>
+                          <?php if ($d_venta == '1') : ?>
                             <th class="col text-center" scope="col" style="width: 8%;">Detalles</th>
                           <?php endif; ?>
                           
-                          <?php if (rol_model::obtenerPermisoRol('f_venta') == '1') :?>
+                          <?php if ($f_venta == '1') :?>
                             <th class="col text-center" scope="col" style="width: 8%;">Ver Facturas</th>
                           <?php endif; ?>
 

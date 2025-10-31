@@ -41,8 +41,8 @@ class servicio_model extends modeloPrincipal {
     public static function lista(){
         $consulta = modeloPrincipal::consultar("SELECT * FROM menu ORDER BY id_menu DESC");
 
-        $l_servicio = rol_model::verificar_rol('l_servicio');
-        $m_servicio = rol_model::verificar_rol('m_servicio');
+        $l_servicio = modeloPrincipal::verificar_permisos_requeridos(['l_servicio']);
+        $m_servicio = modeloPrincipal::verificar_permisos_requeridos(['m_servicio']);
 
         while ( $mostrar =  mysqli_fetch_assoc($consulta)) { 
             $idSecure = modeloPrincipal::encryptionId($mostrar["id_menu"]); ?>
@@ -70,7 +70,7 @@ class servicio_model extends modeloPrincipal {
     
                         <?php if ($mostrar["estatus"] === "1") { ?>
     
-                                <button disabled class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
+                            <button disabled class="btn btn-success bi bi-check-circle" title="estado del servicio" type="submit">&nbsp; Activo </button>
     
                         <?php }else if ($mostrar["estatus"] === "0") { ?>
                             <form action="../controlador/servicio_controlador.php" method="post" class="SendFormAjax" data-type-form="update_estate" >

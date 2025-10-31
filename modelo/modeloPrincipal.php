@@ -78,6 +78,16 @@ class modeloPrincipal {
     /*********************** funciones para encryptacion y desencryptacion de datos sencibles ***********************/
     /****************************************************************************************************************/
     /********** Funcion encriptar Cadena  **********/
+
+
+    public static function hashear_contrasena($contrasena_plana) {
+        // Usamos el algoritmo PASSWORD_BCRYPT.
+        // PHP automáticamente añade un "salt" criptográficamente seguro al hash.
+        $hash_seguro = password_hash($contrasena_plana, PASSWORD_BCRYPT);
+        
+        return $hash_seguro;
+    }
+
     public static function encryption($string) {
         $key = SECRET_KEY;
         $result = '';
@@ -364,5 +374,30 @@ class modeloPrincipal {
         echo $datos;
     }
 
+
+
+    public static function verificar_permisos_requeridos ($permisos_requeridos) { 
+        
+        if (!isset($_SESSION['permisosRol']) || !is_array($_SESSION['permisosRol'])) {
+            return false;
+        }
+        // Iterar sobre los permisos requeridos
+        foreach ($permisos_requeridos as $permiso) {
+            // Si encuentra CUALQUIERA de los permisos en la sesión, activa la bandera y sale del bucle
+            if (array_key_exists($permiso, $_SESSION['permisosRol'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static function verificar_permiso_a_controlador ($string) {
+
+        if (!array_key_exists("$string", $_SESSION['permisos'])) {
+            // Si no tiene el permiso, denegar inmediatamente.
+            die('Error: Acceso no autorizado para generar ventas.'); 
+        }
+    }
 
 }

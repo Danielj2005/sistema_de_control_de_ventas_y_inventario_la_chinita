@@ -186,7 +186,7 @@ class model_user extends modeloPrincipal {
                 <th class="col text-center"><?= $mostrar["nombre"]." ".$mostrar["apellido"]; ?></th>
                 <th class="col text-center"><?= $mostrar["telefono"]; ?></th>
 
-                <?php if (rol_model::verificar_rol('m_empleado') == '1'): ?>
+                <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_empleado']) == 1): ?>
                     <th scope="col" class="col text-center">
                         <button
                             modal="usuarioModificar" 
@@ -250,9 +250,14 @@ class model_user extends modeloPrincipal {
 
     public static function validar_sesion_activa($id_usuario){
         $sesion_activa = Self::obtener_info_personal_usuario("sesion_activa",$id_usuario);
+
         if($sesion_activa == '0'){
             modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
-            alert_model::alert_redirect('¡Sesión activa detectada!', 'Se ha detectado un intento de inicio de sesión desde otro dispositivo asociado a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning', '../controlador/salir.php');
+            alert_model::alert_redirect(
+                '¡Sesión activa detectada!', 
+                'Se ha detectado un intento de inicio de sesión desde otro dispositivo asociado a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.',
+                'warning', 
+                '../controlador/salir.php');
             exit();
         }
     }
@@ -269,7 +274,7 @@ class model_user extends modeloPrincipal {
 
     public static function verificar_intento_de_acceso_al_sistema(){
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
-            // // Redirigir el acceso a la página sino inició de sesión
+            // Redirigir el acceso a la página sino inició de sesión
             header('Location: ../');
             exit();
         }
@@ -421,4 +426,8 @@ class model_user extends modeloPrincipal {
 
         bitacora::bitacora("Modificación exitosa del perfil de usuario.","El usuario actualizó su contraseña.");
     }
+
+
+
+
 }

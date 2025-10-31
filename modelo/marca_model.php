@@ -80,19 +80,23 @@ class marca_model extends modeloPrincipal {
             <tr>
                 <td class="col text-center"></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                <?php if (rol_model::verificar_rol('m_marca') == '1') { ?>
+                <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_marca'])) { ?>
                     <td class="col text-center">
                         <?php 
                             if ($mostrar["estado"] === "1") { ?>
                                 <button class="btn btn-outline-success bi-check-circle" title="estado de la Marca"></button>
                         <?php } else { ?>
-                                <form action="<?= (rol_model::verificar_rol('m_marca') == '1') ?  '../controlador/marca.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
-                                    <input type="hidden" name="modulo" value="inactivo">          
-                                    <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>">
-                                    <button 
-                                        class="btn btn-outline-danger bi-x-circle <?= (rol_model::verificar_rol('m_marca') == '1') ?  '' : 'disabled eraser' ?>" 
-                                        title="estado de la Marca"
-                                        type="submit"></button>
+                                <form 
+                                    action="../controlador/marca.php" 
+                                    method="post" 
+                                    class="SendFormAjax" 
+                                    data-type-form="update_estate" >
+                                        <input type="hidden" name="modulo" value="inactivo">          
+                                        <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>">
+                                        <button 
+                                            class="btn btn-outline-danger bi-x-circle" 
+                                            title="estado de la Marca"
+                                            type="submit"></button>
                                 </form>
                         <?php }?>
                     </td>

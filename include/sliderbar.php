@@ -1,3 +1,20 @@
+<?php 
+
+$permiso_proveedor = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['proveedor']);
+$permiso_productos = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['producto']['productos']);
+$permiso_entrada_productos = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['producto']['entrada']);
+
+$permiso_servicio = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['servicio']);
+
+$permiso_modulo_venta = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['venta']);
+$permiso_modulo_cliente = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['cliente']);
+$permiso_modulo_usuario = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['usuario']);
+
+$permiso_modulo_rol = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['rol']);
+$permiso_ajustes = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['ajustes']);
+$permiso_bitacora = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['bitacora']);
+
+?>
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     <!-- apartado de página principal -->
@@ -8,7 +25,7 @@
       </a>
     </li>
     
-    <?php if ($PERMISOS_MODULO_PRODUCTOS['total'] > '0' || $PERMISOS_MODULO_PROVEEDORES['total'] > '0') {  ?>
+    <?php if ($permiso_productos || $permiso_proveedor) {  ?>
 
         <li class="nav-item">
 
@@ -20,16 +37,16 @@
 
           <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-            <?php if ($PERMISOS_MODULO_PRODUCTOS['total'] > 0 && $PERMISOS_MODULO_PRODUCTOS['total'] < 14) : ?>
+            <?php if ($permiso_productos) : ?>
 
-                <li>
-                  <a href="./gestion_productos.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Gestión de Productos</span>
-                  </a>
-                </li>
+              <li>
+                <a href="./gestion_productos.php">
+                  <i class="bi bi-circle"></i>
+                  <span>Gestión de Productos</span>
+                </a>
+              </li>
                 
-            <?php endif; if ($PERMISOS_MODULO_PRODUCTOS['entrada']['total'] == 1 || $PERMISOS_MODULO_PRODUCTOS['entrada']['total'] == 2 ): ?>
+            <?php endif; if ($permiso_entrada_productos): ?>
 
               <li>
                 <a href="./entrada_de_productos.php">
@@ -38,7 +55,7 @@
                 </a>
               </li>
 
-            <?php endif; if ($PERMISOS_MODULO_PROVEEDORES['total'] >= 1 && $PERMISOS_MODULO_PROVEEDORES['total'] <= 4) : ?>
+            <?php endif; if ($permiso_proveedor) : ?>
 
               <li>
                 <a href="./proveedor.php">
@@ -51,7 +68,7 @@
           </ul>
         </li>
 
-    <?php } if ($PERMISOS_MODULO_SERVICIOS['total'] > '0' && $PERMISOS_MODULO_SERVICIOS['total'] < '4') { ?>
+    <?php } if ($permiso_servicio) { ?>
       
         <li class="nav-item">
           <a href="gestion_servicios.php" class="nav-link collapsed">
@@ -60,7 +77,7 @@
           </a>
         </li>
 
-    <?php }  if ($PERMISOS_MODULO_VENTAS['total'] > '0' && $PERMISOS_MODULO_VENTAS['total'] < '6') {?>
+    <?php }  if ($permiso_modulo_venta) {?>
       
         <li class="nav-item">
           
@@ -72,7 +89,7 @@
 
           <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-            <?php if ($PERMISOS_MODULO_VENTAS['g_venta'] == 1 ) {  ?>
+            <?php if (array_key_exists( "g_venta", $_SESSION['permisosRol'] )) {  ?>
 
               <li>
                 <a href="./generar_venta.php">
@@ -81,7 +98,7 @@
                 </a>
               </li>
 
-            <?php } if ($PERMISOS_MODULO_VENTAS['l_venta'] == 1 || $PERMISOS_MODULO_VENTAS['d_venta'] == 1 || $PERMISOS_MODULO_VENTAS['f_venta'] == 1 ) {  ?>
+            <?php } if (array_key_exists( "l_venta", $_SESSION['permisosRol'] ) || array_key_exists( "d_venta", $_SESSION['permisosRol'] ) || array_key_exists( "f_venta", $_SESSION['permisosRol'] )) {  ?>
 
               <li>
                 <a href="./venta.php">
@@ -90,7 +107,7 @@
                 </a>
               </li>
 
-            <?php } if ($PERMISOS_MODULO_VENTAS['est_venta'] == 1 ) {  ?>
+            <?php } if (array_key_exists( "est_venta", $_SESSION['permisosRol'])) {  ?>
 
               <li>
                 <a href="./estadisticas_generales.php">
@@ -104,7 +121,7 @@
           </ul>
         </li>
 
-    <?php } if ($PERMISOS_MODULO_CLIENTES['total'] > '0' || $PERMISOS_MODULO_USUARIOS['total'] > '0' || $PERMISOS_MODULO_ROLES['total'] > '0' ) {?>
+    <?php } if ($permiso_modulo_cliente || $permiso_modulo_usuario || $permiso_modulo_rol) {?>
       
         <li class="nav-item">
 
@@ -116,7 +133,7 @@
 
           <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             
-            <?php if ($PERMISOS_MODULO_CLIENTES['total'] >= 1 && $PERMISOS_MODULO_CLIENTES['total'] <= 4): ?>
+            <?php if ($permiso_modulo_cliente): ?>
 
                 <!-- modulo de clientes -->
                 <li class="nav-item">
@@ -126,7 +143,7 @@
                   </a>
                 </li>
 
-            <?php endif;  if ($PERMISOS_MODULO_USUARIOS['total'] >= 1 && $PERMISOS_MODULO_USUARIOS['total'] <= 3): ?>
+            <?php endif;  if ($permiso_modulo_usuario): ?>
 
               <li class="nav-item">
                 <a class="nav-link collapsed" href="./empleados.php">
@@ -135,7 +152,7 @@
                 </a>
               </li>
 
-            <?php endif; if ($PERMISOS_MODULO_ROLES['total'] >= 1 && $PERMISOS_MODULO_ROLES['total']  <= 3): ?>
+            <?php endif; if ($permiso_modulo_rol): ?>
 
                 <li>
                   <a href="./roles.php">
@@ -158,7 +175,7 @@
       </a>
     </li>
 
-    <?php if ($PERMISOS_MODULO_AJUSTES['total'] > '0' || $PERMISOS_MODULO_BITACORA['total'] > '0') { ?>
+    <?php if ($permiso_ajustes || $permiso_bitacora) { ?>
 
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#">
@@ -169,7 +186,7 @@
 
           <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             
-            <?php if ($PERMISOS_MODULO_AJUSTES['total'] >= 1 && $PERMISOS_MODULO_AJUSTES['total'] <= 5) {  ?>
+            <?php if ($permiso_ajustes) {  ?>
               
               <li>
                 <a href="./configuracion.php">
@@ -178,7 +195,7 @@
                 </a>
               </li>
 
-            <?php } if ($PERMISOS_MODULO_BITACORA['total'] == 1) {  ?>
+            <?php } if ($permiso_bitacora) {  ?>
               
               <li>
                 <a href="./bitacora.php">

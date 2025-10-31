@@ -12,7 +12,7 @@ require_once "../../../modelo/marca_model.php";
             <tr>
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">Nombre</th>
-                <?php if (rol_model::verificar_rol('m_marca') == '1') { ?>
+                <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_marca'])) { ?>
                     <th class="col text-center" scope="col">Estado</th>
                 <?php } ?>
             </tr>

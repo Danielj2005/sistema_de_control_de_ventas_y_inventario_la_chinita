@@ -1,29 +1,21 @@
 <?php 
 session_start();
-
-// importacion de la conexion a la base de datos y al modelo principal
-
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+include_once "../include/verificacion_primer_inicio_usuario.php";
 
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+$cliente = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['cliente']);
+$m_cliente = modeloPrincipal::verificar_permisos_requeridos(['m_cliente']);
+$l_cliente = modeloPrincipal::verificar_permisos_requeridos(['l_cliente']);
+$h_cliente = modeloPrincipal::verificar_permisos_requeridos(['h_cliente']);
+$f_cliente = modeloPrincipal::verificar_permisos_requeridos(['f_cliente']);
 
-// esta funcion retorna si el rol tiene permiso a las vista
 
-$m_cliente = rol_model::obtenerPermisoRol('m_cliente');
-$l_cliente = rol_model::obtenerPermisoRol('l_cliente');
-$h_cliente = rol_model::obtenerPermisoRol('h_cliente');
-$f_cliente = rol_model::obtenerPermisoRol('f_cliente');
-
-$rol = rol_model::obtenerSumaPermisoRol(['m_cliente', 'l_cliente', 'h_cliente', 'f_cliente']);
-
-// se evalua que este rol tenga el acceso a esta vista
-
-if ($rol >= 1 && $rol <= 4) {  ?>
+if ($cliente) {  ?>
 
   <!DOCTYPE html>
   <html lang="en">

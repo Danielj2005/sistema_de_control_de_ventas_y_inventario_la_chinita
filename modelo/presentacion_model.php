@@ -30,8 +30,6 @@ class presentacion_model extends modeloPrincipal {
         return $registrar;
     }
     
-
-
     public static function lista(){
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
             R.nombre AS representacion, R.descripcion, P.estado
@@ -49,17 +47,17 @@ class presentacion_model extends modeloPrincipal {
                 <td class="col text-center"><?= $i++ ?></td>
                 <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
                 <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
-                <?php if (rol_model::verificar_rol('m_presentacion') == '1') { ?>
+                <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_presentacion'])) { ?>
                     <td scope="row" class="text-center">
                         <?php 
                             if ($mostrar["estado"] === "1") { ?>
                                 <button class="btn btn-outline-success bi-check-circle" title="estado de la presentación"></button>
                             <?php } else { ?>
-                                <form action="<?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '../controlador/presentacion.php' : './gestion_productos.php' ?>" method="post" class="SendFormAjax" data-type-form="update_estate" >
+                                <form action="../controlador/presentacion.php" method="post" class="SendFormAjax" data-type-form="update_estate" >
                                     <input type="hidden" name="modulo" value="inactivo">          
                                     <input type="hidden" name="UID" value="<?= modeloPrincipal::encryptionId($mostrar["id"]); ?>">
                                     <button 
-                                        class="btn btn-outline-danger bi-x-circle <?= (rol_model::verificar_rol('m_presentacion') == '1') ?  '' : 'disabled eraser' ?>" 
+                                        class="btn btn-outline-danger bi-x-circle" 
                                         title="estado de la presentación"
                                         type="submit"></button>
                                 </form>

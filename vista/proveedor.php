@@ -5,26 +5,23 @@ session_start();
 
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario que inició sesión
-
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
 
 $fecha_actual = date('Y-m-d'); // se guarda la fecha actual para su posterior uso
 
 // se guardan los permisos del rol del usuario que inició sesión
-$r_proveedores = rol_model::obtenerPermisoRol('r_proveedores');
-$l_proveedores = rol_model::obtenerPermisoRol('l_proveedores');
-$m_proveedores = rol_model::obtenerPermisoRol('m_proveedores');
-$h_proveedores = rol_model::obtenerPermisoRol('h_proveedores');
-
-// esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::obtenerSumaPermisoRol(['r_proveedores','m_proveedores','l_proveedores','h_proveedores']);
+$proveedores = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['proveedor']);
+$r_proveedores = modeloPrincipal::verificar_permisos_requeridos(['r_proveedores']);
+$l_proveedores = modeloPrincipal::verificar_permisos_requeridos(['l_proveedores']);
+$m_proveedores = modeloPrincipal::verificar_permisos_requeridos(['m_proveedores']);
+$h_proveedores = modeloPrincipal::verificar_permisos_requeridos(['h_proveedores']);
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol >= 1 && $rol <= 4) {  ?>
+if ($proveedores) {  ?>
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -97,7 +94,7 @@ if ($rol >= 1 && $rol <= 4) {  ?>
                             <th class="col text-center" scope="col">Razón Social</th>
                             <th class="col text-center" scope="col">Ver Detalles</th>
                             <?php if ($m_proveedores == '1'): ?>
-                              <th class="col text-center" scope="col" class="text-center">Editar</th>
+                              <th class="col text-center" scope="col" class="text-center">Modificar</th>
                             <?php endif; 
                               if ($h_proveedores == '1'): ?>
                                 <th class="col text-center" scope="col" class="text-center">Historial de Compras</th>

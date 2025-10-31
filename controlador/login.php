@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 $configuracion = mysqli_fetch_array(modeloPrincipal::consultar("SELECT intentos_inicio_sesion FROM configuracion"));
 $intentos_inicio_sesion = intval($configuracion['intentos_inicio_sesion']);
@@ -31,7 +31,7 @@ if ($respuesta_captcha !== $captcha) {
 }
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
 
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
@@ -66,7 +66,10 @@ if ($contraseña !== $contraseña_usuario) {
 
 /** se verifica si el usuario esta activo **/
 if ($datos_usuario["estado"] == 0) {
-    alert_model::alerta_simple_reset_de_formularios('¡Cuenta inactiva!','Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.','warning');
+    alert_model::alerta_simple_reset_de_formularios(
+        '¡Cuenta inactiva!',
+        'Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.',
+        'warning');
     exit();
 }
 
@@ -99,8 +102,42 @@ $_SESSION['logged_in'] = true; // variable de inicio de sesion
 $_SESSION['nombre'] = $datos_usuario["nombre"]; // variable con el nombre del usuario
 $_SESSION['apellido'] = $datos_usuario["apellido"]; // variable con el apellido del usuario
 
+$_SESSION['dataUsuario'] = [
+    "dni" => $datos_usuario["cedula"],
+    "nombre" => $datos_usuario["nombre"],
+    "apellido" => $datos_usuario["apellido"],
+    "correo" => $datos_usuario["correo"],
+    "telefono" => $datos_usuario["telefono"],
+    "direccion" => $datos_usuario["direccion"]
+];
+
 $_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
+$_SESSION['nombreRolUsuario'] = $datos_usuario['rol_usuario'];
+
+$_SESSION['primer_inicio'] = $datos_usuario["primer_inicio"]; // variable con el id de el rol del usuario
+
+// asignacion de roles a variables de session
+$_SESSION['permisosRol'] = rol_model::obtenerPermisosRol(); // variable con todos los permisos del usuario a los modulos
+
+$_SESSION['permisosRequeridos'] = [
+    "proveedor" => ['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'],
+    "producto" => [
+        "categoria" => ["r_categoria", "l_categoria","m_categoria"],
+        "presentacion" => ["r_presentacion", "m_presentacion", "l_presentacion"],
+        "marca" => ["r_marca", "m_marca", "l_marca"],
+        "entrada" => ["r_entrada", "l_entrada"],
+        "productos" => ['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada'],
+    ],
+    "servicio" => ['r_servicio', 'm_servicio', 'l_servicio'],
+    "venta" => ['g_venta', 'd_venta', 'f_venta', 'l_venta', 'est_venta'],
+    "cliente" => ['r_cliente', 'm_cliente', 'l_cliente', 'h_cliente', 'f_cliente'],
+    "usuario" => ['r_empleado', 'm_empleado', 'l_empleado'],
+    "rol" => ['r_rol', 'm_rol', 'l_rol'],
+    "ajustes" => ['m_cant_pregunta_seguridad', 'm_tiempo_sesion', 'm_cant_caracteres', 'm_cant_simbolos', 'm_cant_num', 'intentos_inicio_sesion'],
+    "bitacora" => ['v_bitacora', 'm_bitacora'],
+];
+$_SESSION['permisosRequeridosProveedores'] = ['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'];
 
 $fecha_ultima_sesion = date('Y-m-d H:i:s');
 

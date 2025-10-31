@@ -109,6 +109,9 @@ class cliente_model extends modeloPrincipal {
         // se consultan los cliente de la base de datos
         $consulta = self::consultar_cliente("id_cliente, cedula, nombre, telefono");
 
+        $m_cliente = modeloPrincipal::verificar_permisos_requeridos(['m_cliente']);
+
+        $h_cliente = modeloPrincipal::verificar_permisos_requeridos(['h_cliente']);
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
@@ -117,7 +120,7 @@ class cliente_model extends modeloPrincipal {
                 <td class="text-center col"><?= $mostrar["nombre"]; ?></td>
                 <td class="text-center col"><?= $mostrar["telefono"]; ?></td>
 
-                <?php if (rol_model::obtenerPermisoRol('m_cliente') == '1') : ?>
+                <?php if ($m_cliente == '1') : ?>
 
                     <td scope='col' class="text-center col">
                         <button 
@@ -129,7 +132,7 @@ class cliente_model extends modeloPrincipal {
                         </button>
                     </td>
 
-                <?php endif; if (rol_model::obtenerPermisoRol('h_cliente') == '1') : ?>
+                <?php endif; if ($h_cliente == '1') : ?>
 
                     <td scope='col' class="text-center col">
                         <button 

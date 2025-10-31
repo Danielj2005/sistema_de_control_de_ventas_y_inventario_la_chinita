@@ -8,18 +8,16 @@ include_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
 
-// permisos del usuario al módulo entrada de productos
-$permisosRol = [
-    "r_entrada" => rol_model::obtenerPermisoRol("r_entrada"),
-    "l_entrada" => rol_model::obtenerPermisoRol("l_entrada"),
-    'total' => rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"])
-];
+include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
+
+$entrada = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['producto']['entrada']);
+$r_entrada = modeloPrincipal::verificar_permisos_requeridos(['r_entrada']);
+$l_entrada = modeloPrincipal::verificar_permisos_requeridos(['l_entrada']);
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {  
-?>
+if ($entrada) {   ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -57,16 +55,16 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 						<span>Volver al Panel Principal</span>
 					</a>
 
-					<?php if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 || $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ) : ?>
+					<?php if ($l_entrada == 1) { ?>
 						<!-- Se define y se decide condicionalmente el titulo de la vista -->
 							
 						<h1 class="tituloUno my-3">Historial de Compras</h1>
 
-					<?php endif; if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 0) : ?>
+					<?php }else if ($r_entrada == 1) { ?>
 
 						<h1 class="tituloUno my-3">Registro de Compras</h1>
 
-					<?php endif; ?>
+					<?php } ?>
 
 					<div id="cardEntries" class="col-12 col-sm-12 col-md-6 pagetitle text-center card-body">
 						<div class="accordion" id="entriesAccordion">
@@ -94,7 +92,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 						<div class="card top-selling ">
 							<div class="row text-center p-2 align-items-center">
 
-								<?php if ($permisosRol['r_entrada'] == 1 && $permisosRol['l_entrada'] == 1 ): ?>
+								<?php if ($r_entrada == 1 && $l_entrada == 1 ): ?>
 
 									<div class="col-12 col-sm-12 col-md-6 mb-2">
 										<button class="col-12 btnHiddenElements btn btn-success">
@@ -105,7 +103,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 								<?php endif; ?>
 								
-								<div class="col-12 col-sm-12 mb-2 <?= $permisosRol['r_entrada'] == 0 && $permisosRol['l_entrada'] == 1 ? 'col-md-12 ' : 'col-md-6' ?>">
+								<div class="col-12 col-sm-12 mb-2 <?= $r_entrada == 0 && $l_entrada == 1 ? 'col-md-12 ' : 'col-md-6' ?>">
 									<div class="col-12 dropdown">
 										<button class="col-12 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="bi bi-file-text"></i>
@@ -161,7 +159,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 
 							<div class="card-body">
 
-								<?php if ($permisosRol['l_entrada'] == 1) : ?>
+								<?php if ($l_entrada == 1) : ?>
 
 										<div class="show ">
 											<input type="hidden" id="fecha_actual" name="fecha_actual" value="<?= $fecha_actual ?>">
@@ -219,7 +217,7 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 											</form>
 									
 									
-											<?php if ($permisosRol['l_entrada'] == 1 ): 
+											<?php if ($l_entrada == 1 ): 
 												// <!-- historial de compras solo disponible si el usuario cuenta con los permisos necesarios -->
 											?>
 
@@ -315,9 +313,9 @@ if ($permisosRol['total'] == 1 || $permisosRol['total'] == 2) {
 										</div>
 
 								<?php endif;
-									if ($permisosRol['r_entrada'] == 1) : ?>
+									if ($r_entrada == 1) : ?>
 
-										<div class="show <?= $permisosRol['l_entrada'] == 1 ? 'd-none' : '' ?>">
+										<div class="show <?= $l_entrada == 1 ? 'd-none' : '' ?>">
 											
 											<form action="../controlador/registrar_entrada.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
 												<input type="hidden" name="id_dolar" id="dolar" value="<?= modeloPrincipal::obtener_id_precio_dolar(); ?>">

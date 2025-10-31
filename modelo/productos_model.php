@@ -159,10 +159,21 @@ class producto_model extends modeloPrincipal {
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
                 <td class="text-center"><?= $mostrar["codigo"] ?></td>
-                <td class="text-center"><?= $mostrar["nombre_producto"] ?></td>
-                <td class="text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
-                <td class="text-center"><?= $mostrar["marca"] ?></td>
-                <td class="text-center"><?= $mostrar["categoria"] ?></td>
+                <td class="text-start">
+                    
+                        <p class="text-<?=  $mostrar["stock_actual"] == 0 ? "danger" : "primary" ?>  fw-bold mb-1">
+                            <?= $mostrar["nombre_producto"]?>
+                        </p>
+                        <small class="d-block text-dark">
+                            <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
+                        </small>
+                        <small class="d-block text-muted">
+                            <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
+                        </small>
+                        <small class="d-block text-muted">
+                            <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
+                        </small>
+                </td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
                 <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></th>
                 <th class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></th>
@@ -428,12 +439,14 @@ class producto_model extends modeloPrincipal {
         ?>
 
         <tr id="producto_<?= $rand ?>">
+
             <td class="text-center">
                 <div class="col-12 mb-3 input-group">
                     <button type="button" id="startButton" class="bi-qr-code-scan input-group-text"></button>
                     <input type="text" class="form-control" name="code[]" id="code<?= $rand ?>" placeholder="Escribe el código del producto" autocomplete="off">
                 </div>
             </td>
+
             <td class="text-center">
                 <div class="col-12 mb-3">
                     <input type="text" class="form-control mb-3" list="Nombre_dataList_<?= $rand ?>" name="nombre_producto[]" id="input_nombre_producto2" placeholder="Escribe el nombre" autocomplete="off">

@@ -26,6 +26,7 @@ $cedula = str_ireplace("-", "", $cedula);
 $cedula = stripslashes($cedula);
 $cedula = trim($cedula);
 
+$m_cliente = modeloPrincipal::verificar_permisos_requeridos(['m_cliente']);
 ?>
 <form id="modalSendForm" action="../controlador/cliente_controller.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update">
 	<input type="hidden" name="UIC" value="<?= modeloPrincipal::encryptionId($id_cliente); ?>">
@@ -39,12 +40,12 @@ $cedula = trim($cedula);
                     <option name="nacionalidad" <?= ( $select == 'V') ? 'selected' : '' ?> value="V-">V</option>
                     <option name="nacionalidad" <?= ( $select == 'E') ? 'selected' : '' ?> value="E-">E</option>
                 </select>
-                <input type="text" class=" <?php (rol_model::verificar_rol('m_cliente') == 1) ? '' : 'bg-dark-subtle' ?> form-control" id="cedula" value="<?= $cedula ?>" <?php (rol_model::verificar_rol('m_cliente') == 1) ? '' : 'readonly' ?> name="cedula">
+                <input type="text" class=" <?php ($m_cliente == 1) ? '' : 'bg-dark-subtle' ?> form-control" id="cedula" value="<?= $cedula ?>" <?php ($m_cliente == 1) ? '' : 'readonly' ?> name="cedula">
             </div>
         </div>
         <div class="col-12 mb-3">
             <label class="form-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
-            <input type="text" class=" <?php (rol_model::verificar_rol('m_cliente') == 1) ? '' : 'bg-dark-subtle' ?> form-control" value="<?= $mostrar['nombre']; ?>" <?php (rol_model::verificar_rol('m_cliente') == 1) ? '' : 'readonly' ?> name="nombre">
+            <input type="text" class=" <?php ($m_cliente == 1) ? '' : 'bg-dark-subtle' ?> form-control" value="<?= $mostrar['nombre']; ?>" <?php ($m_cliente == 1) ? '' : 'readonly' ?> name="nombre">
         </div>
         <div class="col-12 mb-3">
             <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>

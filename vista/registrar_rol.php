@@ -1,24 +1,19 @@
 <?php 
 session_start();
-// importacion de la conexion a la base de datos y al modelo de usuario
+require_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
-include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
-
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+include_once "../include/verificacion_primer_inicio_usuario.php";
 
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
-
-// esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::obtenerPermisoRol('r_rol');
-
-$m_rol = rol_model::obtenerPermisoRol('m_rol');
-$l_rol = rol_model::obtenerPermisoRol('l_rol');
+$r_rol = modeloPrincipal::verificar_permisos_requeridos(["r_rol"]);
+$m_rol = modeloPrincipal::verificar_permisos_requeridos(["m_rol"]);
+$l_rol = modeloPrincipal::verificar_permisos_requeridos(["l_rol"]);
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($rol == 1) {  ?>
+if ($r_rol) {  ?>
 
     <!DOCTYPE html>
     <html lang="en">

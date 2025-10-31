@@ -3,22 +3,20 @@ session_start();
 
 require_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
+$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
+include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
+
+$permiso_servicios = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['servicio']);
 
 // se guardan los permisos del rol del usuario que inició sesión
-$r_servicio = rol_model::obtenerPermisoRol('r_servicio');
-$l_servicio = rol_model::obtenerPermisoRol('l_servicio');
-$m_servicio = rol_model::obtenerPermisoRol('m_servicio');
+$r_servicio = modeloPrincipal::verificar_permisos_requeridos(['r_servicio']);
+$l_servicio = modeloPrincipal::verificar_permisos_requeridos(['l_servicio']);
+$m_servicio = modeloPrincipal::verificar_permisos_requeridos(['m_servicio']);
 
-// esta funcion retorna si el rol tiene permiso a las vista
-$rol = rol_model::obtenerSumaPermisoRol('r_servicio + m_servicio + l_servicio');
-// se evalua que este rol tenga el acceso a esta vista
-
-if ($rol >= 1 && $rol <= 3) { ?>
+if ($permiso_servicios) { ?>
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>

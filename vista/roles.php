@@ -1,23 +1,19 @@
 <?php 
 session_start();
-// importacion de la conexion a la base de datos y al modelo de usuario
-
 include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 // validación para verificar que el usuario inicio sesion de manera correcta
+$id_usuario = $_SESSION['id_usuario'];
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
+include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
 
-model_user::validar_primer_inicio($id_usuario); // se valida si es el primer inicio de sesion
-
-// se guardan los permisos del rol del usuario que inició sesión
-$r_rol = rol_model::obtenerPermisoRol('r_rol');
-$m_rol = rol_model::obtenerPermisoRol('m_rol');
-$l_rol = rol_model::obtenerPermisoRol('l_rol');
+$r_rol = modeloPrincipal::verificar_permisos_requeridos(["r_rol"]);
+$m_rol = modeloPrincipal::verificar_permisos_requeridos(["m_rol"]);
+$l_rol = modeloPrincipal::verificar_permisos_requeridos(["l_rol"]);
 
 // se evalua que este rol tenga el acceso a esta vista
-if ($m_rol == 1 || $l_rol == 1) {  
+if ($m_rol || $l_rol) {  
 
 	$estado = (!isset($_POST['estado_rol'])) ? '1' : $_POST['estado_rol'];
 
@@ -53,7 +49,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 					</a>
 					<h1 class="display-4 fw-bold mb-4 border-bottom pb-2">
 						<i class="bi bi-person-lines-fill me-3 text-secondary"></i> 
-						Gestión de Roles <?= rol_model::obtenerSumaPermisoRol(['r_rol', 'm_rol']) ?>
+						Gestión de Roles
 					</h1>
 				</div>
 
@@ -64,7 +60,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 								<div class="col-12 col-sm-12 col-md-6 mb-1">
 									<a 
 										class="col-12 btn btn-success" 
-										href="./<?= rol_model::obtenerPermisoRol('r_rol') == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
+										href="./<?= $r_rol == 1 ? 'registrar_rol.php' : 'roles.php' ?>">
 											<i class="bi bi-plus-circle"></i>
 											Registrar un Nuevo Rol
 									</a>
@@ -100,7 +96,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 											<th class="text-center col" scope="col">Nº </th>
 											<th class="text-center col" scope="col">Nombre</th>
 											<th class="text-center col" scope="col">Ver Detalles</th>
-											<?php if ($m_rol == '1'): ?>
+											<?php if ($m_rol): ?>
 												<th class="text-center col" scope="col">Modificar</th>
 												<th class="text-center col" scope="col"><?= ($estado == '0') ? 'Activar' : 'Desactivar'; ?></th>
 											<?php endif; ?>
@@ -121,7 +117,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 															data-bs-target="#modal">
 														</button>
 													</th>
-													<?php if (rol_model::obtenerPermisoRol('m_rol') == '1') { ?>
+													<?php if ($m_rol == '1') { ?>
 														<th class="text-center col" scope="col">
 															<button 
 																modal="rolModificar"
@@ -170,7 +166,7 @@ if ($m_rol == 1 || $l_rol == 1) {
 			?>
 		</body>
 	</html>
-<?php }else if ($r_rol == 1 && $m_rol == 0 && $l_rol == 0 ) { 
+<?php }else if ($r_rol && $m_rol == 0 && $l_rol == 0) { 
 	header('Location: ./registrar_rol.php');
 }else{
 	// se registran las acciones del usuario en la bitacora y es redirijido al inicio

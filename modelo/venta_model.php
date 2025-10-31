@@ -228,6 +228,9 @@ class venta_model extends modeloPrincipal {
                 WHERE V.fecha_venta BETWEEN '$fecha_inicio' AND '$fecha_fin' 
                 ORDER BY V.id_venta DESC LIMIT 100");
         }
+                
+        $d_venta = modeloPrincipal::verificar_permisos_requeridos(['d_venta']);
+        $f_venta = modeloPrincipal::verificar_permisos_requeridos(['f_venta']);
 
         if(mysqli_num_rows($ventas_realizadas) > 0){
             $i = 1 ;
@@ -241,7 +244,7 @@ class venta_model extends modeloPrincipal {
                     <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
                     <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
                     <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
-                    <?php if (rol_model::verificar_rol('d_venta') == '1') :?>
+                    <?php if ($d_venta == '1') :?>
                         <td class="text-center col">
                             <button 
                                 class="btn_modal btn btn-info " 
@@ -253,7 +256,7 @@ class venta_model extends modeloPrincipal {
                             </button>
                         </td> 
                     <?php endif; ?>
-                    <?php if (rol_model::obtenerPermisoRol('f_venta') == '1') :?>
+                    <?php if ($f_venta == '1') :?>
                         <td class="text-center col">
                             <form action="./reportes/factura_cliente.php" method="post" target="_blank">
                                 

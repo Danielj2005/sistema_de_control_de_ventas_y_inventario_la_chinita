@@ -7,12 +7,15 @@ include_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
 
+
 if (!isset($_POST["modulo"])) {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud","error");
     exit();
 }
 
 if($modulo === "Guardar"){
+    modeloprincipal::limpiar_cadena("r_categoria");
+
     /* 
         Se recibe el nombre del categoría.
         se limpia la cadena con la función limpiar_cadena().

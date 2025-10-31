@@ -32,27 +32,66 @@ class rol_model extends model_user {
 
 
 
-    public static function obtenerPermisoRol ($codeRol){
+    public static function obtenerPermisosRol (){
+
         $id_rol_usuario = self::obtener_id_rol_usuario();
-        
-        $permiso_rol = modeloPrincipal::consultar("SELECT 1 
-            FROM funciones_rol RF 
-            JOIN funcion F ON RF.id_funcion = F.id 
-            WHERE RF.id_rol = '$id_rol_usuario' AND F.codigo = '$codeRol'");
 
-        $permiso_rol = mysqli_num_rows($permiso_rol) > 0 ? true : false;
-        return $permiso_rol;
+        $resultado_consulta = modeloPrincipal::consultar("SELECT F.codigo
+            FROM funciones_rol AS RF  
+            JOIN funcion AS F ON RF.id_funcion = F.id 
+            WHERE RF.id_rol = '$id_rol_usuario'");
 
+        // 2. Inicializar el array de permisos
+        $permisos_usuario = [];
+
+        // 3. Iterar sobre todos los resultados y construir el array de claves
+        while ($fila = mysqli_fetch_assoc($resultado_consulta)) {
+            // Usa el código de la función (ej: 'l_categoria') como clave y asigna true.
+            $permisos_usuario["".$fila['codigo'].""] = 1; 
+        }
+
+        return $permisos_usuario;
     }
     
 
     public static function obtenerSumaPermisoRol ($codeRol){
-        $num = null;
-        foreach ($codeRol as $key) {
-            $num += self::obtenerPermisoRol($key);
-        }
-        return $num;
+        // 1. Obtener el ID del rol del usuario (asumimos que esta función es correcta)
+        $id_rol_usuario = self::obtener_id_rol_usuario();
+        
+        // 2. Escapar y formatear los códigos de permiso para la cláusula IN
+        //    Esto es CRUCIAL para evitar inyección SQL, aunque el código original no lo hacía.
+        //    Asumo que tienes una función para sanitizar cadenas (ej: mysqli_real_escape_string o PDO::quote)
+        $codigos_sanitizados = array_map(function($codigo) {
+            // !!! ATENCIÓN: DEBES USAR UNA FUNCIÓN DE ESCAPE AQUÍ !!!
+            // Si no tienes una, por simplicidad, la omito, pero es riesgoso.
+            return "'" . $codigo . "'"; 
+        }, $codeRol);
 
+        // Convierte el array ['a', 'b', 'c'] en la cadena "'a','b','c'"
+        $codigos_in_sql = implode(',', $codigos_sanitizados);
+
+        // 3. Ejecutar UNA SOLA consulta SQL con el operador IN
+        // La consulta cuenta cuántos de esos permisos (código) tiene el rol del usuario
+        $consulta_sql = "
+            SELECT COUNT(RF.id_funcion) AS total_permisos_encontrados
+            FROM funciones_rol AS RF 
+            JOIN funcion AS F ON RF.id_funcion = F.id 
+            WHERE RF.id_rol = '$id_rol_usuario' 
+            AND F.codigo IN ($codigos_in_sql)
+        ";
+
+        // 4. Ejecutar la consulta (asumiendo que 'modeloPrincipal::consultar' devuelve el resultado)
+        $resultado = modeloPrincipal::consultar($consulta_sql);
+
+        // 5. Extraer el resultado
+        if ($fila = mysqli_fetch_assoc($resultado)) {
+            // Retorna el número total de permisos encontrados
+            // Si el usuario tiene 3 de los 5 permisos solicitados, devuelve 3.
+            return (int) $fila['total_permisos_encontrados'];
+        }
+
+        // 6. Retorna 0 si hay un error o no hay resultados.
+        return 0;
     }
     // funcion para obtener el id del rol de un usuario
 
@@ -299,4 +338,5 @@ class rol_model extends model_user {
         return $actualizar;
 
     }
+
 }

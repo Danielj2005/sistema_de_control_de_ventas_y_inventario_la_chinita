@@ -134,9 +134,9 @@ class proveedor_model extends modeloPrincipal {
     
         $consulta = modeloPrincipal::consultar("SELECT * FROM proveedor");
         
-        $l_proveedores = rol_model::obtenerPermisoRol('l_proveedores');
-        $m_proveedores = rol_model::obtenerPermisoRol('m_proveedores');
-        $h_proveedores = rol_model::obtenerPermisoRol('h_proveedores');
+        $l_proveedores = modeloPrincipal::verificar_permisos_requeridos(['l_proveedores']);
+        $m_proveedores = modeloPrincipal::verificar_permisos_requeridos(['m_proveedores']);
+        $h_proveedores = modeloPrincipal::verificar_permisos_requeridos(['h_proveedores']);
 
         // se guardan los datos en un array y se imprime
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
@@ -150,20 +150,31 @@ class proveedor_model extends modeloPrincipal {
                 <td class="col text-center"><?= $mostrar["cedula_rif"]; ?></td>
                 <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
 
-                <td class="col text-center">
-                    <button modal="proveedorDetalles" type="submit" value="<?= $encryptionId ; ?>" <?= $l_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-info bi bi-eye"></button>
-                </td>
+                <?php if ($l_proveedores == '1') { ?>
+
+                    <td class="col text-center">
+                        <button modal="proveedorDetalles" type="submit" value="<?= $encryptionId ; ?>" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-info bi bi-eye"></button>
+                    </td>
+
+                <?php } ?>
+
                 <?php if ($m_proveedores == '1') { ?>
                     <td class="col text-center">
-                        <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" <?= $m_proveedores == '1' ? 'data-bs-toggle="modal" data-bs-target="#modal"' : 'disabled' ?> class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>"></button>
+                        <button modal="proveedorModificar" value="<?= $encryptionId ; ?>" type="submit" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-warning <?= ICONO_MODIFICAR ?>"></button>
                     </td>
                 <?php } ?>
+
                 <?php if ($h_proveedores == '1') { ?>
 
                     <td class="col text-center">
                         <div class="m-0 row justify-content-center align-items-center">
 
-                            <button modal="proveedorHistorial" value="<?= $encryptionId ; ?>" <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> class="btn bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info col col-auto" : "col col-auto btn-dark alert-history bi-eye-slash" ?>"> </button>
+                            <button 
+                                modal="proveedorHistorial" 
+                                value="<?= $encryptionId ; ?>" 
+                                <?= $haveHistorial > 0 ?  'data-bs-toggle="modal" data-bs-target="#modal"' : '' ?> 
+                                class="btn col col-auto bi <?= $haveHistorial > 0 ? "btn_modal bi-eye btn-info" : "btn-dark alert-history bi-eye-slash" ?>">
+                            </button>
                             
                             <div class="dropstart col col-auto">
                                 <button class="<?= $haveHistorial > 0 ? " btn-primary" : "btn-dark alert-history" ?> col-12 col btn col-auto bi bi-three-dots-vertical" type="button" <?= $haveHistorial > 0 ? 'data-bs-toggle="dropdown" aria-expanded="false"' : "" ?> >
@@ -211,7 +222,6 @@ class proveedor_model extends modeloPrincipal {
                         </div>
                     </td>
                 <?php } ?>
-
             </tr>
         <?php } 
     }
@@ -246,6 +256,5 @@ class proveedor_model extends modeloPrincipal {
         echo $datos;
     }
 
-
-
+    
 }

@@ -13,7 +13,7 @@ require_once "../../../modelo/rol_model.php";
                 <th class="col text-center" scope="col">#</th>
                 <th class="col text-center" scope="col">Nombre</th>
                 <th class="col text-center" scope="col">Descripción</th>
-                <?php if (rol_model::verificar_rol('m_categoria') == '1') { ?>
+                <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_categoria'])) { ?>
                     <th class="col text-center" scope="col">Estado</th>
                 <?php } ?>
             </tr>
