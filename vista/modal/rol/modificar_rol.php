@@ -13,107 +13,51 @@ $nombre = $permisos['nombre'];
 // cantidad de vistas de inventario
 $permisos_rol = rol_model::obtenerPermisosRolById($id_rol);
 
-$proveedor = [
-    "r_proveedores" => rol_model::sumaPermisoRol(['r_proveedores'], $permisos_rol),
-    "m_proveedores" => rol_model::sumaPermisoRol(['m_proveedores'], $permisos_rol),
-    "l_proveedores" => rol_model::sumaPermisoRol(['l_proveedores'], $permisos_rol),
-    "h_proveedores" => rol_model::sumaPermisoRol(['h_proveedores'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'], $permisos_rol)
-];
+$proveedor = rol_model::sumaPermisoRol(['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'], $permisos_rol);
+$proveedor_total = $proveedor['r_proveedores'] + $proveedor['m_proveedores'] + $proveedor['l_proveedores'] + $proveedor['h_proveedores'];
 
 
-$producto = [
-    "categoria" => [
-        "r_categoria" => rol_model::sumaPermisoRol(['r_categoria'], $permisos_rol),
-        "m_categoria" => rol_model::sumaPermisoRol(['m_categoria'], $permisos_rol),
-        "l_categoria" => rol_model::sumaPermisoRol(['l_categoria'], $permisos_rol),
-        'total' => rol_model::sumaPermisoRol(['r_categoria','m_categoria','l_categoria'], $permisos_rol)
-    ],
-    "presentacion" => [
-        "r_presentacion" => rol_model::sumaPermisoRol(['r_presentacion'], $permisos_rol),
-        "m_presentacion" => rol_model::sumaPermisoRol(['m_presentacion'], $permisos_rol),
-        "l_presentacion" => rol_model::sumaPermisoRol(['l_presentacion'], $permisos_rol),
-        'total' => rol_model::sumaPermisoRol(['r_presentacion', 'm_presentacion', 'l_presentacion'], $permisos_rol)
-    ],
-    "marca" => [
-        "r_marca" => rol_model::sumaPermisoRol(['r_marca'], $permisos_rol),
-        "m_marca" => rol_model::sumaPermisoRol(['m_marca'], $permisos_rol),
-        "l_marca" => rol_model::sumaPermisoRol(['l_marca'], $permisos_rol),
-        'total' => rol_model::sumaPermisoRol(['r_marca', 'm_marca', 'l_marca'], $permisos_rol)
-    ],
-    "entrada" => [
-        "r_entrada" => rol_model::sumaPermisoRol(['r_entrada'], $permisos_rol),
-        "l_entrada" => rol_model::sumaPermisoRol(['l_entrada'], $permisos_rol),
-        'total' => rol_model::sumaPermisoRol(['r_entrada', 'l_entrada'], $permisos_rol)
-    ],
-    "productos" => [
-        "r_productos" => rol_model::sumaPermisoRol(['r_productos'], $permisos_rol),
-        "l_productos" => rol_model::sumaPermisoRol(['l_productos'], $permisos_rol),
-        'total' => rol_model::sumaPermisoRol(['r_productos', 'l_productos'], $permisos_rol)
-    ],
-    "total" => rol_model::sumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada'], $permisos_rol),
-];
+$categoria = rol_model::sumaPermisoRol(['r_categoria','m_categoria','l_categoria'], $permisos_rol);
+$categoria_total = $categoria['r_categoria'] + $categoria['m_categoria'] + $categoria['l_categoria'];
 
+$presentacion = rol_model::sumaPermisoRol(['r_presentacion','m_presentacion','l_presentacion'], $permisos_rol);
+$presentacion_total = $presentacion['r_presentacion'] + $presentacion['m_presentacion'] + $presentacion['l_presentacion'];
+
+$marca = rol_model::sumaPermisoRol(['r_marca','m_marca','l_marca'], $permisos_rol);
+$marca_total = $marca['r_marca'] + $marca['m_marca'] + $marca['l_marca'];
+
+$entrada = rol_model::sumaPermisoRol(['r_entrada','l_entrada'], $permisos_rol);
+$entrada_total = $entrada['r_entrada'] + $entrada['l_entrada'];
+
+$productos = rol_model::sumaPermisoRol(['r_productos', 'l_productos'], $permisos_rol);
+$productos_total = $categoria_total + $presentacion_total + $marca_total + $entrada_total + $productos['r_productos'] + $productos['l_productos'];
 
 // cantidad de vistas de venta
-$venta = [
-    "g_venta" => rol_model::sumaPermisoRol(['g_venta'], $permisos_rol),
-    "d_venta" => rol_model::sumaPermisoRol(['d_venta'], $permisos_rol),
-    "f_venta" => rol_model::sumaPermisoRol(['f_venta'], $permisos_rol),
-    "l_venta" => rol_model::sumaPermisoRol(['l_venta'], $permisos_rol),
-    "est_venta" => rol_model::sumaPermisoRol(['est_venta'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta'], $permisos_rol)
-];
+$venta = rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta'], $permisos_rol);
+$venta_total = $venta["g_venta"] + $venta["d_venta"] + $venta["f_venta"] + $venta["l_venta"] + $venta["est_venta"];
+
 
 // cantidad de vistas de menu
-$menu = [
-    "r_servicio" => rol_model::sumaPermisoRol(['r_servicio'], $permisos_rol),
-    "m_servicio" => rol_model::sumaPermisoRol(['m_servicio'], $permisos_rol),
-    "l_servicio" => rol_model::sumaPermisoRol(['l_servicio'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['r_servicio','m_servicio','l_servicio'], $permisos_rol)
-];
+$menu = rol_model::sumaPermisoRol(['r_servicio','m_servicio','l_servicio'], $permisos_rol);
+$menu_total = $menu['r_servicio'] + $menu['m_servicio'] + $menu['l_servicio'];
+
 
 // cantidad de vistas de usuario
-$cliente = [
-    "r_cliente" => rol_model::sumaPermisoRol(['r_cliente'], $permisos_rol),
-    "m_cliente" => rol_model::sumaPermisoRol(['m_cliente'], $permisos_rol),
-    "l_cliente" => rol_model::sumaPermisoRol(['l_cliente'], $permisos_rol),
-    "h_cliente" => rol_model::sumaPermisoRol(['h_cliente'], $permisos_rol),
-    "f_cliente" => rol_model::sumaPermisoRol(['f_cliente'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente'], $permisos_rol)
-];
+$cliente = rol_model::sumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente'], $permisos_rol);
+$cliente_total = $cliente["r_cliente"] + $cliente["m_cliente"] + $cliente["l_cliente"] + $cliente["h_cliente"] + $cliente["f_cliente"];
 
-$empleado = [
-    "r_empleado" => rol_model::sumaPermisoRol(['r_empleado'], $permisos_rol),
-    "m_empleado" => rol_model::sumaPermisoRol(['m_empleado'], $permisos_rol),
-    "l_empleado" => rol_model::sumaPermisoRol(['l_empleado'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol( ['r_empleado','m_empleado','l_empleado'], $permisos_rol)
-];
+$empleado = rol_model::sumaPermisoRol( ['r_empleado','m_empleado','l_empleado'], $permisos_rol);
+$empleado_total = $empleado['r_empleado'] + $empleado['m_empleado'] + $empleado['l_empleado'];
 
-
-$rol = [
-    "r_rol" => rol_model::sumaPermisoRol(['r_rol'], $permisos_rol),
-    "m_rol" => rol_model::sumaPermisoRol(['m_rol'], $permisos_rol),
-    "l_rol" => rol_model::sumaPermisoRol(['l_rol'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['r_rol','m_rol','l_rol'], $permisos_rol)
-];
+$rol = rol_model::sumaPermisoRol(['r_rol','m_rol','l_rol'], $permisos_rol);
+$rol_total = $rol['r_rol'] + $rol['m_rol'] + $rol['l_rol'];
 
 // cantidad de vistas de configuración
-$ajustes = [
-    "m_cant_pregunta_seguridad" => rol_model::sumaPermisoRol(['m_cant_pregunta_seguridad'], $permisos_rol),
-    "m_tiempo_sesion" => rol_model::sumaPermisoRol(['m_tiempo_sesion'], $permisos_rol),
-    "m_cant_caracteres" => rol_model::sumaPermisoRol(['m_cant_caracteres'], $permisos_rol),
-    "m_cant_simbolos" => rol_model::sumaPermisoRol(['m_cant_simbolos'], $permisos_rol),
-    "m_cant_num" => rol_model::sumaPermisoRol(['m_cant_num'], $permisos_rol),
-    "intentos_inicio_sesion" => rol_model::sumaPermisoRol(['intentos_inicio_sesion'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion'], $permisos_rol)
-];
+$ajustes = rol_model::sumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion'], $permisos_rol);
+$ajustes_total = $ajustes["m_cant_pregunta_seguridad"] + $ajustes["m_tiempo_sesion"] + $ajustes["m_cant_caracteres"] + $ajustes["m_cant_simbolos"] + $ajustes["m_cant_num"] + $ajustes["intentos_inicio_sesion"];
 
-$bitacora = [
-    "v_bitacora" => rol_model::sumaPermisoRol(['v_bitacora'], $permisos_rol),
-    "m_bitacora" => rol_model::sumaPermisoRol(['m_bitacora'], $permisos_rol),
-    "total" => rol_model::sumaPermisoRol(['v_bitacora','m_bitacora'], $permisos_rol)
-];
+$bitacora = rol_model::sumaPermisoRol(['v_bitacora','m_bitacora'], $permisos_rol);
+$bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
 
 
 ?>
@@ -196,7 +140,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proveedoresCard" aria-expanded="false" aria-controls="proveedoresCard">
                                     Módulo Proveedores
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($proveedor['total'], 4) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($proveedor_total, 4) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -204,7 +148,7 @@ $bitacora = [
                             <div id="proveedoresCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_proveedores">
                                 <div class="accordion-body p-0">
                                     <div class="form-check mb-2 ms-4 pt-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_proveedores" <?= $proveedor > 0 ? 'checked' : '' ?> value="proveedores">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_proveedores" <?= $proveedor_total == 4 ? 'checked' : '' ?> value="proveedores">
                                         <label class="form-check-label fw-bold" for="vista_proveedores">
                                             Acceso a la Vista del Módulo de Proveedores
                                         </label>
@@ -241,7 +185,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productosCard" aria-expanded="false" aria-controls="productosCard">
                                     Módulo Productos
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($producto["total"], 13) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($productos_total, 13) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -249,7 +193,7 @@ $bitacora = [
                             <div id="productosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_productos">
                                 <div class="accordion-body p-0">
                                     <div class="form-check mb-2 ms-4 pt-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $producto["total"] > 0 ? 'checked' : '' ?> value="productos">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $productos_total == 13 ? 'checked' : '' ?> value="productos">
                                         <label class="form-check-label fw-bold" for="vista_productos">
                                             Acceso a la Vista del Módulo de Productos
                                         </label>
@@ -260,15 +204,15 @@ $bitacora = [
                                             <p class="fw-bold mb-1">Categorías</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $producto["categoria"]['r_categoria'] == 1 ? 'checked' : '' ?> value="5" name="r_categoria" id="r_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['r_categoria'] == 1 ? 'checked' : '' ?> value="5" name="r_categoria" id="r_categoria">
                                             <label class="form-check-label" for="l_categoria">Registrar Nuevas Categorías</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $producto["categoria"]['m_categoria'] == 1 ? 'checked' : '' ?> value="6" name="m_categoria" id="m_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['m_categoria'] == 1 ? 'checked' : '' ?> value="6" name="m_categoria" id="m_categoria">
                                             <label class="form-check-label" for="l_categoria">Modificar Categorías</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $producto["categoria"]['l_categoria'] == 1 ? 'checked' : '' ?> value="7" name="l_categoria" id="l_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['l_categoria'] == 1 ? 'checked' : '' ?> value="7" name="l_categoria" id="l_categoria">
                                             <label class="form-check-label" for="l_categoria">Consultar Lista de Categorías</label>
                                         </li>
                                         
@@ -276,49 +220,49 @@ $bitacora = [
                                             <p class="fw-bold mb-1">Presentaciones</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_presentacion" class="form-check-input productos" <?= $producto["presentacion"]['r_presentacion'] == 1 ? 'checked' : '' ?> value="8" type="checkbox" id="r_presentacion">
+                                            <input name="r_presentacion" class="form-check-input productos" <?= $presentacion['r_presentacion'] == 1 ? 'checked' : '' ?> value="8" type="checkbox" id="r_presentacion">
                                             <label class="form-check-label" for="r_presentacion">Registrar Nuevas Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $producto["presentacion"]['m_presentacion'] == 1 ? 'checked' : '' ?> value="9" name="m_presentacion" id="m_presentacion">
+                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['m_presentacion'] == 1 ? 'checked' : '' ?> value="9" name="m_presentacion" id="m_presentacion">
                                             <label class="form-check-label" for="m_presentacion">Modificar Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $producto["presentacion"]['l_presentacion'] == 1 ? 'checked' : '' ?> value="10" name="l_presentacion" id="l_presentacion">
+                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['l_presentacion'] == 1 ? 'checked' : '' ?> value="10" name="l_presentacion" id="l_presentacion">
                                             <label class="form-check-label" for="l_presentacion">Consultar Lista de Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1 mt-3 border-bottom">
                                             <p class="fw-bold mb-1">Marcas</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_marca" class="form-check-input productos" <?= $producto["marca"]['r_marca'] == 1 ? 'checked' : '' ?> value="11" type="checkbox" id="r_marca">
+                                            <input name="r_marca" class="form-check-input productos" <?= $marca['r_marca'] == 1 ? 'checked' : '' ?> value="11" type="checkbox" id="r_marca">
                                             <label class="form-check-label" for="r_marca">Registrar Nuevas Marcas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_marca" class="form-check-input productos" <?= $producto["marca"]['m_marca'] == 1 ? 'checked' : '' ?> value="12" type="checkbox" id="m_marca">
+                                            <input name="m_marca" class="form-check-input productos" <?= $marca['m_marca'] == 1 ? 'checked' : '' ?> value="12" type="checkbox" id="m_marca">
                                             <label class="form-check-label" for="m_marca">Modificar Información de Marcas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_marca" class="form-check-input productos" <?= $producto["marca"]['l_marca'] == 1 ? 'checked' : '' ?> value="13" type="checkbox" id="l_marca">
+                                            <input name="l_marca" class="form-check-input productos" <?= $marca['l_marca'] == 1 ? 'checked' : '' ?> value="13" type="checkbox" id="l_marca">
                                             <label class="form-check-label" for="l_marca">Consultar Lista de Marcas</label>
                                         </li>
                                         <li class="form-check mb-1 mt-3 border-bottom">
                                             <p class="fw-bold mb-1">Productos y Entradas</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_productos" class="form-check-input productos" <?= $producto["productos"]['r_productos'] == 1 ? 'checked' : '' ?> value="14" type="checkbox" id="r_productos">
+                                            <input name="r_productos" class="form-check-input productos" <?= $productos['r_productos'] == 1 ? 'checked' : '' ?> value="14" type="checkbox" id="r_productos">
                                             <label class="form-check-label" for="r_productos">Registrar Nuevos Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_productos" class="form-check-input productos" <?= $producto["productos"]['l_productos'] == 1 ? 'checked' : '' ?> value="15" type="checkbox" id="l_productos">
+                                            <input name="l_productos" class="form-check-input productos" <?= $productos['l_productos'] == 1 ? 'checked' : '' ?> value="15" type="checkbox" id="l_productos">
                                             <label class="form-check-label" for="l_productos">Consultar Lista de Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_entrada" class="form-check-input productos" <?= $producto["entrada"]['r_entrada'] == 1 ? 'checked' : '' ?> value="16" type="checkbox" id="r_entrada">
+                                            <input name="r_entrada" class="form-check-input productos" <?= $entrada['r_entrada'] == 1 ? 'checked' : '' ?> value="16" type="checkbox" id="r_entrada">
                                             <label class="form-check-label" for="r_entrada">Registrar Entrada de Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_entrada" class="form-check-input productos" <?= $producto["entrada"]['l_entrada'] == 1 ? 'checked' : '' ?> value="17" type="checkbox" id="l_entrada">
+                                            <input name="l_entrada" class="form-check-input productos" <?= $entrada['l_entrada'] == 1 ? 'checked' : '' ?> value="17" type="checkbox" id="l_entrada">
                                             <label class="form-check-label" for="l_entrada">Consultar Lista de Entradas</label>
                                         </li>
                                     </ul>
@@ -348,7 +292,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="false" aria-controls="ventasCard">
                                     Módulo Ventas
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($venta["total"], 5) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($venta_total, 5) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -356,7 +300,7 @@ $bitacora = [
                             <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
                                 <div class="accordion-body p-0">
                                     <div class="form-check mb-2 ms-4 pt-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $venta["total"] > 0 ? 'checked' : '' ?> value="productos">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $venta_total == 5 ? 'checked' : '' ?> value="productos">
                                         <label class="form-check-label fw-bold" for="vista_productos">
                                             Acceso a la Vista del Módulo de Ventas
                                         </label>
@@ -397,7 +341,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serviciosCard" aria-expanded="false" aria-controls="serviciosCard">
                                     Módulo Servicios
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($menu["total"], 3) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($menu_total, 3) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -405,7 +349,7 @@ $bitacora = [
                             <div id="serviciosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_servicios">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_servicio" <?= $menu["total"] > 0 ? 'checked' : '' ?> value="servicio">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_servicio" <?= $menu_total == 3 ? 'checked' : '' ?> value="servicio">
                                         <label class="form-check-label fw-bold" for="vista_servicio">
                                             Acceso a la Vista del Módulo de Servicios
                                         </label>
@@ -452,14 +396,14 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#clientesCard" aria-expanded="false" aria-controls="clientesCard">
                                     Módulo Clientes
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($cliente["total"], 5) ?> "></i>
+                                        <i class="bi <?= obtenerIconoPermisos($cliente_total, 5) ?> "></i>
                                     </span>
                                 </button>
                             </h2>
                             <div id="clientesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_clientes">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_clientes" <?= $cliente["total"] > 0 ? 'checked' : '' ?> value="clientes">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_clientes" <?= $cliente_total == 5 ? 'checked' : '' ?> value="clientes">
                                         <label class="form-check-label fw-bold" for="vista_clientes">
                                             Acceso a la Vista del Módulo de Clientes
                                         </label>
@@ -501,7 +445,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#empleadosCard" aria-expanded="false" aria-controls="empleadosCard">
                                     Módulo Empleados
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($empleado["total"], 3) ?> "></i>
+                                        <i class="bi <?= obtenerIconoPermisos($empleado_total, 3) ?> "></i>
                                     </span>
                                 </button>
                             </h2>
@@ -509,7 +453,7 @@ $bitacora = [
                             <div id="empleadosCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_empleados">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_empleado" <?= $empleado["total"] > 0 ? 'checked' : '' ?> value="empleado">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_empleado" <?= $empleado_total == 3? 'checked' : '' ?> value="empleado">
                                         <label class="form-check-label fw-bold" for="vista_empleado">
                                             Acceso a la Vista del Módulo de Empleados
                                         </label>
@@ -544,7 +488,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rolesCard" aria-expanded="false" aria-controls="rolesCard">
                                     Módulo Roles 
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($rol["total"], 3) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($rol_total, 3) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -552,7 +496,7 @@ $bitacora = [
                             <div id="rolesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_roles">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_roles" <?= $rol["total"] > 0 ? 'checked' : '' ?> value="roles">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_roles" <?= $rol_total == 3 ? 'checked' : '' ?> value="roles">
                                         <label class="form-check-label fw-bold" for="vista_roles">
                                             Acceso a la Vista del Módulo de Roles
                                         </label>
@@ -596,7 +540,7 @@ $bitacora = [
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ajustesCard" aria-expanded="false" aria-controls="ajustesCard">
                                     Módulo Ajustes del Sistema
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($ajustes["total"], 6) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($ajustes_total, 6) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -604,7 +548,7 @@ $bitacora = [
                             <div id="ajustesCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ajustes_sistema">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_ajustes" <?= $ajustes["total"] > 0 ? 'checked' : '' ?> value="ajustes_sistema">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_ajustes" <?= $ajustes_total == 6 ? 'checked' : '' ?> value="ajustes_sistema">
                                         <label class="form-check-label fw-bold" for="vista_ajustes">
                                             Acceso a la Vista del Módulo de Ajustes del Sistema
                                         </label>
@@ -651,27 +595,24 @@ $bitacora = [
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bitacoraCard" aria-expanded="false" aria-controls="bitacoraCard">
                                     Bitácora
-                                    <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($bitacora['total'], 2) ?>"></i></span>
+                                    <span class="ms-auto"><i class="bi <?= obtenerIconoPermisos($bitacora_total, 2) ?>"></i></span>
                                 </button>
                             </h2>
                             <div id="bitacoraCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_bitacora">
-                                <div class="accordion-body p-0">
+                                <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_bitacora" <?= $bitacora['total'] == 2 ? 'checked' : '' ?> value="1"  name="bitacora_sistema">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_bitacora" <?= $bitacora_total == 2 ? 'checked' : '' ?> value="1"  name="bitacora_sistema">
                                         <label class="form-check-label fw-bold" for="vista_ajustes">
                                             Acceso a la Vista del Módulo de Bitácora del Sistema
                                         </label>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item bg-light border-0">
-                                            <strong class="text-success">Acceso Total a la Bitácora</strong>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <ul class="list-unstyled pt-2 ps-3 border-top mt-2">
+                                        <li class="form-check mb-1">
                                             <input name="v_bitacora" class="form-check-input ajustes_sistema" <?= $bitacora['v_bitacora'] == 1 ? 'checked' : '' ?> value="43" type="checkbox" id="v_bitacora">
                                             Consultar Registros de la Bitácora
                                             <i class="bi bi-check-circle-fill text-success"></i>
                                         </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <li class="form-check mb-1">
                                             <input name="m_bitacora" class="form-check-input ajustes_sistema" <?= $bitacora['m_bitacora'] == 1 ? 'checked' : '' ?> value="44" type="checkbox" id="m_bitacora">
                                             Consultar Movimientos de un Usuario en la Bitácora
                                             <i class="bi bi-check-circle-fill text-success"></i>

@@ -91,12 +91,17 @@ class rol_model extends model_user {
 
     
     public static function sumaPermisoRol ($claves_a_verificar, $clavesPermisosRoles){
-        
-        $claves_de_permisos_del_rol = array_keys($clavesPermisosRoles);
-        $coincidencias = array_intersect($claves_a_verificar, $claves_de_permisos_del_rol);
-        $total_coincidencias = count($coincidencias);
-        
-        return $total_coincidencias;
+        $permisos_encontrados = [];
+
+        foreach ($claves_a_verificar as $clave) {
+            // Verifica si la clave existe en los permisos del rol y si su valor es 1 (permitido)
+            if (isset($clavesPermisosRoles[$clave]) && $clavesPermisosRoles[$clave] == 1) {
+                $permisos_encontrados[$clave] = 1;
+            } else {
+                $permisos_encontrados[$clave] = 0;
+            }
+        }
+        return $permisos_encontrados;
     }
 
 
@@ -340,162 +345,96 @@ class rol_model extends model_user {
     
     public static function generar_bitacora ($permisos_originales) {
 
-        $colores = [
-            "Permitido" => "success",
-            "Denegado" => "danger"
-        ];
-
-        // permisos del modulo proveedores para bitacora
+        // Módulo Proveedores
         $moduloProveedores = "";
-
         if ($permisos_originales["r_proveedores"] == 'Permitido' || $permisos_originales["m_proveedores"] == 'Permitido' || $permisos_originales["l_proveedores"] == 'Permitido' || $permisos_originales["h_proveedores"] == 'Permitido') {
-
-            $permisos = [
-                $permisos_originales["r_proveedores"] ?? "", 
-                $permisos_originales["m_proveedores"] ?? "", 
-                $permisos_originales["l_proveedores"] ?? "",
-                $permisos_originales["h_proveedores"] ?? ""
-            ];
-
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista", "Ver Historial"],  $permisos);
-
-            $moduloProveedores = '
-                <div class="col-12 col-md-6 mb-2">
-                    <p class="card-title">Módulo de Proveedores</p>
-
-                    <ul class="list-group list-group-flush list-unstyled"> '.$proveedores.' </ul>
-                </div>
-            ';
+            $permisos = [$permisos_originales["r_proveedores"], $permisos_originales["m_proveedores"], $permisos_originales["l_proveedores"], $permisos_originales["h_proveedores"]];
+            $proveedores = self::generar_mensaje_de_permisos_por_modulo(["Registrar","Modificar Información","Consultar Lista", "Ver Historial"], $permisos);
+            $moduloProveedores .= '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Proveedores</p><ul class="list-group list-group-flush list-unstyled">'.$proveedores.'</ul></div>';
         }
-        
+
         // permisos del modulo productos para bitacora
         // permisos del modulo categoria
                 
-        $moduloProductosInicio = '
-            <div class="col-12 col-md-6 mb-2">
-                <p class="card-title">Módulo de Productos</p>
-                <ul class="list-group list-group-flush list-unstyled">
-        ';
+        $moduloProductosInicio = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Productos</p><ul class="list-group list-group-flush list-unstyled">';
+        $datoProductos = false;
+        $moduloProductosFin = ' </ul> </div>';
 
-
-        $moduloProductosFin = '
-                </ul>
-            </div>
-        ';
 
         if ($permisos_originales["r_categoria"] == 'Permitido' || $permisos_originales["m_categoria"] == 'Permitido' || $permisos_originales["l_categoria"] == 'Permitido') {
 
-            $permisos = [
-                $permisos_originales["r_categoria"] ?? "", 
-                $permisos_originales["m_categoria"] ?? "", 
-                $permisos_originales["l_categoria"] ?? ""
-            ];
+            $permisos = [ $permisos_originales["r_categoria"] ?? "", $permisos_originales["m_categoria"] ?? "", $permisos_originales["l_categoria"] ?? ""];
 
             $permisosModulo = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
-            $moduloProductosInicio .= '
-                <li class="fw-bold bg-light text-start">
-                    <i class="bi bi-folder-fill me-2 text-secondary"></i>
-                    Categorías:
-                </li>
-
-                <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
+            $moduloProductosInicio .= '<li class="fw-bold bg-light text-start"><i class="bi bi-folder-fill me-2 text-secondary"></i> Categorías: </li> <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
+            
+            $datoProductos = true;
         }
         
         // modulo de presentaciones
 
         if ($permisos_originales["r_presentacion"] == 'Permitido' || $permisos_originales["m_presentacion"] == 'Permitido' || $permisos_originales["l_presentacion"] == 'Permitido') {
 
-            $permisos = [
-                $permisos_originales["r_presentacion"] ?? "", 
-                $permisos_originales["m_presentacion"] ?? "", 
-                $permisos_originales["l_presentacion"] ?? ""
-            ];
+            $permisos = [$permisos_originales["r_presentacion"] ?? "", $permisos_originales["m_presentacion"] ?? "", $permisos_originales["l_presentacion"] ?? ""];
 
             $permisosModulo = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
-            $moduloProductosInicio .= '
-                <li class="fw-bold bg-light text-start">
-                    <i class="bi bi-box-fill me-2 text-secondary"></i>
-                    Presentaciones:
-                </li>
-                <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
+            $moduloProductosInicio .= '<li class="fw-bold bg-light text-start"><i class="bi bi-box-fill me-2 text-secondary"></i> Presentaciones:</li> <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
+
+            $datoProductos = true;
         }
         
         // modulo de marca
 
         if ($permisos_originales["r_marca"] == 'Permitido' || $permisos_originales["m_marca"] == 'Permitido' || $permisos_originales["l_marca"] == 'Permitido') {
 
-            $permisos = [
-                $permisos_originales["r_marca"] ?? "", 
-                $permisos_originales["m_marca"] ?? "", 
-                $permisos_originales["l_marca"] ?? ""
-            ];
+            $permisos = [$permisos_originales["r_marca"] ?? "", $permisos_originales["m_marca"] ?? "", $permisos_originales["l_marca"] ?? ""];
 
             $marcas = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
-            $moduloProductosInicio .= '
-                <li class="fw-bold bg-light text-start">
-                    <i class="bi bi-tags-fill me-2 text-secondary"></i>
-                    Marcas:
-                </li>
-                <ul class="list-group list-group-flush">'.$marcas.' </ul>
-            ';
+            $moduloProductosInicio .= '<li class="fw-bold bg-light text-start"> <i class="bi bi-tags-fill me-2 text-secondary"></i> Marcas: </li> <ul class="list-group list-group-flush">'.$marcas.' </ul>';
+            
+            $datoProductos = true;
         }
         
         // modulo de productos
 
         if ($permisos_originales["r_productos"] == 'Permitido' || $permisos_originales["l_productos"] == 'Permitido') {
 
-            $permisos = [
-                $permisos_originales["r_productos"] ?? "", 
-                $permisos_originales["l_productos"] ?? "",
-            ];
+            $permisos = [ $permisos_originales["r_productos"] ?? "", $permisos_originales["l_productos"] ?? ""];
 
             $productos = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Consultar Lista"],  $permisos);
 
-            $moduloProductosInicio .= '
-                <li class="fw-bold bg-light text-start">
-                    <i class="bi bi-bag-fill me-2 text-secondary"></i>
-                    Gestión de Productos:
-                </li>
-                <ul class="list-group list-group-flush"> '.$productos.' </ul>
-            ';
+            $moduloProductosInicio .= '<li class="fw-bold bg-light text-start"> <i class="bi bi-bag-fill me-2 text-secondary"></i> Gestión de Productos: </li> <ul class="list-group list-group-flush"> '.$productos.' </ul> ';
+
+            $datoProductos = true;
         }
         
         // modulo de entrada
 
         if ($permisos_originales["r_entrada"] == 'Permitido' || $permisos_originales["l_entrada"] == 'Permitido') {
 
-            $permisos = [
-                $permisos_originales["r_entrada"] ?? "", 
-                $permisos_originales["l_entrada"] ?? ""
-            ];
+            $permisos = [$permisos_originales["r_entrada"] ?? "", $permisos_originales["l_entrada"] ?? ""];
 
             $entradas = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas", "Consultar Lista"],  $permisos);
 
-            $moduloProductosInicio .= '
-                <li class="fw-bold text-start bg-light">
-                    <i class="bi bi-box-arrow-in-right me-2 text-secondary"></i>
-                    Entrada de Productos:
-                </li>
-                <ul class="list-group list-group-flush">'.$entradas.' </ul>
-            ';
+            $moduloProductosInicio .= '<li class="fw-bold text-start bg-light">  <i class="bi bi-box-arrow-in-right me-2 text-secondary"></i> Entrada de Productos:</li> <ul class="list-group list-group-flush">'.$entradas.' </ul>';
+
+            $datoProductos = true;
         }
 
         $texto_final = "";
 
-        if ($moduloProveedores != "" || $moduloProductosInicio != '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Productos</p><ul class="list-group list-group-flush list-unstyled">') {
+        if ($moduloProveedores !== "" || $datoProductos) {
             
-            $texto_final .= '
-                <div class="col-12 text-center mb-3">
-                    <h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-box-seam me-2"></i> Inventario </h4>
-                    <div class="row m-0 justify-content-between">
-                        '.$moduloProveedores.'
-                        '.$moduloProductosInicio.'
-                        '.$moduloProductosFin.'
-                    </div>
-                </div>';
+            $texto_final .= '<div class="col-12 text-center mb-3"> <h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-box-seam me-2"></i> Inventario </h4> <div class="row m-0 justify-content-between">';
+
+            if ($moduloProveedores !== "") { $texto_final .= $moduloProveedores; }
+
+            if ($datoProductos) { $texto_final .= $moduloProductosInicio.$moduloProductosFin; }
+
+            $texto_final .= '</div> </div>';
         }
         
         // Módulo Ventas
@@ -514,8 +453,23 @@ class rol_model extends model_user {
             $moduloServicios = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Servicios</p><ul class="list-group list-group-flush list-unstyled">'.$servicios.'</ul></div>';
         }
 
+
         if ($moduloVentas != "" || $moduloServicios != "") {
-            $texto_final .= '<div class="col-12 text-center mb-3"><h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-currency-dollar"></i> Ventas | <i class="bi bi-fork-knife"></i> Menú / Servicios</h4><div class="row m-0 justify-content-between">'.$moduloVentas.$moduloServicios.'</div></div>';
+
+            $texto_final .= '<div class="col-12 text-center mb-3"><h4 class="d-block mb-3 text-center text-primary">';
+            
+            if ($moduloVentas != "" && $moduloServicios != "") {
+                $texto_final .= '<i class="bi bi-currency-dollar"></i> Ventas | <i class="bi bi-fork-knife"></i> Menú / Servicios</h4> <div class="row m-0 justify-content-between">'.$moduloVentas.$moduloServicios.'</div></div>';
+            }
+
+            if ($moduloVentas != "") {
+                $texto_final .= '<i class="bi bi-currency-dollar"></i> Ventas </h4> <div class="row m-0 justify-content-between">'.$moduloVentas.'</div></div>';
+            }
+            
+            if ($moduloServicios != "") {
+                $texto_final .= '<i class="bi bi-fork-knife"></i> Menú / Servicios </h4> <div class="row m-0 justify-content-between">'.$moduloServicios.'</div></div>';
+            }
+
         }
 
         // Módulo Clientes
