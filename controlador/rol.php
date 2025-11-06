@@ -15,71 +15,42 @@ $modulo = modeloPrincipal::limpiar_cadena($_POST["modulo"]);
 if($modulo === "Guardar"){
 
     $nombre = modeloPrincipal::primeraLetraMayus(modeloPrincipal::limpiar_cadena($_POST["nombre_rol"]));
-    // vistas del modulo proveedores
-    $r_proveedores = $_POST["r_proveedores"] ?? '';
-    $m_proveedores = $_POST["m_proveedores"] ?? '';
-    $l_proveedores = $_POST["l_proveedores"] ?? '';
-    $h_proveedores = $_POST["h_proveedores"] ?? '';
 
-    // vistas del modulo productos
-    $r_categoria = $_POST["r_categoria"] ?? '';
-    $m_categoria = $_POST["m_categoria"] ?? '';
-    $l_categoria = $_POST["l_categoria"] ?? '';
+    $permisos_post = [
+        // Proveedores
+        "r_proveedores", "m_proveedores", "l_proveedores", "h_proveedores",
+        // Productos
+        "r_categoria", "m_categoria", "l_categoria",
+        "r_presentacion", "m_presentacion", "l_presentacion",
+        "r_marca", "m_marca", "l_marca",
+        "r_productos", "l_productos",
+        "r_entrada", "l_entrada",
+        // Ventas
+        "g_venta", "d_venta", "f_venta", "l_venta", "est_venta",
+        // Servicios
+        "r_servicio", "l_servicio", "m_servicio",
+        // Clientes
+        "r_cliente", "m_cliente", "l_cliente", "h_cliente", "f_cliente",
+        // Empleados
+        "r_empleado", "m_empleado", "l_empleado",
+        // Roles
+        "r_rol", "m_rol", "l_rol",
+        // Ajustes
+        "m_cant_pregunta_seguridad", "m_tiempo_sesion", "m_cant_caracteres", 
+        "m_cant_simbolos", "m_cant_num", "intentos_inicio_sesion",
+        // Bitácora
+        "v_bitacora", "m_bitacora"
+    ];
 
-    $r_presentacion = $_POST["r_presentacion"] ?? '';
-    $m_presentacion = $_POST["m_presentacion"] ?? '';
-    $l_presentacion = $_POST["l_presentacion"] ?? '';
+    $permisos_para_guardar = [];
+    $permisos_para_bitacora = [];
 
-    $r_marca = $_POST["r_marca"] ?? '';
-    $m_marca = $_POST["m_marca"] ?? '';
-    $l_marca = $_POST["l_marca"] ?? '';
-
-    $r_productos = $_POST["r_productos"] ?? '';
-    $l_productos = $_POST["l_productos"] ?? '';
-
-    $r_entrada = $_POST["r_entrada"] ?? '';
-    $l_entrada = $_POST["l_entrada"] ?? '';
-
-    // vistas del modulo ventas
-    $g_venta = $_POST["g_venta"] ?? '';
-    $d_venta = $_POST["d_venta"] ?? '';
-    $f_venta = $_POST["f_venta"] ?? '';
-    $l_venta = $_POST["l_venta"] ?? '';
-    $est_venta = $_POST["est_venta"] ?? '';
-    
-    // vistas del modulo menú
-    $r_servicio = $_POST["r_servicio"] ?? '';
-    $l_servicio = $_POST["l_servicio"] ?? '';
-    $m_servicio = $_POST["m_servicio"] ?? '';
-
-    // vistas del modulo usuario
-    // vista de clientes
-    $r_cliente = $_POST["r_cliente"] ?? '';
-    $m_cliente = $_POST["m_cliente"] ?? '';
-    $l_cliente = $_POST["l_cliente"] ?? '';
-    $h_cliente = $_POST["h_cliente"] ?? '';
-    $f_cliente = $_POST["f_cliente"] ?? '';
-    // vista de empleados
-    $r_empleado = $_POST["r_empleado"] ?? '';
-    $m_empleado = $_POST["m_empleado"] ?? '';
-    $l_empleado = $_POST["l_empleado"] ?? '';
-    // vista de roles
-    $r_rol = $_POST["r_rol"] ?? '';
-    $m_rol = $_POST["m_rol"] ?? '';
-    $l_rol = $_POST["l_rol"] ?? '';
-
-    // vistas del modulo configuración
-    // vista de ajustes del sistema
-    $m_cant_pregunta_seguridad = $_POST["m_cant_pregunta_seguridad"] ?? '';
-    $m_tiempo_sesion = $_POST["m_tiempo_sesion"] ?? '';
-    $m_cant_caracteres = $_POST["m_cant_caracteres"] ?? '';
-    $m_cant_simbolos = $_POST["m_cant_simbolos"] ?? '';
-    $m_cant_num = $_POST["m_cant_num"] ?? '';
-    $intentos_inicio_sesion = $_POST['intentos_inicio_sesion'] ?? '';
-    
-    // vista de bitácora
-    $v_bitacora = $_POST["v_bitacora"] ?? '';
-    $m_bitacora = $_POST["m_bitacora"] ?? '';
+    foreach ($permisos_post as $permiso) {
+        // Para guardar en la BD (el valor del checkbox)
+        $permisos_para_guardar[] = $_POST[$permiso] ?? '';
+        // Para la bitácora (texto "Permitido" o "Denegado")
+        $permisos_para_bitacora[$permiso] = isset($_POST[$permiso]) && $_POST[$permiso] != '' ? 'Permitido' : 'Denegado';
+    }
 
     // se comprueba que no exista un registro con los mismos datos
     if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM rol WHERE nombre = '$nombre'")) > 0){
@@ -104,21 +75,7 @@ if($modulo === "Guardar"){
 
     // datos verificados que se van a Registrar
     try {
-        $registrar = rol_model::guardar_permisos_rol(
-            $nombre,
-            $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores,
-            $r_categoria, $m_categoria, $l_categoria,
-            $r_presentacion, $m_presentacion, $l_presentacion,
-            $r_marca, $m_marca, $l_marca,
-            $r_productos, $l_productos, $r_entrada, $l_entrada,
-            $g_venta, $d_venta, $f_venta, $l_venta, $est_venta,
-            $r_servicio, $l_servicio, $m_servicio,
-            $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente,
-            $r_empleado, $m_empleado, $l_empleado,
-            $r_rol, $m_rol, $l_rol,
-            $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $m_cant_num, $intentos_inicio_sesion,
-            $v_bitacora, $m_bitacora
-        );
+        $registrar = rol_model::guardar_permisos_rol($nombre, ...$permisos_para_guardar);
 
         if (!$registrar) {
             alert_model::alerta_simple(
@@ -138,11 +95,7 @@ if($modulo === "Guardar"){
     
     try {
 
-        $id_rol = rol_model::consultar_id_rol_recien_registrado();
-        $permisosRol = rol_model::obtenerPermisosRolById($id_rol);
-        $text_permisos = rol_model::texto_permisos_vista($permisosRol);
-
-        $mensaje_bitacora = rol_model::generar_bitacora ($text_permisos);
+        $mensaje_bitacora = rol_model::generar_bitacora($permisos_para_bitacora);
 
         $bitacora_registrar_rol = bitacora::bitacora("Registro Exitoso de un Rol", 
             '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró un rol con la siguiente información:</p>
@@ -193,70 +146,11 @@ if($modulo === "Modificar"){
     $id_rol = modeloPrincipal::decryptionId($_POST['UIDR']);
     $id_rol = modeloPrincipal::limpiar_cadena($id_rol);
 
-    $nombre = modeloPrincipal::limpiar_mayusculas($_POST["nombre_rol"]);
+    $nombre = modeloPrincipal::primeraLetraMayus(modeloPrincipal::limpiar_cadena($_POST["nombre_rol"]));
     $estado = modeloPrincipal::limpiar_cadena($_POST["estado_rol"]);
 
-    // vistas del modulo proveedores
-    $r_proveedores = rol_model::validar_post_roles("r_proveedores");
-    $m_proveedores = rol_model::validar_post_roles("m_proveedores");
-    $l_proveedores = rol_model::validar_post_roles("l_proveedores");
-    $h_proveedores = rol_model::validar_post_roles("h_proveedores");
-
-    // vistas del modulo productos
-    $l_categoria = rol_model::validar_post_roles("l_categoria");
-
-    $r_presentacion = rol_model::validar_post_roles("r_presentacion");
-    $m_presentacion = rol_model::validar_post_roles("m_presentacion");
-    $l_presentacion = rol_model::validar_post_roles("l_presentacion");
-
-    $r_productos = rol_model::validar_post_roles("r_productos");
-    $l_productos = rol_model::validar_post_roles("l_productos");
-
-    $r_entrada = rol_model::validar_post_roles("r_entrada");
-    $l_entrada = rol_model::validar_post_roles("l_entrada");
-
-    // vistas del modulo ventas
-    $g_venta = rol_model::validar_post_roles("g_venta");
-    $d_venta = rol_model::validar_post_roles("d_venta");
-    $f_venta = rol_model::validar_post_roles("f_venta");
-    $l_venta = rol_model::validar_post_roles("l_venta");
-    $est_venta = rol_model::validar_post_roles("est_venta");
-    
-    // vistas del modulo menú
-    $r_servicio = rol_model::validar_post_roles("r_servicio");
-    $l_servicio = rol_model::validar_post_roles("l_servicio");
-    $m_servicio = rol_model::validar_post_roles("m_servicio");
-
-    // vistas del modulo usuario
-    // vista de clientes
-    $r_cliente = rol_model::validar_post_roles("r_cliente");
-    $m_cliente = rol_model::validar_post_roles("m_cliente");
-    $l_cliente = rol_model::validar_post_roles("l_cliente");
-    $h_cliente = rol_model::validar_post_roles("h_cliente");
-    $f_cliente = rol_model::validar_post_roles("f_cliente");
-    // vista de empleados
-    $r_empleado = rol_model::validar_post_roles("r_empleado");
-    $m_empleado = rol_model::validar_post_roles("m_empleado");
-    $l_empleado = rol_model::validar_post_roles("l_empleado");
-    // vista de roles
-    $r_rol = rol_model::validar_post_roles("r_rol");
-    $m_rol = rol_model::validar_post_roles("m_rol");
-    $l_rol = rol_model::validar_post_roles("l_rol");
-
-    // vistas del modulo configuración
-    // vista de ajustes del sistema
-    $m_cant_pregunta_seguridad = rol_model::validar_post_roles("m_cant_pregunta_seguridad");
-    $m_tiempo_sesion = rol_model::validar_post_roles("m_tiempo_sesion");
-    $m_cant_caracteres = rol_model::validar_post_roles("m_cant_caracteres");
-    $m_cant_simbolos = rol_model::validar_post_roles("m_cant_simbolos");
-    $m_cant_num = rol_model::validar_post_roles("m_cant_num");
-    $intentos_inicio_sesion = rol_model::validar_post_roles('intentos_inicio_sesion');
-    // vista de bitácora
-    $v_bitacora = rol_model::validar_post_roles("v_bitacora");
-    $m_bitacora = rol_model::validar_post_roles("m_bitacora");
-
     // Se verifica que no se hayan recibido campos vacíos.
-    modeloPrincipal::validar_campos_vacios([$nombre, $r_proveedores, $m_proveedores, $l_proveedores, $h_proveedores, $r_categoria, $r_presentacion, $r_productos, $l_productos, $r_entrada, $l_entrada, $g_venta, $d_venta, $f_venta, $l_venta, $est_venta, $r_servicio, $l_servicio, $m_servicio, $r_cliente, $m_cliente, $l_cliente, $h_cliente, $f_cliente, $r_empleado, $m_empleado, $l_empleado, $r_rol, $m_rol, $l_rol, $m_cant_pregunta_seguridad, $m_tiempo_sesion, $m_cant_caracteres, $m_cant_simbolos, $nombre, $m_cant_num, $intentos_inicio_sesion, $v_bitacora, $m_bitacora]);
+    modeloPrincipal::validar_campos_vacios([$id_rol, $nombre, $estado]);
     
     if (modeloPrincipal::verificar_datos("[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,20}",$nombre)) {
         alert_model::alerta_simple( 
@@ -266,16 +160,51 @@ if($modulo === "Modificar"){
         exit();
     }
     
-    $permisosRol = rol_model::obtenerPermisosRolById($id_rol);
+    $permisos_post = [
+        // Proveedores
+        "r_proveedores", "m_proveedores", "l_proveedores", "h_proveedores",
+        // Productos
+        "r_categoria", "m_categoria", "l_categoria",
+        "r_presentacion", "m_presentacion", "l_presentacion",
+        "r_marca", "m_marca", "l_marca",
+        "r_productos", "l_productos",
+        "r_entrada", "l_entrada",
+        // Ventas
+        "g_venta", "d_venta", "f_venta", "l_venta", "est_venta",
+        // Servicios
+        "r_servicio", "l_servicio", "m_servicio",
+        // Clientes
+        "r_cliente", "m_cliente", "l_cliente", "h_cliente", "f_cliente",
+        // Empleados
+        "r_empleado", "m_empleado", "l_empleado",
+        // Roles
+        "r_rol", "m_rol", "l_rol",
+        // Ajustes
+        "m_cant_pregunta_seguridad", "m_tiempo_sesion", "m_cant_caracteres", 
+        "m_cant_simbolos", "m_cant_num", "intentos_inicio_sesion",
+        // Bitácora
+        "v_bitacora", "m_bitacora"
+    ];
 
-    $text_permisos_originales = rol_model::texto_permisos_vista($permisosRol);
+    $permisos_nuevos_encriptados = [];
+    $permisos_nuevos_bitacora = [];
+
+    foreach ($permisos_post as $permiso) {
+        if (isset($_POST[$permiso]) && $_POST[$permiso] != '') {
+            // Para guardar en la BD (el valor del checkbox que es el ID de la función)
+            $permisos_nuevos_encriptados[] = $_POST[$permiso];
+        }
+        // Para la bitácora (texto "Permitido" o "Denegado")
+        $permisos_nuevos_bitacora[$permiso] = isset($_POST[$permiso]) && $_POST[$permiso] != '' ? 'Permitido' : 'Denegado';
+    }
+
+    // Obtener los permisos originales para la bitácora
+    $permisos_originales_bd = rol_model::obtenerPermisosRolById($id_rol);
+    $permisos_originales_bitacora = rol_model::texto_permisos_vista($permisos_originales_bd);
 
     try {
-
-        $actualizar = modeloPrincipal::UpdateSQL(
-            "rol", 
-            "nombre = '$nombre', r_proveedores = $r_proveedores, m_proveedores = $m_proveedores, l_proveedores = $l_proveedores, h_proveedores = $h_proveedores, r_categoria = $r_categoria,  m_categoria = $m_categoria, l_categoria = $l_categoria, r_presentacion = $r_presentacion, m_presentacion = $m_presentacion, l_presentacion = $l_presentacion, r_productos = $r_productos, l_productos = $l_productos, r_entrada = $r_entrada, l_entrada = $l_entrada, g_venta = $g_venta, d_venta = $d_venta, l_venta = $l_venta, f_venta = $f_venta, est_venta = $est_venta, r_servicio = $r_servicio, m_servicio = $m_servicio, l_servicio = $l_servicio, r_cliente = $r_cliente, m_cliente = $m_cliente, l_cliente = $l_cliente, h_cliente = $h_cliente, f_cliente = $f_cliente, r_empleado = $r_empleado, m_empleado = $m_empleado, l_empleado = $l_empleado, r_rol = $r_rol, m_rol = $m_rol, l_rol = $l_rol, m_cant_pregunta_seguridad = $m_cant_pregunta_seguridad, m_tiempo_sesion = $m_tiempo_sesion, m_cant_caracteres = $m_cant_caracteres, m_cant_simbolos = $m_cant_simbolos, m_cant_num = $m_cant_num, intentos_inicio_sesion = $intentos_inicio_sesion, v_bitacora = $v_bitacora, m_bitacora = $m_bitacora, estado = $estado", 
-            "id_rol = $id_rol");
+        // La función se encarga de borrar los permisos viejos y guardar los nuevos
+        $actualizar = rol_model::modificar_permisos_rol($id_rol, $nombre, $estado, $permisos_nuevos_encriptados);
 
         if (!$actualizar) {
             alert_model::alerta_simple(
@@ -284,7 +213,6 @@ if($modulo === "Modificar"){
                 "error");
             exit();
         }
-
     } catch (Exception $e) {
         alert_model::alerta_simple(
             "Ha ocurrido un error!", 
@@ -293,17 +221,12 @@ if($modulo === "Modificar"){
         exit();
     }
     
-
-    $permisosRolActual = rol_model::obtenerPermisosRolById($id_rol);
-
-    $text_mensaje_actuales = rol_model::texto_permisos_vista($permisosRolActual);
-
-    $bitacora = rol_model::generar_bitacora($permisosRol, $text_permisos_originales, $permisosRolActual, $text_mensaje_actuales);
-
+    // Generar el HTML de la bitácora comparando los permisos
+    $bitacora = rol_model::generar_bitacora_modificacion($permisos_originales_bitacora, $permisos_nuevos_bitacora);
     
     try {
-        $colorBadge = $permisos['estado'] == 1 ? 'bg-success' : 'bg-danger';
-        $textBadge = $permisos['estado'] == 1 ? 'Activo' : 'Inactivo';
+        $colorBadge = $estado == 1 ? 'bg-success' : 'bg-danger';
+        $textBadge = $estado == 1 ? 'Activo' : 'Inactivo';
 
         $bitacora_modificacion_rol = bitacora::bitacora("Modificación Exitosa de un Rol", 
         '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el rol con la siguiente información:</p>
@@ -312,7 +235,7 @@ if($modulo === "Modificar"){
                 <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
                     <h5 class="fw-bold mb-0 text-primary">
                         <i class="bi bi-person-badge me-2"></i>
-                        Rol: admin
+                        Rol: '.$nombre.'
                     </h5>
                 </div>
 

@@ -67,19 +67,21 @@ class rol_model extends model_user {
         // 2. Inicializar el array de permisos
         $permisos_usuario = [];
 
+        // Crear un array con los permisos que SÍ tiene el rol
+        $permisos_activos = [];
+
+        while ($fila = mysqli_fetch_assoc($resultado_consulta)) {
+            $permisos_activos[] = $fila['codigo'];
+        }
+
         // 3. Iterar sobre todos los resultados y construir el array de claves
         while ($fila = mysqli_fetch_assoc($cantidadTotalFunciones)) {
-                
-            if (mysqli_num_rows($cantidadTotalFunciones) === mysqli_num_rows($resultado_consulta)) {
-                $permisos_usuario["".$fila['codigo'].""] = 1; 
-            }else{
-                $cantidadTotalFunciones = mysqli_fetch_assoc($cantidadTotalFunciones);
-
-                if ($permisos_usuario["".$fila['codigo'].""] == $cantidadTotalFunciones["".$fila['codigo'].""] ) {
-                    $permisos_usuario["".$fila['codigo'].""] = 1; 
-                }else{
-                    $permisos_usuario["".$fila['codigo'].""] = 0; 
-                }
+            $codigo_funcion = $fila['codigo'];
+            // Si el permiso está en la lista de activos, se marca como 1, si no, como 0.
+            if (in_array($codigo_funcion, $permisos_activos)) {
+                $permisos_usuario[$codigo_funcion] = 1;
+            } else {
+                $permisos_usuario[$codigo_funcion] = 0;
             }
         }
 
@@ -90,13 +92,12 @@ class rol_model extends model_user {
     
     public static function sumaPermisoRol ($claves_a_verificar, $clavesPermisosRoles){
         
-
         $claves_de_permisos_del_rol = array_keys($clavesPermisosRoles);
         $coincidencias = array_intersect($claves_a_verificar, $claves_de_permisos_del_rol);
         $total_coincidencias = count($coincidencias);
+        
         return $total_coincidencias;
     }
-
 
 
     
@@ -223,6 +224,48 @@ class rol_model extends model_user {
         return true; 
     }
 
+    /**
+     * Modifica un rol y sus permisos.
+     * Borra los permisos anteriores y guarda los nuevos.
+     */
+    public static function modificar_permisos_rol($id_rol, $nombre, $estado, $permisos_nuevos_encriptados) {
+        // 1. Actualizar el nombre y estado del rol
+        $actualizar_rol = modeloPrincipal::UpdateSQL("rol", "nombre = '$nombre', estado = '$estado'", "id_rol = $id_rol");
+
+        if (!$actualizar_rol) {
+            // Manejar error si no se puede actualizar el rol
+            return false;
+        }
+
+        // 2. Borrar todos los permisos antiguos de ese rol
+        modeloPrincipal::DeleteSQL("funciones_rol", "id_rol = $id_rol");
+
+        // 3. Insertar los nuevos permisos
+        foreach ($permisos_nuevos_encriptados as $permiso_encriptado) {
+            if (!empty($permiso_encriptado)) {
+                // El valor del checkbox es el ID de la función, no necesita desencriptación aquí.
+                // Asumimos que el valor es el ID directo.
+                $id_funcion = modeloPrincipal::limpiar_cadena($permiso_encriptado);
+                
+                if (is_numeric($id_funcion) && $id_funcion > 0) {
+                    $registrar_permiso = modeloPrincipal::InsertSQL(
+                        "funciones_rol", 
+                        "id_rol, id_funcion, fecha_asignacion", 
+                        "$id_rol, $id_funcion, NOW()"
+                    );
+                    
+                    if (!$registrar_permiso) {
+                        // Si falla la inserción de un permiso, es mejor detenerse.
+                        return false; 
+                    }
+                }
+            }
+        }
+
+        // Si todo fue bien
+        return true;
+    }
+
 
     public static function registrar_rol ($nombre) {
 
@@ -272,14 +315,14 @@ class rol_model extends model_user {
 
         $text_allow = "";
 
-        $colores = [
+        $colores = [ // No necesitas esto aquí, ya que el color se aplica en la llamada
             "Permitido" => "success",
             "Denegado" => "danger"
         ];
 
         for ($i = 0; $i < count($nombreModulos); $i++) { 
             $text_allow .= '
-                <li class="border-bottom mb-1 row justify-content-center">
+                <li class="border-bottom mb-1 row justify-content-center mx-0">
                     <div class="col-6 text-start">
                         <label>'.$nombreModulos[$i].'</label>
                     </div>
@@ -297,18 +340,24 @@ class rol_model extends model_user {
     
     public static function generar_bitacora ($permisos_originales) {
 
+        $colores = [
+            "Permitido" => "success",
+            "Denegado" => "danger"
+        ];
+
         // permisos del modulo proveedores para bitacora
         $moduloProveedores = "";
 
-        if ($permisos_originales["r_proveedores"] || $permisos_originales["m_proveedores"] || $permisos_originales["l_proveedores"]) {
+        if ($permisos_originales["r_proveedores"] == 'Permitido' || $permisos_originales["m_proveedores"] == 'Permitido' || $permisos_originales["l_proveedores"] == 'Permitido' || $permisos_originales["h_proveedores"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_proveedores"], 
-                $permisos_originales["m_proveedores"], 
-                $permisos_originales["l_proveedores"]
+                $permisos_originales["r_proveedores"] ?? "", 
+                $permisos_originales["m_proveedores"] ?? "", 
+                $permisos_originales["l_proveedores"] ?? "",
+                $permisos_originales["h_proveedores"] ?? ""
             ];
 
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista"],  $permisos);
+            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista", "Ver Historial"],  $permisos);
 
             $moduloProveedores = '
                 <div class="col-12 col-md-6 mb-2">
@@ -326,23 +375,23 @@ class rol_model extends model_user {
             <div class="col-12 col-md-6 mb-2">
                 <p class="card-title">Módulo de Productos</p>
                 <ul class="list-group list-group-flush list-unstyled">
-                ';
+        ';
 
 
-        $moduloProductosFin = ' 
+        $moduloProductosFin = '
                 </ul>
-            </ul>
-        </div>';
+            </div>
+        ';
 
-        if ($permisos_originales["r_categoria"] || $permisos_originales["m_categoria"] || $permisos_originales["l_categoria"]) {
+        if ($permisos_originales["r_categoria"] == 'Permitido' || $permisos_originales["m_categoria"] == 'Permitido' || $permisos_originales["l_categoria"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_categoria"], 
-                $permisos_originales["m_categoria"], 
-                $permisos_originales["l_categoria"]
+                $permisos_originales["r_categoria"] ?? "", 
+                $permisos_originales["m_categoria"] ?? "", 
+                $permisos_originales["l_categoria"] ?? ""
             ];
 
-            $permisos = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
+            $permisosModulo = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
             $moduloProductosInicio .= '
                 <li class="fw-bold bg-light text-start">
@@ -350,584 +399,178 @@ class rol_model extends model_user {
                     Categorías:
                 </li>
 
-                <ul class="list-group list-group-flush"> '.$permisos.'</ul>';
+                <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
         }
         
         // modulo de presentaciones
 
-        if ($permisos_originales["r_categoria"] || $permisos_originales["m_categoria"] || $permisos_originales["l_categoria"] || $permisos_originales["r_presentacion"] || $permisos_originales["m_presentacion"] || $permisos_originales["l_presentacion"] || $permisos_originales["r_marca"] || $permisos_originales["m_marca"] || $permisos_originales["l_marca"] || $permisos_originales["r_entrada"] || $permisos_originales["l_entrada"] || $permisos_originales["r_productos"] || $permisos_originales["l_productos"]) {
+        if ($permisos_originales["r_presentacion"] == 'Permitido' || $permisos_originales["m_presentacion"] == 'Permitido' || $permisos_originales["l_presentacion"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_proveedores"], 
-                $permisos_originales["m_proveedores"], 
-                $permisos_originales["l_proveedores"]
+                $permisos_originales["r_presentacion"] ?? "", 
+                $permisos_originales["m_presentacion"] ?? "", 
+                $permisos_originales["l_presentacion"] ?? ""
             ];
 
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista"],  $permisos);
+            $permisosModulo = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
             $moduloProductosInicio .= '
                 <li class="fw-bold bg-light text-start">
-                    <i class="bi bi-folder-fill me-2 text-secondary"></i>
-                    Categorías:
+                    <i class="bi bi-box-fill me-2 text-secondary"></i>
+                    Presentaciones:
                 </li>
-
-                <ul class="list-group list-group-flush"> '.$permisos.' ';
+                <ul class="list-group list-group-flush"> '.$permisosModulo.'</ul>';
         }
         
+        // modulo de marca
 
-        if ($permisos_originales["r_categoria"] || $permisos_originales["m_categoria"] || $permisos_originales["l_categoria"] || $permisos_originales["r_presentacion"] || $permisos_originales["m_presentacion"] || $permisos_originales["l_presentacion"] || $permisos_originales["r_marca"] || $permisos_originales["m_marca"] || $permisos_originales["l_marca"] || $permisos_originales["r_entrada"] || $permisos_originales["l_entrada"] || $permisos_originales["r_productos"] || $permisos_originales["l_productos"]) {
+        if ($permisos_originales["r_marca"] == 'Permitido' || $permisos_originales["m_marca"] == 'Permitido' || $permisos_originales["l_marca"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_proveedores"], 
-                $permisos_originales["m_proveedores"], 
-                $permisos_originales["l_proveedores"]
+                $permisos_originales["r_marca"] ?? "", 
+                $permisos_originales["m_marca"] ?? "", 
+                $permisos_originales["l_marca"] ?? ""
             ];
 
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista"],  $permisos);
+            $marcas = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos);
 
-            $moduloProveedores = '
-                <div class="col-12 col-md-6 mb-2">
-                    <p class="card-title">Módulo de Proveedores</p>
-
-                    <ul class="list-group list-group-flush list-unstyled"> '.$proveedores.' </ul>
-                </div>
+            $moduloProductosInicio .= '
+                <li class="fw-bold bg-light text-start">
+                    <i class="bi bi-tags-fill me-2 text-secondary"></i>
+                    Marcas:
+                </li>
+                <ul class="list-group list-group-flush">'.$marcas.' </ul>
             ';
         }
         
+        // modulo de productos
 
-        if ($permisos_originales["r_categoria"] || $permisos_originales["m_categoria"] || $permisos_originales["l_categoria"] || $permisos_originales["r_presentacion"] || $permisos_originales["m_presentacion"] || $permisos_originales["l_presentacion"] || $permisos_originales["r_marca"] || $permisos_originales["m_marca"] || $permisos_originales["l_marca"] || $permisos_originales["r_entrada"] || $permisos_originales["l_entrada"] || $permisos_originales["r_productos"] || $permisos_originales["l_productos"]) {
+        if ($permisos_originales["r_productos"] == 'Permitido' || $permisos_originales["l_productos"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_proveedores"], 
-                $permisos_originales["m_proveedores"], 
-                $permisos_originales["l_proveedores"]
+                $permisos_originales["r_productos"] ?? "", 
+                $permisos_originales["l_productos"] ?? "",
             ];
 
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista"],  $permisos);
+            $productos = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas","Consultar Lista"],  $permisos);
 
-            $moduloProveedores = '
-                <div class="col-12 col-md-6 mb-2">
-                    <p class="card-title">Módulo de Proveedores</p>
-
-                    <ul class="list-group list-group-flush list-unstyled"> '.$proveedores.' </ul>
-                </div>
+            $moduloProductosInicio .= '
+                <li class="fw-bold bg-light text-start">
+                    <i class="bi bi-bag-fill me-2 text-secondary"></i>
+                    Gestión de Productos:
+                </li>
+                <ul class="list-group list-group-flush"> '.$productos.' </ul>
             ';
         }
         
+        // modulo de entrada
 
-        if ($permisos_originales["r_categoria"] || $permisos_originales["m_categoria"] || $permisos_originales["l_categoria"] || $permisos_originales["r_presentacion"] || $permisos_originales["m_presentacion"] || $permisos_originales["l_presentacion"] || $permisos_originales["r_marca"] || $permisos_originales["m_marca"] || $permisos_originales["l_marca"] || $permisos_originales["r_entrada"] || $permisos_originales["l_entrada"] || $permisos_originales["r_productos"] || $permisos_originales["l_productos"]) {
+        if ($permisos_originales["r_entrada"] == 'Permitido' || $permisos_originales["l_entrada"] == 'Permitido') {
 
             $permisos = [
-                $permisos_originales["r_proveedores"], 
-                $permisos_originales["m_proveedores"], 
-                $permisos_originales["l_proveedores"]
+                $permisos_originales["r_entrada"] ?? "", 
+                $permisos_originales["l_entrada"] ?? ""
             ];
 
-            $proveedores = self::generar_mensaje_de_permisos_por_modulo( ["Registrar","Modificar Información","Consultar Lista"],  $permisos);
+            $entradas = self::generar_mensaje_de_permisos_por_modulo( ["Registrar Nuevas", "Consultar Lista"],  $permisos);
 
-            $moduloProveedores = '
-                <div class="col-12 col-md-6 mb-2">
-                    <p class="card-title">Módulo de Proveedores</p>
-
-                    <ul class="list-group list-group-flush list-unstyled"> '.$proveedores.' </ul>
-                </div>
+            $moduloProductosInicio .= '
+                <li class="fw-bold text-start bg-light">
+                    <i class="bi bi-box-arrow-in-right me-2 text-secondary"></i>
+                    Entrada de Productos:
+                </li>
+                <ul class="list-group list-group-flush">'.$entradas.' </ul>
             ';
         }
 
+        $texto_final = "";
 
-        $texto = '
-            <div class="col-12 text-center mb-3">
-                <h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-box-seam me-2"></i> Inventario </h4>
-                <div class="row m-0 justify-content-between">
-                    '.$moduloProveedores.'
-                    '.$moduloProductos.'
-
-                    <div class="col-12 col-md-6 mb-2">
-                        <p class="card-title">Módulo de Productos</p>
-                        <ul class="list-group list-group-flush list-unstyled">
-                            <li class="fw-bold bg-light text-start">
-                                <i class="bi bi-folder-fill me-2 text-secondary"></i>
-                                Categorías:
-                            </li>
-
-                            <ul class="list-group list-group-flush">
-                            
-
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Registrar Nuevas
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["r_categoria"]].'">'.$permisos_originales["r_categoria"].' </span>
-                                    </div>
-                                </li>
-
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Modificar Información
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["m_categoria"]].'">'.$permisos_originales["m_categoria"].' </span>
-                                    </div>
-                                </li>
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Consultar Lista
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["l_categoria"]].'">'.$permisos_originales["l_categoria"].' </span>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <li class="fw-bold bg-light text-start">
-                                <i class="bi bi-box-fill me-2 text-secondary"></i>
-                                Presentaciones:
-                            </li>
-                            <ul class="list-group list-group-flush">
-
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Registrar Nuevas
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["r_presentacion"]].'">'.$permisos_originales["r_presentacion"].' </span>
-                                    </div>
-                                </li>
-
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Modificar Información
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["m_presentacion"]].'">'.$permisos_originales["m_presentacion"].' </span>
-                                    </div>
-                                </li>
-
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Consultar Lista
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["l_presentacion"]].'">'.$permisos_originales["l_presentacion"].' </span>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            
-                            <li class="fw-bold bg-light text-start">
-                                <i class="bi bi-tags-fill me-2 text-secondary"></i>
-                                Marcas:
-                            </li>
-                            <ul class="list-group list-group-flush">
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Registrar
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["r_marca"]].'">'.$permisos_originales["r_marca"].' </span>
-                                    </div>
-                                </li>
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Modificar Información
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["m_marca"]].'">'.$permisos_originales["m_marca"].' </span>
-                                    </div>
-                                </li>
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Consultar Lista
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["l_marca"]].'">'.$permisos_originales["l_marca"].' </span>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                            <li class="fw-bold bg-light text-start">
-                                <i class="bi bi-bag-fill me-2 text-secondary"></i>
-                                Gestión de Productos:
-                            </li>
-                            <ul class="list-group list-group-flush">
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Registrar
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["r_producto"]].'">'.$permisos_originales["r_producto"].' </span>
-                                    </div>
-                                </li>
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Consultar Lista
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["l_producto"]].'">'.$permisos_originales["l_producto"].' </span>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                            <li class="fw-bold text-start bg-light">
-                                <i class="bi bi-box-arrow-in-right me-2 text-secondary"></i>
-                                Entrada de Productos:
-                            </li>
-                            <ul class="list-group list-group-flush">
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Registrar
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["r_entrada"]].'">'.$permisos_originales["r_entrada"].' </span>
-                                    </div>
-                                </li>
-                                
-                                <li class="border-bottom d-flex justify-content-between align-items-center">
-                                    <div class="col-6 text-start">
-                                        Consultar Lista
-                                    </div>
-
-                                    <div class="col-6 text-end text-wrap-balance">
-                                        <span class="text-'.$colores[$permisos_originales["l_entrada"]].'">'.$permisos_originales["l_entrada"].' </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </ul>
+        if ($moduloProveedores != "" || $moduloProductosInicio != '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Productos</p><ul class="list-group list-group-flush list-unstyled">') {
+            
+            $texto_final .= '
+                <div class="col-12 text-center mb-3">
+                    <h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-box-seam me-2"></i> Inventario </h4>
+                    <div class="row m-0 justify-content-between">
+                        '.$moduloProveedores.'
+                        '.$moduloProductosInicio.'
+                        '.$moduloProductosFin.'
                     </div>
-                </div>
-            </div>
-            
-            <div class="col-12 col-md-6 text- mb-3">
-                <h4 class="mb-3 text-center text-primary"><i class="bi bi-currency-dollar me-2"></i> Ventas</h4>
-
-                <ul class="list-group list-group-flush list-unstyled">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Generar Ventas
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["g_venta"]].'">'.$permisos_originales["g_venta"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Consultar Lista de Ventas Realizadas
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["l_venta"]].'">'.$permisos_originales["l_venta"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Visualizar Detalles de Ventas
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["d_venta"]].'">'.$permisos_originales["d_venta"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Acceder a Facturas de Ventas
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["f_venta"]].'">'.$permisos_originales["f_venta"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Consultar Estadísticas/Reportes de Ventas
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["est_venta"]].'">'.$permisos_originales["est_venta"].' </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col-12 col-md-6 text-center mb-3">
-                <h4 class="mb-3 text-center text-primary"><i class="bi bi-fork-knife me-2"></i> Menú / Servicios </h4>
-                
-                <ul class="list-group list-group-flush">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Registrar
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["r_servicio"]].'">'.$permisos_originales["r_servicio"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Consultar Lista
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["l_servicio"]].'">'.$permisos_originales["l_servicio"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Modificar Información
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_servicio"]].'">'.$permisos_originales["m_servicio"].' </span>
-                        </div>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="col-12 col-md-6 mb-2 ">
-                <p class="card-title text-center">Módulo de Clientes</p>
-
-                <ul class="list-group list-group-flush">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Registrar
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["r_cliente"]].'">'.$permisos_originales["r_cliente"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Consultar Lista
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["l_cliente"]].'">'.$permisos_originales["l_cliente"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Modificar Información
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_cliente"]].'">'.$permisos_originales["m_cliente"].' </span>
-                        </div>
-
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">
-                            Visualizar Historial de Compras
-                        </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["h_cliente"]].'">'.$permisos_originales["h_cliente"].' </span>
-                        </div>
-
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Visualizar Facturas de Compras </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["f_cliente"]].'">'.$permisos_originales["f_cliente"].' </span>
-                        </div>
-
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col-12 col-md-6 mb-2 ">
-                <p class="card-title text-center">Módulo de Empleados</p>
-
-                <ul class="list-group list-group-flush list-unstyled">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Registrar </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["r_empleado"]].'">'.$permisos_originales["r_empleado"].' </span>
-                        </div>
-                    </li>
-
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Consultar Lista </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["l_empleado"]].'">'.$permisos_originales["l_empleado"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Modificar Información</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_empleado"]].'">'.$permisos_originales["m_empleado"].' </span>
-                        </div>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="col-12 col-md-12 mb-2">
-                <p class="card-title text-center">Módulo de Roles</p>
-
-                <ul class="list-group list-group-flush list-unstyled">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Registrar </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["r_rol"]].'">'.$permisos_originales["r_rol"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start"> Consultar Lista </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["l_rol"]].'">'.$permisos_originales["l_rol"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">  Modificar Información </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_rol"]].'">'.$permisos_originales["m_rol"].' </span>
-                        </div>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="col-12 mb-2">
-                <p class="card-title text-center">Módulo de Ajustes del Sistema</p>
-                
-                <ul class="list-group list-group-flush list-unstyled">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar cantidad de preguntas de seguridad </div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_cant_pregunta_seguridad"]].'">'.$permisos_originales["m_cant_pregunta_seguridad"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar tiempo de inactividad de sesión</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_tiempo_sesion"]].'">'.$permisos_originales["m_tiempo_sesion"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar cantidad de caracteres de contraseña</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_cant_caracteres"]].'">'.$permisos_originales["m_cant_caracteres"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar cantidad de símbolos de contraseña</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_cant_simbolos"]].'">'.$permisos_originales["m_cant_simbolos"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar cantidad de números de contraseña</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_cant_num"]].'">'.$permisos_originales["m_cant_num"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Modificar intentos de inicio de sesión</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["intentos_inicio_sesion"]].'">'.$permisos_originales["intentos_inicio_sesion"].' </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="col-12 mb-2 ">
-                <p class="card-title text-center">Módulo de Bitácora</p>
-                
-                <ul class="list-group list-group-flush list-unstyled">
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Consultar Registros de la Bitácora</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["v_bitacora"]].'">'.$permisos_originales["v_bitacora"].' </span>
-                        </div>
-                    </li>
-                    
-                    <li class="border-bottom mb-1 row justify-content-center">
-                        <div class="col-6 text-start">Consultar Movimientos de un Usuario</div>
-
-                        <div class="col-6 text-end text-wrap-balance">
-                            <span class="text-'.$colores[$permisos_originales["m_bitacora"]].'">'.$permisos_originales["m_bitacora"].' </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>   
-        ';
-
-        return $texto;
-    }
-
-
-
-
-    public static function option() {
-        
-        $permisos = modeloPrincipal::consultar("SELECT id_rol, nombre FROM rol WHERE estado = 1 AND id_rol != 1");
-        // $permisos = rol_model::texto_permisos_vista($permisos);
-
-        foreach ($permisos as $key ) {
-            echo '<option value="'.modeloPrincipal::encryptionId($key['id_rol']).'">'.$key['nombre'].'</option>';
+                </div>';
         }
+        
+        // Módulo Ventas
+        $moduloVentas = "";
+        if ($permisos_originales["g_venta"] == 'Permitido' || $permisos_originales["d_venta"] == 'Permitido' || $permisos_originales["l_venta"] == 'Permitido' || $permisos_originales["f_venta"] == 'Permitido' || $permisos_originales["est_venta"] == 'Permitido') {
+            $permisos = [$permisos_originales["g_venta"], $permisos_originales["l_venta"], $permisos_originales["d_venta"], $permisos_originales["f_venta"], $permisos_originales["est_venta"]];
+            $ventas = self::generar_mensaje_de_permisos_por_modulo(["Generar Ventas", "Consultar Lista", "Ver Detalles", "Ver Facturas", "Ver Estadísticas"], $permisos);
+            $moduloVentas = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Ventas</p><ul class="list-group list-group-flush list-unstyled">'.$ventas.'</ul></div>';
+        }
+
+        // Módulo Servicios
+        $moduloServicios = "";
+        if ($permisos_originales["r_servicio"] == 'Permitido' || $permisos_originales["m_servicio"] == 'Permitido' || $permisos_originales["l_servicio"] == 'Permitido') {
+            $permisos = [$permisos_originales["r_servicio"], $permisos_originales["m_servicio"], $permisos_originales["l_servicio"]];
+            $servicios = self::generar_mensaje_de_permisos_por_modulo(["Registrar", "Modificar", "Consultar Lista"], $permisos);
+            $moduloServicios = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Servicios</p><ul class="list-group list-group-flush list-unstyled">'.$servicios.'</ul></div>';
+        }
+
+        if ($moduloVentas != "" || $moduloServicios != "") {
+            $texto_final .= '<div class="col-12 text-center mb-3"><h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-currency-dollar"></i> Ventas | <i class="bi bi-fork-knife"></i> Menú / Servicios</h4><div class="row m-0 justify-content-between">'.$moduloVentas.$moduloServicios.'</div></div>';
+        }
+
+        // Módulo Clientes
+        $moduloClientes = "";
+        if ($permisos_originales["r_cliente"] == 'Permitido' || $permisos_originales["m_cliente"] == 'Permitido' || $permisos_originales["l_cliente"] == 'Permitido' || $permisos_originales["h_cliente"] == 'Permitido' || $permisos_originales["f_cliente"] == 'Permitido') {
+            $permisos = [$permisos_originales["r_cliente"], $permisos_originales["m_cliente"], $permisos_originales["l_cliente"], $permisos_originales["h_cliente"], $permisos_originales["f_cliente"]];
+            $clientes = self::generar_mensaje_de_permisos_por_modulo(["Registrar", "Modificar", "Consultar Lista", "Ver Historial", "Ver Facturas"], $permisos);
+            $moduloClientes = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Clientes</p><ul class="list-group list-group-flush list-unstyled">'.$clientes.'</ul></div>';
+        }
+
+        // Módulo Empleados
+        $moduloEmpleados = "";
+        if ($permisos_originales["r_empleado"] == 'Permitido' || $permisos_originales["m_empleado"] == 'Permitido' || $permisos_originales["l_empleado"] == 'Permitido') {
+            $permisos = [$permisos_originales["r_empleado"], $permisos_originales["m_empleado"], $permisos_originales["l_empleado"]];
+            $empleados = self::generar_mensaje_de_permisos_por_modulo(["Registrar", "Modificar", "Consultar Lista"], $permisos);
+            $moduloEmpleados = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Empleados</p><ul class="list-group list-group-flush list-unstyled">'.$empleados.'</ul></div>';
+        }
+
+        // Módulo Roles
+        $moduloRoles = "";
+        if ($permisos_originales["r_rol"] == 'Permitido' || $permisos_originales["m_rol"] == 'Permitido' || $permisos_originales["l_rol"] == 'Permitido') {
+            $permisos = [$permisos_originales["r_rol"], $permisos_originales["m_rol"], $permisos_originales["l_rol"]];
+            $roles = self::generar_mensaje_de_permisos_por_modulo(["Registrar", "Modificar", "Consultar Lista"], $permisos);
+            $moduloRoles = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Módulo de Roles</p><ul class="list-group list-group-flush list-unstyled">'.$roles.'</ul></div>';
+        }
+
+        if ($moduloClientes != "" || $moduloEmpleados != "" || $moduloRoles != "") {
+            $texto_final .= '<div class="col-12 text-center mb-3"><h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-people-fill"></i> Usuarios</h4><div class="row m-0 justify-content-between">'.$moduloClientes.$moduloEmpleados.$moduloRoles.'</div></div>';
+        }
+
+        // Módulo Ajustes
+        $moduloAjustes = "";
+        if ($permisos_originales["m_cant_pregunta_seguridad"] == 'Permitido' || $permisos_originales["m_tiempo_sesion"] == 'Permitido' || $permisos_originales["m_cant_caracteres"] == 'Permitido' || $permisos_originales["m_cant_simbolos"] == 'Permitido' || $permisos_originales["m_cant_num"] == 'Permitido' || $permisos_originales["intentos_inicio_sesion"] == 'Permitido') {
+            $permisos = [$permisos_originales["m_cant_pregunta_seguridad"], $permisos_originales["m_tiempo_sesion"], $permisos_originales["m_cant_caracteres"], $permisos_originales["m_cant_simbolos"], $permisos_originales["m_cant_num"], $permisos_originales["intentos_inicio_sesion"]];
+            $ajustes = self::generar_mensaje_de_permisos_por_modulo(["Cant. Preguntas", "Tiempo Sesión", "Cant. Caracteres", "Cant. Símbolos", "Cant. Números", "Intentos Sesión"], $permisos);
+            $moduloAjustes = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Ajustes del Sistema</p><ul class="list-group list-group-flush list-unstyled">'.$ajustes.'</ul></div>';
+        }
+
+        // Módulo Bitácora
+        $moduloBitacora = "";
+        if ($permisos_originales["v_bitacora"] == 'Permitido' || $permisos_originales["m_bitacora"] == 'Permitido') {
+            $permisos = [$permisos_originales["v_bitacora"], $permisos_originales["m_bitacora"]];
+            $bitacora = self::generar_mensaje_de_permisos_por_modulo(["Ver Bitácora", "Modificar Bitácora"], $permisos);
+            $moduloBitacora = '<div class="col-12 col-md-6 mb-2"><p class="card-title">Bitácora</p><ul class="list-group list-group-flush list-unstyled">'.$bitacora.'</ul></div>';
+        }
+
+        if ($moduloAjustes != "" || $moduloBitacora != "") {
+            $texto_final .= '<div class="col-12 text-center mb-3"><h4 class="d-block mb-3 text-center text-primary"><i class="bi bi-gear-fill"></i> Configuración General</h4><div class="row m-0 justify-content-between">'.$moduloAjustes.$moduloBitacora.'</div></div>';
+        }
+
+        return $texto_final;
     }
+
+
+
 
     Public static function registrar_permisos_rol ($id_rol, $id_funcion, $fecha_asignacion) {
 
@@ -940,19 +583,6 @@ class rol_model extends model_user {
 
     }
     
-    Public static function modificar_permisos_rol ($id, $id_rol, $id_funcion, $fecha_asignacion) {
-
-        $actualizar = modeloPrincipal::UpdateSQL("funciones_rol", "id_rol = $id_rol, id_funcion = $id_funcion, fecha_asignacion = '$fecha_asignacion'", "id = '$id'");
-
-        if (!$actualizar) {
-            alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo registrar el rol debido a un error interno o alteracion de la información a registrar, por favor verifique e intente nuevamente","error");
-        }
-        return $actualizar;
-
-    }
-
-
-
 
     
     public static function generar_bitacorsa ($color_text_original, $permisos_originales, $color_text_actual, $permisos_actuales) {
@@ -964,16 +594,6 @@ class rol_model extends model_user {
                 <div class="row m-0 justify-content-between">
 
                     <div class="col-12 col-md-6 mb-2">
-                        <p class="card-title">Módulo de Proveedores</p>
-
-                        <ul class="list-group list-group-flush list-unstyled">
-                            <li class="border-bottom mb-1 row justify-content-center">
-                                <div class="col-6 text-start">
-                                    <label>Registrar</label>
-                                </div>
-                                <div class="col-6 text-end text-wrap-balance">
-                                    <b>De:</b><span class="text-success"> Permitido</span>
-                                    a <span class="text-danger"> Denegado </span>
                                 </div>
                             </li>
                             <li class="border-bottom mb-1 row justify-content-center">
@@ -1547,5 +1167,69 @@ class rol_model extends model_user {
         return "";
     }
 
+    public static function generar_bitacora_modificacion($permisos_originales, $permisos_actuales) {
+        $html_final = "";
+        $cambios = [];
+
+        // 1. Identificar todos los permisos que cambiaron
+        foreach ($permisos_originales as $key => $valor_original) {
+            if (isset($permisos_actuales[$key]) && $permisos_actuales[$key] !== $valor_original) {
+                $cambios[$key] = [
+                    'de' => $valor_original,
+                    'a' => $permisos_actuales[$key]
+                ];
+            }
+        }
+
+        // Si no hay cambios, no se genera nada
+        if (empty($cambios)) {
+            return '<p class="text-center text-muted">No se realizaron cambios en los permisos.</p>';
+        }
+
+        // 2. Agrupar los cambios por módulo (usando el prefijo de la clave)
+        $cambios_por_modulo = [];
+        $nombres_modulos = [
+            'proveedores' => 'Proveedores', 'categoria' => 'Categorías', 'presentacion' => 'Presentaciones',
+            'marca' => 'Marcas', 'productos' => 'Productos', 'entrada' => 'Entradas', 'venta' => 'Ventas',
+            'servicio' => 'Servicios', 'cliente' => 'Clientes', 'empleado' => 'Empleados', 'rol' => 'Roles',
+            'cant' => 'Ajustes', 'tiempo' => 'Ajustes', 'intentos' => 'Ajustes', 'bitacora' => 'Bitácora'
+        ];
+
+        foreach ($cambios as $key => $valores) {
+            $prefijo = explode('_', $key)[0]; // ej: 'r' de 'r_proveedores' no sirve. Necesito el módulo.
+            $nombre_permiso_legible = ucwords(str_replace('_', ' ', $key)); // "R Proveedores"
+
+            // Esto es un poco manual, pero necesario por la estructura de nombres
+            $modulo_actual = "Otros";
+            if (strpos($key, 'proveedor') !== false) $modulo_actual = 'Proveedores';
+            elseif (in_array($prefijo, ['r', 'm', 'l']) && strpos($key, 'categoria') !== false) $modulo_actual = 'Productos (Categorías)';
+            elseif (in_array($prefijo, ['r', 'm', 'l']) && strpos($key, 'presentacion') !== false) $modulo_actual = 'Productos (Presentaciones)';
+            elseif (in_array($prefijo, ['r', 'm', 'l']) && strpos($key, 'marca') !== false) $modulo_actual = 'Productos (Marcas)';
+            elseif (in_array($prefijo, ['r', 'l']) && strpos($key, 'productos') !== false) $modulo_actual = 'Productos (Gestión)';
+            elseif (in_array($prefijo, ['r', 'l']) && strpos($key, 'entrada') !== false) $modulo_actual = 'Productos (Entradas)';
+            elseif (strpos($key, 'venta') !== false) $modulo_actual = 'Ventas';
+            elseif (strpos($key, 'servicio') !== false) $modulo_actual = 'Servicios';
+            elseif (strpos($key, 'cliente') !== false) $modulo_actual = 'Clientes';
+            elseif (strpos($key, 'empleado') !== false) $modulo_actual = 'Empleados';
+            elseif (strpos($key, 'rol') !== false) $modulo_actual = 'Roles';
+            elseif (strpos($key, 'seguridad') !== false || strpos($key, 'sesion') !== false || strpos($key, 'caracteres') !== false || strpos($key, 'simbolos') !== false || strpos($key, 'num') !== false) $modulo_actual = 'Ajustes del Sistema';
+            elseif (strpos($key, 'bitacora') !== false) $modulo_actual = 'Bitácora';
+
+            $cambios_por_modulo[$modulo_actual][$nombre_permiso_legible] = $valores;
+        }
+
+        // 3. Generar el HTML
+        foreach ($cambios_por_modulo as $nombre_modulo => $permisos) {
+            $html_final .= '<div class="col-12 col-md-6 mb-3"><p class="card-title">'.$nombre_modulo.'</p><ul class="list-group list-group-flush list-unstyled">';
+            foreach ($permisos as $nombre_permiso => $cambio) {
+                $color_de = $cambio['de'] == 'Permitido' ? 'success' : 'danger';
+                $color_a = $cambio['a'] == 'Permitido' ? 'success' : 'danger';
+                $html_final .= '<li class="border-bottom mb-1 row justify-content-center mx-0"><div class="col-6 text-start"><label>'.$nombre_permiso.'</label></div><div class="col-6 text-end text-wrap-balance"><b>De:</b><span class="text-'.$color_de.'"> '.$cambio['de'].'</span> a <span class="text-'.$color_a.'"> '.$cambio['a'].' </span></div></li>';
+            }
+            $html_final .= '</ul></div>';
+        }
+
+        return $html_final;
+    }
 
 }
