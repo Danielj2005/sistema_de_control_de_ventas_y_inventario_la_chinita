@@ -5,13 +5,42 @@ include_once "../include/modelos_include.php"; // se incluyen los modelos necesa
 
 
 $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
-echo "id usuario: $id_usuario \n";
+echo "id usuario: $id_usuario <br>";
 
-$PERMISOS_PRODUCTOS2 = rol_model::obtenerSumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos']);
-$PERMISOS_PRODUCTOS = rol_model::obtenerPermisosRol();
+$permisos = ["Permitido", "Denegado", "Permitido"];
+?>
 
-$categoria = array_key_exists("l_categoia", $PERMISOS_PRODUCTOS);
 
-if ($categoria) {
-    echo "categoria list: ".$categoria;
-}
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/bootstrap-icons.css" rel="stylesheet">
+<link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+
+<?php 
+
+$proveedores = rol_model::generar_mensaje_de_permisos_por_modulo ( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos); 
+
+$moduloProductosInicio = '
+    <div class="col-12 col-md-6 mb-2">
+        <p class="card-title">Módulo de Productos</p>
+        <ul class="list-group list-group-flush list-unstyled">
+        ';
+
+
+$moduloProductosInicio .= '
+    <li class="fw-bold bg-light text-start">
+        <i class="bi bi-folder-fill me-2 text-secondary"></i>
+        Categorías:
+    </li>
+
+    <ul class="list-group list-group-flush">';
+
+
+$moduloProductosFin = ' 
+        </ul>
+    </ul>
+</div>';
+
+echo $moduloProductosInicio ;
+echo $proveedores ;
+echo $moduloProductosFin ;

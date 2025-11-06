@@ -1,113 +1,113 @@
 <?php
-
+session_start();
 include_once "../../../modelo/modeloPrincipal.php"; 
 include_once "../../../modelo/rol_model.php"; 
 include_once "../../../include/obtener_icono_permisos_include.php"; 
 
 $id_rol = modeloPrincipal::decryptionId($_POST['id']);
 
-$estadoRol = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT nombre, estado FROM rol WHERE id_rol = $id_rol"));
+$rol = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT nombre, estado FROM rol WHERE id_rol = $id_rol"));
 
-$nombre = $estadoRol['nombre'];
-$estadoRol = $estadoRol['estado'];
+$nombre = $rol['nombre'];
+$estadoRol = $rol['estado'];
 
 // cantidad de vistas de inventario 
-$proveedor = [
-    "r_proveedores" => rol_model::obtenerPermisoRol("r_proveedores"),
-    "m_proveedores" => rol_model::obtenerPermisoRol("m_proveedores"),
-    "l_proveedores" => rol_model::obtenerPermisoRol("l_proveedores"),
-    "h_proveedores" => rol_model::obtenerPermisoRol("h_proveedores"),
-    'total' => rol_model::obtenerSumaPermisoRol(['r_proveedores', 'm_proveedores','l_proveedores','h_proveedores'])
-];
+$permisos_rol = rol_model::obtenerPermisosRolById($id_rol);
+
+$proveedor = rol_model::sumaPermisoRol(['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'], $permisos_rol);
+
 
 $producto = [
     "categoria" => [
-        "l_categoria" => rol_model::obtenerPermisoRol("l_categoria"),
-        'total' => rol_model::obtenerSumaPermisoRol(["m_categoria","l_categoria"])
+        "r_categoria" => rol_model::sumaPermisoRol(['r_categoria'], $permisos_rol),
+        "m_categoria" => rol_model::sumaPermisoRol(['m_categoria'], $permisos_rol),
+        "l_categoria" => rol_model::sumaPermisoRol(['l_categoria'], $permisos_rol),
+        'total' => rol_model::sumaPermisoRol(['r_categoria','m_categoria','l_categoria'], $permisos_rol)
     ],
     "presentacion" => [
-        "r_presentacion" => rol_model::obtenerPermisoRol("r_presentacion"),
-        "m_presentacion" => rol_model::obtenerPermisoRol("m_presentacion"),
-        "l_presentacion" => rol_model::obtenerPermisoRol("l_presentacion"),
-        'total' => rol_model::obtenerSumaPermisoRol(["r_presentacion", "m_presentacion", "l_presentacion"])
+        "r_presentacion" => rol_model::sumaPermisoRol(['r_presentacion'], $permisos_rol),
+        "m_presentacion" => rol_model::sumaPermisoRol(['m_presentacion'], $permisos_rol),
+        "l_presentacion" => rol_model::sumaPermisoRol(['l_presentacion'], $permisos_rol),
+        'total' => rol_model::sumaPermisoRol(['r_presentacion', 'm_presentacion', 'l_presentacion'], $permisos_rol)
     ],
     "marca" => [
-        "r_marca" => rol_model::obtenerPermisoRol("r_marca"),
-        "m_marca" => rol_model::obtenerPermisoRol("m_marca"),
-        "l_marca" => rol_model::obtenerPermisoRol("l_marca"),
-        'total' => rol_model::obtenerSumaPermisoRol(["r_marca", "m_marca", "l_marca"])
+        "r_marca" => rol_model::sumaPermisoRol(['r_marca'], $permisos_rol),
+        "m_marca" => rol_model::sumaPermisoRol(['m_marca'], $permisos_rol),
+        "l_marca" => rol_model::sumaPermisoRol(['l_marca'], $permisos_rol),
+        'total' => rol_model::sumaPermisoRol(['r_marca', 'm_marca', 'l_marca'], $permisos_rol)
     ],
     "entrada" => [
-        "r_entrada" => rol_model::obtenerPermisoRol("r_entrada"),
-        "l_entrada" => rol_model::obtenerPermisoRol("l_entrada"),
-        'total' => rol_model::obtenerSumaPermisoRol(["r_entrada", "l_entrada"])
+        "r_entrada" => rol_model::sumaPermisoRol(['r_entrada'], $permisos_rol),
+        "l_entrada" => rol_model::sumaPermisoRol(['l_entrada'], $permisos_rol),
+        'total' => rol_model::sumaPermisoRol(['r_entrada', 'l_entrada'], $permisos_rol)
     ],
     "productos" => [
-        "r_productos" => rol_model::obtenerPermisoRol("r_productos"),
-        "l_productos" => rol_model::obtenerPermisoRol("l_productos"),
-        'total' => rol_model::obtenerSumaPermisoRol(["r_productos", "l_productos"])
+        "r_productos" => rol_model::sumaPermisoRol(['r_productos'], $permisos_rol),
+        "l_productos" => rol_model::sumaPermisoRol(['l_productos'], $permisos_rol),
+        'total' => rol_model::sumaPermisoRol(['r_productos', 'l_productos'], $permisos_rol)
     ],
-    "total" => rol_model::obtenerSumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada']),
+    "total" => rol_model::sumaPermisoRol(['r_categoria','m_categoria','l_categoria','r_presentacion','m_presentacion','l_presentacion','r_marca','m_marca','l_marca','r_productos','l_productos','r_entrada','l_entrada'], $permisos_rol),
 ];
+
 
 // cantidad de vistas de venta
 $venta = [
-    "g_venta" => rol_model::obtenerPermisoRol("g_venta"),
-    "d_venta" => rol_model::obtenerPermisoRol("d_venta"),
-    "f_venta" => rol_model::obtenerPermisoRol("f_venta"),
-    "l_venta" => rol_model::obtenerPermisoRol("l_venta"),
-    "est_venta" => rol_model::obtenerPermisoRol("est_venta"),
-    "total" => rol_model::obtenerSumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta']),
+    "g_venta" => rol_model::sumaPermisoRol(['g_venta'], $permisos_rol),
+    "d_venta" => rol_model::sumaPermisoRol(['d_venta'], $permisos_rol),
+    "f_venta" => rol_model::sumaPermisoRol(['f_venta'], $permisos_rol),
+    "l_venta" => rol_model::sumaPermisoRol(['l_venta'], $permisos_rol),
+    "est_venta" => rol_model::sumaPermisoRol(['est_venta'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta'], $permisos_rol)
 ];
 
 // cantidad de vistas de menu
 $menu = [
-    "r_servicio" => rol_model::obtenerPermisoRol("r_servicio"),
-    "m_servicio" => rol_model::obtenerPermisoRol("m_servicio"),
-    "l_servicio" => rol_model::obtenerPermisoRol("l_servicio"),
-    "total" => rol_model::obtenerSumaPermisoRol(['r_servicio','m_servicio','l_servicio']),
+    "r_servicio" => rol_model::sumaPermisoRol(['r_servicio'], $permisos_rol),
+    "m_servicio" => rol_model::sumaPermisoRol(['m_servicio'], $permisos_rol),
+    "l_servicio" => rol_model::sumaPermisoRol(['l_servicio'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['r_servicio','m_servicio','l_servicio'], $permisos_rol)
 ];
 
 // cantidad de vistas de usuario
 $cliente = [
-    "r_cliente" => rol_model::obtenerPermisoRol("r_cliente"),
-    "m_cliente" => rol_model::obtenerPermisoRol("m_cliente"),
-    "l_cliente" => rol_model::obtenerPermisoRol("l_cliente"),
-    "h_cliente" => rol_model::obtenerPermisoRol("h_cliente"),
-    "f_cliente" => rol_model::obtenerPermisoRol("f_cliente"),
-    "total" => rol_model::obtenerSumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente']),
+    "r_cliente" => rol_model::sumaPermisoRol(['r_cliente'], $permisos_rol),
+    "m_cliente" => rol_model::sumaPermisoRol(['m_cliente'], $permisos_rol),
+    "l_cliente" => rol_model::sumaPermisoRol(['l_cliente'], $permisos_rol),
+    "h_cliente" => rol_model::sumaPermisoRol(['h_cliente'], $permisos_rol),
+    "f_cliente" => rol_model::sumaPermisoRol(['f_cliente'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['r_cliente','m_cliente','l_cliente','h_cliente','f_cliente'], $permisos_rol)
 ];
 
 $empleado = [
-    "r_empleado" => rol_model::obtenerPermisoRol("r_empleado"),
-    "m_empleado" => rol_model::obtenerPermisoRol("m_empleado"),
-    "l_empleado" => rol_model::obtenerPermisoRol("l_empleado"),
-    "total" => rol_model::obtenerSumaPermisoRol(['r_empleado','m_empleado','l_empleado']),
+    "r_empleado" => rol_model::sumaPermisoRol(['r_empleado'], $permisos_rol),
+    "m_empleado" => rol_model::sumaPermisoRol(['m_empleado'], $permisos_rol),
+    "l_empleado" => rol_model::sumaPermisoRol(['l_empleado'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol( ['r_empleado','m_empleado','l_empleado'], $permisos_rol)
 ];
 
 
 $rol = [
-    "r_rol" => rol_model::obtenerPermisoRol("r_rol"),
-    "m_rol" => rol_model::obtenerPermisoRol("m_rol"),
-    "l_rol" => rol_model::obtenerPermisoRol("l_rol"),
-    "total" => rol_model::obtenerSumaPermisoRol(['r_rol','m_rol','l_rol']),
+    "r_rol" => rol_model::sumaPermisoRol(['r_rol'], $permisos_rol),
+    "m_rol" => rol_model::sumaPermisoRol(['m_rol'], $permisos_rol),
+    "l_rol" => rol_model::sumaPermisoRol(['l_rol'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['r_rol','m_rol','l_rol'], $permisos_rol)
 ];
 
 // cantidad de vistas de configuración
 $ajustes = [
-    "m_cant_pregunta_seguridad" => rol_model::obtenerPermisoRol("m_cant_pregunta_seguridad"),
-    "m_tiempo_sesion" => rol_model::obtenerPermisoRol("m_tiempo_sesion"),
-    "m_cant_caracteres" => rol_model::obtenerPermisoRol("m_cant_caracteres"),
-    "m_cant_simbolos" => rol_model::obtenerPermisoRol("m_cant_simbolos"),
-    "m_cant_num" => rol_model::obtenerPermisoRol("m_cant_num"),
-    "intentos_inicio_sesion" => rol_model::obtenerPermisoRol("intentos_inicio_sesion"),
-    "total" => rol_model::obtenerSumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion']),
+    "m_cant_pregunta_seguridad" => rol_model::sumaPermisoRol(['m_cant_pregunta_seguridad'], $permisos_rol),
+    "m_tiempo_sesion" => rol_model::sumaPermisoRol(['m_tiempo_sesion'], $permisos_rol),
+    "m_cant_caracteres" => rol_model::sumaPermisoRol(['m_cant_caracteres'], $permisos_rol),
+    "m_cant_simbolos" => rol_model::sumaPermisoRol(['m_cant_simbolos'], $permisos_rol),
+    "m_cant_num" => rol_model::sumaPermisoRol(['m_cant_num'], $permisos_rol),
+    "intentos_inicio_sesion" => rol_model::sumaPermisoRol(['intentos_inicio_sesion'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['m_cant_pregunta_seguridad','m_tiempo_sesion','m_cant_caracteres','m_cant_simbolos','m_cant_num','intentos_inicio_sesion'], $permisos_rol)
 ];
 
 $bitacora = [
-    "v_bitacora" => rol_model::obtenerPermisoRol("v_bitacora"),
-    "m_bitacora" => rol_model::obtenerPermisoRol("m_bitacora"),
-    "total" => rol_model::obtenerSumaPermisoRol(['v_bitacora','m_bitacora']),
+    "v_bitacora" => rol_model::sumaPermisoRol(['v_bitacora'], $permisos_rol),
+    "m_bitacora" => rol_model::sumaPermisoRol(['m_bitacora'], $permisos_rol),
+    "total" => rol_model::sumaPermisoRol(['v_bitacora','m_bitacora'], $permisos_rol)
 ];
 
 ?>
@@ -161,25 +161,20 @@ $bitacora = [
     <div class="row mt-3">
         <div class="col-12">
             <p class="text-muted small">Desglose de permisos por módulo:</p>
-            </div>
+        </div>
     </div>
 
     <div class="row g-3">
         
-        <?php if ($proveedor["total"] > 0 || $producto["total"] > 0 ) { ?>
+        <?php if ($proveedor > 0 || $producto["total"] > 0 ) { ?>
 
             <div class="col-12 col-md-6 mb-1 ">
     
-                <h4 class="mb-3 text-primary">
-                    <i class="bi bi-box-seam me-2"></i>
-                    Módulo de Inventario
-                </h4>
-    
+                <h4 class="mb-3 text-primary"> <i class="bi bi-box-seam me-2"></i> Inventario</h4>
                 <hr>
-    
                 <div class="row g-3 justify-content-center">
-                        
-                    <?php if ($proveedor["total"] <= 4 && $proveedor["total"] >= 1) { ?>
+                    
+                    <?php if ($proveedor) { ?>
     
                         <div class="col-12 mb-2">
                             <div class="accordion" id="acordeon_proveedores">
@@ -187,16 +182,14 @@ $bitacora = [
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#proveedoresCard" aria-expanded="false" aria-controls="proveedoresCard">
                                             Módulo Proveedores
-                                            <span class="ms-auto me-2">
-                                                <i class="bi <?= obtenerIconoPermisos($proveedor["total"], 4) ?>"></i>
-                                            </span>
+                                            <span class="ms-auto me-2"> <i class="bi <?= obtenerIconoPermisos($proveedor, 4) ?>"></i> </span>
                                         </button>
                                     </h2>
     
                                     <div id="proveedoresCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_proveedores">
                                         <div class="accordion-body p-0">
                                             <ul class="list-group list-group-flush">
-                                                <?php if ($proveedor["total"] == 4 ) { ?>
+                                                <?php if ($proveedor == 4 ) { ?>
                                                     <li class="list-group-item bg-light border-0">
                                                         <strong class="text-success">Acceso Total al Módulo de Proveedores</strong>
                                                     </li>
@@ -204,24 +197,24 @@ $bitacora = [
                                                 
                                                 <ul class="list-group list-group-flush">
 
-                                                    <?php if ($proveedor['r_proveedores'] == 1) { ?>
+                                                    <?php if (rol_model::sumaPermisoRol(['r_proveedores'], $permisos_rol) == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Registrar Nuevos Proveedores
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
                                                     <?php }
-                                                    if ($proveedor['l_proveedores'] == 1) { ?>
+                                                    if (rol_model::sumaPermisoRol(['l_proveedores'], $permisos_rol) == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Consultar Lista de Proveedores Registrados
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
                                                     <?php }
-                                                    if ($proveedor['m_proveedores'] == 1) { ?>
+                                                    if (rol_model::sumaPermisoRol(['m_proveedores'], $permisos_rol) == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Modificar Información de Proveedores
                                                             <i class="bi bi-check-circle-fill text-success"></i>
                                                         </li>
-                                                    <?php } if ($proveedor['h_proveedores'] == 1) { ?>
+                                                    <?php } if (rol_model::sumaPermisoRol(['h_proveedores'], $permisos_rol) == 1) { ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             Visualizar Historial de Compras
                                                             <i class="bi bi-check-circle-fill text-success"></i>
@@ -258,17 +251,33 @@ $bitacora = [
                                                     </li>
                                                 <?php } ?>
                                                 
-                                                <?php if ($producto['categoria']['r_categoria'] == 1 || $producto['categoria']['m_categoria'] == 1 || $producto['categoria']['l_categoria'] == 1) { ?>
+                                                <?php if ($producto['categoria']['l_categoria'] == 1) { ?>
                                                     <li class="fw-bold ps-2  bg-light ">
                                                         <i class="bi bi-folder-fill me-2 text-secondary"></i>
                                                         Categorías:
                                                     </li>
 
                                                     <ul class="list-group list-group-flush ms-3">
+                                                        <?php if ($producto['categoria']['r_categoria'] == 1) { ?>
+
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                Registrar Nuevas Categorías
+                                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                                            </li>
+
+                                                        <?php } ?>
+                                                        <?php if ($producto['categoria']['m_categoria'] == 1) { ?>
+
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                Modificar Información de Categorías
+                                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                                            </li>
+
+                                                        <?php } ?>
                                                         <?php if ($producto['categoria']['l_categoria'] == 1) { ?>
 
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                Consultar Lista de Categorías Registradas
+                                                                Consultar Lista de Categorías
                                                                 <i class="bi bi-check-circle-fill text-success"></i>
                                                             </li>
 

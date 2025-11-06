@@ -76,7 +76,8 @@ const dataModal = {
         modalUrl : "./modal/bitacora/detalles_bitacora.php",
         modalTitle : '<i class="bi bi-list-columns-reverse"></i>&nbsp;Detalle de la Bitácora',
         modalDataTable : true,
-        modalClassTable : "tableDetailsBitacora"
+        modalClassTable : "tableDetailsBitacora",
+        modalSize: "modal-lg"
     },
 
     // modales del módulo Servicio
