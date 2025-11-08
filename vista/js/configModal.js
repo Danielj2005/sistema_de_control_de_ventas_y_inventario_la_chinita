@@ -124,6 +124,28 @@ const dataModal = {
         modalSendForm : true,
         modalSize: "modal-lg"
     },
+
+    modificarInfoPersonalUsuario : {
+        modalUrl : "./modal/usuario/modificar_info_personal_usuario.php",
+        modalTitle : `${ICONS.modify} Configuración de la información personal del usuario`,
+        modalSendForm : true
+    },
+
+    passwordUser : {
+        modalUrl : "./modal/usuario/modificar_contraseña_usuario.php",
+        modalTitle : `${ICONS.modify} Configuración o Cambio de la Contraseña`,
+        modalSendForm : true
+    },
+
+    preguntasSeguridad : {
+        modalUrl : "./modal/usuario/modificar_preguntas_seguridad.php",
+        modalTitle : `${ICONS.modify} Configuración de las Preguntas y Respuestas de Seguridad`,
+        modalSendForm : true,
+        modalSize: "modal-lg"
+    },
+
+
+
     // modales del módulo roles
     rolDetalles : {
         modalUrl : "./modal/rol/permisos_rol.php",
@@ -134,7 +156,8 @@ const dataModal = {
         modalUrl : "./modal/rol/modificar_rol.php",
         modalTitle : `${ICONS.modify} Configurar Acceso del Rol`,
         modalSendForm : true,
-        modalSize: "modal-xl"
+        modalSize: "modal-xl",
+        modalModule: "modify-rol"
     },
 
 

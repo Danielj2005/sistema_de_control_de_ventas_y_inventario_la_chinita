@@ -14,11 +14,11 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
 
 ?>
 
-<form id="SendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
+<form id="modalSendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
     <input type="hidden" name="modulo" value="modificar_contraseña_usuario">
     
     <div class="row p-2 mb-3">
-        <div class="col-12 col-md-12 mb-2">
+        <div class="col-12 mb-2">
             <label>
                 Contraseña actual
                 <span style="color: red; font-size: 20px;"> * </span>
@@ -30,7 +30,7 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
             </div>
         </div>
     
-        <div class="col-12 col-md-6 mb-2">
+        <div class="col-12 mb-2">
             <label>
                 Contraseña Nueva
                 <span style="color: red; font-size: 20px;"> * </span>
@@ -42,7 +42,7 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
             </div>
         </div>
     
-        <div class="col-12 col-md-6 mb-2">
+        <div class="col-12 mb-2">
             <label>
                 Repetir Contraseña 
                 <span style="color: red; font-size: 20px;"> * </span>

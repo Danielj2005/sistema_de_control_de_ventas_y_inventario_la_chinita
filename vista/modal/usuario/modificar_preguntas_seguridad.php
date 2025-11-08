@@ -1,9 +1,9 @@
 <?php 
 session_start();
 
-include_once ("../../../modelo/modeloPrincipal.php"); // se incluye el modelo principal
-include_once ("../../../modelo/modelo_usuario.php");  // se incluye el modelo de usuario
-include_once ("../../../modelo/configuracion_model.php");  // se incluye el modelo de usuario
+include_once "../../../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+include_once "../../../modelo/modelo_usuario.php";  // se incluye el modelo de usuario
+include_once "../../../modelo/configuracion_model.php";  // se incluye el modelo de usuario
 
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -12,7 +12,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
 
 ?>
 
-<form id="SendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
+<form id="modalSendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
 
     <input type="hidden" name="modulo" value="modificar_preguntas_seguridad">
     <div class="row">
@@ -36,7 +36,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                 $preguntas = modeloPrincipal::consultar("SELECT * FROM seguridad"); 
             ?>
 
-                <div class="col-12 col-md-12 mb-3">
+                <div class="col-12  mb-3">
                     <label for="" class="control-label h6" style="font-size: 1em;">
                         Pregunta Nº <?= $i + 1 ?>
                         <span style="color:#f00;">*</span>
@@ -53,19 +53,31 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                     </select>
                 </div>
                 
-                <div class="col-12 col-md-12 mb-3">
-                    <div class="text-start col-12 col-sm-12 col-md-12 mb-3">
+                <div class="col-12 mb-3">
+                    <div class="text-start col-12 mb-3">
                         <label>
                             Respuesta Nº <?= $i + 1 ?>
                             <span style="color: red;">*</span>
                         </label>
 
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control ver respuesta input__field" name="respuesta[]" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$" value="<?= $respuesta ?>">
+                            <input 
+                                type="password"
+                                class="form-control ver respuesta input__field"
+                                name="respuesta[]" 
+                                id="respuesta<?= $i + 1 ?>"
+                                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$"
+                                >
                                 
-                            <span class="input-group-text btn btn-secondary">
-                                <i class="bi bi-eye input__icon" id="eyeIcon"></i>
-                            </span>
+                            <button 
+                                id="btnEyeIcon" 
+                                type="button" 
+                                class="input-group-text btn btn-secondary" 
+                                title="Mostrar contraseña"
+                                onclick="show_password('eyeIcon', 'respuesta<?= $i + 1 ?>')"
+                            >
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

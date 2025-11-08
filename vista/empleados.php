@@ -9,6 +9,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
 include_once "../include/verificacion_primer_inicio_usuario.php";
 
 $usuarios = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['usuario']);
+
 // se guardan los permisos del rol del usuario que inició sesión
 $r_empleado = modeloPrincipal::verificar_permisos_requeridos(['r_empleado']);
 $m_empleado = modeloPrincipal::verificar_permisos_requeridos(['m_empleado']);
@@ -150,7 +151,7 @@ if ($usuarios) {  ?>
 													<label class="control-label">Tipo de Usuario <span style="color:#f00;">*</span></label>
 													<select  class="form-select" name="id_tipo" id="id_tipo">
 														<option disabled="disabled" selected="true" class="form-control" >selecciona una opción</option>
-														<?php rol_model::option(); ?>  
+														<?php rol_model::select_options_nombres_roles(); ?>  
 													</select>
 												</div>
 											</div>
@@ -173,6 +174,7 @@ if ($usuarios) {  ?>
 			</main>
 			
 			<script>
+				
 				// funcion para mostrar y ocultar elementos en empleados
 				const titlex = ['Registrar un Empleado','Ver lista de empleados registrados'];
 				const btnToggle = document.getElementById('btn_register');

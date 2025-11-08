@@ -1,7 +1,7 @@
 <?php
-function modalCustom ($width="") { ?>
+function modalCustom () { ?>
     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div id="modal_tamano" class="modal-dialog modal-dialog-scrollable <?= $width ?>">
+        <div id="modal_tamano" class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>

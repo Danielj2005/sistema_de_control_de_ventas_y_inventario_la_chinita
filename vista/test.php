@@ -15,32 +15,26 @@ $permisos = ["Permitido", "Denegado", "Permitido"];
 <link href="./css/bootstrap-icons.css" rel="stylesheet">
 <link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-
+<style>
+    body{padding: 5rem;}
+</style>
 <?php 
 
-$proveedores = rol_model::generar_mensaje_de_permisos_por_modulo ( ["Registrar Nuevas","Modificar Información","Consultar Lista"],  $permisos); 
+$permisos = ["Permitido", "Denegado", "Permitido"];
 
-$moduloProductosInicio = '
-    <div class="col-12 col-md-6 mb-2">
-        <p class="card-title">Módulo de Productos</p>
-        <ul class="list-group list-group-flush list-unstyled">
-        ';
+$permisos_originales_bd = rol_model::obtenerPermisosRolById(24);
 
+$permisos_originales_bitacora = rol_model::texto_permisos_vista($permisos_originales_bd);
 
-$moduloProductosInicio .= '
-    <li class="fw-bold bg-light text-start">
-        <i class="bi bi-folder-fill me-2 text-secondary"></i>
-        Categorías:
-    </li>
+$permisos_actuales = rol_model::texto_permisos_vista($permisos_originales_bd);
 
-    <ul class="list-group list-group-flush">';
+$proveedores =  rol_model::generar_bitacora_modificar_rol($permisos_originales_bitacora, $permisos_actuales);
 
+$moduloProductosInicio = '<div class="row m-5 p-4">';
+$moduloProductosFin = '</div>';
 
-$moduloProductosFin = ' 
-        </ul>
-    </ul>
-</div>';
+echo $moduloProductosInicio. $proveedores. $moduloProductosFin ;
 
-echo $moduloProductosInicio ;
-echo $proveedores ;
-echo $moduloProductosFin ;
+echo '<pre>';
+print_r($permisos_originales_bd);
+echo '</pre>';

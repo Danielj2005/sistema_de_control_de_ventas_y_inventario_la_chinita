@@ -21,7 +21,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
       include_once "../include/css_include.php"; 
     ?>    
   </head>
-  <body>
+  <body class="<?= $_SESSION['dataUsuario']["primerInicio"] == '0' ? '' : 'toggle-sidebar' ?>">
 
     <?php
       include_once "../include/header.php"; 
@@ -43,80 +43,82 @@ model_user::verificar_intento_de_acceso_al_sistema();
                 <div class="card">
                   <div class="card-body pb-3">
                     <div class="mi_informacion_container col-12 col-lg-12 my-3">
+
                       <fieldset class="row mb-3">
                           <legend class="col-12 col-sm-12"><i class="bi bi-person"></i> &nbsp;Información personal</legend>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                                 <label class="control-label">Cédula</label>
-                                <input type="text" pattern="[0-9\-]{1,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('cedula',$id_usuario); ?>" id="cedula" name="cedula" readOnly="true" maxlength="9">
+                                <input type="text" pattern="[0-9\-]{1,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['dataUsuario']['dni']; ?>" id="cedula" name="cedula" readOnly="true" maxlength="9">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                               <label class="control-label">Nombres</label>
-                              <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('nombre',$id_usuario); ?>" id="nombres" name="nombres" readOnly="true" maxlength="30">
+                              <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['dataUsuario']['nombre']; ?>" id="nombres" name="nombres" readOnly="true" maxlength="30">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                               <label class="control-label text-black">Apellidos</label>
-                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('apellido',$id_usuario); ?>" id="apellido" name="apellido" readOnly="true" maxlength="30">
+                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ ]{3,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['dataUsuario']['apellido']; ?>" id="apellido" name="apellido" readOnly="true" maxlength="30">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                               <label class="control-label">Correo</label>
-                              <input type="email" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('correo',$id_usuario); ?>" id="email" name="email" readOnly="true" maxlength="30">
+                              <input type="email" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['dataUsuario']['correo']; ?>" id="email" name="email" readOnly="true" maxlength="30">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label text-black">Teléfono</label>
-                                  <input type="text" pattern="[0-9]{11}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('telefono', $id_usuario) ?>" id="telefono" name="telefono"  readOnly="true" maxlength="11">
+                                  <input type="text" pattern="[0-9]{11}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['dataUsuario']['telefono']; ?>" id="telefono" name="telefono"  readOnly="true" maxlength="11">
                               </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Dirección</label>
-                                  <input type="text" maxlength="250" required="" placeholder="Ingrese la Dirección" value="<?= model_user::obtener_info_personal_usuario('direccion', $id_usuario) ?>" class="bg-secondary-subtle form-control" readOnly="true" id="direccion" name="direccion">
+                                  <input type="text" maxlength="250" required="" placeholder="Ingrese la Dirección" value="<?= $_SESSION['dataUsuario']["direccion"]  ?>" class="bg-secondary-subtle form-control" readOnly="true" id="direccion" name="direccion">
                               </div>
                           </div>
                           
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="button" modal='modificar_info_personal_usuario' class="btn_modal btn btn-success text-white"  url="./modal/usuario/modificar_info_personal_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
+                              <button type="button" modal='modificarInfoPersonalUsuario' class="btn_modal btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
                                 <i class='zmdi zmdi-refresh'></i> Actualizar
                               </button>
                           </div>
                       </fieldset>
+
                       <hr>
                       <fieldset class="row mb-4">
                           <legend><i class="bi bi-person-circle"></i> &nbsp; Datos de la Cuenta</legend>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                             <div class="form-group">
                                 <label class="control-label">Nombre de Usuario</label>
-                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= modeloPrincipal::ocultar_info(model_user::obtener_info_personal_usuario('correo',$id_usuario)); ?>" id="nombre_usuario" name="nombre_usuario" readOnly="true" maxlength="30">
+                                <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= modeloPrincipal::ocultar_info($_SESSION['dataUsuario']['correo']); ?>" id="nombre_usuario" name="nombre_usuario" readOnly="true" maxlength="30">
                             </div>
                           </div>
                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Tipo de Usuario</label>
-                                  <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="bg-secondary-subtle form-control" value="<?= model_user::obtener_info_personal_usuario('id_rol',$id_usuario); ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">
+                                  <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['nombreRolUsuario'] ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">
                               </div>
                           </div>
                           <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="submit" modal='datos_usuario' class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_contraseña_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
+                              <button type="submit" modal='passwordUser' class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_contraseña_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
                                 <i class='zmdi zmdi-refresh'></i>
                                 Actualizar
                               </button>
                           </div>
                       </fieldset>
+
                       <hr>
                       <fieldset class="row">
-                        <legend><i class="bi bi-shield"></i> &nbsp; Actualizar Preguntas de Seguridad</legend>
+                        <legend><i class="bi bi-shield-fill"></i> &nbsp; Actualizar Preguntas de Seguridad</legend>
                         <div class="col-12 my-4 text-center d-flex justify-content-end">
-                            <button modal="preguntas_seguridad" type="submit" class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_preguntas_seguridad.php" data-bs-toggle="modal" data-bs-target="#modal">
-                              <i class='zmdi zmdi-refresh'></i> 
-                              Actualizar
+                            <button modal="preguntasSeguridad" class="btn_modal btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
+                              <i class='zmdi zmdi-refresh'></i> Actualizar
                             </button>
                         </div>
                       </fieldset>
@@ -130,14 +132,15 @@ model_user::verificar_intento_de_acceso_al_sistema();
       </section>
     </main>
 
-    <?php include_once "../include/footer.php"; ?>
     <?php 
       include_once "./modal/plantillaModalCustom.php"; 
       modalCustom ();
+      
+      include_once "../include/footer.php";
 
       include_once "../include/scripts_include.php";
     
-      if(model_user::obtener_info_personal_usuario('primer_inicio', $id_usuario) == '1'){
+      if($_SESSION['dataUsuario']["primerInicio"] == '1'){
         echo "<script type='text/javascript'>
                 setTimeout(() => {
                   Swal.fire({

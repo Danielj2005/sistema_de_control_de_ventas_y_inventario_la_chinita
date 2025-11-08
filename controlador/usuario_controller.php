@@ -167,24 +167,34 @@ if($modulo === "modificar_info_personal_usuario"){
         exit();
     }
 
-    $cedula_user = model_user::obtener_info_personal_usuario('cedula',$id_usuario);
-    $nombre_user = model_user::obtener_info_personal_usuario('nombre',$id_usuario);
-    $apellido_user = model_user::obtener_info_personal_usuario('apellido',$id_usuario);
-    $correo_user = model_user::obtener_info_personal_usuario('correo',$id_usuario);
-    $direccion_user = model_user::obtener_info_personal_usuario('direccion',$id_usuario);
-    $telefono_user = model_user::obtener_info_personal_usuario('telefono',$id_usuario);
+    $cedula_user = $_SESSION['dataUsuario']['dni'];
+    $nombre_user = $_SESSION['dataUsuario']['nombre'];
+    $apellido_user = $_SESSION['dataUsuario']['apellido'];
+    $correo_user = $_SESSION['dataUsuario']['correo'];
+    $telefono_user = $_SESSION['dataUsuario']['telefono'];
+    $direccion_user = $_SESSION['dataUsuario']['direccion'];
 
     // Se actualizara la información personal del usuario
     try {
         $actualizar = modeloPrincipal::UpdateSQL("usuario","cedula = '$cedula', nombre = '$nombre', apellido = '$apellido', correo = '$correo', telefono = '$telefono', direccion = '$direccion'", "id_usuario = $id_usuario");
         
-        
+                
+        $_SESSION['dataUsuario'] = [
+            "dni" => $cedula,
+            "nombre" => $nombre,
+            "apellido" => $apellido,
+            "correo" => $correo,
+            "telefono" => $telefono,
+            "direccion" => $direccion
+        ];
+
         if (!$actualizar) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar la información personal del usuario.", "error");
             exit();
         }
 
-        $bitacora_modificacion_info_usuario = bitacora::bitacora("Modificación exitosa del perfil de usuario","El usuario actualizó su información personal <br><br>
+        $bitacora_modificacion_info_usuario = bitacora::bitacora("Modificación exitosa del perfil de usuario",
+        "El usuario actualizó su información personal <br><br>
         <b>****** Información original del usuario:   ******</b><br><br>
         Cédula: <b>".$cedula_user."</b><br>
         Nombre: <b>".$nombre_user."</b><br>
@@ -281,8 +291,9 @@ if($modulo === "modificar_contraseña_usuario"){
     }
 
     try {
-        $contraseña_nueva = modeloPrincipal::encryption($contraseña_nueva);
-        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_nueva'","id_usuario = $id_usuario");
+
+        $contraseña_prueba = modeloPrincipal::hashear_contrasena($contraseña_nueva);
+        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_prueba'","id_usuario = $id_usuario");
 
         if (!$actualizar) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la nueva contraseña .", "error");
@@ -309,7 +320,7 @@ if($modulo === "modificar_contraseña_usuario"){
 
 if ($modulo === "modificar_preguntas_seguridad") {
 
-    $id_usuario = modeloPrincipal::decryptionId($_SESSION['id_usuario']); // ID del usuario actual
+    $id_usuario = $_SESSION['id_usuario']; // ID del usuario actual
     $id_usuario = modeloprincipal::limpiar_cadena($id_usuario); // Limpiar el ID del usuario
 
     // Obtener la cantidad de preguntas configuradas en el sistema
@@ -338,7 +349,11 @@ if ($modulo === "modificar_preguntas_seguridad") {
         modeloPrincipal::validar_campos_vacios([$preguntas, $respuestas]);
         
         if (count($preguntas) !== count(array_unique($preguntas))) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "Las preguntas de seguridad deben ser únicas.", "error");
+            alert_model::alerta_simple("Ha ocurrido un error!", "Las preguntas de seguridad no pueden estar repetidas.", "error");
+            exit();
+        }
+        if (count($preguntas) !== count(array_unique($respuestas))) {
+            alert_model::alerta_simple("Ha ocurrido un error!", "Las respuestas de seguridad no pueden estar repetidas.", "error");
             exit();
         }
     } catch (Exception $e) {
@@ -369,9 +384,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
                     exit();
                 }
                 
-                $id_seguridades = mysqli_fetch_array($id_seguridades);
-
-                $id_seguridades = $id_seguridades['id_seguridad'];
+                $id_seguridades = mysqli_fetch_array($id_seguridades)['id_seguridad'];
                 
                 $id_seguridad[$i] = $id_seguridades;
 
@@ -380,26 +393,9 @@ if ($modulo === "modificar_preguntas_seguridad") {
         alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la ID de las preguntas de seguridad.", "error");
         exit();
     }
-
-    // se obtiene las id de las preguntas secretas del usuario
-    try {
-        $id_pregunta = modeloPrincipal::consultar("SELECT id FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
-        
-
-        if (!$id_pregunta || mysqli_num_rows($id_pregunta) == 0) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al consultar la ID de las preguntas secretas.", "error");
-            exit();
-        }
-        $i=0;
-        while ($row = mysqli_fetch_array($id_pregunta)) {
-            $id_preguntas[$i] = $row['id'];
-            $i++;
-        }
-
-    } catch (Exception $e) {
-        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la ID de las preguntas secretas.", "error");
-        exit();
-    }
+    
+    // 2. Borrar todos las preguntas y respuestas del usuario
+    modeloPrincipal::DeleteSQL("preguntas_secretas", "id_usuario = $id_usuario");
     
     try {
 
@@ -409,12 +405,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
             // Encriptar la nueva respuesta
             $respuesta_encriptada = modeloPrincipal::limpiar_mayusculas_encriptar($respuestas[$i]);
             
-            $actualizar = modeloPrincipal::UpdateSQL("preguntas_secretas", "id_pregunta = ".$id_seguridad[$i].", respuesta = '$respuesta_encriptada', numero_pregunta = $numero_pregunta", "id_usuario = '$id_usuario' AND id = '".$id_preguntas[$i]."'");
-            
-            if($i >= ($cantidad_preguntas - 1)){
-
-                $actualizar = modeloPrincipal::InsertSQL("preguntas_secretas", "id_pregunta, respuesta, numero_pregunta, id_usuario", "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
-            }
+            $actualizar = modeloPrincipal::InsertSQL("preguntas_secretas", "id_pregunta, respuesta, numero_pregunta, id_usuario", "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
             
             $numero_pregunta++;
             
@@ -428,6 +419,7 @@ if ($modulo === "modificar_preguntas_seguridad") {
         
         if ($primer_inicio == true) {
             modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
+            $_SESSION['dataUsuario']["primerInicio"] = 0;
         }
         // Registrar la modificación en la bitácora
         bitacora::bitacora("Modificación exitosa del perfil de usuario","El usuario actualizó su(s) pregunta(s) de seguridad");
@@ -557,7 +549,8 @@ if ($modulo === 'resetear_contraseña'){
     $cedula_reseteo = str_ireplace("-", "", $cedula_reseteo);
     $cedula_reseteo = stripslashes($cedula_reseteo);
     $cedula_reseteo = trim($cedula_reseteo);
-    $cedula_reseteo = modeloPrincipal::encryption($cedula_reseteo);
+    $cedula_reseteo = modeloPrincipal::hashear_contrasena($cedula_reseteo);
+
 
     try {
         // caracteristicas originales del usuario

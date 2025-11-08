@@ -25,6 +25,7 @@ class bitacora extends model_user {
     // funcion para registrar inicio de sesion del sistema en la bitácora
     public static function login() {
         // Registra en la bitácora el inicio de sesión del usuario
+        
         return Self::bitacora("Inicio de sesión exitoso", "El usuario ha iniciado sesión correctamente en el sistema.");
     }
 

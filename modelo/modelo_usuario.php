@@ -283,7 +283,7 @@ class model_user extends modeloPrincipal {
     public static function verificar_primer_inicio(){
         $id_usuario = $_SESSION['id_usuario'];
 
-        $cedula = self::obtener_info_personal_usuario('cedula',$id_usuario);
+        $cedula = $_SESSION['dataUsuario']['dni'];
         $cedula = trim($cedula);
         $cedula = str_ireplace("V", "", $cedula);
         $cedula = str_ireplace("E", "", $cedula);
@@ -292,13 +292,10 @@ class model_user extends modeloPrincipal {
         $cedula = trim($cedula);
         $cedula = modeloPrincipal::encryption($cedula);
 
-        $contraseña = self::obtener_info_personal_usuario('contraseña',$id_usuario);
-
-        $respuestas = modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
-        $respuestas = mysqli_fetch_array($respuestas);
-
+        $respuestas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'"));
+        
         foreach ($respuestas as $key){
-            if ($key !== $cedula && $key !== $contraseña) {
+            if ($key !== $cedula) {
                 return true;
             }
         }

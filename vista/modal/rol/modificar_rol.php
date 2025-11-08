@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once "../../../modelo/modeloPrincipal.php"; 
 include_once "../../../modelo/rol_model.php"; 
@@ -63,19 +64,19 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
 ?>
 
 <form action="../controlador/rol.php" method="post" class="SendFormAjax" autocomplete="off" data-type-form="update" id="modalSendForm">
-
-    <input type="hidden" value="<?= $id_rol ?>" name="id_rol">
+    
+    <input type="hidden" value="<?= modeloPrincipal::encryptionId($id_rol) ?>" name="UIDR">
     <input type="hidden" value="<?= $permisos['estado'] ?>" name="estado_rol">
-    <input type="hidden" value="<?= $nombre ?>" name="nombre_rol">
     <input type="hidden" value="Modificar" name="modulo">
     
     <div class="row align-items-center mb-4 pb-2 border-bottom">
         
         <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
-            <h5 class="h5 text-capitalize mb-0">
+            <h5 class="h5 text-capitalize mb-2">
                 <i class="bi bi-person-badge me-2"></i>
-                Rol: <?= $nombre; ?>
+                Nombre del Rol
             </h5>
+            <input type="text" value="<?= $nombre ?>" name="nombre_rol" class="form-control form-control-sm">
         </div>
         
         <div class="col-12 col-md-6 text-center text-md-end">
@@ -156,19 +157,19 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                     
                                     <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="r_proveedores" class="form-check-input proveedores" <?= $proveedor['r_proveedores'] == 1 ? 'checked' : '' ?> value="1" type="checkbox" id="r_proveedores">
+                                            <input name="r_proveedores" class="form-check-input proveedores" <?= $proveedor['r_proveedores'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(1); ?>" type="checkbox" id="r_proveedores">
                                             <label class="form-check-label" for="r_proveedores">Registrar Nuevos Proveedores</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_proveedores" class="form-check-input proveedores" <?= $proveedor['m_proveedores'] == 1 ? 'checked' : '' ?> value="2" type="checkbox" id="m_proveedores">
+                                            <input name="m_proveedores" class="form-check-input proveedores" <?= $proveedor['m_proveedores'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(2); ?>" type="checkbox" id="m_proveedores">
                                             <label class="form-check-label" for="m_proveedores">Modificar Información de Proveedores</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_proveedores" class="form-check-input proveedores" <?= $proveedor['l_proveedores'] == 1 ? 'checked' : '' ?> value="3" type="checkbox" id="l_proveedores">
+                                            <input name="l_proveedores" class="form-check-input proveedores" <?= $proveedor['l_proveedores'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(3); ?>" type="checkbox" id="l_proveedores">
                                             <label class="form-check-label" for="l_proveedores">Consultar Lista de Proveedores</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="h_proveedores" class="form-check-input proveedores" <?= $proveedor['h_proveedores'] == 1 ? 'checked' : '' ?> value="4" type="checkbox" id="h_proveedores">
+                                            <input name="h_proveedores" class="form-check-input proveedores" <?= $proveedor['h_proveedores'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(4); ?>" type="checkbox" id="h_proveedores">
                                             <label class="form-check-label" for="h_proveedores">Visualizar Historial de Compras</label>
                                         </li>
                                     </ul>
@@ -204,15 +205,15 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                             <p class="fw-bold mb-1">Categorías</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['r_categoria'] == 1 ? 'checked' : '' ?> value="5" name="r_categoria" id="r_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['r_categoria'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(5); ?>" name="r_categoria" id="r_categoria">
                                             <label class="form-check-label" for="l_categoria">Registrar Nuevas Categorías</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['m_categoria'] == 1 ? 'checked' : '' ?> value="6" name="m_categoria" id="m_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['m_categoria'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(6); ?>" name="m_categoria" id="m_categoria">
                                             <label class="form-check-label" for="l_categoria">Modificar Categorías</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['l_categoria'] == 1 ? 'checked' : '' ?> value="7" name="l_categoria" id="l_categoria">
+                                            <input class="form-check-input productos" type="checkbox" <?= $categoria['l_categoria'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(7); ?>" name="l_categoria" id="l_categoria">
                                             <label class="form-check-label" for="l_categoria">Consultar Lista de Categorías</label>
                                         </li>
                                         
@@ -220,49 +221,49 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                             <p class="fw-bold mb-1">Presentaciones</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_presentacion" class="form-check-input productos" <?= $presentacion['r_presentacion'] == 1 ? 'checked' : '' ?> value="8" type="checkbox" id="r_presentacion">
+                                            <input name="r_presentacion" class="form-check-input productos" <?= $presentacion['r_presentacion'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(8); ?>" type="checkbox" id="r_presentacion">
                                             <label class="form-check-label" for="r_presentacion">Registrar Nuevas Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['m_presentacion'] == 1 ? 'checked' : '' ?> value="9" name="m_presentacion" id="m_presentacion">
+                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['m_presentacion'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(9); ?>" name="m_presentacion" id="m_presentacion">
                                             <label class="form-check-label" for="m_presentacion">Modificar Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['l_presentacion'] == 1 ? 'checked' : '' ?> value="10" name="l_presentacion" id="l_presentacion">
+                                            <input class="form-check-input productos" type="checkbox" <?= $presentacion['l_presentacion'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(10); ?>" name="l_presentacion" id="l_presentacion">
                                             <label class="form-check-label" for="l_presentacion">Consultar Lista de Presentaciones</label>
                                         </li>
                                         <li class="form-check mb-1 mt-3 border-bottom">
                                             <p class="fw-bold mb-1">Marcas</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_marca" class="form-check-input productos" <?= $marca['r_marca'] == 1 ? 'checked' : '' ?> value="11" type="checkbox" id="r_marca">
+                                            <input name="r_marca" class="form-check-input productos" <?= $marca['r_marca'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(11); ?>" type="checkbox" id="r_marca">
                                             <label class="form-check-label" for="r_marca">Registrar Nuevas Marcas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_marca" class="form-check-input productos" <?= $marca['m_marca'] == 1 ? 'checked' : '' ?> value="12" type="checkbox" id="m_marca">
+                                            <input name="m_marca" class="form-check-input productos" <?= $marca['m_marca'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(12); ?>" type="checkbox" id="m_marca">
                                             <label class="form-check-label" for="m_marca">Modificar Información de Marcas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_marca" class="form-check-input productos" <?= $marca['l_marca'] == 1 ? 'checked' : '' ?> value="13" type="checkbox" id="l_marca">
+                                            <input name="l_marca" class="form-check-input productos" <?= $marca['l_marca'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(13); ?>" type="checkbox" id="l_marca">
                                             <label class="form-check-label" for="l_marca">Consultar Lista de Marcas</label>
                                         </li>
                                         <li class="form-check mb-1 mt-3 border-bottom">
                                             <p class="fw-bold mb-1">Productos y Entradas</p>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_productos" class="form-check-input productos" <?= $productos['r_productos'] == 1 ? 'checked' : '' ?> value="14" type="checkbox" id="r_productos">
+                                            <input name="r_productos" class="form-check-input productos" <?= $productos['r_productos'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(14); ?>" type="checkbox" id="r_productos">
                                             <label class="form-check-label" for="r_productos">Registrar Nuevos Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_productos" class="form-check-input productos" <?= $productos['l_productos'] == 1 ? 'checked' : '' ?> value="15" type="checkbox" id="l_productos">
+                                            <input name="l_productos" class="form-check-input productos" <?= $productos['l_productos'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(15); ?>" type="checkbox" id="l_productos">
                                             <label class="form-check-label" for="l_productos">Consultar Lista de Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="r_entrada" class="form-check-input productos" <?= $entrada['r_entrada'] == 1 ? 'checked' : '' ?> value="16" type="checkbox" id="r_entrada">
+                                            <input name="r_entrada" class="form-check-input productos" <?= $entrada['r_entrada'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(16); ?>" type="checkbox" id="r_entrada">
                                             <label class="form-check-label" for="r_entrada">Registrar Entrada de Productos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_entrada" class="form-check-input productos" <?= $entrada['l_entrada'] == 1 ? 'checked' : '' ?> value="17" type="checkbox" id="l_entrada">
+                                            <input name="l_entrada" class="form-check-input productos" <?= $entrada['l_entrada'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(17); ?>" type="checkbox" id="l_entrada">
                                             <label class="form-check-label" for="l_entrada">Consultar Lista de Entradas</label>
                                         </li>
                                     </ul>
@@ -300,31 +301,31 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                             <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
                                 <div class="accordion-body p-0">
                                     <div class="form-check mb-2 ms-4 pt-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_productos" <?= $venta_total == 5 ? 'checked' : '' ?> value="productos">
-                                        <label class="form-check-label fw-bold" for="vista_productos">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_ventas" <?= $venta_total == 5 ? 'checked' : '' ?> value="ventas">
+                                        <label class="form-check-label fw-bold">
                                             Acceso a la Vista del Módulo de Ventas
                                         </label>
                                     </div>
 
                                     <ul class="list-unstyled ps-4 pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="g_venta" class="form-check-input ventas" <?= $venta['g_venta'] == 1 ? 'checked' : '' ?> value="18" type="checkbox" id="g_venta">
+                                            <input name="g_venta" class="form-check-input ventas" <?= $venta['g_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(18); ?>" type="checkbox" id="g_venta">
                                             <label class="form-check-label" for="g_venta">Generar Venta</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_venta" class="form-check-input ventas" <?= $venta['l_venta'] == 1 ? 'checked' : '' ?> value="19" type="checkbox" id="l_venta">
+                                            <input name="l_venta" class="form-check-input ventas" <?= $venta['l_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(19); ?>" type="checkbox" id="l_venta">
                                             <label class="form-check-label" for="l_venta">Lista de Ventas Realizadas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="d_venta" class="form-check-input ventas" <?= $venta['d_venta'] == 1 ? 'checked' : '' ?> value="20" type="checkbox" id="d_venta">
+                                            <input name="d_venta" class="form-check-input ventas" <?= $venta['d_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(20); ?>" type="checkbox" id="d_venta">
                                             <label class="form-check-label" for="d_venta">Detalles de Ventas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="f_venta" class="form-check-input ventas" <?= $venta['f_venta'] == 1 ? 'checked' : '' ?> value="21" type="checkbox" id="f_venta">
+                                            <input name="f_venta" class="form-check-input ventas" <?= $venta['f_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(21); ?>" type="checkbox" id="f_venta">
                                             <label class="form-check-label" for="f_venta">Ver Facturas de Ventas</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="est_venta" class="form-check-input ventas" <?= $venta['est_venta'] == 1 ? 'checked' : '' ?> value="22" type="checkbox" id="est_venta">
+                                            <input name="est_venta" class="form-check-input ventas" <?= $venta['est_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(22); ?>" type="checkbox" id="est_venta">
                                             <label class="form-check-label" for="est_venta">Ver Estadísticas de Ventas</label>
                                         </li>
                                     </ul>
@@ -357,15 +358,15 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
 
                                     <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="r_servicio" class="form-check-input servicio" <?= $menu['r_servicio'] == 1 ? 'checked' : '' ?> value="23" type="checkbox" id="r_servicio">
+                                            <input name="r_servicio" class="form-check-input servicio" <?= $menu['r_servicio'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(23); ?>" type="checkbox" id="r_servicio">
                                             <label class="form-check-label" for="r_servicio">Registrar Nuevos Servicios</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_servicio" class="form-check-input servicio" <?= $menu['m_servicio'] == 1 ? 'checked' : '' ?> value="24" type="checkbox" id="m_servicio">
+                                            <input name="m_servicio" class="form-check-input servicio" <?= $menu['m_servicio'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(24); ?>" type="checkbox" id="m_servicio">
                                             <label class="form-check-label" for="m_servicio">Modificar Información de Servicios</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_servicio" class="form-check-input servicio" <?= $menu['l_servicio'] == 1 ? 'checked' : '' ?> value="25" type="checkbox" id="l_servicio">
+                                            <input name="l_servicio" class="form-check-input servicio" <?= $menu['l_servicio'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(25); ?>" type="checkbox" id="l_servicio">
                                             <label class="form-check-label" for="l_servicio">Consultar Lista de Servicios</label>
                                         </li>
                                     </ul>
@@ -410,23 +411,23 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                     </div>
                                     <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="r_cliente" class="form-check-input clientes" <?= $cliente['r_cliente'] == 1 ? 'checked' : '' ?> value="26" type="checkbox" id="r_cliente">
+                                            <input name="r_cliente" class="form-check-input clientes" <?= $cliente['r_cliente'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(26); ?>" type="checkbox" id="r_cliente">
                                             <label class="form-check-label" for="r_cliente">Registrar Nuevos Clientes</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_cliente" class="form-check-input clientes" <?= $cliente['m_cliente'] == 1 ? 'checked' : '' ?> value="27" type="checkbox" id="m_cliente">
+                                            <input name="m_cliente" class="form-check-input clientes" <?= $cliente['m_cliente'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(27); ?>" type="checkbox" id="m_cliente">
                                             <label class="form-check-label" for="m_cliente">Modificar Información de Clientes</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_cliente" class="form-check-input clientes" <?= $cliente['l_cliente'] == 1 ? 'checked' : '' ?> value="28" type="checkbox" id="l_cliente">
+                                            <input name="l_cliente" class="form-check-input clientes" <?= $cliente['l_cliente'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(28); ?>" type="checkbox" id="l_cliente">
                                             <label class="form-check-label" for="l_cliente">Consultar Lista de Clientes</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="h_cliente" class="form-check-input clientes" <?= $cliente['h_cliente'] == 1 ? 'checked' : '' ?> value="29" type="checkbox" id="h_cliente">
+                                            <input name="h_cliente" class="form-check-input clientes" <?= $cliente['h_cliente'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(29); ?>" type="checkbox" id="h_cliente">
                                             <label class="form-check-label" for="h_cliente">Visualizar Historial de Compras</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="f_cliente" class="form-check-input clientes" <?= $cliente['f_cliente'] == 1 ? 'checked' : '' ?> value="30" type="checkbox" id="f_cliente">
+                                            <input name="f_cliente" class="form-check-input clientes" <?= $cliente['f_cliente'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(30); ?>" type="checkbox" id="f_cliente">
                                             <label class="form-check-label" for="f_cliente">Ver Facturas de Compras</label>
                                         </li>
                                     </ul>
@@ -461,15 +462,15 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                     
                                     <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="r_empleado" class="form-check-input empleado" <?= $empleado['r_empleado'] == 1 ? 'checked' : '' ?> value="31" type="checkbox" id="r_empleado">
+                                            <input name="r_empleado" class="form-check-input empleado" <?= $empleado['r_empleado'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(31); ?>" type="checkbox" id="r_empleado">
                                             <label class="form-check-label" for="r_empleado">Registrar Nuevos Empleados</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_empleado" class="form-check-input empleado" <?= $empleado['m_empleado'] == 1 ? 'checked' : '' ?> value="32" type="checkbox" id="m_empleado">
+                                            <input name="m_empleado" class="form-check-input empleado" <?= $empleado['m_empleado'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(32); ?>" type="checkbox" id="m_empleado">
                                             <label class="form-check-label" for="m_empleado">Modificar Información de Empleados</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_empleado" class="form-check-input empleado" <?= $empleado['l_empleado'] == 1 ? 'checked' : '' ?> value="33" type="checkbox" id="l_empleado">
+                                            <input name="l_empleado" class="form-check-input empleado" <?= $empleado['l_empleado'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(33); ?>" type="checkbox" id="l_empleado">
                                             <label class="form-check-label" for="l_empleado">Consultar Lista de Empleados</label>
                                         </li>
                                     </ul>
@@ -504,15 +505,15 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
 
                                     <ul class="list-unstyled pt-2 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="r_rol" class="form-check-input roles" <?= $rol['r_rol'] == 1 ? 'checked' : '' ?> value="34" type="checkbox" id="r_rol">
+                                            <input name="r_rol" class="form-check-input roles" <?= $rol['r_rol'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(34); ?>" type="checkbox" id="r_rol">
                                             <label class="form-check-label" for="r_rol">Registrar Nuevos Roles</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_rol" class="form-check-input roles" <?= $rol['m_rol'] == 1 ? 'checked' : '' ?> value="35" type="checkbox" id="m_rol">
+                                            <input name="m_rol" class="form-check-input roles" <?= $rol['m_rol'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(35); ?>" type="checkbox" id="m_rol">
                                             <label class="form-check-label" for="m_rol">Modificar Información de Roles</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="l_rol" class="form-check-input roles" <?= $rol['l_rol'] == 1 ? 'checked' : '' ?> value="36" type="checkbox" id="l_rol">
+                                            <input name="l_rol" class="form-check-input roles" <?= $rol['l_rol'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(36); ?>" type="checkbox" id="l_rol">
                                             <label class="form-check-label" for="l_rol">Consultar Lista de Roles</label>
                                         </li>
                                     </ul>
@@ -557,27 +558,27 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                     <ul class="list-unstyled pt-2 border-top mt-2">
                                         
                                         <li class="form-check mb-1">
-                                            <input name="m_cant_pregunta_seguridad" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_pregunta_seguridad'] == 1 ? 'checked' : '' ?> value="37" type="checkbox" id="m_cant_pregunta_seguridad">
+                                            <input name="m_cant_pregunta_seguridad" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_pregunta_seguridad'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(37); ?>" type="checkbox" id="m_cant_pregunta_seguridad">
                                             <label class="form-check-label" for="m_cant_pregunta_seguridad">Modificar cantidad de preguntas de seguridad</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_tiempo_sesion" class="form-check-input ajustes_sistema" <?= $ajustes['m_tiempo_sesion'] == 1 ? 'checked' : '' ?> value="38" type="checkbox" id="m_tiempo_sesion">
+                                            <input name="m_tiempo_sesion" class="form-check-input ajustes_sistema" <?= $ajustes['m_tiempo_sesion'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(38); ?>" type="checkbox" id="m_tiempo_sesion">
                                             <label class="form-check-label" for="m_tiempo_sesion">Modificar tiempo de inactividad de sesión</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_cant_caracteres" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_caracteres'] == 1 ? 'checked' : '' ?> value="39" type="checkbox" id="m_cant_caracteres">
+                                            <input name="m_cant_caracteres" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_caracteres'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(39); ?>" type="checkbox" id="m_cant_caracteres">
                                             <label class="form-check-label" for="m_cant_caracteres">Modificar cantidad de caracteres (min/max)</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_cant_simbolos" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_simbolos'] == 1 ? 'checked' : '' ?> value="40" type="checkbox" id="m_cant_simbolos">
+                                            <input name="m_cant_simbolos" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_simbolos'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(40); ?>" type="checkbox" id="m_cant_simbolos">
                                             <label class="form-check-label" for="m_cant_simbolos">Modificar cantidad de símbolos</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_cant_num" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_num'] == 1 ? 'checked' : '' ?> value="41" type="checkbox" id="m_cant_num">
+                                            <input name="m_cant_num" class="form-check-input ajustes_sistema" <?= $ajustes['m_cant_num'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(41); ?>" type="checkbox" id="m_cant_num">
                                             <label class="form-check-label" for="m_cant_num">Modificar cantidad de números</label>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="intentos_inicio_sesion" class="form-check-input ajustes_sistema" <?= $ajustes['intentos_inicio_sesion'] == 1 ? 'checked' : '' ?> value="42" type="checkbox" id="intentos_inicio_sesion">
+                                            <input name="intentos_inicio_sesion" class="form-check-input ajustes_sistema" <?= $ajustes['intentos_inicio_sesion'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(42); ?>" type="checkbox" id="intentos_inicio_sesion">
                                             <label class="form-check-label" for="intentos_inicio_sesion">Modificar intentos de inicio de sesión</label>
                                         </li>
                                     </ul>
@@ -601,19 +602,19 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                             <div id="bitacoraCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_bitacora">
                                 <div class="accordion-body">
                                     <div class="form-check mb-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_bitacora" <?= $bitacora_total == 2 ? 'checked' : '' ?> value="1"  name="bitacora_sistema">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_bitacora" <?= $bitacora_total == 2 ? 'checked' : '' ?> value="bitacora"  name="bitacora_sistema">
                                         <label class="form-check-label fw-bold" for="vista_ajustes">
                                             Acceso a la Vista del Módulo de Bitácora del Sistema
                                         </label>
                                     </div>
                                     <ul class="list-unstyled pt-2 ps-3 border-top mt-2">
                                         <li class="form-check mb-1">
-                                            <input name="v_bitacora" class="form-check-input ajustes_sistema" <?= $bitacora['v_bitacora'] == 1 ? 'checked' : '' ?> value="43" type="checkbox" id="v_bitacora">
+                                            <input name="v_bitacora" class="form-check-input bitacora" <?= $bitacora['v_bitacora'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(43); ?>" type="checkbox" id="v_bitacora">
                                             Consultar Registros de la Bitácora
                                             <i class="bi bi-check-circle-fill text-success"></i>
                                         </li>
                                         <li class="form-check mb-1">
-                                            <input name="m_bitacora" class="form-check-input ajustes_sistema" <?= $bitacora['m_bitacora'] == 1 ? 'checked' : '' ?> value="44" type="checkbox" id="m_bitacora">
+                                            <input name="m_bitacora" class="form-check-input bitacora" <?= $bitacora['m_bitacora'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(44); ?>" type="checkbox" id="m_bitacora">
                                             Consultar Movimientos de un Usuario en la Bitácora
                                             <i class="bi bi-check-circle-fill text-success"></i>
                                         </li>

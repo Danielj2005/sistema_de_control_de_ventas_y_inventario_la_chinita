@@ -140,6 +140,7 @@ class config_model extends modeloPrincipal {
     
             $cant_caracteres = intval($configuracion['c_caracteres']);
             $c_preguntas = intval($configuracion['c_preguntas']);
+
         } catch (Exception $e) {
             alert_model::alerta_simple("¡Error!", "Error al consultar la configuración del sistema.", "error");
             exit();
@@ -189,9 +190,9 @@ class config_model extends modeloPrincipal {
                 );
                 return;
             }
-            
+
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
-            if ($cantidad_preguntas < $c_preguntas) {
+            if ($cantidad_preguntas < $c_preguntas && $cantidad_preguntas > $c_preguntas) {
                 alert_model::alert_redirect(
                     "¡Advertencia!",
                     "La cantidad de preguntas de seguridad configuradas no cumplen con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
@@ -216,7 +217,7 @@ class config_model extends modeloPrincipal {
             }
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
-            if ($cantidad_preguntas < $c_preguntas) {
+            if ($cantidad_preguntas < $c_preguntas && $cantidad_preguntas > $c_preguntas) {
                 alert_model::alerta_simple(
                     "¡Advertencia!",
                     "La cantidad de preguntas de seguridad configuradas no cumplen con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",

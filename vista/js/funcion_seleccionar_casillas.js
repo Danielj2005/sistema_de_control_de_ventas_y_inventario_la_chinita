@@ -1,10 +1,10 @@
 
 function evaluar_casillas () { // Función para evaluar las casillas
-    const div = document.querySelectorAll('.vista'); // Selecciona todos los divs con la clase 'vista'
+    const inputsCasillas = document.querySelectorAll('.vista'); // Selecciona todos los divs con la clase 'vista'
 
-    div.forEach((input) => { // Itera sobre cada div
+    inputsCasillas.forEach((input) => { // Itera sobre cada div
 
-        input.addEventListener('click', ()=>{  // Añade un evento de clic a cada div
+        input.addEventListener('click', ()=>{  // Añade un evento de clic a cada input
         
             let casillas = document.querySelectorAll(`.${input.value}`); // Selecciona todas las casillas dentro del div que se ha clicado
             let estado_casilla = input.checked; // Estado de la casilla que se ha marcado o desmarcado

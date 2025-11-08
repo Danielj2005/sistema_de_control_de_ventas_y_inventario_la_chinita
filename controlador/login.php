@@ -8,7 +8,8 @@ $intentos_inicio_sesion = intval($configuracion['intentos_inicio_sesion']);
 
 // Se limpian y validan los datos recibidos a través de POST (usuario y contraseña).
 $usuario = modeloPrincipal::limpiar_cadena($_POST['correo']);
-$contraseña = modeloPrincipal::limpiar_encriptar($_POST['contraseña']);
+// $contraseña = modeloPrincipal::limpiar_encriptar($_POST['contraseña']);
+$contraseña = modeloPrincipal::hashear_contrasena($_POST['contraseña']);
 
 // Se verifica que no se hayan recibido campos vacíos.
 modeloPrincipal::validar_campos_vacios([$usuario, $contraseña]);
@@ -31,7 +32,7 @@ if ($respuesta_captcha !== $captcha) {
 }
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
+$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.correo, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
 
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
@@ -56,9 +57,12 @@ if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
 }
 
 $contraseña_usuario = $datos_usuario["contraseña"];
+$hash_guardado_en_bd = $datos_usuario["contraseña"];
 
 // se verifica si la contraseña es correcta
-if ($contraseña !== $contraseña_usuario) {
+// if (password_verify($contraseña, $hash_guardado_en_bd)) {
+
+if (password_verify($contraseña, $hash_guardado_en_bd)) {
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
     alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
     exit();
@@ -99,8 +103,6 @@ if ($datos_usuario["sesion_activa"] == 1) {
 
 $_SESSION['logged_in'] = true; // variable de inicio de sesion
 
-$_SESSION['nombre'] = $datos_usuario["nombre"]; // variable con el nombre del usuario
-$_SESSION['apellido'] = $datos_usuario["apellido"]; // variable con el apellido del usuario
 
 $_SESSION['dataUsuario'] = [
     "dni" => $datos_usuario["cedula"],
@@ -108,14 +110,16 @@ $_SESSION['dataUsuario'] = [
     "apellido" => $datos_usuario["apellido"],
     "correo" => $datos_usuario["correo"],
     "telefono" => $datos_usuario["telefono"],
-    "direccion" => $datos_usuario["direccion"]
+    "direccion" => $datos_usuario["direccion"],
+    "primerInicio" => $datos_usuario["primer_inicio"],
+    "id_usuario" => $datos_usuario["id_usuario"],
+    "id_rol" => $datos_usuario["id_rol"],
+    "nombreRolUsuario" => $datos_usuario["rol_usuario"]
 ];
 
 $_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
 $_SESSION['nombreRolUsuario'] = $datos_usuario['rol_usuario'];
-
-$_SESSION['primer_inicio'] = $datos_usuario["primer_inicio"]; // variable con el id de el rol del usuario
 
 // asignacion de roles a variables de session
 $_SESSION['permisosRol'] = rol_model::obtenerPermisosRol(); // variable con todos los permisos del usuario a los modulos
@@ -137,23 +141,35 @@ $_SESSION['permisosRequeridos'] = [
     "ajustes" => ['m_cant_pregunta_seguridad', 'm_tiempo_sesion', 'm_cant_caracteres', 'm_cant_simbolos', 'm_cant_num', 'intentos_inicio_sesion'],
     "bitacora" => ['v_bitacora', 'm_bitacora'],
 ];
-$_SESSION['permisosRequeridosProveedores'] = ['r_proveedores', 'm_proveedores', 'l_proveedores', 'h_proveedores'];
 
 $fecha_ultima_sesion = date('Y-m-d H:i:s');
 
 /** se verifica si es el primer inicio de sesión del usuario  **/
-if ($datos_usuario["primer_inicio"] == 1) {
-    bitacora::login(); // se registra el inicio de sesión en la bitácora
-    model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
-    alert_model::alert_redirect('¡Bienvenido!.','Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.','info','./vista/mi_perfil.php');
-    exit();
-}
-
 bitacora::login(); // se registra el inicio de sesión en la bitácora
 
 // se actualiza el estado de la sesión del usuario a activa
-model_user::modificar_sesion_ultima_sesion_fecha($id_usuario, $fecha_ultima_sesion, '1'); // se actualiza la fecha de la ultima sesion
+model_user::modificar_sesion_ultima_sesion_fecha(
+    $id_usuario, 
+    $fecha_ultima_sesion, 
+    '1'); // se actualiza la fecha de la ultima sesion
 
-alert_model::alert_redirect('Acceso Exitoso!','Bienvenido '.$_SESSION['nombre'].' '.$_SESSION['apellido'].'.','info','./vista');
+    
+if ($datos_usuario["primer_inicio"] == 1) {
+
+    alert_model::alert_redirect(
+        '¡Bienvenido!',
+        'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
+        'info',
+        './vista/mi_perfil.php');
+
+    exit();
+}
+
+alert_model::alert_redirect(
+    'Acceso Exitoso!',
+    'Bienvenido '.$_SESSION['dataUsuario']['nombre'].' '.$_SESSION['dataUsuario']['apellido'].'.',
+    'info',
+    './vista');
+
 mysqli_free_result($selectUser);
 exit();

@@ -95,7 +95,7 @@ if($modulo === "Guardar"){
     
     try {
 
-        $mensaje_bitacora = rol_model::generar_bitacora($permisos_para_bitacora);
+        $mensaje_bitacora = rol_model::generar_bitacora_guardar_rol($permisos_para_bitacora);
 
         $bitacora_registrar_rol = bitacora::bitacora("Registro Exitoso de un Rol", 
             '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró un rol con la siguiente información:</p>
@@ -148,6 +148,7 @@ if($modulo === "Modificar"){
 
     $nombre = modeloPrincipal::primeraLetraMayus(modeloPrincipal::limpiar_cadena($_POST["nombre_rol"]));
     $estado = modeloPrincipal::limpiar_cadena($_POST["estado_rol"]);
+    
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$id_rol, $nombre, $estado]);
@@ -190,6 +191,7 @@ if($modulo === "Modificar"){
     $permisos_nuevos_bitacora = [];
 
     foreach ($permisos_post as $permiso) {
+
         if (isset($_POST[$permiso]) && $_POST[$permiso] != '') {
             // Para guardar en la BD (el valor del checkbox que es el ID de la función)
             $permisos_nuevos_encriptados[] = $_POST[$permiso];
@@ -221,37 +223,24 @@ if($modulo === "Modificar"){
         exit();
     }
     
-    // Generar el HTML de la bitácora comparando los permisos
-    $bitacora = rol_model::generar_bitacora_modificacion($permisos_originales_bitacora, $permisos_nuevos_bitacora);
     
     try {
+            
+        $permisos_originales_bd = rol_model::obtenerPermisosRolById($id_rol);
+        $permisos_actuales = rol_model::texto_permisos_vista($permisos_originales_bd);
+        // Generar el HTML de la bitácora comparando los permisos
+
+        $bitacora = rol_model::generar_bitacora_modificar_rol($permisos_originales_bitacora, $permisos_actuales);
+        
         $colorBadge = $estado == 1 ? 'bg-success' : 'bg-danger';
         $textBadge = $estado == 1 ? 'Activo' : 'Inactivo';
 
-        $bitacora_modificacion_rol = bitacora::bitacora("Modificación Exitosa de un Rol", 
-        '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el rol con la siguiente información:</p>
-            <div class="row align-items-center mb-4 pb-2 border-bottom">
+        $mensaje = '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el rol con la siguiente información:</p> <div class="row align-items-center mb-4 pb-2 border-bottom"> <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0"> <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-person-badge me-2"></i>Rol: '.$nombre.'</h5> </div><div class="col-12 col-md-6 text-center text-md-end"> <h5 class="fw-bold mb-0">Estado: <span class="badge rounded-pill fs-6 bg-success '.$colorBadge.'"> '.$textBadge.'</span></h5> </div></div><div class="row mb-4 pb-2 border-bottom">';
 
-                <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
-                    <h5 class="fw-bold mb-0 text-primary">
-                        <i class="bi bi-person-badge me-2"></i>
-                        Rol: '.$nombre.'
-                    </h5>
-                </div>
-
-                <div class="col-12 col-md-6 text-center text-md-end">
-                    <h5 class="fw-bold mb-0">
-                        Estado: 
-                        <span class="badge rounded-pill fs-6 bg-success '.$colorBadge.'"> '.$textBadge.'</span>
-                    </h5>
-                </div>
-                
-            </div>
-            
-            <div class="row mb-4 pb-2 border-bottom">
-                '.$bitacora.'
-            </div>            
-        ');
+        $mensaje .= $bitacora.'</div>';
+        
+        
+        $bitacora_modificacion_rol = bitacora::bitacora('Modificación Exitosa de un Rol', $mensaje);
 
         if (!$bitacora_modificacion_rol) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
