@@ -376,7 +376,7 @@ class rol_model extends model_user {
                             if ($original !== $actual) {
                                 $color_original = $original === 'Permitido' ? 'success' : 'danger';
                                 $color_actual = $actual === 'Permitido' ? 'success' : 'danger';
-                                $html_permisos .= '<li class="list-group-item d-flex justify-content-between"><span>'.$nombre_legible.'</span> <span>De <b class="text-$color_original">'.$original.'</b> a <b class="text-'.$color_actual.'">'.$actual.'</b></span></li>';
+                                $html_permisos .= '<li class="list-group-item d-flex justify-content-between"><span>'.$nombre_legible.'</span> <span>De <b class="text-'.$color_original.'">'.$original.'</b> a <b class="text-'.$color_actual.'">'.$actual.'</b></span></li>';
                             }else{
                                 
                                 $color_original = $original === 'Permitido' ? 'success' : 'danger';
@@ -384,7 +384,7 @@ class rol_model extends model_user {
                             
                             }
                         } else { // Modo Guardar
-                            $html_permisos .= '<li class="list-group-item d-flex justify-content-betwee"><span>'.$nombre_legible.'</span> <span class="text-success">Permitido</span></li>';
+                            $html_permisos .= '<li class="list-group-item d-flex justify-content-between"><span>'.$nombre_legible.'</span> <span class="text-success">Permitido</span></li>';
                         }
                     }
                 }
@@ -409,7 +409,7 @@ class rol_model extends model_user {
 
     /**
      * busca los roles activos y crea los options para una select tag html.
-     * @return html lista de options con los roles activos
+     * retorna una lista de options con los roles activos
      */
     public static function select_options_nombres_roles() {
         

@@ -38,83 +38,145 @@ class config_model extends modeloPrincipal {
         return $configuracion;
     }
     
-    // funcion para obtener todos los datos de la configuracion del sistema
-    public static function bitacora_configuracion_modificada($id_usuario,$configuracion_original) {
-            
-        $cedula = model_user::obtener_info_personal_usuario('cedula',$id_usuario);
-        $nombre = model_user::obtener_info_personal_usuario('nombre',$id_usuario);
-        $apellido = model_user::obtener_info_personal_usuario('apellido',$id_usuario);
-        $telefono = model_user::obtener_info_personal_usuario('telefono',$id_usuario);
-        $rol  = model_user::obtener_info_personal_usuario('id_rol',$id_usuario);
+    private static function obtener_cambios_colores_bitacora ($datosOriginales, $datosActuales){
+        $color_cambios = ['danger','success'];
 
+        if ($datosOriginales == $datosActuales){
+            $color_cambios[0] = "dark";
+            $color_cambios[1] = "dark";
+        }
+
+        return $color_cambios;
+    }
+
+    private static function obtener_comparacion ($datosOriginales, $datosActuales){
+
+        $color_cambio_original = self::obtener_cambios_colores_bitacora($datosOriginales[0], $datosActuales[0]);
+        
+        if ($datosOriginales[0] == $datosActuales[0]){
+            return '<span>'.$datosOriginales[1].'</span>';
+        }else{
+            return '<span>De <b class="text-'.$color_cambio_original[0].'">'.$datosOriginales[1].'</b> a <b class="text-'.$color_cambio_original[1].'">'.$datosActuales[1].'</b></span>';
+        }
+    }
+
+    // funcion para obtener todos los datos de la configuracion del sistema
+    public static function bitacora_configuracion_modificada($id_usuario, $configuracion_original) {
+        
+        $cedula = $_SESSION['dataUsuario']['dni'];
+        $nombre = $_SESSION['dataUsuario']['nombre'];
+        $apellido = $_SESSION['dataUsuario']['apellido'];
+        $telefono = $_SESSION['dataUsuario']['telefono'];
+        $rol = $_SESSION['dataUsuario']['nombreRolUsuario'];
+        
         // información de la configuración actual
         $configuracion_actual = config_model::obtener_configuracion();
 
         if ($configuracion_original['porcentaje_iva'] !== $configuracion_actual['porcentaje_iva'] || $configuracion_original['porcentaje_ganancia'] !== $configuracion_actual['porcentaje_ganancia']) {
             
-            $modulo_productos_originales = "<b>****** Configuración original del módulo de Gestión de productos:  ******</b><br>
-                Porcentaje de IVA: <b>".$configuracion_original['porcentaje_iva']."% </b><br>
-                Porcentaje de Ganancia: <b>".$configuracion_original['porcentaje_ganancia']."% </b> <br><br>
-                <b>*********************************************</b><br><br>";
+            
+            $cambios_ganancia = self::obtener_comparacion(
+                [ $configuracion_original['porcentaje_ganancia'], $configuracion_original['porcentaje_ganancia'].'%'], 
+                [ $configuracion_actual['porcentaje_ganancia'], $configuracion_actual['porcentaje_ganancia'].'%']);
 
-            $modulo_productos_actuales = "<b>****** Configuración Actual del módulo de Gestión de productos:  ******</b><br>
-                Porcentaje de IVA: <b>".$configuracion_actual['porcentaje_iva']."% </b><br>
-                Porcentaje de Ganancia: <b>".$configuracion_actual['porcentaje_ganancia']."% </b> <br><br>
-                <b>*********************************************</b><br><br>";
+            $cambios_iva = self::obtener_comparacion(
+                [ $configuracion_original['porcentaje_iva'], $configuracion_original['porcentaje_iva'].'%'],
+                [$configuracion_actual['porcentaje_iva'], $configuracion_actual['porcentaje_iva'].'%' ]);
+
+            $modulo_productos_originales = '<h4 class="text-center card-title"><b> Configuración del módulo de Gestión de productos </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Porcentaje de IVA</p> 
+                    '.$cambios_iva.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Porcentaje de Ganancia</p> 
+                    '.$cambios_ganancia.'
+                </div>
+                <hr>';
         }
+
 
         if ($configuracion_original['c_preguntas'] !== $configuracion_actual['c_preguntas'] || $configuracion_original['tiempo_inactividad'] !== $configuracion_actual['tiempo_inactividad'] || $configuracion_original['intentos_inicio_sesion'] !== $configuracion_actual['intentos_inicio_sesion']) {
             
-            $modulo_sesion_original = "<b>****** Configuración original de Sesión:  ******</b><br>
-                Cantidad de preguntas de seguridad: <b>".$configuracion_original['c_preguntas']."</b> <br>
-                Tiempo de inactividad de sesión: <b>".$configuracion_original['tiempo_inactividad']." minutos</b> <br>
-                Intentos de inicio de sesión para los usuarios: <b>".$configuracion_original['intentos_inicio_sesion']."</b> <br><br>
-                <b>*********************************************</b><br><br>";
+            $colores_c_preguntas = self::obtener_cambios_colores_bitacora($configuracion_original['c_preguntas'], $configuracion_actual['c_preguntas']);
+            $colores_tiempo_inactividad = self::obtener_cambios_colores_bitacora($configuracion_original['tiempo_inactividad'], $configuracion_actual['tiempo_inactividad']);
+            $colores_intentos_inicio_sesion = self::obtener_cambios_colores_bitacora($configuracion_original['intentos_inicio_sesion'], $configuracion_actual['intentos_inicio_sesion']);
+            
+            $modulo_sesion_original = '<h4 class="text-center card-title"><b> Configuración de Sesión del usuario </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cantidad de Preguntas de Seguridad</p> 
+                    <span>De <b class="text-'.$colores_c_preguntas[0].'">'.$configuracion_original['c_preguntas'].'</b> a <b class="text-'.$colores_c_preguntas[1].'">'.$configuracion_actual['c_preguntas'].'</b></span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Tiempo de Sesión (inactividad)</p> 
+                    <span>De <b class="text-'.$colores_tiempo_inactividad[0].'">'.$configuracion_original['tiempo_inactividad'].'</b> a <b class="text-'.$colores_tiempo_inactividad[1].'">'.$configuracion_actual['tiempo_inactividad'].'</b></span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Intentos de Sesión</p> 
+                    <span>De <b class="text-'.$colores_intentos_inicio_sesion[0].'">'.$configuracion_original['intentos_inicio_sesion'].'</b> a <b class="text-'.$colores_intentos_inicio_sesion[1].'">'.$configuracion_actual['intentos_inicio_sesion'].'</b></span>
+                </div>
+                ';
 
-            $modulo_sesion_actual = "<b>****** Configuración Actual de Sesión:  ******</b><br>
-                Cantidad de preguntas de seguridad: <b>".$configuracion_actual['c_preguntas']."</b> <br>
-                Tiempo de inactividad de sesión: <b>".$configuracion_actual['tiempo_inactividad']." minutos</b> <br>
-                Intentos de inicio de sesión para los usuarios: <b>".$configuracion_actual['intentos_inicio_sesion']."</b> <br><br>
-                <b>*********************************************</b><br><br>";
         }
 
         if ($configuracion_original['c_caracteres'] !== $configuracion_actual['c_caracteres'] || $configuracion_original['c_simbolos'] !== $configuracion_actual['c_simbolos'] || $configuracion_original['c_numeros'] !== $configuracion_actual['c_numeros']) {
             
-            $parametros_contraseña_originales = "<b>****** Configuración original de Contraseña:  ******</b><br>
-                Cantidad de caracteres: <b>".$configuracion_original['c_caracteres']."</b><br>
-                Cantidad de símbolos: <b>".$configuracion_original['c_simbolos']."</b> <br>
-                Cantidad de números: <b>".$configuracion_original['c_numeros']."</b> <br><br>
-                <b>*********************************************</b><br><br>";
-
-            $parametros_contraseña_actuales = "<b>****** Configuración Actual de Contraseña:  ******</b><br>
-                Cantidad de caracteres: <b>".$configuracion_actual['c_caracteres']."</b><br>
-                Cantidad de símbolos: <b>".$configuracion_actual['c_simbolos']."</b> <br>
-                Cantidad de números: <b>".$configuracion_actual['c_numeros']."</b> <br><br>
-                <b>*********************************************</b><br><br>";
+            $colores_c_caracteres = self::obtener_cambios_colores_bitacora($configuracion_original['c_caracteres'], $configuracion_actual['c_caracteres']);
+            $colores_c_simbolos = self::obtener_cambios_colores_bitacora($configuracion_original['c_simbolos'], $configuracion_actual['c_simbolos']);
+            $colores_c_numeros = self::obtener_cambios_colores_bitacora($configuracion_original['c_numeros'], $configuracion_actual['c_numeros']);
+            
+            $parametros_contraseña_originales = '<h4 class="text-center card-title"><b> Configuración de parámetros de contraseña de usuario </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cantidad de caracteres</p> 
+                    <span>De <b class="text-'.$colores_c_caracteres[0].'">'.$configuracion_original['c_caracteres'].'</b> a <b class="text-'.$colores_c_caracteres[1].'">'.$configuracion_actual['c_caracteres'].'</b></span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cantidad de símbolos</p> 
+                    <span>De <b class="text-'.$colores_c_simbolos[0].'">'.$configuracion_original['c_simbolos'].'</b> a <b class="text-'.$colores_c_simbolos[1].'">'.$configuracion_actual['c_simbolos'].'</b></span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cantidad de números</p> 
+                    <span>De <b class="text-'.$colores_c_numeros[0].'">'.$configuracion_original['c_numeros'].'</b> a <b class="text-'.$colores_c_numeros[1].'">'.$configuracion_actual['c_numeros'].'</b></span>
+                </div>
+                ';
         }
 
-        $bitacora_configuracion = bitacora::bitacora("Modificación exitosa de la configuración del sistema.","El usuario actualizó la configuración del sistema <br><br>
-            <b>****** Información del usuario que realizo la modificación:  ******</b><br><br>
-            Cédula: <b>".$cedula."</b><br>
-            Nombre: <b>".$nombre."</b><br>
-            Apellido: <b>".$apellido."</b><br>
-            Teléfono: <b>".$telefono."</b><br>
-            Rol asignado: <b>".$rol."</b><br><br>
 
-            <b>*********************************************</b><br><br>
-            $modulo_productos_originales
+        if ($configuracion_original['porcentaje_iva'] !== $configuracion_actual['porcentaje_iva'] || $configuracion_original['porcentaje_ganancia'] !== $configuracion_actual['porcentaje_ganancia'] || $configuracion_original['c_preguntas'] !== $configuracion_actual['c_preguntas'] || $configuracion_original['tiempo_inactividad'] !== $configuracion_actual['tiempo_inactividad'] || $configuracion_original['intentos_inicio_sesion'] !== $configuracion_actual['intentos_inicio_sesion'] || $configuracion_original['c_caracteres'] !== $configuracion_actual['c_caracteres'] || $configuracion_original['c_simbolos'] !== $configuracion_actual['c_simbolos'] || $configuracion_original['c_numeros'] !== $configuracion_actual['c_numeros']) {
+        
+            $bitacora_configuracion = bitacora::bitacora("Modificación exitosa de la configuración del sistema",
+            '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la configuración del sistema.</p> 
+                    <h4 class="text-center card-title"><b> Información del usuario que realizó la modificación </b></h4>
+                    <div class="d-flex justify-content-between border-bottom">
+                        <p> Cédula:</p> 
+                        <span class="fw-bold"> '.$cedula.' </span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom">
+                        <p> Nombre:</p> 
+                        <span class="fw-bold"> '.$nombre.' </span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom">
+                        <p> Apellido:</p> 
+                        <span class="fw-bold"> '.$apellido.' </span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom">
+                        <p> Teléfono:</p> 
+                        <span class="fw-bold"> '.$telefono.' </span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom">
+                        <p> Rol asignado:</p> 
+                        <span class="fw-bold"> '.$rol.' </span>
+                    </div>
+    
+                    '.$modulo_productos_originales.'
+    
+                    '.$modulo_sesion_original.'
+    
+                    '.$parametros_contraseña_originales.'
+    
+            ');
+        }
 
-            $modulo_sesion_original
-
-            $parametros_contraseña_originales
-
-            $modulo_productos_actuales
-
-            $modulo_sesion_actual
-
-            $parametros_contraseña_actuales
-
-        ");
         return $bitacora_configuracion;
     }
     

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include_once ("../include/modelos_include.php"); // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
 if (!isset($_POST["modulo"]) || $_POST['modulo'] == "") {
     alert_model::alerta_simple("Ocurrio un error!","Ha ocurrido un error al procesar tu solicitud, asegurese de no alterar la información del sistema","error");
@@ -172,7 +172,11 @@ if($modulo === "producto"){
         $bitacora_configuracion = config_model::bitacora_configuracion_modificada($id_usuario,$configuracion_original);
         
         if (!$bitacora_configuracion) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
+            alert_model::alerta_simple(
+                "Ocurrido un error!", 
+                "No se puede guardar sin haber hecho cambios en la información.", 
+                "error");
+                
             exit();
         }
 
