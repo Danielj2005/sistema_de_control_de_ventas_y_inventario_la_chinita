@@ -98,22 +98,30 @@ class config_model extends modeloPrincipal {
 
         if ($configuracion_original['c_preguntas'] !== $configuracion_actual['c_preguntas'] || $configuracion_original['tiempo_inactividad'] !== $configuracion_actual['tiempo_inactividad'] || $configuracion_original['intentos_inicio_sesion'] !== $configuracion_actual['intentos_inicio_sesion']) {
             
-            $colores_c_preguntas = self::obtener_cambios_colores_bitacora($configuracion_original['c_preguntas'], $configuracion_actual['c_preguntas']);
-            $colores_tiempo_inactividad = self::obtener_cambios_colores_bitacora($configuracion_original['tiempo_inactividad'], $configuracion_actual['tiempo_inactividad']);
-            $colores_intentos_inicio_sesion = self::obtener_cambios_colores_bitacora($configuracion_original['intentos_inicio_sesion'], $configuracion_actual['intentos_inicio_sesion']);
-            
+            $cambios_c_preguntas = self::obtener_comparacion(
+                [ $configuracion_original['c_preguntas'], $configuracion_original['c_preguntas']], 
+                [ $configuracion_actual['c_preguntas'], $configuracion_actual['c_preguntas']]);
+
+            $cambios_tiempo_inactividad = self::obtener_comparacion(
+                [ $configuracion_original['tiempo_inactividad'], $configuracion_original['tiempo_inactividad'].' minutos'], 
+                [ $configuracion_actual['tiempo_inactividad'], $configuracion_actual['tiempo_inactividad'].' minutos']);
+
+            $cambios_intentos_inicio_sesion = self::obtener_comparacion(
+                [ $configuracion_original['intentos_inicio_sesion'], $configuracion_original['intentos_inicio_sesion']], 
+                [ $configuracion_actual['intentos_inicio_sesion'], $configuracion_actual['intentos_inicio_sesion']]);
+
             $modulo_sesion_original = '<h4 class="text-center card-title"><b> Configuración de Sesión del usuario </b></h4>
                 <div class="d-flex justify-content-between border-bottom">
                     <p> Cantidad de Preguntas de Seguridad</p> 
-                    <span>De <b class="text-'.$colores_c_preguntas[0].'">'.$configuracion_original['c_preguntas'].'</b> a <b class="text-'.$colores_c_preguntas[1].'">'.$configuracion_actual['c_preguntas'].'</b></span>
+                    '.$cambios_c_preguntas.'
                 </div>
                 <div class="d-flex justify-content-between border-bottom">
                     <p> Tiempo de Sesión (inactividad)</p> 
-                    <span>De <b class="text-'.$colores_tiempo_inactividad[0].'">'.$configuracion_original['tiempo_inactividad'].'</b> a <b class="text-'.$colores_tiempo_inactividad[1].'">'.$configuracion_actual['tiempo_inactividad'].'</b></span>
+                    '.$cambios_tiempo_inactividad.'
                 </div>
                 <div class="d-flex justify-content-between border-bottom">
                     <p> Intentos de Sesión</p> 
-                    <span>De <b class="text-'.$colores_intentos_inicio_sesion[0].'">'.$configuracion_original['intentos_inicio_sesion'].'</b> a <b class="text-'.$colores_intentos_inicio_sesion[1].'">'.$configuracion_actual['intentos_inicio_sesion'].'</b></span>
+                    '.$cambios_intentos_inicio_sesion.'
                 </div>
                 ';
 
@@ -121,25 +129,35 @@ class config_model extends modeloPrincipal {
 
         if ($configuracion_original['c_caracteres'] !== $configuracion_actual['c_caracteres'] || $configuracion_original['c_simbolos'] !== $configuracion_actual['c_simbolos'] || $configuracion_original['c_numeros'] !== $configuracion_actual['c_numeros']) {
             
-            $colores_c_caracteres = self::obtener_cambios_colores_bitacora($configuracion_original['c_caracteres'], $configuracion_actual['c_caracteres']);
-            $colores_c_simbolos = self::obtener_cambios_colores_bitacora($configuracion_original['c_simbolos'], $configuracion_actual['c_simbolos']);
-            $colores_c_numeros = self::obtener_cambios_colores_bitacora($configuracion_original['c_numeros'], $configuracion_actual['c_numeros']);
-            
+            $cambios_c_caracteres = self::obtener_comparacion(
+                [ $configuracion_original['c_caracteres'], $configuracion_original['c_caracteres']], 
+                [ $configuracion_actual['c_caracteres'], $configuracion_actual['c_caracteres']]);
+
+            $cambios_c_simbolos = self::obtener_comparacion(
+                [ $configuracion_original['c_simbolos'], $configuracion_original['c_simbolos']], 
+                [ $configuracion_actual['c_simbolos'], $configuracion_actual['c_simbolos']]);
+
+            $cambios_c_numeros = self::obtener_comparacion(
+                [ $configuracion_original['c_numeros'], $configuracion_original['c_numeros']], 
+                [ $configuracion_actual['c_numeros'], $configuracion_actual['c_numeros']]);
+
             $parametros_contraseña_originales = '<h4 class="text-center card-title"><b> Configuración de parámetros de contraseña de usuario </b></h4>
                 <div class="d-flex justify-content-between border-bottom">
-                    <p> Cantidad de caracteres</p> 
-                    <span>De <b class="text-'.$colores_c_caracteres[0].'">'.$configuracion_original['c_caracteres'].'</b> a <b class="text-'.$colores_c_caracteres[1].'">'.$configuracion_actual['c_caracteres'].'</b></span>
+                    <p> Cantidad de caracteres</p>
+                    '.$cambios_c_caracteres.'
                 </div>
                 <div class="d-flex justify-content-between border-bottom">
-                    <p> Cantidad de símbolos</p> 
-                    <span>De <b class="text-'.$colores_c_simbolos[0].'">'.$configuracion_original['c_simbolos'].'</b> a <b class="text-'.$colores_c_simbolos[1].'">'.$configuracion_actual['c_simbolos'].'</b></span>
+                    <p> Cantidad de símbolos (! @ # $ %)</p>
+                    '.$cambios_c_simbolos.'
                 </div>
                 <div class="d-flex justify-content-between border-bottom">
-                    <p> Cantidad de números</p> 
-                    <span>De <b class="text-'.$colores_c_numeros[0].'">'.$configuracion_original['c_numeros'].'</b> a <b class="text-'.$colores_c_numeros[1].'">'.$configuracion_actual['c_numeros'].'</b></span>
+                    <p> Cantidad de números</p>
+                    '.$cambios_c_numeros.'
                 </div>
                 ';
         }
+
+
 
 
         if ($configuracion_original['porcentaje_iva'] !== $configuracion_actual['porcentaje_iva'] || $configuracion_original['porcentaje_ganancia'] !== $configuracion_actual['porcentaje_ganancia'] || $configuracion_original['c_preguntas'] !== $configuracion_actual['c_preguntas'] || $configuracion_original['tiempo_inactividad'] !== $configuracion_actual['tiempo_inactividad'] || $configuracion_original['intentos_inicio_sesion'] !== $configuracion_actual['intentos_inicio_sesion'] || $configuracion_original['c_caracteres'] !== $configuracion_actual['c_caracteres'] || $configuracion_original['c_simbolos'] !== $configuracion_actual['c_simbolos'] || $configuracion_original['c_numeros'] !== $configuracion_actual['c_numeros']) {
