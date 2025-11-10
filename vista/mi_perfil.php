@@ -6,7 +6,6 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
       include_once "../include/css_include.php"; 
     ?>    
   </head>
-  <body class="<?= $_SESSION['dataUsuario']["primerInicio"] == '0' ? '' : 'toggle-sidebar' ?>">
+  <body class="<?= $_SESSION['dataUsuario']['primerInicio'] == '0' ? '' : 'toggle-sidebar' ?>">
 
     <?php
       include_once "../include/header.php"; 
@@ -83,45 +82,49 @@ model_user::verificar_intento_de_acceso_al_sistema();
                               </div>
                           </div>
                           
-                          <div class="col-12 my-4 text-center d-flex justify-content-end">
+                          <div class="col-12 mb-3 text-center d-flex justify-content-end">
                               <button type="button" modal='modificarInfoPersonalUsuario' class="btn_modal btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
-                                <i class='zmdi zmdi-refresh'></i> Actualizar
+                                <i class='bi bi-person-circle'></i> Actualizar Información
                               </button>
                           </div>
                       </fieldset>
 
                       <hr>
                       <fieldset class="row mb-4">
+                        <div class="col-12 col-md-6 mb-3">
                           <legend><i class="bi bi-person-circle"></i> &nbsp; Datos de la Cuenta</legend>
-                          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+                          <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label class="control-label">Nombre de Usuario</label>
                                 <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ\@\.\0-9]{3,30}" class="bg-secondary-subtle form-control" value="<?= modeloPrincipal::ocultar_info($_SESSION['dataUsuario']['correo']); ?>" id="nombre_usuario" name="nombre_usuario" readOnly="true" maxlength="30">
                             </div>
                           </div>
-                          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+                          <div class="col-12 mb-3">
                               <div class="form-group">
                                   <label class="control-label">Tipo de Usuario</label>
                                   <input type="text" pattern="[A-Za-zÁÉÍÚÓáéíóúñÑ]{3,30}" class="bg-secondary-subtle form-control" value="<?= $_SESSION['nombreRolUsuario'] ?>" id="tipo_usuario" name="tipo_usuario" readOnly="true" maxlength="30">
                               </div>
                           </div>
-                          <div class="col-12 my-4 text-center d-flex justify-content-end">
-                              <button type="submit" modal='passwordUser' class="btn_modal btn btn-success text-white" url="./modal/usuario/modificar_contraseña_usuario.php" data-bs-toggle="modal" data-bs-target="#modal">
-                                <i class='zmdi zmdi-refresh'></i>
-                                Actualizar
+                          <div class="col-12 mb-2 text-center d-flex justify-content-center">
+                              <button type="submit" modal='passwordUser' class="btn_modal btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
+                                <i class='bi bi-key'></i>
+                                Actualizar Contraseña
                               </button>
                           </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-3 d-inline-block justify-content-center align-items-center">
+                            <h5 class="mb-3"><i class="bi bi-shield-fill"></i> &nbsp; Actualizar Preguntas de Seguridad</h5>
+                              
+                            <div class="col-12 mb-2 text-center">
+                                <button modal="preguntasSeguridad" class="btn_modal btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">
+                                  <i class="bi bi-shield"></i> Actualizar Preguntas y Respuestas
+                                </button>
+                            </div>
+                        </div>
+
                       </fieldset>
 
-                      <hr>
-                      <fieldset class="row">
-                        <legend><i class="bi bi-shield-fill"></i> &nbsp; Actualizar Preguntas de Seguridad</legend>
-                        <div class="col-12 my-4 text-center d-flex justify-content-end">
-                            <button modal="preguntasSeguridad" class="btn_modal btn btn-success text-white" data-bs-toggle="modal" data-bs-target="#modal">
-                              <i class='zmdi zmdi-refresh'></i> Actualizar
-                            </button>
-                        </div>
-                      </fieldset>
                     </div>
                   </div>
                 </div>
@@ -140,7 +143,7 @@ model_user::verificar_intento_de_acceso_al_sistema();
 
       include_once "../include/scripts_include.php";
     
-      if($_SESSION['dataUsuario']["primerInicio"] == '1'){
+      if($_SESSION['dataUsuario']['primerInicio'] == '1'){
         echo "<script type='text/javascript'>
                 setTimeout(() => {
                   Swal.fire({

@@ -2,10 +2,6 @@
 session_start();
 require_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
 
-$id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
-// validación para verificar que el usuario inicio sesion de manera correcta
-model_user::verificar_intento_de_acceso_al_sistema();
-
 include_once "../include/verificacion_primer_inicio_usuario.php";
 
 $settings = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['ajustes']);

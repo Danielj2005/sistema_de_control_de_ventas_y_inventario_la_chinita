@@ -15,7 +15,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
 <form id="modalSendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
 
     <input type="hidden" name="modulo" value="modificar_preguntas_seguridad">
-    <div class="row">
+    <div class="row ">
         <?php 
             $numero_pregunta = 1;
             for ($i=0; $i < $cantidad_perguntas; $i++) { 
@@ -36,7 +36,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                 $preguntas = modeloPrincipal::consultar("SELECT * FROM seguridad"); 
             ?>
 
-                <div class="col-12  mb-3">
+                <div class="col-12 mb-2">
                     <label for="" class="control-label h6" style="font-size: 1em;">
                         Pregunta Nº <?= $i + 1 ?>
                         <span style="color:#f00;">*</span>
@@ -53,8 +53,8 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                     </select>
                 </div>
                 
-                <div class="col-12 mb-3">
-                    <div class="text-start col-12 mb-3">
+                <div class="col-12 mb-2">
+                    <div class="text-start col-12">
                         <label>
                             Respuesta Nº <?= $i + 1 ?>
                             <span style="color: red;">*</span>
@@ -63,7 +63,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                         <div class="input-group mb-3">
                             <input 
                                 type="password"
-                                class="form-control ver respuesta input__field"
+                                class="form-control"
                                 name="respuesta[]" 
                                 id="respuesta<?= $i + 1 ?>"
                                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$"
@@ -82,7 +82,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                     </div>
                 </div>
         <?php } ?>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-2">
             <div class="form-group">
                 <p class="form-p">Los Campos Con <span style="color:#f00;">*</span> Son Obligatorios</p>
             </div>

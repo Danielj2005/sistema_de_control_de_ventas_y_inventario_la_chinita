@@ -118,6 +118,7 @@ $_SESSION['dataUsuario'] = [
 ];
 
 $_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
+$_SESSION['primerInicio'] = $datos_usuario["primer_inicio"]; 
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
 $_SESSION['nombreRolUsuario'] = $datos_usuario['rol_usuario'];
 

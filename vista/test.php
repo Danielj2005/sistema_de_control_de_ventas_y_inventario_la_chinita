@@ -21,27 +21,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 
 <p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la configuración del sistema.</p> 
 <h4 class="text-center card-title"><b> Información del usuario que realizo la modificación </b></h4>
-<?php
-$original = 16;
-$actual = 18;
 
-$color_original = $original > $actual ? 'success' : 'danger';
-$color_actual = $original < $actual ? 'success' : 'danger';
-
-$modulo_productos_originales = '<h4 class="text-center card-title"><b> Configuración original del módulo de Gestión de productos </b></h4>
-    <div class="d-flex justify-content-between border-bottom">
-        <p> Porcentaje de IVA</p> 
-        <span>De <b class="text-'.$color_original.'">'.$original.'%</b> a <b class="text-'.$color_actual.'">'.$actual.'%</b></span>
-    </div>
-    <div class="d-flex justify-content-between border-bottom">
-        <p> Porcentaje de Ganancia</p> 
-        <span>De <b class="text-'.$color_original.'">'.$original.'%</b> a <b class="text-'.$color_actual.'">'.$actual.'%</b></span>
-    </div>
-    <hr>
-    ';
-    echo "$modulo_productos_originales";
-    echo "<br><br><br><br>";
-?>
 <p> Nombre: <b> '.$precio_dolar_original.' $ </b> </p>
 <p> Apellido: <b> '.$descripcion_original.'. </b> </p> 
 <p> Teléfono: <b> '.$estatus_original.' </b> </p>
@@ -55,3 +35,17 @@ $modulo_productos_originales = '<h4 class="text-center card-title"><b> Configura
 <p> Descripción: <b> '.$descripcion.'. </b> </p> 
 <p> Estado: <b> '.$estado_menu.' </b> </p>
 <p class="card-title">Productos del servicio actualizado:</p>
+
+
+
+<?php
+
+$cedula = modeloPrincipal::encryption("28587583");
+$data = modeloPrincipal::decryption("hqiWoZY=");
+$respuestas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = 2"));
+
+foreach ($respuestas as $key){
+    if ($key == $cedula) {
+        echo "true $key = $cedula <br>";
+    }
+}

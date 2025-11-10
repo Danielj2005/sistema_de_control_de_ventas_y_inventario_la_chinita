@@ -58,7 +58,12 @@ if($modulo === "cambiar_contraseña"){
         $contraseña2 = modeloprincipal::limpiar_cadena($_POST['repite_nueva_contraseña2']);
     }
     
-    if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',200}$/', $contraseña)) {
+    if($contraseña !== $contraseña2){
+        alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
+        exit();
+    }
+
+    if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',60}$/', $contraseña)) {
         alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
         exit();
     }
@@ -70,30 +75,12 @@ if($modulo === "cambiar_contraseña"){
         exit();
     }
     
-    // Contar símbolos (no alfanuméricos)
-    $simbolosContraseña2 = preg_match_all("/\W/", $contraseña2);
-    if($simbolosContraseña2 < $configuracion['simbolos']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "El campo repetir contraseña no cumple con la cantidad de caracteres mínima que es ".$configuracion['simbolos'].",  verifique e intente nuevamente.","error");
-        exit();
-    }
-    
     // Contar números
     // echo $numeros = preg_match_all("/[0-9]/", $contraseña); // no creo que debas dejarle el echo
     $numeros = preg_match_all("/[0-9]/", $contraseña);
 
     if($numeros < $configuracion['numeros']){
         alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-    $numerosContraseña2 = preg_match_all("/[0-9]/", $contraseña2);
-
-    if($numerosContraseña2 < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "El campo repetir contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-
-    if($contraseña !== $contraseña2){
-        alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
         exit();
     }
 
@@ -109,7 +96,7 @@ if($modulo === "cambiar_contraseña"){
         exit();
     }
     
-    $contraseña = modeloPrincipal::encryption($contraseña);
+    $contraseña = modeloPrincipal::hashear_contrasena($contraseña);
 
     // actualizar contraseña
     if(modeloPrincipal::UpdateSQL("usuario","contraseña = '$contraseña'","id_usuario = '$id_usuario'")){

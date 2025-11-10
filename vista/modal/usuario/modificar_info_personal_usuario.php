@@ -12,7 +12,6 @@ $correo = $_SESSION['dataUsuario']['correo'];
 $telefono = $_SESSION['dataUsuario']['telefono'];
 $direccion = $_SESSION['dataUsuario']['direccion'];
 
-
 $nacionalidad = $cedula[0].$cedula[1];
 $select = strval($cedula[0]);
 

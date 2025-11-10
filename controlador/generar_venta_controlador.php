@@ -179,26 +179,65 @@ try {
     $datos_venta = mysqli_fetch_array($datos_venta);
 
     bitacora::bitacora("Venta realizada exitosamente.",
-        "Se registro una venta con la siguiente informacón: <br><br>
-        <b>****** Información del cliente:   ******</b><br>
-        Cédula: <b>".$datos_venta['Ccedula']." </b><br>
-        Nombre: <b>".$datos_venta['Cnombre']." </b><br>
-        Teléfono: <b>".$datos_venta['Ctelefono']." </b><br><br>
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp; Se registró una venta con la siguiente informacón.</p> 
+        <h4 class="text-center card-title"><b> Información del cliente </b></h4>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Cédula</p>
+            <span>'.$datos_venta['Ccedula'].'</span>
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Nombre y Apellido</p>
+            <span>'.$datos_venta['Cnombre'].'</span>
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Teléfono</p>
+            <span>'.$datos_venta['Ctelefono'].'</span>
+        </div>
 
-        <b>****** Información de la Venta:   ******</b><br>
-        Subtotal ($): <b>".$datos_venta['sub_total_dolares']." $ </b><br>
-        Subtotal (Bs): <b>".$datos_venta['sub_total_bs']." bs</b><br>
-        Total de la compra en $ + IVA (16%): <b>".$datos_venta['monto_total_dolares']." $ </b><br>
-        Total de la compra en bs + IVA (16%): <b>".$datos_venta['monto_total_bolivares']." bs</b><br>
-        Fecha y hora: <b>".date("d-m-Y | g:i:a",strtotime($datos_venta['fecha_venta']))." </b><br>
-        Tasa de Cambio: <b>$dolar bs </b><br><br>
+        <h4 class="text-center card-title"><b> Información de la Venta </b></h4>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Subtotal ($)</p>
+            <span>'.$datos_venta['sub_total_dolares'].' $</span>
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Subtotal (Bs)</p>
+            <span>'.$datos_venta['sub_total_bs'].' Bs</span>
+        </div>
 
-        <b>****** Información del Usuario que realizó la venta:   ******</b><br>
-        Cédula: <b>".$datos_venta['Ucedula']." </b><br>
-        Nombre: <b>".$datos_venta['Unombre']." ".$datos_venta['Uapellido']." </b><br>
-        Correo: <b>".$datos_venta['correo']." </b><br>
-        Teléfono: <b>".$datos_venta['telefono']." </b><br>
-    ");
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Total ($) + IVA (16%)</p>
+            <span>'.$datos_venta['monto_total_dolares'].' $</span>
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Total (Bs) + IVA (16%)</p>
+            <span>'.$datos_venta['monto_total_bolivares'].' Bs</span>
+        </div>
+
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Fecha y Hora</p>
+            <span>'.date("d-m-Y | H:i:a",strtotime($datos_venta['fecha_venta'])).'</span>
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Tasa de Cambio</p>
+            <span>'.$dolar.' Bs</span>
+        </div>
+        <h4 class="text-center card-title"><b> Información del Usuario que realizó la venta </b></h4>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Cédula</p>
+            '.$datos_venta['Ucedula'].'
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Nombre y Apellido</p>
+            '.$datos_venta['Unombre']." ".$datos_venta['Uapellido'].'
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Correo</p>
+            '.$datos_venta['correo'].'
+        </div>
+        <div class="d-flex justify-content-between border-bottom">
+            <p> Teléfono</p>
+            '.$datos_venta['telefono'].'
+        </div>');
 
     alert_model::alert_reload ("Venta realizada!", "La venta se realizo correctamente", "success");
     exit();

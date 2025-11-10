@@ -295,7 +295,7 @@ class model_user extends modeloPrincipal {
         $respuestas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = '$id_usuario'"));
         
         foreach ($respuestas as $key){
-            if ($key !== $cedula) {
+            if ($key == $cedula) {
                 return true;
             }
         }
@@ -421,7 +421,7 @@ class model_user extends modeloPrincipal {
 
     public static function bitacora_modificacion_contraseña() {
 
-        bitacora::bitacora("Modificación exitosa del perfil de usuario.","El usuario actualizó su contraseña.");
+        bitacora::bitacora("Modificación exitosa del perfil de usuario.",'<p class="h2 mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó su contraseña.</p> ');
     }
 
 

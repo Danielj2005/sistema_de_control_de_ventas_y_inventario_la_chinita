@@ -417,7 +417,7 @@ class rol_model extends model_user {
 
         while($row = mysqli_fetch_array($oprions_roles)) { ?>
 
-            <option value="<?= modeloPrincipal::encryption($row['id_usuario'] * 10); ?>"> <?= $row["cedula"]." - ".$row["nombre"]." ".$row["apellido"]; ?></option>
+            <option value="<?= modeloPrincipal::encryptionId($row['id_rol']); ?>"> <?= $row["nombre"]; ?></option>
 
         <?php }
     }

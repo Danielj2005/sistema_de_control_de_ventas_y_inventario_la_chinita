@@ -49,7 +49,7 @@ class config_model extends modeloPrincipal {
         return $color_cambios;
     }
 
-    private static function obtener_comparacion ($datosOriginales, $datosActuales){
+    public static function obtener_comparacion ($datosOriginales, $datosActuales){
 
         $color_cambio_original = self::obtener_cambios_colores_bitacora($datosOriginales[0], $datosActuales[0]);
         
@@ -70,7 +70,7 @@ class config_model extends modeloPrincipal {
         $rol = $_SESSION['dataUsuario']['nombreRolUsuario'];
         
         // información de la configuración actual
-        $configuracion_actual = config_model::obtener_configuracion();
+        $configuracion_actual = self::obtener_configuracion();
 
         if ($configuracion_original['porcentaje_iva'] !== $configuracion_actual['porcentaje_iva'] || $configuracion_original['porcentaje_ganancia'] !== $configuracion_actual['porcentaje_ganancia']) {
             

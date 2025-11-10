@@ -178,7 +178,7 @@ class venta_model extends modeloPrincipal {
                     modeloPrincipal::UpdateSQL("producto", "stock_actual = 0, estado = 0", "id_producto = $id_producto");
                 }
                 
-                if ($stock_producto['stock'] < $cantidad_productos[$i]) {
+                if ($stock_producto['stock_actual'] < $cantidad_productos[$i]) {
                     alert_model::alerta_simple("¡Ocurrio un error!","El stock del producto `".$stock_producto['producto'] . " ".$stock_producto['marca']. " ".$stock_producto['presentacion']. " ".$stock_producto['representacion']."` se encuentra por debajo de la cantidad seleccionada, el stock actual es de (".intval($stock_producto['stock_actual']).")","error");
                     exit();
                 }

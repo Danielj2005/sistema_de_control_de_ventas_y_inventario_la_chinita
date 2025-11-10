@@ -32,7 +32,7 @@ if($modulo === "Guardar"){
     
     /*------------------ datos de el usuario ------------------*/
     $correo =  modeloprincipal::limpiar_cadena($_POST["correo"]);
-    $contraseña = modeloprincipal::limpiar_encriptar($_POST["cedula"]);
+    $contraseña = modeloprincipal::limpiar_cadena($_POST["cedula"]);
     
     $id_rol =  modeloprincipal::decryptionId($_POST["id_tipo"]);
     $id_rol =  modeloprincipal::limpiar_cadena($id_rol);
@@ -73,21 +73,23 @@ if($modulo === "Guardar"){
         exit();
     }
 
-    if (modeloprincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\.\*\_\-]{8,16}", modeloprincipal::decryption($contraseña))) {
+    if (modeloprincipal::verificar_datos("[A-Za-zñÑÁÉÍÚÓáéíóúñÑ0-9\.\*\_\-]{8,16}", $contraseña)) {
         alert_model::alert_of_format_wrong("'contraseña'");
         exit();
     }
+
+    $contraseña = modeloPrincipal::hashear_contrasena($contraseña);
     
     // datos verificados que se van a Registrar
     try {
         $registrar = model_user::insert_user($cedula, $nombre, $apellido, $correo, $contraseña, $telefono, $direccion, $id_rol);
         
         if (!$registrar) {
-            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar al usuario en la base de datos.","error");
+            alert_model::alerta_simple("¡Ocurrió un error!","No se pudo registrar al usuario en el sistema.","error");
         }
 
     } catch (Exception $e) {
-        alert_model::alerta_simple("Ocurrido un error!", "ocurrio un error al registrar al usuario en la base de datos.", "error");
+        alert_model::alerta_simple("Ocurrido un error!", " ocurrio un error al registrar al usuario en el sistema.", "error");
         exit();
     }
     
@@ -106,16 +108,32 @@ if($modulo === "Guardar"){
         $id_usuario = model_user::obtener_id_usuario_recien_registrado();
         $rol_asignado = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
 
-        bitacora::bitacora("Registro exitoso de un nuevo usuario.","Se registró un nuevo usuario con la siguiente informacón: <br><br>
-        <b>****** Información del usuario registrado:   ******</b><br><br>
-        Cédula: <b>$cedula </b><br>
-        Nombre: <b>$nombre </b><br>
-        Apellido: <b>$apellido </b><br>
-        Correo: <b>$correo </b><br>
-        Teléfono: <b>$telefono </b><br>
-        Dirección: <b>$direccion </b><br>
-        Rol asignado: <b>$rol_asignado </b>
-        ");
+        bitacora::bitacora("Registro exitoso de un nuevo usuario.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se registró un nuevo usuario con la siguiente informacón.</p> 
+                <h4 class="text-center card-title"><b> Información del usuario </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cédula</p>
+                    '.$cedula.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Nombre y Apellido</p>
+                    '.$nombre.' '.$apellido.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Correo</p>
+                    '.$correo.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Dirección</p>
+                    '.$direccion.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Teléfono</p>
+                    '.$telefono.'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Rol asignado</p>
+                    '.$rol_asignado.'
+                </div>');
 
         alert_model::alert_reg_success();
         exit();
@@ -178,38 +196,59 @@ if($modulo === "modificar_info_personal_usuario"){
     try {
         $actualizar = modeloPrincipal::UpdateSQL("usuario","cedula = '$cedula', nombre = '$nombre', apellido = '$apellido', correo = '$correo', telefono = '$telefono', direccion = '$direccion'", "id_usuario = $id_usuario");
         
-                
-        $_SESSION['dataUsuario'] = [
-            "dni" => $cedula,
-            "nombre" => $nombre,
-            "apellido" => $apellido,
-            "correo" => $correo,
-            "telefono" => $telefono,
-            "direccion" => $direccion
-        ];
+        $_SESSION['dataUsuario']['dni'] = $cedula;
+        $_SESSION['dataUsuario']['nombre'] = $nombre ;
+        $_SESSION['dataUsuario']['apellido'] = $apellido ;
+        $_SESSION['dataUsuario']['correo'] = $correo ;
+        $_SESSION['dataUsuario']['telefono'] = $telefono ;
+        $_SESSION['dataUsuario']['direccion'] = $direccion ;
 
         if (!$actualizar) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar la información personal del usuario.", "error");
             exit();
         }
 
+        $cambios = [
+            "dni" => config_model::obtener_comparacion([$cedula_user, $cedula_user], [ $cedula, $cedula]),
+
+            "nombre" => config_model::obtener_comparacion([$nombre_user, $nombre_user], [ $nombre, $nombre]),
+
+            "apellido" => config_model::obtener_comparacion([$apellido_user, $apellido_user], [ $apellido, $apellido]),
+
+            "correo" => config_model::obtener_comparacion([$correo_user, $correo_user], [ $correo, $correo]),
+
+            "telefono" => config_model::obtener_comparacion([$telefono_user, $telefono_user], [ $telefono, $telefono]),
+
+            "direccion" => config_model::obtener_comparacion([$direccion_user, $direccion_user], [ $direccion, $direccion])
+        ];
+
         $bitacora_modificacion_info_usuario = bitacora::bitacora("Modificación exitosa del perfil de usuario",
-        "El usuario actualizó su información personal <br><br>
-        <b>****** Información original del usuario:   ******</b><br><br>
-        Cédula: <b>".$cedula_user."</b><br>
-        Nombre: <b>".$nombre_user."</b><br>
-        Apellido: <b>".$apellido_user."</b><br>
-        Correo: <b>".$correo_user."</b><br>
-        Dirección: <b>".$direccion_user."</b><br>
-        Teléfono: <b>".$telefono_user."</b><br><br>
-        <b>****** Información Actual del usuario:   ******</b><br><br>
-        Cédula: <b>".model_user::obtener_info_personal_usuario('cedula',$id_usuario)."</b><br>
-        Nombre: <b>".model_user::obtener_info_personal_usuario('nombre',$id_usuario)."</b><br>
-        Apellido: <b>".model_user::obtener_info_personal_usuario('apellido',$id_usuario)."</b><br>
-        Correo: <b>".model_user::obtener_info_personal_usuario('correo',$id_usuario)."</b><br>
-        Dirección: <b>".model_user::obtener_info_personal_usuario('direccion',$id_usuario)."</b><br>
-        Teléfono: <b>".model_user::obtener_info_personal_usuario('telefono',$id_usuario)."</b>
-        ");
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la configuración del sistema.</p> 
+                <h4 class="text-center card-title"><b> Información del usuario </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Cédula</p>
+                    '.$cambios['dni'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Nombre</p>
+                    '.$cambios['nombre'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Apellido</p>
+                    '.$cambios['apellido'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Correo</p>
+                    '.$cambios['correo'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Dirección</p>
+                    '.$cambios['telefono'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Teléfono</p>
+                    '.$cambios['direccion'].'
+                </div>');
 
         if (!$bitacora_modificacion_info_usuario) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la modificación en bitácora.", "error");
@@ -230,70 +269,57 @@ if($modulo === "modificar_info_personal_usuario"){
 if($modulo === "modificar_contraseña_usuario"){
     
     $contraseña_actual = modeloprincipal::limpiar_cadena($_POST["current_password"]);
-
+    
     modeloprincipal::validar_campos_vacios([$_POST["current_password"], $_POST['password2'], $_POST['password']]); // se verifica si se recibieron campos vacios
-
+    
+    // primero se evalua si la contraseña actual ingresada es correcta para proceder con las validaciones de la contraseña nueva
+    $contraseña_haseada = modeloPrincipal::hashear_contrasena($contraseña_actual);
+    $hash_guardado_en_bd = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"))["contraseña"];
+    // se verifica que la contraseña coincida con la guardad en la base de datos
+    if(password_verify($contraseña_actual, $hash_guardado_en_bd)){
+        alert_model::alerta_simple("¡Ocurrio un error!", "La contraseña actual que ingresaste es incorrecta, verifique e intente nuevamente.","error");
+        exit();
+    }
+    // se verifica que se está recibiendo la contraseña nueva
     if (isset($_POST['password']) && isset($_POST['password2'])) {
         $contraseña_nueva = modeloprincipal::limpiar_cadena($_POST["password"]);
         $contraseña_nueva2 = modeloprincipal::limpiar_cadena($_POST['password2']);
     }
     
-    if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',200}$/', $contraseña_nueva)) {
-        alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
+    if($contraseña_nueva !== $contraseña_nueva2){
+        alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
         exit();
     }
-    
-    if(strlen($contraseña_nueva) < $configuracion['caracteres'] || strlen($contraseña_nueva) > $configuracion['caracteres']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la logitud establecida que es ".$configuracion['caracteres'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-    $consulta_pass = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"));
 
-    if($contraseña_actual !== modeloprincipal::decryption($consulta_pass['contraseña'])){
-        alert_model::alerta_simple("¡Ocurrio un error!", "La contraseña actual que ingresaste es incorrecta, verifique e intente nuevamente.","error");
+    // if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',60}$/', $contraseña_nueva)) {
+    //     alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
+    //     exit();
+    // }
+    
+    if (modeloprincipal::verificar_datos("[!@#$%A-Za-z0-9\-]{".$configuracion['caracteres'].",60}", $contraseña_nueva)) {
+        // alert_model::alert_of_format_wrong("'contraseña nueva'");
+        alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
+
         exit();
     }
-    
+
     // Contar símbolos (no alfanuméricos)
     $simbolosContraseña = preg_match_all("/\W/", $contraseña_nueva);
-    if($simbolosContraseña < $configuracion['simbolos'] || $simbolosContraseña > $configuracion['simbolos'] ){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de la contraseña no cumple con lo establecido que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
+    if($simbolosContraseña < $configuracion['simbolos']){
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de caracteres mínima que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
         exit();
     }
-    
-    // Contar símbolos (no alfanuméricos)
-    $simbolosContraseña2 = preg_match_all("/\W/", $contraseña_nueva2);
-    if($simbolosContraseña2 < $configuracion['simbolos'] || $simbolosContraseña2 > $configuracion['simbolos'] ){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de simbolos de el campo repetir contraseña no cumple con lo establecido que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-    
     // Contar números
-    // echo $numeros = preg_match_all("/[0-9]/", $contraseña); // no creo que debas dejarle el echo
     $numeros = preg_match_all("/[0-9]/", $contraseña_nueva);
 
     if($numeros < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con lo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-    $numerosContraseña2 = preg_match_all("/[0-9]/", $contraseña_nueva2);
-
-    if($numerosContraseña2 < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la cantidad de números de la contraseña no cumple con lo establecido que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
-        exit();
-    }
-
-    model_user::verificar_coincidencia_de_contraseña($contraseña_nueva,$contraseña_nueva2);
-    
-    if (modeloprincipal::verificar_datos("[!@#$%A-Za-z0-9\-]{".$configuracion['caracteres'].",60}", $contraseña_nueva)) {
-        alert_model::alert_of_format_wrong("'contraseña nueva'");
+        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
         exit();
     }
 
     try {
 
-        $contraseña_prueba = modeloPrincipal::hashear_contrasena($contraseña_nueva);
-        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_prueba'","id_usuario = $id_usuario");
+        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_haseada'","id_usuario = $id_usuario");
 
         if (!$actualizar) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la nueva contraseña .", "error");
@@ -302,7 +328,9 @@ if($modulo === "modificar_contraseña_usuario"){
 
         $primer_inicio = model_user::verificar_primer_inicio();
 
-        if ($primer_inicio == true) {
+        if ($primer_inicio) {
+            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 1", "id_usuario = '$id_usuario'");
+        }else{
             modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
         }
 
@@ -416,13 +444,16 @@ if ($modulo === "modificar_preguntas_seguridad") {
         }
 
         $primer_inicio = model_user::verificar_primer_inicio();
-        
-        if ($primer_inicio == true) {
+
+        if ($primer_inicio) {
+            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 1", "id_usuario = '$id_usuario'");
+            $_SESSION['dataUsuario']["primerInicio"] = 1;
+        }else{
             modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
             $_SESSION['dataUsuario']["primerInicio"] = 0;
         }
         // Registrar la modificación en la bitácora
-        bitacora::bitacora("Modificación exitosa del perfil de usuario","El usuario actualizó su(s) pregunta(s) de seguridad");
+        bitacora::bitacora("Modificación exitosa del perfil de usuario",'<p class="mb-3 h2 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó sus preguntas de seguridad.</p> ');
         // Mostrar mensaje de éxito
         alert_model::alert_mod_success();
     } catch (Exception $e) {
@@ -493,22 +524,39 @@ if ($modulo === 'caracteristicas_de_acceso'){
         $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
         $bloqueado_actual = ($bloqueado_actual == 1) ? 'Sí' : 'No' ;
 
-        $colorStateOrigins = ($estado_original == 1) ? 'success' : 'danger' ;
-        $colorStateNow = ($estado_actual == 1) ? 'success' : 'danger' ;
+        $cambios = [
+            "estado" => config_model::obtener_comparacion([$estado_original_usuario, $estado_original_usuario], [ $estado_user_actual, $estado_user_actual]),
+            "rol" => config_model::obtener_comparacion([$rol_original, $rol_original], [ $rol_actual, $rol_actual]),
+            "bloqueado" => config_model::obtener_comparacion([$bloqueado_original, $bloqueado_original], [ $bloqueado_actual, $bloqueado_actual]),
+        ];
 
         $bitacora = bitacora::bitacora("Modificación exitosa de las características de acceso de un usuario",
         '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información: </p> 
             <h4 class="text-center card-title"><b> Información del Usuario Modificado: </b></h4>
-            <p> Cédula: <b>'.$cedula.'</b> </p> 
-            <p> Nombre y Apellido: <b>'.$nombre.'</b> </p>          
-            <p class="card-title">Información original:</p>
-            <p> Estado: <span class="badge text-bg-'.$colorStateOrigins.'"><b>'.$estado_original_usuario.'</b></span></p> 
-            <p> Rol asignado: <b>'.$rol_original.'</b></p>
-            <p> Bloqueado: <b>'.$bloqueado_original.'</b></p> 
-            <p class="card-title">Información Actual:</p>
-            <p> Estado: <span class="badge text-bg-'.$colorStateNow.'"><b>'.$estado_user_actual.'</b></span></p>
-            <p> Rol asignado: <b> '.$rol_actual.'</b></p>
-            <p> Bloqueado: <b> '.$bloqueado_actual.'</b></p>');
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Cédula</p>
+                '.$cedula.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Nombre y Apellido</p>
+                '.$nombre.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Teléfono</p>
+                '.$telefono.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Estado</p>
+                '.$cambios['estado'].'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Rol asignado</p>
+                '.$cambios['rol'].'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Bloqueado</p>
+                '.$cambios['bloqueado'].'
+            </div>');
 
         if (!$bitacora) {
             alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al registrar las características de acceso del usuario en la bitácora.", "error");
@@ -542,6 +590,7 @@ if ($modulo === 'resetear_contraseña'){
     $cedula = model_user::obtener_info_personal_usuario('cedula', $id_usuario);
     $nombre = model_user::obtener_info_personal_usuario('nombre', $id_usuario);
     $apellido = model_user::obtener_info_personal_usuario('apellido', $id_usuario);
+    $telefono = model_user::obtener_info_personal_usuario('telefono', $id_usuario);
     
     $cedula_reseteo = trim($cedula);
     $cedula_reseteo = str_ireplace("V", "", $cedula_reseteo);
@@ -589,23 +638,39 @@ if ($modulo === 'resetear_contraseña'){
         $estado_user_actual = ($estado_actual == 1) ? 'Activo' : 'Inactivo' ;
         $bloqueado_actual = ($bloqueado_actual == 1) ? 'Sí' : 'No' ;
 
-        $colorStateOrigins = ($estado_original == 1) ? 'success' : 'danger' ;
-        $colorStateNow = ($estado_actual == 1) ? 'success' : 'danger' ;
+        $cambios = [
+            "estado" => config_model::obtener_comparacion([$estado_original_usuario, $estado_original_usuario], [ $estado_user_actual, $estado_user_actual]),
+            "rol" => config_model::obtener_comparacion([$rol_original, $rol_original], [ $rol_actual, $rol_actual]),
+            "bloqueado" => config_model::obtener_comparacion([$bloqueado_original, $bloqueado_original], [ $bloqueado_actual, $bloqueado_actual]),
+        ];
 
         bitacora::bitacora("Modificación Exitosa del Acceso de un Usuario.", 
-        '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información: </p> 
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información </p> 
             <h4 class="text-center card-title"><b> Información del Usuario Modificado: </b></h4>
-            <p> Cédula: <b>'.$cedula.'</b> </p> 
-            <p> Nombre: <b>'.$nombre.'</b> </p>
-            <p> Apellido: <b>'.$apellido.'</b> </p>             
-            <p class="card-title">Información original:</p>
-            <p> Estado: <span class="badge text-bg-'.$colorStateOrigins.'"><b>'.$estado_original_usuario.'</b></span></p> 
-            <p> Rol asignado: <b>'.$rol_original.'</b></p>
-            <p> Bloqueado: <b>'.$bloqueado_original.'</b></p> 
-            <p class="card-title">Información Actual:</p>
-            <p> Estado: <span class="badge text-bg-'.$colorStateNow.'"><b>'.$estado_user_actual.'</b></span></p>
-            <p> Rol asignado: <b> '.$rol_actual.'</b></p>
-            <p> Bloqueado: <b> '.$bloqueado_actual.'</b></p>');
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Cédula</p>
+                '.$cedula.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Nombre y Apellido</p>
+                '.$nombre.' '.$apellido.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Teléfono</p>
+                '.$telefono.'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Estado</p>
+                '.$cambios['estado'].'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Rol asignado</p>
+                '.$cambios['rol'].'
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+                <p> Bloqueado</p>
+                '.$cambios['bloqueado'].'
+            </div>');
 
         alert_model::alert_mod_success();
         exit();
