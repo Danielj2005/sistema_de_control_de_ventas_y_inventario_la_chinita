@@ -24,8 +24,11 @@ if($modulo === "Guardar" ){
     modeloPrincipal::validar_campos_vacios([$cedula, $nombre, $correo, $direccion, $telefono]);
 
     // Se verifica que no el proveedor aha registrar no exista.    
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT cedula_rif FROM proveedor WHERE cedula_rif = '$cedula'")) > 0){
-        alert_model::alert_register_exist();
+    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT cedula_rif, correo FROM proveedor WHERE cedula_rif = '$cedula' || correo = '$correo'")) > 0){
+        alert_model::alerta_simple(
+        "Ocurrio un error!", 
+        'El documento de identidad o Correo ingreados ya se encuentran registrados en el sistema, le sugerimos revisar los datos o utilizar una información diferente.', 
+        "error");
         exit(); 
     }
 

@@ -15,7 +15,8 @@ $permiso_productos = modeloPrincipal::verificar_permisos_requeridos($_SESSION['p
 $r_productos = modeloPrincipal::verificar_permisos_requeridos(['r_productos']);
 $l_productos = modeloPrincipal::verificar_permisos_requeridos(['l_productos']);
 
-$categoria = modeloPrincipal::verificar_permisos_requeridos(['l_categoria']);
+$r_categoria = modeloPrincipal::verificar_permisos_requeridos(['r_categoria']);
+$l_categoria = modeloPrincipal::verificar_permisos_requeridos(['l_categoria']);
 
 $r_presentacion = modeloPrincipal::verificar_permisos_requeridos(['r_presentacion']);
 $l_presentacion = modeloPrincipal::verificar_permisos_requeridos(['l_presentacion']);
@@ -38,7 +39,7 @@ if ($permiso_productos) {  ?>
                 include_once "../include/css_include.php";
             ?>
         </head>
-        <body class="-sidebar">
+        <body>
             <?php
                 // se incluye el header / encabezado a la vista
                 include_once "../include/header.php";
@@ -59,15 +60,41 @@ if ($permiso_productos) {  ?>
                         <?php if ($categoria || $presentacion > 0 || $marca > 0) : ?>
                             <!-- listado de Categoría -->
 
-                            <div id="card_gestion_productos" class="col-12 col-sm-12 col-md-12 mb-3 pagetitle text-center row m-0 p-0 justify-content-around">
+                            <div id="card_gestion_productos" class="col-12 mb-3 pagetitle text-center row m-0 p-0 justify-content-around">
 
                                 <?php if ($categoria): ?>
 
-                                    <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 border card">
+                                    <div id="" class="text-center col-12 col-md-3 fs-4 border card">
                                         <h3 class="text-center mt-2 titulosH fs-3">Categorías</h3>
+
                                         <div class="text-center mb-2">
                                             <button modal="listaCategoria" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Lista de Categorías</button>
                                         </div>
+                                        <?php if ($r_marca == 1): ?>
+
+                                            <button 
+                                                modal="registrarMarca" 
+                                                type="button" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modal" 
+                                                class="mb-2 btn_modal btn btn-success">
+                                                    <i class="bi bi-plus-circle"></i>
+                                                    Registrar Nueva
+                                            </button>
+
+                                        <?php endif; if ($l_categoria == 1 ): ?>
+
+                                            <div class="text-center mb-2">
+                                                <button 
+                                                    modal="listaCategoria" 
+                                                    id="btn_ver_listas_categoria" 
+                                                    type="button" 
+                                                    class="btn_modal btn btn btn-secondary" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#modal"><i class="bi bi-list-columns-reverse"></i> Lista de Categorías</button>
+                                            </div>
+
+                                        <?php endif; ?>
                                     </div>   
 
                                 <?php endif; if ($r_presentacion || $l_presentacion): ?>
@@ -85,7 +112,7 @@ if ($permiso_productos) {  ?>
                                                             type="button" 
                                                             class="mb-2 btn_modal btn btn-success">
                                                                 <i class="bi bi-plus-circle"></i>
-                                                                Nueva Presentación
+                                                                Registrar Nueva
                                                         </button>
 
                                                 <?php endif;  if ($l_presentacion == 1): ?>
@@ -120,7 +147,7 @@ if ($permiso_productos) {  ?>
                                                             data-bs-target="#modal" 
                                                             class="mb-2 btn_modal btn btn-success">
                                                                 <i class="bi bi-plus-circle"></i>
-                                                                Nueva Marca
+                                                                Registrar Nueva
                                                         </button>
 
                                                 <?php endif; if ($l_marca == 1 ): ?>
