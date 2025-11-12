@@ -18,34 +18,23 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
     body{padding: 5rem;}
 </style>
 
-
-<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la configuración del sistema.</p> 
-<h4 class="text-center card-title"><b> Información del usuario que realizo la modificación </b></h4>
-
-<p> Nombre: <b> '.$precio_dolar_original.' $ </b> </p>
-<p> Apellido: <b> '.$descripcion_original.'. </b> </p> 
-<p> Teléfono: <b> '.$estatus_original.' </b> </p>
-<p> Rol asignado: <b> '.$estatus_original.' </b> </p>
-
-<p class="card-title">Productos del Servicio Original:</p>
-'.$bitacora_original.'
-<h4 class="text-center card-title"> <b> Información del Servicio Actualizado:  </b> </h4>
-<p> Nombre del platillo: <b> '.$nombre_platillo.' </b> </p> 
-<p> Precio en dolares: <b> '.$precio_dolar.' $ </b> </p>
-<p> Descripción: <b> '.$descripcion.'. </b> </p> 
-<p> Estado: <b> '.$estado_menu.' </b> </p>
-<p class="card-title">Productos del servicio actualizado:</p>
-
-
-
-<?php
-
-$cedula = modeloPrincipal::encryption("28587583");
-$data = modeloPrincipal::decryption("hqiWoZY=");
-$respuestas = mysqli_fetch_array(modeloPrincipal::consultar("SELECT respuesta FROM preguntas_secretas WHERE id_usuario = 2"));
-
-foreach ($respuestas as $key){
-    if ($key == $cedula) {
-        echo "true $key = $cedula <br>";
-    }
-}
+<div class="d-flex justify-content-between border-bottom mb-2">
+    <p> Código</p>
+    <span>'.$code[$i].'</span>
+</div>
+<div class="d-flex justify-content-between border-bottom mb-2">
+    <p> Nombre</p>
+    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['nombre'][$i]).'</span>
+</div>
+<div class="d-flex justify-content-between border-bottom mb-2">
+    <p> Marca</p>
+    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['marca'][$i]).'</span>
+</div>
+<div class="d-flex justify-content-between border-bottom mb-2">
+    <p> Formato</p>
+    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['presentacion'][$i]).'</span>
+</div>
+<div class="d-flex justify-content-between border-bottom mb-2">
+    <p> Categoría</p>
+    <span class="text-primary fw-bold mb-1">'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['categoria'][$i]).'</span>
+</div>

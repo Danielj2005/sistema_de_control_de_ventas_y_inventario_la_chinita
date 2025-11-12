@@ -37,10 +37,7 @@ $proveedor = $proveedor['proveedor'];
             <tr>
                 <th class="col text-center" scope="col">N.º</th>
                 <th class="col text-center" scope="col">Código</th>
-                <th class="col text-center" scope="col">Nombre</th>
-                <th class="col text-center" scope="col">Presentación</th>
-                <th class="col text-center" scope="col">Marca</th>
-                <th class="col text-center" scope="col">Categoría</th>
+                <th class="col text-center" scope="col">Producto</th>
                 <th class="col text-center" scope="col">Unidades Ingresadas</th>
                 <th class="col text-center" scope="col">Costo ($)</th>
                 <th class="col text-center" scope="col">Costo (Bs.)</th>
@@ -56,10 +53,20 @@ $proveedor = $proveedor['proveedor'];
                 <tr>
                     <td class="col text-center"></td>
                     <td class="col text-center"><?= $mostrar["codigo"] ?></td>
-                    <td class="col text-center"><?= $mostrar["nombre_producto"] ?></td>
-                    <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
-                    <td class="col text-center"><?= $mostrar["marca"] ?></td>
-                    <td class="col text-center"><?= $mostrar["categoria"] ?></td>
+                    <td class="text-start">
+                        <p class="text-<?=  $mostrar["cantidad_comprada"] == 0 ? "danger" : "primary" ?>  fw-bold mb-1">
+                            <span class="fw-bold">Nombre:</span> <?= $mostrar["nombre_producto"]?>
+                        </p>
+                        <small class="d-block text-dark">
+                            <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
+                        </small>
+                        <small class="d-block text-muted">
+                            <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
+                        </small>
+                        <small class="d-block text-muted">
+                            <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
+                        </small>
+                    </td>
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_dolar"].' $'; ?></td>
                     <td class="col text-center"><?= $mostrar["precio_bs"].' bs'; ?></td>

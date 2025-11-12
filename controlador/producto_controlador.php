@@ -2,6 +2,7 @@
 session_start();
 
 require_once "../modelo/modeloPrincipal.php"; // se incluye el modelo principal
+require_once "../modelo/configuracion_model.php"; // se incluye el modelo producto
 require_once "../modelo/productos_model.php"; // se incluye el modelo producto
 require_once "../modelo/alert_model.php"; // se incluye el modelo producto
 require_once "../modelo/bitacora_model.php"; // se incluye el modelo de bitacora
@@ -13,8 +14,6 @@ require_once "../modelo/marca_model.php"; // se incluye el modelo de marcas
 modeloPrincipal::verificarModuloATrabajar("modulo");
 
 $modulo = modeloprincipal::limpiar_cadena($_POST["modulo"]);
-
-$config['porcentaje_iva'] = 16;
 
 // verificar si el modulo es guardar
 if($modulo === 'Guardar'){
@@ -59,19 +58,31 @@ if($modulo === 'Guardar'){
 
         for ( $i = 0;  $i < count($id_productos); $i++) {
 
-            $bitacora .= "Nombre: <b>".modeloPrincipal::primeraLetraMayus($datos_productos_registrados['nombre'][$i])." </b><br>
-                Presentación: <b>".modeloPrincipal::primeraLetraMayus($datos_productos_registrados['presentacion'][$i])." </b><br>
-                Categoría: <b>".modeloPrincipal::primeraLetraMayus($datos_productos_registrados['categoria'][$i])." </b><br>
-                Marca: <b>".modeloPrincipal::primeraLetraMayus($datos_productos_registrados['marca'][$i])." </b><br>
-                Porcentaje de IVA: <b>16%</b><br><br>
-                <b>*********************************************</b><br><br>";
+            $bitacora .= '<h4 class="text-center card-title"><b> Información del producto '.$code[$i].'</b></h4>
+                <div class="d-flex justify-content-between border-bottom mb-2">
+                    <p> Código</p>
+                    <span>'.$code[$i].'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2">
+                    <p> Nombre</p>
+                    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['nombre'][$i]).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2">
+                    <p> Marca</p>
+                    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['marca'][$i]).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2">
+                    <p> Formato</p>
+                    <span>'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['presentacion'][$i]).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2">
+                    <p> Categoría</p>
+                    <span class="text-primary fw-bold mb-1">'.modeloPrincipal::primeraLetraMayus($datos_productos_registrados['categoria'][$i]).'</span>
+                </div>';
+
         }
         
-        bitacora::bitacora("Registro Exitoso de uno o más Productos.",
-            "Se Registraron uno o más Productos con la Siguiente Información: <br><br>
-                    <b>****** Información de los productos:   ******</b><br><br>
-                    $bitacora
-        ");
+        bitacora::bitacora("Registro Exitoso de uno o más Productos.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró los siguientes productos.</p>'.$bitacora.'');
         
         if ($vista == 1) {
             alert_model::alerta_condicional("¡Registro Exitoso!","Los Datos Se Registraron Correctamente", "success","document.querySelector('.btn-danger').click();");

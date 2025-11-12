@@ -22,12 +22,13 @@ if($modulo === "Guardar"){
         se convierte a minúsculas con la función strtolower().
         luego se pone la primera letra de cada palabra en mayúscula con la función ucwords().
     */
-    $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre_categoria'])));
+    $nombre = modeloPrincipal::primeraLetraMayus(modeloPrincipal::limpiar_cadena($_POST['nombre_categoria']));
+    $descripcion = modeloPrincipal::limpiar_cadena($_POST['descripcion']);
     
-    modeloPrincipal::validar_campos_vacios([$nombre]); // Se verifica que no se hayan recibido campos vacíos.
+    modeloPrincipal::validar_campos_vacios([$nombre, $descripcion]); // Se verifica que no se hayan recibido campos vacíos.
 
     // se comprueba que no exista un registro con los mismos datos
-    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre FROM categoria WHERE nombre = '$nombre'")) > 0){
+    if(mysqli_num_rows(modeloPrincipal::consultar("SELECT nombre, descripcion FROM categoria WHERE nombre = '$nombre' OR descripcion = '$descripcion'")) > 0){
         /********** No se puede registrar un usuario si ya existe **********/
         alert_model::alerta_simple("¡Ocurrio un error!","El nombre que ingresaste ya se encuentra en uso.","error");
         exit(); 
@@ -37,17 +38,23 @@ if($modulo === "Guardar"){
         alert_model::alert_of_format_wrong("'nombre'");
         exit();
     }
+
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,200}",$descripcion)) {
+        alert_model::alert_of_format_wrong("'descripción'");
+        exit();
+    }
+    
     
     // se registran los datos del categoría
     try {
-        $registrar = category_model::registrar($nombre);
+        $registrar = category_model::registrar($nombre, $descripcion);
         
         if (!$registrar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al registrar una categoría.","error");
         }
 
     } catch (Exception $e) {
-        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la categoría debido a un error de consulta.", "error");
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo registrar la categoría debido a un error interno, recargue la página e intente nuevamente.", "error");
         exit();
     }
     
@@ -59,13 +66,16 @@ if($modulo === "Guardar"){
         $datos_originales = mysqli_fetch_array($datos_originales);
         $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-        bitacora::bitacora("Registro exitoso de una categoría.","Se registro una categoría con la siguiente informacón: <br><br>
-        <b>****** Información de la categoría:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b>
-        ");
+        bitacora::bitacora("Registro exitoso de una categoría.",
+            '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se registró un nuevo usuario con la siguiente informacón.</p> 
+            <h4 class="text-center card-title"><b> Información de la categoría </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> '.$datos_originales['nombre'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> '.$datos_originales['descripcion'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$datos_originales['estado'].' </div>');
 
-        alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#añadir_categoria input').forEach((input) => {input.value = ''});");
+            
+        alert_model::alert_reg_success_and_close_modal();
+        
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();
@@ -83,7 +93,7 @@ if ($modulo === "activo") {
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
     try {
-        $actualizar = category_model::actualizar("0", "$id_categoria");
+        $actualizar = category_model::actualizar_estado("0", "$id_categoria");
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
@@ -102,16 +112,18 @@ if ($modulo === "activo") {
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-        bitacora::bitacora("Modificación exitosa del estado de una categoría.","Se modificó el estado de una categoría con la siguiente informacón: <br><br>
-        <b>****** Información original de la categoría:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b><br><br>
-        <b>****** Información actual de la categoría:   ******</b><br><br>
-        Nombre: <b>".$datos_actuales['nombre']." </b><br>
-        Estado: <b>".$datos_actuales['estado']." </b>
-        ");
+        $cambios = [
+            "nombre" => config_model::obtener_comparacion([$datos_originales['nombre'], $datos_originales['nombre']], [ $datos_actuales['nombre'], $datos_actuales['nombre']]),
 
-        alert_model::alert_mod_success();
+            "descripcion" => config_model::obtener_comparacion([$datos_originales['descripcion'], $datos_originales['descripcion']], [ $datos_actuales['descripcion'], $datos_actuales['descripcion']]),
+
+            "estado" => config_model::obtener_comparacion([$datos_originales['estado'], $datos_originales['estado']], [ $datos_actuales['estado'], $datos_actuales['estado']])
+        ];
+
+        category_model::bitacora_modificar_estado_categoria($cambios);
+        
+        alert_model::alert_mod_success_and_close_modal();
+
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();
@@ -126,7 +138,7 @@ if ($modulo === "inactivo") {
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
     try {
-        $actualizar = category_model::actualizar("1", $id_categoria);
+        $actualizar = category_model::actualizar_estado("1", $id_categoria);
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
@@ -144,16 +156,17 @@ if ($modulo === "inactivo") {
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-        bitacora::bitacora("Modificación exitosa del estado de una categoría.","Se modificó el estado de una categoría con la siguiente informacón: <br><br>
-        <b>****** Información original de la categoría:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b><br><br>
-        <b>****** Información actual de la categoría:   ******</b><br><br>
-        Nombre: <b>".$datos_actuales['nombre']." </b><br>
-        Estado: <b>".$datos_actuales['estado']." </b>
-        ");
+        $cambios = [
+            "nombre" => config_model::obtener_comparacion([$datos_originales['nombre'], $datos_originales['nombre']], [ $datos_actuales['nombre'], $datos_actuales['nombre']]),
 
-        alert_model::alert_mod_success();
+            "descripcion" => config_model::obtener_comparacion([$datos_originales['descripcion'], $datos_originales['descripcion']], [ $datos_actuales['descripcion'], $datos_actuales['descripcion']]),
+
+            "estado" => config_model::obtener_comparacion([$datos_originales['estado'], $datos_originales['estado']], [ $datos_actuales['estado'], $datos_actuales['estado']])
+        ];
+
+        category_model::bitacora_modificar_estado_categoria($cambios);
+        
+        alert_model::alert_mod_success_and_close_modal();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();

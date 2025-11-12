@@ -112,6 +112,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
       include_once "../include/scripts_include.php";
       
       model_user::validar_sesion_activa($id_usuario);
+      
       config_model::verificar_actualizacion_configuracion(); 
     ?>
   </body>

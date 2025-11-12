@@ -96,24 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 2. Listener para Escaneo de Imagen
     // Permite al usuario seleccionar un archivo de imagen para decodificar.
-    document.getElementById(fileInputId).addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    // document.getElementById(fileInputId).addEventListener('change', (e) => {
+    //     const file = e.target.files[0];
+    //     if (!file) return;
 
-        // Limpiamos la instancia anterior si existía
-        if (!html5QrCode) {
-            html5QrCode = new Html5Qrcode(qrCodeRegionId);
-        }
+    //     // Limpiamos la instancia anterior si existía
+    //     if (!html5QrCode) {
+    //         html5QrCode = new Html5Qrcode(qrCodeRegionId);
+    //     }
 
-        document.getElementById(resultContainerId).innerHTML = 'Decodificando imagen...';
+    //     document.getElementById(resultContainerId).innerHTML = 'Decodificando imagen...';
         
-        // Decodificar el archivo de imagen seleccionado
-        html5QrCode.scanFile(file, true)
-            .then(onScanSuccess)
-            .catch((err) => {
-                document.getElementById(resultContainerId).innerHTML = `<span style="color: red;">Error al decodificar la imagen: ${err}</span>`;
-            });
-    });
+    //     // Decodificar el archivo de imagen seleccionado
+    //     html5QrCode.scanFile(file, true)
+    //         .then(onScanSuccess)
+    //         .catch((err) => {
+    //             document.getElementById(resultContainerId).innerHTML = `<span style="color: red;">Error al decodificar la imagen: ${err}</span>`;
+    //         });
+    // });
 
 
     // 3. Soporte para Escáner de Códigos de Barra USB

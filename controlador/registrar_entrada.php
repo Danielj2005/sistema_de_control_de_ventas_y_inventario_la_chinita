@@ -153,31 +153,36 @@ if($modulo == 'Guardar'){
         if ($tipo_compra == 1) {
             
             $infoUser = [
-                "cedula" => model_user::obtener_info_personal_usuario('cedula', $id_usuario),
-                "nombre" => model_user::obtener_info_personal_usuario('nombre', $id_usuario),
-                "apellido" => model_user::obtener_info_personal_usuario('apellido', $id_usuario),
-                "correo" => model_user::obtener_info_personal_usuario('correo', $id_usuario),
-                "telefono" => model_user::obtener_info_personal_usuario('telefono', $id_usuario),
-                "direccion" => model_user::obtener_info_personal_usuario('direccion', $id_usuario) 
+                "cedula" => $_SESSION['dataUsuario']['dni'],
+                "nombre" => $_SESSION['dataUsuario']['nombre'],
+                "apellido" => $_SESSION['dataUsuario']['apellido'],
+                "correo" => $_SESSION['dataUsuario']['correo'],
+                "telefono" => $_SESSION['dataUsuario']['telefono'],
+                "direccion" => $_SESSION['dataUsuario']['direccion']
             ];
 
-            $dataProvider = "<b>****** Información del Usuario:   ******</b><br>
-                Cédula: <b>".$infoUser['cedula']."</b><br>
-                Nombre y Apellido: <b>".$infoUser['nombre']." ".$infoUser['apellido']."</b><br>
-                Correo: <b>".$infoUser['correo']."</b><br>
-                Teléfono: <b>".$infoUser['telefono']." </b><br>
-                Dirección: <b>".$infoUser['direccion']." </b><br><br>";
+            $dataProvider = '<h4 class="text-center card-title"><b> Registrado por el Usuario </b></h4>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Cédula</p> <span>'.$infoUser["cedula"].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Nombre y Apellido</p>
+                    <span>'.modeloPrincipal::primeraLetraMayus($infoUser['nombre']).' '.modeloPrincipal::primeraLetraMayus($infoUser['apellido']).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Correo</p> <span>'.$infoUser['correo'].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Dirección</p> <span>'.$infoUser['direccion'].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Teléfono</p> <span>'.$infoUser['telefono'].'</span> </div>';
 
         }else{
             $datos_originales = proveedor_model::consultar_proveedor_por_id("*", $id_proveedor);
-            $datos_originales = mysqli_fetch_array($datos_originales);
+            $infoUser = mysqli_fetch_array($datos_originales);
 
-            $dataProvider = "<b>****** Información del Proveedor:   ******</b><br>
-                Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
-                Nombre: <b>".$datos_originales['nombre']." </b><br>
-                Correo: <b>".$datos_originales['correo']." </b><br>
-                Teléfono: <b>".$datos_originales['telefono']." </b><br>
-                Dirección: <b>".$datos_originales['direccion']." </b><br><br>";
+            $dataProvider = '<h4 class="text-center card-title"><b> Información del Proveedor </b></h4>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Cédula / RIF</p> <span>'.$infoUser["cedula_rif"].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Nombre</p>
+                    <span>'.modeloPrincipal::primeraLetraMayus($infoUser['nombre']).' '.modeloPrincipal::primeraLetraMayus($infoUser['apellido']).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Correo</p> <span>'.$infoUser['correo'].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Dirección</p> <span>'.$infoUser['direccion'].'</span> </div>
+                <div class="d-flex justify-content-between border-bottom mb-2"> <p> Teléfono</p> <span>'.$infoUser['telefono'].'</span> </div>';
+
         }
 
         $datos_entrada = modeloprincipal::consultar("SELECT E.total_dolar, E.total_bs,
@@ -188,16 +193,28 @@ if($modulo == 'Guardar'){
 
         $datos_entrada = mysqli_fetch_array($datos_entrada);
 
-        bitacora::bitacora("Registro exitoso de una entrada.","Se Registro una Entrada con la Siguiente Informacón: <br><br>
-            $dataProvider
-
-            <b>****** Información de la Entrada:   ******</b><br>
-            Total de la Compra ($): <b>".$datos_entrada['total_dolar']." $ </b><br>
-            Total de la Compra (Bs): <b>".$datos_entrada['total_bs']." bs</b><br>
-            Fecha y Hora: <b>".date("d-m-Y / h:i:a",strtotime($datos_entrada['fecha_entrada']))." </b><br>
-            Tasa del dolar: <b>$dolar Bs </b><br>
-            <b>Para más detalles sobre la entrada, Ve a La Lista de Entradas </b><br>
-            ");
+        bitacora::bitacora("Registro exitoso de una entrada.",
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró una Entrada con la Siguiente Información.</p>
+                '.$dataProvider.'
+                <h4 class="text-center card-title"><b> Información de la Entrada </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Total ($)</p>
+                    <span>'.$datos_entrada['total_dolar'].' $</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Total (Bs)</p>
+                    <span>'.$datos_entrada['total_bs'].' Bs</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Fecha y Hora</p>
+                    <span>'.date("d-m-Y | h:i:a",strtotime($datos_entrada['fecha_entrada'])).'</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Tasa de Cambio</p>
+                    <span>'.$dolar.' Bs</span>
+                </div>
+                <p><b>Para más detalles sobre la entrada, Ve a La Lista de Entradas </b></p>
+        ');
 
         alert_model::alert_reg_success();
         exit();

@@ -10,6 +10,7 @@ const dataModal = {
     listaPresentacion : {
         modalUrl : "./modal/producto/lista_presentacion.php",
         modalTitle : `${ICONS.list} Lista de Presentaciones Registradas`,
+        modalSendForm : true,
         modalSize : 'modal-lg',
         modalDataTable : true,
         modalClassTable : "tablePresentationOfProducts"
@@ -21,10 +22,17 @@ const dataModal = {
     },
 
     // modales del módulo Categorias
+    registrarCategoria : {
+        modalUrl : "./modal/producto/registrarCategoria.php",
+        modalTitle :  `${ICONS.reg} Registrar Nueva Categoría`,
+        modalSendForm : true,
+    },
+
     listaCategoria : {
         modalUrl : "./modal/producto/lista_categoria.php",
         modalTitle : `${ICONS.list} Lista de Categorías Registradas`,
         modalSize : 'modal-lg',
+        modalSendForm : true,
         modalDataTable : true,
         modalClassTable : "tableCategoryOfProducts"
     },
@@ -33,7 +41,7 @@ const dataModal = {
     listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
         modalTitle : `${ICONS.list} Lista de Marcas Registradas`,
-        modalSize : '',
+        modalSendForm : true,
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"
     },
@@ -41,7 +49,6 @@ const dataModal = {
         modalUrl : "./modal/producto/registrarMarca.php",
         modalTitle : `${ICONS.reg} Registrar Nueva Marca`,
         modalSendForm : true,
-        modalSize : '',
     },
 
     // modales del módulo proveedores

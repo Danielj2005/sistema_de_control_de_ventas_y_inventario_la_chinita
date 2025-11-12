@@ -7,6 +7,7 @@ class presentacion_model extends modeloPrincipal {
             FROM presentacion AS PS
             INNER JOIN representacion AS R ON R.id = PS.id_representacion
             WHERE PS.id = $id_presentacion");
+            
         modeloPrincipal::verificar_consulta($consul,'presentacion'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -31,20 +32,18 @@ class presentacion_model extends modeloPrincipal {
     }
     
     public static function lista(){
+
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
             R.nombre AS representacion, R.descripcion, P.estado
             FROM presentacion AS P 
             INNER JOIN representacion AS R ON R.id = P.id_representacion
-            WHERE P.estado = 1
         ");
         
-
-
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
-                <td class="col text-center"><?= $i++ ?></td>
+                <td class="col text-center"> </td>
                 <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
                 <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
                 <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_presentacion'])) { ?>
@@ -59,7 +58,8 @@ class presentacion_model extends modeloPrincipal {
                                     <button 
                                         class="btn btn-outline-danger bi-x-circle" 
                                         title="estado de la presentación"
-                                        type="submit"></button>
+                                        type="submit">
+                                    </button>
                                 </form>
                             <?php }
                         ?>
@@ -89,7 +89,7 @@ class presentacion_model extends modeloPrincipal {
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion, R.nombre AS representacion
             FROM presentacion AS P 
             INNER JOIN representacion AS R ON R.id = P.id_representacion
-            WHERE P.estado = 1
+            WHERE P.estado = 1 ORDER BY representacion
         ");
 
         // se guardan los datos en un array y se imprime
@@ -115,6 +115,18 @@ class presentacion_model extends modeloPrincipal {
             return false;
         }
         return true;
+    }
+
+
+    
+
+    public static function bitacora_modificar_estado_presentacion ($cambios) {
+        
+        bitacora::bitacora("Modificación exitosa del estado de una Presentación.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp; Se modificó el estado de una Presentación con la siguiente informacón.</p> 
+            <h4 class="text-center card-title"><b> Información de la Presentación </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> '.$cambios['descripcion'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$cambios['estado'].' </div>');
+        
     }
 
 }

@@ -13,7 +13,7 @@ if (!isset($_POST["modulo"])) {
 
 if($modulo === "Guardar"){
     
-    $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($_POST['nombre_marca'])));
+    $nombre = modeloPrincipal::primeraLetraMayus(modeloPrincipal::limpiar_cadena($_POST['nombre_marca']));
 
     // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$nombre]);
@@ -47,12 +47,12 @@ if($modulo === "Guardar"){
         $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
         bitacora::bitacora("Registro exitoso de una Marca.",
-        "Se registro una Marca con la siguiente informacón: <br><br>
-                <b>****** Información de la Marca:   ******</b><br><br>
-                Nombre: <b>".$datos_originales['nombre']." </b><br>
-            ");
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se registró una Marca con la siguiente informacón.</p> 
+            <h4 class="text-center card-title"><b> Información de la Marca </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> '.$datos_originales['nombre'].' </div>');
 
-        alert_model::alert_reset_forms("¡Registro Exitoso!","Los Datos Se Registraron Correctamente","success", "document.querySelectorAll('#form_marca input').forEach((input) => {input.value = ''});");
+        alert_model::alert_reg_success_and_close_modal();
+        
         exit();
     } catch (Exception $e) {
         alert_model::alert_reg_error();
@@ -71,7 +71,7 @@ if ($modulo === "activo") {
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
     try {
-        $actualizar = marca_model::actualizar("0", "$id_marca");
+        $actualizar = marca_model::actualizar_estado("0", "$id_marca");
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
@@ -88,20 +88,16 @@ if ($modulo === "activo") {
 
         $datos_actuales = marca_model::consultar_por_id($id_marca);
         $datos_actuales = mysqli_fetch_array($datos_actuales);
-        $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activa' : 'Inactiva';
+        $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
+        
+        $cambios = [
+            "nombre" => config_model::obtener_comparacion([$datos_originales['nombre'], $datos_originales['nombre']], [ $datos_actuales['nombre'], $datos_actuales['nombre']]),
+            "estado" => config_model::obtener_comparacion([$datos_originales['estado'], $datos_originales['estado']], [ $datos_actuales['estado'], $datos_actuales['estado']])
+        ];
 
-        bitacora::bitacora("Modificación automatica del estado de una marca.","Se modificó el estado de una Marca por inactividad relacionada al inventario desde hace un mes, la informacón es la siguiente: <br><br>
-            <b>****** Información original de la marca:   ******</b><br><br>
-            Nombre: <b>".$datos_originales['nombre']." </b><br>
-            Estado: <b>".$datos_originales['estado']." </b><br>       
-            Fecha: <b>".date("Y-m-d")." </b><br><br>
-            <b>****** Información actual de la marca:   ******</b><br><br>
-            Nombre: <b>".$datos_actuales['nombre']." </b><br>
-            Estado: <b>".$datos_actuales['estado']." </b><br>      
-            Fecha: <b>".date("Y-m-d")." </b>
-        ");
+        marca_model::bitacora_modificar_estado_marca ($cambios);
 
-        alert_model::alert_mod_success();
+        alert_model::alert_mod_success_and_close_modal();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();
@@ -116,7 +112,7 @@ if ($modulo === "inactivo") {
     $datos_originales['estado'] = $datos_originales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
     try {
-        $actualizar = marca_model::actualizar("1", "$id_marca");
+        $actualizar = marca_model::actualizar_estado("1", "$id_marca");
         
         if (!$actualizar) {
             alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al modificar el estado una categoría.","error");
@@ -134,18 +130,14 @@ if ($modulo === "inactivo") {
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activa' : 'Inactiva';
 
-        bitacora::bitacora("Modificación exitosa del estado de una marca.","Se modificó el estado de una Marca con la siguiente informacón: <br><br>
-            <b>****** Información original de la marca:   ******</b><br><br>
-            Nombre: <b>".$datos_originales['nombre']." </b><br>
-            Estado: <b>".$datos_originales['estado']." </b><br>       
-            Fecha: <b>".date("Y-m-d")." </b><br><br>
-            <b>****** Información actual de la marca:   ******</b><br><br>
-            Nombre: <b>".$datos_actuales['nombre']." </b><br>
-            Estado: <b>".$datos_actuales['estado']." </b><br>      
-            Fecha: <b>".date("Y-m-d")." </b>
-        ");
+        $cambios = [
+            "nombre" => config_model::obtener_comparacion([$datos_originales['nombre'], $datos_originales['nombre']], [ $datos_actuales['nombre'], $datos_actuales['nombre']]),
+            "estado" => config_model::obtener_comparacion([$datos_originales['estado'], $datos_originales['estado']], [ $datos_actuales['estado'], $datos_actuales['estado']])
+        ];
 
-        alert_model::alert_mod_success();
+        marca_model::bitacora_modificar_estado_marca ($cambios);
+
+        alert_model::alert_mod_success_and_close_modal();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();

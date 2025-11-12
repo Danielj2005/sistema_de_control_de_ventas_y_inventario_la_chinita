@@ -78,14 +78,15 @@ if($modulo === "Guardar" ){
         $datos_originales = proveedor_model::consultar_proveedor_por_id("*", $id_proveedor);
         $datos_originales = mysqli_fetch_array($datos_originales);
 
-        bitacora::bitacora("Registro exitoso de un proveedor.","Se registro un proveedor con la siguiente informacón: <br><br>
-        <b>****** Información del proveedor:   ******</b><br><br>
-        Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Correo: <b>".$datos_originales['correo']." </b><br>
-        Teléfono: <b>".$datos_originales['telefono']." </b><br>
-        Dirección: <b>".$datos_originales['direccion']." </b><br><br>
-        ");
+        bitacora::bitacora("Registro exitoso de un proveedor",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró un Proveedor con la Siguiente Información.</p>
+            <h4 class="text-center card-title"><b> Información del Proveedor </b></h4>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Cédula / RIF</p> <span>'.$datos_originales["cedula_rif"].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Nombre</p>
+                <span>'.modeloPrincipal::primeraLetraMayus($datos_originales['nombre']).' '.modeloPrincipal::primeraLetraMayus($datos_originales['apellido']).'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Correo</p> <span>'.$datos_originales['correo'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Dirección</p> <span>'.$datos_originales['direccion'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Teléfono</p> <span>'.$datos_originales['telefono'].'</span> </div>');
 
         alert_model::alert_reg_success();
         exit();
@@ -168,21 +169,21 @@ if($modulo === "Modificar"){
 
         $datos_actuales = mysqli_fetch_array($datos_actuales);
 
-        bitacora::bitacora("Modificación exitosa de un proveedor.","Se modificó un proveedor con la siguiente informacón: <br><br>
-        <b>****** Información original del proveedor:   ******</b><br><br>
-        Cédula / RIF: <b>".$datos_originales['cedula_rif']." </b><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Correo: <b>".$datos_originales['correo']." </b><br>
-        Teléfono: <b>".$datos_originales['telefono']." </b><br>
-        Dirección: <b>".$datos_originales['direccion']." </b><br><br>
-        <b>****** Información actual del proveedor:   ******</b><br><br>
-        Cédula / RIF: <b>".$datos_actuales['cedula_rif']." </b><br>
-        Nombre: <b>".$datos_actuales['nombre']." </b><br>
-        Correo: <b>".$datos_actuales['correo']." </b><br>
-        Teléfono: <b>".$datos_actuales['telefono']." </b><br>
-        Dirección: <b>".$datos_actuales['direccion']." </b><br>
+        $cambios = [
+            "dni" => config_model::obtener_comparacion([$datos_originales["cedula_rif"], $datos_originales["cedula_rif"]], [ $datos_actuales["cedula_rif"], $datos_actuales["cedula_rif"]]),
+            "nombre" => config_model::obtener_comparacion([$datos_originales["nombre"], $datos_originales["nombre"]], [ $datos_actuales["nombre"], $datos_actuales["nombre"]]),
+            "correo" => config_model::obtener_comparacion([$datos_originales["correo"], $datos_originales["correo"]], [ $datos_actuales["correo"], $datos_actuales["correo"]]),
+            "direccion" => config_model::obtener_comparacion([$datos_originales["direccion"], $datos_originales["direccion"]], [ $datos_actuales["direccion"], $datos_actuales["direccion"]]),
+            "telefono" => config_model::obtener_comparacion([$datos_originales["telefono"], $datos_originales["telefono"]], [ $datos_actuales["telefono"], $datos_actuales["telefono"]])
+        ];
 
-        ");
+        bitacora::bitacora("Modificación exitosa de un proveedor.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó un Proveedor con la Siguiente Información.</p>
+            <h4 class="text-center card-title"><b> Información del Proveedor </b></h4>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Cédula / RIF</p> <span>'.$cambios["dni"].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Nombre</p> <span>'.$cambios['nombre'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Correo</p> <span>'.$cambios['correo'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Dirección</p> <span>'.$cambios['direccion'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Teléfono</p> <span>'.$cambios['telefono'].'</span> </div>');
 
         alert_model::alert_mod_success();
         exit();

@@ -15,12 +15,15 @@ $permiso_productos = modeloPrincipal::verificar_permisos_requeridos($_SESSION['p
 $r_productos = modeloPrincipal::verificar_permisos_requeridos(['r_productos']);
 $l_productos = modeloPrincipal::verificar_permisos_requeridos(['l_productos']);
 
+$categoria = modeloPrincipal::verificar_permisos_requeridos(['r_categoria', 'l_categoria']);
 $r_categoria = modeloPrincipal::verificar_permisos_requeridos(['r_categoria']);
 $l_categoria = modeloPrincipal::verificar_permisos_requeridos(['l_categoria']);
 
+$presentacion = modeloPrincipal::verificar_permisos_requeridos(['r_presentacion','l_presentacion']);
 $r_presentacion = modeloPrincipal::verificar_permisos_requeridos(['r_presentacion']);
 $l_presentacion = modeloPrincipal::verificar_permisos_requeridos(['l_presentacion']);
 
+$marca = modeloPrincipal::verificar_permisos_requeridos(['r_marca', 'l_marca']);
 $r_marca = modeloPrincipal::verificar_permisos_requeridos(['r_marca']);
 $l_marca = modeloPrincipal::verificar_permisos_requeridos(['l_marca']);
 
@@ -30,7 +33,7 @@ if ($permiso_productos) {  ?>
     <!DOCTYPE html>
     <html lang="en">
         <head>
-            <!-- titulo -->
+            <!-- titulo --> 
             <title>Gestión de Productos</title> 
             <?php 
                 // se incluyen los meta datos 
@@ -67,19 +70,14 @@ if ($permiso_productos) {  ?>
                                     <div id="" class="text-center col-12 col-md-3 fs-4 border card">
                                         <h3 class="text-center mt-2 titulosH fs-3">Categorías</h3>
 
-                                        <div class="text-center mb-2">
-                                            <button modal="listaCategoria" id="btn_ver_listas_categoria" type="button" class="btn_modal btn btn btn-secondary bi bi-list-columns-reverse" data-bs-toggle="modal" data-bs-target="#modal">&nbsp; Lista de Categorías</button>
-                                        </div>
-                                        <?php if ($r_marca == 1): ?>
+                                        <?php if ($r_categoria == 1): ?>
 
                                             <button 
-                                                modal="registrarMarca" 
+                                                modal="registrarCategoria" 
                                                 type="button" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#modal" 
-                                                class="mb-2 btn_modal btn btn-success">
-                                                    <i class="bi bi-plus-circle"></i>
-                                                    Registrar Nueva
+                                                class="mb-2 btn_modal btn btn-success"><i class="bi bi-plus-circle"></i> Registrar Nueva
                                             </button>
 
                                         <?php endif; if ($l_categoria == 1 ): ?>
@@ -91,16 +89,17 @@ if ($permiso_productos) {  ?>
                                                     type="button" 
                                                     class="btn_modal btn btn btn-secondary" 
                                                     data-bs-toggle="modal" 
-                                                    data-bs-target="#modal"><i class="bi bi-list-columns-reverse"></i> Lista de Categorías</button>
+                                                    data-bs-target="#modal"><i class="bi bi-list-columns-reverse"></i> Lista de Categorías
+                                                </button>
                                             </div>
 
                                         <?php endif; ?>
                                     </div>   
 
-                                <?php endif; if ($r_presentacion || $l_presentacion): ?>
+                                <?php endif; if ($presentacion): ?>
 
                                         <div id="" class="text-center col-12 col-sm-12 col-md-4 fs-4 border card">
-                                            <h3 class=" text-center mt-2 titulosH fs-3">Presentaciones <?= $presentacion ?></h3>
+                                            <h3 class=" text-center mt-2 titulosH fs-3">Presentaciones</h3>
 
                                             <div class="justify-content-center text-center mb-2">
                                                 <?php if ($r_presentacion == 1): ?>

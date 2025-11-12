@@ -61,10 +61,7 @@ if ($proveedores) {  ?>
 
                   <?php if ($r_proveedores == 1 && $l_proveedores == 1 ): ?>
                     <div id="btn_register_container" class="col-12 col-sm-12 mb-3 row m-0 col-md-6">
-                      <button id="btn_register" onclick="toggle()" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i> 
-                        <span>Nuevo Proveedor</span>
-                      </button>
+                      <button id="btn-toggle" onclick="toggle()" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Proveedor </button>
                     </div>
                   <?php endif; ?>
 
@@ -84,7 +81,7 @@ if ($proveedores) {  ?>
 
                   <?php if ($l_proveedores == '1'): ?>
 
-                    <div class="hidden table table-responsive">
+                    <div id="tableListSupliers" class=" table table-responsive">
                       <h5 class="card-title">Listado de Proveedores Registrados</h5>
                       <table class="table table-borderless table-striped example" id="example">
                         <thead>
@@ -101,15 +98,13 @@ if ($proveedores) {  ?>
                             <?php endif; ?>
                           </tr>
                         </thead>
-                        <tbody>
-                          <?php proveedor_model::lista_proveedores_registrados(); ?>  
-                        </tbody>
+                        <tbody> <?php proveedor_model::lista_proveedores_registrados(); ?> </tbody>
                       </table>
                     </div>
 
                   <?php endif; if ($r_proveedores == '1'): ?>
 
-                      <div class="hidden <?= $l_proveedores == 1 ? 'd-none' : ''; ?>">
+                      <div id="tableRegisterSupliers" class=" <?= $l_proveedores == 1 ? 'd-none' : ''; ?>">
                         <h5 class="card-title">Nuevo Proveedor</h5>
 
                         <form id="formularioRegistrar" action="../controlador/proveedor_controller.php" method="post" class="SendFormAjax row" autocomplete="off" data-type-form="save">
@@ -177,19 +172,27 @@ if ($proveedores) {  ?>
       ?>
       <script>
         // funcion para mostrar y ocultar elementos en proveedores
-        const titlex = ['Ver lista de Provedores Registrados','Registrar un Proveedor'];
-        const btnToggle = document.getElementById('btn_register');
+                
+        const toggle = ()=> {
+          const btnToggle = document.getElementById('btn-toggle');
+          btnToggle.classList.toggle('btn-success');
+          btnToggle.classList.toggle('btn-secondary');
 
-        const toggle = ()=>{
-          const hiddenElements = document.querySelectorAll('.hidden');
-          hiddenElements.forEach(element => {
+          const titleBtn = [
+            '<i class="bi bi-plus-circle"></i> Nuevo Proveedor ',
+            `<i class="bi bi-list-columns-reverse"></i> Lista de Proveedores `
+          ];
+
+          btnToggle.innerHTML = btnToggle.innerHTML == titleBtn[0] ? titleBtn[1] : titleBtn[0];
+
+          document.getElementById('tableRegisterSupliers').classList.toggle('d-none');
+          document.getElementById('tableListSupliers').classList.toggle('d-none');
+
+          document.querySelectorAll('.tableRegisterSupliers').forEach(element => {
             element.classList.toggle('d-none');
-
-            btnToggle.classList.toggle('bi-truck');
-            btnToggle.classList.toggle('btn-secondary');
-            btnToggle.classList.toggle('btn-success');
-            btnToggle.classList.toggle('bi-list-columns-reverse');
-            btnToggle.textContent = btnToggle.textContent == titlex[0] ? titlex[1] : titlex[0];
+          });
+          document.querySelectorAll('.setCol').forEach(element => {
+            element.classList.toggle('col-md-6');
           });
         };
           // Esta funcionalidad se encarga de mostrar un boton [const btnReportesFechas = document.getElementById('btnReportesFechas');]

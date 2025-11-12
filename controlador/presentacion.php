@@ -53,13 +53,12 @@ if($modulo === "Guardar"){
         $datos['estado'] = $datos['estado'] == 1 ? 'Activo' : 'Inactivo';
 
         $bitacora = bitacora::bitacora("Registro Exitoso de una Presentación.",
-        "Se Registro una Presentación con la Siguiente Informacón: <br><br>
-                <b>****** Información de la Presentación:   ******</b><br><br>
-                Descripción: <b>".$datos['presentacion']." ".$datos['representacion']."</b><br>
-                Estado: <b>".$datos['estado']." </b><br>
-            ");
-
-        alert_model::alert_reg_success();
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se registró una Presentación con la Siguiente Informacón.</p> 
+            <h4 class="text-center card-title"><b> Información de la Presentación </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p>'.$datos['presentacion'].' '.$datos['representacion'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$datos['estado'].' </div>');
+        
+        alert_model::alert_reg_success_and_close_modal();
         
         exit();
     } catch (Exception $e) {
@@ -96,19 +95,21 @@ if ($modulo === "activo") {
         $datos_actuales = presentacion_model::consultar_por_id($id_presentacion);
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
+        
+        $cambios = [
+            "descripocion" => config_model::obtener_comparacion(
+                [$datos_originales['presentacion'].' '.$datos['representacion'], $datos_originales['presentacion'].' '.$datos['representacion']], 
+                [$datos_actuales['presentacion'].' '.$datos_actuales['representacion'], $datos_actuales['presentacion'].' '.$datos_actuales['representacion']]),
 
-        bitacora::bitacora("Modificación exitosa del estado de una presentación.","Se modificó el estado de una presentación con la siguiente informacón: <br><br>
-        <b>****** Información original de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Descripción: <b>".$datos_originales['descripcion']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b><br><br>
-        <b>****** Información actual de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_actuales['nombre']." </b><br>
-        Descripción: <b>".$datos_actuales['descripcion']." </b><br>
-        Estado: <b>".$datos_actuales['estado']." </b><br>
-        ");
+            "estado" => config_model::obtener_comparacion(
+                [$datos_originales['estado'], $datos_originales['estado']], 
+                [$datos_actuales['estado'], $datos_actuales['estado']])
+        ];
 
-        alert_model::alert_mod_success();
+        presentacion_model::bitacora_modificar_estado_presentacion($cambios);
+
+        alert_model::alert_mod_success_and_close_modal();
+
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();
@@ -142,18 +143,23 @@ if ($modulo === "inactivo") {
         $datos_actuales = mysqli_fetch_array($datos_actuales);
         $datos_actuales['estado'] = $datos_actuales['estado'] == 1 ? 'Activo' : 'Inactivo';
 
-        bitacora::bitacora("Modificación exitosa del estado de una presentación.","Se modificó el estado de una presentación con la siguiente informacón: <br><br>
-        <b>****** Información original de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_originales['nombre']." </b><br>
-        Descripción: <b>".$datos_originales['descripcion']." </b><br>
-        Estado: <b>".$datos_originales['estado']." </b><br><br>
-        <b>****** Información actual de la presentación:   ******</b><br><br>
-        Nombre: <b>".$datos_actuales['nombre']." </b><br>
-        Descripción: <b>".$datos_actuales['descripcion']." </b><br>
-        Estado: <b>".$datos_actuales['estado']." </b><br>
-        ");
+        $presentacion_original = $datos_originales['presentacion'].' '.$datos_originales['representacion'];
+        $presentacion_actual = $datos_actuales['presentacion'].' '.$datos_actuales['representacion'];
+        
+        $cambios = [
+            "descripcion" => config_model::obtener_comparacion(
+                [$presentacion_original, $presentacion_original], 
+                [$presentacion_actual, $presentacion_actual]),
 
-        alert_model::alert_mod_success();
+            "estado" => config_model::obtener_comparacion(
+                [$datos_originales['estado'], $datos_originales['estado']], 
+                [$datos_actuales['estado'], $datos_actuales['estado']])
+        ];
+
+        presentacion_model::bitacora_modificar_estado_presentacion($cambios);
+
+        alert_model::alert_mod_success_and_close_modal();
+
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();

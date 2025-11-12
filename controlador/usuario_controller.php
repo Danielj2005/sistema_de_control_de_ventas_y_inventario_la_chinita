@@ -109,31 +109,13 @@ if($modulo === "Guardar"){
         $rol_asignado = model_user::obtener_info_de_un_usuario('id_rol',$id_usuario);
 
         bitacora::bitacora("Registro exitoso de un nuevo usuario.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se registró un nuevo usuario con la siguiente informacón.</p> 
-                <h4 class="text-center card-title"><b> Información del usuario </b></h4>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Cédula</p>
-                    '.$cedula.'
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Nombre y Apellido</p>
-                    '.$nombre.' '.$apellido.'
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Correo</p>
-                    '.$correo.'
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Dirección</p>
-                    '.$direccion.'
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Teléfono</p>
-                    '.$telefono.'
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                    <p> Rol asignado</p>
-                    '.$rol_asignado.'
-                </div>');
+            <h4 class="text-center card-title"><b> Información del usuario </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Cédula</p> <span>'.$cedula.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre y Apellido</p> <span>'.$nombre.' '.$apellido.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Correo</p> <span>'.$correo.'</span>  </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Dirección</p> <span>'.$direccion.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Teléfono</p> <span>'.$telefono.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Rol asignado</p> <span>'.$rol_asignado.'</span> </div>');
 
         alert_model::alert_reg_success();
         exit();

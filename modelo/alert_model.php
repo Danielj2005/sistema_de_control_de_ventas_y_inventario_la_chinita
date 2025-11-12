@@ -87,6 +87,11 @@ class alert_model {
         </script>';
     }
 
+    public static function alert_reg_success_and_close_modal(){
+        
+        self::alert_reset_forms("¡Registro Exitoso!","Los datos se Registraron Correctamente","success", "document.getElementById('btnCloseModal').click();");
+        
+    }
     public static function alert_reg_error(){
         echo '<script type="text/javascript">
             Swal.fire({
@@ -113,6 +118,12 @@ class alert_model {
                 } 
             });
         </script>';
+    }
+    
+    public static function alert_mod_success_and_close_modal(){
+        
+        self::alert_reset_forms("¡Modificación exitosa!","Los datos se modificaron correctamente","success", "document.getElementById('btnCloseModal').click();");
+        
     }
 
     public static function alert_mod_error(){

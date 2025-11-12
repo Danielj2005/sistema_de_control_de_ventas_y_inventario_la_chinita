@@ -488,4 +488,18 @@ class producto_model extends modeloPrincipal {
     <?php 
     }
 
+
+
+    
+
+
+    public static function bitacora_registro_productos ($cambios) {
+        
+        bitacora::bitacora("Modificación exitosa del estado de una categoría.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp; Se modificó el estado de una categoría con la siguiente informacón.</p> 
+            <h4 class="text-center card-title"><b> Información de la categoría </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> '.$cambios['nombre'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> '.$cambios['descripcion'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$cambios['estado'].' </div>');
+        
+    }
 }
