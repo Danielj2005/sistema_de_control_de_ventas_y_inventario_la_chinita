@@ -149,6 +149,36 @@ class servicio_model extends modeloPrincipal {
         }
     }
 
+    // funcion para comparar si los productos de un servicio a modificar son diferentes de los ya asignados
+    public static function comparar_detalles_servicio($id_servicio, $nuevos_productos, $nuevas_cantidades){
+        $detalles_originales = modeloPrincipal::consultar("SELECT id_producto, cantidad FROM detalles_menu WHERE id_menu = $id_servicio ORDER BY id_producto");
+
+        if (mysqli_num_rows($detalles_originales) != count($nuevos_productos)) {
+            return true; // Si el número de productos es diferente, hay cambios.
+        }
+
+        $originales = [];
+        while ($row = mysqli_fetch_assoc($detalles_originales)) {
+            $originales[] = $row;
+        }
+
+        $nuevos = [];
+        for ($i = 0; $i < count($nuevos_productos); $i++) {
+            $nuevos[] = [
+                'id_producto' => modeloPrincipal::decryptionId($nuevos_productos[$i]),
+                'cantidad' => $nuevas_cantidades[$i]
+            ];
+        }
+
+        // Ordenar el nuevo array por id_producto para una comparación consistente
+        usort($nuevos, function($a, $b) {
+            return $a['id_producto'] <=> $b['id_producto'];
+        });
+
+        // Comparar los arrays
+        return $originales != $nuevos;
+    }
+
 
 
     /*******************************************************************/ 
