@@ -106,10 +106,10 @@ if($modulo == 'Guardar'){
         bitacora::bitacora("Registro exitoso de un nuevo servicio.",
         '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario registró un servicio con la información</p> 
             <h4 class="text-center card-title"><b> Información del Servicio </b></h4>
-            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> '.$nombre_platillo.' </div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> '.$precio_dolar.' $</div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> '.$descripcion.' </div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$datos_servicio['estatus'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> <span>'.$nombre_platillo.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> <span>'.$precio_dolar.' $ </span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> <span>'.$descripcion.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$datos_servicio['estatus'].'</span> </div>
 
             <h4 class="text-center card-title"><b> Detalles del Servicio </b></h4>
             
@@ -148,7 +148,10 @@ if($modulo == 'Modificar'){
     $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE nombre_platillo = '$nombre_platillo' AND id_menu != $id_servicio");
 
     if(mysqli_num_rows($existe_platillo) > 0){
-        alert_model::alerta_simple("¡Ocurrió un error inesperado!","Ya se encuentra registrado un platillo con ese nombre, por favor ingresa otro","error");
+        alert_model::alerta_simple(
+            "¡Ocurrió un error inesperado!",
+            "Ya se encuentra registrado un platillo con ese nombre, por favor ingresa otro",
+            "error");
         exit(); 
     }
 
@@ -162,15 +165,11 @@ if($modulo == 'Modificar'){
     // Comprobar si los detalles del servicio (productos y cantidades) han cambiado.
     $detalles_cambiaron = servicio_model::comparar_detalles_servicio($id_servicio, $id_productos, $cantidad_productos);
 
-
     // se consultan los datos del servicio antes de ser modificado para registrar los cambios en la bitacora
     $bitacora_original = "";
 
     $datos_producto_original = modeloPrincipal::Consultar("SELECT P.codigo, P.nombre_producto AS producto,
-        PS.cantidad AS presentacion, R.nombre AS representacion, 
-        C.nombre AS categoria, 
-        DM.cantidad,
-        M.nombre AS marca
+        PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, DM.cantidad, M.nombre AS marca
         FROM detalles_menu AS DM
         INNER JOIN producto AS P ON P.id_producto = DM.id_producto
         INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
@@ -180,31 +179,17 @@ if($modulo == 'Modificar'){
         WHERE DM.id_menu = $id_servicio");
 
     if ($detalles_cambiaron) {
-        $bitacora_original = '<h4 class="text-center card-title"><b> Información Original de los productos del Servicio </b></h4>';
+        $bitacora_original = '<h4 class="text-center card-title"><b> Información de los productos del Servicio </b></h4>';
         while ($row = mysqli_fetch_array($datos_producto_original)) {
 
             $canridad_producto = $row["cantidad"];
 
-            $bitacora_original .= '
-                <p class="text-secondary fw-bold mb-1">
-                    Código: '.$row["codigo"].'
-                </p>
-                <p class="text-secondary fw-bold mb-1">
-                    Nombre: <span class="text-primary fw-bold mb-1">'.$row["producto"].'</span>
-                </p>
-                <p class="text-secondary fw-bold mb-1">
-                    Marca: '.$row["marca"].'
-                </p>
-                <small class="d-block text-muted">
-                    Formato: '.$row["presentacion"].' '.$row["representacion"].'
-                </small>
-                <small class="d-block text-muted">
-                    Categoría: '.$row["categoria"].'
-                </small>
-                <p class="text-primary fw-bold mb-1">
-                    Cantidad: '.$row["cantidad"].'
-                </p>
-                <hr>';
+            $bitacora_original .= '<p class="text-danger-emphasis text-secondary fw-bold mb-1"> Código: '.$row["codigo"].' </p>
+                <p class="text-danger-emphasis text-secondary fw-bold mb-1"> Nombre: <span class="fw-bold mb-1">'.$row["producto"].'</span> </p>
+                <p class="text-danger-emphasis text-secondary fw-bold mb-1"> Marca: '.$row["marca"].'  </p>
+                <small class="text-danger-emphasis d-block text-muted"> Formato: '.$row["presentacion"].' '.$row["representacion"].' </small>
+                <small class="text-danger-emphasis d-block text-muted"> Categoría: '.$row["categoria"].' </small>
+                <p class="text-danger-emphasis  fw-bold mb-1"> Cantidad: '.$row["cantidad"].' </p> <hr>';
 
         }
     }
@@ -227,8 +212,7 @@ if($modulo == 'Modificar'){
         try {
 
             $existe_detalles_servicio = modeloPrincipal::consultar("SELECT id_detalles_menu, id_producto, cantidad
-                FROM detalles_menu 
-                WHERE id_menu = $id_servicio");
+                FROM detalles_menu WHERE id_menu = $id_servicio");
 
             // se compara si la cantidad de productos a registrar es igual a la cantidad actual de productos en el servicio
             if (mysqli_num_rows($existe_detalles_servicio) > 0) {
@@ -272,10 +256,7 @@ if($modulo == 'Modificar'){
         }
 
         $datos_producto_actualizados = modeloPrincipal::Consultar("SELECT P.codigo, P.nombre_producto AS producto, P.stock_actual,
-            PS.cantidad AS presentacion, R.nombre AS representacion, 
-            C.nombre AS categoria, 
-            DM.cantidad,
-            M.nombre AS marca
+            PS.cantidad AS presentacion, R.nombre AS representacion, C.nombre AS categoria, DM.cantidad, M.nombre AS marca
             FROM detalles_menu AS DM
             INNER JOIN producto AS P ON P.id_producto = DM.id_producto
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
@@ -288,25 +269,12 @@ if($modulo == 'Modificar'){
         if ($detalles_cambiaron) {
             while ($row = mysqli_fetch_array($datos_producto_actualizados)) {
 
-                $bitacora .= '<p class="text-secondary fw-bold mb-1">
-                        Código: '.$row["codigo"].'
-                    </p>
-                    <p class="text-secondary fw-bold mb-1">
-                        Nombre: <span class="text-primary fw-bold mb-1">'.$row["producto"].'</span>
-                    </p>
-                    <p class="text-secondary fw-bold mb-1">
-                        Marca: '.$row["marca"].'
-                    </p>
-                    <small class="d-block text-muted">
-                        Formato: '.$row["presentacion"].' '.$row["representacion"].'
-                    </small>
-                    <small class="d-block text-muted">
-                        Categoría: '.$row["categoria"].'
-                    </small>
-                    <p class="text-primary fw-bold mb-1">
-                        Cantidad: '.$row["cantidad"].'
-                    </p>
-                    <hr>';
+                $bitacora .= '<p class="text-success-emphasis fw-bold mb-1"> Código: '.$row["codigo"].' </p>
+                    <p class="text-success-emphasis fw-bold mb-1"> Nombre: <span class="fw-bold mb-1">'.$row["producto"].'</span> </p>
+                    <p class="text-success-emphasis fw-bold mb-1"> Marca: '.$row["marca"].' </p>
+                    <small class="text-success-emphasis d-block text-muted"> Formato: '.$row["presentacion"].' '.$row["representacion"].' </small>
+                    <small class="text-success-emphasis d-block text-muted"> Categoría: '.$row["categoria"].' </small>
+                    <p class="text-success-emphasis  fw-bold mb-1"> Cantidad: '.$row["cantidad"].' </p><hr>';
 
             }
         }
@@ -316,21 +284,18 @@ if($modulo == 'Modificar'){
 
         $cambios = [
             "nombre" => config_model::obtener_comparacion([$nombre_original, $nombre_original], [ $nombre_platillo, $nombre_platillo]),
-
             "precio" => config_model::obtener_comparacion([$precio_dolar_original, $precio_dolar_original], [ $precio_dolar, $precio_dolar]),
-
             "descripcion" => config_model::obtener_comparacion([$descripcion_original, $descripcion_original], [ $descripcion, $descripcion]),
-
             "estado" => config_model::obtener_comparacion([$estatus_original, $estatus_original], [ $estado_menu, $estado_menu]),
         ];
 
         bitacora::bitacora("Modificación de un Servicio",
         '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la información de un servicio:</p> 
             <h4 class="text-center card-title"><b> Información del Servicio: </b></h4>
-            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> '.$cambios['nombre'].' </div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> '.$cambios['precio'].' $</div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> '.$cambios['descripcion'].' </div>
-            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$cambios['estado'].' </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> <span>'.$cambios['nombre'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> <span>'.$cambios['precio'].' $ </span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> <span>'.$cambios['descripcion'].'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$cambios['estado'].'</span> </div>
             '.($detalles_cambiaron ? $bitacora_original . $bitacora : '').'');
 
         alert_model::alert_mod_success();
@@ -354,11 +319,15 @@ if($modulo == 'activo'){
     $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio");
 
     if(mysqli_num_rows($existe_platillo) < 0){
-        alert_model::alerta_simple("¡Ocurrió un error inesperado!","Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.","error");
+        alert_model::alerta_simple(
+            "¡Ocurrió un error inesperado!",
+            "Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.",
+            "error");
         exit(); 
     }
 
     $existe_platillo = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio"));
+
     $nombre_original = $existe_platillo['nombre_platillo'];
     $precio_dolar_original = $existe_platillo['precio_dolar'];
     $descripcion_original = $existe_platillo['descripcion'];
@@ -367,22 +336,18 @@ if($modulo == 'activo'){
     // se registran los datos verificados
     if (modeloPrincipal::UpdateSQL( "menu","estatus = '0'","id_menu = $id_servicio")) {
         
-        $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
-        $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
+        $cambios = [
+            "estado" => config_model::obtener_comparacion(["Activo", "Activo"], [ "Inactivo" ,"Inactivo"]),
+        ];
 
-        bitacora::bitacora("Modificación del estado de un servicio","El usuario actualizó el estado de un servicio: <br><br>
-            <b>****** Información original del servicio:   ******</b><br>
-            Nombre del platillo: <b> $nombre_original </b><br> 
-            Precio en dolares: <b> $precio_dolar_original$ </b><br> 
-            Descripción: <b> $descripcion_original. </b><br> 
-            Estado: <b> $estatus_original </b><br><br> 
-            
-            <b>****** Información del servicio actualizada:   ******</b><br> 
-            Nombre del platillo: <b> $nombre_platillo </b><br> 
-            Precio en dolares:  <b> $precio_dolar$ </b><br> 
-            Descripción:  <b> $descripcion </b><br> 
-            Estado:  <b> $estado_menu </b><br> 
-            ");
+        bitacora::bitacora("Modificación del estado de un servicio",
+        '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó el estado de un servicio</p> 
+            <h4 class="text-center card-title"><b> Información del Servicio </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> <span>'.$nombre_original.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> <span>'.$precio_dolar_original.' $ </span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> <span>'.$descripcion_original.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$cambios['estado'].'</span> </div>');
+
         alert_model::alert_mod_success();
         exit();
     }else{ // mensaje de error "no se pudo registrar"
@@ -403,11 +368,15 @@ if($modulo == 'inactivo'){
     $existe_platillo = modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio");
 
     if(mysqli_num_rows($existe_platillo) < 0){
-        alert_model::alerta_simple("¡Ocurrió un error inesperado!","Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.","error");
+        alert_model::alerta_simple(
+            "¡Ocurrió un error inesperado!",
+            "Ha ocurrido un error al procesar tu solicitud, recarga la página he intentalo de nuevo.",
+            "error");
         exit(); 
     }
 
     $existe_platillo = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT * FROM menu WHERE id_menu = $id_servicio"));
+
     $nombre_original = $existe_platillo['nombre_platillo'];
     $precio_dolar_original = $existe_platillo['precio_dolar'];
     $descripcion_original = $existe_platillo['descripcion'];
@@ -416,22 +385,18 @@ if($modulo == 'inactivo'){
     // se registran los datos verificados
     if (modeloPrincipal::UpdateSQL( "menu","estatus = '1'","id_menu = $id_servicio")) {
         
-        $estado_menu = ($estado_menu == '1') ? 'activo' : 'inactivo' ;
-        $estatus_original = ($estatus_original == '1') ? 'activo' : 'inactivo' ;
+        $cambios = [
+            "estado" => config_model::obtener_comparacion(["Inactivo", "Inactivo"], [ "Activo" ,"Activo"]),
+        ];
 
-        bitacora::bitacora("Modificación del estado de un servicio","El usuario actualizó el estado de un servicio: <br><br>
-            <b>****** Información original del servicio:   ******</b><br>
-            Nombre del platillo: <b> $nombre_original </b><br> 
-            Precio en dolares: <b> $precio_dolar_original$ </b><br> 
-            Descripción: <b> $descripcion_original. </b><br> 
-            Estado: <b> $estatus_original </b><br><br> 
-            
-            <b>****** Información del servicio actualizada:   ******</b><br> 
-            Nombre del platillo: <b> $nombre_original </b><br> 
-            Precio en dolares:  <b> $precio_dolar_original </b><br> 
-            Descripción:  <b> $descripcion_original </b><br> 
-            Estado:  <b> Activo </b><br> 
-            ");
+        bitacora::bitacora("Modificación de un servicio",
+        '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó el estado de un servicio</p> 
+            <h4 class="text-center card-title"><b> Información del Servicio </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre del platilllo</p> <span>'.$nombre_original.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Precio ($)</p> <span>'.$precio_dolar_original.' $ </span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p> <span>'.$descripcion_original.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$cambios['estado'].'</span> </div>');
+
         alert_model::alert_mod_success();
         exit();
     }else{ // mensaje de error "no se pudo registrar"

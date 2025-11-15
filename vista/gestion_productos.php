@@ -289,7 +289,7 @@ if ($permiso_productos) {  ?>
                                                             <td class="col text-center">
                                                                 <div class="col-12 mb-3 input-group">
                                                                     <button type="button" id="startButton" class="bi-qr-code-scan input-group-text"></button>
-                                                                    <input type="text" class="form-control" name="code[]" id="code" placeholder="Escribe el código del producto" autocomplete="off">
+                                                                    <input type="text" minlength="2" maxlength="13" class="form-control" name="code[]" id="code" placeholder="Escribe el código del producto" autocomplete="off">
                                                                 </div>
                                                             </td>
 

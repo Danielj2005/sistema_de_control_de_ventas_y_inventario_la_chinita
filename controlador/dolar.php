@@ -65,16 +65,25 @@ try {
     $datos_actual = modeloPrincipal::consultar("SELECT * FROM dolar WHERE id_dolar = $id_dolar");
     $datos_actual = mysqli_fetch_array($datos_actual);
 
-    bitacora::bitacora("Actualización Exitosa de la Tasa del Dolar.",
-        "Se Actualizó la Tasa del Dolar de Manera $manera.<br><br>
-        <b>****** Información de la Tasa del Dolar:   ******</b><br>
-        Precio anterior: <b>".$datos_originales['dolar']." bs </b><br>
-        Fecha anterior: <b>".date("d-m-Y / h:i:a", strtotime($datos_originales['fecha_precio']))." </b><br><br>
+    $fechaOriginal = date("d-m-Y / h:i:a", strtotime($datos_originales['fecha_precio']));
+    $fechaActual = date("d-m-Y / h:i:a", strtotime($datos_actual['fecha_precio']));
 
-        <b>****** Información de la Tasa del Dolar Actual:   ******</b><br>
-        Precio actual: <b>".$datos_actual['dolar']." bs </b><br>
-        Fecha actual: <b>".date("d-m-Y / h:i:a", strtotime($datos_actual['fecha_precio']))."</b><br>
-    ");
+    $cambios = [
+        "tasa" => config_model::obtener_comparacion([$datos_originales['dolar'], $datos_originales['dolar']." bs"], [ $datos_actual['dolar'], $datos_actual['dolar']." bs"]),
+        "fecha" => config_model::obtener_comparacion([$fechaOriginal, $fechaOriginal], [$fechaActual, $fechaActual]),
+    ];
+
+    bitacora::bitacora("Actualización Exitosa de la Tasa del Dolar.",
+        '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó la Tasa del Dolar de Manera '.$manera.'</p> 
+                <h4 class="text-center card-title"><b> Información de la Tasa de cotización </b></h4>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Tasa de cotización</p>
+                    '.$cambios['tasa'].'
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                    <p> Fecha y Hora</p>
+                    '.$cambios['fecha'].'
+                </div>');
 
     alert_model::alerta_condicional("¡Actualización de la Tasa Exitosa!","La Tasa se Actualizó y se Registró Exitosamente","success");
     exit();

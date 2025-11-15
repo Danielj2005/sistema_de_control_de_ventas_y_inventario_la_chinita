@@ -36,16 +36,15 @@ class presentacion_model extends modeloPrincipal {
         $consulta = modeloPrincipal::consultar("SELECT P.id, P.cantidad AS presentacion,
             R.nombre AS representacion, R.descripcion, P.estado
             FROM presentacion AS P 
-            INNER JOIN representacion AS R ON R.id = P.id_representacion
-        ");
+            INNER JOIN representacion AS R ON R.id = P.id_representacion ORDER BY representacion");
         
         // se guardan los datos en un array y se imprime
         $i = 1;
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
                 <td class="col text-center"> </td>
-                <td class="col text-center"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
-                <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
+                <td class="col text-start"><?= $mostrar["presentacion"].' '.$mostrar["representacion"] ?></td>
+                <td class="col text-start"><?= $mostrar["descripcion"]; ?></td>
                 <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_presentacion'])) { ?>
                     <td scope="row" class="text-center">
                         <?php 

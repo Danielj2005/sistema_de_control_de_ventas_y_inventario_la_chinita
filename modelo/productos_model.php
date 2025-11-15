@@ -63,7 +63,7 @@ class producto_model extends modeloPrincipal {
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
             INNER JOIN representacion AS R ON R.id = PS.id_representacion
             INNER JOIN marca AS M ON M.id = P.id_marca
-            ORDER BY M.nombre ASC
+            ORDER BY P.nombre_producto ASC
         ");
 
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
@@ -115,24 +115,49 @@ class producto_model extends modeloPrincipal {
             $presentacion = modeloPrincipal::decryptionId($presentaciones[$i]);
             $categoria = modeloPrincipal::decryptionId($categorias[$i]);
 
-            $sql = modeloPrincipal::consultar("SELECT lower(P.nombre_producto) AS nombre_producto
+            $sql = modeloPrincipal::consultar("SELECT P.codigo, lower(P.nombre_producto) AS nombre_producto,
+                M.nombre as marca, M.id as id_marca, 
+                PS.cantidad AS presentacion, R.nombre AS representacion, PS.id AS id_presentacion,
+                C.nombre AS categoria, C.id_categoria
                 FROM producto AS P
                 INNER JOIN marca AS M ON M.id = P.id_marca   
                 INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
                 INNER JOIN representacion AS R ON R.id = PS.id_representacion
                 INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria
-                WHERE lower(P.nombre_producto) = 'Refresco'
+                WHERE lower(P.nombre_producto) = '$nombre'
                 AND P.id_marca = $marca
                 AND P.id_presentacion = $presentacion
-                AND P.id_categoria = $categoria
-                AND P.codigo = $codigo
-                ");
-                
-            if (mysqli_num_rows($sql) > 0) {
+                AND P.id_categoria = $categoria ");
+
+            $buscarCode = modeloPrincipal::consultar("SELECT P.codigo FROM producto AS P WHERE P.codigo = $codigo");
+
+            if (mysqli_num_rows($buscarCode) > 0) {
                 /********** No se puede registrar un usuario si ya existe **********/
-                alert_model::alerta_simple("¡Ocurrio un error!","El producto ($nombre - $marca - $presentacion - $categoria) ya se encuentra en el sistema, verifica he intenta nuevamente.","error");
+                alert_model::alerta_simple(
+                "¡Ocurrio un error!",
+                "El código del producto ya se encuentra en el sistema, verifica he intenta nuevamente.",
+                "error");
                 exit();
             }
+
+            if (mysqli_num_rows($sql) > 0) {
+                $mostrar = mysqli_fetch_assoc($sql);
+                
+                $codigo = $mostrar['codigo'];
+                $nombre = $nombre == $mostrar['nombre_producto'] ? " - ".$nombre : "";
+
+                $marcas = $marca == $mostrar['id_marca'] ? " - ".$mostrar['marca'] : "";
+                $presentacion = $presentacion == $mostrar['id_presentacion'] ? " - ".$mostrar['presentacion']." ".$mostrar['representacion'] : "";
+                $categoria = $categoria == $mostrar['id_categoria'] ? " - ".$mostrar['categoria'] : "";
+
+                /********** No se puede registrar un usuario si ya existe **********/
+                alert_model::alerta_simple(
+                "¡Ocurrio un error!",
+                "Uno de estos datos del producto (".$codigo.$nombre.$marcas.$presentacion.$categoria.") ya se encuentra en el sistema, verifica he intenta nuevamente.",
+                "error");
+                exit();
+            }
+            
             // $nombre_producto[$i] = ucwords(strtolower($nombre_producto[$i]));
         }
         // return $nombre_producto;
@@ -208,7 +233,7 @@ class producto_model extends modeloPrincipal {
         
         while ( $mostrar = mysqli_fetch_array($consulta)) { 
             echo '<option value="'.modeloPrincipal::encryptionId($mostrar["id_producto"]).'">
-                    '.$mostrar["nombre_producto"].' '.$mostrar["marca"].' '.$mostrar["presentacion"].' '.$mostrar["representacion"].'
+                    '.$mostrar["marca"].' '.$mostrar["nombre_producto"].' '.$mostrar["presentacion"].' '.$mostrar["representacion"].'
                 </option>';
         }
     }
@@ -382,7 +407,7 @@ class producto_model extends modeloPrincipal {
     public static function añadir_productos_a_venta ($id) {
         $id_producto = modeloPrincipal::limpiar_cadena($id);
 
-        $consulta = modeloPrincipal::consultar("SELECT P.id_producto, P.nombre_producto, 
+        $consulta = modeloPrincipal::consultar("SELECT P.codigo, P.id_producto, P.nombre_producto, 
             PS.cantidad AS presentacion, R.nombre AS representacion,
             P.stock_actual, P.precio_venta, 
             C.nombre AS nombre_categoria, 
@@ -404,24 +429,22 @@ class producto_model extends modeloPrincipal {
                 <tr id="tr_producto_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" >
                     <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                     <input type="text" name="id_producto[]" value="" required>
-                    <td class="col text-center col-md-2" scope="col">
-                        <p class="text-primary"><?= $mostrar['nombre_producto'].' '.$mostrar['marca'].' <br> '.$mostrar['presentacion'] ?> <br> </p>
+                    <td class="col text-start" scope="col">
+                        <p style="width: 15rem;" class="mb-1"> Código: <?= $mostrar['codigo'] ?> </p>
+                        <p class="mb-1 fw-bold"> <span class="mb-1"> <?= $mostrar["marca"]." ".$mostrar['nombre_producto']." ".$mostrar["presentacion"]." ".$mostrar["representacion"] ?> </span> </p>
+                        <p class="mb-1 fw-bold"> Disponibles: <?= $mostrar["stock_actual"] ?> </p>
                     </td>
 
                     <td class="col text-center col-md-2" scope="col">
-                        <span class="<?= $color_stock ?>"><?= $mostrar["stock_actual"] ?></span>
+                        <input style="width: 10rem;" type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
                     </td>
 
                     <td class="col text-center col-md-2" scope="col">
-                        <input type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
+                        <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta"] ?>" required>
                     </td>
 
                     <td class="col text-center col-md-2" scope="col">
-                        <input type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta"] ?>" required>
-                    </td>
-
-                    <td class="col text-center col-md-2" scope="col">
-                        <input type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
+                        <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
                     </td>
                     
                     <td class="text-center col" scope="col">
@@ -433,7 +456,7 @@ class producto_model extends modeloPrincipal {
     }
 
     // funcion para añadir productos a una entrada (compra)
-    public static function añadir_productos_entrada ($id) {
+    public static function añadir_productos_para_registrar ($id) {
         
         $rand = rand(10000,50000);
         ?>
@@ -443,7 +466,7 @@ class producto_model extends modeloPrincipal {
             <td class="text-center">
                 <div class="col-12 mb-3 input-group">
                     <button type="button" id="startButton" class="bi-qr-code-scan input-group-text"></button>
-                    <input type="text" class="form-control" name="code[]" id="code<?= $rand ?>" placeholder="Escribe el código del producto" autocomplete="off">
+                    <input type="text" minlength="2" maxlength="13" class="form-control" name="code[]" id="code<?= $rand ?>" placeholder="Escribe el código del producto" autocomplete="off">
                 </div>
             </td>
 
@@ -487,11 +510,6 @@ class producto_model extends modeloPrincipal {
         </tr>
     <?php 
     }
-
-
-
-    
-
 
     public static function bitacora_registro_productos ($cambios) {
         

@@ -3,7 +3,7 @@
 class category_model extends modeloPrincipal {
 
     public static function consultar_categoria($fields) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria");
+        $consul = modeloPrincipal::consultar("SELECT $fields FROM categoria ORDER BY nombre");
         modeloPrincipal::verificar_consulta($consul,'categoria'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -67,8 +67,8 @@ class category_model extends modeloPrincipal {
         while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
             <tr>
                 <td class="col text-center"><?= $i++ ?></td>
-                <td class="col text-center"><?= $mostrar["nombre"]; ?></td>
-                <td class="col text-center"><?= $mostrar["descripcion"]; ?></td>
+                <td class="col text-start"><?= $mostrar["nombre"]; ?></td>
+                <td class="col text-start"><?= $mostrar["descripcion"]; ?></td>
                 
                 <?php if (modeloPrincipal::verificar_permisos_requeridos(['m_categoria'])) { ?>
                     <td scope="row" class="text-center">

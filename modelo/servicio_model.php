@@ -200,22 +200,21 @@ class servicio_model extends modeloPrincipal {
         while ($mostrar = mysqli_fetch_array($con)) { ?>
             <tr id="tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" >
                 <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" required>
-                <td class="col text-center" scope="col">
-                    <p class="text-primary fs-6"><?= $mostrar["nombre_platillo"]; ?></p>
+                <td class="col text-start" scope="col">
+                    <p style="width: 15rem;" class="text-primary fs-6"><?= $mostrar["nombre_platillo"]; ?></p>
+                    <p class="mb-1"> Descripción: <span class="mb-1"><?= $mostrar['descripcion'] ?></span> </p>
                 </td> 
 
-                <td class="col text-center" scope="col"><?= $mostrar["descripcion"] ?> </td>
-
                 <td class="col text-center" scope="col">
-                    <input type="text" class="form-control cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
+                    <input style="width: 10rem;" type="text" class="form-control cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
                 </td>
 
                 <td class="col text-center" scope="col">
-                    <input type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_dolar"] ?>" required>
+                    <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_dolar"] ?>" required>
                 </td>
 
                 <td class="col text-center" scope="col">
-                    <input type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
+                    <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
                 </td>
                 
                 <td class="text-center col" scope="col">

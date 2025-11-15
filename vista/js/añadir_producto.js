@@ -8,7 +8,7 @@ const btn_add_card_product = document.getElementById('btn_add_card_product');
 btn_add_card_product.addEventListener('click', (e) => {
     e.preventDefault();
     $.ajax({
-        data: {'module' : "añadir_productos_entrada", id : ""},
+        data: {'module' : "añadir_productos_para_registrar", id : ""},
         url:  URL_API,
         type:  'post',
         success:function(valores){

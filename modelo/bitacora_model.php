@@ -26,58 +26,15 @@ class bitacora extends model_user {
     public static function login() {
         // Registra en la bitácora el inicio de sesión del usuario
         
-        return Self::bitacora("Inicio de sesión exitoso", "El usuario ha iniciado sesión correctamente en el sistema.");
-    }
-
-    // funcion para registrar Intento de acceso al sistema sin autenticación previa en la bitácora
-    
-    public static function intento_de_acceso_a_los_archivos_del_sistema() {
-        // Registra en la bitácora el intento de acceso sin iniciar sesion
-        return Self::bitacora("Intento de acceso a los archivos del sistema.","Se ha registrado un intento de acceso a los archivos del sistema de manera incorrecta por parte de un usuario.");
+        return Self::bitacora("Inicio de sesión exitoso", '<p class="h2 mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario Inició sesión correctamente.</p> ');
     }
 
     
     // funcion para registrar Intento de acceso no autorizado a la pantalla especificada en la bitácora
     public static function intento_de_acceso_a_vista_sin_permisos($pantalla) {
         // Registra en la bitácora el intento de acceso no autorizado
-        Self::bitacora("Intento de acceso no autorizado a la pantalla $pantalla.","Se ha registrado un intento de acceso incorrecto a la pantalla $pantalla por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.");
+        Self::bitacora("Intento de acceso no autorizado a la pantalla $pantalla.", '<p class="h5 mb-3 text-center text-warning-emphasis alert alert-warning"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;Se ha registrado un intento de acceso incorrecto a la pantalla '.$pantalla.' por parte de un usuario sin los permisos necesarios. Por motivos de seguridad, el usuario fue redirigido a la pantalla de inicio.</p> ');
         header('Location: ./');
     }
     
-    
-    
-    /***********************************************************************************/
-    /*********************** funciones para el CRUD de la bitácora  ********************/
-    /***********************************************************************************/
-
-    // funcion para registrar un nuevo registro en la bitácora
-
-    public static function nuevo_registro($accion, $pantalla) {
-        $consult = Self::bitacora("Registro exitoso de $accion","Se ha registrado correctamente $pantalla en el sistema.");
-        modeloPrincipal::verificar_consulta($consult,'bitacora');
-        return $consult;
-    }
-
-    // funcion para registrar una nueva modificación en la bitácora
-
-    public static function modificacion_registro($accion, $pantalla) {
-        $consult = Self::bitacora("Modificación exitosa de $accion","Se ha modificado correctamente la información de $pantalla en el sistema.");
-        modeloPrincipal::verificar_consulta($consult,'bitacora');
-        return $consult;
-    }
-
-     // funcion para registrar un cambio de estado en la bitácora
-
-    public static function cambio_estado($nuevo_registro) {
-        $consult = Self::bitacora("Cambio de estado exitoso de $nuevo_registro","Se ha cambiado correctamente el estado de un $nuevo_registro en el sistema.");
-        modeloPrincipal::verificar_consulta($consult,'bitacora');
-        return $consult;
-    }
-
-    
-    
-    /********************************************************************************************************/
-    /*********************** funciones para bitácora de modificaciones de información ***********************/
-    /********************************************************************************************************/
-
 }
