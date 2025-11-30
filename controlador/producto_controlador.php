@@ -108,8 +108,58 @@ if($modulo === 'Modificar'){
 
      // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$price, $id_producto]);
+
+    $datos_producto_original = [
+        'codigo' => [],
+        'nombre_producto' =>[],
+        'marca' => [],
+        'presentacion' => [],
+        'representacion' => [],
+        'categoria' => [],
+        'fecha' => [],
+        'precio_venta' => [],
+        'estado' => []
+    ];
     
-    // se registran los datos del producto
+    $datos_producto_nuevo = [
+        'codigo' => [],
+        'nombre_producto' =>[],
+        'marca' => [],
+        'presentacion' => [],
+        'representacion' => [],
+        'categoria' => [],
+        'fecha' => [],
+        'precio_venta' => [],
+        'estado' => []
+    ];
+    
+    try {
+
+        $datos_producto = mysqli_fetch_array(producto_model::consultar_por_id($id_producto));
+        
+        
+        $datos_producto_original['codigo'] = [$datos_producto['codigo'], $datos_producto['codigo']];
+        $datos_producto_original['nombre_producto'] = [$datos_producto['nombre_producto'], $datos_producto['nombre_producto']];
+        $datos_producto_original['marca'] = [$datos_producto['marca'], $datos_producto['marca']];
+
+
+        $datos_producto_original['presentacion'] = [$datos_producto['presentacion']." ".$datos_producto['representacion'], $datos_producto['presentacion']." ".$datos_producto['representacion']];
+        
+        $datos_producto_original['categoria'] = [$datos_producto['categoria'], $datos_producto['categoria']];
+
+        $fecha = date("d-m-Y h:i:a", strtotime($datos_producto['fecha_ultima_actualizacion']));
+        $datos_producto_original['fecha'] = [$fecha, $fecha];
+        $datos_producto_original['precio_venta'] = [$datos_producto['precio_venta'], $datos_producto['precio_venta']." $"];
+
+        $estado = ($datos_producto['estado'] == '1') ? 'Activo' : 'Inactivo' ;
+        $datos_producto_original['estado'] = [$estado, $estado];
+        
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo procesar la información actual del producto, revisa los datos e intenta nuevamente.","error");
+        exit();
+    }
+
+    // se modifican los datos del producto
     try {
         $actualizar = producto_model::actualizar_producto($price, $id_producto);
 
@@ -124,56 +174,50 @@ if($modulo === 'Modificar'){
 
     // se realiza la bitácora con los datos del producto a actualizar
     try {
-
-        $datos_producto_modificado = modeloPrincipal::consultar("SELECT M.nombre as marca, 
-            PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
-            P.id_producto, P.codigo, P.nombre_producto, C.nombre AS categoria, P.fecha_ultima_actualizacion,
-            (SELECT MAX(dolar) FROM dolar) AS tasa
-            FROM producto AS P
-            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
-            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
-            INNER JOIN representacion AS R ON R.id = PS.id_representacion
-            INNER JOIN marca AS M ON M.id = P.id_marca
-            WHERE P.id_producto = $id_producto
-        ");
-
-        $datos_producto_modificado = mysqli_fetch_array($datos_producto_modificado);
         
+        $datos_producto = mysqli_fetch_array(producto_model::consultar_por_id($id_producto));
+
+        
+        $datos_producto_nuevo['codigo'] = [$datos_producto['codigo'],$datos_producto['codigo']];
+        $datos_producto_nuevo['nombre_producto'] = [$datos_producto['nombre_producto'],$datos_producto['nombre_producto']];
+        $datos_producto_nuevo['marca'] = [$datos_producto['marca'],$datos_producto['marca']];
+
+        $datos_producto_nuevo['presentacion'] = [$datos_producto['presentacion']." ".$datos_producto['representacion'], $datos_producto['presentacion']." ".$datos_producto['representacion']];
+        $datos_producto_nuevo['categoria'] = [$datos_producto['categoria'],$datos_producto['categoria']];
+
+        $fecha = date("d-m-Y h:i:a", strtotime($datos_producto['fecha_ultima_actualizacion']));
+        $datos_producto_nuevo['fecha'] = [$fecha, $fecha];
+        $datos_producto_nuevo['precio_venta'] = [$datos_producto['precio_venta'],$datos_producto['precio_venta']." $"];
+        $datos_producto_nuevo['estado'] = [$datos_producto['estado'],$datos_producto['estado']];
+
+        $estado = ($datos_producto['estado'] == '1') ? 'Activo' : 'Inactivo' ;
+        $datos_producto_nuevo['estado'] = [$estado, $estado];
+
         $cambios = [
-            "nombre" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
-            "precio" => config_model::obtener_comparacion([$datos_producto_modificado['precio_venta'], $datos_producto_modificado['precio_venta']], [ $datos_producto_modificado, $datos_producto_modificado]),
-            "descripcion" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
-            "estado" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
+            "codigo" => config_model::obtener_comparacion($datos_producto_original['codigo'], $datos_producto_nuevo['codigo']),
+            "nombre_producto" => config_model::obtener_comparacion($datos_producto_original['nombre_producto'], $datos_producto_nuevo['nombre_producto']),
+            "marca" => config_model::obtener_comparacion($datos_producto_original['marca'], $datos_producto_nuevo['marca']),
+
+            "presentacion" => config_model::obtener_comparacion($datos_producto_original['presentacion'], $datos_producto_nuevo['presentacion']),
+            "representacion" => config_model::obtener_comparacion($datos_producto_original['representacion'], $datos_producto_nuevo['representacion']),
+            "categoria" => config_model::obtener_comparacion($datos_producto_original['categoria'], $datos_producto_nuevo['categoria']),
+
+            "fecha" => config_model::obtener_comparacion($datos_producto_original['fecha'], $datos_producto_nuevo['fecha']),
+            "precio_venta" => config_model::obtener_comparacion($datos_producto_original['precio_venta'], $datos_producto_nuevo['precio_venta']),
+            "estado" => config_model::obtener_comparacion($datos_producto_original['estado'], $datos_producto_nuevo['estado']),
         ];
 
 
-        $bitacora = '<h4 class="text-center card-title"><b> Información del producto '.$datos_producto_modificado['codigo'].'</b></h4>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Código</p>
-                <span>'.$datos_producto_modificado['codigo'].'</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Nombre</p>
-                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['nombre_producto']).'</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Marca</p>
-                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['marca']).'</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Formato</p>
-                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['presentacion']).'</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Categoría</p>
-                <span class="text-primary fw-bold mb-1">'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['categoria']).'</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom mb-2">
-                <p> Precio ($)</p>
-                <span class="text-primary fw-bold mb-1">'.$datos_producto_modificado['precio_venta'].'</span>
-            </div>';
+        $bitacora = '<h4 class="text-center card-title"><b> Información del producto '.$datos_producto_original['codigo'][0].'</b></h4>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Código</p> '.$cambios['codigo'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Nombre</p> '.$cambios['nombre_producto'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Marca</p> '.$cambios['marca'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Formato</p> '.$cambios['presentacion'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Categoría</p> '.$cambios['categoria'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Precio ($)</p> '.$cambios['precio_venta'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Fecha y Hora de la Actualizacion</p> '.$cambios['fecha'].' </div>
+            <div class="d-flex justify-content-between border-bottom mb-2"> <p> Estado</p> '.$cambios['estado'].' </div>';
 
-        
         bitacora::bitacora("Modificación Exitosa de un Producto.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el siguiente producto.</p>'.$bitacora.'');
         
         alert_model::alert_mod_success();

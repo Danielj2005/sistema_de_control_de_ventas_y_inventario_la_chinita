@@ -14,8 +14,19 @@ class producto_model extends modeloPrincipal {
         return $consul;
     }
 
-    public static function consultar_por_id($fields, $id_producto) {
-        $consul = modeloPrincipal::consultar("SELECT $fields FROM producto WHERE id = $id_producto");
+    public static function consultar_por_id($id_producto) {
+        $consul = modeloPrincipal::consultar("SELECT M.nombre as marca, 
+            PS.cantidad AS presentacion, R.nombre AS representacion, 
+            P.stock_actual, P.precio_venta,
+            P.id_producto, P.codigo, P.nombre_producto, 
+            C.nombre AS categoria, P.fecha_ultima_actualizacion, P.estado
+            FROM producto AS P
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
+            INNER JOIN marca AS M ON M.id = P.id_marca
+            WHERE P.id_producto = $id_producto
+        ");
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
         return $consul;
     }
@@ -44,7 +55,7 @@ class producto_model extends modeloPrincipal {
 
             if (mysqli_num_rows($consul) > 0) {
                 $resultado = mysqli_fetch_array($consul);
-                
+
                 $Json['codigo'][] = $resultado['codigo'];
                 $Json['nombre'][] = $resultado['nombre_producto'];
                 $Json['categoria'][] = $resultado['categoria'];
@@ -89,7 +100,7 @@ class producto_model extends modeloPrincipal {
             $nombre = ucwords(strtolower(modeloPrincipal::limpiar_cadena($nombre_producto[$i])));
             $categoria = modeloPrincipal::decryptionId($id_categorias[$i]);
             $presentacion = modeloPrincipal::decryptionId($id_presentaciones[$i]);
-            $marca = modeloPrincipal::decryptionId($id_marcas[$i]);
+            $marca = modeloPrincipal::decryptionId(id: $id_marcas[$i]);
             $fecha = date("Y-m-d H:i:s");
 
             $registrar = modeloPrincipal::InsertSQL("producto", "codigo, nombre_producto, id_marca, id_presentacion, id_categoria, stock_actual, fecha_ultima_actualizacion, estado" ,"$code, '$nombre', $marca, $presentacion, $categoria, 0, '$fecha', 0");
@@ -261,7 +272,9 @@ class producto_model extends modeloPrincipal {
     public static function actualizar_producto($price, $id_producto){
         // se comprueba que no exista un registro con los mismos datos
         
-        if (!modeloprincipal::UpdateSQL("producto", "precio_venta = '$price'", "id_producto = $id_producto")) {
+        $fecha = date("Y-m-d H:i:s");
+
+        if (!modeloprincipal::UpdateSQL("producto", "precio_venta = '$price', fecha_ultima_actualizacion = '$fecha'", "id_producto = $id_producto")) {
             return false;
         }
         return true;
