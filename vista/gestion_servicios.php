@@ -121,13 +121,13 @@ if ($permiso_servicios) { ?>
 												
 												<div class="col-12 mb-3 row m-0">
 													<h5 class="card-title">Productos del Servicio</h5>
-													<div class="col-12 col-sm-12 col-md-9">
-														<select name="producto" id="producto_id" class="form-select select">
-															<option value="" selected>seleccione una opción</option>
+													<div class="col-12 col-md-9">
+														<select name="producto" id="producto" class="form-select select">
+															<option selected>seleccione una opción</option>
 															<?php producto_model::options("1"); ?>
 														</select>
 													</div>
-													<div class="col-12 col-sm-12 col-md-3">
+													<div class="col-12 col-md-3">
 														<button type="button" name="btn_producto" class="btn_add btn btn-success">
 															<i class="bi bi-plus-circle me-2"></i> 
 															<span>Añadir producto</span>
@@ -232,6 +232,8 @@ if ($permiso_servicios) { ?>
 						}
 					});
 				};
+				
+				
 				// funcionalidad para calcular automaticamente el precio en bs de un servicio en base a la tasa del dia
 				const input_dolar = document.getElementById('precio_dolar_servicio');
 				const input_bs = document.getElementById('precio_bolivar_servcio');
@@ -263,8 +265,7 @@ if ($permiso_servicios) { ?>
 
 			<?php 
 				include_once "./modal/plantillaModalCustom.php"; 
-
-				modalCustom ();
+				
 				// se incluye el footer / pie de pagina a la vista
 				include_once "../include/footer.php";
 				// se incluyen los script de javascript a la vista 

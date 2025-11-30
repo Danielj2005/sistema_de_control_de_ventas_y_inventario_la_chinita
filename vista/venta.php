@@ -171,8 +171,7 @@ if ($permiso_venta) { ?>
 
       <?php 
 
-        include_once "./modal/plantillaModalCustom.php"; 
-        modalCustom ("modal-xl");
+        include_once "./modal/plantillaModalCustom.php";
         
         include_once "../include/footer.php"; 
         include_once "../include/scripts_include.php";

@@ -191,8 +191,7 @@ if ($settings) {
         </section>
       </main>
       <?php 
-        include_once "./modal/plantillaModalCustom.php";  
-        modalCustom ();
+        include_once "./modal/plantillaModalCustom.php";
 
         // se incluye el footer / pie de pagina a la vista
         include_once "../include/footer.php" ;

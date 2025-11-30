@@ -364,7 +364,7 @@ if ($entrada) {   ?>
 
 											<!-- datos de el (los) producto(s) comprados al proveedor -->
 
-											<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-1 row m-0">
+											<div class="col-12 row align-items-center mb-1 row m-0">
 												<h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos de la Entrada</h5>
 
 												<div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
@@ -373,7 +373,7 @@ if ($entrada) {   ?>
 
 												<label class="form-label">Producto <span style="color:#f00;">*</span></label>
 												<div class="col-12 col-md-9 mb-3">
-													<select name="producto" id="producto_id" class="select form-select SelectTwo">
+													<select name="producto" id="producto_id" class="select form-select">
 														<option selected>Seleccione un producto</option>
 														<?php producto_model::options(); ?>
 													</select>
@@ -394,9 +394,8 @@ if ($entrada) {   ?>
 																<tr>
 																	<th class="col text-center" scope="col">Producto</th>
 																	<th class="col text-center" scope="col">Cantidad</th>
-																	<th class="col text-center" scope="col">Costo ($)</th>
-																	<th class="col text-center" scope="col">Costo (Bs.)</th>
-																	<th class="col text-center" scope="col">Precio Venta ($)</th>
+																	<th class="col text-center" scope="col">Costo Unitario ($)</th>
+																	<th class="col text-center" scope="col"> </th>
 																	<th class="col text-center" scope="col">Quitar</th>
 																</tr>
 															</thead>
@@ -408,21 +407,21 @@ if ($entrada) {   ?>
 
 											<hr class="divider">
 
-											<div class="col-12 col-sm-12 col-md-6 mt-1 mb-1">
-												<div class="input-group mb-3 justify-content-center">
+											<div class="col-12 col-md-6 my-2">
+												<div class="input-group justify-content-center">
 													<label class="input-group-text">Fecha de Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
 													<input class="form-control" value="<?= date("Y-m-d"); ?>" required type="date" id="fecha_entrada" name="fecha_entrada">
 												</div>
 											</div>
 
-											<div class="col-12 col-sm-12 col-md-6 mt-1 mb-1">
-												<div class="input-group mb-3 justify-content-center">
+											<div class="col-12 col-md-6 my-2">
+												<div class="input-group justify-content-center">
 													<label class="input-group-text">Hora de Entrada &nbsp; <span style="color:#f00;"> *</span> </label>
 													<input class="form-control" value="<?=  $fecha2 = date("H:i:s"); ?>" required type="time" id="hora_entrada" name="hora_entrada">
 												</div>
 											</div>
 
-											<div class="col-12 col-sm-12 col-md-12 my-3">
+											<div class="col-12 my-3">
 												<h5 class="card-title col-12">Inversión Total</h5>
 												
 												<input id="total_Dolar" type="hidden" class="totalDolar" name="totalDolar">
@@ -444,7 +443,7 @@ if ($entrada) {   ?>
 												</div>
 											</div>
 
-											<div class="col-12 col-sm-12 col-md-12 mt-1 text-center">
+											<div class="col-12 my-2 text-center">
 												<button name="insertar" class="btn btn-success">&nbsp;Registrar entrada</button>
 											</div>
 										</form>
@@ -499,8 +498,7 @@ if ($entrada) {   ?>
 		<script src="./js/convertir_dolar_bs.js"></script>
 		<?php 
 			include_once "./modal/plantillaModalCustom.php";
-
-			modalCustom ();
+			
 			// se incluye el footer / pie de pagina a la vista
 			include_once "../include/footer.php";
 			// se incluyen los script de javascript a la vista 

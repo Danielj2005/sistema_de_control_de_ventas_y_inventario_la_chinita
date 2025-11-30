@@ -139,7 +139,6 @@ $VISTA_PRIMER_INICIO = $_SESSION['primerInicio'] == '0' ? '' : 'toggle-sidebar';
 
     <?php 
       include_once "./modal/plantillaModalCustom.php"; 
-      modalCustom ();
       
       include_once "../include/footer.php";
 

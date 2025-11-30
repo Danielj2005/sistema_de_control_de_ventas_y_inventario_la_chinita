@@ -38,7 +38,7 @@ if($modulo == 'Guardar'){
         exit();
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,250}",$descripcion)) {
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,250}",$descripcion)) {
         alert_model::alert_of_format_wrong("'descripción'");
         exit();
     }

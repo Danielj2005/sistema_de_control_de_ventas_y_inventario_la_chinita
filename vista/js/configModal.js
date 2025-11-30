@@ -41,6 +41,7 @@ const dataModal = {
     listaMarca : {
         modalUrl : "./modal/producto/lista_marcas.php",
         modalTitle : `${ICONS.list} Lista de Marcas Registradas`,
+        modalSize : 'modal-lg',
         modalSendForm : true,
         modalDataTable : true,
         modalClassTable : "tableTrademarkOfProducts"

@@ -149,7 +149,7 @@ if ($bitacora) {  ?>
 
       <?php 
         include_once "./modal/plantillaModalCustom.php"; 
-        modalCustom ();
+        
         // se incluye el footer / pie de pagina a la vista
         include_once "../include/footer.php";
         // se incluyen los script de javascript a la vista 

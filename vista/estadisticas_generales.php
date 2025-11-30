@@ -102,8 +102,7 @@ if ($est_venta) {  ?>
 
       <?php 
         include_once "./modal/plantillaModalCustom.php";  
-        modalCustom ();
-
+        
         include_once("../include/footer.php");
         include_once("../include/scripts_include.php");
       

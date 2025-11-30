@@ -294,11 +294,12 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"><?= date("d-m-Y | g:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
                     <button 
-                        class="btn_modal btn btn-info bi bi-eye" 
-                        modal="ventaDetalles" 
+                        class="btn_modal btn btn-info" 
                         value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" 
+                        modal="ventaDetalles" 
                         data-bs-toggle="modal" 
                         data-bs-target="#modal">
+                            <i class="bi bi-eye"></i> 
                     </button>
                 </td> 
             </tr>

@@ -71,7 +71,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
             <div class="row">
               <div class="col-12">
                 <div class="card top-selling overflow-auto mb-4">
-                    
+                  
                   <div class="card-body">
                     <h5 class="mb-3 card-title"> Ventas Recientes </h5>
                     
@@ -89,7 +89,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
                             <th class="text-end" scope="col" style="width: 10%;">Total (Bs.)</th>
                             
                             <th class="text-center" scope="col">Fecha y Hora</th>
-                            <th class="text-center" scope="col" style="width: 8%;">Acciones</th>
+                            <th class="text-center" scope="col" style="width: 8%;">Detalles</th>
                           </tr>
                         </thead>
                         <tbody> <?php venta_model::lista_ventas_diarias(); ?> </tbody>
