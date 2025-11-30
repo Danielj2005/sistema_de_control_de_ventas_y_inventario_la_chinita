@@ -71,6 +71,7 @@ if ($g_venta) {  ?>
                               <option value="V-">V</option>
                               <option value="E-">E</option>
                             </select>
+                            
                             <input type="text" class="form-control" placeholder="ingresa la cédula" onblur="buscar_datos_cliente()"; minlength="7" maxlength="8" name="cedula" id="cedula" required>
                             
                           </div>

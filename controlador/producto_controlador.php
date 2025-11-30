@@ -97,3 +97,90 @@ if($modulo === 'Guardar'){
     }
     
 }
+
+
+if($modulo === 'Modificar'){
+        
+    $id_producto = modeloPrincipal::decryptionId($_POST["id"]);
+    $id_producto = modeloPrincipal::limpiar_cadena($id_producto);
+
+    $price = modeloPrincipal::limpiar_cadena($_POST['precio']);
+
+     // Se verifica que no se hayan recibido campos vacíos.
+    modeloPrincipal::validar_campos_vacios([$price, $id_producto]);
+    
+    // se registran los datos del producto
+    try {
+        $actualizar = producto_model::actualizar_producto($price, $id_producto);
+
+        if (!$actualizar) {
+            alert_model::alerta_simple("¡Ocurrió un error!","ocurrio un error al actualizar el precio de un producto.","error");
+        }
+
+    } catch (Exception $e) {
+        alert_model::alerta_simple("Ocurrido un error!", "No se pudo actualizar el precio del producto, revisa los datos e intenta nuevamente.","error");
+        exit();
+    }
+
+    // se realiza la bitácora con los datos del producto a actualizar
+    try {
+
+        $datos_producto_modificado = modeloPrincipal::consultar("SELECT M.nombre as marca, 
+            PS.cantidad AS presentacion, R.nombre AS representacion, P.stock_actual, P.precio_venta,
+            P.id_producto, P.codigo, P.nombre_producto, C.nombre AS categoria, P.fecha_ultima_actualizacion,
+            (SELECT MAX(dolar) FROM dolar) AS tasa
+            FROM producto AS P
+            INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
+            INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
+            INNER JOIN representacion AS R ON R.id = PS.id_representacion
+            INNER JOIN marca AS M ON M.id = P.id_marca
+            WHERE P.id_producto = $id_producto
+        ");
+
+        $datos_producto_modificado = mysqli_fetch_array($datos_producto_modificado);
+        
+        $cambios = [
+            "nombre" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
+            "precio" => config_model::obtener_comparacion([$datos_producto_modificado['precio_venta'], $datos_producto_modificado['precio_venta']], [ $datos_producto_modificado, $datos_producto_modificado]),
+            "descripcion" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
+            "estado" => config_model::obtener_comparacion([$datos_producto_modificado, $datos_producto_modificado], [ $datos_producto_modificado, $datos_producto_modificado]),
+        ];
+
+
+        $bitacora = '<h4 class="text-center card-title"><b> Información del producto '.$datos_producto_modificado['codigo'].'</b></h4>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Código</p>
+                <span>'.$datos_producto_modificado['codigo'].'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Nombre</p>
+                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['nombre_producto']).'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Marca</p>
+                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['marca']).'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Formato</p>
+                <span>'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['presentacion']).'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Categoría</p>
+                <span class="text-primary fw-bold mb-1">'.modeloPrincipal::primeraLetraMayus($datos_producto_modificado['categoria']).'</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom mb-2">
+                <p> Precio ($)</p>
+                <span class="text-primary fw-bold mb-1">'.$datos_producto_modificado['precio_venta'].'</span>
+            </div>';
+
+        
+        bitacora::bitacora("Modificación Exitosa de un Producto.",'<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el siguiente producto.</p>'.$bitacora.'');
+        
+        alert_model::alert_mod_success();
+        exit();
+    } catch (Exception $e) {
+        alert_model::alert_mod_error();
+        exit();
+    }
+    
+}

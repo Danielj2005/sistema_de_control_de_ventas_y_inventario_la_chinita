@@ -23,6 +23,7 @@ class producto_model extends modeloPrincipal {
     // funcion para obtener el id de un categoria
     public static function obtener_datos_recien_registrados($id_producto) {
         $Json = [
+            'codigo' => [],
             'nombre' => [],
             'categoria' => [],
             'presentacion' => [],
@@ -30,7 +31,7 @@ class producto_model extends modeloPrincipal {
         ];
 
         for ($i = 0; $i < count($id_producto); $i++) {
-            $consul = modeloPrincipal::consultar("SELECT P.nombre_producto,
+            $consul = modeloPrincipal::consultar("SELECT P.codigo, P.nombre_producto,
                 C.nombre AS categoria, 
                 PS.cantidad AS presentacion, R.nombre AS representacion,
                 M.nombre AS marca
@@ -43,6 +44,8 @@ class producto_model extends modeloPrincipal {
 
             if (mysqli_num_rows($consul) > 0) {
                 $resultado = mysqli_fetch_array($consul);
+                
+                $Json['codigo'][] = $resultado['codigo'];
                 $Json['nombre'][] = $resultado['nombre_producto'];
                 $Json['categoria'][] = $resultado['categoria'];
                 $Json['presentacion'][] = $resultado['presentacion']." ".$resultado['representacion'];
@@ -180,14 +183,17 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
 
         while ($mostrar = mysqli_fetch_assoc($consulta)) {
-            ?>
+            $idSecure = modeloPrincipal::encryptionId($mostrar["id_producto"]); ?>
+
             <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
                 <td class="text-center"></td>
-                <td class="text-center"><?= $mostrar["codigo"] ?></td>
                 <td class="text-start">
                     
+                        <p class="text-secondary fw-bold mb-1">
+                            Código: <?= $mostrar["codigo"] ?>
+                        </p>
                         <p class="text-<?=  $mostrar["stock_actual"] == 0 ? "danger" : "primary" ?>  fw-bold mb-1">
-                            <?= $mostrar["nombre_producto"]?>
+                            Nombre: <?= $mostrar["nombre_producto"]?>
                         </p>
                         <small class="d-block text-dark">
                             <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
@@ -200,8 +206,13 @@ class producto_model extends modeloPrincipal {
                         </small>
                 </td>
                 <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
-                <th class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></th>
-                <th class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></th>
+                <td class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></td>
+                <td class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></td>
+                <td class="col text-center">
+                    <button value="<?= $idSecure; ?>" modal="productoModificar" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-warning">
+                        <i class="<?= ICONO_MODIFICAR ?>"></i>
+                    </button>
+                </td>
             </tr>
         <?php } 
     }
@@ -241,11 +252,21 @@ class producto_model extends modeloPrincipal {
     public static function actualizar_estado($estado, $id_producto){
         // se comprueba que no exista un registro con los mismos datos
         
-        if (!modeloprincipal::UpdateSQL("inventario", "estado = $estado", "id_producto = $id_producto")) {
+        if (!modeloprincipal::UpdateSQL("producto", "estado = $estado", "id_producto = $id_producto")) {
             return false;
         }
         return true;
     }
+
+    public static function actualizar_producto($price, $id_producto){
+        // se comprueba que no exista un registro con los mismos datos
+        
+        if (!modeloprincipal::UpdateSQL("producto", "precio_venta = '$price'", "id_producto = $id_producto")) {
+            return false;
+        }
+        return true;
+    }
+
 
     public static function options_nombres_productos() {
         $consulta = modeloPrincipal::consultar("SELECT lower(nombre_producto) AS nombre_producto FROM producto GROUP BY nombre_producto");

@@ -243,11 +243,11 @@ if ($permiso_productos) {  ?>
                                                 <thead>
                                                     <tr>
                                                         <th class="col text-center" scope="col">N.º</th>
-                                                        <th class="col text-center" scope="col">Código</th>
                                                         <th class="col text-center" scope="col">Producto</th>
                                                         <th class="col text-center" scope="col">Stock</th>
                                                         <th class="col text-center" scope="col">Precio de Venta</th>
                                                         <th class="col text-center" scope="col">Última Entrada</th>
+                                                        <th class="col text-center" scope="col">Editar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

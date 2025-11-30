@@ -51,6 +51,11 @@ const dataModal = {
         modalSendForm : true,
     },
 
+    productoModificar : {
+        modalUrl : "./modal/producto/modificar.php",
+        modalTitle : `${ICONS.modify} Modificar Producto`,
+        modalSendForm : true,
+    },
     // modales del módulo proveedores
     proveedorDetalles : {
         modalUrl : "./modal/proveedor/detalles.php",

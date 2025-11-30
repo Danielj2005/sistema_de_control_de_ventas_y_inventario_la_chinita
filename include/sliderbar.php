@@ -14,16 +14,17 @@ $permiso_modulo_rol = modeloPrincipal::verificar_permisos_requeridos($_SESSION['
 $permiso_ajustes = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['ajustes']);
 $permiso_bitacora = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['bitacora']);
 
+
 if($_SESSION['dataUsuario']["primerInicio"] == '0') {  ?>
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-      <!-- apartado de página principal -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="./">
-          <i class="bi bi-speedometer2"></i>
-          <span>Panel de Control</span>
-        </a>
-      </li>
+        <!-- apartado de página principal -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="./">
+            <i class="bi bi-speedometer2"></i>
+            <span>Panel de Control</span>
+          </a>
+        </li>
       
       <?php if ($permiso_productos || $permiso_proveedor) {  ?>
 
@@ -107,7 +108,9 @@ if($_SESSION['dataUsuario']["primerInicio"] == '0') {  ?>
                   </a>
                 </li>
 
-              <?php } if (array_key_exists( "est_venta", $_SESSION['permisosRol'])) {  ?>
+              <?php } 
+                // if (array_key_exists( "est_venta", $_SESSION['permisosRol'])) {  
+                if (1 == 3) {    ?>
 
                 <li>
                   <a href="./estadisticas_generales.php">
