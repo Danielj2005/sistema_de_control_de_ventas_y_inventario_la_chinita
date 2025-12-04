@@ -37,16 +37,17 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
 
     <main id="main" class="main">
       <div class="pagetitle"> <h1> Panel de Control </h1> </div> 
+      
       <section class="section dashboard">
         <div class="row">
 
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+          <div class="col-12 mb-1">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Total de Ventas del Día</h5>
 
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                    <div class="col-12 col-md-6 mb-1">
                         <div class="input-group mb-2">
                             <span class="input-group-text" id="basic-addon1">Total en Dólares (USD)</span>
                             <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
@@ -54,7 +55,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
                         </div>
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-1">
+                    <div class="col-12 col-md-6 mb-1">
                         <div class="input-group mb-2">
                             <span class="input-group-text" id="basic-addon1">Total en Bolívares (Bs.)</span>
                             <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
@@ -66,7 +67,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
             </div>
           </div>
           
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+          <div class="col-12 mb-2">
             <div class="row">
               <div class="col-12">
                 <div class="card top-selling overflow-auto mb-4">
@@ -84,8 +85,8 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
                             <th class="text-start" scope="col">Cédula/RIF Cliente</th>
                             <th class="text-start" scope="col">Cliente</th>
                             
-                            <th class="text-end" scope="col" style="width: 10%;">Total (USD)</th>
-                            <th class="text-end" scope="col" style="width: 10%;">Total (Bs.)</th>
+                            <th class="text-end" scope="col" style="width: 10%;">Total ($)</th>
+                            <th class="text-end" scope="col" style="width: 10%;">Total (Bs)</th>
                             
                             <th class="text-center" scope="col">Fecha y Hora</th>
                             <th class="text-center" scope="col" style="width: 8%;">Detalles</th>
