@@ -118,9 +118,8 @@ if ($g_venta) {  ?>
                             <thead>
                               <tr class="bg-secondary-light">
                                 <th class="col text-start" scope="col">Servicio</th>
-                                <th class="col text-center" scope="col">Cantidad</th>
-                                <th class="col text-center" scope="col">Costo ($)</th>
-                                <th class="col text-center" scope="col">Costo (Bs)</th>
+                                <th style="width: 10rem;" class="col text-center" scope="col">Cantidad</th>
+                                <th class="col text-center" scope="col">Costos</th>
                                 <th class="col text-center" scope="col">Quitar</th>
                               </tr>
                             </thead>
@@ -154,8 +153,7 @@ if ($g_venta) {  ?>
                               <tr class="bg-secondary-light">
                                 <th style="width: 10rem;" class="col text-center" scope="col">Producto</th>
                                 <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Cantidad</th>
-                                <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Costo ($)</th>
-                                <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Costo (Bs)</th>
+                                <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Costos de Venta</th>
                                 <th class="col text-center col-md-2" scope="col">Quitar</th>
                               </tr>
                             </thead>
@@ -179,17 +177,17 @@ if ($g_venta) {  ?>
                           <table class="tableMetodo table table-striped" id="metodos_pago">
                             <thead>
                               <tr class="bg-secondary-light">
-                                <th style="width: 10rem;" class="col text-center" scope="col">Método de pago</th>
-                                <th style="width: 10rem;" class="col text-center" scope="col">Cantidad a pagar ($)</th>
-                                <th style="width: 10rem;" class="col text-center" scope="col">Nº referencia</th>
+                                <th class="col text-center" scope="col">Método de Pago</th>
+                                <th class="col text-center" scope="col">Monto Pagado ($)</th>
+                                <th class="col text-center" scope="col">Nº Referencia</th>
                                 <th class="col text-center" scope="col">Quitar</th>
                               </tr>
                             </thead>
                             <tbody id="tabla_metodo_pago">
                               <tr id="metodo_1">
                                 <td class="text-center col">
-                                  <select style="width: 16rem;" name="metodo_pago[]" id="metodo_pago_1" class="form-select selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_1','num_referencia_1')">
-                                    <option selected>seleccione una opción</option>
+                                  <select name="metodo_pago[]" id="metodo_pago_1" class="form-select form-select-sm selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_1','num_referencia_1')">
+                                    <option selected>seleccione un método</option>
                                     <option value="1">Divisa</option>
                                     <option value="2">Punto de Venta</option>
                                     <option value="3">Transferencia / Pago movíl</option>
@@ -197,26 +195,14 @@ if ($g_venta) {  ?>
                                   </select>
                                 </td>
                                 <td class="text-center col">
-                                  <input
-                                    style="width: 10rem;"  
-                                    type="text" 
-                                    class="form-control" 
-                                    id="cantidad_1" 
-                                    name="monto_pagar[]" 
-                                    placeholder="MONTO A PAGAR" 
-                                    required>
+                                  <input type="text" class="form-control form-control-sm" 
+                                    id="cantidad_1" name="monto_pagar[]" 
+                                    placeholder="monto a pagar ($)" required>
                                 </td>
                                 <td class="text-center col">
-                                  <input
-                                    style="width: 10rem;" 
-                                    type="text" 
-                                    class="form-control bg-dark-subtle" 
-                                    readOnly 
-                                    id="num_referencia_1" 
-                                    name="num_referencia[]" 
-                                    maxlength="20" 
-                                    minlength="7" 
-                                    placeholder="número de referencia">
+                                  <input type="text" class="form-control form-control-sm bg-dark-subtle" readOnly 
+                                    id="num_referencia_1" name="num_referencia[]" 
+                                    maxlength="20" minlength="7" placeholder="número de referencia">
                                 </td>
                                 <td class="text-center col">
                                   <button type="button" class="btn btn-sm btn-danger bi bi-trash" onclick="quitar_metodo(1)"></button>
@@ -255,9 +241,7 @@ if ($g_venta) {  ?>
                     </fieldset>
 
                     <div class="col-12 mb-1">
-                      <div class="form-group">
-                          <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                      </div>
+                      <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
                     </div>
                     
                     <div class="text-center">
@@ -269,19 +253,20 @@ if ($g_venta) {  ?>
             </div>
           </div>
         </section>
+        
       </main>
 
         <?php 
-        include_once "./modal/plantillaModalCustom.php";
+          include_once "./modal/plantillaModalCustom.php";
 
-        // se incluye el footer / pie de pagina a la vista
-        include_once "../include/footer.php"; 
+          // se incluye el footer / pie de pagina a la vista
+          include_once "../include/footer.php"; 
           // se incluyen los script de javascript a la vista 
           include_once "../include/scripts_include.php"; 
       
-        model_user::validar_sesion_activa($id_usuario);
+          model_user::validar_sesion_activa($id_usuario);
 
-        config_model::verificar_actualizacion_configuracion(); 
+          config_model::verificar_actualizacion_configuracion(); 
 
         ?>
 
@@ -297,7 +282,7 @@ if ($g_venta) {  ?>
           // este tr será añadido a la tabla 
           let tr = `<tr id="metodo_${i}">
                       <td class="text-center col">
-                        <select style="width: 16rem;" name="metodo_pago[]" id="metodo_pago_${i}" class="form-select selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_${i}','num_referencia_${i}')">
+                        <select style="width: 16rem;" name="metodo_pago[]" id="metodo_pago_${i}" class="form-select form-select-sm selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_${i}','num_referencia_${i}')">
                           <option value="" selected>seleccione una opción</option>
                           <option value="1">Divisa</option>
                           <option value="2">Punto de Venta</option>
@@ -306,10 +291,10 @@ if ($g_venta) {  ?>
                         </select>
                       </td>
                       <td class="text-center col">
-                        <input style="width: 10rem;" type="text" class="form-control" id="cantidad_${i}" name="monto_pagar[]" placeholder="MONTO A PAGAR" required>
+                        <input style="width: 10rem;" type="text" class="form-control form-control-sm" id="cantidad_${i}" name="monto_pagar[]" placeholder="MONTO A PAGAR" required>
                       </td>
                       <td class="text-center col">
-                        <input style="width: 10rem;" type="text" class="form-control bg-dark-subtle" readOnly id="num_referencia_${i}" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia">
+                        <input style="width: 10rem;" type="text" class="form-control form-control-sm bg-dark-subtle" readOnly id="num_referencia_${i}" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia">
                       </td>
                       <td class="text-center col">
                         <button type="button" class="btn btn-sm btn-danger bi bi-trash" onclick="quitar_metodo(${i++})"></button>

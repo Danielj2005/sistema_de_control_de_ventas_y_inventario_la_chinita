@@ -201,22 +201,28 @@ class servicio_model extends modeloPrincipal {
             <tr id="tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" >
                 <input type="hidden" name="UIDS[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_menu"]) ?>" required>
                 <td class="col text-start" scope="col">
-                    <p style="width: 15rem;" class="text-primary fs-6"><?= $mostrar["nombre_platillo"]; ?></p>
-                    <p class="mb-1"> Descripción: <span class="mb-1"><?= $mostrar['descripcion'] ?></span> </p>
+                    <p style="width: 15rem;" class="text-primary fw-bold mb-1"><?= $mostrar["nombre_platillo"]; ?></p>
+                    <p class="text-secondary fw-bold mb-1">
+                        Descripción: <?= $mostrar['descripcion'] ?>
+                    </p>
                 </td> 
 
                 <td class="col text-center" scope="col">
-                    <input style="width: 10rem;" type="text" class="form-control cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
+                    <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
                 </td>
 
                 <td class="col text-center" scope="col">
-                    <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_dolar"] ?>" required>
-                </td>
 
-                <td class="col text-center" scope="col">
-                    <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
-                </td>
+                    <input type="hidden" class="bg-dark-subtle form-control form-control-sm precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= number_format($mostrar["precio_dolar"], 2); ?>" required>
+                    <input type="hidden" class="bg-dark-subtle form-control form-control-sm precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" required value="<?= number_format($mostrar["precio_bs"], 2); ?>">
                 
+                    <div class="row justify-content-center">
+                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_dolar"], 2); ?> $ </span></p>
+                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_bs"], 2); ?> Bs</span> </p>
+                    </div>
+                    
+                </td>
+
                 <td class="text-center col" scope="col">
                     <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar['id_menu']) ?>')"></button>
                 </td>

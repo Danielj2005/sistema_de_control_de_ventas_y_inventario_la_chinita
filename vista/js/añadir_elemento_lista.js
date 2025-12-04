@@ -60,10 +60,6 @@ btn_add_element_to_list.forEach(btn => {
 
         selects_element_to_list.forEach(selectElement => {
             // se evalua si el boton de agregar tiene el nombre parecido al del selector de productos o servicios
-            console.log("btnName");
-            console.log(btnName);
-            console.log("selectElement");
-            console.log(selectElement.name);
 
             if (btnName.includes(selectElement.name)) {
                 id_option_selected = selectElement.value // se extrae la id de la opcion seleccionada

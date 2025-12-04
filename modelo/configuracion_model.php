@@ -269,6 +269,16 @@ class config_model extends modeloPrincipal {
                     'mi_perfil.php'
                 );
                 return;
+            }else{
+
+                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
+                modeloPrincipal::UpdateSQL(
+                    "usuario", 
+                    "primer_inicio = 0", 
+                    "id_usuario = '$id_usuario'");
+                $_SESSION['primerInicio'] = 0;
+                $_SESSION['dataUsuario']["primerInicio"] = 0;
+                return;
             }
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
@@ -280,9 +290,19 @@ class config_model extends modeloPrincipal {
                     'mi_perfil.php'
                 );
                 return;
+            }else{
+
+                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
+                modeloPrincipal::UpdateSQL(
+                    "usuario", 
+                    "primer_inicio = 0", 
+                    "id_usuario = '$id_usuario'");
+                $_SESSION['primerInicio'] = 0;
+                $_SESSION['dataUsuario']["primerInicio"] = 0;
+                return;
             }
-             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
-        
+
+                    
         }
         
         if ($perfil == 1) {
@@ -294,6 +314,16 @@ class config_model extends modeloPrincipal {
                     "warning"
                 );
                 return;
+            }else{
+
+                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
+                modeloPrincipal::UpdateSQL(
+                    "usuario", 
+                    "primer_inicio = 0", 
+                    "id_usuario = '$id_usuario'");
+                $_SESSION['primerInicio'] = 0;
+                $_SESSION['dataUsuario']["primerInicio"] = 0;
+                return;
             }
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
@@ -303,6 +333,16 @@ class config_model extends modeloPrincipal {
                     "La cantidad de preguntas de seguridad configuradas no cumplen con los nuevos requisitos del sistema. Por favor, configure al menos $c_preguntas preguntas de seguridad.",
                     "warning"
                 );
+                return;
+            }else{
+
+                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
+                modeloPrincipal::UpdateSQL(
+                    "usuario", 
+                    "primer_inicio = 0", 
+                    "id_usuario = '$id_usuario'");
+                $_SESSION['primerInicio'] = 0;
+                $_SESSION['dataUsuario']["primerInicio"] = 0;
                 return;
             }
             

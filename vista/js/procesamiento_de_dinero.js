@@ -47,8 +47,19 @@ function add_iva(sub_total_bs,sub_total_dolar){
     input_dolares.value = total_dolares.toFixed(2);
     input_bolivares.value = total_bolivares.toFixed(2);
 
-    strong_dolares.textContent = total_dolares.toFixed(2);
-    strong_bolivares.textContent = total_bolivares.toFixed(2);
-    
+    total_dolares = formatNumber(total_dolares);
+    total_bolivares = formatNumber(total_bolivares);
 
+    strong_dolares.textContent = total_dolares;
+    strong_bolivares.textContent = total_bolivares;
 }
+
+
+const formatNumber = (number) => {
+    let num = number.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+
+    return num;
+};

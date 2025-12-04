@@ -348,24 +348,24 @@ class producto_model extends modeloPrincipal {
                     
                     <td class="col text-center" scope="col">
                         <div class="text-secondary fw-bold mb-1 row justify-content-center">
-                            <input type="text" minlength="1" maxlength="200" class="w-75 form-control cantidad" name="cantidad[]" onchange="calcular_total();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                            <input type="text" minlength="1" maxlength="200" class="w-75 form-control form-control-sm cantidad" name="cantidad[]" onchange="calcular_total();" placeholder="ingresa la cantidad a ingresar" id="cantidad_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                         </div>
                     </td>
                     
                     <td class="col text-center" scope="col">
                         <div class="text-secondary fw-bold mb-1 row justify-content-center">
-                            <input type="text" maxlength="8" class="w-75 form-control precio_unidad_dolar text-end" onchange="convertir_usd_a_bs('<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>'); calcular_total();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" required>
+                            <input type="text" maxlength="8" class="w-75 form-control form-control-sm precio_unidad_dolar text-end" onchange="convertir_usd_a_bs('<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>'); calcular_total();" name="precio_unidad_dolar[]" placeholder="ingresa el Precio por unidad en $" id="precio_unidad_dolar_<?= modeloPrincipal::encryptionId($mostrar['id_producto']) ?>" required>
                         </div>
                     </td>
                     
                     <td class="col text-center" scope="col">
                         <div class="text-secondary fw-bold mb-1 row justify-content-center">
-                            Costo Unitario ($):
-                            <input type="text" minlength="1" maxlength="100" readonly class="w-75 bg-secondary-subtle form-control precio_unidad_bs text-end" name="precio_unidad_bs[]" placeholder="ingresa el costo unitario (Bs.)" id="precio_unidad_bs_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                            Costo Unitario (Bs)
+                            <input type="text" minlength="1" maxlength="100" readonly class="w-75 bg-secondary-subtle form-control form-control-sm precio_unidad_bs text-end" name="precio_unidad_bs[]" placeholder="ingresa el costo unitario (Bs.)" id="precio_unidad_bs_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                         </div>
                         <div class="text-secondary fw-bold mb-1 row justify-content-center">
-                            Precio Venta ($):
-                            <input type="text" minlength="1" maxlength="10" readonly class="w-75 text-end bg-secondary-subtle input form-control" name="precio_venta_dolar[]" placeholder="ingresa el precio de venta ($)" id="precio_venta_dolar_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
+                            Precio Venta ($)
+                            <input type="text" minlength="1" maxlength="10" readonly class="w-75 text-end bg-secondary-subtle input form-control form-control-sm" name="precio_venta_dolar[]" placeholder="ingresa el precio de venta ($)" id="precio_venta_dolar_<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                         </div>
                     </td>
 
@@ -454,7 +454,7 @@ class producto_model extends modeloPrincipal {
         $consulta = modeloPrincipal::consultar("SELECT P.codigo, P.id_producto, P.nombre_producto, 
             PS.cantidad AS presentacion, R.nombre AS representacion,
             P.stock_actual, P.precio_venta, 
-            C.nombre AS nombre_categoria, 
+            C.nombre AS categoria, 
             M.nombre as marca,
             round((SELECT MAX(dolar) FROM dolar) * P.precio_venta, 2) AS precio_bs
             FROM producto AS P 
@@ -474,21 +474,33 @@ class producto_model extends modeloPrincipal {
                     <input type="hidden" name="id_producto[]" value="<?= modeloPrincipal::encryptionId($mostrar["id_producto"]) ?>" required>
                     <input type="text" name="id_producto[]" value="" required>
                     <td class="col text-start" scope="col">
-                        <p style="width: 15rem;" class="mb-1"> Código: <?= $mostrar['codigo'] ?> </p>
-                        <p class="mb-1 fw-bold"> <span class="mb-1"> <?= $mostrar["marca"]." ".$mostrar['nombre_producto']." ".$mostrar["presentacion"]." ".$mostrar["representacion"] ?> </span> </p>
-                        <p class="mb-1 fw-bold"> Disponibles: <?= $mostrar["stock_actual"] ?> </p>
+                        <p style="width: 15rem;" class="text-secondary fw-bold mb-1">
+                            Código: <?= $mostrar["codigo"] ?>
+                        </p>
+                        <p class="text-primary fw-bold mb-1">
+                            <?= $mostrar["marca"] . ' - ' . $mostrar["nombre_producto"] . ' ' . $mostrar["presentacion"] . ' ' . $mostrar["representacion"] ?>
+                        </p>
+                        <small class="d-block text-muted">
+                            <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
+                        </small>
+                        <p class="fst-italic mb-0 <?= $color_stock ?>">
+                            Stock actual: <?= $mostrar["stock_actual"] ?> unidades
+                        </p>
                     </td>
 
                     <td class="col text-center col-md-2" scope="col">
-                        <input style="width: 10rem;" type="text" class="form-control cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
+                        <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
                     </td>
 
                     <td class="col text-center col-md-2" scope="col">
-                        <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta"] ?>" required>
-                    </td>
-
-                    <td class="col text-center col-md-2" scope="col">
-                        <input style="width: 10rem;" type="text" readonly class="bg-dark-subtle form-control precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
+                        <input type="hidden" class=" precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta"] ?>" required>
+                        <input type="hidden" class=" precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
+                    
+                        <div class="row justify-content-center">
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_venta"], 2); ?> $ </span></p>
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_bs"], 2); ?> Bs</span> </p>
+                        </div>
+                        
                     </td>
                     
                     <td class="text-center col" scope="col">

@@ -66,7 +66,7 @@ $cantidad_perguntas = intval($cantidad_perguntas['c_preguntas']);
                                 class="form-control"
                                 name="respuesta[]" 
                                 id="respuesta<?= $i + 1 ?>"
-                                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,50}$"
+                                pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}$"
                                 >
                                 
                             <button 

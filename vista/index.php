@@ -11,7 +11,6 @@ model_user::verificar_intento_de_acceso_al_sistema();
 
 include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
 
-
 ?>
 
 <!DOCTYPE html>

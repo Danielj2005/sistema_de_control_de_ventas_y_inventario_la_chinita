@@ -63,7 +63,7 @@ class alert_model {
     public static function alert_redirect ($title, $text, $icon, $url) {
         // se verifica si la url es diferente a la vista de inicio de sesion
         
-        self::alerta_condicional($title, $text, $icon, "window.location = '".$url."';");
+        self::alerta_condicional($title, $text, $icon, "window.location = '$url';");
         
     }
 
@@ -89,14 +89,18 @@ class alert_model {
 
     public static function alert_reg_success_and_close_modal(){
         
-        self::alert_reset_forms("¡Registro Exitoso!","Los datos se Registraron Correctamente","success", "document.getElementById('btnCloseModal').click();");
+        self::alert_reset_forms(
+            "¡Registro Exitoso!",
+            "Los datos se Registraron Correctamente",
+            "success", 
+            "document.getElementById('btnCloseModal').click();");
         
     }
     public static function alert_reg_error(){
         echo '<script type="text/javascript">
             Swal.fire({
                 title: "¡Ocurrio un error!",
-                text: "los datos no se pudieron registrar, verifique he intente de nuevo ",
+                text: "los datos no se pudieron registrar, verifique e intente nuevamente",
                 icon: "error",
                 confirmBottonText: "Aceptar"
             });
@@ -122,7 +126,11 @@ class alert_model {
     
     public static function alert_mod_success_and_close_modal(){
         
-        self::alert_reset_forms("¡Modificación exitosa!","Los datos se modificaron correctamente","success", "document.getElementById('btnCloseModal').click();");
+        self::alert_reset_forms(
+            "¡Modificación exitosa!",
+            "Los datos se modificaron correctamente",
+            "success", 
+            "document.getElementById('btnCloseModal').click();");
         
     }
 
@@ -131,9 +139,9 @@ class alert_model {
         echo'<script type="text/javascript">
             Swal.fire({
                 title: "¡Ocurrio un error!",
-                text: "Los datos no se modificaron, verifique he intente nuevamente",
+                text: "Los datos no se modificaron, verifique e intente nuevamente",
                 icon: "error",
-                confirmBottonText: "Aceptar"
+                confirmButtonText: "Aceptar"
             });
         </script>';
     }

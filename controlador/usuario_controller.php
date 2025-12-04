@@ -308,14 +308,6 @@ if($modulo === "modificar_contraseña_usuario"){
             exit();
         }
 
-        $primer_inicio = model_user::verificar_primer_inicio();
-
-        if ($primer_inicio) {
-            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 1", "id_usuario = '$id_usuario'");
-        }else{
-            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
-        }
-
         model_user::bitacora_modificacion_contraseña();
 
         alert_model::alert_mod_success();
@@ -405,7 +397,9 @@ if ($modulo === "modificar_preguntas_seguridad") {
     }
     
     // 2. Borrar todos las preguntas y respuestas del usuario
-    modeloPrincipal::DeleteSQL("preguntas_secretas", "id_usuario = $id_usuario");
+    modeloPrincipal::DeleteSQL(
+        "preguntas_secretas", 
+        "id_usuario = $id_usuario");
     
     try {
 
@@ -415,31 +409,34 @@ if ($modulo === "modificar_preguntas_seguridad") {
             // Encriptar la nueva respuesta
             $respuesta_encriptada = modeloPrincipal::limpiar_mayusculas_encriptar($respuestas[$i]);
             
-            $actualizar = modeloPrincipal::InsertSQL("preguntas_secretas", "id_pregunta, respuesta, numero_pregunta, id_usuario", "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
+            $actualizar = modeloPrincipal::InsertSQL(
+                "preguntas_secretas", 
+                "id_pregunta, respuesta, numero_pregunta, id_usuario", 
+                "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
             
             $numero_pregunta++;
             
             if (!$actualizar) {
-                alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al actualizar la pregunta de seguridad.", "error");
+                alert_model::alerta_simple(
+                    "Ha ocurrido un error!", 
+                    "ocurrio un error al actualizar la pregunta de seguridad.", 
+                    "error");
                 exit();
             } 
         }
 
-        $primer_inicio = model_user::verificar_primer_inicio();
-
-        if ($primer_inicio) {
-            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 1", "id_usuario = '$id_usuario'");
-            $_SESSION['dataUsuario']["primerInicio"] = 1;
-        }else{
-            modeloPrincipal::UpdateSQL("usuario", "primer_inicio = 0", "id_usuario = '$id_usuario'");
-            $_SESSION['dataUsuario']["primerInicio"] = 0;
-        }
+        
         // Registrar la modificación en la bitácora
-        bitacora::bitacora("Modificación exitosa del perfil de usuario",'<p class="mb-3 h2 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó sus preguntas de seguridad.</p> ');
+        bitacora::bitacora(
+            "Modificación exitosa del perfil de usuario",
+            '<p class="mb-3 h2 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó sus preguntas de seguridad.</p> ');
         // Mostrar mensaje de éxito
         alert_model::alert_mod_success();
     } catch (Exception $e) {
-        alert_model::alerta_simple("¡Error inesperado!", "Ocurrió un error al actualizar las preguntas de seguridad. Por favor, intente nuevamente.", "error");
+        alert_model::alerta_simple(
+            "¡Error inesperado!", 
+            "Ocurrió un error al actualizar las preguntas de seguridad. Por favor, intente nuevamente.",
+            "error");
         exit();
     }
 }

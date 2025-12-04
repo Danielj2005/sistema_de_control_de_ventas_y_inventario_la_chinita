@@ -1,6 +1,6 @@
 <?php 
 
-$primer_inicio = $_SESSION['primer_inicio'];
+$primer_inicio = $_SESSION['primerInicio'];
 
 if($primer_inicio == '1'){
     echo "<script type='text/javascript'>

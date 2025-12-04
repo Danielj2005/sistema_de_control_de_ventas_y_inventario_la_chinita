@@ -61,24 +61,27 @@ if ($permiso_productos) {  ?>
                     <div class="row m-0"> 
 
                         <?php if ($categoria || $presentacion > 0 || $marca > 0) : ?>
+
                             <!-- listado de Categoría -->
 
                             <div id="card_gestion_productos" class="col-12 mb-3 pagetitle text-center row m-0 p-0 justify-content-around">
 
                                 <?php if ($categoria): ?>
 
-                                    <div id="" class="text-center col-12 col-md-3 fs-4 border card">
+                                    <div class="text-center col-12 col-md-3 fs-4 border card">
                                         <h3 class="text-center mt-2 titulosH fs-3">Categorías</h3>
 
                                         <?php if ($r_categoria == 1): ?>
 
-                                            <button 
-                                                modal="registrarCategoria" 
-                                                type="button" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#modal" 
-                                                class="mb-2 btn_modal btn btn-success"><i class="bi bi-plus-circle"></i> Registrar Nueva
-                                            </button>
+                                            <div class="text-center mb-2">
+                                                <button 
+                                                    modal="registrarCategoria" 
+                                                    type="button" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#modal" 
+                                                    class="mb-2 btn_modal btn btn-success"><i class="bi bi-plus-circle"></i> Registrar Nueva
+                                                </button>
+                                            </div>
 
                                         <?php endif; if ($l_categoria == 1 ): ?>
 
@@ -98,77 +101,77 @@ if ($permiso_productos) {  ?>
 
                                 <?php endif; if ($presentacion): ?>
 
-                                        <div id="" class="text-center col-12 col-sm-12 col-md-4 fs-4 border card">
-                                            <h3 class=" text-center mt-2 titulosH fs-3">Presentaciones</h3>
+                                    <div id="" class="text-center col-12 col-md-4 fs-4 border card">
+                                        <h3 class=" text-center mt-2 titulosH fs-3">Presentaciones</h3>
 
-                                            <div class="justify-content-center text-center mb-2">
-                                                <?php if ($r_presentacion == 1): ?>
+                                        <div class="justify-content-center text-center mb-2">
+                                            <?php if ($r_presentacion == 1): ?>
 
-                                                        <button 
-                                                            modal="registrarPresentacion" 
-                                                            data-bs-toggle="modal" 
-                                                            data-bs-target="#modal" 
-                                                            type="button" 
-                                                            class="mb-2 btn_modal btn btn-success">
-                                                                <i class="bi bi-plus-circle"></i>
-                                                                Registrar Nueva
-                                                        </button>
+                                                <div class="text-center mb-2">
+                                                    <button 
+                                                        modal="registrarPresentacion" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#modal" 
+                                                        type="button" 
+                                                        class="mb-2 btn_modal btn btn-success"> <i class="bi bi-plus-circle"></i> Registrar Nueva
+                                                    </button>
+                                                </div>
 
-                                                <?php endif;  if ($l_presentacion == 1): ?>
+                                            <?php endif;  if ($l_presentacion == 1): ?>
+                                                
+                                                <div class="text-center mb-2">
+                                                    <button 
+                                                        modal="listaPresentacion" 
+                                                        id="btn_ver_listas_presentacion" 
+                                                        type="button" 
+                                                        class="btn_modal btn btn btn-secondary" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#modal"> <i class="bi bi-list-task"></i> Lista de Presentaciones
+                                                    </button>
+                                                </div>
 
-                                                        <button 
-                                                            modal="listaPresentacion" 
-                                                            id="btn_ver_listas_presentacion" 
-                                                            type="button" 
-                                                            class="btn_modal btn btn btn-secondary" 
-                                                            data-bs-toggle="modal" 
-                                                            data-bs-target="#modal">
-                                                                <i class="bi bi-list-task"></i>
-                                                                Lista de Presentaciones
-                                                        </button>
-
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>   
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>   
 
                                 <?php endif; if ($r_marca || $l_marca ): ?>
 
-                                        <div id="" class="text-center col-12 col-sm-12 col-md-3 fs-4 card border">
-                                            <h3 class="text-center mt-2 titulosH fs-3">Marcas</h3>
-                                            
-                                            <div class="justify-content-around text-center mb-2">
-                                                <?php if ($r_marca == 1): ?>
+                                    <div id="" class="text-center col-12 col-md-3 fs-4 card border">
+                                        <h3 class="text-center mt-2 titulosH fs-3">Marcas</h3>
+                                        
+                                        <div class="justify-content-around text-center mb-2">
+                                            <?php if ($r_marca == 1): ?>
 
-                                                        <button 
-                                                            modal="registrarMarca" 
-                                                            type="button" 
-                                                            data-bs-toggle="modal" 
-                                                            data-bs-target="#modal" 
-                                                            class="mb-2 btn_modal btn btn-success">
-                                                                <i class="bi bi-plus-circle"></i>
-                                                                Registrar Nueva
-                                                        </button>
 
-                                                <?php endif; if ($l_marca == 1 ): ?>
+                                                <div class="text-center mb-2">
+                                                    <button 
+                                                        modal="registrarMarca" 
+                                                        type="button" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#modal" 
+                                                        class="mb-2 btn_modal btn btn-success"> <i class="bi bi-plus-circle"></i> Registrar Nueva
+                                                    </button>
+                                                </div>
 
-                                                        <button 
-                                                            modal="listaMarca" 
-                                                            id="btn_ver_listas_marca" 
-                                                            type="button" 
-                                                            class="btn_modal btn btn btn-secondary" 
-                                                            data-bs-toggle="modal" 
-                                                            data-bs-target="#modal">
-                                                                <i class="bi bi-list-columns-reverse"></i>
-                                                                Lista de Marcas
-                                                        </button>
+                                            <?php endif; if ($l_marca == 1 ): ?>
+                                                
+                                                <div class="text-center mb-2">
+                                                    <button 
+                                                        modal="listaMarca" 
+                                                        id="btn_ver_listas_marca" 
+                                                        type="button" 
+                                                        class="btn_modal btn btn btn-secondary" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#modal"> <i class="bi bi-list-columns-reverse"></i> Lista de Marcas
+                                                    </button>
+                                                </div>
 
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>  
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
 
                                 <?php endif; ?>              
                             </div>
-                            
                         <?php endif; ?>
 
                         <!-- registro y listado de productos -->

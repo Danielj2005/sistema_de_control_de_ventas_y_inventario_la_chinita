@@ -320,12 +320,12 @@ class model_user extends modeloPrincipal {
                 exit();
             }
 
-            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0 ]{3,50}$/",$respuestas[$i])) {
+            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}$/",$respuestas[$i])) {
                 alert_model::alerta_simple('Atención!',"La respuesta nº ".($j+1)." no cumple con el formato establecido",'warning');
                 exit();
             }
 
-            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ?¿]{8,150}$/",$preguntas[$i])) {
+            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ?¿]{8,150}$/",$preguntas[$i])) {
                 // si no cumple con el formato establecido se muestra un mensaje de error
                 alert_model::alerta_simple('Atención!',"La pregunta nº ".$preguntas[$i]." no cumple con el formato establecido",'warning');
                 exit(); // fijar exit() position

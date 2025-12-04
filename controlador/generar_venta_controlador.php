@@ -13,15 +13,14 @@ if (!isset($_POST["modulo"])) {
     exit();
 }
 
-// datos del cliente 
-$id_cliente = modeloPrincipal::limpiar_cadena($_POST['id_cliente']);
+// datos del cliente
 $cedula_cliente = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']); 
 
 // datos de los servicios
-$id_servicios = (isset($_POST['UIDS'])) ? $_POST['UIDS'] : '';
-$cantidad_servicios = (isset($_POST['cantidad_servicio'])) ? $_POST['cantidad_servicio'] : '';
-$precio_servicio_dolar = (isset($_POST['precio_servicio_dolar'])) ? $_POST['precio_servicio_dolar'] : '';
-$precio_servicio_bolivar = (isset($_POST['precio_servicio_bolivar'])) ? $_POST['precio_servicio_bolivar'] : '';
+$id_servicios = isset($_POST['UIDS']) ?? '';
+$cantidad_servicios = isset($_POST['cantidad_servicio']) ? $_POST['cantidad_servicio'] : '';
+$precio_servicio_dolar = isset($_POST['precio_servicio_dolar']) ? $_POST['precio_servicio_dolar'] : '';
+$precio_servicio_bolivar = isset($_POST['precio_servicio_bolivar']) ? $_POST['precio_servicio_bolivar'] : '';
 
 // datos  de los productos
 $id_productos = (isset($_POST['id_producto'])) ? $_POST['id_producto'] : '';
@@ -46,7 +45,7 @@ $total_venta_bolivares = $_POST['totalBolivar_iva'];
 
 
 // Se verifica que no se hayan recibido campos vacíos.
-modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $id_cliente, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
+modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
 
 if($id_servicios[0] == "" && $id_productos[0] == "" ){
     alert_model::alerta_simple("¡Ocurrio un error!","Debes seleccionar un servicio o producto para generar una venta, verifique he intente de nuevo","error");

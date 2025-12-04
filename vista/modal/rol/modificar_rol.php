@@ -34,8 +34,8 @@ $productos = rol_model::sumaPermisoRol(['r_productos', 'l_productos'], $permisos
 $productos_total = $categoria_total + $presentacion_total + $marca_total + $entrada_total + $productos['r_productos'] + $productos['l_productos'];
 
 // cantidad de vistas de venta
-$venta = rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta'], $permisos_rol);
-$venta_total = $venta["g_venta"] + $venta["d_venta"] + $venta["f_venta"] + $venta["l_venta"] + $venta["est_venta"];
+$venta = rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta'], $permisos_rol);
+$venta_total = $venta["g_venta"] + $venta["d_venta"] + $venta["f_venta"] + $venta["l_venta"];
 
 
 // cantidad de vistas de menu
@@ -293,7 +293,7 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ventasCard" aria-expanded="false" aria-controls="ventasCard">
                                     Módulo Ventas
                                     <span class="ms-auto me-2">
-                                        <i class="bi <?= obtenerIconoPermisos($venta_total, 5) ?>"></i>
+                                        <i class="bi <?= obtenerIconoPermisos($venta_total, 4) ?>"></i>
                                     </span>
                                 </button>
                             </h2>
@@ -301,7 +301,7 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                             <div id="ventasCard" class="accordion-collapse collapse" data-bs-parent="#acordeon_ventas">
                                 <div class="accordion-body p-0">
                                     <div class="form-check mb-2 ms-4 pt-2">
-                                        <input class="form-check-input vista" type="checkbox" id="vista_ventas" <?= $venta_total == 5 ? 'checked' : '' ?> value="ventas">
+                                        <input class="form-check-input vista" type="checkbox" id="vista_ventas" <?= $venta_total == 4 ? 'checked' : '' ?> value="ventas">
                                         <label class="form-check-label fw-bold">
                                             Acceso a la Vista del Módulo de Ventas
                                         </label>
@@ -323,10 +323,6 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                         <li class="form-check mb-1">
                                             <input name="f_venta" class="form-check-input ventas" <?= $venta['f_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(21); ?>" type="checkbox" id="f_venta">
                                             <label class="form-check-label" for="f_venta">Ver Facturas de Ventas</label>
-                                        </li>
-                                        <li class="form-check mb-1">
-                                            <input name="est_venta" class="form-check-input ventas" <?= $venta['est_venta'] == 1 ? 'checked' : '' ?> value="<?= modeloPrincipal::encryptionId(22); ?>" type="checkbox" id="est_venta">
-                                            <label class="form-check-label" for="est_venta">Ver Estadísticas de Ventas</label>
                                         </li>
                                     </ul>
                                 </div>

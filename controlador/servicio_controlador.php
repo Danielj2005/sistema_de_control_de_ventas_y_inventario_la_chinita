@@ -33,12 +33,12 @@ if($modulo == 'Guardar'){
         exit(); 
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,50}",$nombre_platillo)) {
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\, ]{3,50}",$nombre_platillo)) {
         alert_model::alert_of_format_wrong("'nombre'");
         exit();
     }
 
-    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{3,250}",$descripcion)) {
+    if (modeloPrincipal::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\.\,\+ ]{3,250}",$descripcion)) {
         alert_model::alert_of_format_wrong("'descripción'");
         exit();
     }

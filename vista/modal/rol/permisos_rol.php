@@ -35,8 +35,8 @@ $productos = rol_model::sumaPermisoRol(['r_productos', 'l_productos'], $permisos
 $productos_total = $categoria_total + $presentacion_total + $marca_total + $entrada_total + $productos['r_productos'] + $productos['l_productos'];
 
 // cantidad de vistas de venta
-$venta = rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta','est_venta'], $permisos_rol);
-$venta_total = $venta["g_venta"] + $venta["d_venta"] + $venta["f_venta"] + $venta["l_venta"] + $venta["est_venta"];
+$venta = rol_model::sumaPermisoRol(['g_venta','d_venta','f_venta','l_venta'], $permisos_rol);
+$venta_total = $venta["g_venta"] + $venta["d_venta"] + $venta["f_venta"] + $venta["l_venta"];
 
 
 // cantidad de vistas de menu
@@ -396,13 +396,6 @@ $bitacora_total = $bitacora['v_bitacora'] + $bitacora['m_bitacora'];
                                                 <?php if ($venta['f_venta'] == 1) { ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Acceder a Facturas de Ventas
-                                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                                    </li>
-                                                <?php } ?>
-
-                                                <?php if ($venta['est_venta'] == 1) { ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Consultar Estadísticas/Reportes de Ventas
                                                         <i class="bi bi-check-circle-fill text-success"></i>
                                                     </li>
                                                 <?php } ?>

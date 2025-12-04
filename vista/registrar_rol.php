@@ -305,11 +305,6 @@ if ($r_rol) {  ?>
                                       <input name="f_venta" class="Ventas" value="<?= modeloPrincipal::encryptionId(21); ?>" type="checkbox">
                                       <span>Acceder a Facturas de Ventas</span>
                                     </li>
-                                    
-                                    <li class="mb-1 border-bottom">
-                                      <input name="est_venta" class="Ventas" value="<?= modeloPrincipal::encryptionId(22); ?>" type="checkbox">
-                                      <span>Consultar Estadísticas de Ventas</span>
-                                    </li>
                                   </ul>
                                 </div>
                               </div>
