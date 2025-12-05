@@ -194,30 +194,53 @@ class producto_model extends modeloPrincipal {
         // se guardan los datos en un array y se imprime
 
         while ($mostrar = mysqli_fetch_assoc($consulta)) {
-            $idSecure = modeloPrincipal::encryptionId($mostrar["id_producto"]); ?>
+            $idSecure = modeloPrincipal::encryptionId($mostrar["id_producto"]); 
 
-            <tr class="text-center <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? 'text-danger' : ($mostrar["stock_actual"] < "5" ? 'text-warning' : '') ?>">
+            $colorText = "";
+            $colorTextBg = "";
+
+            if ($mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null) {
+                $colorText = "text-danger";
+                $colorTextBg = "text-bg-danger";
+            }else if ($mostrar["stock_actual"] < "5") {
+                $colorText = "text-warning";
+                $colorTextBg = "text-bg-warning";
+            }else if ($mostrar["stock_actual"] > "0") {
+                $colorText = "text-primary";
+                $colorTextBg = "text-bg-primary";
+            }
+
+            ?>
+            <tr class="text-center">
                 <td class="text-center"></td>
                 <td class="text-start">
-                    
-                        <p class="text-secondary fw-bold mb-1">
-                            Código: <?= $mostrar["codigo"] ?>
-                        </p>
-                        <p class="text-<?=  $mostrar["stock_actual"] == 0 ? "danger" : "primary" ?>  fw-bold mb-1">
-                            Nombre: <?= $mostrar["nombre_producto"]?>
-                        </p>
-                        <small class="d-block text-dark">
-                            <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
-                        </small>
-                        <small class="d-block text-muted">
-                            <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
-                        </small>
-                        <small class="d-block text-muted">
-                            <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
-                        </small>
+                    <p class="text-secondary fw-bold mb-1">
+                        Código: <?= $mostrar["codigo"] ?>
+                    </p>
+                    <p class=" <?=  $colorText ?>  fw-bold mb-1">
+                        Nombre: <?= $mostrar["nombre_producto"]?>
+                    </p>
+                    <small class="d-block text-dark">
+                        <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
+                    </small>
+                    <small class="d-block text-muted">
+                        <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
+                    </small>
+                    <small class="d-block text-muted">
+                        <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
+                    </small>
                 </td>
-                <td class="text-center"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></td>
-                <td class="text-center"><?= $mostrar["precio_venta"] == 0 ? '0 $' : $mostrar["precio_venta"].' $' ; ?></td>
+                <td class="text-center">
+                    <div class="row justify-content-center">
+                        <p class="col-12 col-md-6"><span class="badge <?= $colorTextBg ?> fs-6"><?= $mostrar["stock_actual"] == 0 ? 0 : $mostrar["stock_actual"]; ?></span></p>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div class="row justify-content-center">
+                        <p class="col-12"><span class="badge text-bg-secondar <?= $colorTextBg ?> fs-6"><?= $mostrar["precio_venta"] == 0 ? '0 $' : modeloPrincipal::number_format_prices($mostrar["precio_venta"]).' $' ; ?></span></p>
+                    </div>
+
+                </td>
                 <td class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></td>
                 <td class="col text-center">
                     <button value="<?= $idSecure; ?>" modal="productoModificar" data-bs-toggle="modal" data-bs-target="#modal" class="btn_modal btn btn-warning">
@@ -497,8 +520,8 @@ class producto_model extends modeloPrincipal {
                         <input type="hidden" class=" precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
                     
                         <div class="row justify-content-center">
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_venta"], 2); ?> $ </span></p>
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_bs"], 2); ?> Bs</span> </p>
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_venta"]); ?> $ </span></p>
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                         </div>
                         
                     </td>

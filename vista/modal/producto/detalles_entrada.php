@@ -36,11 +36,9 @@ $proveedor = $proveedor['proveedor'];
         <thead>
             <tr>
                 <th class="col text-center" scope="col">N.º</th>
-                <th class="col text-center" scope="col">Código</th>
                 <th class="col text-center" scope="col">Producto</th>
                 <th class="col text-center" scope="col">Unidades Ingresadas</th>
-                <th class="col text-center" scope="col">Costo ($)</th>
-                <th class="col text-center" scope="col">Costo (Bs.)</th>
+                <th class="col text-center" scope="col">Costos</th>
                 <th class="col text-center" scope="col">Registrado por</th>
             </tr>
         </thead>
@@ -52,24 +50,22 @@ $proveedor = $proveedor['proveedor'];
             while ( $mostrar = mysqli_fetch_array($detalles_entrada)) { ?>    
                 <tr>
                     <td class="col text-center"></td>
-                    <td class="col text-center"><?= $mostrar["codigo"] ?></td>
                     <td class="text-start">
+                        <p class="fw-bold mb-1"> Código: <?= $mostrar["codigo"] ?> </p>
                         <p class="text-<?=  $mostrar["cantidad_comprada"] == 0 ? "danger" : "primary" ?>  fw-bold mb-1">
-                            <span class="fw-bold">Nombre:</span> <?= $mostrar["nombre_producto"]?>
+                            <?= $mostrar["marca"] . ' - ' . $mostrar["nombre_producto"] . ' - ' . $mostrar["presentacion"] . ' ' . $mostrar["representacion"] ?>
                         </p>
-                        <small class="d-block text-dark">
-                            <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?>
-                        </small>
-                        <small class="d-block text-muted">
-                            <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' / ' . $mostrar["representacion"] ?>
-                        </small>
-                        <small class="d-block text-muted">
-                            <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
-                        </small>
+                        <small class="d-block text-muted"> <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?> </small>
                     </td>
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
-                    <td class="col text-center"><?= $mostrar["precio_dolar"].' $'; ?></td>
-                    <td class="col text-center"><?= $mostrar["precio_bs"].' bs'; ?></td>
+                    <td class="col text-center">
+                        
+                        <div class="row justify-content-center">
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
+                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
+                        </div>
+                        
+                    </td>
                     <td class="col text-center"><?= $mostrar["usuario"]; ?></td>
                 </tr>
             <?php } ?>

@@ -223,10 +223,9 @@ if ($entrada) {   ?>
 															<th class="col text-center" scope="col">N.º</th>
 															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Cédula" : "Cédula o RIF" ?></th>
 															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Usuario" : "Proveedor" ?></th>
-															<th class="col text-center" scope="col">Total ($)</th>
-															<th class="col text-center" scope="col">Total (Bs.)</th>
-															<th class="col text-center" scope="col">Tasa de Cambio</th>
 															<th class="col text-center" scope="col">Fecha y Hora</th>
+															<th class="col text-center" scope="col">Total </th>
+															<th class="col text-center" scope="col">Tasa de Cambio</th>
 															<th class="col text-center" scope="col">Ver Detalles</th>
 															<th class="col text-center" scope="col">Reporte</th>
 														</tr>
@@ -272,11 +271,31 @@ if ($entrada) {   ?>
 																	<td class="col text-center"></td>
 																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?></td>
 																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?></td>
-																	<td class="col text-center"><?= $mostrar["total_dolar"].' $'; ?></td>
-																	<td class="col text-center"><?= $mostrar["total_bs"].' Bs.'; ?></td>
-																	<td class="col text-center"><?= $mostrar["tasa"].' Bs.'; ?></td>
-
+																	
 																	<td class="col text-center"><?= date('d-m-Y h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+
+																	<td class="col text-center">
+																
+																		<div class="text-center justify-content-center">
+																			<p class="col-12">
+																				<span class="badge text-bg-secondary fs-6">
+																					<?= modeloPrincipal::number_format_prices($mostrar["total_dolar"]); ?> $
+																				</span>
+																			</p>
+																			<p class="col-12">
+																				<span class="badge text-bg-secondary fs-6">
+																					<?= modeloPrincipal::number_format_prices($mostrar["total_bs"]); ?> Bs
+																				</span>
+																			</p>
+																		</div>
+																		
+																	</td>
+
+																	<td class="col text-center">
+																		<span class="badge text-bg-secondary fs-6">
+																			<?= modeloPrincipal::number_format_prices($mostrar["tasa"]).' Bs.'; ?>
+																		</span>
+																	</td>
 
 																	<td class="col text-center" scope="col">
 																		<button 

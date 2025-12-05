@@ -43,9 +43,9 @@ function calcular_total () {
         total_dolar += (precio_unidad_dolar[i].value !== '') ? parseFloat(precio_unidad_dolar[i].value) * cantidad_item[i].value : 0;
     }
 
-    totalDolar.textContent = total_dolar.toFixed(2);
-    totalBolivar.textContent = (total_dolar * tasa).toFixed(2);
+    totalDolar.textContent = formatNumber(total_dolar);
+    totalBolivar.textContent = formatNumber(total_dolar * tasa);
     
-    input_dolar.value = total_dolar.toFixed(2);
-    input_bolivar.value = (total_dolar * tasa).toFixed(2);
+    input_dolar.value = parseFloat(total_dolar).toFixed(2);
+    input_bolivar.value = parseFloat(total_dolar * tasa).toFixed(2);
 }

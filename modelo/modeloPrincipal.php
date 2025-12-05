@@ -330,7 +330,11 @@ class modeloPrincipal {
         return $dataFind;
     }
 
-        
+    public static function number_format_prices($precio){
+        return number_format($precio, 2, ",", ".");
+    }
+
+    
     /*******************************************************************/ 
     /*          Funciones dedicadas a Verificar datos                  */
     /*******************************************************************/ 

@@ -234,7 +234,16 @@ if($modulo === "Modificar"){
         $colorBadge = $estado == 1 ? 'bg-success' : 'bg-danger';
         $textBadge = $estado == 1 ? 'Activo' : 'Inactivo';
 
-        $mensaje = '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el rol con la siguiente información:</p> <div class="row align-items-center mb-4 pb-2 border-bottom"> <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0"> <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-person-badge me-2"></i>Rol: '.$nombre.'</h5> </div><div class="col-12 col-md-6 text-center text-md-end"> <h5 class="fw-bold mb-0">Estado: <span class="badge rounded-pill fs-6 bg-success '.$colorBadge.'"> '.$textBadge.'</span></h5> </div></div><div class="row mb-4 pb-2 border-bottom">';
+        $mensaje = '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario modificó el rol con la siguiente información:</p>
+            <div class="row align-items-center mb-4 pb-2 border-bottom">
+                <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-person-badge me-2"></i>Rol: '.$nombre.'</h5>
+                </div>
+                <div class="col-12 col-md-6 text-center text-md-end"> 
+                    <h5 class="fw-bold mb-0">Estado: <span class="badge rounded-pill fs-6 bg-success '.$colorBadge.'"> '.$textBadge.'</span></h5> 
+                </div>
+            </div>
+            <div class="row mb-4 pb-2 border-bottom">';
 
         $mensaje .= $bitacora.'</div>';
         
@@ -267,15 +276,19 @@ if ($modulo === "activo"){
 
     if(modeloPrincipal::UpdateSQL("rol","estado = '0'", "id_rol = '$id_rol'")){
         
-        bitacora::bitacora("Cambio exitoso del estado de un rol","El usuario cambió el estado del rol con la siguiente información: <br><br>
-        <b>***** Información del rol original: *****</b><br><br>
-        Nombre del rol:  <b>$rol_info </b><br><br>
-        Estado: <b>Activo</b> <br><br>
-        <b>***** Información del rol actualizada: *****</b><br><br>
-        Nombre del rol:  <b>$rol_info </b><br>
-        Estado: <b>Inactivo</b>");
+        $cambios = [
+            "estado" => config_model::obtener_comparacion([1, "Activo"], [ 0, "Inactivo"])
+        ];
 
-        alert_model::alert_reload("¡Rol Desactivado!","El rol se desactivo exitosamente.","success");
+        bitacora::bitacora(
+            "Cambio exitoso del estado de un rol",
+            '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario cambió el estado del rol con la siguiente información:</p>
+            <h4 class="text-center card-title"><b> Información del Servicio: </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> <span>'.$rol_info.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$cambios['estado'].'</span> </div>
+            ');
+
+        alert_model::alert_reload("¡Rol Desactivado!","El rol se desactivó exitosamente.","success");
         exit();
     }else{
         alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la operacion, por favor intente nuevamente","error");
@@ -286,15 +299,20 @@ if ($modulo === "activo"){
 if ($modulo === "inactivo"){
 
     if(modeloPrincipal::UpdateSQL("rol","estado = '1'", "id_rol = '$id_rol'")){
-        bitacora::bitacora("Cambio exitoso del estado de un rol","El usuario cambió el estado del rol con la siguiente información: <br><br>
-        <b>***** Información del rol original: *****</b><br><br>
-        Nombre del rol:  <b>$rol_info </b><br><br>
-        Estado: <b>Inactivo</b> <br><br>
-        <b>***** Información del rol actualizada: *****</b><br><br>
-        Nombre del rol:  <b>$rol_info </b><br>
-        Estado: <b>Activo</b>");
+        
+        $cambios = [
+            "estado" => config_model::obtener_comparacion([0, "Inactivo"], [ 1, "Activo"])
+        ];
 
-        alert_model::alert_reload("¡Rol activado!","El rol se activo exitosamente.","success");
+        bitacora::bitacora(
+            "Cambio exitoso del estado de un rol",
+            '<p class="mb-3 text-primary-emphasis"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario cambió el estado del rol con la siguiente información:</p>
+            <h4 class="text-center card-title"><b> Información del Servicio: </b></h4>
+            <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> <span>'.$rol_info.'</span> </div>
+            <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> <span>'.$cambios['estado'].'</span> </div>
+            ');
+
+        alert_model::alert_reload("¡Rol activado!","El rol se activó exitosamente.","success");
         exit();
     }else{
         alert_model::alerta_simple("¡Ocurrió un error inesperado!","No se pudo realizar la operacion, por favor intente nuevamente","error");
