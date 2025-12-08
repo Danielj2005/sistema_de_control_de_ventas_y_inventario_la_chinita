@@ -119,7 +119,7 @@ if ($g_venta) {  ?>
                               <tr class="bg-secondary-light">
                                 <th class="col text-start" scope="col">Servicio</th>
                                 <th style="width: 10rem;" class="col text-center" scope="col">Cantidad</th>
-                                <th class="col text-center" scope="col">Costos</th>
+                                <th class="col text-center" scope="col">Precios</th>
                                 <th class="col text-center" scope="col">Quitar</th>
                               </tr>
                             </thead>
@@ -151,9 +151,9 @@ if ($g_venta) {  ?>
                           <table class="table table-striped table-borderless">
                             <thead>
                               <tr class="bg-secondary-light">
-                                <th style="width: 10rem;" class="col text-center" scope="col">Producto</th>
+                                <th class="col text-center" scope="col">Producto</th>
                                 <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Cantidad</th>
-                                <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Costos de Venta</th>
+                                <th class="col text-center col-md-2" scope="col">Precios de Venta</th>
                                 <th class="col text-center col-md-2" scope="col">Quitar</th>
                               </tr>
                             </thead>
@@ -228,12 +228,12 @@ if ($g_venta) {  ?>
                         <input type="hidden" id="totalBolivar_iva" name="totalBolivar_iva" value="0">
 
                         <div class="col-12 col-md-6 mb-3 text-center">
-                          <p class="fs-4 text-success"> Monto a pagar ($): </p> 
+                          <p class="fs-4 text-success"> Total a pagar ($): </p> 
                           <span class="fs-4 text-success"> <strong id="strong_dolares"></strong> $</span>
                         </div>
 
                         <div class="col-12 col-md-6 mb-3 text-center">
-                          <p class="fs-4 text-success"> Monto a pagar (Bs) </p>
+                          <p class="fs-4 text-success"> Total a pagar (Bs) </p>
                           <span class="fs-4 text-success"> <strong id="strong_bolivares"></strong> Bs</span>
                         </div>
 
@@ -282,8 +282,8 @@ if ($g_venta) {  ?>
           // este tr será añadido a la tabla 
           let tr = `<tr id="metodo_${i}">
                       <td class="text-center col">
-                        <select style="width: 16rem;" name="metodo_pago[]" id="metodo_pago_${i}" class="form-select form-select-sm selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_${i}','num_referencia_${i}')">
-                          <option value="" selected>seleccione una opción</option>
+                        <select name="metodo_pago[]" id="metodo_pago_${i}" class="form-select form-select-sm selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_${i}','num_referencia_${i}')">
+                          <option selected>seleccione un método</option>
                           <option value="1">Divisa</option>
                           <option value="2">Punto de Venta</option>
                           <option value="3">Transferencia / Pago movíl</option>
@@ -291,10 +291,10 @@ if ($g_venta) {  ?>
                         </select>
                       </td>
                       <td class="text-center col">
-                        <input style="width: 10rem;" type="text" class="form-control form-control-sm" id="cantidad_${i}" name="monto_pagar[]" placeholder="MONTO A PAGAR" required>
+                        <input type="text" class="form-control form-control-sm" id="cantidad_${i}" name="monto_pagar[]" placeholder="monto a pagar ($)" required>
                       </td>
                       <td class="text-center col">
-                        <input style="width: 10rem;" type="text" class="form-control form-control-sm bg-dark-subtle" readOnly id="num_referencia_${i}" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia">
+                        <input type="text" class="form-control form-control-sm bg-dark-subtle" readOnly id="num_referencia_${i}" name="num_referencia[]" maxlength="20" minlength="7" placeholder="número de referencia">
                       </td>
                       <td class="text-center col">
                         <button type="button" class="btn btn-sm btn-danger bi bi-trash" onclick="quitar_metodo(${i++})"></button>
@@ -325,6 +325,7 @@ if ($g_venta) {  ?>
         }
       
       </script>
+
     </body>
   </html>
 <?php }else{

@@ -121,10 +121,10 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
     $pdf->Cell($CellProveedor,5, $pdf->convert_codification($mostrar["proveedor"] ?? "Adquisición Propia"),'B',0,'L',0);
 
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification($mostrar["total_dolar"]).' $','B',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification($mostrar["total_bs"]).' bs','B',0,'C',0);
+    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_dolar"])).' $','B',0,'C',0);
+    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_bs"])).' bs','B',0,'C',0);
 
-    $pdf->Cell($CellCotización, 5, $pdf->convert_codification($mostrar["tasa"]).' bs','B',0,'C',0);
+    $pdf->Cell($CellCotización, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["tasa"])).' bs','B',0,'C',0);
     $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
     $pdf->Cell($CellUsuario, 5, $pdf->convert_codification($mostrar["cedula"]),'B',1,'C',0);
     

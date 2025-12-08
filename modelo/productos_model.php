@@ -506,21 +506,21 @@ class producto_model extends modeloPrincipal {
                         <small class="d-block text-muted">
                             <span class="fw-bold">Categoria:</span> <?= $mostrar["categoria"] ?>
                         </small>
-                        <p class="fst-italic mb-0 <?= $color_stock ?>">
+                        <p class="fw-bold fst-italic mb-0 <?= $color_stock ?>">
                             Stock actual: <?= $mostrar["stock_actual"] ?> unidades
                         </p>
                     </td>
 
-                    <td class="col text-center col-md-2" scope="col">
+                    <td class="col text-center" scope="col">
                         <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
                     </td>
 
-                    <td class="col text-center col-md-2" scope="col">
+                    <td class="col text-center" scope="col">
                         <input type="hidden" class=" precio_dolar" name="precio_producto_dolar[]" id="precio_dolar<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_venta"] ?>" required>
                         <input type="hidden" class=" precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
                     
                         <div class="row justify-content-center">
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_venta"]); ?> $ </span></p>
+                            <p class="col-12 col-md-6"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_venta"]); ?> $ </span></p>
                             <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                         </div>
                         

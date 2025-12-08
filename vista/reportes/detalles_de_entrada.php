@@ -133,13 +133,13 @@ class PDF extends FPDF{
         $this->setX($positionDataUser);
         $this->Cell(80, 5, self::convert_codification('Datos de la Entrada:'),'B',1,'L',0);
         $this->setX($positionDataUser);
-        $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.$id_dolar.' bs'),'',1,'L',0);
+        $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.modeloPrincipal::number_format_prices($id_dolar).' bs'),'',1,'L',0);
         $this->setX($positionDataUser);
-        $this->Cell(0, 5, self::convert_codification('Total ($): '.$total_dolar,),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification("Total ($): ".modeloPrincipal::number_format_prices($total_dolar)." $_ENV"),'',1,'L',0);
         $this->setX($positionDataUser);
-        $this->Cell(0, 5, self::convert_codification('Total (Bs): '.round(floatval($id_dolar * $total_dolar), 2)),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification('Total (Bs): '.modeloPrincipal::number_format_prices(round(floatval($id_dolar * $total_dolar), 2))." Bs"),'',1,'L',0);
         $this->setX($positionDataUser);
-        $this->Cell(0, 5, self::convert_codification('Fecha y Hora: '.$fecha_entrada),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification("Fecha y Hora: $fecha_entrada"),'',1,'L',0);
         
         $this->Ln(50);
     }
@@ -248,8 +248,8 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->Cell($marca,5, $pdf->convert_codification($mostrar["marca"]),'B',0,'C',0);
     $pdf->Cell($categoria, 5, $pdf->convert_codification($mostrar["categoria"]),'B',0,'C',0);
     $pdf->Cell($unidades, 5, $pdf->convert_codification($mostrar["cantidad_comprada"]),'B',0,'C',0);
-    $pdf->Cell($costoUSd, 5, $pdf->convert_codification($mostrar["precio_dolar"].' $'),'B',0,'C',0);
-    $pdf->Cell($costoBS, 5, $pdf->convert_codification($mostrar["precio_bs"].' Bs'),'B',0,'C',0);
+    $pdf->Cell($costoUSd, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["precio_dolar"]).' $'),'B',0,'C',0);
+    $pdf->Cell($costoBS, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["precio_bs"]).' Bs'),'B',0,'C',0);
     $pdf->Cell($registradoPor, 5, $pdf->convert_codification($mostrar["usuario"]),'B',1,'C',0);
 
 }

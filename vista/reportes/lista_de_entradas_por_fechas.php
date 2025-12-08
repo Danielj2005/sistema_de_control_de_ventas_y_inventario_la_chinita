@@ -99,7 +99,7 @@ $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
 $pdf->Cell($CellProveedor, 5, $pdf->convert_codification('Proveedor / Adquisición Propia'),'LTRB',0,'C',0);
 $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
 $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
-$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Cotización'),'LTRB',0,'C',0);
+$pdf->Cell($CellCotización, 5, $pdf->convert_codification('Tasa de Cambio'),'LTRB',0,'C',0);
 $pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
 $pdf->Cell($CellUsuario, 5, $pdf->convert_codification('Registrado por'),'LTRB',1,'C',0);
 
@@ -123,9 +123,9 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->setX(5);
     $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
     $pdf->Cell($CellProveedor,5, $pdf->convert_codification($mostrar["proveedor"] ?? "Adquisición Propia" ),'B',0,'L',0);
-    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification($mostrar["total_dolar"].' $'),'B',0,'C',0);
-    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification($mostrar["total_bs"].' bs'),'B',0,'C',0);
-    $pdf->Cell($CellCotización, 5, $pdf->convert_codification($mostrar["tasa"].' bs'),'B',0,'C',0);
+    $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_dolar"]).' $'),'B',0,'C',0);
+    $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_bs"]).' bs'),'B',0,'C',0);
+    $pdf->Cell($CellCotización, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["tasa"]).' bs'),'B',0,'C',0);
     $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
     $pdf->Cell($CellUsuario, 5, $pdf->convert_codification($mostrar["cedula"]." ".$mostrar["nombre"]),'B',1,'C',0);
 

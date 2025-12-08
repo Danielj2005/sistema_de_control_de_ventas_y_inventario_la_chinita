@@ -44,21 +44,21 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
           <div class="col-12 mb-1">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Total de Ventas del Día</h5>
+                <h5 class="card-title">Total de las Ventas del Día</h5>
 
                 <div class="row">
                     <div class="col-12 col-md-6 mb-1">
                         <div class="input-group mb-2">
-                            <span class="input-group-text" id="basic-addon1">Total en Dólares (USD)</span>
-                            <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : $total_hoy_dolar ?>">
+                            <span class="input-group-text" id="basic-addon1">Total ($)</span>
+                            <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_dolar == "") ? 0 : modeloPrincipal::number_format_prices($total_hoy_dolar) ?>">
                             <span class="input-group-text" id="basic-addon1">$</span>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-6 mb-1">
                         <div class="input-group mb-2">
-                            <span class="input-group-text" id="basic-addon1">Total en Bolívares (Bs.)</span>
-                            <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : $total_hoy_bs ?>">
+                            <span class="input-group-text" id="basic-addon1">Total (Bs)</span>
+                            <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_bs == "") ? '0' : modeloPrincipal::number_format_prices($total_hoy_bs) ?>">
                             <span class="input-group-text" id="basic-addon1">Bs.</span> 
                             </div>
                     </div>
@@ -85,8 +85,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
                             <th class="text-start" scope="col">Cédula/RIF Cliente</th>
                             <th class="text-start" scope="col">Cliente</th>
                             
-                            <th class="text-end" scope="col" style="width: 10%;">Total ($)</th>
-                            <th class="text-end" scope="col" style="width: 10%;">Total (Bs)</th>
+                            <th class="text-end" scope="col" style="width: 10%;">Total </th>
                             
                             <th class="text-center" scope="col">Fecha y Hora</th>
                             <th class="text-center" scope="col" style="width: 8%;">Detalles</th>

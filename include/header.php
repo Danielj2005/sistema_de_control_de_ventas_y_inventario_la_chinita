@@ -40,7 +40,7 @@
 
         <button class="btn bg-secondary-light nav-icon fst-italic fs-6" data-bs-toggle="dropdown">
           <i class="bi bi-currency-exchange"></i>
-          &nbsp; Tasa USD: <span id="tasa_dolar"><?= number_format((float)$precio_dolar_actual, 2, ',', '.') ?></span>Bs
+          &nbsp; Tasa USD: <span id="tasa_dolar"><?= modeloPrincipal::number_format_prices((float)$precio_dolar_actual) ?></span>Bs
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">

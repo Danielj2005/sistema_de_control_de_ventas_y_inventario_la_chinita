@@ -131,10 +131,10 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     // Asegúrate de que el valor sea numérico para la multiplicación
     $precio_bolivares = floatval($mostrar["precio_venta"]) * floatval($mostrar["tasa"]); 
 
-    $pdf->Cell(40, 5, $pdf->convert_codification(number_format($precio_bolivares, 2, ',', '.') .' bs'),'B',0,'C',0);
+    $pdf->Cell(40, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($precio_bolivares) .' bs'),'B',0,'C',0);
 
-    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["precio_venta"] == "0" || $mostrar["precio_venta"] == null  ? '0.$' : $mostrar["precio_venta"].' $' ),'B',0,'C',0);
-    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["tasa"].' bs'),'B',1,'C',0);
+    $pdf->Cell(30, 5, $pdf->convert_codification($mostrar["precio_venta"] == "0" || $mostrar["precio_venta"] == null  ? '0 $' : modeloPrincipal::number_format_prices($mostrar["precio_venta"]).' $' ),'B',0,'C',0);
+    $pdf->Cell(30, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["tasa"]).' bs'),'B',1,'C',0);
 } 
 
 $pdf->Output("I","Lista de Productos (".date('d-m-Y H:i:a').").pdf",true);

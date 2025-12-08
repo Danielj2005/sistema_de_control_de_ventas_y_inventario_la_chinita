@@ -239,10 +239,24 @@ class venta_model extends modeloPrincipal {
                 <tr>
                     <td class="text-center col"><?= $i++ ?></td> 
                     <td class="text-center col"><?= self::generar_numero( $row['id_venta']) ?></td> 
-                    <td class="text-center col"><?= $row['cedula'] ?></td> 
-                    <td class="text-center col"><?= $row['nombre'] ?></td> 
-                    <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
-                    <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
+                    <td class="text-center col"><?= $row['cedula'] ?></td>
+                    
+                    <td class="text-center col">
+																
+                        <div class="text-center justify-content-center">
+                            <p class="col-12">
+                                <span class="badge text-bg-secondary fs-6">
+                                    <?= modeloPrincipal::number_format_prices($row["monto_total_dolares"]); ?> $
+                                </span>
+                            </p>
+                            <p class="col-12">
+                                <span class="badge text-bg-secondary fs-6">
+                                    <?= modeloPrincipal::number_format_prices($row["monto_total_bolivares"]); ?> Bs
+                                </span>
+                            </p>
+                        </div>
+                    </td> 
+
                     <td class="text-center col"><?= date ("d-m-Y h:i:a",strtotime($row['fecha_venta'])) ?></td> 
                     <?php if ($d_venta == '1') :?>
                         <td class="text-center col">
@@ -289,9 +303,23 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"><?= self::generar_numero($row['id_venta']) ?></td> 
                 <td class="text-center col"><?= $row['cedula'] ?></td> 
                 <td class="text-center col"><?= $row['nombre'] ?></td> 
-                <td class="text-center col"><?= $row['monto_total_dolares'].' $' ?></td> 
-                <td class="text-center col"><?= $row['monto_total_bolivares'].' bs' ?></td> 
-                <td class="text-center col"><?= date("d-m-Y | g:i:a",strtotime($row['fecha_venta'])) ?></td> 
+                    
+                <td class="text-center col">
+                                                            
+                    <div class="text-center justify-content-center">
+                        <p class="col-12">
+                            <span class="badge text-bg-secondary fs-6">
+                                <?= modeloPrincipal::number_format_prices($row["monto_total_dolares"]); ?> $
+                            </span>
+                        </p>
+                        <p class="col-12">
+                            <span class="badge text-bg-secondary fs-6">
+                                <?= modeloPrincipal::number_format_prices($row["monto_total_bolivares"]); ?> Bs
+                            </span>
+                        </p>
+                    </div>
+                </td> 
+                <td class="text-center col"><?= date("d-m-Y g:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
                     <button 
                         class="btn_modal btn btn-info" 

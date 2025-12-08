@@ -49,7 +49,7 @@ class servicio_model extends modeloPrincipal {
             <tr>
                 <td class="col text-center"> </td>
                 <td class="col text-center"><?= $mostrar["nombre_platillo"]; ?></td>
-                <td class="col text-center"><?= $mostrar["precio_dolar"].'$'; ?></td>
+                <td class="col text-center"><?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]).'$'; ?></td>
 
                 <?php if ($l_servicio == '1') { ?>
                     <td class="col text-center">
@@ -217,8 +217,8 @@ class servicio_model extends modeloPrincipal {
                     <input type="hidden" class="bg-dark-subtle form-control form-control-sm precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" required value="<?= number_format($mostrar["precio_bs"], 2); ?>">
                 
                     <div class="row justify-content-center">
-                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_dolar"], 2); ?> $ </span></p>
-                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= number_format($mostrar["precio_bs"], 2); ?> Bs</span> </p>
+                        <p class="col-12 col-md-6"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
+                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                     </div>
                     
                 </td>

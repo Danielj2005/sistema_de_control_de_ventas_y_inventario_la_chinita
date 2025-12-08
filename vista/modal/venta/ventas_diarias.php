@@ -86,7 +86,7 @@ $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cant
     <div class="d-flex justify-content-between small">
         <span style="width: 50%;"><?= $row['producto'].' '.$row['marca'].' '.$row['presentacion'].' '.$row['representacion'] ?></span>
         <span class="text-center" style="width: 20%;"><?= $row['cantidad']; ?></span>
-        <span class="text-end" style="width: 30%;"><?= number_format($row['precio'], 2); ?></span>
+        <span class="text-end" style="width: 30%;"><?= modeloPrincipal::number_format_prices($row['precio']); ?></span>
     </div>
 <?php } ?>
 
@@ -94,19 +94,19 @@ $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cant
     <div class="d-flex justify-content-between small">
         <span style="width: 50%;">SERVICIO: <?= $row['nombre_platillo']?></span>
         <span class="text-center" style="width: 20%;"><?= $row['cantidad_servicio']; ?></span>
-        <span class="text-end" style="width: 30%;"><?= number_format($row['precio'], 2); ?></span>
+        <span class="text-end" style="width: 30%;"><?= modeloPrincipal::number_format_prices($row['precio']); ?></span>
     </div>
 <?php } ?>
 
 <hr class="dotted-separator">
 <div class="d-flex justify-content-between small">
     <span class="fw-bold">SUBTOTAL</span>
-    <span class="fw-bold">Bs <?= number_format($datos_venta['sub_total_bs'], 2); ?></span>
+    <span class="fw-bold">Bs <?= modeloPrincipal::number_format_prices($datos_venta['sub_total_bs']); ?></span>
 </div>
 
 <div class="d-flex justify-content-between small">
     <span>IVA (16,00%)</span>
-    <span>Bs <?= number_format(round($datos_venta['sub_total_bs'] * 0.16, 2), 2); ?></span>
+    <span>Bs <?= modeloPrincipal::number_format_prices($datos_venta['sub_total_bs'] * 0.16); ?></span>
 </div>
 
 <div class="d-flex justify-content-between small">
@@ -118,7 +118,7 @@ $cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cant
 
 <div class="d-flex justify-content-between fs-5 fw-bold">
     <span>TOTAL A PAGAR</span>
-    <span>Bs <?= number_format($datos_venta['monto_total_bolivares'], 2); ?></span>
+    <span>Bs <?= modeloPrincipal::number_format_prices($datos_venta['monto_total_bolivares']); ?></span>
 </div>
 
 <hr class="dotted-separator">

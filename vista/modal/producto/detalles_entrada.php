@@ -11,7 +11,7 @@ $detalles_entrada = modeloPrincipal::consultar("SELECT PS.cantidad AS presentaci
     C.nombre AS categoria,
     D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
     M.nombre AS marca, 
-    U.nombre AS usuario
+    U.cedula AS dni, U.nombre AS usuario
     FROM detalles_entrada AS D 
     INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
     INNER JOIN producto AS P ON P.id_producto = D.id_producto 
@@ -66,7 +66,7 @@ $proveedor = $proveedor['proveedor'];
                         </div>
                         
                     </td>
-                    <td class="col text-center"><?= $mostrar["usuario"]; ?></td>
+                    <td class="col text-center"><?= $mostrar["dni"]; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

@@ -69,16 +69,16 @@ if ($permiso_venta) { ?>
                   <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Monto Total (USD)</span>
-                        <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_en_dolares == "") ? 0 : $total_hoy_en_dolares ?>">
+                        <span class="input-group-text" id="basic-addon1">Total (USD)</span>
+                        <input type="text" class="form-control" disabled id="TotalUSD" readOnly value="<?= ($total_hoy_en_dolares == "") ? 0 : modeloPrincipal::number_format_prices($total_hoy_en_dolares) ?>">
                         <span class="input-group-text" id="basic-addon1">$</span>
                       </div>
                     </div>
 
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
                       <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Monto Total (BS)</span>
-                        <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_en_bolivares == "") ? 0 : $total_hoy_en_bolivares ?>">
+                        <span class="input-group-text" id="basic-addon1">Total (BS)</span>
+                        <input type="text" class="form-control" disabled id="TotalBS" readOnly value="<?= ($total_hoy_en_bolivares == "") ? 0 : modeloPrincipal::number_format_prices($total_hoy_en_bolivares) ?>">
                         <span class="input-group-text" id="basic-addon1">BS</span>
                       </div>
                     </div>
@@ -135,11 +135,9 @@ if ($permiso_venta) { ?>
                             <th class="col text-center" scope="col" style="width: 5%;">N.°</th>
                             <th class="col text-center" scope="col">N.° de Factura</th>
                             
-                            <th class="col text-center" scope="col">Cédula/RIF Cliente</th>
-                            <th class="col text-center" scope="col">Cliente</th>
+                            <th class="col text-center" scope="col">Cliente / RIF Cliente</th>
                             
-                            <th class="col text-center" scope="col" style="width: 10%;">Total (USD)</th>
-                            <th class="col text-center" scope="col" style="width: 10%;">Total (Bs.)</th>
+                            <th class="col text-center" scope="col" style="width: 10%;">Total</th>
                             
                             <th class="col text-center" scope="col">Fecha y Hora</th>
                             
@@ -149,7 +147,7 @@ if ($permiso_venta) { ?>
                           <?php endif; ?>
                           
                           <?php if ($f_venta == '1') :?>
-                            <th class="col text-center" scope="col" style="width: 8%;">Ver Facturas</th>
+                            <th class="col text-center" scope="col" style="width: 8%;">Ver Recibo</th>
                           <?php endif; ?>
 
                         </tr>

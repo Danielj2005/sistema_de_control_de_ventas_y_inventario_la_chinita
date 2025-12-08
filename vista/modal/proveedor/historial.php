@@ -8,7 +8,7 @@ $id_proveedor = modeloPrincipal::limpiar_cadena($id_proveedor);
 
 $consulta = modeloPrincipal::consultar("SELECT
     E.total_dolar, E.total_bs, D.dolar AS tasa,
-    E.fecha_entrada, U.nombre AS usuario
+    E.fecha_entrada, U.cedula AS dni, U.nombre AS usuario
     FROM entrada AS E
     INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
@@ -49,10 +49,10 @@ if (mysqli_num_rows($consulta) < 1) {
                     <tr>
                         <td class="col text-center"></td>
                         <td class="text-center col"><?= date('d-m-Y g:i:a', strtotime($row["fecha_entrada"])); ?></td> 
-                        <td class="col text-center"><?= $row["total_dolar"] == 0 ? '0.$' : $row["total_dolar"].' $' ;  ?></td>
-                        <td class="col text-center"><?= $row["total_bs"].'bs'; ?></td>
-                        <td class="col text-center"><?= $row["tasa"].'bs'; ?></td>
-                        <td class="col text-center"><?= $row["usuario"]; ?></td>
+                        <td class="col text-center"><?= $row["total_dolar"] == 0 ? '0 $' : modeloPrincipal::number_format_prices($row["total_dolar"]).' $' ;  ?></td>
+                        <td class="col text-center"><?= modeloPrincipal::number_format_prices($row["total_bs"]).' bs'; ?></td>
+                        <td class="col text-center"><?= modeloPrincipal::number_format_prices($row["tasa"]).' bs'; ?></td>
+                        <td class="col text-center"><?= $row["dni"]; ?></td>
                     </tr>
             <?php } ?>
         </tbody>

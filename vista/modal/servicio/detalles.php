@@ -32,7 +32,7 @@ $datosServicio = mysqli_fetch_array(modeloPrincipal::consultar("SELECT * FROM me
     <div class="col-md-6 col-12 mb-3">
         <label class="form-label">Precio de venta en $</label>
         <div class="col-md-4 input-group">
-            <input type="text" disabled class="form-control" value="<?= $datosServicio['precio_dolar']; ?> $" placeholder="Precio de venta en $ del servicio" name="precio_dolar" id="precio_dolar" required>
+            <input type="text" disabled class="form-control" value="<?= modeloPrincipal::number_format_prices($datosServicio['precio_dolar']); ?> $" placeholder="Precio de venta en $ del servicio" name="precio_dolar" id="precio_dolar" required>
         </div>
     </div>
 

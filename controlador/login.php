@@ -27,7 +27,7 @@ if (empty($_POST['respuesta_captcha']) || !isset($_POST['respuesta_captcha'])) {
 
 // se verifica que el captcha recibido sea igual al mostrado al usuario
 if ($respuesta_captcha !== $captcha) {
-    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente','error');
+    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente, en caso de que el captcha sea correcto recargar la página.','error');
     exit();
 }
 
