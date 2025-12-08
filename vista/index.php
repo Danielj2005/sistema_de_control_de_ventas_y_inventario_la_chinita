@@ -82,10 +82,9 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
                             <th class="text-center" scope="col" style="width: 5%;">N.°</th>
                             <th class="text-center" scope="col">N.° de Factura</th>
                             
-                            <th class="text-start" scope="col">Cédula/RIF Cliente</th>
-                            <th class="text-start" scope="col">Cliente</th>
+                            <th class="text-center" scope="col">Cédula/RIF Cliente</th>
                             
-                            <th class="text-end" scope="col" style="width: 10%;">Total </th>
+                            <th class="text-center" scope="col" style="width: 10%;">Total </th>
                             
                             <th class="text-center" scope="col">Fecha y Hora</th>
                             <th class="text-center" scope="col" style="width: 8%;">Detalles</th>

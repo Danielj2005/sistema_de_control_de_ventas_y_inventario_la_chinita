@@ -103,7 +103,7 @@ class producto_model extends modeloPrincipal {
             $marca = modeloPrincipal::decryptionId(id: $id_marcas[$i]);
             $fecha = date("Y-m-d H:i:s");
 
-            $registrar = modeloPrincipal::InsertSQL("producto", "codigo, nombre_producto, id_marca, id_presentacion, id_categoria, stock_actual, fecha_ultima_actualizacion, estado" ,"$code, '$nombre', $marca, $presentacion, $categoria, 0, '$fecha', 0");
+            $registrar = modeloPrincipal::InsertSQL("producto", "codigo, nombre_producto, id_marca, id_presentacion, id_categoria, stock_actual, fecha_ultima_actualizacion, estado" ,"'$code', '$nombre', $marca, $presentacion, $categoria, 0, '$fecha', 0");
         }
         return $registrar;
     }

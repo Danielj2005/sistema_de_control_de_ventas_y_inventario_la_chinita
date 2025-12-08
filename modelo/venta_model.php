@@ -302,8 +302,7 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"></td> 
                 <td class="text-center col"><?= self::generar_numero($row['id_venta']) ?></td> 
                 <td class="text-center col"><?= $row['cedula'] ?></td> 
-                <td class="text-center col"><?= $row['nombre'] ?></td> 
-                    
+                
                 <td class="text-center col">
                                                             
                     <div class="text-center justify-content-center">

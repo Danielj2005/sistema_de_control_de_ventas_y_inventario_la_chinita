@@ -228,7 +228,7 @@ if ($g_venta) {  ?>
                         <input type="hidden" id="totalBolivar_iva" name="totalBolivar_iva" value="0">
 
                         <div class="col-12 col-md-6 mb-3 text-center">
-                          <p class="fs-4 text-success"> Total a pagar ($): </p> 
+                          <p class="fs-4 text-success"> Total a pagar ($)</p> 
                           <span class="fs-4 text-success"> <strong id="strong_dolares"></strong> $</span>
                         </div>
 

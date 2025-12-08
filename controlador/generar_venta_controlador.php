@@ -17,7 +17,8 @@ if (!isset($_POST["modulo"])) {
 $cedula_cliente = modeloPrincipal::limpiar_cadena($_POST['nacionalidad'].$_POST['cedula']); 
 
 // datos de los servicios
-$id_servicios = isset($_POST['UIDS']) ?? '';
+// $id_servicios = isset($_POST['UIDS']) ?? '';
+$id_servicios = isset($_POST['UIDS']) ? $_POST['UIDS'] : '';
 $cantidad_servicios = isset($_POST['cantidad_servicio']) ? $_POST['cantidad_servicio'] : '';
 $precio_servicio_dolar = isset($_POST['precio_servicio_dolar']) ? $_POST['precio_servicio_dolar'] : '';
 $precio_servicio_bolivar = isset($_POST['precio_servicio_bolivar']) ? $_POST['precio_servicio_bolivar'] : '';
@@ -43,12 +44,31 @@ $sub_total_bs = $_POST['sub_total_bs'];
 $total_venta_dolar = $_POST['totalDolar_iva'];
 $total_venta_bolivares = $_POST['totalBolivar_iva'];
 
+$total_pagado = 0.0;
+foreach ($cantidad_pago as $value) {
+    // Sanitiza y convierte cada valor a un float
+    // $pago = (float) filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+
+    $total_pagado += $value;
+}
+$total_pagado = floatval($total_pagado);
+$total_generado = floatval($total_venta_dolar);
 
 // Se verifica que no se hayan recibido campos vacíos.
 modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
 
+// if(bccomp($total_pagado, $total_venta_dolar, 2) !== 0) {
+if($total_pagado !== $total_generado) {
+    // Formatear las variables para mostrarlas al usuario con 2 decimales
+    $pagado_formato = modeloPrincipal::number_format_prices($total_pagado);
+    $venta_formato = modeloPrincipal::number_format_prices($total_venta_dolar);
+    $mensaje = "El total pagado ($pagado_formato $) no coincide con el total de la venta ($venta_formato $). Verifique las cantidades.";
+    alert_model::alerta_simple("¡Error de Pago!", $mensaje, "error");
+    exit();
+}
+
 if($id_servicios[0] == "" && $id_productos[0] == "" ){
-    alert_model::alerta_simple("¡Ocurrio un error!","Debes seleccionar un servicio o producto para generar una venta, verifique he intente de nuevo","error");
+    alert_model::alerta_simple("¡Ocurrio un error!","Debes seleccionar un servicio o producto para generar una venta, verifique e intente de nuevo","error");
     exit();
 }
 
@@ -78,6 +98,7 @@ if(mysqli_num_rows($existe_cliente) < 1){
 $existe_cliente = mysqli_fetch_array($existe_cliente);
 $id_cliente = $existe_cliente['id_cliente'];
 $id_usuario = $_SESSION['id_usuario'];
+
 
 // ************* se verifica que haya stock para los servicios *************
 if ($id_servicios !== "") {
@@ -110,9 +131,6 @@ if ($id_servicios !== "" && $id_productos !== "" ){
     try {
         $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
         
-        // $id_detalles_venta = mysqli_fetch_array(modeloPrincipal::Consultar("SELECT MAX(id_detalles_venta) AS id 
-        //     FROM detalles_venta"))['id'];
-
         $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta, $id_usuario);
 
     } catch (Exception $e) {
@@ -180,63 +198,25 @@ try {
     bitacora::bitacora("Venta realizada exitosamente.",
         '<p class="mb-3 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp; Se registró una venta con la siguiente informacón.</p> 
         <h4 class="text-center card-title"><b> Información del cliente </b></h4>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Cédula</p>
-            <span>'.$datos_venta['Ccedula'].'</span>
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Nombre y Apellido</p>
-            <span>'.$datos_venta['Cnombre'].'</span>
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Teléfono</p>
-            <span>'.$datos_venta['Ctelefono'].'</span>
-        </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Cédula</p> <span>'.$datos_venta['Ccedula'].'</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Nombre y Apellido</p> <span>'.$datos_venta['Cnombre'].'</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Teléfono</p> <span>'.$datos_venta['Ctelefono'].'</span> </div>
 
         <h4 class="text-center card-title"><b> Información de la Venta </b></h4>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Subtotal ($)</p>
-            <span>'.$datos_venta['sub_total_dolares'].' $</span>
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Subtotal (Bs)</p>
-            <span>'.$datos_venta['sub_total_bs'].' Bs</span>
-        </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Subtotal ($)</p> <span>'.$datos_venta['sub_total_dolares'].' $</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Subtotal (Bs)</p> <span>'.$datos_venta['sub_total_bs'].' Bs</span> </div>
 
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Total ($) + IVA (16%)</p>
-            <span>'.$datos_venta['monto_total_dolares'].' $</span>
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Total (Bs) + IVA (16%)</p>
-            <span>'.$datos_venta['monto_total_bolivares'].' Bs</span>
-        </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Total ($) + IVA (16%)</p> <span>'.$datos_venta['monto_total_dolares'].' $</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Total (Bs) + IVA (16%)</p> <span>'.$datos_venta['monto_total_bolivares'].' Bs</span> </div>
 
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Fecha y Hora</p>
-            <span>'.date("d-m-Y | H:i:a",strtotime($datos_venta['fecha_venta'])).'</span>
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Tasa de Cambio</p>
-            <span>'.$dolar.' Bs</span>
-        </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Fecha y Hora</p> <span>'.date("d-m-Y | H:i:a",strtotime($datos_venta['fecha_venta'])).'</span> </div>
+        <div class="d-flex justify-content-between border-bottom"><p> Tasa de Cambio</p> <span>'.$dolar.' Bs</span> </div>
+
         <h4 class="text-center card-title"><b> Información del Usuario que realizó la venta </b></h4>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Cédula</p>
-            '.$datos_venta['Ucedula'].'
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Nombre y Apellido</p>
-            '.$datos_venta['Unombre']." ".$datos_venta['Uapellido'].'
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Correo</p>
-            '.$datos_venta['correo'].'
-        </div>
-        <div class="d-flex justify-content-between border-bottom">
-            <p> Teléfono</p>
-            '.$datos_venta['telefono'].'
-        </div>');
+        <div class="d-flex justify-content-between border-bottom"> <p> Cédula</p> '.$datos_venta['Ucedula'].' </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Nombre y Apellido</p>'.$datos_venta['Unombre']." ".$datos_venta['Uapellido'].' </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Correo</p> '.$datos_venta['correo'].' </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Teléfono</p> '.$datos_venta['telefono'].' </div>');
 
     alert_model::alert_reload ("Venta realizada!", "La venta se realizo correctamente", "success");
     exit();
