@@ -208,23 +208,23 @@ class servicio_model extends modeloPrincipal {
                 </td> 
 
                 <td class="col text-center" scope="col">
-                    <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad_servicio[]" onblur="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
+                    <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad_servicio[]" onkeyup="monto_total_productos();" placeholder="ingresa la cantidad a vender" id="cantidad_servicio<?= $mostrar['id_producto'] ?>" required>
                 </td>
 
                 <td class="col text-center" scope="col">
 
-                    <input type="hidden" class="bg-dark-subtle form-control form-control-sm precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= number_format($mostrar["precio_dolar"], 2); ?>" required>
-                    <input type="hidden" class="bg-dark-subtle form-control form-control-sm precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" required value="<?= number_format($mostrar["precio_bs"], 2); ?>">
+                    <input type="hidden" class="precio_dolar" name="precio_servicio_dolar[]" id="precio_dolar<?= $mostrar['id_menu'] ?>" value="<?= $mostrar["precio_dolar"]; ?>" required>
+                    <input type="hidden" class="precio_bs" name="precio_servicio_bolivar[]" id="precio_bs<?= $mostrar['id_menu'] ?>" required value="<?= $mostrar["precio_bs"]; ?>">
                 
                     <div class="row justify-content-center">
-                        <p class="col-12 col-md-6"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
-                        <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
+                        <p class="col-12 mb-2"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
+                        <p class="col-12 mb-2"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                     </div>
                     
                 </td>
 
                 <td class="text-center col" scope="col">
-                    <button type="button" class="btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar['id_menu']) ?>')"></button>
+                    <button type="button" class="btn_delete btn btn-danger bi bi-trash" onclick="quitar_elemento('tr_add_servicio_<?= modeloPrincipal::encryptionId($mostrar['id_menu']) ?>');"></button>
                 </td>
             </tr>
         <?php

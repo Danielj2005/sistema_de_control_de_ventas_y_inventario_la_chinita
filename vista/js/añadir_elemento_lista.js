@@ -9,6 +9,7 @@ const selects_element_to_list = document.querySelectorAll('.select');
 function quitar_elemento(id){
     let tr = document.getElementById(`${id}`);
     tr.remove();
+    monto_total_productos();
 }
 
 // funcion para validar si un producto o servicio ya se encuentra en la lista
@@ -27,6 +28,15 @@ function validar_existencia(name_select, id_tr) {
 }
 
 const urlAPI = (btnAddName) => {
+
+    if (get_url() == "sell") {
+        if (btnAddName == "btn_producto") {
+            return "añadir_productos_a_venta";
+        }else if (btnAddName == "btn_add_servicio") {
+            return "añadir_servico_a_venta";
+        }
+    }
+
     switch (get_url()) {
         // endpoints para el modulo de Ventas
         case "generar_venta": 
@@ -51,7 +61,6 @@ btn_add_element_to_list.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
         const MODULO = urlAPI(btn.name);
-        
         //  se inicializan las variables de los selectores de producto o servicio
         let id_option_selected = null;
         let name_select = null;

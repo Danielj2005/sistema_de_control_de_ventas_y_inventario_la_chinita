@@ -304,29 +304,19 @@ class venta_model extends modeloPrincipal {
                 <td class="text-center col"><?= $row['cedula'] ?></td> 
                 
                 <td class="text-center col">
-                                                            
                     <div class="text-center justify-content-center">
                         <p class="col-12">
-                            <span class="badge text-bg-secondary fs-6">
-                                <?= modeloPrincipal::number_format_prices($row["monto_total_dolares"]); ?> $
-                            </span>
+                            <span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($row["monto_total_dolares"]); ?> $</span>
                         </p>
                         <p class="col-12">
-                            <span class="badge text-bg-secondary fs-6">
-                                <?= modeloPrincipal::number_format_prices($row["monto_total_bolivares"]); ?> Bs
-                            </span>
+                            <span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($row["monto_total_bolivares"]); ?> Bs</span>
                         </p>
                     </div>
                 </td> 
                 <td class="text-center col"><?= date("d-m-Y g:i:a",strtotime($row['fecha_venta'])) ?></td> 
                 <td class="text-center col">
-                    <button 
-                        class="btn_modal btn btn-info" 
-                        value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" 
-                        modal="ventaDetalles" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#modal">
-                            <i class="bi bi-eye"></i> 
+                    <button class="btn_modal btn btn-info"  value="<?= modeloPrincipal::encryptionId($row['id_venta']) ?>" 
+                        modal="ventaDetalles" data-bs-toggle="modal" data-bs-target="#modal"><i class="bi bi-eye"></i> 
                     </button>
                 </td> 
             </tr>

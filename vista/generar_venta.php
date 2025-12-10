@@ -119,7 +119,7 @@ if ($g_venta) {  ?>
                               <tr class="bg-secondary-light">
                                 <th class="col text-start" scope="col">Servicio</th>
                                 <th style="width: 10rem;" class="col text-center" scope="col">Cantidad</th>
-                                <th class="col text-center" scope="col">Precios</th>
+                                <th class="col text-center" scope="col">Precios de Venta</th>
                                 <th class="col text-center" scope="col">Quitar</th>
                               </tr>
                             </thead>

@@ -512,7 +512,7 @@ class producto_model extends modeloPrincipal {
                     </td>
 
                     <td class="col text-center" scope="col">
-                        <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onblur="monto_total_productos();" required>
+                        <input style="width: 10rem;" type="text" class="form-control form-control-sm cantidad" name="cantidad[]" placeholder="ingresa la cantidad a vender" id="cantidad<?= $mostrar['id_producto'] ?>" onkeyup="monto_total_productos();" required>
                     </td>
 
                     <td class="col text-center" scope="col">
@@ -520,8 +520,8 @@ class producto_model extends modeloPrincipal {
                         <input type="hidden" class=" precio_bs" name="precio_producto_bolivar[]" id="precio_bs<?= $mostrar['id_producto'] ?>" value="<?= $mostrar["precio_bs"] ?>" required>
                     
                         <div class="row justify-content-center">
-                            <p class="col-12 col-md-6"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_venta"]); ?> $ </span></p>
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
+                            <p class="col-12 mb-2"><span class="badge text-bg-success fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_venta"]); ?> $ </span></p>
+                            <p class="col-12 mb-2"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                         </div>
                         
                     </td>
