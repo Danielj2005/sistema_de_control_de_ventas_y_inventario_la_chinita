@@ -23,6 +23,7 @@ if($modulo === 'Guardar'){
     $marcas = $_POST['marcas'];
     $presentacion = $_POST['presentacion'];
     $categoria = $_POST['categoria'];
+
     
     $vista = (!isset($_POST['vista'])) ? 0 : modeloPrincipal::limpiar_cadena($_POST['vista']);
     
@@ -106,7 +107,7 @@ if($modulo === 'Modificar'){
 
     $price = modeloPrincipal::limpiar_cadena($_POST['precio']);
 
-     // Se verifica que no se hayan recibido campos vacíos.
+    // Se verifica que no se hayan recibido campos vacíos.
     modeloPrincipal::validar_campos_vacios([$price, $id_producto]);
 
     $datos_producto_original = [
@@ -137,11 +138,9 @@ if($modulo === 'Modificar'){
 
         $datos_producto = mysqli_fetch_array(producto_model::consultar_por_id($id_producto));
         
-        
         $datos_producto_original['codigo'] = [$datos_producto['codigo'], $datos_producto['codigo']];
         $datos_producto_original['nombre_producto'] = [$datos_producto['nombre_producto'], $datos_producto['nombre_producto']];
         $datos_producto_original['marca'] = [$datos_producto['marca'], $datos_producto['marca']];
-
 
         $datos_producto_original['presentacion'] = [$datos_producto['presentacion']." ".$datos_producto['representacion'], $datos_producto['presentacion']." ".$datos_producto['representacion']];
         

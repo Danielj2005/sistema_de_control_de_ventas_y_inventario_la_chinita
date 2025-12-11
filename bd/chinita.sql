@@ -1042,7 +1042,7 @@ INSERT INTO `presentacion` (`id`, `cantidad`, `id_representacion`, `estado`) VAL
 
 CREATE TABLE `producto` (
   `id_producto` int NOT NULL,
-  `codigo` bigint DEFAULT NULL,
+  `codigo` varchar(20) DEFAULT NULL,
   `nombre_producto` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_marca` int NOT NULL,
   `id_presentacion` int NOT NULL,
@@ -1058,13 +1058,13 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_producto`, `codigo`, `nombre_producto`, `id_marca`, `id_presentacion`, `id_categoria`, `stock_actual`, `precio_venta`, `fecha_ultima_actualizacion`, `estado`) VALUES
-(1, 7590006700018, 'Polar Ice', 3, 20, 10, 5, 2.92, '2025-10-22 20:07:47', 1),
-(10, 7590006700020, 'Malta', 3, 4, 10, 0, NULL, '2025-10-24 14:33:48', 0),
-(11, 7590006700021, 'Maltin', 37, 24, 10, 5, 1.46, '2025-11-11 08:53:18', 1),
-(12, 7590006700024, 'Light', 43, 21, 10, 5, 1.75, '2025-11-12 13:11:13', 1),
-(13, 7590006700028, 'Light', 2, 1, 10, 0, NULL, '2025-11-12 12:43:39', 0),
-(20, 7590006706034, 'Muslos', 23, 46, 8, 0, NULL, '2025-11-14 12:29:11', 0),
-(21, 759000670034, 'Alitas', 23, 46, 8, 0, NULL, '2025-11-14 15:31:06', 0);
+(1, '7590006700018', 'Polar Ice', 3, 20, 10, 5, 2.92, '2025-10-22 20:07:47', 1),
+(10, '7590006700020', 'Malta', 3, 4, 10, 0, NULL, '2025-10-24 14:33:48', 0),
+(11, '7590006700021', 'Maltin', 37, 24, 10, 5, 1.46, '2025-11-11 08:53:18', 1),
+(12, '7590006700024', 'Light', 43, 21, 10, 5, 1.75, '2025-11-12 13:11:13', 1),
+(13, '7590006700028', 'Light', 2, 1, 10, 0, NULL, '2025-11-12 12:43:39', 0),
+(20, '7590006706034', 'Muslos', 23, 46, 8, 0, NULL, '2025-11-14 12:29:11', 0),
+(21, '759000670034', 'Alitas', 23, 46, 8, 0, NULL, '2025-11-14 15:31:06', 0);
 
 -- --------------------------------------------------------
 

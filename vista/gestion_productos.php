@@ -242,7 +242,7 @@ if ($permiso_productos) {  ?>
                                     <?php if ($l_productos == 1 ): ?>
 
                                         <div id="tableListProducts" class="justify-content-between align-items-center table table-responsive">
-                                            <table class="table example mb-3" id="example">
+                                            <table class="table example mb-3 table-striped" id="example">
                                                 <thead>
                                                     <tr>
                                                         <th class="col text-center" scope="col">N.º</th>
