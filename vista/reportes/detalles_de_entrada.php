@@ -135,7 +135,7 @@ class PDF extends FPDF{
         $this->setX($positionDataUser);
         $this->Cell(80, 5, self::convert_codification('Tasa de Cambio: '.modeloPrincipal::number_format_prices($id_dolar).' bs'),'',1,'L',0);
         $this->setX($positionDataUser);
-        $this->Cell(0, 5, self::convert_codification("Total ($): ".modeloPrincipal::number_format_prices($total_dolar)." $_ENV"),'',1,'L',0);
+        $this->Cell(0, 5, self::convert_codification("Total ($): ".modeloPrincipal::number_format_prices($total_dolar)." $"),'',1,'L',0);
         $this->setX($positionDataUser);
         $this->Cell(0, 5, self::convert_codification('Total (Bs): '.modeloPrincipal::number_format_prices(round(floatval($id_dolar * $total_dolar), 2))." Bs"),'',1,'L',0);
         $this->setX($positionDataUser);

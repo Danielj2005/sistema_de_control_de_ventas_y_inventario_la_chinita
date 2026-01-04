@@ -77,7 +77,7 @@ class producto_model extends modeloPrincipal {
             INNER JOIN presentacion AS PS ON PS.id = P.id_presentacion
             INNER JOIN representacion AS R ON R.id = PS.id_representacion
             INNER JOIN marca AS M ON M.id = P.id_marca
-            ORDER BY P.stock_actual
+            ORDER BY P.stock_actual DESC
         ");
 
         modeloPrincipal::verificar_consulta($consul,'producto'); // se verifica si la consulta fue exitosa
@@ -220,8 +220,7 @@ class producto_model extends modeloPrincipal {
                 <td class="text-center"></td>
                 <td class="text-start">
                     <p class="text-secondary fw-bold mb-1"> Código: <?= $mostrar["codigo"] ?> </p>
-                    <p class=" <?=  $colorText ?>  fw-bold mb-1"> Nombre: <?= $mostrar["nombre_producto"] ?> </p>
-                    <small class="d-block text-dark"> <span class="fw-bold">Marca:</span>  <?= $mostrar["marca"] ?> </small>
+                    <p class=" <?=  $colorText ?>  fw-bold mb-1"><?= $mostrar["marca"].' / '.$mostrar["nombre_producto"] ?> </p>
                     <small class="d-block text-muted">
                         <span class="fw-bold">Formato:</span> <?= $mostrar["presentacion"] . ' ' . $mostrar["representacion"] ?>
                     </small>
@@ -242,7 +241,14 @@ class producto_model extends modeloPrincipal {
                     </div>
 
                 </td>
-                <td class="text-center"><?= date("d-m-Y h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?></td>
+                <td class="text-center">
+                    <small class="d-block text-muted">
+                        <span class="fw-bold">Fecha:</span> <?= date("d-m-Y", strtotime($mostrar["fecha_ultima_actualizacion"])); ?>
+                    </small>
+                    <small class="d-block text-muted">
+                        <span class="fw-bold">Hora:</span> <?= date("h:i:a", strtotime($mostrar["fecha_ultima_actualizacion"])); ?>
+                    </small>
+                </td>
                 <td class="col text-center">
                     <button 
                         <?= $mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null ? "disabled" : 'value="'.$idSecure.'" modal="productoModificar" data-bs-toggle="modal" data-bs-target="#modal"' ?>

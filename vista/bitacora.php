@@ -98,7 +98,8 @@ if ($bitacora) {  ?>
                             <th class="text-center col" scope="col">#</th>
                             <th class="text-center col" scope="col">Acción</th>
                             <th class="text-center col" scope="col">Usuario</th>
-                            <th class="col text-center" scope="col">Fecha y Hora</th>
+                            <th class="col text-center" scope="col">Fecha </th>
+                            <th class="col text-center" scope="col">Hora</th>
                             <th class="text-center col" scope="col">Detalles</th>
                           </tr>
                         </thead>
@@ -109,7 +110,8 @@ if ($bitacora) {  ?>
                                   <th class="col" scope="col"></th>
                                   <th class="col" scope="col"><?= $row['accion'] ?></th>
                                   <th class="col" scope="col"><?= $row['nombre'].' '.$row['apellido'] ?></th>
-                                  <th class="col" scope="col"><?= date('d-m-Y | g:i a', strtotime($row['fecha_hora'])) ?></th>
+                                  <th class="col" scope="col"><?= date('d-m-Y', strtotime($row['fecha_hora'])) ?></th>
+                                  <th class="col" scope="col"><?= date('g:i a', strtotime($row['fecha_hora'])) ?></th>
                                   <th class="text-center col" scope="col">
                                     <button 
                                       modal="bitacora"

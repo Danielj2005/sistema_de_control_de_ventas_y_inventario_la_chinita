@@ -221,7 +221,6 @@ if ($entrada) {   ?>
 													<thead>
 														<tr>
 															<th class="col text-center" scope="col">N.º</th>
-															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Cédula" : "Cédula o RIF" ?></th>
 															<th class="col text-center" scope="col"><?= $tipoCompra == 1 ? "Usuario" : "Proveedor" ?></th>
 															<th class="col text-center" scope="col">Fecha y Hora</th>
 															<th class="col text-center" scope="col">Total </th>
@@ -243,6 +242,7 @@ if ($entrada) {   ?>
 																	ORDER BY E.fecha_entrada DESC 
 																	LIMIT 100
 																");
+																
 															}else if($tipoCompra == 0){
 																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, PROV.cedula_rif,
 																	E.total_dolar, E.total_bs,
@@ -253,6 +253,7 @@ if ($entrada) {   ?>
 																	ORDER BY E.fecha_entrada DESC 
 																	LIMIT 100
 																");
+
 															}else if($fecha1 !== "" && $fecha2 !== ""){
 																$consulta = modeloPrincipal::consultar("SELECT PROV.nombre, E.total_dolar, E.total_bs,
 																	E.fecha_entrada, E.id_entrada, D.dolar AS tasa
@@ -269,10 +270,28 @@ if ($entrada) {   ?>
 															while ( $mostrar = mysqli_fetch_array($consulta)) { ?>    
 																<tr>
 																	<td class="col text-center"></td>
-																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?></td>
-																	<td class="col text-center"><?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?></td>
+																	<td class="col text-center">
+																		<small class="d-block text-muted">
+																			<span class="fw-bold">Cédula o RIF:</span> 
+																			<?= $tipoCompra == 1 ? $mostrar["cedula"] : $mostrar["cedula_rif"] ?>
+																		</small>
+
+																		<small class="d-block text-muted">
+																			<span class="fw-bold">
+																				<?= $tipoCompra == 1 ? "Usuario:" : "Proveedor:" ?>
+																			</span> 
+																			<?= $tipoCompra == 1 ? $mostrar["nombre"]." ".$mostrar["apellido"] : $mostrar["nombre"]; ?>
+																		</small>
+																	</td>
 																	
-																	<td class="col text-center"><?= date('d-m-Y h:i:a',strtotime($mostrar["fecha_entrada"])); ?></td>
+																	<td class="col text-center">
+																		<small class="d-block text-muted">
+																			<span class="fw-bold">Fecha:</span> <?= date("d-m-Y", strtotime($mostrar["fecha_entrada"])); ?>
+																		</small>
+																		<small class="d-block text-muted">
+																			<span class="fw-bold">Hora:</span> <?= date("h:i:a", strtotime($mostrar["fecha_entrada"])); ?>
+																		</small>
+																	</td>
 
 																	<td class="col text-center">
 																

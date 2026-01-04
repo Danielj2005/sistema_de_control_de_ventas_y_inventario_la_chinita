@@ -7,7 +7,7 @@ $id = modeloPrincipal::decryptionId($_POST['id']);
 $id = modeloPrincipal::limpiar_cadena($id);
 
 $detalles_entrada = modeloPrincipal::consultar("SELECT PS.cantidad AS presentacion, R.nombre AS representacion,
-    P.id_producto, P.codigo, P.nombre_producto, 
+    P.id_producto, P.codigo, P.nombre_producto, E.total_dolar, E.total_bs,
     C.nombre AS categoria,
     D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
     M.nombre AS marca, 
@@ -28,17 +28,29 @@ $proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT PV.nombre AS 
     WHERE E.id_entrada = $id"));
 
 $proveedor = $proveedor['proveedor'];
+
+$row = mysqli_fetch_array($detalles_entrada);
 ?>
 
 <div class="table-responsive">
-    <label class="col-form-label">Nombre proveedor: <b><?= $proveedor ?></b></label>
+    <div class="text-center">
+        <p class="d-block text-muted">
+            <span class="fw-bold">Nombre proveedor:</span> <?= $proveedor ?>
+        </p>
+        <p class="d-block text-muted">
+            <span class="fw-bold">Total de la Compra ($):</span> <?= modeloPrincipal::number_format_prices($row["total_dolar"]); ?> $
+        </p>
+        <p class="d-block text-muted">
+            <span class="fw-bold">Total de la Compra (Bs):</span> <?= modeloPrincipal::number_format_prices($row["total_bs"]); ?> Bs
+        </p>
+    </div>
     <table class="table table-borderless table-striped tableDetailsEntry" id="example">
         <thead>
             <tr>
                 <th class="col text-center" scope="col">N.º</th>
                 <th class="col text-center" scope="col">Producto</th>
-                <th class="col text-center" scope="col">Unidades Ingresadas</th>
-                <th class="col text-center" scope="col">Costos</th>
+                <th class="col text-center" scope="col">Unidades Compradas</th>
+                <th class="col text-center" scope="col">Costos Unitario</th>
                 <th class="col text-center" scope="col">Registrado por</th>
             </tr>
         </thead>
@@ -60,9 +72,9 @@ $proveedor = $proveedor['proveedor'];
                     <td class="col text-center"><?= $mostrar["cantidad_comprada"]; ?></td>
                     <td class="col text-center">
                         
-                        <div class="row justify-content-center">
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
-                            <p class="col-12 col-md-6"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
+                        <div class="text-center">
+                            <p class="col-12"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_dolar"]); ?> $ </span></p>
+                            <p class="col-12"><span class="badge text-bg-secondary fs-6"> <?= modeloPrincipal::number_format_prices($mostrar["precio_bs"]); ?> Bs</span> </p>
                         </div>
                         
                     </td>
