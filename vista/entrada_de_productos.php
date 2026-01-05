@@ -239,6 +239,7 @@ if ($entrada) {   ?>
 																	FROM entrada AS E
 																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
 																	INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
+																	WHERE E.tipo_compra = 1
 																	ORDER BY E.fecha_entrada DESC 
 																	LIMIT 100
 																");
@@ -250,6 +251,7 @@ if ($entrada) {   ?>
 																	FROM entrada AS E
 																	INNER JOIN dolar AS D ON D.id_dolar = E.id_dolar 
 																	INNER JOIN proveedor AS PROV ON PROV.id_proveedor = E.id_proveedor 
+																	WHERE E.tipo_compra = 0
 																	ORDER BY E.fecha_entrada DESC 
 																	LIMIT 100
 																");

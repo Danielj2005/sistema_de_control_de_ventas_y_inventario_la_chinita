@@ -65,6 +65,25 @@ $pdf->SetRightMargin(5);
 $pdf->setY(60);
 $pdf->setX(5);
 
+// estado del producto para generar una lista.
+$state = isset($_POST['UUIDS']) ? modeloPrincipal::decryptionId($_POST['UUIDS']) : 2;
+
+// nombre del archivo al ser exportado.
+$fileName = "Lista de Productos";
+$dateReport = date('d/m/Y | h:i:a');
+
+switch ($state) {
+    case 1:
+        $fileName .= " con stock ( $dateReport ).pdf";
+        break;
+    case 0:
+        $fileName .= " sin stock ( $dateReport ).pdf";
+        break;
+    default:
+        $fileName .= " ( $dateReport ).pdf";
+        break;
+}
+
 // En esta parte estan los encabezados de la tabla 
 $pdf->SetFont('Arial','B',10);
 
@@ -79,7 +98,6 @@ $pdf->Cell(40, 5, $pdf->convert_codification("Costo (Bs)"),'LTRB',0,'C',0);
 $pdf->Cell(30, 5, $pdf->convert_codification("Costo ($)"),'LTRB',0,'C',0);
 $pdf->Cell(30, 5, $pdf->convert_codification("Tasa de Cambio"),'LTRB',1,'C',0);
 
-$state = isset($_POST['UUIDS']) ? modeloPrincipal::decryptionId($_POST['UUIDS']) : 2;
 
 if ($state === 2) {
     $consulta = modeloPrincipal::consultar("SELECT P.codigo AS codigoP, P.nombre_producto AS nombreP, M.nombre AS marca, 
@@ -112,7 +130,7 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Cell(0, 5, $pdf->convert_codification('NO SE ENCONTRARON PRODUCTOS REGISTRADOS.'),'B',1,'C',0);
     $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LOS PRODUCTOS.'),'B',1,'C',0);
     
-    $pdf->Output("I","Lista de Productos (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","$fileName",true);
 }
 
 $i = 1;
@@ -137,4 +155,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->Cell(30, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["tasa"]).' bs'),'B',1,'C',0);
 } 
 
-$pdf->Output("I","Lista de Productos (".date('d-m-Y H:i:a').").pdf",true);
+$pdf->Output("I","$fileName",true);

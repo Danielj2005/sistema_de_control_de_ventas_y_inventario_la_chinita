@@ -36,15 +36,19 @@ class PDF extends FPDF{
         $this->setX(10);
         $this->Cell(0,5,self::convert_codification(" "),0,1,"C");
         $this->Cell(0,5,self::convert_codification("PISTA DE BAILE Y MESA DE POOL"),0,1,"C");
-        $this->Cell(0,7,self::convert_codification("Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,1,'C');
+        $this->Cell(0,5,self::convert_codification("Calle 2 entre Av 5 y 6 - Turén Edo. Portuguesa"),0,1,'C');
 
         $this->setY(25);
         $this->setX(10);
         
         $this->setY(30);
         $this->setX(10);
-        $this->Cell(0,7,self::convert_codification("RIF: J-04608675-5"),0,1,'C');
+        $this->Cell(0,5,self::convert_codification("RIF: J-04608675-5"),0,1,'C');
         
+        $this->setY(35);
+        $this->setX(10);
+        $this->Cell(0,5,self::convert_codification("Listado de Compras a Proveedor "),0,0,"C");
+
         $this->SetFont('Arial','',10);
 
         $this->setY(40);
@@ -86,7 +90,7 @@ class PDF extends FPDF{
 
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->AddPage();
+$pdf->AddPage('P',[220,380],0);
 $pdf->SetAutoPageBreak(true, 20);
 $pdf->SetTopMargin(15);
 $pdf->SetLeftMargin(5);
@@ -94,11 +98,12 @@ $pdf->SetRightMargin(5);
 
 
 // se definen variable con los tamaños de las celdas para mejor adaptacion
-$CellTotalDolar = 30;
-$CellTotalBS = 30;
+$CellTotalDolar = 40;
+$CellTotalBS = 40;
 $CellCotización = 35;
-$CellFecha = 45;
-$CellUsuario = 50;
+$CellFecha = 25;
+$CellHora = 25;
+$CellUsuario = 35;
 
 
 
@@ -109,7 +114,8 @@ $pdf->setX(5);
 $pdf->SetFont('Arial','B',10);
 
 $pdf->Cell(10, 5, $pdf->convert_codification('Nº'),'LTRB',0,'C',0);
-$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha y Hora'),'LTRB',0,'C',0);
+$pdf->Cell($CellFecha, 5, $pdf->convert_codification('Fecha'),'LTRB',0,'C',0);
+$pdf->Cell($CellHora, 5, $pdf->convert_codification('Hora'),'LTRB',0,'C',0);
 $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification('Total ($)'),'LTRB',0,'C',0);
 $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification('Total (Bs)'),'LTRB',0,'C',0);
 $pdf->Cell($CellCotización, 5, $pdf->convert_codification('Tasa de Cambio'),'LTRB',0,'C',0);
@@ -120,7 +126,7 @@ if (!isset($_POST['UID'])){
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(0, 5, $pdf->convert_codification('El reporte no puede generarse. Por favor, especifique un Proveedor y/o un Rango de Fechas válido para la consulta.'),'B',1,'C',0);
     
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","Listado de compras a proveedor (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
 $fechaReporteInicio = $_POST['fechaReporteInicio'];
@@ -145,7 +151,7 @@ $consulta = modeloPrincipal::consultar("SELECT
 if (mysqli_num_rows($consulta) < 1 ){
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(0, 5, $pdf->convert_codification('No se encontraron registros de entradas para el periodo de consulta seleccionado. Por favor, verifique el rango de fechas.'),'B',1,'C',0);
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","Listado de compras a proveedor (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
 
@@ -156,7 +162,8 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     $pdf->setX(5);
 
     $pdf->Cell( 10,5, $pdf->convert_codification($i++),'B',0,'C',0);
-    $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y g:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
+    $pdf->Cell($CellFecha, 5, $pdf->convert_codification(date('d-m-Y', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
+    $pdf->Cell($CellHora, 5, $pdf->convert_codification(date('h:i:a', strtotime($mostrar["fecha_entrada"]))),'B',0,'C',0);
     $pdf->Cell($CellTotalDolar, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_dolar"]).' $'),'B',0,'C',0);
     $pdf->Cell($CellTotalBS, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["total_bs"]).' bs'),'B',0,'C',0);
     $pdf->Cell($CellCotización, 5, $pdf->convert_codification(modeloPrincipal::number_format_prices($mostrar["tasa"]).' bs'),'B',0,'C',0);
@@ -164,4 +171,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
 }
 
-$pdf->Output("I","Listado detallado de Entradas por fechas (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado de compras a proveedor (".date('d/m/Y | g:i:a').").pdf",true);

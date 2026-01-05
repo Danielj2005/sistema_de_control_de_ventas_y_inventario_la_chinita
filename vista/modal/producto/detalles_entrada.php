@@ -7,13 +7,14 @@ $id = modeloPrincipal::decryptionId($_POST['id']);
 $id = modeloPrincipal::limpiar_cadena($id);
 
 $detalles_entrada = modeloPrincipal::consultar("SELECT PS.cantidad AS presentacion, R.nombre AS representacion,
-    P.id_producto, P.codigo, P.nombre_producto, E.total_dolar, E.total_bs,
+    P.id_producto, P.codigo, P.nombre_producto, E.total_dolar, E.total_bs, dolar.dolar AS tasa,
     C.nombre AS categoria,
     D.cantidad_comprada, D.precio_unitario_dolar AS precio_dolar, D.precio_unitario_bs AS precio_bs,
     M.nombre AS marca, 
     U.cedula AS dni, U.nombre AS usuario
     FROM detalles_entrada AS D 
     INNER JOIN entrada AS E ON E.id_entrada = D.id_entrada 
+    INNER JOIN dolar ON dolar.id_dolar = E.id_dolar 
     INNER JOIN producto AS P ON P.id_producto = D.id_producto 
     INNER JOIN usuario AS U ON U.id_usuario = E.id_usuario 
     INNER JOIN categoria AS C ON C.id_categoria = P.id_categoria 
@@ -22,28 +23,9 @@ $detalles_entrada = modeloPrincipal::consultar("SELECT PS.cantidad AS presentaci
     INNER JOIN representacion AS R ON R.id = PS.id_representacion
     WHERE D.id_entrada = $id");
 
-$proveedor = mysqli_fetch_array(modeloPrincipal::consultar("SELECT PV.nombre AS proveedor
-    FROM entrada AS E
-    INNER JOIN proveedor AS PV ON PV.id_proveedor = E.id_proveedor
-    WHERE E.id_entrada = $id"));
-
-$proveedor = $proveedor['proveedor'];
-
-$row = mysqli_fetch_array($detalles_entrada);
 ?>
 
 <div class="table-responsive">
-    <div class="text-center">
-        <p class="d-block text-muted">
-            <span class="fw-bold">Nombre proveedor:</span> <?= $proveedor ?>
-        </p>
-        <p class="d-block text-muted">
-            <span class="fw-bold">Total de la Compra ($):</span> <?= modeloPrincipal::number_format_prices($row["total_dolar"]); ?> $
-        </p>
-        <p class="d-block text-muted">
-            <span class="fw-bold">Total de la Compra (Bs):</span> <?= modeloPrincipal::number_format_prices($row["total_bs"]); ?> Bs
-        </p>
-    </div>
     <table class="table table-borderless table-striped tableDetailsEntry" id="example">
         <thead>
             <tr>
@@ -83,4 +65,4 @@ $row = mysqli_fetch_array($detalles_entrada);
             <?php } ?>
         </tbody>
     </table>
-    </div>
+</div>

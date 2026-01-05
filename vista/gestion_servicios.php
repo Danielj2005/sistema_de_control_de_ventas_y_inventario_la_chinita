@@ -57,10 +57,7 @@ if ($permiso_servicios) { ?>
 
 									<div class="row p-2 text-center">
 										<div class="col-12 col-sm-12 col-md-12 ">
-											<button id="btn_register" type="button" onclick="toggle()" class="w-100 shadow-sm btn btn-success">
-												<i class="bi bi-plus-circle"></i> 
-												<span>Registrar Nuevo Servicio</span>
-											</button>
+											<button id="btn_register" type="button" onclick="toggle()" class="w-100 shadow-sm btn btn-success"><i class="bi bi-plus-circle"></i> Registrar Nuevo Servicio</button>
 										</div>
 									</div>
 									<hr>
@@ -96,9 +93,8 @@ if ($permiso_servicios) { ?>
 
 										<div class="hidden <?= $l_servicio == 1 ? 'd-none' : ''; ?>">
 
-											<h3 class="text-center my-1 p-3">Registro de Servicios</h3>
-
 											<form method="post" action="../controlador/servicio_controlador.php" class="SendFormAjax" autocomplete="off" data-type-form="save">
+												
 												<input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
 												<input type="hidden" name="modulo" value="Guardar">
 	
@@ -245,16 +241,21 @@ if ($permiso_servicios) { ?>
 				});
 				
 				// funcion para mostrar y ocultar elementos en proveedores
-				const titlex = ['Registrar un nuevo servicio','Ver lista de servicios registrados'];
+				
 				const btnToggle = document.getElementById('btn_register');
-
+				
 				const toggle = ()=>{
-					btnToggle.classList.toggle('bi-list-columns-reverse');
-					btnToggle.classList.toggle('btn-secondary');
-					btnToggle.classList.toggle('bi-plus');
-					btnToggle.classList.toggle('btn-success');
-					btnToggle.textContent = btnToggle.textContent.trim() == titlex[0] ? ' '+titlex[1] : ' '+titlex[0];
 					
+					const titleBtn = [
+						'<i class="bi bi-plus-circle"></i> Registrar Nuevo Servicio',
+						`<i class="bi bi-list-columns-reverse"></i> Ver Lista de Servicios Registrados`
+					];
+
+					btnToggle.classList.toggle('btn-secondary');
+					btnToggle.classList.toggle('btn-success');
+					
+					btnToggle.innerHTML = btnToggle.innerHTML == titleBtn[0] ? titleBtn[1] : titleBtn[0];
+
 					const hiddenElements = document.querySelectorAll('.hidden');
 					hiddenElements.forEach(element => {
 						element.classList.toggle('d-none');

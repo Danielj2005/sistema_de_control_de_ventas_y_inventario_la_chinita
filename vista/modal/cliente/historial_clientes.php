@@ -44,9 +44,9 @@ if (mysqli_num_rows($historial_cliente) < 1) { ?>
             <tr>
                 <th class="text-center" scope="col" style="width: 5%;">N.°</th>
                 <th class="text-center" scope="col">N.° Factura</th>
-                <th class="text-end" scope="col">Total (USD)</th>
-                <th class="text-end" scope="col">Total (Bs.)</th>
-                <th class="text-center" scope="col">Fecha y Hora</th>
+                <th class="text-center" scope="col">Total</th>
+                <th class="text-center" scope="col">Fecha</th>
+                <th class="text-center" scope="col">Hora</th>
 
                 <?php if ($permisos['facturaCliente'] == '1') { ?>
                     <th class="text-center" scope="col" style="width: 10%;">Factura</th>
@@ -64,10 +64,25 @@ if (mysqli_num_rows($historial_cliente) < 1) { ?>
                     
                     <td class="text-center"><?= venta_model::generar_numero($mostrar['id_venta']); ?></td>
                     
-                    <td class="text-end fw-bold"><?= number_format($mostrar["monto_total_dolares"], 2).' $'; ?></td>
-                    <td class="text-end fw-bold"><?= number_format($mostrar["monto_total_bolivares"], 2).' bs'; ?></td>
+                    <td class="text-center fw-bold">
+                        
+                        <div class="text-center justify-content-center">
+                            <p class="col-12">
+                                <span class="badge text-bg-secondary fs-6">
+                                    <?= modeloPrincipal::number_format_prices($mostrar["monto_total_dolares"]); ?> $
+                                </span>
+                            </p>
+                            <p class="col-12">
+                                <span class="badge text-bg-secondary fs-6">
+                                    <?= modeloPrincipal::number_format_prices($mostrar["monto_total_bolivares"]); ?> Bs
+                                </span>
+                            </p>
+                        </div>
+                        
+                    </td>
                     
-                    <td class="text-center small"><?= date("d-m-Y | g:i:a", strtotime($mostrar["fecha_venta"])); ?></td>
+                    <td class="text-center"><?= date("d-m-Y", strtotime($mostrar["fecha_venta"])); ?></td>
+                    <td class="text-center"><?= date("h:i:a", strtotime($mostrar["fecha_venta"])); ?></td>
                 
                     <?php if ($permisos['facturaCliente'] == '1') { ?>
                         <td class="text-center">

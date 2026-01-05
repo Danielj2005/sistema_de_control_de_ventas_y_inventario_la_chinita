@@ -44,6 +44,10 @@ class PDF extends FPDF{
         $this->setX(10);
         $this->Cell(0,7,self::convert_codification("RIF: J-04608675-5"),0,1,'C');
         
+        $this->setY(35);
+        $this->setX(10);
+        $this->Cell(0,5,self::convert_codification("Listado de Compras a Proveedor Por Fechas"),0,0,"C");
+
         $this->SetFont('Arial','',10);
 
         $this->setY(40);
@@ -116,7 +120,7 @@ if (!isset($_POST['UID'])){
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(0, 5, $pdf->convert_codification('El reporte no puede generarse. Por favor, especifique un Proveedor y/o un Rango de Fechas válido para la consulta.'),'B',1,'C',0);
     
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","Listado de compras a proveedor por fechas (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
 $fechaReporteInicio = $_POST['fechaReporteInicio'];
@@ -142,7 +146,7 @@ $consulta = modeloPrincipal::consultar("SELECT
 if (mysqli_num_rows($consulta) < 1 ){
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(0, 5, $pdf->convert_codification('No se encontraron registros de entradas para el periodo de consulta seleccionado. Por favor, verifique el rango de fechas.'),'B',1,'C',0);
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","Listado de compras a proveedor por fechas (".date('d/m/Y | g:i:a').").pdf",true);
 }
 
 
@@ -162,4 +166,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
 }
 
-$pdf->Output("I","Listado detallado de Entradas por fechas (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","Listado de compras a proveedor por fechas (".date('d/m/Y | g:i:a').").pdf",true);

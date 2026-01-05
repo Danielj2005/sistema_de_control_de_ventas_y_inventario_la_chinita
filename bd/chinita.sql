@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-01-2026 a las 22:43:15
+-- Tiempo de generación: 05-01-2026 a las 21:17:40
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -52,7 +52,25 @@ INSERT INTO `bitacora` (`id`, `fecha_hora`, `accion`, `mensaje`, `id_usuario`) V
 (490, '2026-01-04 17:32:13', 'Modificación Exitosa de un Producto.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario modificó el siguiente producto.</p><h4 class=\"text-center card-title\"><b> Información del producto 7590006700018</b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Código</p> <span>7590006700018</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Nombre</p> <span>Polar Ice</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Marca</p> <span>Polar</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Formato</p> <span>295 Mililitro(s) (ml)</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Categoría</p> <span>Bebidas y Refrescos</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Precio ($)</p> <span>De <b class=\"text-danger\">0.73 $</b> a <b class=\"text-success\">2.73 $</b></span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Fecha y Hora de la Actualizacion</p> <span>De <b class=\"text-danger\">04-01-2026 05:25:pm</b> a <b class=\"text-success\">04-01-2026 05:32:pm</b></span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom mb-2\"> <p> Estado</p> <span>Activo</span> </div>', 2),
 (491, '2026-01-04 18:42:35', 'Cierre de sesión exitoso', 'Se cerró la sesión del usuario debido a que se cumplío el tiempo de inactividad dentro del sistema.', 2),
 (492, '2026-01-04 18:42:49', 'Inicio de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario Inició sesión correctamente.</p> ', 2),
-(493, '2026-01-04 18:43:10', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2);
+(493, '2026-01-04 18:43:10', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2),
+(494, '2026-01-05 11:54:13', 'Inicio de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario Inició sesión correctamente.</p> ', 2),
+(495, '2026-01-05 11:54:52', 'Actualización Exitosa de la Tasa del Dolar.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario actualizó la Tasa del Dolar de Manera automática</p> \r\n                <h4 class=\"text-center card-title\"><b> Información de la Tasa de cotización </b></h4>\r\n                <div class=\"d-flex justify-content-between border-bottom\">\r\n                    <p> Tasa de cotización</p>\r\n                    <span>304.67 bs</span>\r\n                </div>\r\n                <div class=\"d-flex justify-content-between border-bottom\">\r\n                    <p> Fecha y Hora</p>\r\n                    <span>De <b class=\"text-danger\">04-01-2026 / 04:13:pm</b> a <b class=\"text-success\">05-01-2026 / 11:54:am</b></span>\r\n                </div>', 2),
+(496, '2026-01-05 12:43:25', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2),
+(497, '2026-01-05 15:00:46', 'Inicio de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario Inició sesión correctamente.</p> ', 2),
+(498, '2026-01-05 16:36:18', 'Registro exitoso de un nuevo servicio.', '<p class=\"mb-3 text-primary-emphasis\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario registró un servicio con la información</p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Servicio </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Nombre del platilllo</p> <span>COMBO DE ALITAS</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Precio ($)</p> <span>11.5 $ </span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Descripción</p> <span>COMBO DE 6 UNIDADES DE ALITAS DE POLLO</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Estado</p> <span>Activo</span> </div>\r\n\r\n            <h4 class=\"text-center card-title\"><b> Detalles del Servicio </b></h4>\r\n            \r\n            <p class=\"text-secondary fw-bold mb-1\"> Código: 759000670034 </p>\r\n                <p class=\"text-secondary fw-bold mb-1\"> Nombre: <span class=\"text-primary fw-bold mb-1\">Alitas</span> </p>\r\n                <p class=\"text-secondary fw-bold mb-1\"> Marca: Pollo Don Pollo </p>\r\n                <small class=\"d-block text-muted\"> Formato: 1 Kilogramo(s) (Kg) </small>\r\n                <small class=\"d-block text-muted\"> Categoría: Carnes, Pescados y Aves </small>\r\n                <p class=\"fw-bold mb-1 text-success\"> Cantidad: <span>6</span> </p>\r\n        ', 2),
+(499, '2026-01-05 16:48:04', 'Venta realizada exitosamente.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp; Se registró una venta con la siguiente informacón.</p> \r\n        <h4 class=\"text-center card-title\"><b> Información del cliente </b></h4>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Cédula</p> <span>V-14540481</span> </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Nombre y Apellido</p> <span>MARÍA JOSÉ GIMENEZ</span> </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Teléfono</p> <span>04245494211</span> </div>\r\n\r\n        <h4 class=\"text-center card-title\"><b> Información de la Venta </b></h4>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Subtotal ($)</p> <span>16 $</span> </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Subtotal (Bs)</p> <span>4874.72 Bs</span> </div>\r\n\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Total ($) + IVA (16%)</p> <span>18.56 $</span> </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Total (Bs) + IVA (16%)</p> <span>5654.68 Bs</span> </div>\r\n\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Fecha y Hora</p> <span>05-01-2026 | 04:48:am</span> </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"><p> Tasa de Cambio</p> <span>304.67 Bs</span> </div>\r\n\r\n        <h4 class=\"text-center card-title\"><b> Información del Usuario que realizó la venta </b></h4>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Cédula</p> V-28587583 </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Nombre y Apellido</p>DANIEL BARRUETA </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Correo</p> dbarrueta42@gmail.com </div>\r\n        <div class=\"d-flex justify-content-between border-bottom\"> <p> Teléfono</p> 04125238909 </div>', 2),
+(500, '2026-01-05 17:02:30', 'Modificación exitosa de las características de acceso de un usuario', '<p class=\"mb-3 text-primary-emphasis\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información: </p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Usuario Modificado: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Cédula</p>\r\n                V-12345678\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Nombre y Apellido</p>\r\n                ADMIN PRUEBA\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Teléfono</p>\r\n                04123456548\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Estado</p>\r\n                <span>Activo</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Rol asignado</p>\r\n                <span>De <b class=\"text-danger\">Administrador</b> a <b class=\"text-success\">Pasante</b></span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Bloqueado</p>\r\n                <span>No</span>\r\n            </div>', 2),
+(501, '2026-01-05 17:02:44', 'Modificación exitosa de las características de acceso de un usuario', '<p class=\"mb-3 text-primary-emphasis\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información: </p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Usuario Modificado: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Cédula</p>\r\n                V-12345678\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Nombre y Apellido</p>\r\n                ADMIN PRUEBA\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Teléfono</p>\r\n                04123456548\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Estado</p>\r\n                <span>De <b class=\"text-danger\">Activo</b> a <b class=\"text-success\">Inactivo</b></span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Rol asignado</p>\r\n                <span>De <b class=\"text-danger\">Pasante</b> a <b class=\"text-success\">Administrador</b></span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Bloqueado</p>\r\n                <span>No</span>\r\n            </div>', 2),
+(502, '2026-01-05 17:03:57', 'Cambio exitoso del estado de un rol', '<p class=\"mb-3 text-primary-emphasis\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario cambió el estado del rol con la siguiente información:</p>\r\n            <h4 class=\"text-center card-title\"><b> Información del Servicio: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Nombre</p> <span>Pasante</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Estado</p> <span><span>De <b class=\"text-danger\">Activo</b> a <b class=\"text-success\">Inactivo</b></span></span> </div>\r\n            ', 2),
+(503, '2026-01-05 17:05:04', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2),
+(504, '2026-01-05 17:05:45', 'Inicio de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario Inició sesión correctamente.</p> ', 2),
+(505, '2026-01-05 17:07:22', 'Registro exitoso de un nuevo servicio.', '<p class=\"mb-3 text-primary-emphasis\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario registró un servicio con la información</p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Servicio </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Nombre del platilllo</p> <span>ALMUERZO EJECUTIVO</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Precio ($)</p> <span>9.99 $ </span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Descripción</p> <span>ARROZ, POLLO Y ENSALADA CESAR</span> </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\"> <p> Estado</p> <span>Activo</span> </div>\r\n\r\n            <h4 class=\"text-center card-title\"><b> Detalles del Servicio </b></h4>\r\n            \r\n            <p class=\"text-secondary fw-bold mb-1\"> Código: 759000670034 </p>\r\n                <p class=\"text-secondary fw-bold mb-1\"> Nombre: <span class=\"text-primary fw-bold mb-1\">Alitas</span> </p>\r\n                <p class=\"text-secondary fw-bold mb-1\"> Marca: Pollo Don Pollo </p>\r\n                <small class=\"d-block text-muted\"> Formato: 1 Kilogramo(s) (Kg) </small>\r\n                <small class=\"d-block text-muted\"> Categoría: Carnes, Pescados y Aves </small>\r\n                <p class=\"fw-bold mb-1 text-success\"> Cantidad: <span>5</span> </p>\r\n        ', 2),
+(506, '2026-01-05 17:08:01', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2),
+(507, '2026-01-05 17:13:46', 'Inicio de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario Inició sesión correctamente.</p> ', 2),
+(508, '2026-01-05 17:14:03', 'Modificación Exitosa del Acceso de un Usuario.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información </p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Usuario Modificado: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Cédula</p>\r\n                V-12345678\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Nombre y Apellido</p>\r\n                ADMIN PRUEBA\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Teléfono</p>\r\n                04123456548\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Estado</p>\r\n                <span>De <b class=\"text-danger\">Inactivo</b> a <b class=\"text-success\">Activo</b></span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Rol asignado</p>\r\n                <span>Administrador</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Bloqueado</p>\r\n                <span>No</span>\r\n            </div>', 2),
+(509, '2026-01-05 17:14:10', 'Modificación Exitosa del Acceso de un Usuario.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información </p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Usuario Modificado: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Cédula</p>\r\n                V-30270578\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Nombre y Apellido</p>\r\n                MANUEL TORRE\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Teléfono</p>\r\n                04128053240\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Estado</p>\r\n                <span>Activo</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Rol asignado</p>\r\n                <span>Administrador</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Bloqueado</p>\r\n                <span>No</span>\r\n            </div>', 2),
+(510, '2026-01-05 17:15:31', 'Modificación Exitosa del Acceso de un Usuario.', '<p class=\"mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;Se Restableció el Acceso al Sistema del Usuario con la Siguiente Información </p> \r\n            <h4 class=\"text-center card-title\"><b> Información del Usuario Modificado: </b></h4>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Cédula</p>\r\n                V-12365484\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Nombre y Apellido</p>\r\n                CARLOS PEREZ\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Teléfono</p>\r\n                04123654879\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Estado</p>\r\n                <span>Activo</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Rol asignado</p>\r\n                <span>Empleado</span>\r\n            </div>\r\n            <div class=\"d-flex justify-content-between border-bottom\">\r\n                <p> Bloqueado</p>\r\n                <span>No</span>\r\n            </div>', 2),
+(511, '2026-01-05 17:15:52', 'Cierre de sesión exitoso', '<p class=\"h2 mb-3 text-primary-emphasis text-center\"><i class=\"bi bi-exclamation-circle-fill\"></i>&nbsp;El usuario ha cerrado sesión correctamente.</p>', 2);
 
 -- --------------------------------------------------------
 
@@ -182,7 +200,9 @@ CREATE TABLE `detalles_menu` (
 --
 
 INSERT INTO `detalles_menu` (`id_detalles_menu`, `id_producto`, `cantidad`, `id_menu`) VALUES
-(67, 12, 6, 30);
+(67, 12, 6, 30),
+(68, 21, 6, 31),
+(69, 21, 5, 32);
 
 -- --------------------------------------------------------
 
@@ -198,6 +218,14 @@ CREATE TABLE `detalles_pago` (
   `cantidad_abonada_dolares` float NOT NULL,
   `cantidad_abonada_bolivares` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_pago`
+--
+
+INSERT INTO `detalles_pago` (`id_detalle_pago`, `id_venta`, `metodo_pago`, `referencia`, `cantidad_abonada_dolares`, `cantidad_abonada_bolivares`) VALUES
+(176, 9, 'Divisa', NULL, 17, 5179.39),
+(177, 9, 'Punto de Venta', NULL, 1.56, 475.29);
 
 -- --------------------------------------------------------
 
@@ -217,6 +245,13 @@ CREATE TABLE `detalles_venta` (
   `precio_unidad_bolivares` float DEFAULT NULL,
   `id_venta` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_venta`
+--
+
+INSERT INTO `detalles_venta` (`id_detalles_venta`, `id_servicio`, `cantidad_servicio`, `precio_servicio_dolares`, `precio_servicio_bolivares`, `id_producto`, `cantidad`, `precio_unidad_dolares`, `precio_unidad_bolivares`, `id_venta`) VALUES
+(7, 30, 2, 8, 2437.36, NULL, NULL, NULL, NULL, 9);
 
 -- --------------------------------------------------------
 
@@ -261,7 +296,8 @@ INSERT INTO `dolar` (`id_dolar`, `dolar`, `fecha_precio`) VALUES
 (24, 254.87, '2025-12-04 18:18:53'),
 (25, 262.1, '2025-12-10 14:04:03'),
 (26, 267.74, '2025-12-11 18:11:17'),
-(27, 304.67, '2026-01-04 16:13:30');
+(27, 304.67, '2026-01-04 16:13:30'),
+(28, 304.67, '2026-01-05 11:54:51');
 
 -- --------------------------------------------------------
 
@@ -530,8 +566,9 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nombre_platillo`, `precio_dolar`, `descripcion`, `estatus`) VALUES
-(29, 'POLAR GRUPAL', '10', 'COMBO DE PRODUCTOS POLAR', 1),
-(30, 'COMBO SMIRNOFF', '8', 'COMBO DE 6 UNIDADES DE SMIRNOFF', 1);
+(30, 'COMBO SMIRNOFF', '8', 'COMBO DE 6 UNIDADES DE SMIRNOFF', 1),
+(31, 'COMBO DE ALITAS', '11.5', 'COMBO DE 6 UNIDADES DE ALITAS DE POLLO', 1),
+(32, 'ALMUERZO EJECUTIVO', '9.99', 'ARROZ, POLLO Y ENSALADA CESAR', 1);
 
 -- --------------------------------------------------------
 
@@ -556,14 +593,14 @@ INSERT INTO `preguntas_secretas` (`id`, `id_pregunta`, `respuesta`, `numero_preg
 (46, 2, 'hqKamw==', 2, 2),
 (47, 4, 'ipiikIg=', 3, 2),
 (48, 3, 'da2lmA==', 4, 2),
-(49, 4, '$2y$10$9MEKIjR6wwasARrazhrmM.Lylf8Gfvd8AZtOD023aBD5emVzp81dW', 1, 29),
-(50, 1, '$2y$10$9MEKIjR6wwasARrazhrmM.Lylf8Gfvd8AZtOD023aBD5emVzp81dW', 2, 29),
-(51, 2, '$2y$10$9MEKIjR6wwasARrazhrmM.Lylf8Gfvd8AZtOD023aBD5emVzp81dW', 3, 29),
-(52, 3, '$2y$10$9MEKIjR6wwasARrazhrmM.Lylf8Gfvd8AZtOD023aBD5emVzp81dW', 4, 29),
-(53, 1, 'hqKamw==', 1, 7),
-(54, 2, 'hqKam3U=', 2, 7),
-(55, 3, 'hqKam3Y=', 3, 7),
-(56, 4, 'hqKam3c=', 4, 7);
+(49, 4, '$2y$10$ehR/uTSISsb7yckmgFGJJ.YI2UYGFwy4DH0axIU/urOCSePOV1Hm6', 1, 29),
+(50, 1, '$2y$10$ehR/uTSISsb7yckmgFGJJ.YI2UYGFwy4DH0axIU/urOCSePOV1Hm6', 2, 29),
+(51, 2, '$2y$10$ehR/uTSISsb7yckmgFGJJ.YI2UYGFwy4DH0axIU/urOCSePOV1Hm6', 3, 29),
+(52, 3, '$2y$10$ehR/uTSISsb7yckmgFGJJ.YI2UYGFwy4DH0axIU/urOCSePOV1Hm6', 4, 29),
+(53, 1, '$2y$10$ux4SKQpfEkJe4a4lsKLR.ePwJPOA0sC1wks8FPIAVs5QuNoYLYCKa', 1, 7),
+(54, 2, '$2y$10$ux4SKQpfEkJe4a4lsKLR.ePwJPOA0sC1wks8FPIAVs5QuNoYLYCKa', 2, 7),
+(55, 3, '$2y$10$ux4SKQpfEkJe4a4lsKLR.ePwJPOA0sC1wks8FPIAVs5QuNoYLYCKa', 3, 7),
+(56, 4, '$2y$10$ux4SKQpfEkJe4a4lsKLR.ePwJPOA0sC1wks8FPIAVs5QuNoYLYCKa', 4, 7);
 
 -- --------------------------------------------------------
 
@@ -631,7 +668,7 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`id_producto`, `codigo`, `nombre_producto`, `id_marca`, `id_presentacion`, `id_categoria`, `stock_actual`, `precio_venta`, `fecha_ultima_actualizacion`, `estado`) VALUES
 (1, '7590006700018', 'Polar Ice', 3, 20, 10, 20, 2.73, '2026-01-04 17:32:13', 1),
 (11, '7590006700021', 'Maltín', 3, 24, 10, 2, 1.46, '2025-11-11 08:53:18', 1),
-(12, '7590006700024', 'Light', 43, 21, 10, 20, 1.46, '2026-01-04 17:27:52', 1),
+(12, '7590006700024', 'Light', 43, 21, 10, 8, 1.46, '2026-01-04 17:27:52', 1),
 (13, '7590006700028', 'Light', 2, 1, 10, 10, 1.75, '2026-01-04 17:27:52', 1),
 (20, '7590006706034', 'Muslos', 23, 46, 8, 25, 4.67, '2026-01-04 17:27:52', 1),
 (21, '759000670034', 'Alitas', 23, 46, 8, 15, 2.92, '2026-01-04 17:27:52', 1);
@@ -707,7 +744,7 @@ INSERT INTO `rol` (`id_rol`, `nombre`, `estado`) VALUES
 (1, 'DESARROLLADOR', 1),
 (2, 'Administrador', 1),
 (24, 'Empleado', 1),
-(30, 'Pasante', 1);
+(30, 'Pasante', 0);
 
 -- --------------------------------------------------------
 
@@ -758,10 +795,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `telefono`, `direccion`, `ultima_sesion`, `sesion_activa`, `bloqueado`, `primer_inicio`, `id_rol`, `estado`) VALUES
-(1, 'V-30270578', 'MANUEL', 'TORRE', 'SHAUDITONUEL@GMAIL.COM', '$2y$10$0bRvURxMzydQRDdhbMDYPempeW7P6qAbLRu8WxopTINRAP9I0NtTq', '04128053240', 'TURÉN LINDA', '2025-11-08 17:43:24', 0, 0, 1, 2, 1),
-(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', '$2y$10$UiPYZurJDc541Ua0x8.tB.qwQwlJJsG5wZIdQkR8ycvBeRCyJpOsO', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2026-01-04 18:42:49', 0, 0, 0, 2, 1),
-(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', '$2y$10$vYJ0CKfqgmmh3.J7Bw4RWus0lCfc71RtY4lSrYKeHdnN8ausuxofO', '04123456548', 'ANDRES ELOY NEGRO', '2025-12-04 16:50:08', 0, 0, 0, 2, 1),
-(29, 'V-12365484', 'CARLOS', 'PEREZ', 'carlos@gmail.com', '$2y$10$9MEKIjR6wwasARrazhrmM.Lylf8Gfvd8AZtOD023aBD5emVzp81dW', '04123654879', 'ANDRES ELOY', NULL, 0, 0, 1, 24, 1);
+(1, 'V-30270578', 'MANUEL', 'TORRE', 'SHAUDITONUEL@GMAIL.COM', '$2y$10$TCm3sbWN.LlUsnCLbdlJwuQak/.aZLVv6IhDAnDDTDaXEXgN30IUO', '04128053240', 'TURÉN LINDA', '2025-11-08 17:43:24', 0, 0, 1, 2, 1),
+(2, 'V-28587583', 'DANIEL', 'BARRUETA', 'dbarrueta42@gmail.com', '$2y$10$UiPYZurJDc541Ua0x8.tB.qwQwlJJsG5wZIdQkR8ycvBeRCyJpOsO', '04125238909', 'SECTOR E GUASDUAL CALLE 1', '2026-01-05 17:13:46', 0, 0, 0, 2, 1),
+(7, 'V-12345678', 'ADMIN', 'PRUEBA', 'admin@gmail.com', '$2y$10$ux4SKQpfEkJe4a4lsKLR.ePwJPOA0sC1wks8FPIAVs5QuNoYLYCKa', '04123456548', 'ANDRES ELOY NEGRO', '2025-12-04 16:50:08', 0, 0, 1, 2, 1),
+(29, 'V-12365484', 'CARLOS', 'PEREZ', 'carlos@gmail.com', '$2y$10$ehR/uTSISsb7yckmgFGJJ.YI2UYGFwy4DH0axIU/urOCSePOV1Hm6', '04123654879', 'ANDRES ELOY', NULL, 0, 0, 1, 24, 1);
 
 -- --------------------------------------------------------
 
@@ -779,6 +816,13 @@ CREATE TABLE `venta` (
   `id_usuario` int NOT NULL,
   `id_cliente` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`id_venta`, `fecha_venta`, `sub_total_dolares`, `sub_total_bs`, `monto_total_dolares`, `monto_total_bolivares`, `id_usuario`, `id_cliente`) VALUES
+(9, '2026-01-05 04:48:03', 16, 4874.72, 18.56, 5654.68, 2, 4);
 
 --
 -- Índices para tablas volcadas
@@ -967,7 +1011,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=512;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -997,25 +1041,25 @@ ALTER TABLE `detalles_entrada`
 -- AUTO_INCREMENT de la tabla `detalles_menu`
 --
 ALTER TABLE `detalles_menu`
-  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_detalles_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_pago`
 --
 ALTER TABLE `detalles_pago`
-  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id_detalle_pago` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_venta`
 --
 ALTER TABLE `detalles_venta`
-  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_detalles_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `dolar`
 --
 ALTER TABLE `dolar`
-  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_dolar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `entrada`
@@ -1045,7 +1089,7 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas_secretas`
@@ -1099,7 +1143,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

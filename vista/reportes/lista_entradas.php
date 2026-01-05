@@ -102,6 +102,11 @@ $consulta = modeloPrincipal::consultar("SELECT U.cedula,
 ");
 
 
+// nombre del archivo al ser exportado.
+$fileName = "Lista de Entradas";
+$dateReport = date('d/m/Y | h:i:a');
+$fileName .= " ( $dateReport ).pdf";
+
 // en caso de que no se encuentren proveedores registrados
 
 if (mysqli_num_rows($consulta) < 1 ){
@@ -111,7 +116,7 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Cell(210, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
     $pdf->Cell(210, 5, $pdf->convert_codification('ASEGURESE DE HABER REGISTRADO CORRECTAMENTE LAS ENTRADAS.'),'B',1,'C',0);
     
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","$fileName",true);
 }
 
 $i = 1; // iterable
@@ -133,4 +138,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
     
 }
 
-$pdf->Output("I","Listado de Entradas (".date('d/m/Y / g:i:a').").pdf",true);
+$pdf->Output("I","$fileName",true);

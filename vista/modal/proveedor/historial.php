@@ -36,9 +36,9 @@ if (mysqli_num_rows($consulta) < 1) {
         <thead>
             <tr>
                 <th class="col text-center" scope="col">#</th>
-                <th class="col text-center" scope="col">Fecha y Hora</th>
-                <th class="col text-center" scope="col">Total ($)</th>
-                <th class="col text-center" scope="col">Total (Bs)</th>
+                <th class="col text-center" scope="col">Fecha</th>
+                <th class="col text-center" scope="col">Hora</th>
+                <th class="col text-center" scope="col">Total</th>
                 <th class="col text-center" scope="col">Tasa de Cambio</th>
                 <th class="col text-center" scope="col">Registrado por</th>
             </tr>
@@ -48,9 +48,33 @@ if (mysqli_num_rows($consulta) < 1) {
                 while ($row = mysqli_fetch_array($consulta)) { ?>    
                     <tr>
                         <td class="col text-center"></td>
-                        <td class="text-center col"><?= date('d-m-Y g:i:a', strtotime($row["fecha_entrada"])); ?></td> 
-                        <td class="col text-center"><?= $row["total_dolar"] == 0 ? '0 $' : modeloPrincipal::number_format_prices($row["total_dolar"]).' $' ;  ?></td>
-                        <td class="col text-center"><?= modeloPrincipal::number_format_prices($row["total_bs"]).' bs'; ?></td>
+                        <td class="text-center col">
+                            <small class="d-block text-muted">
+                                <?= date("d-m-Y", strtotime($row["fecha_entrada"])); ?>
+                            </small>
+                        </td> 
+                        <td class="text-center col">
+                            <small class="d-block text-muted">
+                                <?= date("h:i:a", strtotime($row["fecha_entrada"])); ?>
+                            </small>
+                        </td> 
+
+                        <td class="col text-center">
+                            
+                            <div class="text-center justify-content-center">
+                                <p class="col-12">
+                                    <span class="badge text-bg-secondary fs-6">
+                                        <?= modeloPrincipal::number_format_prices($row["total_dolar"]); ?> $
+                                    </span>
+                                </p>
+                                <p class="col-12">
+                                    <span class="badge text-bg-secondary fs-6">
+                                        <?= modeloPrincipal::number_format_prices($row["total_bs"]); ?> Bs
+                                    </span>
+                                </p>
+                            </div>
+                            
+                        </td>
                         <td class="col text-center"><?= modeloPrincipal::number_format_prices($row["tasa"]).' bs'; ?></td>
                         <td class="col text-center"><?= $row["dni"]; ?></td>
                     </tr>

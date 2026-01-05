@@ -89,6 +89,11 @@ $consulta = modeloPrincipal::consultar("SELECT U.cedula, U.apellido,
     ORDER BY E.fecha_entrada DESC
 ");
 
+// nombre del archivo al ser exportado.
+$fileName = "Lista de Entradas por Fechas";
+$dateReport = date('d/m/Y | h:i:a');
+$fileName .= " ( $dateReport ).pdf";
+
 
 $pdf->setY(60);
 $pdf->setX(5);
@@ -111,7 +116,7 @@ if (mysqli_num_rows($consulta) < 1 ){
     $pdf->Cell(0, 5, $pdf->convert_codification('NO SE ENCONTRARON ENTRADAS REGISTRADAS.'),'B',1,'C',0);
     $pdf->Cell(0, 5, $pdf->convert_codification('ASEGURESE DE HABER SELECCIONADO CORRECTAMENTE LAS FECHAS.'),'B',1,'C',0);
     
-    $pdf->Output("I","Listado de Entradas (".date('d/m/Y | g:i:a').").pdf",true);
+    $pdf->Output("I","$fileName",true);
 }
 
 
@@ -131,4 +136,4 @@ while ( $mostrar = mysqli_fetch_array($consulta)) {
 
 }
 
-$pdf->Output("I","Listado detallado de Entradas por fechas (".date('d/m/Y | g:i:a').").pdf",true);
+$pdf->Output("I","$fileName",true);

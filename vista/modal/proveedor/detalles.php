@@ -11,11 +11,18 @@ if (!isset($_POST['id'])) {
     exit();
 }
 
-$datos_proveedor = mysqli_fetch_assoc(proveedor_model::consultar_proveedor_por_id("nombre, correo, direccion, telefono",$id_proveedor));
+$datos_proveedor = mysqli_fetch_assoc(proveedor_model::consultar_proveedor_por_id("cedula_rif, nombre, correo, direccion, telefono",$id_proveedor));
 
 ?>
 <div class="col-12 mb-3">
-    <legend>Nombre: <b>"<?= $datos_proveedor['nombre']; ?>"</b></legend>
+    <label class="form-label">Cédula / RIF</label>
+    <input type="text" class="bg-secondary-subtle form-control" value="<?= $datos_proveedor['cedula_rif']; ?>" name="nombre" readonly="true" >
+
+</div>
+<div class="col-12 mb-3">
+    <label class="form-label">Nombre </label>
+    <input type="text" class="bg-secondary-subtle form-control" value="<?= $datos_proveedor['nombre']; ?>" name="nombre" readonly="true" >
+
 </div>
 
 <div class="col-12 mb-3">
