@@ -56,13 +56,13 @@ if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
     exit();
 }
 
-$contraseña_usuario = $datos_usuario["contraseña"];
+
 $hash_guardado_en_bd = $datos_usuario["contraseña"];
 
 // se verifica si la contraseña es correcta
 // if (password_verify($contraseña, $hash_guardado_en_bd)) {
 
-if (password_verify($contraseña, $hash_guardado_en_bd)) {
+if (!password_verify($contraseña, $hash_guardado_en_bd)) {
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
     alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
     exit();
