@@ -26,7 +26,23 @@ function monto_total_productos() {
         subtotal_bs.value = total_bolivar.toFixed(2);
         total_bolivar = total_bolivar;
     }
-    add_iva(total_bolivar,total_dolar);
+    // add_iva(total_bolivar,total_dolar);
+    
+
+    const input_dolares = document.getElementById('totalDolar_iva');
+    const input_bolivares = document.getElementById('totalBolivar_iva');
+
+    const strong_dolares = document.getElementById('strong_dolares');
+    const strong_bolivares = document.getElementById('strong_bolivares');
+    
+    input_dolares.value = total_dolar.toFixed(2);
+    input_bolivares.value = total_bolivar.toFixed(2);
+
+    let total_dolares = formatNumber(total_dolar);
+    let total_bolivares = formatNumber(total_bolivar);
+
+    strong_dolares.textContent = total_dolares;
+    strong_bolivares.textContent = total_bolivares;
 }
 
 // funcion para agregar el iva a la venta

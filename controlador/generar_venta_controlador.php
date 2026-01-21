@@ -141,7 +141,7 @@ if ($id_servicios !== "" && $id_productos !== "" ){
 
 // ********************** cuendo la venta es solo de servicios ********************** 
 
-if($id_servicios !== ""){
+if($id_servicios !== "" && $id_productos == "" ){
     try {
         
         $regitrar_detalles_venta_servicios = venta_model::sell_only_service($id_servicios, $cantidad_servicios, $precio_servicio_dolar, $precio_servicio_bolivar, $id_venta);
@@ -153,7 +153,7 @@ if($id_servicios !== ""){
 }
 
 //  ********************* cuando la venta es solo de productos ********************* 
-if ($id_productos !== "" ){ 
+if ($id_productos !== "" && $id_servicios == "" ){ 
     try {
         
         $regitrar_detalles_venta_productos = venta_model::sell_only_product( $id_productos, $cantidad_productos, $precios_dolar_productos, $precios_bolivares_productos, $id_venta, $id_usuario);
@@ -203,11 +203,9 @@ try {
         <div class="d-flex justify-content-between border-bottom"> <p> Teléfono</p> <span>'.$datos_venta['Ctelefono'].'</span> </div>
 
         <h4 class="text-center card-title"><b> Información de la Venta </b></h4>
-        <div class="d-flex justify-content-between border-bottom"> <p> Subtotal ($)</p> <span>'.$datos_venta['sub_total_dolares'].' $</span> </div>
-        <div class="d-flex justify-content-between border-bottom"> <p> Subtotal (Bs)</p> <span>'.$datos_venta['sub_total_bs'].' Bs</span> </div>
 
-        <div class="d-flex justify-content-between border-bottom"> <p> Total ($) + IVA (16%)</p> <span>'.$datos_venta['monto_total_dolares'].' $</span> </div>
-        <div class="d-flex justify-content-between border-bottom"> <p> Total (Bs) + IVA (16%)</p> <span>'.$datos_venta['monto_total_bolivares'].' Bs</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Total ($)</p> <span>'.$datos_venta['monto_total_dolares'].' $</span> </div>
+        <div class="d-flex justify-content-between border-bottom"> <p> Total (Bs)</p> <span>'.$datos_venta['monto_total_bolivares'].' Bs</span> </div>
 
         <div class="d-flex justify-content-between border-bottom"> <p> Fecha y Hora</p> <span>'.date("d-m-Y | H:i:a",strtotime($datos_venta['fecha_venta'])).'</span> </div>
         <div class="d-flex justify-content-between border-bottom"><p> Tasa de Cambio</p> <span>'.$dolar.' Bs</span> </div>

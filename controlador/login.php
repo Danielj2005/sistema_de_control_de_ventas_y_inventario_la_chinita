@@ -8,28 +8,10 @@ $intentos_inicio_sesion = intval($configuracion['intentos_inicio_sesion']);
 
 // Se limpian y validan los datos recibidos a través de POST (usuario y contraseña).
 $usuario = modeloPrincipal::limpiar_cadena($_POST['correo']);
-// $contraseña = modeloPrincipal::limpiar_encriptar($_POST['contraseña']);
-$contraseña = modeloPrincipal::hashear_contrasena($_POST['contraseña']);
+$contraseña = modeloPrincipal::limpiar_cadena($_POST['contraseña']);
 
 // Se verifica que no se hayan recibido campos vacíos.
 modeloPrincipal::validar_campos_vacios([$usuario, $contraseña]);
-
-/** verificación del captcha enviado por el usuario */
-
-$captcha = intval($_SESSION['captcha']); // captcha recibido desde la vista de inicio de sesión
-$respuesta_captcha = intval($_POST['respuesta_captcha']); // captcha enviado por el usuario
-
-// se verifica que se esté recibiendo la respuesta del captcha
-if (empty($_POST['respuesta_captcha']) || !isset($_POST['respuesta_captcha'])) { 
-    alert_model::alerta_simple('¡Ocurrio un Error!','El campo de captcha se encuentra vacio, verifique e intente nuevamente','error');
-    exit();
-} 
-
-// se verifica que el captcha recibido sea igual al mostrado al usuario
-if ($respuesta_captcha !== $captcha) {
-    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente, en caso de que el captcha sea correcto recargar la página.','error');
-    exit();
-}
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
 $selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.correo, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
@@ -57,20 +39,37 @@ if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
 }
 
 
-$hash_guardado_en_bd = $datos_usuario["contraseña"];
+$hash = $datos_usuario["contraseña"];
 
+// $password = modeloPrincipal::hashear_contrasena($contraseña);
 // se verifica si la contraseña es correcta
-// if (password_verify($contraseña, $hash_guardado_en_bd)) {
 
-if (!password_verify($contraseña, $hash_guardado_en_bd)) {
+if (!password_verify($contraseña, $hash)) {
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
     alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
     exit();
 }
 
+/** verificación del captcha enviado por el usuario */
+
+$captcha = intval($_SESSION['captcha']); // captcha recibido desde la vista de inicio de sesión
+$respuesta_captcha = intval($_POST['respuesta_captcha']); // captcha enviado por el usuario
+
+// se verifica que se esté recibiendo la respuesta del captcha
+if (empty($_POST['respuesta_captcha']) || !isset($_POST['respuesta_captcha'])) { 
+    alert_model::alerta_simple('¡Ocurrio un Error!','El campo de captcha se encuentra vacio, verifique e intente nuevamente','error');
+    exit();
+} 
+
+// se verifica que el captcha recibido sea igual al mostrado al usuario
+if ($respuesta_captcha !== $captcha) {
+    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente, en caso de que el captcha sea correcto recargar la página.','error');
+    exit();
+}
+
 /** se verifica si el usuario esta activo **/
 if ($datos_usuario["estado"] == 0) {
-    alert_model::alerta_simple_reset_de_formularios(
+    alert_model::alerta_simple(
         '¡Cuenta inactiva!',
         'Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.',
         'warning');
@@ -80,22 +79,26 @@ if ($datos_usuario["estado"] == 0) {
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["bloqueado"] == 1) {
-    alert_model::alerta_simple_reset_de_formularios('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alerta_simple('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
     exit();
 }
 
 /* se verifica si el estado del rol del usuario esta inactivo: 
-la cuenta es desactivada cuando el usuario no se le permitira el uso del sistema luego de un periodo de tiempo 
+    la cuenta es desactivada cuando el usuario no se le permitira el uso del sistema luego de un periodo de tiempo 
  */
+
 if ($datos_usuario["estado_rol"] == 0) {
-    alert_model::alerta_simple_reset_de_formularios('¡Rol Desactivado!','El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.','warning');
+    alert_model::alerta_simple('¡Rol Desactivado!','El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.','warning');
     exit();
 }
 
 /** se verifica si el usuario tiene una sesion activa **/
 if ($datos_usuario["sesion_activa"] == 1) {
     modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
-    alert_model::alerta_condicional('¡Sesión activa!', 'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.','warning');
+    alert_model::alerta_simple(
+        '¡Sesión activa!', 
+        'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.',
+        'warning');
     session_unset(); // remueve o elimina las variables de sesion
     session_destroy(); // Destruye la sesión actual
     exit();

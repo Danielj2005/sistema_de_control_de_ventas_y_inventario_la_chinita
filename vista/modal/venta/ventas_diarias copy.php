@@ -5,7 +5,6 @@ require_once "../../../modelo/venta_model.php";
 $id_venta = modeloPrincipal::decryptionId($_POST['id']);
 $id = modeloPrincipal::limpiar_cadena($id_venta);
 
-
 $datos_venta = modeloPrincipal::consultar("SELECT C.cedula, C.nombre, C.telefono,
     U.cedula AS empleado_cedula, U.nombre AS empleado_nombre, 
     U.apellido AS empleado_apellido, U.correo, U.telefono AS empleado_telefono, 
@@ -17,9 +16,7 @@ $datos_venta = modeloPrincipal::consultar("SELECT C.cedula, C.nombre, C.telefono
     INNER JOIN usuario AS U ON U.id_usuario = V.id_usuario 
     WHERE V.id_venta = $id");
 
-
 $datos_venta = mysqli_fetch_array($datos_venta);
-
 
 $detalles_venta_productos = modeloPrincipal::consultar("SELECT
 	P.nombre_producto AS producto,
@@ -34,8 +31,6 @@ $detalles_venta_productos = modeloPrincipal::consultar("SELECT
     INNER JOIN marca AS M ON M.id = P.id_marca
     WHERE DV.id_venta = $id");
 
-
-
 $detalles_venta = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.cantidad_servicio,
 	round((SELECT MAX(dolar) AS dolar FROM dolar) * M.precio_dolar, 2) * DV.cantidad_servicio AS precio
     FROM detalles_venta AS DV
@@ -43,14 +38,11 @@ $detalles_venta = modeloPrincipal::consultar("SELECT M.nombre_platillo, DV.canti
     INNER JOIN detalles_menu AS DM ON DM.id_menu = M.id_menu
     WHERE DV.id_venta = $id");
 
-
-
 $cantidades = mysqli_fetch_array( modeloPrincipal::consultar("SELECT cantidad_servicio, cantidad 
     FROM detalles_venta WHERE id_venta = $id"));
 
-
-$cant_productos = empty($cantidades['cantidad']) ? 0 : $cantidades['cantidad'];
-$cant_servicios = empty($cantidades['cantidad_servicio']) ? 0 : $cantidades['cantidad_servicio'];
+$cant_productos = $cantidades['cantidad'] == "" ? 0 : $cantidades['cantidad'];
+$cant_servicios = $cantidades['cantidad_servicio'] == "" ? 0 : $cantidades['cantidad_servicio'];
 
 ?>
 
@@ -100,11 +92,27 @@ $cant_servicios = empty($cantidades['cantidad_servicio']) ? 0 : $cantidades['can
 
 <?php while($row = mysqli_fetch_array($detalles_venta)){ ?>
     <div class="d-flex justify-content-between small">
-        <span style="width: 50%;"><?= $row['nombre_platillo']?></span>
+        <span style="width: 50%;">SERVICIO: <?= $row['nombre_platillo']?></span>
         <span class="text-center" style="width: 20%;"><?= $row['cantidad_servicio']; ?></span>
         <span class="text-end" style="width: 30%;"><?= modeloPrincipal::number_format_prices($row['precio']); ?></span>
     </div>
 <?php } ?>
+<!-- 
+<hr class="dotted-separator">
+<div class="d-flex justify-content-between small">
+    <span class="fw-bold">SUBTOTAL</span>
+    <span class="fw-bold">Bs <?= modeloPrincipal::number_format_prices($datos_venta['sub_total_bs']); ?></span>
+</div>
+
+<div class="d-flex justify-content-between small">
+    <span>IVA (16,00%)</span>
+    <span>Bs <?= modeloPrincipal::number_format_prices($datos_venta['sub_total_bs'] * 0.16); ?></span>
+</div>
+
+<div class="d-flex justify-content-between small">
+    <span>Exento</span>
+    <span>Bs 0.00</span>
+</div> -->
 
 <hr class="dotted-separator">
 
