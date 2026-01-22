@@ -13,8 +13,27 @@ function monto_total_productos() {
     for (let i = 0; i < cantidad_total.length; i++) {
         // se evalua si el campo de la cantidad de los productos en la lista esta vacío o no, en caso de que si se le asigna el valor de cero
         let cantidad = (cantidad_total[i].value !== "")  ? cantidad_total[i].value : 0;
+        // validar cantidad como entero: si está vacío o no numérico => 0, si es decimal => truncarlo y actualizar input
+        cantidad = (cantidad !== "") ? Number(cantidad) : 0;
+        if (isNaN(cantidad)) {
+            cantidad = 0;
+            cantidad_total[i].value = 0;
 
+        } else if (!Number.isInteger(cantidad)) {
+            cantidad = Math.trunc(cantidad);
+            cantidad_total[i].value = cantidad;
+
+            // se le advierte al usuario que no debe colocar decimales
+            Swal.fire({
+                title: 'Advertencia!',
+                text: "La cantidad de productos o servicios no permite números decimales.",
+                icon: 'warning',
+                confirmButtonColor: '#0d6efd',
+                confirmButtonText: ' Aceptar',
+            });
+        } 
         // se evalua si el campo del precio del dolar de los productos en la lista esta vacío o no, en caso de que si se le asigna el valor de cero
+        
         let dolar_total = (precio_dolar_total[i].value !== "")  ? precio_dolar_total[i].value : 0;
         total_dolar += parseFloat(dolar_total) * cantidad;
 
