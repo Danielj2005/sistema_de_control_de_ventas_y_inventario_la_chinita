@@ -252,12 +252,19 @@ class model_user extends modeloPrincipal {
         $sesion_activa = Self::obtener_info_personal_usuario("sesion_activa",$id_usuario);
 
         if($sesion_activa == '0'){
-            modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
+
+            modeloPrincipal::UpdateSQL(
+                "usuario",
+                "sesion_activa = '0'",
+                "id_usuario = $id_usuario"
+            );
+
             alert_model::alert_redirect(
                 '¡Sesión activa detectada!', 
                 'Se ha detectado un intento de inicio de sesión desde otro dispositivo asociado a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.',
                 'warning', 
-                '../controlador/salir.php');
+                '../controlador/salir.php'
+            );
             exit();
         }
     }

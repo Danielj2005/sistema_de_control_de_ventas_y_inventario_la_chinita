@@ -30,9 +30,9 @@ $precios_dolar_productos = (isset($_POST['precio_producto_dolar'])) ? $_POST['pr
 $precios_bolivares_productos = (isset($_POST['precio_producto_bolivar'])) ? $_POST['precio_producto_bolivar'] : '';
 
 // datos del metodo de pago--
-$id_metodo_pago = $_POST['metodo_pago'];
-$cantidad_pago = $_POST['monto_pagar'];
-$referencia_pago = $_POST['num_referencia'];
+$id_metodo_pago = (isset($_POST['metodo_pago'])) ? $_POST['metodo_pago'] : [];
+$cantidad_pago = (isset($_POST['monto_pagar'])) ? $_POST['monto_pagar'] : [];
+$referencia_pago = (isset($_POST['num_referencia'])) ? $_POST['num_referencia'] : '';
 
 // datos de la venta 
 $precio_dolar = $_POST['dolar'];
@@ -45,17 +45,30 @@ $total_venta_dolar = $_POST['totalDolar_iva'];
 $total_venta_bolivares = $_POST['totalBolivar_iva'];
 
 $total_pagado = 0.0;
+
+if($id_metodo_pago[0] == "seleccione un método" || $cantidad_pago[0] == "") {
+    $mensaje = "No se ha seleccionado un método de pago o ingresado un monto a pagar, por favor verifica e intenta nuevamente";
+    alert_model::alerta_simple(
+        "¡Error de Pago!",
+        $mensaje, 
+        "error"
+    );
+    exit();
+}
+
+// Se verifica que no se hayan recibido campos vacíos.
+modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
+
+
 foreach ($cantidad_pago as $value) {
     // Sanitiza y convierte cada valor a un float
     // $pago = (float) filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
     $total_pagado += $value;
 }
+
 $total_pagado = floatval($total_pagado);
 $total_generado = floatval($total_venta_dolar);
-
-// Se verifica que no se hayan recibido campos vacíos.
-modeloPrincipal::validar_campos_vacios([$id_metodo_pago, $cantidad_pago, $total_venta_dolar, $total_venta_bolivares, $cedula_cliente, $referencia_pago, $precio_dolar, $fecha_venta, $sub_total_dolar, $sub_total_bs, $total_venta_dolar, $total_venta_bolivares]);
 
 // if(bccomp($total_pagado, $total_venta_dolar, 2) !== 0) {
 if($total_pagado !== $total_generado) {

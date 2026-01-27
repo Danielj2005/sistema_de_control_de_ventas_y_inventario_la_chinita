@@ -235,8 +235,8 @@ if ($permiso_servicios) { ?>
 				const input_bs = document.getElementById('precio_bolivar_servcio');
 				input_dolar.addEventListener('keyup',(e) => {
 					e.preventDefault();
-					let tasa = document.getElementById('tasa_dolar').textContent;
-					tasa = parseFloat(tasa);
+					let tasa = document.getElementById('tasa_dolar').textContent.replace(",",".");
+					// tasa = parseFloat(tasa);
 					input_bs.value = (input_dolar.value * tasa).toFixed(2);
 				});
 				

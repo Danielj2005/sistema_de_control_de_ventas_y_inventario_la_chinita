@@ -6,11 +6,11 @@ include_once "../../../modelo/modelo_usuario.php";  // se incluye el modelo de u
 include_once "../../../modelo/configuracion_model.php";  // se incluye el modelo de usuario
 
 // se obtiene la configuracion de la base de datos
-$configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
+$configuracion = [
+    'caracteres' => config_model::obtener_dato('c_caracteres'),
     'simbolos' => config_model::obtener_dato('c_simbolos'),
-    'numeros' => config_model::obtener_dato('c_numeros')];
-
-
+    'numeros' => config_model::obtener_dato('c_numeros')
+];
 
 ?>
 
@@ -24,9 +24,9 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
                 <span style="color: red; font-size: 20px;"> * </span>
             </label>
             <div class="input-group mb-3">
-                <input type="password" required maxlength="16" class="p-2   passw form-control" id="current_password" name="current_password" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,16}" placeholder="ingrese la contraseña actual">
+                <input type="password" required maxlength="60" class="p-2 passw form-control" id="current_password" name="current_password" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,16}" placeholder="ingrese la contraseña actual">
                 
-                <span class="input-group-text btn btn-secondary bi bi-eye  " id="eyeIcon" onclick="show_password('eyeIcon', 'current_password')"></span>
+                <span class="input-group-text btn btn-secondary bi bi-eye" id="eyeIcon" onclick="show_password('eyeIcon', 'current_password')"></span>
             </div>
         </div>
     
@@ -36,9 +36,9 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
                 <span style="color: red; font-size: 20px;"> * </span>
             </label>
             <div class="input-group mb-3">
-                <input type="password" required maxlength="16" class="p-2   passw form-control" id="password" name="password" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,16}" placeholder="ingrese la contraseña nueva">
+                <input type="password" required maxlength="60" class="p-2 passw form-control" id="password" name="password" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,60}" placeholder="ingrese la contraseña nueva">
     
-                <span class="input-group-text btn btn-secondary bi bi-eye  " id="eyeIconNewPass" onclick="show_password('eyeIconNewPass', 'password')"></span>
+                <span class="input-group-text btn btn-secondary bi bi-eye" id="eyeIconNewPass" onclick="show_password('eyeIconNewPass', 'password')"></span>
             </div>
         </div>
     
@@ -49,9 +49,9 @@ $configuracion = ['caracteres' => config_model::obtener_dato('c_caracteres'),
             </label>
     
             <div class="input-group mb-3">
-                <input type="password" required maxlength="16" class="p-2   passw form-control" id="password2" name="password2" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,16}" placeholder="repita la contraseña">
+                <input type="password" required maxlength="60" class="p-2 passw form-control" id="password2" name="password2" pattern="[!@#$%A-Za-zÁÉÍÚÓáéíóúñÑ0-9\-]{8,60}" placeholder="repita la contraseña">
                 
-                <span class="input-group-text btn btn-secondary bi bi-eye  " id="eyeIconRepeatPass" onclick="show_password('eyeIconRepeatPass', 'password2')"></span>
+                <span class="input-group-text btn btn-secondary bi bi-eye" id="eyeIconRepeatPass" onclick="show_password('eyeIconRepeatPass', 'password2')"></span>
             </div>
         </div>
     

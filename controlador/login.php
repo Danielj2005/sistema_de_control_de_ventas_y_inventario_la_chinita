@@ -14,7 +14,10 @@ $contraseña = modeloPrincipal::limpiar_cadena($_POST['contraseña']);
 modeloPrincipal::validar_campos_vacios([$usuario, $contraseña]);
 
 // Se realiza una consulta a la base de datos para verificar si el usuario existe y si las credenciales son correctas.
-$selectUser = model_user::consulta_usuario_existe("U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.correo, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol","U.correo = '$usuario'");
+$selectUser = model_user::consulta_usuario_existe(
+    "U.id_usuario, U.nombre, U.apellido, U.telefono, U.cedula, U.correo, U.direccion, U.estado, U.contraseña, U.id_rol, U.primer_inicio, U.bloqueado, U.sesion_activa, R.nombre AS rol_usuario, R.estado AS estado_rol",
+    "U.correo = '$usuario'"
+);
 
 // obtenemos el resultado de la consulta y la guardamos en un array
 $datos_usuario = mysqli_fetch_array($selectUser);
@@ -25,16 +28,30 @@ $id_usuario = $datos_usuario["id_usuario"];
 if(mysqli_num_rows($selectUser) == 0){
     $_SESSION['logged_in'] = false;
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
-    alert_model::alerta_simple('¡Ocurrió un error inesperado!','El usuario es incorrecto, por favor verifica e intenta nuevamente','error');
+    alert_model::alerta_simple(
+        '¡Ocurrió un error inesperado!',
+        'El usuario es incorrecto, por favor verifica e intenta nuevamente',
+        'error'
+    );
     exit();
 }
 
 // se verifica si el numero de intentos de inicio de sesión es igual, a 3
 if ($_SESSION["intentos_sesion"] == $intentos_inicio_sesion) {
     // se bloquea el usuario para iniciar sesion en caso de alcanzar el limite de intentos
-    modeloPrincipal::UpdateSQL("usuario","bloqueado = 1","id_usuario = $id_usuario");
+    modeloPrincipal::UpdateSQL(
+        "usuario",
+        "bloqueado = 1",
+        "id_usuario = $id_usuario"
+    );
+
     $_SESSION["intentos_sesion"] = 0;
-    alert_model::alerta_simple('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada por razones de seguridad. Para activar nuevamente, por favor contacte al administrador del sistema.','warning');
+
+    alert_model::alerta_simple(
+        '¡Cuenta bloqueada!',
+        'Su cuenta ha sido bloqueada por razones de seguridad. Para activar nuevamente, por favor contacte al administrador del sistema.',
+        'warning'
+    );
     exit();
 }
 
@@ -46,7 +63,11 @@ $hash = $datos_usuario["contraseña"];
 
 if (!password_verify($contraseña, $hash)) {
     $_SESSION["intentos_sesion"]++; // se incrementa el contador de intentos de inicio de sesión
-    alert_model::alerta_simple('¡Ocurrió un error inesperado!','La contraseña es incorrecta, por favor verifica e intenta nuevamente','error');
+    alert_model::alerta_simple(
+        '¡Ocurrió un error inesperado!',
+        'La contraseña es incorrecta, por favor verifica e intenta nuevamente',
+        'error'
+    );
     exit();
 }
 
@@ -57,13 +78,21 @@ $respuesta_captcha = intval($_POST['respuesta_captcha']); // captcha enviado por
 
 // se verifica que se esté recibiendo la respuesta del captcha
 if (empty($_POST['respuesta_captcha']) || !isset($_POST['respuesta_captcha'])) { 
-    alert_model::alerta_simple('¡Ocurrio un Error!','El campo de captcha se encuentra vacio, verifique e intente nuevamente','error');
+    alert_model::alerta_simple(
+        '¡Ocurrio un Error!',
+        'El campo de captcha se encuentra vacio, verifique e intente nuevamente',
+        'error'
+    );
     exit();
 } 
 
 // se verifica que el captcha recibido sea igual al mostrado al usuario
 if ($respuesta_captcha !== $captcha) {
-    alert_model::alerta_simple('¡El captcha es invalido!','Verifique e intente nuevamente, en caso de que el captcha sea correcto recargar la página.','error');
+    alert_model::alerta_condicional(
+        '¡El captcha es invalido!',
+        'Verifique e intente nuevamente, en caso de que el captcha sea correcto recargar la página.',
+        'error'
+    );
     exit();
 }
 
@@ -72,14 +101,19 @@ if ($datos_usuario["estado"] == 0) {
     alert_model::alerta_simple(
         '¡Cuenta inactiva!',
         'Su cuenta se encuentra inactiva, por favor contacte al administrador del sistema.',
-        'warning');
+        'warning'
+    );
     exit();
 }
 
 /** se verifica si el usuario esta bloqueado: 
  * la cuenta es bloqueada luego de tres intentos fallidos de inicio de sesión */
 if ($datos_usuario["bloqueado"] == 1) {
-    alert_model::alerta_simple('¡Cuenta bloqueada!','Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.','warning');
+    alert_model::alerta_condicional(
+        '¡Cuenta bloqueada!',
+        'Su cuenta ha sido bloqueada debido a tres intentos fallidos de inicio de sesión, Por favor contacte al administrador del sistema para restablecer el acceso.',
+        'warning'
+    );
     exit();
 }
 
@@ -88,17 +122,26 @@ if ($datos_usuario["bloqueado"] == 1) {
  */
 
 if ($datos_usuario["estado_rol"] == 0) {
-    alert_model::alerta_simple('¡Rol Desactivado!','El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.','warning');
+    alert_model::alerta_condicional(
+        '¡Rol Desactivado!',
+        'El rol asociado con su cuenta se encuentra Inactivo en este momento, por lo que no tiene acceso a iniciar sesión en el sistema. Por favor contacte al administrador del sistema para restablecer el acceso del rol.',
+        'warning'
+    );
     exit();
 }
 
 /** se verifica si el usuario tiene una sesion activa **/
 if ($datos_usuario["sesion_activa"] == 1) {
-    modeloPrincipal::UpdateSQL("usuario","sesion_activa = '0'","id_usuario = $id_usuario");
-    alert_model::alerta_simple(
+    modeloPrincipal::UpdateSQL(
+        "usuario",
+        "sesion_activa = '0'",
+        "id_usuario = $id_usuario"
+    );
+    alert_model::alerta_condicional(
         '¡Sesión activa!', 
         'Se ha detectado una sesión activa asociada a su cuenta. Para garantizar la seguridad de su información, la sesión actual se cerrará automáticamente en breve.',
-        'warning');
+        'warning'
+    );
     session_unset(); // remueve o elimina las variables de sesion
     session_destroy(); // Destruye la sesión actual
     exit();
@@ -114,14 +157,14 @@ $_SESSION['dataUsuario'] = [
     "correo" => $datos_usuario["correo"],
     "telefono" => $datos_usuario["telefono"],
     "direccion" => $datos_usuario["direccion"],
-    "primerInicio" => $datos_usuario["primer_inicio"],
+    "primer_inicio" => $datos_usuario["primer_inicio"],
     "id_usuario" => $datos_usuario["id_usuario"],
     "id_rol" => $datos_usuario["id_rol"],
     "nombreRolUsuario" => $datos_usuario["rol_usuario"]
 ];
 
 $_SESSION['id_usuario'] = $datos_usuario["id_usuario"]; // variable con el id_usuario del usuario
-$_SESSION['primerInicio'] = $datos_usuario["primer_inicio"]; 
+$_SESSION['primer_inicio'] = $datos_usuario["primer_inicio"]; 
 $_SESSION['id_rol'] = $datos_usuario["id_rol"]; // variable con el id de el rol del usuario
 $_SESSION['nombreRolUsuario'] = $datos_usuario['rol_usuario'];
 
@@ -164,8 +207,8 @@ if ($datos_usuario["primer_inicio"] == 1) {
         '¡Bienvenido!',
         'Es su primer inicio de sesión, por favor cambie su contraseña y sus preguntas de seguridad.',
         'info',
-        './vista/mi_perfil.php');
-
+        './vista/mi_perfil.php'
+    );
     exit();
 }
 
@@ -173,7 +216,8 @@ alert_model::alert_redirect(
     'Acceso Exitoso!',
     'Bienvenido '.$_SESSION['dataUsuario']['nombre'].' '.$_SESSION['dataUsuario']['apellido'].'.',
     'info',
-    './vista');
+    './vista'
+);
 
 mysqli_free_result($selectUser);
 exit();

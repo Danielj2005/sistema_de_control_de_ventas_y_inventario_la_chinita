@@ -254,65 +254,91 @@ if($modulo === "modificar_contraseña_usuario"){
     
     modeloprincipal::validar_campos_vacios([$_POST["current_password"], $_POST['password2'], $_POST['password']]); // se verifica si se recibieron campos vacios
     
-    // primero se evalua si la contraseña actual ingresada es correcta para proceder con las validaciones de la contraseña nueva
-    $contraseña_haseada = modeloPrincipal::hashear_contrasena($contraseña_actual);
     $hash_guardado_en_bd = mysqli_fetch_assoc(modeloprincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'"))["contraseña"];
-    // se verifica que la contraseña coincida con la guardad en la base de datos
-    if(password_verify($contraseña_actual, $hash_guardado_en_bd)){
-        alert_model::alerta_simple("¡Ocurrio un error!", "La contraseña actual que ingresaste es incorrecta, verifique e intente nuevamente.","error");
-        exit();
-    }
-    // se verifica que se está recibiendo la contraseña nueva
-    if (isset($_POST['password']) && isset($_POST['password2'])) {
-        $contraseña_nueva = modeloprincipal::limpiar_cadena($_POST["password"]);
-        $contraseña_nueva2 = modeloprincipal::limpiar_cadena($_POST['password2']);
-    }
     
-    if($contraseña_nueva !== $contraseña_nueva2){
-        alert_model::alerta_simple("¡Ocurrió un error!","Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.","error");
+    // se verifica que la contraseña coincida con la guardad en la base de datos
+    if(!password_verify($contraseña_actual, $hash_guardado_en_bd)){
+        alert_model::alerta_simple(
+            "¡Ocurrio un error!", 
+            "La contraseña actual que ingresaste es incorrecta, verifique e intente nuevamente.",
+            "error"
+        );
         exit();
     }
 
-    // if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{'.$configuracion['caracteres'].',60}$/', $contraseña_nueva)) {
-    //     alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
-    //     exit();
-    // }
+    $contraseña_nueva = modeloprincipal::limpiar_cadena($_POST["password"]);
+    $contraseña_nueva2 = modeloprincipal::limpiar_cadena($_POST['password2']);
+    
+    if($contraseña_nueva !== $contraseña_nueva2){
+        alert_model::alerta_simple(
+            "¡Ocurrió un error!",
+            "Las contraseñas que ingresaste no coinciden. Por favor, verifica que las hayas escrito correctamente.",
+            "error"
+        );
+        exit();
+    }
+
     
     if (modeloprincipal::verificar_datos("[!@#$%A-Za-z0-9\-]{".$configuracion['caracteres'].",60}", $contraseña_nueva)) {
         // alert_model::alert_of_format_wrong("'contraseña nueva'");
-        alert_model::alerta_simple("Ocurrio un error!", "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.","error");
-
+        alert_model::alerta_simple(
+            "Ocurrio un error!", 
+            "La contraseña no cumple con los requisitos de seguridad, Puede contener menos 1 número y 1 letra, Puede contener al menos ".$configuracion['simbolos']." de estos caracteres:!@#$% y Debe tener entre ".$configuracion['caracteres']." y 60 caracteres., verifique e intente nuevamente.",
+            "error"
+        );
         exit();
     }
 
     // Contar símbolos (no alfanuméricos)
     $simbolosContraseña = preg_match_all("/\W/", $contraseña_nueva);
     if($simbolosContraseña < $configuracion['simbolos']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de caracteres mínima que es ".$configuracion['simbolos'].", verifique e intente nuevamente.","error");
+        alert_model::alerta_simple(
+            "¡Ocurrio un error!",
+            "la contraseña no cumple con la cantidad de simbolos mínima de ".$configuracion['simbolos'].", verifique e intente nuevamente.",
+            "error"
+        );
         exit();
     }
+
     // Contar números
     $numeros = preg_match_all("/[0-9]/", $contraseña_nueva);
 
     if($numeros < $configuracion['numeros']){
-        alert_model::alerta_simple("¡Ocurrio un error!", "la contraseña no cumple con la cantidad de números mínima que es ".$configuracion['numeros'].", verifique e intente nuevamente.","error");
+        alert_model::alerta_simple(
+            "¡Ocurrio un error!", 
+            "la contraseña no cumple con la cantidad mínima de números de ".$configuracion['numeros'].", verifique e intente nuevamente.",
+            "error"
+        );
         exit();
     }
 
     try {
 
-        $actualizar = modeloprincipal::UpdateSQL("usuario","contraseña = '$contraseña_haseada'","id_usuario = $id_usuario");
+        $contraseña = modeloPrincipal::hashear_contrasena($contraseña_nueva);
+
+        $actualizar = modeloprincipal::UpdateSQL(
+            "usuario",
+            "contraseña = '$contraseña'",
+            "id_usuario = $id_usuario"
+        );
 
         if (!$actualizar) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al guardar la nueva contraseña .", "error");
+            alert_model::alerta_simple(
+                "Ha ocurrido un error!", 
+                "ocurrio un error al guardar la nueva contraseña .", 
+                "error"
+            );
             exit();
         }
 
         model_user::bitacora_modificacion_contraseña();
 
         alert_model::alert_mod_success();
+
         exit();
+
     } catch (Exception $e) {
+        
         alert_model::alert_mod_error();
         exit();
     }
@@ -328,7 +354,11 @@ if ($modulo === "modificar_preguntas_seguridad") {
     // Obtener la cantidad de preguntas configuradas en el sistema
     $configuracion = modeloPrincipal::consultar("SELECT c_preguntas FROM configuracion");
     if (!$configuracion || mysqli_num_rows($configuracion) == 0) {
-        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la configuración de preguntas de seguridad.", "error");
+        alert_model::alerta_simple(
+            "Ha ocurrido un error!", 
+            "No se pudo obtener la configuración de preguntas de seguridad.", 
+            "error"
+        );
         exit();
     }
 
@@ -342,7 +372,11 @@ if ($modulo === "modificar_preguntas_seguridad") {
 
     // Validar que las preguntas y respuestas sean la cantidad correcta
     if (count($preguntas) < $cantidad_preguntas || count($respuestas) < $cantidad_preguntas) {
-        alert_model::alerta_simple("Ha ocurrido un error!", "Debe completar todas las preguntas de seguridad.", "error");
+        alert_model::alerta_simple(
+            "Ha ocurrido un error!", 
+            "Debe completar todas las preguntas de seguridad.", 
+            "error"
+        );
         exit();
     }
 
@@ -351,15 +385,27 @@ if ($modulo === "modificar_preguntas_seguridad") {
         modeloPrincipal::validar_campos_vacios([$preguntas, $respuestas]);
         
         if (count($preguntas) !== count(array_unique($preguntas))) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "Las preguntas de seguridad no pueden estar repetidas.", "error");
+            alert_model::alerta_simple(
+                "Ha ocurrido un error!", 
+                "Las preguntas de seguridad no pueden estar repetidas.", 
+                "error"
+            );
             exit();
         }
         if (count($preguntas) !== count(array_unique($respuestas))) {
-            alert_model::alerta_simple("Ha ocurrido un error!", "Las respuestas de seguridad no pueden estar repetidas.", "error");
+            alert_model::alerta_simple(
+                "Ha ocurrido un error!", 
+                "Las respuestas de seguridad no pueden estar repetidas.", 
+                "error"
+            );
             exit();
         }
     } catch (Exception $e) {
-        alert_model::alerta_simple("Ha ocurrido un error!", "Debe completar todas las preguntas de seguridad.", "error");
+        alert_model::alerta_simple(
+            "Ha ocurrido un error!", 
+            "Debe completar todas las preguntas de seguridad.", 
+            "error"
+        );
         exit();
     }
 
@@ -369,37 +415,46 @@ if ($modulo === "modificar_preguntas_seguridad") {
     // se obtiene las id de las preguntas de seguridad
     try {
         
-            for ($i = 0; $i < $cantidad_preguntas; $i++) {
-                // Obtener la pregunta actual
-                $pregunta_encriptada = modeloPrincipal::encryption($preguntas[$i]);
-                        
-                $pregunta_encriptada = trim($pregunta_encriptada);
-                $pregunta_encriptada = stripslashes($pregunta_encriptada);
-                $pregunta_encriptada = str_ireplace(" ", "", $pregunta_encriptada);
-                $pregunta_encriptada = stripslashes($pregunta_encriptada);
-                $pregunta_encriptada = trim($pregunta_encriptada);
+        for ($i = 0; $i < $cantidad_preguntas; $i++) {
+            // Obtener la pregunta actual
+            $pregunta_encriptada = modeloPrincipal::encryption($preguntas[$i]);
+                    
+            $pregunta_encriptada = trim($pregunta_encriptada);
+            $pregunta_encriptada = stripslashes($pregunta_encriptada);
+            $pregunta_encriptada = str_ireplace(" ", "", $pregunta_encriptada);
+            $pregunta_encriptada = stripslashes($pregunta_encriptada);
+            $pregunta_encriptada = trim($pregunta_encriptada);
 
-                $id_seguridades = modeloPrincipal::consultar("SELECT id_seguridad FROM seguridad WHERE pregunta = '$pregunta_encriptada'");
+            $id_seguridades = modeloPrincipal::consultar("SELECT id_seguridad FROM seguridad WHERE pregunta = '$pregunta_encriptada'");
 
-                if (!$id_seguridades || mysqli_num_rows($id_seguridades) == 0) {
-                    alert_model::alerta_simple("Ha ocurrido un error!", "ocurrio un error al consultar la ID de la pregunta de seguridad.", "error");
-                    exit();
-                }
-                
-                $id_seguridades = mysqli_fetch_array($id_seguridades)['id_seguridad'];
-                
-                $id_seguridad[$i] = $id_seguridades;
-
+            if (!$id_seguridades || mysqli_num_rows($id_seguridades) == 0) {
+                alert_model::alerta_simple(
+                    "Ha ocurrido un error!", 
+                    "ocurrio un error al consultar la ID de la pregunta de seguridad.", 
+                    "error"
+                );
+                exit();
             }
+            
+            $id_seguridades = mysqli_fetch_array($id_seguridades)['id_seguridad'];
+            
+            $id_seguridad[$i] = $id_seguridades;
+
+        }
     } catch (Exception $e) {
-        alert_model::alerta_simple("Ha ocurrido un error!", "No se pudo obtener la ID de las preguntas de seguridad.", "error");
+        alert_model::alerta_simple(
+            "Ha ocurrido un error!", 
+            "No se pudo obtener la ID de las preguntas de seguridad.", 
+            "error"
+        );
         exit();
     }
     
     // 2. Borrar todos las preguntas y respuestas del usuario
     modeloPrincipal::DeleteSQL(
         "preguntas_secretas", 
-        "id_usuario = $id_usuario");
+        "id_usuario = $id_usuario"
+    );
     
     try {
 
@@ -412,7 +467,8 @@ if ($modulo === "modificar_preguntas_seguridad") {
             $actualizar = modeloPrincipal::InsertSQL(
                 "preguntas_secretas", 
                 "id_pregunta, respuesta, numero_pregunta, id_usuario", 
-                "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario");
+                "".$id_seguridad[$i].", '$respuesta_encriptada', $numero_pregunta, $id_usuario"
+            );
             
             $numero_pregunta++;
             
@@ -420,7 +476,8 @@ if ($modulo === "modificar_preguntas_seguridad") {
                 alert_model::alerta_simple(
                     "Ha ocurrido un error!", 
                     "ocurrio un error al actualizar la pregunta de seguridad.", 
-                    "error");
+                    "error"
+                );
                 exit();
             } 
         }
@@ -428,15 +485,21 @@ if ($modulo === "modificar_preguntas_seguridad") {
         
         // Registrar la modificación en la bitácora
         bitacora::bitacora(
-            "Modificación exitosa del perfil de usuario",
-            '<p class="mb-3 h2 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó sus preguntas de seguridad.</p> ');
-        // Mostrar mensaje de éxito
+        "Modificación exitosa del perfil de usuario",
+        '<p class="mb-3 h2 text-primary-emphasis text-center"><i class="bi bi-exclamation-circle-fill"></i>&nbsp;El usuario actualizó sus preguntas de seguridad.</p>'
+        );
+        
+            // Mostrar mensaje de éxito
         alert_model::alert_mod_success();
+        exit();
+
     } catch (Exception $e) {
+
         alert_model::alerta_simple(
             "¡Error inesperado!", 
             "Ocurrió un error al actualizar las preguntas de seguridad. Por favor, intente nuevamente.",
-            "error");
+            "error"
+        );
         exit();
     }
 }

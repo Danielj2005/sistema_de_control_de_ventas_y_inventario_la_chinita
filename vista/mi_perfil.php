@@ -6,7 +6,7 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-$VISTA_PRIMER_INICIO = $_SESSION['primerInicio'] == '0' ? '' : 'toggle-sidebar';
+$VISTA_PRIMER_INICIO = $_SESSION['primer_inicio'] == '0' ? '' : 'toggle-sidebar';
 
 ?>
 
@@ -142,7 +142,7 @@ $VISTA_PRIMER_INICIO = $_SESSION['primerInicio'] == '0' ? '' : 'toggle-sidebar';
 
       include_once "../include/scripts_include.php";
     
-      // if($_SESSION['dataUsuario']['primerInicio'] == '1'){
+      // if($_SESSION['dataUsuario']['primer_inicio'] == '1'){
       //   echo "<script type='text/javascript'>
       //           setTimeout(() => {
       //             Swal.fire({

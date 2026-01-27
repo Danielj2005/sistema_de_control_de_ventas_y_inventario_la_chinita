@@ -74,7 +74,7 @@ if($modulo === "Guardar"){
             <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$datos_originales['estado'].' </div>');
 
             
-        alert_model::alert_reg_success_and_close_modal();
+        alert_model::alert_reg_success();
         
         exit();
     } catch (Exception $e) {
@@ -122,7 +122,7 @@ if ($modulo === "activo") {
 
         category_model::bitacora_modificar_estado_categoria($cambios);
         
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
 
         exit();
     } catch (Exception $e) {
@@ -166,7 +166,7 @@ if ($modulo === "inactivo") {
 
         category_model::bitacora_modificar_estado_categoria($cambios);
         
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();

@@ -15,7 +15,8 @@ $permiso_ajustes = modeloPrincipal::verificar_permisos_requeridos($_SESSION['per
 $permiso_bitacora = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['bitacora']);
 
 
-if($_SESSION['dataUsuario']["primerInicio"] == '0') {  ?>
+if ($_SESSION['dataUsuario']["primer_inicio"] === 0) {  ?>
+
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <!-- apartado de página principal -->

@@ -405,11 +405,7 @@ if ($entrada) {   ?>
 											<!-- datos de el (los) producto(s) comprados al proveedor -->
 
 											<div class="col-12 row align-items-center mb-1 row m-0">
-												<h5 class="col-12 col-sm-12 col-md-8 mb-3 card-title">Productos de la Entrada</h5>
-
-												<div class="col-12 col-sm-12 col-md-4 mb-3 text-center">
-													<button modal="registrar_producto" url="./modal/producto/registrar.php" type="button" class="btn_modal btn btn-primary bi bi-plus" data-bs-toggle="modal" data-bs-target="#modal">&nbsp;Registar Nuevo Producto</button>
-												</div>
+												<h5 class="col-12 mb-3 card-title">Productos de la Entrada</h5>
 
 												<label class="form-label">Producto <span style="color:#f00;">*</span></label>
 												<div class="col-12 col-md-9 mb-3">

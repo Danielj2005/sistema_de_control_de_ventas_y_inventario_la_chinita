@@ -227,25 +227,25 @@ class config_model extends modeloPrincipal {
         }
         
         // Obtener la información del usuario
-        try {
-            $usuario = modeloPrincipal::consultar("SELECT contraseña FROM usuario WHERE id_usuario = '$id_usuario'");
+        // try {
+        //     $usuario = modeloPrincipal::consultar("SELECT cedula FROM usuario WHERE id_usuario = '$id_usuario'");
     
-            if (!$usuario) {
-                alert_model::alerta_simple("¡Error!", "No se pudo obtener la información del usuario.", "error");
-                return;
-            }
-    
-            $usuario = mysqli_fetch_array($usuario);
-            $contraseña = modeloPrincipal::decryption($usuario['contraseña']);
+        //     if (!$usuario) {
+        //         alert_model::alerta_simple("¡Error!", "No se pudo obtener la información del usuario.", "error");
+        //         return;
+        //     }
 
-        } catch (Exception $e) {
-            alert_model::alerta_simple("¡Error!", "Error al consultar la información del usuario.", "error");
-            exit();
-        }
+
+        // } catch (Exception $e) {
+        //     alert_model::alerta_simple("¡Error!", "Error al consultar la información del usuario.", "error");
+        //     exit();
+        // }
 
         // Obtener la cantidad de preguntas de seguridad del usuario
         try {
+            
             $preguntas_seguridad = modeloPrincipal::consultar("SELECT COUNT(*) AS cantidad FROM preguntas_secretas WHERE id_usuario = '$id_usuario'");
+            
             if (!$preguntas_seguridad) {
                 alert_model::alerta_simple("¡Error!", "No se pudo obtener la cantidad de preguntas de seguridad del usuario.", "error");
                 return;
@@ -260,26 +260,27 @@ class config_model extends modeloPrincipal {
         }
 
         if ($perfil == 0) {
-            // Verificar si la contraseña cumple con la nueva longitud mínima
-            if (strlen($contraseña) < $cant_caracteres) {
-                alert_model::alert_redirect(
-                    "¡Advertencia!",
-                    "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
-                    "warning",
-                    'mi_perfil.php'
-                );
-                return;
-            }else{
 
-                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
-                modeloPrincipal::UpdateSQL(
-                    "usuario", 
-                    "primer_inicio = 0", 
-                    "id_usuario = '$id_usuario'");
-                $_SESSION['primerInicio'] = 0;
-                $_SESSION['dataUsuario']["primerInicio"] = 0;
-                return;
-            }
+            // Verificar si la contraseña cumple con la nueva longitud mínima
+            // if (strlen($contraseña) < $cant_caracteres) {
+            //     alert_model::alert_redirect(
+            //         "¡Advertencia!",
+            //         "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
+            //         "warning",
+            //         'mi_perfil.php'
+            //     );
+            //     return;
+            // }else{
+
+            //     // Verificar si el usuario cumple con los nuevos parametros y le cambia el valor de primer inicio
+            //     modeloPrincipal::UpdateSQL(
+            //         "usuario", 
+            //         "primer_inicio = 0", 
+            //         "id_usuario = '$id_usuario'");
+            //     $_SESSION['primer_inicio'] = 0;
+            //     $_SESSION['dataUsuario']["primer_inicio"] = 0;
+            //     return;
+            // }
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
             if ($cantidad_preguntas < $c_preguntas && $cantidad_preguntas > $c_preguntas) {
@@ -297,8 +298,8 @@ class config_model extends modeloPrincipal {
                     "usuario", 
                     "primer_inicio = 0", 
                     "id_usuario = '$id_usuario'");
-                $_SESSION['primerInicio'] = 0;
-                $_SESSION['dataUsuario']["primerInicio"] = 0;
+                $_SESSION['primer_inicio'] = 0;
+                $_SESSION['dataUsuario']["primer_inicio"] = 0;
                 return;
             }
 
@@ -306,25 +307,26 @@ class config_model extends modeloPrincipal {
         }
         
         if ($perfil == 1) {
+            
             // Verificar si la contraseña cumple con la nueva longitud mínima
-            if (strlen($contraseña) < $cant_caracteres) {
-                alert_model::alerta_simple(
-                    "¡Advertencia!",
-                    "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
-                    "warning"
-                );
-                return;
-            }else{
+            // if (strlen($contraseña) < $cant_caracteres) {
+            //     alert_model::alerta_simple(
+            //         "¡Advertencia!",
+            //         "La longitud de su contraseña actual no cumple con los nuevos requisitos del sistema. Por favor, actualice su contraseña a una longitud mínima de $cant_caracteres caracteres.",
+            //         "warning"
+            //     );
+            //     return;
+            // }else{
 
-                // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
-                modeloPrincipal::UpdateSQL(
-                    "usuario", 
-                    "primer_inicio = 0", 
-                    "id_usuario = '$id_usuario'");
-                $_SESSION['primerInicio'] = 0;
-                $_SESSION['dataUsuario']["primerInicio"] = 0;
-                return;
-            }
+            //     // Verificar si el usuario cumple conlos nuevos parametros y le cambia el valor de primer inicio
+            //     modeloPrincipal::UpdateSQL(
+            //         "usuario", 
+            //         "primer_inicio = 0", 
+            //         "id_usuario = '$id_usuario'");
+            //     $_SESSION['primer_inicio'] = 0;
+            //     $_SESSION['dataUsuario']["primer_inicio"] = 0;
+            //     return;
+            // }
 
             // Verificar si la cantidad de preguntas de seguridad cumple con los nuevos requisitos
             if ($cantidad_preguntas < $c_preguntas && $cantidad_preguntas > $c_preguntas) {
@@ -340,9 +342,11 @@ class config_model extends modeloPrincipal {
                 modeloPrincipal::UpdateSQL(
                     "usuario", 
                     "primer_inicio = 0", 
-                    "id_usuario = '$id_usuario'");
-                $_SESSION['primerInicio'] = 0;
-                $_SESSION['dataUsuario']["primerInicio"] = 0;
+                    "id_usuario = '$id_usuario'"
+                );
+
+                $_SESSION['primer_inicio'] = 0;
+                $_SESSION['dataUsuario']["primer_inicio"] = 0;
                 return;
             }
             

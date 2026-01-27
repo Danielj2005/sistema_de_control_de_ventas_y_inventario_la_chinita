@@ -60,12 +60,15 @@ btn_add_element_to_list.forEach(btn => {
 
     btn.addEventListener('click', (e) => {
         e.preventDefault();
+
         const MODULO = urlAPI(btn.name);
+
         //  se inicializan las variables de los selectores de producto o servicio
         let id_option_selected = null;
         let name_select = null;
         
-        const btnName = e.target.name;
+        // const btnName = e.target.name;
+        const btnName = btn.name;
 
         selects_element_to_list.forEach(selectElement => {
             // se evalua si el boton de agregar tiene el nombre parecido al del selector de productos o servicios

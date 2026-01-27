@@ -199,17 +199,24 @@ class producto_model extends modeloPrincipal {
             $colorText = "";
             $colorTextBg = "";
 
-            if ($mostrar["stock_actual"] == "0" || $mostrar["stock_actual"] === null) {
+            if ($mostrar["stock_actual"] <= "0" || $mostrar["stock_actual"] === null) {
+
+                $mostrar["stock_actual"] = 0;
 
                 $colorText = "text-danger";
                 $colorTextBg = "text-bg-danger";
 
-            }else if ($mostrar["stock_actual"] < "5") {
+            }else if ($mostrar["stock_actual"] > "0" && $mostrar["stock_actual"] < "10") {
+
+                $colorText = "text-danger";
+                $colorTextBg = "text-bg-danger";
+
+            }else if ($mostrar["stock_actual"] > "9" && $mostrar["stock_actual"] < "19") {
 
                 $colorText = "text-warning";
                 $colorTextBg = "text-bg-warning";
 
-            }else if ($mostrar["stock_actual"] > "0") {
+            }else if ($mostrar["stock_actual"] > "18") {
 
                 $colorText = "text-primary";
                 $colorTextBg = "text-bg-primary";

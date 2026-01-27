@@ -1,7 +1,7 @@
 
 function convertir_usd_a_bs (id_precio_dolar) {
-    let tasa = document.getElementById('tasa_dolar').textContent;
-    tasa = parseFloat(tasa);
+    let tasa = document.getElementById('tasa_dolar').textContent.replace(",",".");
+    // tasa = parseFloat(tasa);
 
     const precios_venta_dolar = document.getElementById(`precio_venta_dolar_${id_precio_dolar}`);
     const precio_bs = document.getElementById(`precio_unidad_bs_${id_precio_dolar}`);
@@ -20,8 +20,9 @@ function convertir_usd_a_bs (id_precio_dolar) {
 }
 
 function calcular_total () {
-    let tasa = document.getElementById('tasa_dolar').textContent;
-    tasa = parseFloat(tasa);
+    let tasa = document.getElementById('tasa_dolar').textContent.replace(",",".");
+
+    // tasa = parseFloat(tasa);
     
     // console.log('tasa_dolar es: ' + tasa); 
     const cantidad_item = document.querySelectorAll('.cantidad');

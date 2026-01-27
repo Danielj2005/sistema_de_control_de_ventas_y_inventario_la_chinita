@@ -8,7 +8,16 @@ $id_usuario = $_SESSION['id_usuario']; // se obtiene el id del usuario
 // validación para verificar que el usuario inicio sesion de manera correcta
 model_user::verificar_intento_de_acceso_al_sistema();
 
-include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
+// include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen los modelos necesarios para la vista
+
+$primer_inicio = $_SESSION['primer_inicio'];
+
+if($primer_inicio == '1' || $_SESSION['dataUsuario']["primer_inicio"] == '1'){
+    echo "<script type='text/javascript'>
+            window.location.href='./mi_perfil.php';
+        </script>";
+    exit();
+}
 
 $permiso_productos = modeloPrincipal::verificar_permisos_requeridos($_SESSION['permisosRequeridos']['producto']['productos']);
 
@@ -238,7 +247,14 @@ if ($permiso_productos) {  ?>
                                     <hr>
                                     
                                     <h3 id="titleModuleProducts" class="my-3 col-12 fs-3 titulosH"><?= $l_productos == 1 ? 'Inventario de Productos' : 'Registro de Productos'?></h3>
-
+                                    <div class="my-3 col-12 text-start">
+                                        <p class="text-secondary fs-6 fw-bold mb-1 card-title">Productos de color: </p>
+                                        <small class="d-block text-muted">
+                                            <span class="fs-6 badge fw-bold text-bg-primary">Gran cantidad de stock (20 o más)</span>
+                                            <span class="fs-6 badge fw-bold text-bg-warning">Poca cantidad de stock (18 o menos)</span> 
+                                            <span class="fs-6 badge fw-bold text-bg-danger">Baja cantidad de stock (9 o menos)</span>
+                                        </small>
+                                    </div>
                                     <?php if ($l_productos == 1 ): ?>
 
                                         <div id="tableListProducts" class="justify-content-between align-items-center table table-responsive">

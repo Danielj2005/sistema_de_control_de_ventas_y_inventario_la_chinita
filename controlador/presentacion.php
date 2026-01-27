@@ -58,7 +58,7 @@ if($modulo === "Guardar"){
             <div class="d-flex justify-content-between border-bottom"> <p> Descripción</p>'.$datos['presentacion'].' '.$datos['representacion'].' </div>
             <div class="d-flex justify-content-between border-bottom"> <p> Estado</p> '.$datos['estado'].' </div>');
         
-        alert_model::alert_reg_success_and_close_modal();
+        alert_model::alert_reg_success();
         
         exit();
     } catch (Exception $e) {
@@ -108,7 +108,7 @@ if ($modulo === "activo") {
 
         presentacion_model::bitacora_modificar_estado_presentacion($cambios);
 
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
 
         exit();
     } catch (Exception $e) {
@@ -158,7 +158,7 @@ if ($modulo === "inactivo") {
 
         presentacion_model::bitacora_modificar_estado_presentacion($cambios);
 
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
 
         exit();
     } catch (Exception $e) {

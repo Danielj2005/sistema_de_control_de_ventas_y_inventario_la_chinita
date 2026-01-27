@@ -51,9 +51,9 @@ if($modulo === "Guardar"){
             <h4 class="text-center card-title"><b> Información de la Marca </b></h4>
             <div class="d-flex justify-content-between border-bottom"> <p> Nombre</p> '.$datos_originales['nombre'].' </div>');
 
-        alert_model::alert_reg_success_and_close_modal();
-        
+        alert_model::alert_reg_success();
         exit();
+
     } catch (Exception $e) {
         alert_model::alert_reg_error();
         exit();
@@ -97,7 +97,7 @@ if ($modulo === "activo") {
 
         marca_model::bitacora_modificar_estado_marca ($cambios);
 
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();
@@ -137,7 +137,7 @@ if ($modulo === "inactivo") {
 
         marca_model::bitacora_modificar_estado_marca ($cambios);
 
-        alert_model::alert_mod_success_and_close_modal();
+        alert_model::alert_mod_success();
         exit();
     } catch (Exception $e) {
         alert_model::alert_mod_error();

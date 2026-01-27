@@ -5,7 +5,7 @@
       <img src="img/favicon.ico" alt="">
       <span class="d-none d-lg-block">POLLERA LA CHINITA</span>
     </a>
-    <?php if ($_SESSION['dataUsuario']["primerInicio"] == '0') { ?>
+    <?php if ($_SESSION['dataUsuario']["primer_inicio"] == '0') { ?>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     <?php } ?>
 

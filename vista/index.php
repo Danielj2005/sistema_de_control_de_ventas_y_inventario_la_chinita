@@ -15,6 +15,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
 
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <!-- titulo -->
     <title>Panel de Control</title>
@@ -24,6 +25,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
       include_once "../include/css_include.php";
     ?>
   </head>
+  
   <body>
     <?php   
       include_once "../include/header.php"; 
