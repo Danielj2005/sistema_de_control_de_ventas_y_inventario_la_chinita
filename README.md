@@ -53,3 +53,13 @@ Este proyecto es una solución integral de **Planificación de Recursos Empresar
    ```bash
    git clone [https://github.com/Danielj2005/sistema_de_control_de_ventas_y_inventario_la_chinita.git](https://github.com/Danielj2005/sistema_de_control_de_ventas_y_inventario_la_chinita.git)
    
+2. **Database / Base de Datos:**
+Import the .sql file located in the database/ folder into your MySQL server.
+Importar el archivo .sql ubicado en la carpeta database/ en su servidor MySQL.
+3. **Configuration / Configuración:**
+Update the connection parameters in config/app.php (or your connection file).
+Actualice los parámetros de conexión en config/app.php.
+
+🎓 Author
+Daniel J. - Software Engineer
+LinkedIn Profile | Portfolio
