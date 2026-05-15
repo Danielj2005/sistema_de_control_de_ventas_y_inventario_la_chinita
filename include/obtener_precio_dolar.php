@@ -33,8 +33,9 @@ function getPrice() {
         // Buscar el precio del dólar en el HTML
         $xpath = new DOMXPath($dom);
         $precioDolar = $xpath->query("//div[@id='dolar']//strong"); // Ajusta el XPath según la estructura del HTML
+        $precioEuro = $xpath->query("//div[@id='euro']//strong"); // Ajusta el XPath según la estructura del HTML
 
-        if ($precioDolar->length > 0) {
+        if ($precioDolar->length > 0 || $precioEuro->length > 0) {
             $precioDolar = trim($precioDolar->item(0)->nodeValue);
             $precioDolar = str_replace(",", ".", $precioDolar); // Reemplazar coma por punto
             $precio_calculado = mb_substr($precioDolar, 0, 6);
