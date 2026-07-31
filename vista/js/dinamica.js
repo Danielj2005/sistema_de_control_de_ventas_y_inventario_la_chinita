@@ -21,7 +21,7 @@ btnAgregar.addEventListener('click', e =>{
 
 //Metodo eliminar
 
-@param {this} e
+// @param {this} e
 
 const eliminar = (e) => {
 	const divPadre = e.parentNode;

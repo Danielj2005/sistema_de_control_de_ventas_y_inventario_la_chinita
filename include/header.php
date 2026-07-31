@@ -1,12 +1,12 @@
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center dark:bg-slate-800 dark:shadow-sm dark:shadow-slate-300/20">
 
   <div class="d-flex align-items-center justify-content-between">
     <a href="./" class="logo d-flex align-items-center">
-      <img src="img/favicon.ico" alt="">
-      <span class="d-none d-lg-block">POLLERA LA CHINITA</span>
+      <img src="#" alt="logo ventoi">
+      <span class="d-none d-lg-block dark:text-slate-400">VENTOI</span>
     </a>
     <?php if ($_SESSION['dataUsuario']["primer_inicio"] == '0') { ?>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn  dark:text-slate-400"></i>
     <?php } ?>
 
   </div>
@@ -33,9 +33,14 @@
 
   ?>
 
-  <nav class="header-nav ms-auto">
-    <ul class="d-flex align-items-center">
+  <nav class="header-nav ms-auto ">
+    <ul class="d-flex align-items-center gap-1">
 
+      <li class="nav-item">
+          <a id="lightModeButton" class="w-full group shadow-md  hover:shadow-cyan-500 bg-gray-700/80 dark:bg-slate-500 transition p-[10px] rounded-full mx-3 cursor-pointer">
+              <i class="bi bi-sun-fill navicon rounded-full text-amber-400"></i> 
+          </a>
+      </li>
       <li class="nav-item dropdown">
 
         <button class="btn bg-secondary-light nav-icon fst-italic fs-6" data-bs-toggle="dropdown">
@@ -62,22 +67,23 @@
         </ul>
       </li>
 
-      <li class="nav-item dropdown pe-3">
+      <li class="nav-item dropdown me-4">
 
-        <button class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
+        <button class="dark:text-slate-400 nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
           <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['dataUsuario']['nombre']." ".$_SESSION['dataUsuario']['apellido']; ?></span>
         </button>
-
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+        
+        <ul class="relative dropdown-menu dropdown-menu-end dropdown-menu-arrow profile dark:bg-slate-800 dark:shadow-xl dark:shadow-slate-400/80">
+          <span class="-translate-y-5 absolute h-6 right-5 rotate-45 dark:bg-slate-800 translate-x-2 w-6 "></span>
           <li class="dropdown-header">
-            <h6><?= $_SESSION['dataUsuario']['nombre']." ".$_SESSION['dataUsuario']['apellido']; ?></h6>
-            <span><?= $_SESSION['dataUsuario']['nombreRolUsuario']; ?></span>
+            <h6 class=" dark:text-slate-200 font-bold mb-2 "><?= $_SESSION['dataUsuario']['nombre']." ".$_SESSION['dataUsuario']['apellido']; ?></h6>
+            <span class="w-full  dark:text-slate-200 bg-purple-900 rounded-full p-1 px-2 text-sm"><?= $_SESSION['dataUsuario']['nombreRolUsuario']; ?></span>
           </li>
 
           <li> <hr class="dropdown-divider"> </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="./mi_perfil.php">
+            <a class="dropdown-item d-flex align-items-center dark:text-slate-400" href="./mi_perfil.php">
               <i class="bi bi-person"></i>
               <span>Mi Pefil</span>
             </a>
@@ -95,9 +101,9 @@
             if ($permiso_ajustes) { ?>
             
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="./configuracion.php">
+                <a class="dropdown-item d-flex align-items-center dark:text-slate-400" href="./configuracion.php">
                   <i class="bi bi-gear-fill"></i>
-                  <span>Configuración</span>
+                  <span class=" dark:text-slate-400">Configuración</span>
                 </a>
               </li>
 
@@ -106,9 +112,9 @@
           <li> <hr class="dropdown-divider"> </li>
 
           <li>
-            <a class="dropdown-item d-flex align-items-center btn-exit-system" href="#!">
+            <a class="dropdown-item d-flex align-items-center dark:text-slate-400 btn-exit-system" href="#!">
               <i class="bi bi-box-arrow-right"></i>
-              <span>Cerrar Sesión</span>
+              <span class=" dark:text-slate-400">Cerrar Sesión</span>
             </a>
           </li>
 

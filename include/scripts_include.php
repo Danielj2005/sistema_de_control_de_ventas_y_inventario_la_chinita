@@ -1,11 +1,11 @@
 <!-- jquery -->
-<script src="./js/jquery-3.6.0.min.js"></script>
-<script src="./js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap.bundle.min.js"></script>
 
 <!-- datatable js files -->
-<script src="./js/jquery.dataTables.min.js"></script>
-<script src="./js/datatables.min.js"></script>
-<script src="./js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="./js/datatables.min.js"></script>
+<script type="text/javascript" src="./js/dataTables.bootstrap5.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -47,36 +47,37 @@
 
 
 <!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script type="text/javascript" src="assets/vendor/chart.js/chart.umd.js"></script>
+<script type="text/javascript" src="assets/vendor/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="assets/vendor/quill/quill.min.js"></script>
+<!-- <script type="text/javascript" src="assets/vendor/tinymce/tinymce.min.js"></script> -->
 
 <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
 
 <!-- lógica de los modales -->
-<script src="./js/configModal.js"></script>
-<script src="./js/modal.js"></script>
-<script src="./js/get_url.js"></script>
+<script type="text/javascript" src="./js/configModal.js"></script>
+<script type="text/javascript" src="./js/modal.js"></script>
+<script type="text/javascript" src="./js/get_url.js"></script>
 
 <!-- <script src="./js/sweet-alert.min.js"></script> -->
-<script src="./js/sweetalert2.min.js"></script>
-<script src="./js/tiempo_inactividad.js"></script>
-<script src="./js/hiddeInput.js"></script>
-<script src="./js/dolar.js"></script>
-<script src="./js/validacion_formularios.js"></script>
+<script type="text/javascript" src="./js/sweetalert2.min.js"></script>
+<script type="text/javascript" src="./js/tiempo_inactividad.js"></script>
+<script type="text/javascript" src="./js/hiddeInput.js"></script>
+<script type="text/javascript" src="./js/dolar.js"></script>
+<script type="text/javascript" src="./js/validacion_formularios.js"></script>
 
-<script src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
-<script src="./js/buscar_proveedor.js"></script> <!--  script para llamar la información de un proveedor -->
-<script src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
-<script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
+<script type="text/javascript" src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
+<script type="text/javascript" src="./js/buscar_proveedor.js"></script> <!--  script para llamar la información de un proveedor -->
+<script type="text/javascript" src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
+<script type="text/javascript" src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
 <script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
-<script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
-<script src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
+<script type="text/javascript" src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
+<script type="text/javascript" src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
 
-<script src="./js/añadir_elemento_lista.js"></script>
+<script type="text/javascript" src="./js/añadir_elemento_lista.js"></script>
+
 
 <script type="text/javascript">
     // inicializar la libreria Select2 

@@ -30,8 +30,8 @@
   </div>
 </div>
 <!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-  <div class="copyright"> &copy; <strong><span>POLLERA LA CHINITA</span></strong> </div>
-  <div class="credits"> <p>DESAROLLADO POR:  DANIEL BARRUETA - MANUEL TORREZ - LUISA SALAS - ANGEL ALIBARDI </p> </div>
+<footer id="footer" class="dark:bg-slate-900 footer">
+  <div class="copyright dark:text-gray-300"> &copy; <strong><span>VENTOI</span></strong> </div>
+  <div class="credits dark:text-gray-300"> <p>DESAROLLADO POR:  DANIEL BARRUETA</p> </div>
 </footer>
 <!-- End Footer -->

@@ -27,258 +27,162 @@ if ($g_venta) {  ?>
         // se incluyen los estilos css y sus librerias a la vista
         include_once "../include/css_include.php";
       ?>
+      <script src="https://cdn.tailwindcss.com"></script>
+
     </head>
-    <body class=" toggle-sidebar">
+    <body class="toggle-sidebar">
       <?php 
         // se incluye el header / encabezado a la vista
         include_once "../include/header.php";
         // se incluye el menu lateral a la vista 
         include_once "../include/sliderbar.php"; 
       ?>
-      <main id="main" class="main">
-        <div class="pagetitle"> 
-          <a href="./" class="btn btn-outline-secondary shadow-sm mb-3">
-            <i class="bi bi-chevron-left"></i> 
-            <span>Volver al Panel Principal</span>
-          </a>
-          <h1 class="h3 fw-bold mb-0">
-            Generar Venta
-          </h1>
+      
+      <main id="main" class="bg-slate-100 h-screen flex flex-col font-sans overflow-hidden">
+        
+        <nav class="d-none bg-blue-800 text-white px-6 py-2 flex justify-between items-center shadow-md">
+            <div class="flex items-center gap-4">
+                <h1 class="font-black text-xl tracking-tight">VENE-POS</h1>
+                <span class="bg-blue-700 px-3 py-1 rounded-full text-xs font-mono border border-blue-500">Terminal #01</span>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-blue-900 px-4 py-1 rounded-lg border border-blue-400">
+                <span class="text-xs font-bold text-blue-200">TASA BCV:</span>
+                <div class="flex items-center">
+                    <span class="text-sm font-bold mr-1">Bs.</span>
+                    <input type="number" value="36.50" step="0.01" class="bg-transparent border-none w-16 text-sm font-black focus:ring-0 outline-none text-yellow-400" title="Click para editar tasa">
+                </div>
+                <span class="text-[10px] text-blue-300 italic">Hoy 19:18</span>
+            </div>
+        </nav>
+
+        <div class="flex flex-col md:flex-row h-ful overflow-hidden">
+            
+            <div class="flex-1 flex flex-col bg-white overflow-hidden">
+                
+                <div class="p-2 border-b">
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within:text-blue-600 transition-colors">
+                          🔍
+                        </span>
+                        <input 
+                          type="text" placeholder="Escribe Nombre, Código de Barras o Presentación..." 
+                          class="w-full pl-12 pr-4 py-2 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:bg-white transition-all outline-none text-lg shadow-sm"
+                          autofocus
+                        >
+                    </div>
+                </div>
+
+                <div class="flex-1 overflow-y-auto px-4">
+                    <table class="w-full text-left">
+                        <thead class="sticky top-0 bg-white z-10 border-b">
+                            <tr class="text-gray-500 uppercase text-[10px] font-bold tracking-widest">
+                                <th class="py-2">Descripción</th>
+                                <th class="py-2 text-center">Cant.</th>
+                                <th class="py-2 text-right">Precio ($ / Bs.)</th>
+                                <th class="py-2 text-right">Total Bs.</th>
+                                <th class="py-2 w-12"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-blue-50/50 transition-colors">
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800 leading-tight">Harina Pan 1kg</div>
+                                    <div class="text-[11px] text-blue-600 font-mono">759100100012 • Maíz Precocida</div>
+                                </td>
+                                <td class="py-4">
+                                    <div class="flex items-center justify-center bg-gray-100 rounded-lg w-20 mx-auto">
+                                        <button class="px-2 font-bold hover:text-blue-600">-</button>
+                                        <span class="px-2 text-sm font-black">2</span>
+                                        <button class="px-2 font-bold hover:text-blue-600">+</button>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-right">
+                                    <div class="text-sm font-bold text-gray-700">$ 1.20</div>
+                                    <div class="text-[10px] text-gray-400">Bs. 43.80</div>
+                                </td>
+                                <td class="py-4 text-right">
+                                    <div class="text-base font-black text-blue-900 italic">Bs. 87.60</div>
+                                    <div class="text-[10px] text-gray-400">Ref. $ 2.40</div>
+                                </td>
+                                <td class="py-4 text-center">
+                                    <button class="text-gray-300 hover:text-red-900 transition-colors">✕</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="w-full md:w-96 bg-slate-50 border-l border-gray-200 flex flex-col shadow-2xl">
+                <div class="p-4 flex-1 space-y-6">
+                    <div>
+                        <h3 class="text-slate-400 text-xs font-black uppercase tracking-widest mb-4">Resumen de Cuenta</h3>
+                        
+                        <div class="space-y-3 bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-400 text-xs">TOTAL REF.</span>
+                                <span class="text-xl font-black text-gray-800">$ 2.47</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-600 p-2 rounded-2xl shadow-lg shadow-blue-200 text-white relative overflow-hidden">
+                        <div class="relative z-10 p-2">
+                            <span class="text-xs font-bold opacity-40 uppercase">Total a Pagar (Bs.)</span>
+                            <div class="text-xl font-black mt-1 leading-none">
+                                Bs. 90.15
+                            </div>
+                        </div>
+                        <div class="absolute right-2 -bottom-4 text-6xl opacity-10 rotate-12">🇻🇪</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-1">
+                        <button class="flex flex-col items-center justify-center p-2 bg-white border-2 border-gray-100 rounded-xl hover:border-blue-500 transition-all group">
+                            <span class="text-xl">📱</span>
+                            <span class="text-[10px] font-black text-gray-50:">PAGO MÓVIL</span>
+                        </button>
+                        <button class="flex flex-col items-center justify-center p-2 bg-white border-2 border-gray-100 rounded-xl hover:border-blue-500 transition-all group">
+                            <span class="text-xl">💵</span>
+                            <span class="text-[10px] font-black text-gray-50:">DIVISAS</span>
+                        </button>
+                        <button class="flex flex-col items-center justify-center p-2 bg-white border-2 border-gray-100 rounded-xl hover:border-blue-500 transition-all group">
+                            <span class="text-xl">💳</span>
+                            <span class="text-[10px] font-black text-gray-50:">DÉBITO</span>
+                        </button>
+                        <button class="flex flex-col items-center justify-center p-2 bg-white border-2 border-gray-100 rounded-xl hover:border-blue-500 transition-all group">
+                            <span class="text-xl">🧾</span>
+                            <span class="text-[10px] font-black text-gray-50:">BIOPAGO</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-white border-t">
+                    <button class="w-full bg-green-500 hover:bg-green-600 text-white font-black py-2 rounded-xl text-lg shadow-lg flex flex-col items-center justify-center transition-transform active:scale-95 leading-tight">
+                        <span>FINALIZAR VENTA</span>
+                        <span class="text-[10px] font-normal opacity-90 uppercase tracking-tighter">Generar Factura Ticket</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
-        <section class="section dashboard">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <form id="formulario" action="../controlador/generar_venta_controlador.php" method="post" class="SendFormAjax p-1 row justify-content-between" autocomplete="off" data-type-form="save">
-                    <input type="hidden" name="dolar" id="precioDolar" value="<?= $precio_dolar_actual; ?>">
-                    <input type="hidden" name="modulo" value="Guardar">
-                    
-                    
-                    <!-- Servicios disponibles -->
-
-                    <fieldset class="col-12 col-md-7"> 
-                      <div class="row mb-3">
-
-                        <h5 class="card-title">Servicios disponibles</h5>
-
-                        <div class="col-12 col-md-10 mb-2">
-                          <select class="form-select form-select-sm select select2" name="add_servicio" id="">
-                            <option selected>seleccione una opción</option>
-                            <?php servicio_model::options(); ?>
-                          </select>
-                        </div>
-
-                        <div class="col-12 col-md-1 mb-3">
-                          <button type="button" name="btn_add_servicio" class="btn_add btn btn-sm btn-success bi bi-plus"></button>
-                        </div>
-
-                        <div class="col-12 mb-3 p-0">
-                          <h5 class="mb-2">Lista de servicios seleccionados</h5>
-                          
-                          <div class="table-responsive">
-                            <table class="table-hover table table-borderless table-striped" id="">
-                              <thead>
-                                <tr class="bg-secondary-light">
-                                  <th class="col text-start" scope="col">Servicio</th>
-                                  <th style="width: 10rem;" class="col text-center" scope="col">Cantidad</th>
-                                  <th class="col text-center" scope="col">Precios</th>
-                                  <th class="col text-center" scope="col">Quitar</th>
-                                </tr>
-                              </thead>
-                              <tbody id="lista_add_servicio"> </tbody>
-                            </table>
-                          </div>
-                        </div>
-
-
-                        <!-- productos disponibles -->
-
-                        <h5 class="card-title col-12">Productos disponibles &nbsp; </h5>
-
-                        <div class="col-12 col-md-9 mb-4">
-                          <select name="producto" id="producto_id" class="form-select select">
-                            <option value="" selected>seleccione una opción</option>
-                            <?php producto_model::options(1); ?>
-                          </select>
-                        </div>
-
-                        <div class="col-12 col-md-3 mb-3 justify-content-center d-flex">
-                          <button type="button" name="btn_producto" class="btn btn-success bi bi-plus btn_add">&nbsp; Añadir producto</button>
-                        </div>
-
-                        <div class="col-12 mb-2 p-0">
-                          <h5 class="">Lista de productos seleccionados</h5>
-                          <div class="table-responsive mb-3"> 
-                            <table class="table table-striped table-borderless">
-                              <thead>
-                                <tr class="bg-secondary-light">
-                                  <th class="col text-center" scope="col">Producto</th>
-                                  <th style="width: 10rem;" class="col text-center col-md-2" scope="col">Cantidad</th>
-                                  <th class="col text-center col-md-2" scope="col">Precios de Venta</th>
-                                  <th class="col text-center col-md-2" scope="col">Quitar</th>
-                                </tr>
-                              </thead>
-                              <tbody id="lista_producto"> </tbody>
-                            </table>
-                          </div>
-                        </div>
-
-
-                      </div>
-                    </fieldset>
-
-                    <!-- datos del cliente -->
-
-                    <fieldset class="col-12 col-md-4" style="border-left: 2px solid #012970;">
-                      <div class="row mb-3 justify-content-center" id="datos_cliente">
-
-                        <div class="col-12 mb-2">
-                          <h5 class="card-title col-12 text-center" >Datos del Cliente</h5>
-
-                          <div class="col-12 mb-2">
-                            <label class="form-label">Cédula <span style="color:#f00;">*</span> </label>
-
-                          </div>
-
-                          <div class="col-12 input-group mb-2">
-                            <input type="hidden" name="id_cliente" id="id_cliente">
-                            <select class="input-group-text " name="nacionalidad" id="nacionalidad" required>
-                              <option value="V-">V</option>
-                              <option value="E-">E</option>
-                            </select>
-                            
-                            <input type="text" class="form-control form-control-sm" placeholder="ingresa la cédula" onblur="buscar_datos_cliente()"; minlength="7" maxlength="8" name="cedula" id="cedula" required>
-                            
-                          </div>
-
-                          <p class="d-none w-auto alert alert-danger" id="mensaje_cedula"> La cédula debe ser de 7-8 dígitos</p>
-                        </div>
-
-                        <div class="col-12 mb-2">
-                          <label class="form-label">Nombre y Apellido <span style="color:#f00;">*</span></label>
-                          <input type="text" pattern="[A-Za-zñÑÁÉÍÚÓáéíóú ]{4,255}" required="" placeholder="Ingresa el nombre y apellido" class="form-control form-control-sm mb-2" id="nombre" name="nombre">
-                          <p class="d-none w-auto alert alert-danger" id="mensaje_nombre"> El nombre y apellido solo puede contener caracteres alfabeticos con una longitud máxima de 255 caracteres</p>
-                        </div>
-
-                        <div class="col-12 mb-1">
-                          <label class="form-label">Teléfono <span style="color:#f00;">*</span></label>
-                          <input type="text" maxlength="11" pattern="[0-9]{11}" required="" placeholder="Ingrese el teléfono" class="form-control form-control-sm mb-2" id="telefono" name="telefono">
-                          <p class="d-none w-auto alert alert-danger" id="mensaje_telefono"> El número de teléfono debe ser de 11 dígitos</p>
-                        </div>
-
-
-                      <!-- total de la cuenta -->
-
-                          
-                      <!-- métodos de pago -->
-                      <div class="col-12 mb-2 row justify-content-center align-items-baseline">
-
-                        <legend class="col-12 col-md-10 mb-2 card-title">Método de Pago</legend>
-                        <div class="col-12 col-md-2 mb-3">
-                          <button type="button" class="btn btn-primary bi bi-plus-lg" onclick="añadir_metodo_pago()"></button>
-                        </div>
-                      </div>
-                      
-
-                      <div class="col-12">
-                        <div class="table-responsive"> 
-                          <table class="tableMetodo table table-striped" id="metodos_pago">
-                            <thead>
-                              <tr class="bg-secondary-light">
-                                <th class="col text-center" scope="col">Método de Pago</th>
-                                <th class="col text-center" scope="col">Monto Pagado ($)</th>
-                                <th class="col text-center" scope="col">Nº Referencia</th>
-                                <th class="col text-center" scope="col">Quitar</th>
-                              </tr>
-                            </thead>
-                            <tbody id="tabla_metodo_pago">
-                              <tr id="metodo_1">
-                                <td class="text-center col">
-                                  <select name="metodo_pago[]" id="metodo_pago_1" class="form-select form-select-sm selector_metodo_pago" onchange="habilitar_referencia('metodo_pago_1','num_referencia_1')">
-                                    <option selected>seleccione un método</option>
-                                    <option value="1">Divisa</option>
-                                    <option value="2">Punto de Venta</option>
-                                    <option value="3">Transferencia / Pago movíl</option>
-                                    <option value="4">Bolivares en Efectivo</option>
-                                  </select>
-                                </td>
-                                <td class="text-center col">
-                                  <input type="text" class="form-control form-control-sm" 
-                                    id="cantidad_1" name="monto_pagar[]" 
-                                    placeholder="monto a pagar ($)" required>
-                                </td>
-                                <td class="text-center col">
-                                  <input type="text" class="form-control form-control-sm bg-dark-subtle" readOnly 
-                                    id="num_referencia_1" name="num_referencia[]" 
-                                    maxlength="20" minlength="7" placeholder="número de referencia">
-                                </td>
-                                <td class="text-center col">
-                                  <button type="button" class="btn btn-sm btn-danger bi bi-trash" onclick="quitar_metodo(1)"></button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-
-
-                      
-                      <div class="row justify-content-center align-items-center">
-                          <legend class="card-title col-12 text-center">Cuenta</legend>
-                            
-                          <input type="hidden" id="totalDolar" name="sub_total_dolar" value="0">
-                          <input type="hidden" id="totalBolivar" name="sub_total_bs" value="0">
-                          <input type="hidden" id="totalDolar_iva" name="totalDolar_iva" value="0">
-                          <input type="hidden" id="totalBolivar_iva" name="totalBolivar_iva" value="0">
-
-                          <div class="col-12 col-md-6 mb-3 text-center">
-                            <p class="fs-6 fw-bold text-success"> Total a pagar ($)</p> 
-                            <span class="fs-6 text-success"> <strong id="strong_dolares"></strong> $</span>
-                          </div>
-
-                          <div class="col-12 col-md-6 mb-3 text-center">
-                            <p class="fs-6 fw-bold text-success"> Total a pagar (Bs) </p>
-                            <span class="fs-6 text-success"> <strong id="strong_bolivares"></strong> Bs</span>
-                          </div>
-
-                        </div>
-                            
-                        <div class="col-12 mb-1 text-center">
-                          <p class="form-p">Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
-                        </div>
-                        
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-success">Generar Venta</button>
-                        </div>
-
-                      </div>
-                    </fieldset>
-
-
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
         
       </main>
 
-        <?php 
-          include_once "./modal/plantillaModalCustom.php";
+      <?php 
+        include_once "./modal/plantillaModalCustom.php";
 
-          // se incluye el footer / pie de pagina a la vista
-          include_once "../include/footer.php"; 
-          // se incluyen los script de javascript a la vista 
-          include_once "../include/scripts_include.php"; 
-      
-          model_user::validar_sesion_activa($id_usuario);
+        // se incluye el footer / pie de pagina a la vista
+        include_once "../include/footer.php"; 
+        // se incluyen los script de javascript a la vista 
+        include_once "../include/scripts_include.php"; 
+    
+        model_user::validar_sesion_activa($id_usuario);
 
-          config_model::verificar_actualizacion_configuracion(); 
+        config_model::verificar_actualizacion_configuracion(); 
 
-        ?>
+      ?>
 
         
       <script type="text/javascript">

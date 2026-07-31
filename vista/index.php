@@ -14,7 +14,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
   <head>
     <!-- titulo -->
@@ -26,7 +26,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
     ?>
   </head>
   
-  <body>
+  <body class="dark:bg-gray-900 bg-gray-400/20 ">
     <?php   
       include_once "../include/header.php"; 
       include_once "../include/sliderbar.php";
@@ -37,14 +37,14 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
       $total_hoy_bs = $total_ventas_del_dia['bs'];
     ?>
 
-    <main id="main" class="main">
-      <div class="pagetitle"> <h1> Panel de Control </h1> </div> 
+    <main id="main" class="main ">
+      <div class="pagetitle"> <h1 class="dark:text-gray-300">Panel de Control</h1> </div> 
       
       <section class="section dashboard">
         <div class="row">
 
           <div class="col-12 mb-1">
-            <div class="card">
+            <div class="card  shadow-xl dark:shadow-slate-300/20 shadow-black/20 ">
               <div class="card-body">
                 <h5 class="card-title">Total de las Ventas del Día</h5>
 
@@ -72,7 +72,7 @@ include_once "../include/verificacion_primer_inicio_usuario.php"; // se incluyen
           <div class="col-12 mb-2">
             <div class="row">
               <div class="col-12">
-                <div class="card top-selling overflow-auto mb-4">
+                <div class="card top-selling overflow-auto mb-4 shadow-xl dark:shadow-slate-300/20">
                   
                   <div class="card-body">
                     <h5 class="mb-3 card-title"> Ventas Recientes </h5>

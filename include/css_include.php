@@ -1,11 +1,11 @@
 <!-- Favicons -->
-<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+<!-- <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon"> -->
 <!-- sweet-alert 2 -->
 <link href="./css/sweetalert2.min.css" rel="stylesheet">
 <link href="./css/toastify.css" rel="stylesheet">
 
 <!-- estilos custom -->
-<link href="./css/main.css" rel="stylesheet">
+<!-- <link href="./css/main.css" rel="stylesheet"> -->
 
 <link rel="stylesheet" href="./css/select2.min.css">
 
@@ -16,6 +16,23 @@
 <link href="./css/animate.min.css" rel="stylesheet">
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+
+<script type="text/javascript" src="./js/tailwind.min.js" ></script>
+<script type="text/javascript">
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    slate: { 950: '#020617', },
+                    purple: { 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', },
+                    fuchsia: { 500: '#d946ef', 600: '#c026d3', 700: '#a21caf', },
+                },
+                fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], },
+            }
+        }
+    }
+</script>
 
 <style>
     .card-title {
@@ -35,57 +52,12 @@
         -webkit-backdrop-filter: blur(5);
         -moz-backdrop-filter: blur(10px);
     }
-    .container {
-        margin-top: 4em;
-        margin-bottom: 4em;
-    }
-
-    @keyframes loading-skeleton {
-        from {
-            opacity: .4;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    .loading-skeleton {
-        pointer-events: none;
-        animation: loading-skeleton 1s infinite alternate;
-        
-        img {
-            filter: grayscale(100) contrast(0%) brightness(1.8);
-        }
-        h1, h2, h3, h4, h5, h6,
-        p, li,
-        .btn,
-        label,
-        .form-control {
-            color: transparent;
-            appearance: none;
-            -webkit-appearance: none;
-            background-color: #eee;
-            border-color: #eee;
-
-            &::placeholder {
-                color: transparent;
-            }
-        }
-    }
-    .titulosH{
-        color:#012970;
-        font-weight: bold;
-    } 
 
     /* CSS personalizado para el separador */
     .dotted-separator {
         border: none;
         border-top: 1px dotted #000;
         margin: 8px 0; /* Espaciado vertical para recibo */
-    }
-
-    /* CSS para asegurar que el formato de texto sea pequeño y apto para recibos */
-    .small {
-        font-size: 0.8rem;
     }
 </style>
 
@@ -101,4 +73,11 @@ $configuracion = ['iva' => config_model::obtener_dato('porcentaje_iva'),
     const PORCENTAJE_GANANCIA = <?= $configuracion['ganancia'] / 100 ?>;
     // url de la api del router
     const URL_API = "../include/api.php";
+
+
+    // Se ejecuta al instante antes de pintar el body
+    const savedTheme = localStorage.getItem('theme') ?? 'dark';
+    document.documentElement.classList.add(savedTheme);
 </script>
+
+<script type="text/javascript" src="./js/dark_mode.js" ></script>

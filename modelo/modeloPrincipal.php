@@ -12,6 +12,162 @@ const DB = "chinita"; // Nombre de la base de datos
 const SECRET_KEY = 'SPLCH2024';
 const ICONO_MODIFICAR = "bi bi-pencil-square";
 
+const PERMISOS_MODULOS = [
+    'Inventario' => [
+        'productos' => ['r_equipo', 'm_equipo', 'l_equipo'],
+        'r_proveedores
+        m_proveedores
+        
+l_proveedores
+h_proveedores
+Historial de Compras al Proveedor
+Proveedores
+
+Edit Edit
+Copy Copy
+Delete Delete
+5
+r_categoria
+Registrar Nueva Categoría
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+6
+m_categoria
+Modificar Categoría Existente
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+7
+l_categoria
+Listar Categorías
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+8
+r_presentacion
+Registrar Nueva Presentación
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+9
+m_presentacion
+Modificar Presentación Existente
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+10
+l_presentacion
+Listar Presentaciones
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+11
+r_marca
+Registrar Nueva Marca
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+12
+m_marca
+Modificar Marca Existente
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+13
+l_marca
+Listar Marcas
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+14
+r_productos
+Registrar Nuevo Producto
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+15
+l_productos
+Listar Productos
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+16
+r_entrada
+Registrar Entrada (Compra) de Inventario
+Inventario
+
+Edit Edit
+Copy Copy
+Delete Delete
+17
+l_entrada'
+    ],
+    'Gestión Universitaria' => [
+        'Préstamos y Devoluciones' => ['r_prestamo', 'm_prestamo', 'l_prestamo'],
+        'Clases' => ['r_clase', 'm_clase', 'l_clase'],
+        'Área' => ['r_area', 'm_area', 'l_area'],
+        'PNF' => ['r_pnf', 'm_pnf', 'l_pnf'],
+        'Lapsos Académicos' => ['r_lapso', 'm_lapso', 'l_lapso'],
+        'Sección' => ['r_seccion', 'm_seccion', 'l_seccion'],
+        'Estudiantes' => ['r_estudiante', 'm_estudiante', 'l_estudiante'],
+        'Turnos' => ['r_turno', 'm_turno', 'l_turno'],
+        'Bloques' => ['r_bloque', 'm_bloque', 'l_bloque'],
+        'Personal' => ['r_personal_u', 'm_personal_u', 'l_personal_u']
+
+    ],
+    'Usuarios' => [
+        'Usuarios' => ['r_usuario', 'm_usuario', 'l_usuario'],
+        'Roles' => ['r_rol', 'm_rol', 'l_rol']
+    ],
+    'Configuración' => [
+        'Ajustes' => ['m_cant_pregunta_seguridad', 'm_tiempo_sesion', 'm_cant_caracteres', 'm_cant_simbolos', 'm_cant_num', 'intentos_inicio_sesion'],
+        'Bitácora' => ['v_bitacora']
+    ]
+];
+
+const NOMBRES_LEGIBLES = [
+    'r_marca' => 'Registrar Nueva Marca',
+    'm_marca' => 'Modificar Marca Existente',
+    'l_marca' => 'Listar Marcas',
+    'r_usuario' => 'Registrar Nuevo Usuario',
+    'm_usuario' => 'Modificar Usuario Existente',
+    'l_usuario' => 'Listar Usuario',
+    'r_rol' => 'Registrar Nuevo Rol',
+    'm_rol' => 'Modificar Rol Existente',
+    'l_rol' => 'Listar Roles',
+    'm_cant_pregunta_seguridad' => 'Modificar Cantidad de Preguntas de Seguridad',
+    'm_tiempo_sesion' => 'Modificar Tiempo Máximo de Sesión',
+    'm_cant_caracteres' => 'Modificar Cantidad Mínima de Caracteres de Contraseña',
+    'm_cant_simbolos' => 'Modificar Cantidad Mínima de Símbolos en Contraseña',
+    'm_cant_num' => 'Modificar Cantidad Mínima de Números en Contraseña',
+    'intentos_inicio_sesion' => 'Modificar Intentos de Inicio de Sesión Fallidos',
+    'v_bitacora' => 'Ver Bitácora (Registro de Actividad)'
+];
+
+
 class modeloPrincipal {
 
     

@@ -17,196 +17,214 @@ $permiso_bitacora = modeloPrincipal::verificar_permisos_requeridos($_SESSION['pe
 
 if ($_SESSION['dataUsuario']["primer_inicio"] === 0) {  ?>
 
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar dark:bg-slate-800 dark:shadow-md dark:shadow-slate-300">
     <ul class="sidebar-nav" id="sidebar-nav">
         <!-- apartado de página principal -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="./"> <i class="bi bi-speedometer2"></i> <span>Panel de Control</span> </a>
+        <li class="nav-item mb-3">
+          <a class="bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 flex gap-2 hover:bg-slate-600 p-2 rounded-3 shadow-md" href="./"> <i class="bi bi-speedometer2"></i> <span>Panel de Control</span> </a>
         </li>
       
       <?php if ($permiso_productos || $permiso_proveedor) {  ?>
 
-          <li class="nav-item">
 
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <!-- <a class="bg-[#f6f9ff] dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 dark:shadow-md flex hover:bg-slate-600 p-3 rounded-3  collapsed" data-bs-toggle="collapse" href="#components-nav" aria-expanded="false" aria-controls="collapseExample">
               <i class="bi bi-box-seam-fill"></i>
               <span>Inventario</span>
               <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
+            </a> -->
 
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item list-none mb-2">
+            <details class="group">
+              <!-- Encabezado / Botón disparador -->
+              <summary class=" bg-[#f6f9ff] dark:bg-slate-800 justify-between dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center space-x-3">
+                  <i class="bi bi-box-seam-fill"></i>
+                  <span>Inventario</span>
+                </div>
+                <!-- Flecha que rota al abrir -->
+                <i class="bi bi-chevron-down text-sm transition-transform duration-200 group-open:rotate-180"></i>
+              </summary>
 
+              <!-- Contenido colapsable -->
+              <ul class="  bg-[#f6f9ff] -translate-y-2 dark:bg-slate-800 dark:text-slate-300 delay-300 pb-2 pl-2 pt-2 rounded-bottom-3 shadow-md dark:shadow-slate-500 space-y-1 transition-all">
+                
               <?php if ($permiso_productos) : ?>
 
-                <li>
-                  <a href="./gestion_productos.php">
-                    <i class="bi bi-circle"></i>
+                <li class="hover:bg-slate-500/40 p-1 rounded-xl group">
+                  <a class="hover:text-slate-800 text-slate-800" href="./gestion_productos.php">
+                    <i class="bi bi-caret-right text-sm"></i>
                     <span>Gestión de Productos</span>
                   </a>
                 </li>
                   
               <?php endif; if ($permiso_entrada_productos): ?>
-
-                <li>
-                  <a href="./entrada_de_productos.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Registro de Compras</span>
-                  </a>
+                <li class="hover:bg-slate-500/40 p-1 rounded-xl group">
+                  <a class="hover:text-slate-800 text-slate-800" href="./entrada_de_productos.php"> <i class="bi bi-caret-right"></i> <span>Registro de Compras</span> </a>
                 </li>
-
               <?php endif; if ($permiso_proveedor) : ?>
-
-                <li>
-                  <a href="./proveedor.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Gestión de Proveedores</span>
-                  </a>
+                <li class="hover:bg-slate-500/40 p-1 rounded-xl group">
+                  <a class="hover:text-slate-800 text-slate-800" href="./proveedor.php"> <i class="bi bi-caret-right"></i> <span>Gestión de Proveedores</span></a>
                 </li>
-
               <?php endif; ?>
-            </ul>
+              </ul>
+            </details>
           </li>
-
       <?php } if ($permiso_servicio) { ?>
         
-          <li class="nav-item">
-            <a href="gestion_servicios.php" class="nav-link collapsed">
+          <li class="nav-item mb-3">
+            <a href="gestion_servicios.php" class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
               <i class="bi bi-person-workspace"></i>
               <span> Gestión de Servicios</span>
             </a>
           </li>
 
       <?php }  if ($permiso_modulo_venta) { ?>
-        
-          <li class="nav-item">
-            
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-currency-dollar"></i>
-              <span>Ventas</span>
-              <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
+          
+          <li class="nav-item list-none mb-3">
+            <details class="group">
+              <!-- Encabezado / Botón disparador -->
+              <summary class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center justify-between p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center space-x-3">
+                  <i class="bi bi-currency-dollar text-lg"></i>
+                  <span class="font-medium">Ventas</span>
+                </div>
+                <!-- Flecha que rota al abrir -->
+                <i class="bi bi-chevron-down text-sm transition-transform duration-200 group-open:rotate-180"></i>
+              </summary>
 
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <!-- Contenido colapsable -->
+              <ul class=" bg-[#f6f9ff] -translate-y-2 dark:bg-slate-800 dark:text-slate-300 delay-300 pb-2 pl-2 pt-2 rounded-bottom-3 shadow-md dark:shadow-slate-500 space-y-1 transition-all">
+                <?php if (array_key_exists( "g_venta", $_SESSION['permisosRol'] )) {  ?>
 
-              <?php if (array_key_exists( "g_venta", $_SESSION['permisosRol'] )) {  ?>
+                  <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./generar_venta.php"> <i class="bi bi-caret-right"></i> <span>Generar venta</span> </a> </li>
 
-                <li>
-                  <a href="./generar_venta.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Generar venta</span>
-                  </a>
-                </li>
+                <?php } if (array_key_exists( "l_venta", $_SESSION['permisosRol'] ) || array_key_exists( "d_venta", $_SESSION['permisosRol'] ) || array_key_exists( "f_venta", $_SESSION['permisosRol'] )) {  ?>
 
-              <?php } if (array_key_exists( "l_venta", $_SESSION['permisosRol'] ) || array_key_exists( "d_venta", $_SESSION['permisosRol'] ) || array_key_exists( "f_venta", $_SESSION['permisosRol'] )) {  ?>
+                  <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./venta.php"> <i class="bi bi-caret-right"></i> <span>Historial de Ventas</span> </a> </li>
 
-                <li>
-                  <a href="./venta.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Historial de Ventas</span>
-                  </a>
-                </li>
-
-              <?php } ?>
-
-            </ul>
+                <?php } ?>
+              </ul>
+            </details>
           </li>
 
       <?php } if ($permiso_modulo_cliente || $permiso_modulo_usuario || $permiso_modulo_rol) { ?>
-        
-          <li class="nav-item">
+                  
+          <li class="nav-item list-none mb-3">
+            <details class="group">
+              <!-- Encabezado / Botón disparador -->
+              <summary class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center justify-between p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center space-x-3">
+                  <i class="bi bi-people-fill"></i>
+                  <span>Usuarios</span>
+                </div>
+                <!-- Flecha que rota al abrir -->
+                <i class="bi bi-chevron-down text-sm transition-transform duration-200 group-open:rotate-180"></i>
+              </summary>
 
-            <a class="nav-link collapsed" data-bs-target="#user-list" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-people-fill"></i>
-              <span>Usuarios</span>
-              <i class="bi bi-chevron-down ms-auto"></i>
-            </a>
+              <!-- Contenido colapsable -->
+              <ul class=" bg-[#f6f9ff] -translate-y-2 dark:bg-slate-800 dark:text-slate-300 delay-300 pb-2 pl-2 pt-2 rounded-bottom-3 shadow-md dark:shadow-slate-500 space-y-1 transition-all">
+                
+                <?php if ($permiso_modulo_cliente): ?>
 
-            <ul id="user-list" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-              
-              <?php if ($permiso_modulo_cliente): ?>
+                    <!-- modulo de clientes -->
+                    <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./cliente.php">
+                        <i class="bi bi-caret-right"></i>
+                        <span>Clientes</span>
+                      </a>
+                    </li>
 
-                  <!-- modulo de clientes -->
-                  <li class="nav-item">
-                    <a class="nav-link collapsed" href="./cliente.php">
-                      <i class="bi bi-circle"></i>
-                      <span>Clientes</span>
+                <?php endif;  if ($permiso_modulo_usuario): ?>
+
+                  <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./empleados.php">
+                      <i class="bi bi-caret-right"></i>
+                      <span>Empleados</span>
                     </a>
                   </li>
 
-              <?php endif;  if ($permiso_modulo_usuario): ?>
+                <?php endif; if ($permiso_modulo_rol): ?>
 
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="./empleados.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Empleados</span>
-                  </a>
-                </li>
+                    <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./roles.php">
+                        <i class="bi bi-caret-right"></i>
+                        <span>Gestión de Roles</span>
+                      </a>
+                    </li>
 
-              <?php endif; if ($permiso_modulo_rol): ?>
-
-                  <li>
-                    <a href="./roles.php">
-                      <i class="bi bi-circle"></i>
-                      <span>Gestión de Roles</span>
-                    </a>
-                  </li>
-
-              <?php endif; ?>
-            </ul>
+                <?php endif; ?>
+              </ul>
+            </details>
           </li>
 
       <?php } ?>
 
       <!-- apartado del perfil de usuario  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="./mi_perfil.php"> <i class="bi bi-person-fill"></i> <span>Mi Perfil</span> </a>
+      <li class="nav-item mb-3">
+        <a class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden" href="./mi_perfil.php"> <i class="bi bi-person-fill"></i> <span>Mi Perfil</span> </a>
       </li>
 
       <?php if ($permiso_ajustes || $permiso_bitacora) { ?>
+ 
+          <li class="nav-item list-none mb-3">
+            <details class="group">
+              <!-- Encabezado / Botón disparador -->
+              <summary class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center justify-between p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center space-x-3"> 
+                  <i class="bi bi-gear-fill"></i>
+                  <span>Configuración General</span> 
+                </div>
+                <!-- Flecha que rota al abrir -->
+                <i class="bi bi-chevron-down text-sm transition-transform duration-200 group-open:rotate-180"></i>
+              </summary>
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#setting-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-gear-fill"></i> <span>Configuración General</span> <i class="bi bi-chevron-down ms-auto"></i> </a>
+              <!-- Contenido colapsable -->
+              <ul class=" bg-[#f6f9ff] -translate-y-2 dark:bg-slate-800 dark:text-slate-300 delay-300 pb-2 pl-2 pt-2 rounded-bottom-3 shadow-md dark:shadow-slate-500 space-y-1 transition-all">
+                
+                <?php if ($permiso_ajustes) {  ?>
+                  
+                  <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./configuracion.php">
+                      <i class="bi bi-caret-right"></i>
+                      <span>Ajustes del Sistema</span>
+                    </a>
+                  </li>
 
-            <ul id="setting-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-              
-              <?php if ($permiso_ajustes) {  ?>
-                
-                <li>
-                  <a href="./configuracion.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Ajustes del Sistema</span>
-                  </a>
-                </li>
-
-              <?php } if ($permiso_bitacora) {  ?>
-                
-                <li>
-                  <a href="./bitacora.php">
-                    <i class="bi bi-circle"></i>
-                    <span>Bitácora</span>
-                  </a>
-                </li>
-                
-              <?php } ?>
-            </ul>
+                <?php } if ($permiso_bitacora) {  ?>
+                  
+                  <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./bitacora.php">
+                      <i class="bi bi-caret-right"></i>
+                      <span>Bitácora</span>
+                    </a>
+                  </li>
+                  
+                <?php } ?>
+              </ul>
+            </details>
           </li>
+
 
       <?php } ?>
 
-      <!-- apartado de ayuda  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#ayuda-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-question-circle-fill"></i> <span>Soporte y Documentación</span> <i class="bi bi-chevron-down ms-auto"></i> </a>
-        
-        <ul id="ayuda-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li> <a href="./manuales/MANUAL_DE_USUARIO_CHINITA.pdf" target="_blank"> <i class="bi bi-book"></i> <span>Manual de Usuario</span> </a> </li>
+      <!-- apartado de ayuda  -->     
+          <li class="nav-item list-none mb-3">
+            <details class="group">
+              <!-- Encabezado / Botón disparador -->
+              <summary class=" bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center justify-between p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden">
+                <div class="flex items-center space-x-2">
+                  <i class="bi bi-question-circle "></i>
+                  <span>Soporte y Ayúda</span>
+                </div>
+                <!-- Flecha que rota al abrir -->
+                <i class="bi bi-chevron-down text-sm transition-transform duration-200 group-open:rotate-180"></i>
+              </summary>
 
-          <li> <a href="./manuales/MANUAL_DE_INSTALACION_CHINITA.pdf" target="_blank"> <i class="bi bi-wrench"></i> <span>Guía de Instalación Técnica</span> </a> </li>
-
-          <li> <a href="./manuales/MANUAL_DE_SISTEMA_CHINITA.pdf" target="_blank"> <i class="bi bi-laptop"></i> <span>Manual de Referencia</span> </a> </li>
+              <!-- Contenido colapsable -->
+              <ul class=" bg-[#f6f9ff] -translate-y-2 dark:bg-slate-800 dark:text-slate-300 delay-300 pb-2 pl-2 pt-2 rounded-bottom-3 shadow-md dark:shadow-slate-500 space-y-1 transition-all">
+                
+                <li class="hover:bg-slate-500/40 p-1 rounded-xl "> <a class="hover:text-slate-800 text-slate-800" href="./manuales/MANUAL_DE_SISTEMA_CHINITA.pdf" target="_blank"> <i class="bi bi-caret-right"></i> <span>Manual de Referencia</span> </a> </li>
         </ul>
-      </li>
+            </details>
+          </li>
 
-      <li class="nav-item"> <button class="nav-link collapsed btn-exit-system"> <i class="bi bi-box-arrow-right"></i> <span>Cerrar Sesión</span> </button> </li>
+
+      <li class="nav-item mb-3"> <button class=" w-full bg-[#f6f9ff] dark:bg-slate-800 dark:shadow-slate-300/80 dark:text-slate-300 gap-2 rounded-3 shadow-md flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors list-none [&::-webkit-details-marker]:hidden btn-exit-system"> <i class="bi bi-box-arrow-right"></i> <span>Cerrar Sesión</span> </button> </li>
     </ul>
   </aside>
 <?php } ?>

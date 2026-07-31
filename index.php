@@ -20,79 +20,45 @@ $_SESSION['CPS'] = $CPS;
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Sistema de Control de Inventario y Venta de la Pollera La Chinita">
-		<meta name="keywords" content="HTML, CSS, Bootstrap, Javascript, Php, Mysql">
-		<meta name="author" content="DANIEL BARRUETA - MANUEL TORREZ - LUISA SALAS - ANGEL ALIBARDI">
+		<meta name="description" content="Sistema de Control de Inventario y Venta">
+		<meta name="keywords" content="Inventario, venta, POS, gestión de clientes, gestión de proveedores">
+		<meta name="author" content="DANIEL BARRUETA">
 
-		<title>Sistema de Control de Inventario y Venta de la Pollera La Chinita</title>
+		<title>VENTOI</title>
 
-		<link rel="shortcut icon" href="vista/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/bootstrap-icons.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/sweetalert2.min.css">
 		<link rel="stylesheet" type="text/css" href="vista/css/login.css">
+		
+		<script type="text/javascript" src="./vista/js/tailwind.min.js" ></script>
+		<script type="text/javascript">
+			// Se ejecuta al instante antes de pintar el body
+			const savedTheme = localStorage.getItem('theme') ?? 'dark';
+			document.documentElement.classList.add(savedTheme);
+		</script>
 	</head>
-	<body>
+	<body class="bg-slate-900 h-full">
 		<div class="justify-content-center">
 
-			<!-- galeria de imagenes -->
-			
-			<div 
-				id="backgroundCarousel" 
-				class="carousel slide w-100 h-100 position-fixed top-0 start-0" 
-				data-bs-ride="carousel" 
-				data-bs-interval="5000" 
-				style="z-index: 1;"
-			>
-				<div class="carousel-inner w-100 h-100">
-					<div class="carousel-item active w-100 h-100">
-						<img 
-							src="vista/img/Designer(10).jpeg" 
-							class="d-block w-100 h-100 object-fit-cover" 
-							alt="Imagen de Fondo 1"
-						>
-					</div>
-					<div class="carousel-item active w-100 h-100">
-						<img 
-							src="vista/img/Designer(11).jpeg" 
-							class="d-block w-100 h-100 object-fit-cover" 
-							alt="Imagen de Fondo 2"
-						>
-					</div>
-					<div class="carousel-item active w-100 h-100">
-						<img 
-							src="vista/img/Designer(12).jpeg" 
-							class="d-block w-100 h-100 object-fit-cover" 
-							alt="Imagen de Fondo 3"
-						>
-					</div>
-				</div>
-				
-			</div>
 			<!-- fomulario de inicio de sesión -->
-			<div class="vh-100 d-flex justify-content-center align-items-center" style="z-index: 2; position: absolute;">
-				<div class="col-12 col-sm-10 col-md-6 col-lg-4 glassmorph rounded-4 p-4 my-3 mx-auto">
+			<div class="vh-100 d-flex justify-content-center align-items-center">
+				<div class="col-12 col-sm-10 col-md-6 col-lg-4 glassmorph rounded-4 p-4 my-3 mx-auto shadow-xl shadow-cyan-500/20">
 					<form method="POST" action="controlador/login.php" class="SendFormAjax" data-type-form="load">
-						<div class="row">
+						<div class="">
 
-							<div class="col-12 text-center mb-4">
-								<img 
-									src="./vista/img/favicon.ico" 
-									alt="Logo de la Aplicación" 
-									class="rounded-circle mb-3"
-									style="width: 80px; height: 80px;" 
-								>
-								<h3 class="fw-bold">Acceso al Sistema</h3>
+							<div class="w-full text-center mb-4">
+								<h3 class="fw-bold text-xl">Acceso al Sistema</h3>
 							</div>
 
 
 							<div class="col-12 mb-3">
 								<label for="correo" class="form-label fw-bold">Correo Electrónico</label>
-								<div class="input-group shadow-sm">
+								<div class="input-group">
 									<span class="input-group-text">
 										<i class="bi bi-envelope"></i> </span>
 									<input 
@@ -213,7 +179,6 @@ $_SESSION['CPS'] = $CPS;
 		<script type="text/javascript" src="vista/js/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="vista/js/bootstrap.min.js"></script>
 		<script src="vista/js/SendForm.js"></script>
-		<!-- <script src="vista/js/sweet-alert.min.js"></script> -->
 		<script src="vista/js/sweetalert2.min.js"></script>
 		<script src="vista/js/hiddeInput.js"></script>
 	</body>

@@ -52,18 +52,14 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 		<link rel="stylesheet" type="text/css" href="./css/login.css">
 		<link href="img/logo.png" rel="icon">
 		<link rel="stylesheet" type="text/css" href="./css/sweetalert2.min.css">
-
-		<style>
-			.bg-serviceOfChicken{
-				background: url('./img/Designer(12).jpeg') no-repeat center center fixed; 
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
-				height: 100vh;
-				width: 100vw;
-			}
-		</style>
+		
+		
+		<script type="text/javascript" src="./js/tailwind.min.js" ></script>
+		<script type="text/javascript">
+			// Se ejecuta al instante antes de pintar el body
+			const savedTheme = localStorage.getItem('theme') ?? 'dark';
+			document.documentElement.classList.add(savedTheme);
+		</script>
 
 		<script src="./js/jquery-3.6.0.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
@@ -77,9 +73,9 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 			});
 		</script>
 	</head>
-	<body style="color:white;">
-		<div class="position-absolute pt-5 d-flex justify-content-center bg-serviceOfChicken">
-			<div class="m-5 p-3 pt-4 rounded-4 glassmorph" style="width: 30rem; height: max-content;">
+	<body class="bg-slate-900 h-full">
+		<div class="pt-5 d-flex justify-content-center">
+			<div class="m-5 p-3 pt-4 rounded-4 bg-gray-800/80 backdrop-blur-md shadow-xl shadow-cyan-500/80" style="width: 30rem; height: max-content;">
 				
 				<?php
 					if (mysqli_num_rows($preguntas) < 1) : ?>
@@ -102,8 +98,8 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 
 				<?php else: $pregunta = mysqli_fetch_array($preguntas); ?>
 
-					<div class="text-center mb-5">
-						<h2>Cambiar Contraseña</h2>
+					<div class="text-center mb-3">
+						<h2 class="text-3xl font-bold">Cambiar Contraseña</h2>
 					</div>
 				
 
@@ -116,8 +112,11 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 							<input form="form_respuestas" type="hidden" id="NPU" name="NPU" value="<?= modeloPrincipal::encryptionId($NP); ?>">
 							
 							<div class="mb-4 text-start">
-								<h6>Responde la pregunta de seguridad <span style="color:#f00;">*</span></h6>
-								<p class="text-center" style="text-wrap: balance;"><strong><?= modeloPrincipal::decryption($pregunta['pregunta']); ?></strong></p>
+								<p class="text-md">Responde la pregunta de seguridad <span class="text-xl" style="color:#f00;">*</span></p>
+								<p class="bg-amber-600 mb-2 p-1 rounded-full text-center text-sm" style="text-wrap: balance;">
+									<i class="text-sm bi bi-exclamation-triangle-fill"></i>
+									<?= modeloPrincipal::decryption($pregunta['pregunta']); ?>
+								</p>
 								<input form="form_respuestas" class="form-control form-control-sm" type="text" id="respuesta_seguridad" name="respuesta_seguridad" placeholder="Ingresa tu respuesta" required pattern="[A-Za-zÁÉÍÚÓáéíóú ]{3,50}" maxlength="50" title="Respuesta.">
 							</div>
 
@@ -126,11 +125,11 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 									<p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
 								</div>
 
-								<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+								<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
 									<a href="../index.php" class="btn btn-danger bi bi-arrow-bar-left" title="Volver">&nbsp;Volver al inicio</a>
 								</div>
 
-								<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+								<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
 									<button form="form_respuestas" type="submit" class="btn btn-success">&nbsp;Verificar</button>
 								</div>
 							</div>
@@ -170,7 +169,7 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 								<p class="text-danger d-none input_error formulario__input-error__repite_nueva_contraseña2" style="width: 19em;">Las contraseñas no coinciden.</p>
 								
 								<div class="form-group label-floating text-start">
-						
+									
 									<p class="form-p alert-danger mb-2">los requisitos de seguridad para la  <span style="color:#f00;">contraseña</span> son:</p>
 									<ul>
 										<li>Puede contener al menos 1 número y 1 letra.</li>
@@ -185,11 +184,11 @@ $preguntas = modeloPrincipal::consultar("SELECT pregunta
 										<p>Los campos con <span style="color:#f00;">*</span> son obligatorios</p>
 									</div>
 
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+									<div class="col-6 mb-2">
 										<a href="../index.php" class="btn btn-danger bi bi-arrow-bar-left" title="Volver"> Cancelar</a>
 									</div>
 									
-									<div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+									<div class="col-6 mb-2">
 										<button type="submit" class="btn btn-success text-black-hover text-white">Guardar</button>
 									</div>
 								</div>
