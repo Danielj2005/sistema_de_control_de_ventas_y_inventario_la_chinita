@@ -1,7 +1,8 @@
 <?php 
 session_start();
 
-include_once "../include/modelos_include.php"; // se incluyen los modelos necesarios para la vista
+include_once "../include/modelos_include.php"; 
+// se incluyen los modelos necesarios para la vista
 
 $configuracion = mysqli_fetch_array(modeloPrincipal::consultar("SELECT intentos_inicio_sesion FROM configuracion"));
 $intentos_inicio_sesion = intval($configuracion['intentos_inicio_sesion']);

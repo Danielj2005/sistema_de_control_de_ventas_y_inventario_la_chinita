@@ -68,6 +68,7 @@
 <script type="text/javascript" src="./js/dolar.js"></script>
 <script type="text/javascript" src="./js/validacion_formularios.js"></script>
 
+<<<<<<< HEAD
 <script type="text/javascript" src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
 <script type="text/javascript" src="./js/buscar_proveedor.js"></script> <!--  script para llamar la información de un proveedor -->
 <script type="text/javascript" src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
@@ -77,8 +78,17 @@
 <script type="text/javascript" src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
 
 <script type="text/javascript" src="./js/añadir_elemento_lista.js"></script>
+=======
+<script src="./js/SendForm.js"></script> <!-- procesamiento de peticiones CRUD del usuario -->
+<script src="./js/buscar_proveedor.js"></script> <!--  script para llamar la información de un proveedor -->
+<script src="./js/buscar_datos_cliente.js"></script> <!--  script para llamar la información de un cliente -->
+<script src="./js/procesamiento_de_dinero.js"></script> <!-- script para calcular los montos totales de un producto -->
+<script src="./js/cerrar_sesion.js"></script> <!-- script para cerrar sesion -->
+<script src="./js/toastify.js"></script> <!-- script para import la libreria de alertas toastify -->
+>>>>>>> 6d67ee1dfe1b477a1b125acb7b6ceefc095b793e
 
 
+<script type="text/javascript" src="./js/select2.min.js"></script> <!-- libreria selec2 -->
 <script type="text/javascript">
     // inicializar la libreria Select2 
     $('.SelectTwo').select2();
