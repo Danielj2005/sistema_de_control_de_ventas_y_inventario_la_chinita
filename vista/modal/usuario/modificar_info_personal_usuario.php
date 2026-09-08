@@ -25,7 +25,7 @@ $cedula = trim($cedula);
 ?>
 
 
-<form id="modalSendForm" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
+<form id="em_form" autocomplete="off" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax" data-type-form="save">
     
     <fieldset class="row mb-3">
         <input type="hidden" name="modulo" value="modificar_info_personal_usuario">

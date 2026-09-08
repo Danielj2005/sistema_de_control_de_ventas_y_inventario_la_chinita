@@ -12,12 +12,8 @@ $existe = mysqli_fetch_assoc(modeloPrincipal::consultar("SELECT U.id_usuario, U.
 
 ?>
 
-<form id="modalSendForm" 
-    action="../controlador/usuario_controller.php"
-    method="post"
-    class="SendFormAjax row mb-4" 
-    autocomplete="off" 
-    data-type-form="update">
+<form id="modalSendForm" action="../controlador/usuario_controller.php" method="post" class="SendFormAjax row mb-4" 
+    autocomplete="off" data-type-form="update">
 
     <input type="hidden" name="UIDTM" id="id_usuario" value="<?= modeloPrincipal::encryptionId($existe["id_usuario"]); ?>">
     <input type="hidden" name="modulo" value="caracteristicas_de_acceso">
